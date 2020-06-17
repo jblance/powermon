@@ -43,7 +43,7 @@ class mppsolar(AbstractDevice):
             response = self._port.read(10)
             _response = response.decode('utf-8')
             print(f'response {response}')
-            print(f'_response {_response}')
+            print(f'_response {_response[-3:]}')
         else:
             log.info(f'{command} is NOT a known command for protocol {self._protocol.get_protocol_id()}')
         # need 'full' command string
