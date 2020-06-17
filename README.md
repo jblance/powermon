@@ -13,3 +13,12 @@ MPP-Solar inverters - aka:
 JKBMS Battery Monitoring Devices, e.g.:
 - JK-B1A24S
 - JK-B2A24S
+
+
+## Usage ##
+### Install ###
+* ```python ./setup.py install```
+
+### Run without installing ###
+
+*  With INFO messages: ```python -c 'import powermon; powermon.main()' -I```
