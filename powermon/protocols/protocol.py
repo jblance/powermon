@@ -7,7 +7,15 @@ log = logging.getLogger('powermon')
 
 class AbstractProtocol(metaclass=abc.ABCMeta):
     @abc.abstractmethod
-    def get_protocol(self):
+    def get_protocol_id(self):
+        raise NotImplementedError
+
+    @abc.abstractmethod
+    def is_known_command(self, command):
+        raise NotImplementedError
+
+    @abc.abstractmethod
+    def get_full_command(self, command):
         raise NotImplementedError
 
     def crc(self, data_bytes):

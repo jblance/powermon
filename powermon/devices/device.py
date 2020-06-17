@@ -17,12 +17,13 @@ class AbstractDevice(metaclass=abc.ABCMeta):
     def __init__(self, *args, **kwargs):
         self._protocol = None
         self._protocol_class = None
-        self._commmunications = None
+        self._port = None
 
     def set_protocol(self, protocol=None):
         '''
         Set the protocol for this device
         '''
+        log.debug(f'device.set_protocol with protocol {protocol}')
         if protocol is None:
             self._protocol = None
             self._protocol_class = None
@@ -47,20 +48,20 @@ class AbstractDevice(metaclass=abc.ABCMeta):
         # Instantiate the class
         self._protocol = self._protocol_class('init_var', proto_keyword='value', second_keyword=123)
 
-    def set_communications(self, communications=None):
-        if communications is None:
-            self._commmunications = None
+    def set_port(self, port=None):
+        if port is None:
+            self._port = None
             return
         # determine which IO type to use
-        if TestIO.supports(communications):
+        if TestIO.supports(port):
             log.info('Using testio for communications')
-            self._communications = TestIO()
-        elif HIDRawIO.supports(communications):
+            self._port = TestIO()
+        elif HIDRawIO.supports(port):
             log.info('Using hidrawio for communications')
-            self._communications = HIDRawIO(device_path=communications)
+            self._port = HIDRawIO(device_path=port)
         else:
             log.info('Using serialio for communications')
-            self._communications = SerialIO(serial_port=communications, serial_baud=2400)
+            self._port = SerialIO(serial_port=port, serial_baud=2400)
             print('hidraw not supported')
         # raise NotImplementedError
 

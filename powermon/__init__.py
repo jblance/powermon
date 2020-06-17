@@ -33,7 +33,6 @@ def main():
         log.setLevel(logging.INFO)
 
     log.info(f'Powermon version {__version__}')
-
     # create instance of device + port + protocol
     log.info(f'Creating device {args.name} (type: {args.type}) on port {args.port} using protocol {args.protocol}')
     device_type = args.type.lower()
@@ -43,7 +42,8 @@ def main():
         log.critical(f'No module found for device {device_type}')
         exit(1)
     device_class = getattr(device_module, device_type)
+    log.debug(f'device_class {device_class}')
     device = device_class(name=args.name, port=args.port, protocol=args.protocol)
 
     # run command or called helper function
-    device.run_command(command='QPI')
+    device.run_command(command=args.command)

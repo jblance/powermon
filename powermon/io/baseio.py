@@ -1,6 +1,6 @@
 # shamelessly stolen from ccrisan https://github.com/qtoggle/qtoggleserver-mppsolar/blob/master/qtoggleserver/mppsolar/io.py
-import asyncio
 import abc
+from time import sleep
 
 
 class BaseIO(metaclass=abc.ABCMeta):
@@ -12,14 +12,14 @@ class BaseIO(metaclass=abc.ABCMeta):
     def write(self, data: bytes) -> None:
         raise NotImplementedError
 
-    async def read(self, timeout: int) -> bytes:
+    def read(self, timeout: int) -> bytes:
         data = b''
         for _ in range(timeout * 10):
             data += self.read_available()
             if data.endswith(b'\r'):
                 break
 
-            await asyncio.sleep(0.1)
+            sleep(0.1)
 
         return data
 
