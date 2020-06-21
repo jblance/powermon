@@ -83,10 +83,10 @@ class pi30(AbstractProtocol):
             log.info('is_known_command called with self._current_command = None')
             return False
         for _command in COMMANDS:
-            print(f'_command {_command}')
-        return True
-        # else:
-        #    return False
+            if _command['name'] == self.__command:
+                log.debug(f'Found command {self.__command} in protocol {self._protocol_id}')
+                return True
+        return False
 
     def get_full_command(self) -> bytes:
         byte_cmd = bytes(self.__command, 'utf-8')
