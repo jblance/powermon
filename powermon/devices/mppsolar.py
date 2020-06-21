@@ -34,23 +34,24 @@ class mppsolar(AbstractDevice):
         # validate protocol first
         if self._protocol is None:
             raise PowerMonUnknownProtocol('Attempted to run command with no protocol defined')
-
-        full_command = self._protocol.get_full_command(command)
+        self._protocol.set_command(command)
+        full_command = self._protocol.get_full_command()
         log.info(f'full command {full_command} for command {command}')
         if self._port is None:
             log.error(f'No communications port defined - unable to run command {command}')
             # TODO: determine what to return when unable to run command
             return
         # Send the full command via the communications port
-        # self._port.write(full_command)
+        self._port.write(full_command)
         # Get the response from the communications port
         # TODO: sort async port read
         response = self._port.read(10)
+        # self._protocol.decode(response, command)
         _response = response.decode('utf-8')
         log.debug(f'response {response}')
         log.debug(f'_response {_response}')
         # check it is a valid/known command?
-        if not self._protocol.is_known_command(command):
+        if not self._protocol.is_known_command():
             log.info(f'{command} is NOT a known command for protocol {self._protocol.get_protocol_id()}')
             # TODO: determine what to do when we run an unknown command
             return

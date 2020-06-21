@@ -70,19 +70,26 @@ class pi30(AbstractProtocol):
     def __init__(self, *args, **kwargs) -> None:
         self._protocol_id = 'PI30'
         log.info(f'Using protocol {self._protocol_id}')
+        self.__command = None
 
     def get_protocol_id(self):
         return self._protocol_id
 
-    def is_known_command(self, command) -> bool:
+    def set_command(self, command):
+        self.__command = command
+
+    def is_known_command(self) -> bool:
+        if self.__command is None:
+            log.info('is_known_command called with self._current_command = None')
+            return False
         for _command in COMMANDS:
-            print('_command')
+            print(f'_command {_command}')
         return True
         # else:
         #    return False
 
-    def get_full_command(self, command) -> bytes:
-        byte_cmd = bytes(command, 'utf-8')
+    def get_full_command(self) -> bytes:
+        byte_cmd = bytes(self.__command, 'utf-8')
         # calculate the CRC
         crc_high, crc_low = self.crc(byte_cmd)
         # combine byte_cmd, CRC , return
