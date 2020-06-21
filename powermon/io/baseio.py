@@ -15,8 +15,10 @@ class BaseIO(metaclass=abc.ABCMeta):
     def read(self, timeout: int) -> bytes:
         data = b''
         for _ in range(timeout * 10):
+            print('.')
             data += self.read_available()
             if data.endswith(b'\r'):
+                print('got eof')
                 break
 
             sleep(0.1)

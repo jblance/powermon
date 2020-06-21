@@ -65,6 +65,7 @@ COMMANDS = [
     }
 ]
 
+
 class pi30(AbstractProtocol):
     def __init__(self, *args, **kwargs) -> None:
         self._protocol_id = 'PI30'
@@ -74,10 +75,11 @@ class pi30(AbstractProtocol):
         return self._protocol_id
 
     def is_known_command(self, command) -> bool:
-        if command in COMMANDS:
-            return True
-        else:
-            return False
+        for _command in COMMANDS:
+            print('_command')
+        return True
+        # else:
+        #    return False
 
     def get_full_command(self, command) -> bytes:
         byte_cmd = bytes(command, 'utf-8')
