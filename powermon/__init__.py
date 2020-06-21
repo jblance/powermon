@@ -34,7 +34,7 @@ def main():
 
     log.info(f'Powermon version {__version__}')
     # create instance of device (supplying port + protocol types)
-    log.info(f'Creating device {args.name} (type: {args.type}) on port {args.port} using protocol {args.protocol}')
+    log.info(f'Creating device "{args.name}" (type: "{args.type}") on port "{args.port}" using protocol "{args.protocol}"')
     device_type = args.type.lower()
     try:
         device_module = importlib.import_module('powermon.devices.' + device_type, '.')
