@@ -47,8 +47,8 @@ class mppsolar(AbstractDevice):
         # TODO: sort async port read
         response = self._port.read(10)
         _response = response.decode('utf-8')
-        print(f'response {response}')
-        print(f'_response {_response[-3:]}')
+        log.debug(f'response {response}')
+        log.debug(f'_response {_response}')
         # check it is a valid/known command?
         if not self._protocol.is_known_command(command):
             log.info(f'{command} is NOT a known command for protocol {self._protocol.get_protocol_id()}')
