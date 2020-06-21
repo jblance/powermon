@@ -71,12 +71,14 @@ class pi30(AbstractProtocol):
         self._protocol_id = 'PI30'
         log.info(f'Using protocol {self._protocol_id}')
         self.__command = None
+        self.__show_raw = None
 
     def get_protocol_id(self):
         return self._protocol_id
 
-    def set_command(self, command):
+    def set_command(self, command, show_raw=None):
         self.__command = command
+        self.__show_raw = show_raw
 
     def is_known_command(self) -> bool:
         if self.__command is None:
@@ -96,3 +98,15 @@ class pi30(AbstractProtocol):
         full_command = byte_cmd + bytes([crc_high, crc_low, 13])
         log.debug('full command: %s', full_command)
         return full_command
+
+    def decode(self, response):
+        if self.__show_raw:
+            log.debug('Protocol "{self._protocol_id}" raw response requested')
+            return response[:-3]
+        # Check for a stored command definition
+        if not self.is_known_command():
+            # No definiution, so just return the data
+            # TODO: possibly return something better (maybe a dict with 'value_1 etc?')
+            return response[1:-3]
+        # Decode response based on stored command definition
+        
