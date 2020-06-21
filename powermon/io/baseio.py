@@ -1,6 +1,8 @@
 # shamelessly stolen from ccrisan https://github.com/qtoggle/qtoggleserver-mppsolar/blob/master/qtoggleserver/mppsolar/io.py
 import abc
-from time import sleep
+import logging
+# from time import sleep
+log = logging.getLogger('powermon')
 
 
 class BaseIO(metaclass=abc.ABCMeta):
@@ -17,7 +19,7 @@ class BaseIO(metaclass=abc.ABCMeta):
         for _ in range(timeout * 10):
             data += self.read_available()
             if data.endswith(b'\r'):
-                print('got eof')
+                log.debug('IO read Got EOD')
                 break
 
             # sleep(0.1)
