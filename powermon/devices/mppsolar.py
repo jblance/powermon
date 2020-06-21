@@ -30,24 +30,31 @@ class mppsolar(AbstractDevice):
         mpp-solar specific method of running a 'raw' command, e.g. QPI or PI
         '''
         log.info(f'Running command {command}')
-        # Have command like QPI or PI
+        # TODO: implement protocol determiniation??
         # validate protocol first
         if self._protocol is None:
             raise PowerMonUnknownProtocol('Attempted to run command with no protocol defined')
-        # do we check it is a valid/known command?
-        if self._protocol.is_known_command(command):
-            log.info(f'{command} is a known command for protocol {self._protocol.get_protocol_id()}')
-            full_command = self._protocol.get_full_command(command)
-            log.info(f'full command {full_command} for command {command}')
-            # self._port.write(full_command)
-            response = self._port.read(10)
-            _response = response.decode('utf-8')
-            print(f'response {response}')
-            print(f'_response {_response[-3:]}')
-        else:
+
+        full_command = self._protocol.get_full_command(command)
+        log.info(f'full command {full_command} for command {command}')
+        if self._port is None:
+            log.error(f'No communications port defined - unable to run command {command}')
+            # TODO: determine what to return when unable to run command
+            return
+        # Send the full command via the communications port
+        # self._port.write(full_command)
+        # Get the response from the communications port
+        # TODO: sort async port read
+        response = self._port.read(10)
+        _response = response.decode('utf-8')
+        print(f'response {response}')
+        print(f'_response {_response[-3:]}')
+        # check it is a valid/known command?
+        if not self._protocol.is_known_command(command):
             log.info(f'{command} is NOT a known command for protocol {self._protocol.get_protocol_id()}')
-        # need 'full' command string
-        # write full command to io and get response
-        # do we check for valid response
-        # process response
-        # output response
+            # TODO: determine what to do when we run an unknown command
+            return
+        log.info(f'{command} is a known command for protocol {self._protocol.get_protocol_id()}')
+        # TODO: do we check for valid response
+        # TODO: process response
+        # TODO: output response
