@@ -14,7 +14,7 @@ class TestIO(BaseIO):
     def read_available(self) -> bytes:
         result = self._test_data[self._counter]
         self._counter += 1
-        print(f'counter {self._counter}')
+        print(f'counter {self._counter}, result {result}')
         if self._counter > len(self._test_data):
             self._counter = 0
         return bytes(result, 'utf-8')
