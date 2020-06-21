@@ -16,7 +16,7 @@ class TestIO(BaseIO):
         self._counter += 1
         if self._counter > len(self._test_data):
             self._counter = 0
-        return bytes(result, 'utf-8')
+        return result
 
     def write(self, data: bytes) -> None:
         # self._test_data = data
