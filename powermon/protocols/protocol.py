@@ -15,7 +15,15 @@ class AbstractProtocol(metaclass=abc.ABCMeta):
         raise NotImplementedError
 
     @abc.abstractmethod
+    def set_command(self, command, show_raw=None):
+        raise NotImplementedError
+
+    @abc.abstractmethod
     def get_full_command(self):
+        raise NotImplementedError
+
+    @abc.abstractmethod
+    def decode(self):
         raise NotImplementedError
 
     def crc(self, data_bytes):
