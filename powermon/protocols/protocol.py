@@ -11,11 +11,11 @@ class AbstractProtocol(metaclass=abc.ABCMeta):
         raise NotImplementedError
 
     @abc.abstractmethod
-    def is_known_command(self, command):
+    def is_known_command(self):
         raise NotImplementedError
 
     @abc.abstractmethod
-    def get_full_command(self, command):
+    def get_full_command(self):
         raise NotImplementedError
 
     def crc(self, data_bytes):
