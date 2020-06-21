@@ -25,7 +25,7 @@ class mppsolar(AbstractDevice):
         crc_high, crc_low = self._protocol.crc('test')
         log.debug(f'test {crc_high:#04x} {crc_low:#04x}')
 
-    def run_command(self, command):
+    def run_command(self, command, show_raw=False):
         '''
         mpp-solar specific method of running a 'raw' command, e.g. QPI or PI
         '''
@@ -34,7 +34,7 @@ class mppsolar(AbstractDevice):
         # validate protocol first
         if self._protocol is None:
             raise PowerMonUnknownProtocol('Attempted to run command with no protocol defined')
-        self._protocol.set_command(command)
+        self._protocol.set_command(command, show_raw)
         full_command = self._protocol.get_full_command()
         log.info(f'full command {full_command} for command {command}')
         if self._port is None:
@@ -46,10 +46,10 @@ class mppsolar(AbstractDevice):
         # Get the response from the communications port
         # TODO: sort async port read
         response = self._port.read(10)
-        # self._protocol.decode(response, command)
-        _response = response.decode('utf-8')
-        log.debug(f'response {response}')
-        log.debug(f'_response {_response}')
+        decoded_response = self._protocol.decode(response)
+        # _response = response.decode('utf-8')
+        log.info(f'Raw response {response}')
+        log.info(f'Decoded response {decoded_response}')
         # check it is a valid/known command?
         if not self._protocol.is_known_command():
             log.info(f'{command} is NOT a known command for protocol {self._protocol.get_protocol_id()}')
