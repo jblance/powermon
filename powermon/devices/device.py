@@ -66,5 +66,5 @@ class AbstractDevice(metaclass=abc.ABCMeta):
         # raise NotImplementedError
 
     @abc.abstractmethod
-    def run_command(self, command=None):
+    def run_command(self, command=None, show_raw=False):
         raise NotImplementedError

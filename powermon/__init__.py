@@ -48,4 +48,4 @@ def main():
     device = device_class(name=args.name, port=args.port, protocol=args.protocol)
 
     # run command or called helper function
-    device.run_command(command=args.command)
+    device.run_command(command=args.command, show_raw=args.show_raw)
