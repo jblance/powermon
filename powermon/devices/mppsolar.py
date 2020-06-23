@@ -34,8 +34,7 @@ class mppsolar(AbstractDevice):
         # validate protocol first
         if self._protocol is None:
             raise PowerMonUnknownProtocol('Attempted to run command with no protocol defined')
-        self._protocol.set_command(command, show_raw)
-        full_command = self._protocol.get_full_command()
+        full_command = self._protocol.get_full_command(command, show_raw)
         log.info(f'full command {full_command} for command {command}')
         if self._port is None:
             log.error(f'No communications port defined - unable to run command {command}')

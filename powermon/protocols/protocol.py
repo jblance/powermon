@@ -6,20 +6,16 @@ log = logging.getLogger('powermon')
 
 
 class AbstractProtocol(metaclass=abc.ABCMeta):
-    @abc.abstractmethod
-    def get_protocol_id(self):
-        raise NotImplementedError
+    def __init(self, *args, **kwargs) -> None:
+        self.__command = None
+        self.__command_dict = None
+        self.__show_raw = None
+
+    def get_protocol_id(self) -> bytes:
+        return self._protocol_id
 
     @abc.abstractmethod
-    def is_known_command(self):
-        raise NotImplementedError
-
-    @abc.abstractmethod
-    def set_command(self, command, show_raw=None):
-        raise NotImplementedError
-
-    @abc.abstractmethod
-    def get_full_command(self):
+    def get_full_command(self, command, show_raw):
         raise NotImplementedError
 
     @abc.abstractmethod
