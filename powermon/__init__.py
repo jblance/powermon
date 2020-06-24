@@ -52,6 +52,6 @@ def main():
 
     # just print for now
     # TODO: send to output processor
-    print("f{'Parameter':<30}\t{'Value':<15} Unit")
+    print(f"{'Parameter':<30}\t{'Value':<15} Unit")
     for key in results:
         print(f'{key:<30}\t{results[key][0]:<15}\t{results[key][1]:<4}')
