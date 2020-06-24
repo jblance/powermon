@@ -10,41 +10,40 @@ SERIAL_TYPE_ESP32 = 4
 SERIAL_TYPE_SERIAL = 8
 
 
-def is_directusb_device(serial_device):
-    """
-    Determine if this instance is using direct USB connection
-    (instead of a serial connection)
-    """
-    if not serial_device:
-        return False
-    if 'hidraw' in serial_device:
-        log.debug("Device matches hidraw")
-        return True
-    if 'mppsolar' in serial_device:
-        log.debug("Device matches mppsolar")
-        return True
-    return False
-
-
-def is_ESP32_device(serial_device):
-    return 'esp' in serial_device.lower()
-
-
-def get_port_type(port):
-    if port == 'TEST':
-        return SERIAL_TYPE_TEST
-    elif is_directusb_device(port):
-        return SERIAL_TYPE_USB
-    elif is_ESP32_device(port):
-        return SERIAL_TYPE_ESP32
-    else:
-        return SERIAL_TYPE_SERIAL
-
-
 class AbstractDevice(metaclass=abc.ABCMeta):
     '''
     Abstract device class
     '''
+    @classmethod
+    def is_directusb_device(serial_device):
+        """
+        Determine if this instance is using direct USB connection
+        (instead of a serial connection)
+        """
+        if not serial_device:
+            return False
+        if 'hidraw' in serial_device:
+            log.debug("Device matches hidraw")
+            return True
+        if 'mppsolar' in serial_device:
+            log.debug("Device matches mppsolar")
+            return True
+        return False
+
+    @classmethod
+    def is_ESP32_device(serial_device):
+        return 'esp' in serial_device.lower()
+
+    @classmethod
+    def get_port_type(self, port):
+        if port == 'TEST':
+            return SERIAL_TYPE_TEST
+        elif self.is_directusb_device(port):
+            return SERIAL_TYPE_USB
+        elif self.is_ESP32_device(port):
+            return SERIAL_TYPE_ESP32
+        else:
+            return SERIAL_TYPE_SERIAL
 
     def __init__(self, *args, **kwargs):
         self._protocol = None
