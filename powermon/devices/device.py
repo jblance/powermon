@@ -2,11 +2,43 @@ import abc
 import importlib
 import logging
 
-from powermon.io.hidrawio import HIDRawIO
-from powermon.io.serialio import SerialIO
-from powermon.io.testio import TestIO
-
 log = logging.getLogger('powermon')
+
+SERIAL_TYPE_TEST = 1
+SERIAL_TYPE_USB = 2
+SERIAL_TYPE_ESP32 = 4
+SERIAL_TYPE_SERIAL = 8
+
+
+def is_directusb_device(serial_device):
+    """
+    Determine if this instance is using direct USB connection
+    (instead of a serial connection)
+    """
+    if not serial_device:
+        return False
+    if 'hidraw' in serial_device:
+        log.debug("Device matches hidraw")
+        return True
+    if 'mppsolar' in serial_device:
+        log.debug("Device matches mppsolar")
+        return True
+    return False
+
+
+def is_ESP32_device(serial_device):
+    return 'esp' in serial_device.lower()
+
+
+def get_port_type(port):
+    if port == 'TEST':
+        return SERIAL_TYPE_TEST
+    elif is_directusb_device(port):
+        return SERIAL_TYPE_USB
+    elif is_ESP32_device(port):
+        return SERIAL_TYPE_ESP32
+    else:
+        return SERIAL_TYPE_SERIAL
 
 
 class AbstractDevice(metaclass=abc.ABCMeta):
@@ -49,21 +81,24 @@ class AbstractDevice(metaclass=abc.ABCMeta):
         self._protocol = self._protocol_class('init_var', proto_keyword='value', second_keyword=123)
 
     def set_port(self, port=None):
-        if port is None:
-            self._port = None
-            return
-        # determine which IO type to use
-        if TestIO.supports(port):
+        port_type = self.get_port_type(port)
+        if port_type == SERIAL_TYPE_TEST:
             log.info('Using testio for communications')
+            from powermon.io.testio import TestIO
             self._port = TestIO()
-        elif HIDRawIO.supports(port):
+        elif port_type == SERIAL_TYPE_USB:
             log.info('Using hidrawio for communications')
+            from powermon.io.hidrawio import HIDRawIO
             self._port = HIDRawIO(device_path=port)
-        else:
+        elif port_type == SERIAL_TYPE_ESP32:
+            log.info('Using esp32io for communications')
+            log.critical('ESP23IO Not implemented yet')
+        elif port_type == SERIAL_TYPE_SERIAL:
             log.info('Using serialio for communications')
+            from powermon.io.serialio import SerialIO
             self._port = SerialIO(serial_port=port, serial_baud=2400)
-            print('hidraw not supported')
-        # raise NotImplementedError
+        else:
+            self._port = None
 
     @abc.abstractmethod
     def run_command(self, command=None, show_raw=False):
