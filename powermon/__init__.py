@@ -18,7 +18,7 @@ def main():
     parser = ArgumentParser(description=f'Power Monitor Utility, version: {__version__}')
     parser.add_argument('-n', '--name', type=str, help='Specifies the device name - used to differentiate different devices', default='noname')
     parser.add_argument('-t', '--type', type=str, help='Specifies the device type (mppsolar [default], jkbms)', default='mppsolar')
-    parser.add_argument('-p', '--port', type=str, help='Specifies the device communication port, (/dev/ttyUSB0 [default], /dev/hidraw0 ...)', default='/dev/ttyUSB0')
+    parser.add_argument('-p', '--port', type=str, help='Specifies the device communication port, (/dev/ttyUSB0 [default], /dev/hidraw0, test ...)', default='/dev/ttyUSB0')
     parser.add_argument('-P', '--protocol', type=str, help='Specifies the device command and response protocol, (default: PI30)', default='PI30')
     parser.add_argument('-c', '--command', help='Raw command to run')
     parser.add_argument('-R', '--show_raw', action='store_true', help='Display the raw results')
