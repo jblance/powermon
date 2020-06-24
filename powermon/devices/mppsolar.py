@@ -38,7 +38,7 @@ class mppsolar(AbstractDevice):
             return {'error': f'No communications port defined - unable to run command {command}'}
 
         response = self._port.send_and_receive(command, show_raw, self._protocol)
-        log.info(f'Response {response}')
+        log.debug(f'Response {response}')
 
         # full_command = self._protocol.get_full_command(command, show_raw)
         # log.info(f'full command {full_command} for command {command}')

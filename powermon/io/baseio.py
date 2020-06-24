@@ -37,6 +37,6 @@ class BaseIO(metaclass=abc.ABCMeta):
         response = self.read(10)
         decoded_response = protocol.decode(response)
         # _response = response.decode('utf-8')
-        log.info(f'Raw response {response}')
-        log.info(f'Decoded response {decoded_response}')
+        log.debug(f'Raw response {response}')
+        log.debug(f'Decoded response {decoded_response}')
         return decoded_response
