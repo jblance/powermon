@@ -58,7 +58,7 @@ class HIDRawIO(BaseIO):
             try:
                 time.sleep(0.15)
                 r = os.read(usb0, 256)
-                response_line += r
+                response_line += bytes(r, 'utf-8')
             except Exception as e:
                 log.debug("USB read error: {}".format(e))
             # Finished is \r is in byte_response
