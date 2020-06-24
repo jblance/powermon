@@ -107,7 +107,7 @@ class pi30(AbstractProtocol):
 
     def decode(self, response) -> dict:
         msgs = {}
-
+        log.debug(f'response passed to decide: {response}')
         # No response
         if response is None:
             log.info('No response')
