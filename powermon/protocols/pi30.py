@@ -107,7 +107,7 @@ class pi30(AbstractProtocol):
 
     def decode(self, response) -> dict:
         msgs = {}
-        log.debug(f'response passed to decide: {response}')
+        log.debug(f'response passed to decode: {response}')
         # No response
         if response is None:
             log.info('No response')
@@ -138,7 +138,7 @@ class pi30(AbstractProtocol):
 
         responses = response.split(b' ')
         # Trim leading '(' of first response
-        responses[0] = response[0][1:]
+        responses[0] = responses[0][1:]
         # Remove CRC of last response
         responses[-1] = responses[-1].decode()[:-3]
         log.debug(f'trimmed and split responses: {responses}')
