@@ -19,6 +19,9 @@ class AbstractDevice(metaclass=abc.ABCMeta):
         self._protocol_class = None
         self._port = None
 
+    def is_test_device(self, serial_device):
+        return 'test' in serial_device.lower()
+
     def is_directusb_device(self, serial_device):
         """
         Determine if this instance is using direct USB connection
@@ -38,7 +41,7 @@ class AbstractDevice(metaclass=abc.ABCMeta):
         return 'esp' in serial_device.lower()
 
     def get_port_type(self, port):
-        if port == 'TEST':
+        if self.is_test_device(port):
             return SERIAL_TYPE_TEST
         elif self.is_directusb_device(port):
             return SERIAL_TYPE_USB
