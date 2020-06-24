@@ -79,7 +79,7 @@ class pi30(AbstractProtocol):
         self.__show_raw = show_raw
         self.__command_defn = self.get_command_defn(command)
 
-    def get_command_defn(self, command):
+    def get_command_defn(self, command) -> dict:
         if self.__command is None:
             return None
         for _command in COMMANDS:
@@ -105,38 +105,41 @@ class pi30(AbstractProtocol):
         log.debug(f'full command: {full_command}')
         return full_command
 
-    def decode(self, response):
-        if self.__show_raw:
-            log.debug('Protocol "{self._protocol_id}" raw response requested')
-            return response
-        # Check for a stored command definition
-        if not self.__command_defn:
-            # No definiution, so just return the data
-            # TODO: possibly return something better (maybe a dict with 'value_1 etc?')
-            return response[1:-3]
-        # Decode response based on stored command definition
-        # TODO: finish this bit
+    def decode(self, response) -> dict:
         msgs = {}
 
+        # No response
         if response is None:
             log.info('No response')
             msgs['error'] = ['No response', '']
             return msgs
-        if not self.is_response_valid(response):
-            log.info('Invalid response')
-            msgs['error'] = ['Invalid response', '']
-            msgs['response'] = [response, '']
-            return msgs
-        if self.__command_defn is None:
-            log.info('No byte_response definition')
-            msgs['error'] = ['No byte_response definition', '']
-            msgs['response'] = [response, '']
+
+        # Raw response requested
+        if self.__show_raw:
+            log.debug(f'Protocol "{self._protocol_id}" raw response requested')
+            msgs['raw_response'] = [response, '']
             return msgs
 
+        # Check for a stored command definition
+        if not self.__command_defn:
+            # No definiution, so just return the data
+            log.debug(f'No definition for command {self.__command}, raw response returned')
+            # TODO: possibly return something better (maybe a dict with 'value_1 etc?')
+            msgs['raw_response'] = [response[1:-3], '']
+            msgs['error'] = [f'No definition for command {self.__command} in protocol {self._protocol_id}', '']
+            return msgs
+
+        # Decode response based on stored command definition
+        # if not self.is_response_valid(response):
+        #    log.info('Invalid response')
+        #    msgs['error'] = ['Invalid response', '']
+        #    msgs['response'] = [response, '']
+        #    return msgs
+
         # Omit the CRC and convert to string
-        # response = self.getResponse()
-        # responses = response.split(" ")
-        responses = self.get_responses()
+        response = response[1:-3].decode('utf-8')
+        responses = response.split(' ')
+
         for i, result in enumerate(responses):
             # Check if we are past the 'known' responses
             if (i >= len(self.__command_defn['response'])):

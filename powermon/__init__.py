@@ -48,4 +48,9 @@ def main():
     device = device_class(name=args.name, port=args.port, protocol=args.protocol)
 
     # run command or called helper function
-    device.run_command(command=args.command, show_raw=args.show_raw)
+    results = device.run_command(command=args.command, show_raw=args.show_raw)
+
+    # just print for now
+    # TODO: send to output processor
+    for key in results:
+        print(f'{key}\t{results[key]}')

@@ -15,7 +15,7 @@ class mppsolar(AbstractDevice):
         log.debug(f'mppsolar __init__ args {args}')
         log.debug(f'mppsolar __init__ kwargs {kwargs}')
 
-    def set_protocol(self, protocol=None):
+    def set_protocol(self, protocol=None) -> None:
         log.debug(f'mppsolar.set_protocol protocol={protocol}')
         super().set_protocol(protocol)
         if self._protocol is None:
@@ -25,7 +25,7 @@ class mppsolar(AbstractDevice):
         crc_high, crc_low = self._protocol.crc('test')
         log.debug(f'test {crc_high:#04x} {crc_low:#04x}')
 
-    def run_command(self, command, show_raw=False):
+    def run_command(self, command, show_raw=False) -> dict:
         '''
         mpp-solar specific method of running a 'raw' command, e.g. QPI or PI
         '''
@@ -33,13 +33,13 @@ class mppsolar(AbstractDevice):
         # TODO: implement protocol determiniation??
         # validate protocol first
         if self._protocol is None:
-            raise PowerMonUnknownProtocol('Attempted to run command with no protocol defined')
+            log.error('Attempted to run command with no protocol defined')
+            return {'error': 'Attempted to run command with no protocol defined'}
         full_command = self._protocol.get_full_command(command, show_raw)
         log.info(f'full command {full_command} for command {command}')
         if self._port is None:
             log.error(f'No communications port defined - unable to run command {command}')
-            # TODO: determine what to return when unable to run command
-            return
+            return {'error': f'No communications port defined - unable to run command {command}'}
         # Send the full command via the communications port
         self._port.write(full_command)
         # Get the response from the communications port
@@ -49,12 +49,4 @@ class mppsolar(AbstractDevice):
         # _response = response.decode('utf-8')
         log.info(f'Raw response {response}')
         log.info(f'Decoded response {decoded_response}')
-        # check it is a valid/known command?
-        if not self._protocol.is_known_command():
-            log.info(f'{command} is NOT a known command for protocol {self._protocol.get_protocol_id()}')
-            # TODO: determine what to do when we run an unknown command
-            return
-        log.info(f'{command} is a known command for protocol {self._protocol.get_protocol_id()}')
-        # TODO: do we check for valid response
-        # TODO: process response
-        # TODO: output response
+        return decoded_response
