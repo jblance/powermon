@@ -24,11 +24,3 @@ class TestIO(BaseIO):
 
     def close(self) -> None:
         pass
-
-    @staticmethod
-    def supports(serial_device):
-        if not serial_device:
-            return False
-        if serial_device.lower() == 'test':
-            return True
-        return False

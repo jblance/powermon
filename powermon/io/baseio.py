@@ -21,16 +21,22 @@ class BaseIO(metaclass=abc.ABCMeta):
             if data.endswith(b'\r'):
                 log.debug('IO read Got EOD')
                 break
-
             # sleep(0.1)
-
         return data
 
     @abc.abstractmethod
     def close(self) -> None:
         raise NotImplementedError
 
-    @staticmethod
-    @abc.abstractmethod
-    def supports(communications) -> bool:
-        raise NotImplementedError
+    def send_and_receive(self, command, show_raw, protocol) -> dict:
+        full_command = protocol.get_full_command(command, show_raw)
+        log.info(f'full command {full_command} for command {command}')
+        # Send the full command via the communications port
+        self.write(full_command)
+        # Get the response from the communications port
+        response = self.read(10)
+        decoded_response = protocol.decode(response)
+        # _response = response.decode('utf-8')
+        log.info(f'Raw response {response}')
+        log.info(f'Decoded response {decoded_response}')
+        return decoded_response

@@ -30,22 +30,25 @@ class mppsolar(AbstractDevice):
         '''
         log.info(f'Running command {command}')
         # TODO: implement protocol determiniation??
-        # validate protocol first
         if self._protocol is None:
             log.error('Attempted to run command with no protocol defined')
             return {'error': 'Attempted to run command with no protocol defined'}
-        full_command = self._protocol.get_full_command(command, show_raw)
-        log.info(f'full command {full_command} for command {command}')
         if self._port is None:
             log.error(f'No communications port defined - unable to run command {command}')
             return {'error': f'No communications port defined - unable to run command {command}'}
+
+        response = self._port.send_and_receive(command, show_raw, self._protocol)
+        log.info(f'Response {response}')
+
+        # full_command = self._protocol.get_full_command(command, show_raw)
+        # log.info(f'full command {full_command} for command {command}')
         # Send the full command via the communications port
-        self._port.write(full_command)
+        # self._port.write(full_command)
         # Get the response from the communications port
         # TODO: sort async port read
-        response = self._port.read(10)
-        decoded_response = self._protocol.decode(response)
+        # response = self._port.read(10)
+        # decoded_response = self._protocol.decode(response)
         # _response = response.decode('utf-8')
-        log.info(f'Raw response {response}')
-        log.info(f'Decoded response {decoded_response}')
-        return decoded_response
+        # log.info(f'Raw response {response}')
+        # log.info(f'Decoded response {decoded_response}')
+        return response
