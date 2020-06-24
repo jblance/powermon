@@ -14,8 +14,12 @@ class AbstractDevice(metaclass=abc.ABCMeta):
     '''
     Abstract device class
     '''
-    @classmethod
-    def is_directusb_device(serial_device):
+    def __init__(self, *args, **kwargs):
+        self._protocol = None
+        self._protocol_class = None
+        self._port = None
+
+    def is_directusb_device(self, serial_device):
         """
         Determine if this instance is using direct USB connection
         (instead of a serial connection)
@@ -30,11 +34,9 @@ class AbstractDevice(metaclass=abc.ABCMeta):
             return True
         return False
 
-    @classmethod
-    def is_ESP32_device(serial_device):
+    def is_ESP32_device(self, serial_device):
         return 'esp' in serial_device.lower()
 
-    @classmethod
     def get_port_type(self, port):
         if port == 'TEST':
             return SERIAL_TYPE_TEST
@@ -44,11 +46,6 @@ class AbstractDevice(metaclass=abc.ABCMeta):
             return SERIAL_TYPE_ESP32
         else:
             return SERIAL_TYPE_SERIAL
-
-    def __init__(self, *args, **kwargs):
-        self._protocol = None
-        self._protocol_class = None
-        self._port = None
 
     def set_protocol(self, protocol=None):
         '''
