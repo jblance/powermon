@@ -19,6 +19,10 @@ class AbstractProtocol(metaclass=abc.ABCMeta):
         raise NotImplementedError
 
     @abc.abstractmethod
+    def get_command_defn(self, command) -> dict:
+        raise NotImplementedError
+
+    @abc.abstractmethod
     def decode(self):
         raise NotImplementedError
 

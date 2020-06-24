@@ -1,5 +1,6 @@
 # shamelessly stolen from ccrisan https://github.com/qtoggle/qtoggleserver-mppsolar/blob/master/qtoggleserver/mppsolar/io.py
 import logging
+import random
 
 from .baseio import BaseIO
 
@@ -24,3 +25,20 @@ class TestIO(BaseIO):
 
     def close(self) -> None:
         pass
+
+    def send_and_receive(self, command, show_raw, protocol) -> dict:
+        full_command = protocol.get_full_command(command, show_raw)
+        log.info(f'full command {full_command} for command {command}')
+        # Send the full command via the communications port
+        command_defn = protocol.get_command_defn(command)
+        if command_defn is not None:
+            self._test_data = command_defn['test_responses'][random.randrange(len(command_defn['test_responses']))]
+
+        self.write(full_command)
+        # Get the response from the communications port
+        response = self.read(10)
+        decoded_response = protocol.decode(response)
+        # _response = response.decode('utf-8')
+        log.debug(f'Raw response {response}')
+        log.debug(f'Decoded response {decoded_response}')
+        return decoded_response
