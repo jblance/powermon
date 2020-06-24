@@ -136,11 +136,12 @@ class pi30(AbstractProtocol):
         #    msgs['response'] = [response, '']
         #    return msgs
 
-        # Omit the CRC and convert to string
-        response = response[1:-3]
+        # Trim leading '('
+        response = response[1:]
         log.debug(f'trimmed response: {response}')
-        response = response.decode('utf-8')
-        log.debug(f'decoded response: {response}')
+
+        # response = response.decode('utf-8')
+        # log.debug(f'decoded response: {response}')
         responses = response.split(' ')
         log.debug(f'split response: {response}')
 
