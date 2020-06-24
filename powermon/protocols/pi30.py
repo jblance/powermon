@@ -148,7 +148,7 @@ class pi30(AbstractProtocol):
             result = result.decode('utf-8')
             # Check if we are past the 'known' responses
             if (i >= len(self.__command_defn['response'])):
-                resp_format = ['string', 'Unknown value in byte_response', '']
+                resp_format = ['string', f'Unknown value in response {i}', '']
             else:
                 resp_format = self.__command_defn['response'][i]
 
