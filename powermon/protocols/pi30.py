@@ -69,7 +69,7 @@ COMMANDS = [
 
 class pi30(AbstractProtocol):
     def __init__(self, *args, **kwargs) -> None:
-        super().__init__(self, *args, **kwargs)
+        super().__init__(self)
         self._protocol_id = b'PI30'
         log.info(f'Using protocol {self._protocol_id}')
 
