@@ -137,8 +137,12 @@ class pi30(AbstractProtocol):
         #    return msgs
 
         # Omit the CRC and convert to string
-        response = response[1:-3].decode('utf-8')
+        response = response[1:-3]
+        log.debug(f'trimmed response: {response}')
+        response = response.decode('utf-8')
+        log.debug(f'decoded response: {response}')
         responses = response.split(' ')
+        log.debug(f'split response: {response}')
 
         for i, result in enumerate(responses):
             # Check if we are past the 'known' responses
