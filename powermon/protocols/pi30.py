@@ -136,16 +136,16 @@ class pi30(AbstractProtocol):
         #    msgs['response'] = [response, '']
         #    return msgs
 
-        # Trim leading '('
-        response = response[1:]
-        log.debug(f'trimmed response: {response}')
-
-        # response = response.decode('utf-8')
-        # log.debug(f'decoded response: {response}')
-        responses = response.split(' ')
-        log.debug(f'split response: {response}')
+        responses = response.split(b' ')
+        # Trim leading '(' of first response
+        responses[0] = response[0][1:]
+        # Remove CRC of last response
+        responses[-1] = responses[-1].decode()[:-3]
+        log.debug(f'trimmed and split responses: {responses}')
 
         for i, result in enumerate(responses):
+            # decode result
+            result = result.decode('utf-8')
             # Check if we are past the 'known' responses
             if (i >= len(self.__command_defn['response'])):
                 resp_format = ['string', 'Unknown value in byte_response', '']
