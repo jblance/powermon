@@ -33,10 +33,11 @@ class TestIO(BaseIO):
         command_defn = protocol.get_command_defn(command)
         if command_defn is not None:
             self._test_data = command_defn['test_responses'][random.randrange(len(command_defn['test_responses']))]
+        log.debug(f'test_data is {self._test_data}')
 
         self.write(full_command)
         # Get the response from the communications port
-        response = self.read(10)
+        response = self.read(len(self._test_data))
         log.debug(f'Raw response {response}')
         decoded_response = protocol.decode(response)
         # _response = response.decode('utf-8')
