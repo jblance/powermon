@@ -37,8 +37,8 @@ class TestIO(BaseIO):
         self.write(full_command)
         # Get the response from the communications port
         response = self.read(10)
+        log.debug(f'Raw response {response}')
         decoded_response = protocol.decode(response)
         # _response = response.decode('utf-8')
-        log.debug(f'Raw response {response}')
         log.debug(f'Decoded response {decoded_response}')
         return decoded_response
