@@ -140,7 +140,7 @@ class pi30(AbstractProtocol):
         # Trim leading '(' of first response
         responses[0] = responses[0][1:]
         # Remove CRC of last response
-        responses[-1] = responses[-1].decode()[:-3]
+        responses[-1] = bytes(responses[-1].decode()[:-3], 'utf-8')
         log.debug(f'trimmed and split responses: {responses}')
 
         for i, result in enumerate(responses):
