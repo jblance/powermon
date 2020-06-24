@@ -35,4 +35,7 @@ class SerialIO(BaseIO):
         except Exception as e:
             log.warning(f"Serial read error: {e}")
         log.info('Command execution failed')
-        return response_line
+        decoded_response = protocol.decode(response_line)
+        # _response = response.decode('utf-8')
+        log.debug(f'Decoded response {decoded_response}')
+        return decoded_response
