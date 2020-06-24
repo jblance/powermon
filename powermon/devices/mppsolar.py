@@ -1,7 +1,6 @@
 import logging
 
 from .device import AbstractDevice
-from ..exceptions import PowerMonUnknownProtocol
 
 log = logging.getLogger('powermon')
 
