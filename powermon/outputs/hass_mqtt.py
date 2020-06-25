@@ -21,10 +21,10 @@ class hass_mqtt():
         # Loop through responses
         for key in data:
             value = data[key][0]
-            unit = data[key][1]
+            # unit = data[key][1]
             # 'tag'/status/total_output_active_power/value 1250
             # 'tag'/status/total_output_active_power/unit W
-            msg = {'topic': f'{tag}/status/{key}/value', 'payload': value}
-            msg = {'topic': f'{tag}/status/{key}/unit', 'payload': unit}
+            topic = f"homeassistant/sensor/pm_{tag}_{key}/state"
+            msg = {'topic': topic, 'payload': value}
             msgs.append(msg)
         publish.multiple(msgs, hostname=mqtt_broker)
