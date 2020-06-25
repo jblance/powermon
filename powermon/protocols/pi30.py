@@ -33,6 +33,55 @@ COMMANDS = {
         ],
         "regex": "",
     },
+    'QPIGS': {
+        "name": "QPIGS",
+        "description": "General Status Parameters inquiry",
+        "help": " -- queries the value of various metrics from the Inverter",
+        "type": "QUERY",
+        "response": [
+            ["float", "AC Input Voltage", "V"],
+            ["float", "AC Input Frequency", "Hz"],
+            ["float", "AC Output Voltage", "V"],
+            ["float", "AC Output Frequency", "Hz"],
+            ["int", "AC Output Apparent Power", "VA"],
+            ["int", "AC Output Active Power", "W"],
+            ["int", "AC Output Load", "%"],
+            ["int", "BUS Voltage", "V"],
+            ["float", "Battery Voltage", "V"],
+            ["int", "Battery Charging Current", "A"],
+            ["int", "Battery Capacity", "%"],
+            ["int", "Inverter Heat Sink Temperature", "Deg_C"],
+            ["float", "PV Input Current for Battery", "A"],
+            ["float", "PV Input Voltage", "V"],
+            ["float", "Battery Voltage from SCC", "V"],
+            ["int", "Battery Discharge Current", "A"],
+            ["flags", "Device Status", [
+                "is_sbu_priority_version_added",
+                "is_configuration_changed",
+                "is_scc_firmware_updated",
+                "is_load_on",
+                "is_battery_voltage_to_steady_while_charging",
+                "is_charging_on",
+                "is_scc_charging_on",
+                "is_ac_charging_on"]
+             ],
+            ["int", "RSV1", "A"],
+            ["int", "RSV2", "A"],
+            ["int", "PV Input Power", "W"],
+            ["flags", "Device Status2", [
+                "is_charging_to_float",
+                "is_switched_on",
+                "is_reserved"]
+             ],
+        ],
+        "test_responses": [
+            b"(000.0 00.0 230.0 49.9 0161 0119 003 460 57.50 012 100 0069 0014 103.8 57.45 00000 00110110 00 00 00856 010\x24\x8c\r",
+        ],
+        "regex": "",
+    },
+}
+
+REGEX_COMMANDS = {
     'QPGS': {
         "name": "QPGS",
         "description": "Parallel Information inquiry",
@@ -118,52 +167,6 @@ COMMANDS = {
         ],
         "regex": "QPGS(\\d)$",
     },
-    'QPIGS': {
-        "name": "QPIGS",
-        "description": "General Status Parameters inquiry",
-        "help": " -- queries the value of various metrics from the Inverter",
-        "type": "QUERY",
-        "response": [
-            ["float", "AC Input Voltage", "V"],
-            ["float", "AC Input Frequency", "Hz"],
-            ["float", "AC Output Voltage", "V"],
-            ["float", "AC Output Frequency", "Hz"],
-            ["int", "AC Output Apparent Power", "VA"],
-            ["int", "AC Output Active Power", "W"],
-            ["int", "AC Output Load", "%"],
-            ["int", "BUS Voltage", "V"],
-            ["float", "Battery Voltage", "V"],
-            ["int", "Battery Charging Current", "A"],
-            ["int", "Battery Capacity", "%"],
-            ["int", "Inverter Heat Sink Temperature", "Deg_C"],
-            ["float", "PV Input Current for Battery", "A"],
-            ["float", "PV Input Voltage", "V"],
-            ["float", "Battery Voltage from SCC", "V"],
-            ["int", "Battery Discharge Current", "A"],
-            ["flags", "Device Status", [
-                "is_sbu_priority_version_added",
-                "is_configuration_changed",
-                "is_scc_firmware_updated",
-                "is_load_on",
-                "is_battery_voltage_to_steady_while_charging",
-                "is_charging_on",
-                "is_scc_charging_on",
-                "is_ac_charging_on"]
-             ],
-            ["int", "RSV1", "A"],
-            ["int", "RSV2", "A"],
-            ["int", "PV Input Power", "W"],
-            ["flags", "Device Status2", [
-                "is_charging_to_float",
-                "is_switched_on",
-                "is_reserved"]
-             ],
-        ],
-        "test_responses": [
-            b"(000.0 00.0 230.0 49.9 0161 0119 003 460 57.50 012 100 0069 0014 103.8 57.45 00000 00110110 00 00 00856 010\x24\x8c\r",
-        ],
-        "regex": "",
-    },
 }
 
 
@@ -182,18 +185,19 @@ class pi30(AbstractProtocol):
     def get_command_defn(self, command) -> dict:
         if self.__command is None:
             return None
-        for _command in COMMANDS:
+        if command in COMMANDS:
+            log.debug(f'Found command {self.__command} in protocol {self._protocol_id}')
+            return COMMANDS[command]
+        for _command in REGEX_COMMANDS:
             log.debug(f'_command {_command}')
-            if 'regex' in _command and _command['regex']:
-                _re = re.compile(_command['regex'])
+            if 'regex' in REGEX_COMMANDS[_command] and REGEX_COMMANDS[_command]['regex']:
+                _re = re.compile(REGEX_COMMANDS[_command]['regex'])
                 match = _re.match(command)
                 if match:
                     log.debug("Matched: {} Value: {}".format(command.name, match.group(1)))
                     self.__command_value = match.group(1)
-                    return _command
-            if _command['name'] == self.__command:
-                log.debug(f'Found command {self.__command} in protocol {self._protocol_id}')
-                return _command
+                    return REGEX_COMMANDS[_command]
+        log.info(f'No command_defn found for {command}')
         return None
 
     def get_full_command(self, command, show_raw) -> bytes:
