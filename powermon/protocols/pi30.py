@@ -194,7 +194,7 @@ class pi30(AbstractProtocol):
                 _re = re.compile(REGEX_COMMANDS[_command]['regex'])
                 match = _re.match(command)
                 if match:
-                    log.debug("Matched: {} Value: {}".format(command.name, match.group(1)))
+                    log.debug(f"Matched: {command} to: {REGEX_COMMANDS[_command]['name']} value: {match.group(1)}")
                     self.__command_value = match.group(1)
                     return REGEX_COMMANDS[_command]
         log.info(f'No command_defn found for {command}')
