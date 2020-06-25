@@ -20,74 +20,151 @@ COMMANDS = {
         ],
         "regex": "F([56]0)$",
     },
-    'QPI': {
-        "name": "QPI",
-        "description": "Protocol ID inquiry",
-        "help": " -- queries the device protocol ID. e.g. PI30 for HS series",
-        "type": "QUERY",
+    'MCHGC': {
+        "name": "MCHGC",
+        "description": "Set Max Charging Current (for parallel units)",
+        "help": " -- examples: MCHGC040 (set unit 0 to max charging current of 40A), MCHGC160 (set unit 1 to max charging current of 60A)",
+        "type": "SETTER",
         "response": [
-            ["string", "Protocol ID", ""],
+            ["ack", "Command execution", {"NAK": "Failed", "ACK": "Successful"}],
         ],
         "test_responses": [
-            b"(PI30\x9a\x0b\r",
+            b"(NAK\x73\x73\r",
+            b"(ACK\x39\x20\r",
         ],
-        "regex": "",
+        "regex": "MCHGC(\\d\\d\\d)$",
     },
-    'QPIGS': {
-        "name": "QPIGS",
-        "description": "General Status Parameters inquiry",
-        "help": " -- queries the value of various metrics from the Inverter",
-        "type": "QUERY",
+    'MNCHGC': {
+        "name": "MNCHGC",
+        "description": "Set Utility Max Charging Current (more than 100A) (for 4000/5000)",
+        "help": " -- example: MNCHGC1120 (set unit 1 utility max charging current to 120A)",
+        "type": "SETTER",
         "response": [
-            ["float", "AC Input Voltage", "V"],
-            ["float", "AC Input Frequency", "Hz"],
-            ["float", "AC Output Voltage", "V"],
-            ["float", "AC Output Frequency", "Hz"],
-            ["int", "AC Output Apparent Power", "VA"],
-            ["int", "AC Output Active Power", "W"],
-            ["int", "AC Output Load", "%"],
-            ["int", "BUS Voltage", "V"],
-            ["float", "Battery Voltage", "V"],
-            ["int", "Battery Charging Current", "A"],
-            ["int", "Battery Capacity", "%"],
-            ["int", "Inverter Heat Sink Temperature", "Deg_C"],
-            ["float", "PV Input Current for Battery", "A"],
-            ["float", "PV Input Voltage", "V"],
-            ["float", "Battery Voltage from SCC", "V"],
-            ["int", "Battery Discharge Current", "A"],
-            ["flags", "Device Status", [
-                "is_sbu_priority_version_added",
-                "is_configuration_changed",
-                "is_scc_firmware_updated",
-                "is_load_on",
-                "is_battery_voltage_to_steady_while_charging",
-                "is_charging_on",
-                "is_scc_charging_on",
-                "is_ac_charging_on"]
-             ],
-            ["int", "RSV1", "A"],
-            ["int", "RSV2", "A"],
-            ["int", "PV Input Power", "W"],
-            ["flags", "Device Status2", [
-                "is_charging_to_float",
-                "is_switched_on",
-                "is_reserved"]
-             ],
+            ["ack", "Command execution", {"NAK": "Failed", "ACK": "Successful"}],
         ],
         "test_responses": [
-            b"(000.0 00.0 230.0 49.9 0161 0119 003 460 57.50 012 100 0069 0014 103.8 57.45 00000 00110110 00 00 00856 010\x24\x8c\r",
+            b"(NAK\x73\x73\r",
+            b"(ACK\x39\x20\r",
         ],
-        "regex": "",
+        "regex": "MNCHGC(\\d\\d\\d\\d)$",
     },
-}
-
-REGEX_COMMANDS = {
+    'MUCHGC': {
+        "name": "MUCHGC",
+        "description": "Set Utility Max Charging Current",
+        "help": " -- example: MUCHGC130 (set unit 1 utility max charging current to 30A)",
+        "type": "SETTER",
+        "response": [
+            ["ack", "Command execution", {"NAK": "Failed", "ACK": "Successful"}]
+        ],
+        "test_responses": [
+            b"(NAK\x73\x73\r",
+            b"(ACK\x39\x20\r",
+        ],
+        "regex": "MUCHGC(\\d\\d\\d)$",
+    },
+    'PBCV': {
+        "name": "PBCV",
+        "description": "Set Battery re-charge voltage",
+        "help": " -- example PBCV44.0 - set re-charge voltage to 44V (12V unit: 11V/11.3V/11.5V/11.8V/12V/12.3V/12.5V/12.8V, 24V unit: 22V/22.5V/23V/23.5V/24V/24.5V/25V/25.5V, 48V unit: 44V/45V/46V/47V/48V/49V/50V/51V)",
+        "type": "SETTER",
+        "response": [
+                ["ack", "Command execution", {"NAK": "Failed", "ACK": "Successful"}]
+        ],
+        "test_responses": [
+            b"(NAK\x73\x73\r",
+            b"(ACK\x39\x20\r",
+        ],
+        "regex": "PBCV(\\d\\d\\.\\d)$"
+    },
+    'PBDV': {
+        "name": "PBDV",
+        "description": "Set Battery re-discharge voltage",
+        "help": " -- example PBDV48.0 - set re-discharge voltage to 48V (12V unit: 00.0V/12V/12.3V/12.5V/12.8V/13V/13.3V/13.5V/13.8V/14V/14.3V/14.5, 24V unit: 00.0V/24V/24.5V/25V/25.5V/26V/26.5V/27V/27.5V/28V/28.5V/29V, 48V unit: 00.0V/48V/49V/50V/51V/52V/53V/54V/55V/56V/57V/58V, 00.0V means battery is full(charging in float mode).)",
+        "type": "SETTER",
+        "response": [
+                ["ack", "Command execution", {"NAK": "Failed", "ACK": "Successful"}]
+        ],
+        "test_responses": [
+            b"(NAK\x73\x73\r",
+            b"(ACK\x39\x20\r",
+        ],
+        "regex": "PBDV(\\d\\d\\.\\d)$"
+    },
+    'PBFT': {
+        "name": "PBFT",
+        "description": "Set Battery Float Charging Voltage",
+        "help": " -- example PBFT58.0 - set battery float charging voltage to 58V (48.0 - 58.4V for 48V unit)",
+        "type": "SETTER",
+        "response": [
+                ["ack", "Command execution", {"NAK": "Failed", "ACK": "Successful"}]
+        ],
+        "test_responses": [
+            b"(NAK\x73\x73\r",
+            b"(ACK\x39\x20\r",
+        ],
+        "regex": "PBFT(\\d\\d\\.\\d)$"
+    },
+    'PBT': {
+        "name": "PBT",
+        "description": "Set Battery Type",
+        "help": " -- examples: PBT00 (set battery as AGM), PBT01 (set battery as FLOODED), PBT02 (set battery as USER)",
+        "type": "SETTER",
+        "response": [
+            ["ack", "Command execution", {"NAK": "Failed", "ACK": "Successful"}]
+        ],
+        "test_responses": [
+            b"(NAK\x73\x73\r",
+            b"(ACK\x39\x20\r",
+        ],
+        "regex": "PBT(0[012])$"
+    },
+    'PCP': {
+        "name": "PCP",
+        "description": "Set Device Charger Priority",
+        "help": " -- examples: PCP00 (set utility first), PCP01 (set solar first), PCP02 (HS only: set solar and utility), PCP03 (set solar only charging)",
+        "type": "SETTER",
+        "response": [
+            ["ack", "Command execution", {"NAK": "Failed", "ACK": "Successful"}]
+        ],
+        "test_responses": [
+            b"(NAK\x73\x73\r",
+            b"(ACK\x39\x20\r",
+        ],
+        "regex": "PCP(0[0123])$",
+    },
+    'PCVV': {
+        "name": "PCVV",
+        "description": "Set Battery C.V. (constant voltage) charging voltage",
+        "help": " -- example PCVV48.0 - set charging voltage to 48V (48.0 - 58.4V for 48V unit)",
+        "type": "SETTER",
+        "response": [
+                ["ack", "Command execution", {"NAK": "Failed", "ACK": "Successful"}]
+        ],
+        "test_responses": [
+            b"(NAK\x73\x73\r",
+            b"(ACK\x39\x20\r",
+        ],
+        "regex": "PCVV(\\d\\d\\.\\d)$",
+    },
+    'PEPD': {
+        "name": "PEPD",
+        "description": "Set the enabled / disabled state of various Inverter settings (e.g. buzzer, overload, interrupt alarm)",
+        "help": " -- examples: PEABJ/PDKUVXYZ (enable A buzzer, B overload bypass, J power saving / disable K LCD go to default after 1min, U overload restart, V overtemp restart, X backlight, Y alarm on primary source interrupt, Z fault code record)",
+        "type": "SETTER",
+        "response": [
+            ["ack", "Command execution", {"NAK": "Failed", "ACK": "Successful"}]
+        ],
+        "test_responses": [
+            b"(NAK\x73\x73\r",
+            b"(ACK\x39\x20\r",
+        ],
+        "regex": "PE(.*)/PD(.*)$",
+    },
     'QPGS': {
         "name": "QPGS",
         "description": "Parallel Information inquiry",
         "help": " -- example: QPGS1 queries the values of various metrics from instance 1 of parallel setup Inverters (numbers from 0)",
         "type": "QUERY",
-        "nosupports": ["LV5048"],
         "response": [
                 ["option", "Parallel instance number", ["Not valid", "valid"]],
                 ["string", "Serial number", ""],
@@ -167,6 +244,65 @@ REGEX_COMMANDS = {
         ],
         "regex": "QPGS(\\d)$",
     },
+    'QPI': {
+        "name": "QPI",
+        "description": "Protocol ID inquiry",
+        "help": " -- queries the device protocol ID. e.g. PI30 for HS series",
+        "type": "QUERY",
+        "response": [
+            ["string", "Protocol ID", ""],
+        ],
+        "test_responses": [
+            b"(PI30\x9a\x0b\r",
+        ],
+        "regex": "",
+    },
+    'QPIGS': {
+        "name": "QPIGS",
+        "description": "General Status Parameters inquiry",
+        "help": " -- queries the value of various metrics from the Inverter",
+        "type": "QUERY",
+        "response": [
+            ["float", "AC Input Voltage", "V"],
+            ["float", "AC Input Frequency", "Hz"],
+            ["float", "AC Output Voltage", "V"],
+            ["float", "AC Output Frequency", "Hz"],
+            ["int", "AC Output Apparent Power", "VA"],
+            ["int", "AC Output Active Power", "W"],
+            ["int", "AC Output Load", "%"],
+            ["int", "BUS Voltage", "V"],
+            ["float", "Battery Voltage", "V"],
+            ["int", "Battery Charging Current", "A"],
+            ["int", "Battery Capacity", "%"],
+            ["int", "Inverter Heat Sink Temperature", "Deg_C"],
+            ["float", "PV Input Current for Battery", "A"],
+            ["float", "PV Input Voltage", "V"],
+            ["float", "Battery Voltage from SCC", "V"],
+            ["int", "Battery Discharge Current", "A"],
+            ["flags", "Device Status", [
+                "is_sbu_priority_version_added",
+                "is_configuration_changed",
+                "is_scc_firmware_updated",
+                "is_load_on",
+                "is_battery_voltage_to_steady_while_charging",
+                "is_charging_on",
+                "is_scc_charging_on",
+                "is_ac_charging_on"]
+             ],
+            ["int", "RSV1", "A"],
+            ["int", "RSV2", "A"],
+            ["int", "PV Input Power", "W"],
+            ["flags", "Device Status2", [
+                "is_charging_to_float",
+                "is_switched_on",
+                "is_reserved"]
+             ],
+        ],
+        "test_responses": [
+            b"(000.0 00.0 230.0 49.9 0161 0119 003 460 57.50 012 100 0069 0014 103.8 57.45 00000 00110110 00 00 00856 010\x24\x8c\r",
+        ],
+        "regex": "",
+    },
 }
 
 
@@ -189,7 +325,7 @@ class pi30(AbstractProtocol):
         if command in COMMANDS:
             log.debug(f'Found command {self.__command} in protocol {self._protocol_id}')
             return COMMANDS[command]
-        for _command in REGEX_COMMANDS:
+        for _command in COMMANDS:
             log.debug(f'Regex commands _command: {_command}')
             if 'regex' in REGEX_COMMANDS[_command] and REGEX_COMMANDS[_command]['regex']:
                 _re = re.compile(REGEX_COMMANDS[_command]['regex'])
