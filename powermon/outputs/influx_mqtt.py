@@ -14,13 +14,6 @@ class influx_mqtt():
         if data is None:
             return
 
-        # TODO: complete influx output processor
-        # print(f"{'Parameter':<30}\t{'Value':<15} Unit")
-        # for key in _data:
-        #    value = _data[key][0]
-        #    unit = _data[key][1]
-        #    print(f'{key:<30}\t{value:<15}\t{unit:<4}')
-
         # Build array of Influx Line Protocol messages
         msgs = []
         # Loop through responses
