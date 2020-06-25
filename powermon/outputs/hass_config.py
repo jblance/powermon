@@ -24,7 +24,7 @@ class hass_config():
             # topic "homeassistant/binary_sensor/garden/config"
             # msg '{"name": "garden", "device_class": "motion", "state_topic": "homeassistant/binary_sensor/garden/state", "unit_of_measurement": "°C"}'
             topic = f'homeassistant/sensor/{tag}/{key}/config'
-            payload = f"{'name': '{key}', 'state_topic': 'homeassistant/sensor/{key}/state', 'unit_of_measurement': '{unit}'}"
+            payload = f'{{{"name": "{key}", "state_topic": "homeassistant/sensor/{key}/state", "unit_of_measurement": "{unit}"}}}'
             msg = {'topic': topic, 'payload': payload}
             msgs.append(msg)
         # publish.multiple(msgs, hostname=mqtt_broker)
