@@ -160,6 +160,223 @@ COMMANDS = {
         ],
         "regex": "PE(.*)/PD(.*)$",
     },
+    'PF': {
+        "name": "PF",
+        "description": "Set Control Parameters to Default Values",
+        "help": " -- example PF (reset control parameters to defaults)",
+        "type": "SETTER",
+        "response": [
+            ["ack", "Command execution", {"NAK": "Failed", "ACK": "Successful"}]
+        ],
+        "test_responses": [
+            b"(NAK\x73\x73\r",
+            b"(ACK\x39\x20\r",
+        ],
+        "regex": ""
+    },
+    'PGR': {
+        "name": "PGR",
+        "description": "Set Grid Working Range",
+        "help": " -- examples: PCR00 (set device working range to appliance), PCR01 (set device working range to UPS)",
+        "type": "SETTER",
+        "response": [
+            ["ack", "Command execution", {"NAK": "Failed", "ACK": "Successful"}]
+        ],
+        "test_responses": [
+            b"(NAK\x73\x73\r",
+            b"(ACK\x39\x20\r",
+        ],
+        "regex": "PGR(0[01])$",
+    },
+    'POP': {
+        "name": "POP",
+        "description": "Set Device Output Source Priority",
+        "help": " -- examples: POP00 (set utility first), POP01 (set solar first), POP02 (set SBU priority)",
+        "type": "SETTER",
+        "response": [
+            ["ack", "Command execution", {"NAK": "Failed", "ACK": "Successful"}]
+        ],
+        "test_responses": [
+            b"(NAK\x73\x73\r",
+            b"(ACK\x39\x20\r",
+        ],
+        "regex": "POP(0[012])$",
+    },
+    'POPM': {
+        "name": "POPM",
+        "description": "Set Device Output Mode (for 4000/5000)",
+        "help": " -- examples: POPM01 (set unit 0 to 1 - parallel output), POPM10 (set unit 1 to 0 - single machine output), POPM02 (set unit 0 to 2 - phase 1 of 3), POPM13 (set unit 1 to 3 - phase 2 of 3), POPM24 (set unit 2 to 4 - phase 3 of 3)",
+        "type": "SETTER",
+        "response": [
+            ["ack", "Command execution", {"NAK": "Failed", "ACK": "Successful"}]
+        ],
+        "test_responses": [
+            b"(NAK\x73\x73\r",
+            b"(ACK\x39\x20\r",
+        ],
+        "regex": "POPM(\\d[01234])$",
+    },
+    'PPCP': {
+        "name": "PPCP",
+        "description": "Set Parallel Device Charger Priority (for 4000/5000)",
+        "help": " -- examples: PPCP000 (set unit 1 to 00 - utility first), PPCP101 (set unit 1 to 01 - solar first), PPCP202 (set unit 2 to 02 - solar and utility), PPCP003 (set unit 0 to 03 - solar only charging)",
+        "type": "SETTER",
+        "response": [
+            ["ack", "Command execution", {"NAK": "Failed", "ACK": "Successful"}]
+        ],
+        "test_responses": [
+            b"(NAK\x73\x73\r",
+            b"(ACK\x39\x20\r",
+        ],
+        "regex": "PPCP(\\d0[0123])$",
+    },
+    'PPVOKC': {
+        "name": "PPVOKC",
+        "description": "Set PV OK Condition",
+        "help": " -- examples: PPVOKC0 (as long as one unit has connected PV, parallel system will consider PV OK), PPVOKC1 (only if all inverters have connected PV, parallel system will consider PV OK)",
+        "type": "SETTER",
+        "response": [
+            ["ack", "Command execution", {"NAK": "Failed", "ACK": "Successful"}]
+        ],
+        "test_responses": [
+            b"(NAK\x73\x73\r",
+            b"(ACK\x39\x20\r",
+        ],
+        "regex": "PPVOKC([01])$",
+    },
+    'PSDV': {
+        "name": "PSDV",
+        "description": "Set Battery Cut-off Voltage",
+        "help": " -- example PSDV40.0 - set battery cut-off voltage to 40V (40.0 - 48.0V for 48V unit)",
+        "type": "SETTER",
+        "response": [
+                ["ack", "Command execution", {"NAK": "Failed", "ACK": "Successful"}]
+        ],
+        "test_responses": [
+            b"(NAK\x73\x73\r",
+            b"(ACK\x39\x20\r",
+        ],
+        "regex": "PSDV(\\d\\d\\.\\d)$",
+    },
+    'PSPB': {
+        "name": "PSPB",
+        "description": "Set Solar Power Balance",
+        "help": " -- examples: PSPB0 (PV input max current will be the max charged current), PSPB1 (PV input max power will be the sum of the max charge power and loads power)",
+        "type": "SETTER",
+        "response": [
+            ["ack", "Command execution", {"NAK": "Failed", "ACK": "Successful"}]
+        ],
+        "test_responses": [
+            b"(NAK\x73\x73\r",
+            b"(ACK\x39\x20\r",
+        ],
+        "regex": "PSPB([01])$",
+    },
+    'Q1': {
+        "name": "Q1",
+        "description": "Q1 query",
+        "type": "QUERY",
+        "response": [
+                ["int", "Time until the end of absorb charging", "sec"],
+                ["int", "Time until the end of float charging", "sec"],
+                ["option", "SCC Flag", ["SCC not communicating?", "SCC is powered and communicating"]],
+                ["string", "AllowSccOnFlag", ""],
+                ["string", "ChargeAverageCurrent", ""],
+                ["int", "SCC PWM temperature", "Deg_C"],
+                ["int", "Inverter temperature", "Deg_C"],
+                ["int", "Battery temperature", "Deg_C"],
+                ["int", "Transformer temperature", "Deg_C"],
+                ["int", "GPIO13", ""],
+                ["option", "Fan lock status", ["Not locked", "Locked"]],
+                ["string", "Not used", ""],
+                ["int", "Fan PWM speed", "Percent"],
+                ["int", "SCC charge power", "W"],
+                ["string", "Parallel Warning??", ""],
+                ["float", "Sync frequency", ""],
+                ["keyed", "Inverter charge status", {"10": "nocharging", "11": "bulk stage", "12": "absorb", "13": "float"}]
+        ],
+        "test_responses": [
+            b"(00000 00000 01 01 00 059 045 053 068 00 00 000 0040 0580 0000 50.00 13\x39\xB9\r",
+        ],
+        "regex": "",
+    },
+    'QBOOT': {
+        "name": "QBOOT",
+        "description": "DSP Has Bootstrap inquiry",
+        "type": "QUERY",
+        "response": [
+                ["option", "DSP Has Bootstrap", ["No", "Yes"]]
+        ],
+        "test_responses": [
+            "",
+        ],
+        "regex": "",
+    },
+    'QDI': {
+        "name": "QDI",
+        "description": "Default Settings inquiry",
+        "help": " -- queries the default settings from the Inverter",
+        "type": "QUERY",
+        "response": [
+                ["float", "AC Output Voltage", "V"],
+                ["float", "AC Output Frequency", "Hz"],
+                ["int", "Max AC Charging Current", "A"],
+                ["float", "Battery Under Voltage", "V"],
+                ["float", "Battery Float Charge Voltage", "V"],
+                ["float", "Battery Bulk Charge Voltage", "V"],
+                ["float", "Battery Recharge Voltage", "V"],
+                ["int", "Max Charging Current", "A"],
+                ["option", "Input Voltage Range", ["Appliance", "UPS"]],
+                ["option", "Output Source Priority", ["Utility first", "Solar first", "SBU first"]],
+                ["option", "Charger Source Priority", ["Utility first", "Solar first", "Solar + Utility", "Only solar charging permitted"]],
+                ["option", "Battery Type", ["AGM", "Flooded", "User"]],
+                ["option", "Buzzer", ["enabled", "disabled"]],
+                ["option", "Power saving", ["disabled", "enabled"]],
+                ["option", "Overload restart", ["disabled", "enabled"]],
+                ["option", "Over temperature restart", ["disabled", "enabled"]],
+                ["option", "LCD Backlight", ["disabled", "enabled"]],
+                ["option", "Primary source interrupt alarm", ["disabled", "enabled"]],
+                ["option", "Record fault code", ["disabled", "enabled"]],
+                ["option", "Overload bypass", ["disabled", "enabled"]],
+                ["option", "LCD reset to default", ["disabled", "enabled"]],
+                ["option", "Output mode", ["single machine output",
+                                           "parallel output",
+                                           "Phase 1 of 3 Phase output",
+                                           "Phase 2 of 3 Phase output",
+                                           "Phase 3 of 3 Phase output"]],
+                ["float", "Battery Redischarge Voltage", "V"],
+                ["option", "PV OK condition", ["As long as one unit of inverters has connect PV, parallel system will consider PV OK",
+                                               "Only All of inverters have connect PV, parallel system will consider PV OK"]],
+                ["option", "PV Power Balance", ["PV input max current will be the max charged current",
+                                                "PV input max power will be the sum of the max charged power and loads power"]]
+        ],
+        "test_responses": [
+            b"(230.0 50.0 0030 42.0 54.0 56.4 46.0 60 0 0 2 0 0 0 0 0 1 1 0 0 1 0 54.0 0 1 000\x9E\x60\r",
+        ],
+        "regex": "",
+    },
+    'QFLAG': {
+        "name": "QFLAG",
+        "description": "Flag Status inquiry",
+        "help": " -- queries the enabled / disabled state of various Inverter settings (e.g. buzzer, overload, interrupt alarm)",
+        "type": "QUERY",
+        "response": [
+            ["enflags", "Device Status", {"a": {"name": "Buzzer", "state": "disabled"},
+                                          "b": {"name": "Overload Bypass", "state": "disabled"},
+                                          "j": {"name": "Power Saving", "state": "disabled"},
+                                          "k": {"name": "LCD Reset to Default", "state": "disabled"},
+                                          "u": {"name": "Overload Restart", "state": "disabled"},
+                                          "v": {"name": "Over Temperature Restart", "state": "disabled"},
+                                          "x": {"name": "LCD Backlight", "state": "disabled"},
+                                          "y": {"name": "Primary Source Interrupt Alarm", "state": "disabled"},
+                                          "z": {"name": "Record Fault Code", "state": "disabled"}}]
+        ],
+        "test_responses": [
+            b"(EakxyDbjuvz\x2F\x29\r",
+        ],
+        "regex": "",
+    },
+
     'QPGS': {
         "name": "QPGS",
         "description": "Parallel Information inquiry",
@@ -353,7 +570,7 @@ class pi30(AbstractProtocol):
         # No response
         if response is None:
             log.info('No response')
-            msgs['error'] = ['No response', '']
+            msgs['ERROR'] = ['No response', '']
             return msgs
 
         # Raw response requested
@@ -365,16 +582,15 @@ class pi30(AbstractProtocol):
         # Check for a stored command definition
         if not self.__command_defn:
             # No definiution, so just return the data
+            len_command_defn = 0
             log.debug(f'No definition for command {self.__command}, raw response returned')
-            # TODO: possibly return something better (maybe a dict with 'value_1 etc?')
-            msgs['raw_response'] = [response[1:-3], '']
-            msgs['error'] = [f'No definition for command {self.__command} in protocol {self._protocol_id}', '']
-            return msgs
-
+            msgs['ERROR'] = [f'No definition for command {self.__command} in protocol {self._protocol_id}', '']
+        else:
+            len_command_defn = len(self.__command_defn['response'])
         # Decode response based on stored command definition
         # if not self.is_response_valid(response):
         #    log.info('Invalid response')
-        #    msgs['error'] = ['Invalid response', '']
+        #    msgs['ERROR'] = ['Invalid response', '']
         #    msgs['response'] = [response, '']
         #    return msgs
 
@@ -389,7 +605,7 @@ class pi30(AbstractProtocol):
             # decode result
             result = result.decode('utf-8')
             # Check if we are past the 'known' responses
-            if (i >= len(self.__command_defn['response'])):
+            if i >= len_command_defn:
                 resp_format = ['string', f'Unknown value in response {i}', '']
             else:
                 resp_format = self.__command_defn['response'][i]
