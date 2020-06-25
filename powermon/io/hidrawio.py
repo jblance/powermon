@@ -17,8 +17,7 @@ class HIDRawIO(BaseIO):
         full_command = protocol.get_full_command(command, show_raw)
         log.info(f'full command {full_command} for command {command}')
 
-        # response_line = bytes()
-        response_line = ''
+        response_line = bytes()
         usb0 = None
         try:
             usb0 = os.open(self._serial_device, os.O_RDWR | os.O_NONBLOCK)
