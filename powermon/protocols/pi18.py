@@ -79,7 +79,7 @@ COMMANDS = {
                 ["int", "Local parallel ID", ""]
         ],
         "test_responses": [
-            b"",
+            b'D1062232,499,2232,499,0971,0710,019,008,000,000,000,000,000,044,000,000,0520,0000,1941,0000,0,2,0,1,0,2,1,0',
         ],
         "regex": "",
     },
@@ -126,6 +126,7 @@ class pi18(AbstractProtocol):
         super().__init__()
         self._protocol_id = b'PI18'
         log.info(f'Using protocol {self._protocol_id}')
+        print(self.crc(b'D1062232,499,2232,499,0971,0710,019,008,000,000,000,000,000,044,000,000,0520,0000,1941,0000,0,2,0,1,0,2,1,0'))
 
     def set_command(self, command, show_raw=None) -> None:
         # Called from get_full_command
