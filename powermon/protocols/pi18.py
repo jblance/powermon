@@ -126,7 +126,6 @@ class pi18(AbstractProtocol):
         super().__init__()
         self._protocol_id = b'PI18'
         log.info(f'Using protocol {self._protocol_id}')
-        print(COMMANDS)
 
     def set_command(self, command, show_raw=None) -> None:
         # Called from get_full_command
