@@ -2,9 +2,123 @@ import logging
 import re
 
 from .protocol import AbstractProtocol
-from .pi30 import COMMANDS
+# from .pi30 import COMMANDS
 
 log = logging.getLogger('powermon')
+
+COMMANDS = {
+    'ET': {
+        "name": "ET",
+        "prefix": "^P005",
+        "description": "Total Generated Energy query",
+        "help": " -- Query total generated energy",
+        "type": "QUERY",
+        "supports": ["PI18"],
+        "response": [
+                ["int", "Total generated energy", "KWh"]
+        ],
+        "test_responses": [
+            b"",
+        ],
+        "regex": "",
+    },
+    'GS': {
+        "name": "GS",
+        "prefix": "^P005",
+        "description": "General status query",
+        "help": " -- Query general status information",
+        "type": "QUERY",
+        "supports": ["PI18"],
+        "response": [
+                ["10int", "Grid voltage", "V"],
+                ["10int", "Grid frequency", "Hz"],
+                ["10int", "AC output voltage", "V"],
+                ["10int", "AC output frequency", "Hz"],
+                ["int", "AC output apparent power", "VA"],
+                ["int", "AC output active power", "W"],
+                ["int", "Output load percent", "%"],
+                ["10int", "Battery voltage", "V"],
+                ["10int", "Battery voltage from SCC", "V"],
+                ["10int", "Battery voltage from SCC2", "V"],
+                ["int", "Battery discharge current", "A"],
+                ["int", "Battery charging current", "A"],
+                ["int", "Battery capacity", "%"],
+                ["int", "Inverter heat sink temperature", "oC"],
+                ["int", "MPPT1 charger temperature", "oC"],
+                ["int", "MPPT2 charger temperature", "oC"],
+                ["int", "PV1 Input power", "W"],
+                ["int", "PV2 Input power", "W"],
+                ["10int", "PV1 Input voltage", "V"],
+                ["10int", "PV2 Input voltage", "V"],
+                ["option", "Setting value configuration state",
+                           ["Nothing changed",
+                            "Something changed"]],
+                ["option", "MPPT1 charger status",
+                           ["abnormal",
+                            "normal but not charged",
+                            "charging"]],
+                ["option", "MPPT2 charger status",
+                           ["abnormal",
+                            "normal but not charged",
+                            "charging"]],
+                ["option", "Load connection",
+                           ["disconnect",
+                            "connect"]],
+                ["option", "Battery power direction",
+                           ["donothing",
+                            "charge",
+                            "discharge"]],
+                ["option", "DC/AC power direction",
+                           ["donothing",
+                            "AC-DC",
+                            "DC-AC"]],
+                ["option", "Line power direction",
+                           ["donothing",
+                            "input",
+                            "output"]],
+                ["int", "Local parallel ID", ""]
+        ],
+        "test_responses": [
+            b"",
+        ],
+        "regex": "",
+    },
+    'MOD': {
+        "name": "MOD",
+        "prefix": "^P006",
+        "description": "Working mode query",
+        "help": " -- Query the working mode",
+        "type": "QUERY",
+        "supports": ["PI18"],
+        "response": [
+                ["option", "Working mode", ["Power on mode",
+                                            "Standby mode",
+                                            "Bypass mode",
+                                            "Battery mode",
+                                            "Fault mode",
+                                            "Hybrid mode(Line mode, Grid mode)"]]
+        ],
+        "test_responses": [
+            b"",
+        ],
+        "regex": "",
+    },
+    'PI': {
+        "name": "PI",
+        "prefix": "^P005",
+        "description": "Device Protocol Version inquiry",
+        "help": " -- queries the device protocol version",
+        "type": "QUERY",
+        "supports": ["PI18"],
+        "response": [
+                ["string", "Protocol Version", ""]
+        ],
+        "test_responses": [
+            b"",
+        ],
+        "regex": "",
+    },
+}
 
 
 class pi18(AbstractProtocol):
@@ -41,11 +155,14 @@ class pi18(AbstractProtocol):
 
     def get_full_command(self, command, show_raw) -> bytes:
         self.set_command(command, show_raw)
-        byte_cmd = bytes(self.__command, 'utf-8')
+        _cmd = bytes(self.__command, 'utf-8')
+        _type = self.__command_defn['type']
+        print(_type)
         # calculate the CRC
-        crc_high, crc_low = self.crc(byte_cmd)
+        crc_high, crc_low = self.crc(_cmd)
         # combine byte_cmd, CRC , return
-        full_command = byte_cmd + bytes([crc_high, crc_low, 13])
+        # PI18 full command "^P005GS\x..\x..\r"
+        full_command = _cmd + bytes([crc_high, crc_low, 13])
         log.debug(f'full command: {full_command}')
         return full_command
 
