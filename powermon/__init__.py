@@ -54,6 +54,6 @@ def main():
     # TODO: send to output processor
     print(f"{'Parameter':<30}\t{'Value':<15} Unit")
     for key in results:
-        value = results[key][0].decode('utf-8')
-        unit = results[key][1].decode('utf-8')
+        value = results[key][0]
+        unit = results[key][1]
         print(f'{key:<30}\t{value:<15}\t{unit:<4}')
