@@ -40,7 +40,7 @@ class AbstractProtocol(metaclass=abc.ABCMeta):
         log.info(f'No command_defn found for {command}')
         return None
 
-    def get_responses(self, response):
+    def get_responses(self, response) -> list:
         '''
         Default implementation of split and trim
         '''
@@ -49,6 +49,7 @@ class AbstractProtocol(metaclass=abc.ABCMeta):
         responses[0] = responses[0][1:]
         # Remove CRC of last response
         responses[-1] = responses[-1][:-3]
+        return responses
 
     def decode(self, response) -> dict:
         msgs = {}
