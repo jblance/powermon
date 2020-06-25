@@ -95,7 +95,7 @@ class AbstractProtocol(metaclass=abc.ABCMeta):
                 resp_format = self._command_defn['response'][i]
 
             key = '{}'.format(resp_format[1]).lower().replace(" ", "_")
-            # log.debug(f'result {result}, key {key}, resp_format {resp_format}')
+            log.debug(f'result {result}, key {key}, resp_format {resp_format}')
             # Process results
             if (resp_format[0] == 'float'):
                 msgs[key] = [float(result), resp_format[2]]
