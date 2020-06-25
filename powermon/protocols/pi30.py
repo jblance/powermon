@@ -376,7 +376,75 @@ COMMANDS = {
         ],
         "regex": "",
     },
-
+    'QID': {
+        "name": "QID",
+        "description": "Device Serial Number inquiry",
+        "help": " -- queries the device serial number",
+        "type": "QUERY",
+        "response": [
+                ["string", "Serial Number", ""]
+        ],
+        "test_responses": [
+            b"(9293333010501\xBB\x07\r",
+        ],
+        "regex": "",
+    },
+    'QMCHGCR': {
+        "name": "QMCHGCR",
+        "description": "Max Charging Current Options inquiry",
+        "help": " -- queries the maximum charging current setting of the Inverter",
+        "type": "QUERY",
+        "response": [
+                ["string", "Max Charging Current", "A"]
+        ],
+        "test_responses": [
+            b"",
+        ],
+        "regex": "",
+    },
+    'QMOD': {
+        "name": "QMOD",
+        "description": "Mode inquiry",
+        "help": " -- queries the Inverter mode",
+        "type": "QUERY",
+        "response": [
+            ["keyed", "Device Mode", {"P": "Power on", "S": "Standby", "L": "Line", "B": "Battery", "F": "Fault", "H": "Power saving"}]
+        ],
+        "test_responses": [
+            b"(S\x64\x39\r",
+        ],
+        "regex": "",
+    },
+    'QMUCHGCR': {
+        "name": "QMUCHGCR",
+        "description": "Max Utility Charging Current Options inquiry",
+        "help": " -- queries the maximum utility charging current setting of the Inverter",
+        "type": "QUERY",
+        "response": [
+                ["string", "Max Utility Charging Current", "A"]
+        ],
+        "test_responses": [
+            b"",
+        ],
+        "regex": "",
+    },
+    'QOPM': {
+        "name": "QOPM",
+        "description": "Output Mode inquiry",
+        "help": " -- queries the output mode of the Inverter (e.g. single, parallel, phase 1 of 3 etc)",
+        "type": "QUERY",
+        "response": [
+            ["option", "Output mode", ["single machine output",
+                                       "parallel output",
+                                       "Phase 1 of 3 Phase output",
+                                       "Phase 2 of 3 Phase output",
+                                       "Phase 3 of 3 Phase output"]]
+        ],
+        "test_responses": [
+            b"",
+        ],
+        "regex": "",
+    },
     'QPGS': {
         "name": "QPGS",
         "description": "Parallel Information inquiry",
@@ -520,6 +588,121 @@ COMMANDS = {
         ],
         "regex": "",
     },
+    'QPIRI': {
+        "name": "QPIRI",
+        "description": "Current Settings inquiry",
+        "help": " -- queries the current settings from the Inverter",
+        "type": "QUERY",
+        "nosupports": ["LV5048"],
+        "response": [
+                ["float", "AC Input Voltage", "V"],
+                ["float", "AC Input Current", "A"],
+                ["float", "AC Output Voltage", "V"],
+                ["float", "AC Output Frequency", "Hz"],
+                ["float", "AC Output Current", "A"],
+                ["int", "AC Output Apparent Power", "VA"],
+                ["int", "AC Output Active Power", "W"],
+                ["float", "Battery Voltage", "V"],
+                ["float", "Battery Recharge Voltage", "V"],
+                ["float", "Battery Under Voltage", "V"],
+                ["float", "Battery Bulk Charge Voltage", "V"],
+                ["float", "Battery Float Charge Voltage", "V"],
+                ["option", "Battery Type", ["AGM", "Flooded", "User"]],
+                ["int", "Max AC Charging Current", "A"],
+                ["int", "Max Charging Current", "A"],
+                ["option", "Input Voltage Range", ["Appliance", "UPS"]],
+                ["option", "Output Source Priority", ["Utility first", "Solar first", "SBU first"]],
+                ["option", "Charger Source Priority", ["Utility first", "Solar first", "Solar + Utility", "Only solar charging permitted"]],
+                ["int", "Max Parallel Units", "units"],
+                ["keyed", "Machine Type", {"00": "Grid tie", "01": "Off Grid", "10": "Hybrid"}],
+                ["option", "Topology", ["transformerless", "transformer"]],
+                ["option", "Output Mode", ["single machine output",
+                                           "parallel output",
+                                           "Phase 1 of 3 Phase output",
+                                           "Phase 2 of 3 Phase output",
+                                           "Phase 3 of 3 Phase output"]],
+                ["float", "Battery Redischarge Voltage", "V"],
+                ["option", "PV OK Condition", ["As long as one unit of inverters has connect PV, parallel system will consider PV OK",
+                                               "Only All of inverters have connect PV, parallel system will consider PV OK"]],
+                ["option", "PV Power Balance", ["PV input max current will be the max charged current",
+                                                "PV input max power will be the sum of the max charged power and loads power"]]
+        ],
+        "test_responses": [
+            b"(230.0 21.7 230.0 50.0 21.7 5000 4000 48.0 46.0 42.0 56.4 54.0 0 10 010 1 0 0 6 01 0 0 54.0 0 1\x6F\x7E\r",
+        ],
+        "regex": "",
+    },
+    'QPIWS': {
+        "name": "QPIWS",
+        "description": "Warning status inquiry",
+        "help": " -- queries any active warnings flags from the Inverter",
+        "type": "QUERY",
+        "response": [
+            ["stat_flags", "Warning status", [
+                "Reserved",
+                "Inverter fault",
+                "Bus over fault",
+                "Bus under fault",
+                "Bus soft fail fault",
+                "Line fail warning",
+                "OPV short warning",
+                "Inverter voltage too low fault",
+                "Inverter voltage too high fault",
+                "Over temperature fault",
+                "Fan locked fault",
+                "Battery voltage to high fault",
+                "Battery low alarm warning",
+                "Reserved",
+                "Battery under shutdown warning",
+                "Reserved",
+                "Overload fault",
+                "EEPROM fault",
+                "Inverter over current fault",
+                "Inverter soft fail fault",
+                "Self test fail fault",
+                "OP DC voltage over fault",
+                "Bat open fault",
+                "Current sensor fail fault",
+                "Battery short fault",
+                "Power limit warning",
+                "PV voltage high warning",
+                "MPPT overload fault",
+                "MPPT overload warning",
+                "Battery too low to charge warning",
+                "Reserved",
+                "Reserved"]]
+        ],
+        "test_responses": [
+            b"(00000100000000000000000000000000\xFE\x82\r",
+        ],
+        "regex": "",
+    },
+    'QVFW': {
+        "name": "QVFW",
+        "description": "Main CPU firmware version inquiry",
+        "help": " -- queries the main CPU firmware version",
+        "type": "QUERY",
+        "response": [
+                ["string", "Main CPU firmware version", ""]
+        ],
+        "test_responses": [
+            b"(VERFW:00072.70\x53\xA7\r",
+        ],
+        "regex": "",
+    },
+    'QVFW2': {
+        "name": "QVFW2",
+        "description": "Secondary CPU firmware version inquiry",
+        "help": " -- queries the secondary CPU firmware version",
+        "type": "QUERY",
+        "response": [
+            ["string", "Secondary CPU firmware version", ""]
+        ],
+        "test_responses": [
+            b"",
+        ],
+        "regex": "",
+    },
 }
 
 
@@ -543,8 +726,8 @@ class pi30(AbstractProtocol):
             log.debug(f'Found command {self.__command} in protocol {self._protocol_id}')
             return COMMANDS[command]
         for _command in COMMANDS:
-            log.debug(f'Regex commands _command: {_command}')
             if 'regex' in COMMANDS[_command] and COMMANDS[_command]['regex']:
+                log.debug(f'Regex commands _command: {_command}')
                 _re = re.compile(COMMANDS[_command]['regex'])
                 match = _re.match(command)
                 if match:
