@@ -49,7 +49,7 @@ def main():
 
     # run command or called helper function
     results = device.run_command(command=args.command, show_raw=args.show_raw)
-
+    log.debug(f'result: {results}')
     # just print for now
     # TODO: send to output processor
     print(f"{'Parameter':<30}\t{'Value':<15} Unit")
