@@ -27,10 +27,10 @@ class SerialIO(BaseIO):
                     s.write_timeout = 1 + x
                     s.flushInput()
                     s.flushOutput()
-                    s.write(command.byte_command)
+                    s.write(full_command)
                     time.sleep(0.5 * x)  # give serial port time to receive the data
                     response_line = s.readline()
-                    log.debug('serial byte_response was: %s', response_line)
+                    log.debug('serial response was: %s', response_line)
                     return response_line
         except Exception as e:
             log.warning(f"Serial read error: {e}")
