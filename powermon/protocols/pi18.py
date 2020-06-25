@@ -164,7 +164,7 @@ class pi18(AbstractProtocol):
         command_crc = _cmd + bytes([crc_high, crc_low, 13])
         if _type == 'QUERY':
             _prefix = f'^P{len(command_crc):03}'
-            full_command = bytes(_prefix, 'utf-8' + command_crc)
+            full_command = bytes(_prefix, 'utf-8') + command_crc
         log.debug(f'full command: {full_command}')
         return full_command
 
