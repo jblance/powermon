@@ -6,7 +6,7 @@ log = logging.getLogger('powermon')
 
 
 class AbstractProtocol(metaclass=abc.ABCMeta):
-    def __init(self, *args, **kwargs) -> None:
+    def __init__(self, *args, **kwargs) -> None:
         self.__command = None
         self.__command_dict = None
         self.__show_raw = None
