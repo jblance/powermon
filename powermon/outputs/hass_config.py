@@ -27,5 +27,4 @@ class hass_config():
             payload = f'{{"name": "pm_{tag}_{key}", "state_topic": "homeassistant/sensor/pm_{tag}_{key}/state", "unit_of_measurement": "{unit}"}}'
             msg = {'topic': topic, 'payload': payload}
             msgs.append(msg)
-        # publish.multiple(msgs, hostname=mqtt_broker)
-        print(msgs)
+        publish.multiple(msgs, hostname=mqtt_broker)
