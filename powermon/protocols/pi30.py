@@ -327,13 +327,13 @@ class pi30(AbstractProtocol):
             return COMMANDS[command]
         for _command in COMMANDS:
             log.debug(f'Regex commands _command: {_command}')
-            if 'regex' in REGEX_COMMANDS[_command] and REGEX_COMMANDS[_command]['regex']:
-                _re = re.compile(REGEX_COMMANDS[_command]['regex'])
+            if 'regex' in COMMANDS[_command] and COMMANDS[_command]['regex']:
+                _re = re.compile(COMMANDS[_command]['regex'])
                 match = _re.match(command)
                 if match:
-                    log.debug(f"Matched: {command} to: {REGEX_COMMANDS[_command]['name']} value: {match.group(1)}")
+                    log.debug(f"Matched: {command} to: {COMMANDS[_command]['name']} value: {match.group(1)}")
                     self.__command_value = match.group(1)
-                    return REGEX_COMMANDS[_command]
+                    return COMMANDS[_command]
         log.info(f'No command_defn found for {command}')
         return None
 
