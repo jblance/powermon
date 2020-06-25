@@ -1,15 +1,18 @@
 import abc
 import ctypes
 import logging
+import re
 
 log = logging.getLogger('powermon')
+
+COMMANDS = {}
 
 
 class AbstractProtocol(metaclass=abc.ABCMeta):
     def __init__(self, *args, **kwargs) -> None:
-        self.__command = None
-        self.__command_dict = None
-        self.__show_raw = None
+        self._command = None
+        self._command_dict = None
+        self._show_raw = None
 
     def get_protocol_id(self) -> bytes:
         return self._protocol_id
@@ -18,9 +21,24 @@ class AbstractProtocol(metaclass=abc.ABCMeta):
     def get_full_command(self, command, show_raw):
         raise NotImplementedError
 
-    @abc.abstractmethod
     def get_command_defn(self, command) -> dict:
-        raise NotImplementedError
+        log.debug(f'get_command_defn for: {command}')
+        if self._command is None:
+            return None
+        if command in COMMANDS:
+            log.debug(f'Found command {self._command} in protocol {self._protocol_id}')
+            return COMMANDS[command]
+        for _command in COMMANDS:
+            if 'regex' in COMMANDS[_command] and COMMANDS[_command]['regex']:
+                log.debug(f'Regex commands _command: {_command}')
+                _re = re.compile(COMMANDS[_command]['regex'])
+                match = _re.match(command)
+                if match:
+                    log.debug(f"Matched: {command} to: {COMMANDS[_command]['name']} value: {match.group(1)}")
+                    self._command_value = match.group(1)
+                    return COMMANDS[_command]
+        log.info(f'No command_defn found for {command}')
+        return None
 
     def get_responses(self, response):
         '''
@@ -42,19 +60,19 @@ class AbstractProtocol(metaclass=abc.ABCMeta):
             return msgs
 
         # Raw response requested
-        if self.__show_raw:
+        if self._show_raw:
             log.debug(f'Protocol "{self._protocol_id}" raw response requested')
             msgs['raw_response'] = [response, '']
             return msgs
 
         # Check for a stored command definition
-        if not self.__command_defn:
+        if not self._command_defn:
             # No definiution, so just return the data
             len_command_defn = 0
-            log.debug(f'No definition for command {self.__command}, raw response returned')
-            msgs['ERROR'] = [f'No definition for command {self.__command} in protocol {self._protocol_id}', '']
+            log.debug(f'No definition for command {self._command}, raw response returned')
+            msgs['ERROR'] = [f'No definition for command {self._command} in protocol {self._protocol_id}', '']
         else:
-            len_command_defn = len(self.__command_defn['response'])
+            len_command_defn = len(self._command_defn['response'])
         # Decode response based on stored command definition
         # if not self.is_response_valid(response):
         #    log.info('Invalid response')
@@ -73,7 +91,7 @@ class AbstractProtocol(metaclass=abc.ABCMeta):
             if i >= len_command_defn:
                 resp_format = ['string', f'Unknown value in response {i}', '']
             else:
-                resp_format = self.__command_defn['response'][i]
+                resp_format = self._command_defn['response'][i]
 
             key = '{}'.format(resp_format[1]).lower().replace(" ", "_")
             # log.debug(f'result {result}, key {key}, resp_format {resp_format}')
@@ -117,8 +135,8 @@ class AbstractProtocol(metaclass=abc.ABCMeta):
                         # output[resp_format[2][item]['name']] = status
                         msgs[resp_format[2][item]['name']] = [status, '']
                 # msgs[key] = [output, '']
-            elif self.__command_defn['type'] == 'SETTER':
-                msgs[self.__command_defn['name']] = [result, '']
+            elif self._command_defn['type'] == 'SETTER':
+                msgs[self._command_defn['name']] = [result, '']
             else:
                 msgs[i] = [result, '']
         return msgs

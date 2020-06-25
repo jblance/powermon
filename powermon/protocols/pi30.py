@@ -714,16 +714,16 @@ class pi30(AbstractProtocol):
 
     def set_command(self, command, show_raw=None) -> None:
         # Called from get_full_command
-        self.__command = command
-        self.__show_raw = show_raw
-        self.__command_defn = self.get_command_defn(command)
+        self._command = command
+        self._show_raw = show_raw
+        self._command_defn = self.get_command_defn(command)
 
     def get_command_defn(self, command) -> dict:
         log.debug(f'get_command_defn for: {command}')
-        if self.__command is None:
+        if self._command is None:
             return None
         if command in COMMANDS:
-            log.debug(f'Found command {self.__command} in protocol {self._protocol_id}')
+            log.debug(f'Found command {self._command} in protocol {self._protocol_id}')
             return COMMANDS[command]
         for _command in COMMANDS:
             if 'regex' in COMMANDS[_command] and COMMANDS[_command]['regex']:
@@ -739,7 +739,7 @@ class pi30(AbstractProtocol):
 
     def get_full_command(self, command, show_raw) -> bytes:
         self.set_command(command, show_raw)
-        byte_cmd = bytes(self.__command, 'utf-8')
+        byte_cmd = bytes(self._command, 'utf-8')
         # calculate the CRC
         crc_high, crc_low = self.crc(byte_cmd)
         # combine byte_cmd, CRC , return

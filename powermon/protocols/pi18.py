@@ -1,5 +1,4 @@
 import logging
-import re
 
 from .protocol import AbstractProtocol
 # from .pi30 import COMMANDS
@@ -129,33 +128,14 @@ class pi18(AbstractProtocol):
 
     def set_command(self, command, show_raw=None) -> None:
         # Called from get_full_command
-        self.__command = command
-        self.__show_raw = show_raw
-        self.__command_defn = self.get_command_defn(command)
-
-    def get_command_defn(self, command) -> dict:
-        log.debug(f'get_command_defn for: {command}')
-        if self.__command is None:
-            return None
-        if command in COMMANDS:
-            log.debug(f'Found command {self.__command} in protocol {self._protocol_id}')
-            return COMMANDS[command]
-        for _command in COMMANDS:
-            if 'regex' in COMMANDS[_command] and COMMANDS[_command]['regex']:
-                log.debug(f'Regex commands _command: {_command}')
-                _re = re.compile(COMMANDS[_command]['regex'])
-                match = _re.match(command)
-                if match:
-                    log.debug(f"Matched: {command} to: {COMMANDS[_command]['name']} value: {match.group(1)}")
-                    self.__command_value = match.group(1)
-                    return COMMANDS[_command]
-        log.info(f'No command_defn found for {command}')
-        return None
+        self._command = command
+        self._show_raw = show_raw
+        self._command_defn = self.get_command_defn(command)
 
     def get_full_command(self, command, show_raw) -> bytes:
         self.set_command(command, show_raw)
-        _cmd = bytes(self.__command, 'utf-8')
-        _type = self.__command_defn['type']
+        _cmd = bytes(self._command, 'utf-8')
+        _type = self._command_defn['type']
 
         # calculate the CRC
         crc_high, crc_low = self.crc(_cmd)
