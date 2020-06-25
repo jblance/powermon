@@ -163,7 +163,7 @@ REGEX_COMMANDS = {
                 ["int", "Battery discharge current", "A"]
         ],
         "test_responses": [
-            b"",
+            b"(1 92931701100510 B 00 000.0 00.00 230.6 50.00 0275 0141 005 51.4 001 100 083.3 002 00574 00312 003 10100110 1 2 060 120 10 04 000\xcc#\r",
         ],
         "regex": "QPGS(\\d)$",
     },
@@ -183,13 +183,14 @@ class pi30(AbstractProtocol):
         self.__command_defn = self.get_command_defn(command)
 
     def get_command_defn(self, command) -> dict:
+        log.debug(f'get_command_defn for: {command}')
         if self.__command is None:
             return None
         if command in COMMANDS:
             log.debug(f'Found command {self.__command} in protocol {self._protocol_id}')
             return COMMANDS[command]
         for _command in REGEX_COMMANDS:
-            log.debug(f'_command {_command}')
+            log.debug(f'Regex commands _command: {_command}')
             if 'regex' in REGEX_COMMANDS[_command] and REGEX_COMMANDS[_command]['regex']:
                 _re = re.compile(REGEX_COMMANDS[_command]['regex'])
                 match = _re.match(command)
