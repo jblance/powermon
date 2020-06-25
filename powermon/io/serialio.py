@@ -31,10 +31,8 @@ class SerialIO(BaseIO):
                     time.sleep(0.5 * x)  # give serial port time to receive the data
                     response_line = s.readline()
                     log.debug('serial response was: %s', response_line)
-                    return response_line
         except Exception as e:
             log.warning(f"Serial read error: {e}")
-        log.info('Command execution failed')
         decoded_response = protocol.decode(response_line)
         # _response = response.decode('utf-8')
         log.debug(f'Decoded response {decoded_response}')
