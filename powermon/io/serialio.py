@@ -17,9 +17,9 @@ class SerialIO(BaseIO):
         log.info(f'full command {full_command} for command {command}')
 
         response_line = None
-        log.debug(f'port {self._serial_device}, baudrate {self._baud_rate}')
+        log.debug(f'port {self._serial_port}, baudrate {self._baud_rate}')
         try:
-            with serial.serial_for_url(self._serial_device, self._baud_rate) as s:
+            with serial.serial_for_url(self._serial_port, self._baud_rate) as s:
                 # Execute command multiple times, increase timeouts each time
                 for x in range(1, 5):
                     log.debug(f'Command execution attempt {x}...')
