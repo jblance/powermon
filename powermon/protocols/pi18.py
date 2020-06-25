@@ -154,7 +154,7 @@ class pi18(AbstractProtocol):
         '''
         responses = response.split(b',')
         # Drop ^Dxxx from first response
-        responses[0] = responses[0][5:]
+        responses[0] = responses[0][4:]
         # Remove CRC of last response
         responses[-1] = responses[-1][:-3]
         return responses
