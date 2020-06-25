@@ -20,7 +20,7 @@ class TestIO(BaseIO):
         if command_defn is not None:
             self._test_data = command_defn['test_responses'][random.randrange(len(command_defn['test_responses']))]
         response = self._test_data
-        response = b"(PI30\x9a\x0b\r"
+        # response = b"(PI30\x9a\x0b\r"
         log.debug(f'Raw response {response}')
         decoded_response = protocol.decode(response)
         # _response = response.decode('utf-8')

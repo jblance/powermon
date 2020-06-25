@@ -15,7 +15,7 @@ COMMANDS = [
             ["string", "Protocol ID", ""]
         ],
         "test_responses": [
-            "(PI30\x9a\x0b\r"
+            b"(PI30\x9a\x0b\r"
         ],
         "regex": ""
     },
