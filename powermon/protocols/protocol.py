@@ -26,6 +26,7 @@ class AbstractProtocol(metaclass=abc.ABCMeta):
         if self._command is None:
             return None
         if command in COMMANDS:
+            print(command)
             log.debug(f'Found command {self._command} in protocol {self._protocol_id}')
             return COMMANDS[command]
         for _command in COMMANDS:
