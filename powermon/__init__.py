@@ -61,5 +61,7 @@ def main():
             # perhaps raise a Powermon exception here??
             log.critical(f'No module found for output processor {output}')
         output_class = getattr(output_module, output)
+
         # init function will do the processing
         output_class(results=results)
+        output_class.process()
