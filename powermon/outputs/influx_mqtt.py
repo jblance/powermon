@@ -31,4 +31,3 @@ class influx_mqtt():
             msg = {'topic': 'powermon', 'payload': f'powermon,command={tag} {key}={value}'}
             msgs.append(msg)
         publish.multiple(msgs, hostname=mqtt_broker)
-        print(msgs)
