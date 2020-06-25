@@ -22,7 +22,7 @@ def main():
     parser.add_argument('-P', '--protocol', type=str, help='Specifies the device command and response protocol, (default: PI30)', default='PI30')
     parser.add_argument('-c', '--command', help='Raw command to run')
     parser.add_argument('-R', '--show_raw', action='store_true', help='Display the raw results')
-    parser.add_argument('-o', '--output', type=str, help='Specifies the output processor(s) to use [comma separated if multiple] (screen [default], influx, mqtt, hass)', default='screen')
+    parser.add_argument('-o', '--output', type=str, help='Specifies the output processor(s) to use [comma separated if multiple] (screen [default], influx_mqtt, mqtt, hass)', default='screen')
     parser.add_argument('-D', '--enable_debug', action='store_true', help='Enable Debug and above (i.e. all) messages')
     parser.add_argument('-I', '--enable_info', action='store_true', help='Enable Info and above level messages')
     args = parser.parse_args()
