@@ -157,12 +157,14 @@ class pi18(AbstractProtocol):
         self.set_command(command, show_raw)
         _cmd = bytes(self.__command, 'utf-8')
         _type = self.__command_defn['type']
-        print(_type)
+
         # calculate the CRC
         crc_high, crc_low = self.crc(_cmd)
         # combine byte_cmd, CRC , return
         # PI18 full command "^P005GS\x..\x..\r"
-        full_command = _cmd + bytes([crc_high, crc_low, 13])
+        command_crc = _cmd + bytes([crc_high, crc_low, 13])
+        if _type == 'QUERY':
+            full_command = f'^P{len(command_crc):03}{command_crc}'
         log.debug(f'full command: {full_command}')
         return full_command
 
