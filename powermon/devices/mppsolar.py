@@ -22,10 +22,10 @@ class mppsolar(AbstractDevice):
         # TODO: implement protocol self determiniation??
         if self._protocol is None:
             log.error('Attempted to run command with no protocol defined')
-            return {'error': 'Attempted to run command with no protocol defined'}
+            return {'ERROR': ['Attempted to run command with no protocol defined', '']}
         if self._port is None:
             log.error(f'No communications port defined - unable to run command {command}')
-            return {'error': f'No communications port defined - unable to run command {command}'}
+            return {'ERROR': [f'No communications port defined - unable to run command {command}', '']}
 
         response = self._port.send_and_receive(command, show_raw, self._protocol)
         log.debug(f'Send and Receive Response {response}')
