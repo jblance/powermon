@@ -63,5 +63,5 @@ def main():
         output_class = getattr(output_module, output)
 
         # init function will do the processing
-        output_class(results=results)
-        output_class.process()
+        _output = output_class(results=results)
+        _output.process()
