@@ -125,7 +125,7 @@ class pi18(AbstractProtocol):
         super().__init__()
         self._protocol_id = b'PI18'
         log.info(f'Using protocol {self._protocol_id}')
-        self.COMMANDS = COMMANDS
+        # self.COMMANDS = COMMANDS
 
     def set_command(self, command, show_raw=None) -> None:
         # Called from get_full_command
@@ -158,3 +158,4 @@ class pi18(AbstractProtocol):
         responses[0] = responses[0][1:]
         # Remove CRC of last response
         responses[-1] = responses[-1][:-3]
+        return responses
