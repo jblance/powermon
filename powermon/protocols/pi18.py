@@ -163,7 +163,7 @@ class pi18(AbstractProtocol):
         # PI18 full command "^P005GS\x..\x..\r"
         command_crc = _cmd + bytes([crc_high, crc_low, 13])
         if _type == 'QUERY':
-            full_command = f'^P{len(command_crc):03}{command_crc}'
+            full_command = bytes(f'^P{len(command_crc):03}{command_crc}')
         log.debug(f'full command: {full_command}')
         return full_command
 
