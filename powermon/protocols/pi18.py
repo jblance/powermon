@@ -153,8 +153,8 @@ class pi18(AbstractProtocol):
         Override the default get_responses as its different for PI18
         '''
         responses = response.split(b',')
-        # Trim leading '^' of first response
-        responses[0] = responses[0][1:]
+        # Drop first response
+        del(responses[0])
         # Remove CRC of last response
         responses[-1] = responses[-1][:-3]
         return responses
