@@ -91,7 +91,8 @@ class AbstractDevice(metaclass=abc.ABCMeta):
             self._port = HIDRawIO(device_path=port)
         elif port_type == SERIAL_TYPE_ESP32:
             log.info('Using esp32io for communications')
-            log.critical('ESP23IO Not implemented yet')
+            from powermon.io.esp32io import ESP32IO
+            self._port = ESP32IO(device_path=port)
         elif port_type == SERIAL_TYPE_SERIAL:
             log.info('Using serialio for communications')
             from powermon.io.serialio import SerialIO
