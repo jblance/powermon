@@ -5,14 +5,13 @@ import re
 
 log = logging.getLogger('powermon')
 
-COMMANDS = {}
-
 
 class AbstractProtocol(metaclass=abc.ABCMeta):
     def __init__(self, *args, **kwargs) -> None:
         self._command = None
         self._command_dict = None
         self._show_raw = None
+        self.COMMANDS = {}
 
     def get_protocol_id(self) -> bytes:
         return self._protocol_id
@@ -25,19 +24,19 @@ class AbstractProtocol(metaclass=abc.ABCMeta):
         log.debug(f'get_command_defn for: {command}')
         if self._command is None:
             return None
-        if command in COMMANDS:
+        if command in self.COMMANDS:
             print(command)
             log.debug(f'Found command {self._command} in protocol {self._protocol_id}')
-            return COMMANDS[command]
-        for _command in COMMANDS:
-            if 'regex' in COMMANDS[_command] and COMMANDS[_command]['regex']:
+            return self.COMMANDS[command]
+        for _command in self.COMMANDS:
+            if 'regex' in self.COMMANDS[_command] and self.COMMANDS[_command]['regex']:
                 log.debug(f'Regex commands _command: {_command}')
-                _re = re.compile(COMMANDS[_command]['regex'])
+                _re = re.compile(self.COMMANDS[_command]['regex'])
                 match = _re.match(command)
                 if match:
-                    log.debug(f"Matched: {command} to: {COMMANDS[_command]['name']} value: {match.group(1)}")
+                    log.debug(f"Matched: {command} to: {self.COMMANDS[_command]['name']} value: {match.group(1)}")
                     self._command_value = match.group(1)
-                    return COMMANDS[_command]
+                    return self.COMMANDS[_command]
         log.info(f'No command_defn found for {command}')
         return None
 
