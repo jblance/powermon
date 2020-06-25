@@ -23,6 +23,8 @@ def main():
     parser.add_argument('-c', '--command', help='Raw command to run')
     parser.add_argument('-R', '--show_raw', action='store_true', help='Display the raw results')
     parser.add_argument('-o', '--output', type=str, help='Specifies the output processor(s) to use [comma separated if multiple] (screen [default], influx_mqtt, mqtt, hass)', default='screen')
+    parser.add_argument('-q', '--mqtt_broker', type=str, help='Specifies the mqtt broker to publish to if using a mqtt output (localhost [default], hostname, ip.add.re.ss ...)', default='localhost')
+    parser.add_argument('-T', '--tag', type=str, help='Override the command name and use this instead (for mqtt and influx type output processors)')
     parser.add_argument('-D', '--enable_debug', action='store_true', help='Enable Debug and above (i.e. all) messages')
     parser.add_argument('-I', '--enable_info', action='store_true', help='Enable Info and above level messages')
     args = parser.parse_args()
@@ -51,6 +53,14 @@ def main():
     # run command or called helper function
     results = device.run_command(command=args.command, show_raw=args.show_raw)
 
+    if args.tag:
+        tag = args.tag
+    else:
+        tag = args.command
+    if args.mqtt_broker:
+        mqtt_broker = args.mqtt_broker
+    else:
+        args.mqtt_broker = 'localhost'
     # send to output processor(s)
     outputs = args.output.split(',')
     for output in outputs:
@@ -63,4 +73,4 @@ def main():
         output_class = getattr(output_module, output)
 
         # init function will do the processing
-        output_class(results=results)
+        output_class(results=results, tag=tag, mqtt_broker=mqtt_broker)
