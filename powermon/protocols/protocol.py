@@ -23,6 +23,9 @@ class AbstractProtocol(metaclass=abc.ABCMeta):
         raise NotImplementedError
 
     def get_responses(self, response):
+        '''
+        Default implementation of split and trim
+        '''
         responses = response.split(b' ')
         # Trim leading '(' of first response
         responses[0] = responses[0][1:]
@@ -30,7 +33,6 @@ class AbstractProtocol(metaclass=abc.ABCMeta):
         responses[-1] = responses[-1][:-3]
 
     def decode(self, response) -> dict:
-        raise NotImplementedError
         msgs = {}
         log.debug(f'response passed to decode: {response}')
         # No response
