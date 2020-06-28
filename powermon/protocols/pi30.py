@@ -592,7 +592,6 @@ COMMANDS = {
         "description": "Current Settings inquiry",
         "help": " -- queries the current settings from the Inverter",
         "type": "QUERY",
-        "nosupports": ["LV5048"],
         "response": [
                 ["float", "AC Input Voltage", "V"],
                 ["float", "AC Input Current", "A"],
