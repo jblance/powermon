@@ -12,11 +12,13 @@ class AbstractProtocol(metaclass=abc.ABCMeta):
         self._command_dict = None
         self._show_raw = None
         self.COMMANDS = {}
+        self._protocol_id = None
 
     def get_protocol_id(self) -> bytes:
         return self._protocol_id
 
     def get_full_command(self, command, show_raw=None) -> bytes:
+        log.info(f'Using protocol {self._protocol_id} with {len(self.COMMANDS)} commands')
         # These need to be set to allow other functions to work
         self._command = command
         self._show_raw = show_raw

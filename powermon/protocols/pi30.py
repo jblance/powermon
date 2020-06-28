@@ -710,4 +710,4 @@ class pi30(AbstractProtocol):
         super().__init__()
         self._protocol_id = b'PI30'
         self.COMMANDS = COMMANDS
-        log.info(f'Using protocol {self._protocol_id} with {len(self.COMMANDS)} commands')
+        # log.info(f'Using protocol {self._protocol_id} with {len(self.COMMANDS)} commands')
