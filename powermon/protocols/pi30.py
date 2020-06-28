@@ -711,18 +711,3 @@ class pi30(AbstractProtocol):
         self._protocol_id = b'PI30'
         self.COMMANDS = COMMANDS
         log.info(f'Using protocol {self._protocol_id} with {len(self.COMMANDS)} commands')
-
-    def get_full_command(self, command, show_raw=None) -> bytes:
-        # These need to be set to allow other functions to work
-        self._command = command
-        self._show_raw = show_raw
-        self._command_defn = self.get_command_defn(command)
-        # End of required variables setting
-
-        byte_cmd = bytes(self._command, 'utf-8')
-        # calculate the CRC
-        crc_high, crc_low = self.crc(byte_cmd)
-        # combine byte_cmd, CRC , return
-        full_command = byte_cmd + bytes([crc_high, crc_low, 13])
-        log.debug(f'full command: {full_command}')
-        return full_command
