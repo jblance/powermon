@@ -12,7 +12,6 @@ COMMANDS = {
         "description": "Total Generated Energy query",
         "help": " -- Query total generated energy",
         "type": "QUERY",
-        "supports": ["PI18"],
         "response": [
                 ["int", "Total generated energy", "KWh"]
         ],
@@ -27,7 +26,6 @@ COMMANDS = {
         "description": "General status query",
         "help": " -- Query general status information",
         "type": "QUERY",
-        "supports": ["PI18"],
         "response": [
                 ["10int", "Grid voltage", "V"],
                 ["10int", "Grid frequency", "Hz"],
@@ -88,7 +86,6 @@ COMMANDS = {
         "description": "Working mode query",
         "help": " -- Query the working mode",
         "type": "QUERY",
-        "supports": ["PI18"],
         "response": [
                 ["option", "Working mode", ["Power on mode",
                                             "Standby mode",
@@ -108,7 +105,6 @@ COMMANDS = {
         "description": "Device Protocol Version inquiry",
         "help": " -- queries the device protocol version",
         "type": "QUERY",
-        "supports": ["PI18"],
         "response": [
                 ["string", "Protocol Version", ""]
         ],
