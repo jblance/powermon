@@ -82,5 +82,5 @@ class pi41(pi30):
     def __init__(self, *args, **kwargs) -> None:
         super().__init__()
         self._protocol_id = b'PI41'
-        self.COMMANDS.append(NEW_COMMANDS)
+        self.COMMANDS.update(NEW_COMMANDS)
         # log.info(f'Using protocol {self._protocol_id} with {len(self.COMMANDS)} commands')
