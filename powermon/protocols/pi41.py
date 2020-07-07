@@ -192,7 +192,14 @@ NEW_COMMANDS = {
                     "is_battery_under",
                     "is_l1_line_not_ok",
                     "is_load_on",
-                    "is_configuration_changed"]]
+                    "is_configuration_changed"]],
+                ["int", "RSV1", "A"],
+                ["int", "RSV2", "A"],
+                ["int", "PV Input Power", "W"],
+                ["flags", "Device Status2", [
+                    "is_charging_to_float",
+                    "is_switched_on",
+                    "is_reserved"]]
         ],
         "test_responses": [
             b"(000.0 00.0 230.0 49.9 0161 0119 003 460 57.50 012 100 0069 0014 103.8 57.45 00000 00110110 00 00 00856 010\x24\x8C\r",
