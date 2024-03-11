@@ -1,6 +1,6 @@
 """ daemon.py """
 import logging
-from enum import Enum, auto
+from enum import StrEnum, auto
 from time import time
 
 from pydantic import BaseModel
@@ -10,14 +10,14 @@ from pydantic import BaseModel
 log = logging.getLogger("daemon")
 
 
-class dummyNotification(Enum):
+class dummyNotification(StrEnum):
     READY = auto()
     STATUS = auto()
     STOPPING = auto()
     WATCHDOG = auto()
 
 
-class DaemonType(Enum):
+class DaemonType(StrEnum):
     """ Daemon types implemented """
     DISABLED = auto()
     SYSTEMD = auto()

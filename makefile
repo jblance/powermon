@@ -15,7 +15,6 @@ pypi:
 	poetry version patch
 	./make_version_dev.sh
 	ls -l dist/
-	cat mppsolar/version.py
 	cat powermon/version.py
 
 pypi-upload:

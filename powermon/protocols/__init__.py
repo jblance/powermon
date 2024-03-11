@@ -1,7 +1,7 @@
 """ protocol __init__.py """
 import importlib
 import logging
-from enum import Enum, auto
+from enum import StrEnum, auto
 
 # from strenum import LowercaseStrEnum
 
@@ -10,7 +10,7 @@ from powermon.errors import ConfigError
 log = logging.getLogger("protocols")
 
 
-class Protocol(Enum):
+class Protocol(StrEnum):
     """ enumerate available protocols """
     PI18 = auto()  # WIP
     PI30 = auto()
