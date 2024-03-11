@@ -1,9 +1,18 @@
-""" powermon / ports / serialport.py """
+""" powermon / ports / bleport.py """
 # import serial
 import asyncio
 import logging
 
-from bleak import BleakClient
+try:
+    from bleak import BleakClient
+except ImportError:
+    print("You are missing a python library - 'bleak'")
+    print("To install it, use the below command:")
+    print("    python -m pip install 'powermon[ble]'")
+    print("or:")
+    print("    python -m pip install bleak")
+    return
+
 
 from powermon.commands.command import Command, CommandType
 from powermon.commands.result import Result

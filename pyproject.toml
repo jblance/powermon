@@ -19,28 +19,36 @@ PyYAML = { version = ">=6", optional = false }
 pyaml-env = { version = "^1.2.1", optional = false }
 construct = { version = "^2.10.70", optional = false }
 
-# Extra dependencies
+# ble dependencies
 bleak = { version = "^0.20.2", optional = true }
+pycryptodome = { version = "^3.20.0", optional = true }
+
+# systemd daemon dependencies
 cysystemd = { version = ">=1.6.0", optional = true }
+
+# api dependencies
 fastapi = { version = ">=0.68.0", optional = true }
 fastapi-mqtt = { version = ">=1.1", optional = true }
 requests = { version = ">=2.31.0", optional = true }
 sqlalchemy = { version = "^2.0.15", optional = true }
 uvicorn = { version = ">=0.15.0", optional = true }
+
+# dev dependencies
 twine = { version = "^4.0.2", optional = true }
 # flake8 = { version = "^6.0.0", optional = true }
 # black = { version = "^23.3.0", optional = true }
 # coverage = { version = "^7.2.5", optional = true }
-# strenum = { version = "^0.4.1", optional = true }
+
+# modbus dependencies
 pymodbus = { version = "^3.6.4", optional = true }
-pycryptodome = { version = "^3.20.0", optional = true }
+
 
 [tool.poetry.extras]
-api = ["fastapi", "fastapi-mqtt", "sqlalchemy", "uvicorn"]
+api = ["fastapi", "fastapi-mqtt", "requests", "sqlalchemy", "uvicorn"]
 ble = ["bleak", "pycryptodome"]
 dev = ["twine"]
-systemd = ["cysystemd"]
 modbus = ["pymodbus"]
+systemd = ["cysystemd"]
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
