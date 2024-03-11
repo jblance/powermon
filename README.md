@@ -20,7 +20,6 @@ Currently has support for:
 ## Install ##
 - `pip install powermon` (minimal install)
 - `pip install powermon[api]` (install web api )
-- `docker pull jblance/powermon:latest` (docker install)
 
 
 ## Documentation ##
