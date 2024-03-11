@@ -1,0 +1,14 @@
+[SETUP]
+# Number of seconds to pause between command execution loop
+# 0 is no pause, greater than 60 will cause service restarts
+pause=5
+mqtt_broker=localhost
+
+# This example would work on a JKBMS that uses JK04 protocol (HW v3.0)
+[Inverter_1]
+type=jkbms
+protocol=JK04
+port=3C:A5:09:0A:AA:AA
+command=getCellData
+tag=CellData
+outputs=screen

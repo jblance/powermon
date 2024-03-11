@@ -1,59 +1,41 @@
-# Power Monitoring Python Package
+# MPP-Solar Device Python Package #
 
-_Note: python2 not supported_
+__BREAKING CHANGES__
+- minimum python supported 3.10 for version >=0.16.0
+- command separator changed to `#`
+.
+
 
 Python package with reference library of commands (and responses)
-for Power Monitoring Devices, e.g.:
-MPP-Solar inverters - aka:
-- PIP-4048MS
-- IPS-4000WM
-- Voltronic Axpert MKS 5KVA Off-grid Inverter-Chargers
-- LV5048
+designed to get information from inverters and other solar inverters and power devices
 
-JKBMS Battery Monitoring Devices, e.g.:
-- JK-B1A24S
-- JK-B2A24S
+Currently has support for:
+- MPP-Solar and similar inverters, e.g.
+  - PIP-4048MS
+  - IPS-4000WM
+  - Voltronic Axpert MKS 5KVA Off-grid Inverter-Chargers
+  - LV5048
+- JK BMS
+- Victron VE Direct Devices:
+  - tested on SmartShunt 500A
+- Daly BMS
+
+## Install ##
+- `pip install mppsolar` (minimal install), or
+- `pip install mppsolar[api]` (install server stuff), or
+- `pip install mppsolar[ble]` (for Bluetooth support aka jkbms), or
+- `pip install mppsolar[mongo]` (for MongoDB output), or
+- `pip install mppsolar[pgsql]` (for PostgreSQL output), or
+- `pip install mppsolar[push]` (for Prometheus PushGateway output), or
+- `pip install mppsolar[systemd]` (for `--daemon` on Linux), or
+- `docker pull jblance/mppsolar:latest` (docker install)
 
 
-## Usage ##
-### Install ###
-* ```python ./setup.py install```
+## Documentation ##
+[See the wiki for documentation](https://github.com/jblance/mpp-solar/wiki)
 
-### Run without installing ###
+## Support ##
+If you want to tip me for this work, you can now buy me a coffee
 
-*  With INFO messages: ```python -c 'import powermon; powermon.main()' -I```
+[![buymeacoffee1](https://user-images.githubusercontent.com/1266998/225745276-54d6a4d4-a1ed-44f9-a1f2-e99eb1aa2812.png)](https://www.buymeacoffee.com/jblance)
 
-### Options ###
-```
-$ powermon -h
-usage: powermon [-h] [-n NAME] [-t TYPE] [-p PORT] [-P PROTOCOL] [-c COMMAND]
-                [-R] [-o OUTPUT] [-q MQTT_BROKER] [-T TAG] [-D] [-I]
-
-Power Monitor Utility, version: 0.1.2
-
-optional arguments:
-  -h, --help            show this help message and exit
-  -n NAME, --name NAME  Specifies the device name - used to differentiate
-                        different devices
-  -t TYPE, --type TYPE  Specifies the device type (mppsolar [default], jkbms)
-  -p PORT, --port PORT  Specifies the device communication port, (/dev/ttyUSB0
-                        [default], /dev/hidraw0, test ...)
-  -P PROTOCOL, --protocol PROTOCOL
-                        Specifies the device command and response protocol,
-                        (default: PI30)
-  -c COMMAND, --command COMMAND
-                        Raw command to run
-  -R, --show_raw        Display the raw results
-  -o OUTPUT, --output OUTPUT
-                        Specifies the output processor(s) to use [comma
-                        separated if multiple] (screen [default], influx_mqtt,
-                        mqtt, hass_config, hass_mqtt)
-  -q MQTT_BROKER, --mqtt_broker MQTT_BROKER
-                        Specifies the mqtt broker to publish to if using a
-                        mqtt output (localhost [default], hostname,
-                        ip.add.re.ss ...)
-  -T TAG, --tag TAG     Override the command name and use this instead (for
-                        mqtt and influx type output processors)
-  -D, --enable_debug    Enable Debug and above (i.e. all) messages
-  -I, --enable_info     Enable Info and above level messages
-```

@@ -1,0 +1,34 @@
+# systemd unit file for the MPP-Solar Service
+#
+# needs to go to /etc/systemd/user/*
+
+[Unit]
+# Human readable name of the unit
+Description=MPP Solar Service
+After=network.target
+StartLimitIntervalSec=0
+
+[Service]
+# Command to execute when the service is started
+ExecStart=/usr/bin/python3 /usr/local/bin/mpp-solar -C /etc/mpp-solar/mpp-solar.conf --daemon
+
+# Disable Python's buffering of STDOUT and STDERR, so that output from the
+# service shows up immediately in systemd's logs
+Environment=PYTHONUNBUFFERED=1
+
+# Automatically restart the service if it crashes
+Restart=always
+WatchdogSec=60
+RestartSec=60
+
+# Our service will notify systemd once it is up and running
+Type=notify
+
+# Use a dedicated user to run our service
+# User=mpp_service
+
+
+[Install]
+# Tell systemd to automatically start this service when the system boots
+# (assuming the service is enabled)
+WantedBy=default.target

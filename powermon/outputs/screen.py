@@ -1,17 +1,39 @@
+""" outputs / screen.py """
 import logging
 
-log = logging.getLogger('powermon')
+from powermon.commands.result import Result
+from powermon.outputs.abstractoutput import AbstractOutput
+
+log = logging.getLogger("screen")
 
 
-class screen():
-    def __init__(self, *args, **kwargs) -> None:
-        log.info('Using output processor: print')
-        log.debug(f'processor.print __init__ kwargs {kwargs}')
-        _data = kwargs['results']
-        if _data is None:
+class Screen(AbstractOutput):
+    """outputs the results to the screen as per the formatter supplied """
+    def __init__(self):
+        super().__init__(name="Screen")
+
+    def __str__(self):
+        return "outputs.Screen: outputs the results to the screen as per the formatter supplied"
+
+    def process(self, command=None, result: Result = None, mqtt_broker=None, device_info=None):
+        log.info("Using output sender: screen")
+        log.debug("formatter: %s, result: %s, mqtt_broker: %s, device_info: %s", self.formatter, result, mqtt_broker, device_info)
+
+        formatted_data = self.formatter.format(command=command, result=result, device_info=device_info)
+        if formatted_data is None:
+            print("Nothing returned from data formatting")
             return
-        print(f"{'Parameter':<30}\t{'Value':<15} Unit")
-        for key in _data:
-            value = _data[key][0]
-            unit = _data[key][1]
-            print(f'{key:<30}\t{value:<15}\t{unit:<4}')
+
+        for line in formatted_data:
+            print(line)
+
+        if result.error:
+            print("Errors occurred during processing")
+            for error in result.error_messages:
+                print(error)
+
+    @classmethod
+    def from_config(cls, output_config) -> "Screen":
+        """If we need to include any config for the Screen output but the processing here"""
+        log.debug("config: %s", output_config)
+        return cls()

@@ -1,76 +1,223 @@
 # !/usr/bin/python3
-from argparse import ArgumentParser
-import importlib
+"""main powermon code"""
+import asyncio
+import json
 import logging
-from sys import exit
+import time
+from argparse import ArgumentParser
+from platform import python_version
 
-from .version import __version__  # noqa: F401
-# from powermon.io.hidrawio import HIDRawIO
+import yaml
+from pyaml_env import parse_config
+from pydantic import ValidationError
 
-log = logging.getLogger('powermon')
-# setup logging (DEBUG, INFO, WARNING, ERROR, CRITICAL)
-# set default log levels
-log.setLevel(logging.WARNING)
-logging.basicConfig()
+from powermon.commands.command import Command
+from powermon.config_model import ConfigModel
+from powermon.device import Device
+from powermon.libs.apicoordinator import ApiCoordinator
+from powermon.libs.daemon import Daemon
+from powermon.libs.mqttbroker import MqttBroker
+from powermon.protocols import list_protocols
+from powermon.version import __version__  # noqa: F401
+
+# Set-up logger
+log = logging.getLogger("")
+FORMAT = "%(asctime)-15s:%(levelname)s:%(module)s:%(funcName)s@%(lineno)d: %(message)s"
+logging.basicConfig(format=FORMAT)
+
+
+def read_yaml_file(yaml_file=None):
+    """function to read a yaml file and return dict"""
+    _yaml = {}
+    if yaml_file is not None:
+        try:
+            # with open(yaml_file, "r", encoding="utf-8") as stream:
+            #     _yaml = yaml.safe_load(stream)
+            _yaml = parse_config(yaml_file)
+        except yaml.YAMLError as exc:
+            raise yaml.YAMLError(f"Error processing yaml file: {exc}") from exc
+        except FileNotFoundError as exc:
+            raise FileNotFoundError(f"Error opening yaml file: {exc}") from exc
+    return _yaml
+
+
+def process_command_line_overrides(args):
+    """override config with command line options"""
+    _config = {}
+    if args.config:
+        _config = json.loads(args.config)
+    if args.once:
+        _config["loop"] = "once"
+    if args.info:
+        _config["debuglevel"] = logging.INFO
+    if args.debug:
+        _config["debuglevel"] = logging.DEBUG
+    return _config
 
 
 def main():
-    parser = ArgumentParser(description=f'Power Monitor Utility, version: {__version__}')
-    parser.add_argument('-n', '--name', type=str, help='Specifies the device name - used to differentiate different devices', default='noname')
-    parser.add_argument('-t', '--type', type=str, help='Specifies the device type (mppsolar [default], jkbms)', default='mppsolar')
-    parser.add_argument('-p', '--port', type=str, help='Specifies the device communication port, (/dev/ttyUSB0 [default], /dev/hidraw0, test ...)', default='/dev/ttyUSB0')
-    parser.add_argument('-P', '--protocol', type=str, help='Specifies the device command and response protocol, (default: PI30)', default='PI30')
-    parser.add_argument('-c', '--command', help='Raw command to run')
-    parser.add_argument('-R', '--show_raw', action='store_true', help='Display the raw results')
-    parser.add_argument('-o', '--output', type=str, help='Specifies the output processor(s) to use [comma separated if multiple] (screen [default], influx_mqtt, mqtt, hass_config, hass_mqtt)', default='screen')
-    parser.add_argument('-q', '--mqtt_broker', type=str, help='Specifies the mqtt broker to publish to if using a mqtt output (localhost [default], hostname, ip.add.re.ss ...)', default='localhost')
-    parser.add_argument('-T', '--tag', type=str, help='Override the command name and use this instead (for mqtt and influx type output processors)')
-    parser.add_argument('-D', '--enable_debug', action='store_true', help='Enable Debug and above (i.e. all) messages')
-    parser.add_argument('-I', '--enable_info', action='store_true', help='Enable Info and above level messages')
+    """main entry point for powermon command"""
+    description = f"Power Device Monitoring Utility, version: {__version__}, python version: {python_version()}"  # pylint: disable=C0301
+    parser = ArgumentParser(description=description)
+
+    parser.add_argument(
+        "-C",
+        "--configFile",
+        nargs="?",
+        type=str,
+        help="Full location of config file",
+        const="./powermon.yaml",
+        default=None,
+    )
+    parser.add_argument(
+        "--config",
+        type=str,
+        default=None,
+        help="""Supply config items on the commandline in json format, \
+             eg '{"device": {"port":{"type":"test"}}, "commands": [{"command":"QPI"}]}'""",
+    )
+    parser.add_argument("-V", "--validate", action="store_true", help="Validate the configuration")
+    parser.add_argument("-v", "--version", action="store_true", help="Display the version")
+    parser.add_argument("--listProtocols", action="store_true", help="Display the currently supported protocols")
+    parser.add_argument(
+        "-1",
+        "--once",
+        action="store_true",
+        help="Only loop through config once",
+    )
+    parser.add_argument(
+        "--force",
+        action="store_true",
+        help="Force commands to run even if wouldnt be triggered (should only be used with --once)",
+    )
+    parser.add_argument(
+        "-D",
+        "--debug",
+        action="store_true",
+        help="Enable Debug and above (i.e. all) messages",
+    )
+    parser.add_argument("-I", "--info", action="store_true", help="Enable Info and above level messages")
+    parser.add_argument(
+        "--adhoc",
+        type=str,
+        default=None,
+        help="Send adhoc command to mqtt adhoc command queue - needs config file specified and populated",
+    )
+
     args = parser.parse_args()
+    # prog_name = parser.prog
 
-    # Turn on debug if needed
-    if(args.enable_debug):
-        log.setLevel(logging.DEBUG)
-    elif(args.enable_info):
+    # Temporarily set debug level based on command line options
+    log.setLevel(logging.WARNING)
+    if args.info:
         log.setLevel(logging.INFO)
+    if args.debug:
+        log.setLevel(logging.DEBUG)
 
-    log.info(f'Powermon version {__version__}')
-    # create instance of device (supplying port + protocol types)
-    log.info(f'Creating device "{args.name}" (type: "{args.type}") on port "{args.port}" using protocol "{args.protocol}"')
-    device_type = args.type.lower()
+    # Display version if asked
+    log.info(description)
+    if args.version:
+        print(description)
+        return None
+
+    # Do enquiry commands
+    # - List Protocols
+    if args.listProtocols:
+        list_protocols()
+        return None
+
+    # Build configuration from config file and command line overrides
+    log.info("Using config file: %s", args.configFile)
+    # build config with details from config file
+    config = read_yaml_file(args.configFile)
+
+    # build config - override with any command line arguments
+    config.update(process_command_line_overrides(args))
+
+    # validate config
     try:
-        device_module = importlib.import_module('powermon.devices.' + device_type, '.')
-    except ModuleNotFoundError:
-        # perhaps raise a Powermon exception here??
-        log.critical(f'No module found for device {device_type}')
-        exit(1)
-    device_class = getattr(device_module, device_type)
-    log.debug(f'device_class {device_class}')
-    # The device class __init__ will instantiate the port communications and protocol classes
-    device = device_class(name=args.name, port=args.port, protocol=args.protocol)
+        config_model = ConfigModel(config=config)
+        log.debug(config_model)
+        log.info("Config validation successful")
+        if args.validate:
+            # if --validate option set, only do validation
+            print("Config validation successful")
+            return None
+    except ValidationError as exception:
+        # if config fails to validate, print reason and exit
+        print("Config validation failed")
+        print(f"{config=}")
+        print(exception)
+        return None
 
-    # run command or called helper function
-    results = device.run_command(command=args.command, show_raw=args.show_raw)
+    # logging (DEBUG, INFO, WARNING, ERROR, CRITICAL)
+    log.setLevel(config.get("debuglevel", logging.WARNING))
 
-    if args.tag:
-        tag = args.tag
-    else:
-        tag = args.command
-    if args.mqtt_broker:
-        mqtt_broker = args.mqtt_broker
-    else:
-        args.mqtt_broker = 'localhost'
-    # send to output processor(s)
-    outputs = args.output.split(',')
-    for output in outputs:
-        log.info(f'attempting to create output processor: {output}')
-        try:
-            output_module = importlib.import_module('powermon.outputs.' + output, '.')
-        except ModuleNotFoundError:
-            # perhaps raise a Powermon exception here??
-            log.critical(f'No module found for output processor {output}')
-        output_class = getattr(output_module, output)
+    # debug config
+    log.info("config: %s", config)
 
-        # init function will do the processing
-        output_class(results=results, tag=tag, mqtt_broker=mqtt_broker)
+    # build mqtt broker object (optional)
+    mqtt_broker = MqttBroker.from_config(config=config.get("mqttbroker"))
+    log.info(mqtt_broker)
+
+    # build device object (required)
+    device = Device.from_config(config=config.get("device"))
+    device.mqtt_broker = mqtt_broker
+    log.debug(device)
+    # add commands to device command list
+    for command_config in config.get("commands"):
+        log.info("Adding command, config: %s", command_config)
+        device.add_command(Command.from_config(command_config))
+    log.info(device)
+
+    # build the daemon object (optional)
+    daemon = Daemon.from_config(config=config.get("daemon"))
+    log.info(daemon)
+
+    # build api coordinator
+    api_coordinator = ApiCoordinator.from_config(config=config.get("api"))
+    api_coordinator.set_device(device)
+    api_coordinator.set_mqtt_broker(mqtt_broker)
+    log.info(api_coordinator)
+
+    # initialize api coordinator
+    api_coordinator.initialize()
+
+    # initialize daemon
+    daemon.initialize()
+    api_coordinator.announce(daemon)
+
+    # initialize device
+    asyncio.run(device.initialize())
+    api_coordinator.announce(device)
+
+    # Main working loop
+    try:
+        while True:
+            # tell the daemon we're still working
+            daemon.watchdog()
+
+            # run device loop (ie run any needed commands)
+            asyncio.run(device.run(args.force))
+
+            # run api coordinator ...
+            api_coordinator.run()
+
+            # only run loop once if required
+            if config.get("loop") == "once":
+                break
+
+            # add small delay in loop
+            time.sleep(0.1)
+
+    except KeyboardInterrupt:
+        print("KeyboardInterrupt - stopping")
+    finally:
+        # disconnect device
+        asyncio.run(device.finalize())
+
+        # disconnect mqtt
+        mqtt_broker.stop()
+
+        # stop the daemon
+        daemon.stop()
