@@ -4,7 +4,7 @@ from abc import ABC, abstractmethod
 
 from powermon.commands.command import Command
 from powermon.commands.result import Result
-from powermon.errors import PowermonProtocolError
+from powermon.libs.errors import PowermonProtocolError
 from powermon.protocols.abstractprotocol import AbstractProtocol
 
 log = logging.getLogger("Port")

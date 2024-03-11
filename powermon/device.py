@@ -5,7 +5,7 @@ import logging
 from powermon.commands.command import Command
 from powermon.commands.result import Result
 from powermon.dto.deviceDTO import DeviceDTO
-from powermon.errors import CommandDefinitionMissing, ConfigError
+from powermon.libs.errors import CommandDefinitionMissing, ConfigError
 from powermon.libs.mqttbroker import MqttBroker
 from powermon.outputs.abstractoutput import AbstractOutput
 from powermon.ports import from_config as port_from_config

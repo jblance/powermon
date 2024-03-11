@@ -1,7 +1,6 @@
 """
 config_model.py - pydantic definitions for the powermon config model
 """
-
 from typing import Literal, List
 from pydantic import BaseModel, Extra, Field
 

@@ -8,7 +8,7 @@ from powermon.commands.command_definition import CommandDefinition
 from powermon.commands.reading_definition import ReadingType, ResponseType
 from powermon.commands.result import ResultType
 from powermon.device import DeviceInfo
-from powermon.errors import CommandError, InvalidCRC, InvalidResponse
+from powermon.libs.errors import CommandError, InvalidCRC, InvalidResponse
 from powermon.outputformats.simple import SimpleFormat
 from powermon.protocols.ved import VictronEnergyDirect
 

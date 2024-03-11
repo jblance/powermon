@@ -15,7 +15,7 @@ pypi:
 	poetry version patch
 	./make_version_dev.sh
 	ls -l dist/
-	cat powermon/version.py
+	cat powermon/libs/version.py
 
 pypi-upload:
 	twine upload dist/*

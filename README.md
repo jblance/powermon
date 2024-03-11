@@ -1,4 +1,5 @@
-# Powermon Python Power Device Access Package #
+# Powermon #
+## Python based Power Device Access Package ##
 
 - minimum python supported 3.11
 

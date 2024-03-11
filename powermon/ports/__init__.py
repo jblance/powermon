@@ -1,7 +1,7 @@
 """ powermon / ports / __init__.py """
 import logging
 
-from powermon.errors import ConfigError
+from powermon.libs.errors import ConfigError
 from powermon.ports.porttype import PortType
 from powermon.ports.serialport import SerialPort
 from powermon.ports.testport import TestPort

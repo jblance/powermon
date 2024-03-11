@@ -7,7 +7,7 @@ from powermon.commands.command_definition import CommandDefinition
 from powermon.commands.result import Result, ResultType, ResultError
 from powermon.commands.trigger import Trigger
 from powermon.dto.commandDTO import CommandDTO
-from powermon.errors import ConfigError, InvalidResponse, InvalidCRC, CommandExecutionFailed
+from powermon.libs.errors import ConfigError, InvalidResponse, InvalidCRC, CommandExecutionFailed
 from powermon.outputs import OutputType, multiple_from_config
 from powermon.outputs.abstractoutput import AbstractOutput
 from powermon.outputs.api_mqtt import ApiMqtt

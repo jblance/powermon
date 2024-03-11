@@ -5,7 +5,7 @@ from enum import Enum, auto
 from powermon.commands.reading import Reading
 from powermon.commands.reading_definition import ReadingDefinition, ResponseType
 from powermon.dto.resultDTO import ResultDTO
-from powermon.errors import CommandExecutionFailed
+from powermon.libs.errors import CommandExecutionFailed
 
 log = logging.getLogger("result")
 

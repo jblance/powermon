@@ -6,7 +6,7 @@ from powermon.commands.command_definition import CommandDefinition
 from powermon.commands.result import ResultType
 from powermon.commands.command import CommandType
 from powermon.commands.reading_definition import ReadingType, ResponseType
-from powermon.errors import InvalidResponse
+from powermon.libs.errors import InvalidResponse
 from powermon.protocols import get_protocol_definition
 
 

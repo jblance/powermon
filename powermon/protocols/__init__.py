@@ -5,7 +5,7 @@ from enum import StrEnum, auto
 
 # from strenum import LowercaseStrEnum
 
-from powermon.errors import ConfigError
+from powermon.libs.errors import ConfigError
 
 log = logging.getLogger("protocols")
 

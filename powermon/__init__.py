@@ -12,13 +12,13 @@ from pyaml_env import parse_config
 from pydantic import ValidationError
 
 from powermon.commands.command import Command
-from powermon.config_model import ConfigModel
 from powermon.device import Device
 from powermon.libs.apicoordinator import ApiCoordinator
+from powermon.libs.config_model import ConfigModel
 from powermon.libs.daemon import Daemon
 from powermon.libs.mqttbroker import MqttBroker
+from powermon.libs.version import __version__  # noqa: F401
 from powermon.protocols import list_protocols
-from powermon.version import __version__  # noqa: F401
 
 # Set-up logger
 log = logging.getLogger("")

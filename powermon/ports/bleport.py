@@ -17,7 +17,7 @@ except ImportError:
 from powermon.commands.command import Command, CommandType
 from powermon.commands.result import Result
 from powermon.dto.portDTO import PortDTO
-from powermon.errors import PowermonWIP
+from powermon.libs.errors import PowermonWIP
 from powermon.ports.abstractport import AbstractPort
 from powermon.ports.porttype import PortType
 from powermon.protocols import get_protocol_definition

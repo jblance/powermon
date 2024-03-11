@@ -5,7 +5,7 @@ from powermon.protocols.helpers import crc_pi30 as crc
 from powermon.commands.command_definition import CommandDefinition
 from powermon.commands.reading_definition import ReadingType, ResponseType
 from powermon.commands.result import ResultType
-from powermon.errors import InvalidCRC
+from powermon.libs.errors import InvalidCRC
 from powermon.ports.porttype import PortType
 from powermon.protocols.abstractprotocol import AbstractProtocol
 

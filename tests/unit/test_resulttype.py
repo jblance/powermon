@@ -8,7 +8,7 @@ from powermon.commands.result import ResultType
 from powermon.protocols.abstractprotocol import AbstractProtocol
 from powermon.commands.reading_definition import ReadingDefinition, ResponseType
 from powermon.commands.command_definition import CommandDefinition
-from powermon.errors import CommandDefinitionIncorrect
+from powermon.libs.errors import CommandDefinitionIncorrect
 
 
 class TestResultTypes(unittest.TestCase):

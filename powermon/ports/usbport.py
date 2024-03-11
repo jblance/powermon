@@ -8,7 +8,7 @@ from glob import glob
 from powermon.commands.command import Command
 from powermon.commands.result import Result, ResultType
 from powermon.dto.portDTO import PortDTO
-from powermon.errors import ConfigError
+from powermon.libs.errors import ConfigError
 from powermon.ports.abstractport import AbstractPort
 from powermon.ports.porttype import PortType
 from powermon.protocols import get_protocol_definition

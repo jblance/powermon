@@ -11,7 +11,7 @@ from powermon.commands.result import ResultType
 from powermon.commands.trigger import Trigger
 from powermon.dto.command_definition_dto import CommandDefinitionDTO
 from powermon.dto.protocolDTO import ProtocolDTO
-from powermon.errors import (CommandDefinitionIncorrect,
+from powermon.libs.errors import (CommandDefinitionIncorrect,
                              CommandDefinitionMissing, InvalidResponse,
                              PowermonProtocolError)
 from powermon.outputs import multiple_from_config

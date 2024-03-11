@@ -7,7 +7,7 @@ from powermon.commands.command_definition import CommandDefinition
 from powermon.commands.reading_definition import ReadingType, ResponseType
 from powermon.commands.result import ResultType
 from powermon.commands.command import CommandType
-from powermon.errors import InvalidResponse, CommandDefinitionMissing
+from powermon.libs.errors import InvalidResponse, CommandDefinitionMissing
 from powermon.ports.porttype import PortType
 from powermon.protocols.abstractprotocol import AbstractProtocol
 from powermon.protocols.helpers import crc_jk232 as crc

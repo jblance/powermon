@@ -3,7 +3,7 @@ import unittest
 
 from powermon.commands.command_definition import CommandDefinition
 from powermon.commands.result import ResultType
-# from powermon.errors import InvalidResponse, PowermonProtocolError
+# from powermon.libs.errors import InvalidResponse, PowermonProtocolError
 # from powermon.ports.abstractport import AbstractPort
 # from powermon.ports.serialport import SerialPort
 # from powermon.ports.testport import TestPort
