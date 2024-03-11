@@ -3,17 +3,17 @@ import calendar  # pylint: disable=w0611 # noqa: F401
 import logging
 from ast import literal_eval
 from copy import deepcopy
-from enum import auto
+from enum import Enum, auto
 from struct import unpack
 
-from strenum import LowercaseStrEnum
+# from strenum import LowercaseStrEnum
 
 from powermon.commands.reading import Reading
 
 log = logging.getLogger("ReadingDefinition")
 
 
-class ResponseType(LowercaseStrEnum):
+class ResponseType(Enum):
     """
     the type of the response
     - determines how to read and translate to useful info
@@ -40,7 +40,7 @@ class ResponseType(LowercaseStrEnum):
     TEMPLATE_ORD_INT = auto()  # process the response using ord(value) and a numeric template
 
 
-class ReadingType(LowercaseStrEnum):
+class ReadingType(Enum):
     """
     the type of the reading
     - higher level type, like Wh etc

@@ -2,16 +2,16 @@
 import datetime
 import logging
 import time
-from enum import auto
+from enum import Enum, auto
 
-from strenum import LowercaseStrEnum
+# from strenum import LowercaseStrEnum
 
 from powermon.dto.triggerDTO import TriggerDTO
 
 log = logging.getLogger("Trigger")
 
 
-class TriggerType(LowercaseStrEnum):
+class TriggerType(Enum):
     """ enum of valid types of triggers """
     EVERY = auto()
     LOOPS = auto()

@@ -1,9 +1,6 @@
-# MPP-Solar Device Python Package #
+# Powermon Python Power Device Access Package #
 
-__BREAKING CHANGES__
-- minimum python supported 3.10 for version >=0.16.0
-- command separator changed to `#`
-.
+- minimum python supported 3.11
 
 
 Python package with reference library of commands (and responses)
@@ -21,18 +18,13 @@ Currently has support for:
 - Daly BMS
 
 ## Install ##
-- `pip install mppsolar` (minimal install), or
-- `pip install mppsolar[api]` (install server stuff), or
-- `pip install mppsolar[ble]` (for Bluetooth support aka jkbms), or
-- `pip install mppsolar[mongo]` (for MongoDB output), or
-- `pip install mppsolar[pgsql]` (for PostgreSQL output), or
-- `pip install mppsolar[push]` (for Prometheus PushGateway output), or
-- `pip install mppsolar[systemd]` (for `--daemon` on Linux), or
-- `docker pull jblance/mppsolar:latest` (docker install)
+- `pip install powermon` (minimal install)
+- `pip install powermon[api]` (install web api )
+- `docker pull jblance/powermon:latest` (docker install)
 
 
 ## Documentation ##
-[See the wiki for documentation](https://github.com/jblance/mpp-solar/wiki)
+[See the wiki for documentation](https://github.com/jblance/powermon/wiki)
 
 ## Support ##
 If you want to tip me for this work, you can now buy me a coffee

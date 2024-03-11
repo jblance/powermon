@@ -14,7 +14,7 @@ class TestConfigModel(unittest.TestCase):
         """ validate all the yaml config files """
         files = glob('docker/*.yaml')
         files.extend(glob('docker/dev/config/*.yaml'))
-        files.extend(glob('tests/pmon/config/*.yaml'))
+        files.extend(glob('tests/config/*.yaml'))
         for filename in files:
             print(f"Checking valid: {filename}")
             config = read_yaml_file(filename)
@@ -24,7 +24,7 @@ class TestConfigModel(unittest.TestCase):
 
     def test_invalid_config_files(self):
         """ test that invalid config file raise exception """
-        files = glob('tests/pmon/config_errors/*.yaml')
+        files = glob('tests/config_errors/*.yaml')
         for filename in files:
             print(f"Checking invalid: {filename}")
             config = read_yaml_file(filename)

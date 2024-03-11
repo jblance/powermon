@@ -1,15 +1,15 @@
 """ outputformats / __init__.py """
 import logging
-from enum import auto
+from enum import Enum, auto
 
-from strenum import LowercaseStrEnum
+# from strenum import LowercaseStrEnum
 
 from powermon.outputformats.abstractformat import AbstractFormat
 
 log = logging.getLogger("formats")
 
 
-class FormatterType(LowercaseStrEnum):
+class FormatterType(Enum):
     """ enumeration of valid formatter types """
     HASS = auto()
     HTMLTABLE = auto()

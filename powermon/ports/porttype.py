@@ -1,9 +1,9 @@
 """ powermon / ports / porttype.py """
-from enum import auto
-from strenum import LowercaseStrEnum
+from enum import Enum, auto
+# from strenum import LowercaseStrEnum
 
 
-class PortType(LowercaseStrEnum):
+class PortType(Enum):
     """ enumeration of supported / known port types """
     UNKNOWN = auto()
     TEST = auto()

@@ -1,8 +1,8 @@
 """ outputs / __init__.py """
 import logging
-from enum import auto
+from enum import Enum, auto
 
-from strenum import LowercaseStrEnum
+# from strenum import LowercaseStrEnum
 
 from powermon.outputformats import DEFAULT_FORMAT
 from powermon.outputformats import from_config as format_from_config
@@ -13,7 +13,7 @@ log = logging.getLogger("outputs")
 DEFAULT_OUTPUT = "screen"
 
 
-class OutputType(LowercaseStrEnum):
+class OutputType(Enum):
     """ enum of valid output types """
     SCREEN = auto()
     MQTT = auto()

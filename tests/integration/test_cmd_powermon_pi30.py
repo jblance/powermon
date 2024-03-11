@@ -1,4 +1,4 @@
-""" tests / pmon / integration / test_cmd_powermon_pi30.py """
+""" tests / integration / test_cmd_powermon_pi30.py """
 import subprocess
 import unittest
 

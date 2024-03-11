@@ -4,7 +4,7 @@ from enum import Enum, auto
 from time import time
 
 from pydantic import BaseModel
-from strenum import LowercaseStrEnum
+# from strenum import LowercaseStrEnum
 
 # Set-up logger
 log = logging.getLogger("daemon")
@@ -17,7 +17,7 @@ class dummyNotification(Enum):
     WATCHDOG = auto()
 
 
-class DaemonType(LowercaseStrEnum):
+class DaemonType(Enum):
     """ Daemon types implemented """
     DISABLED = auto()
     SYSTEMD = auto()

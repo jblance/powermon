@@ -1,4 +1,4 @@
-""" tests / pmon / unit / test_command.py """
+""" tests / unit / test_command.py """
 import unittest
 from datetime import (date, datetime,  # pylint: disable=W0611 # noqa: 401
                       timedelta)
