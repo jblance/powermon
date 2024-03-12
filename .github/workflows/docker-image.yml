@@ -1,0 +1,19 @@
+name: Docker Image CI
+
+on:
+  release:
+    types: [published]
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Build the Docker image
+      run: |
+        #docker build . --file Dockerfile --tag jblance/powermon:0.15.62 
+        echo "Tag name from GITHUB_REF_NAME: $GITHUB_REF_NAME"
+        echo "Tag name from github.ref_name: ${{  github.ref_name }}"
