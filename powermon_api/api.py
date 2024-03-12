@@ -1,13 +1,32 @@
-from argparse import ArgumentParser
 import logging
-import uvicorn
-from fastapi import FastAPI, Request
-from fastapi.staticfiles import StaticFiles
-from fastapi.templating import Jinja2Templates
+from argparse import ArgumentParser
+
+try:
+    import uvicorn
+except ImportError:
+    print("You are missing a python library - 'uvicorn'")
+    print("To install it, use the below command:")
+    print("    python -m pip install 'powermon[api]'")
+    print("or:")
+    print("    python -m pip install uvicorn")
+    exit(1)
+try:
+    from fastapi import FastAPI, Request
+    from fastapi.staticfiles import StaticFiles
+    from fastapi.templating import Jinja2Templates
+except ImportError:
+    print("You are missing a python library - 'fastapi'")
+    print("To install it, use the below command:")
+    print("    python -m pip install 'powermon[api]'")
+    print("or:")
+    print("    python -m pip install fastapi")
+    exit(1)
+
+from powermon.libs.version import __version__  # noqa: F401
+from powermon import read_yaml_file
+
 # from fastapi_mqtt import FastMQTT, MQTTConfig
 
-from mppsolar.version import __version__  # noqa: F401
-from powermon import read_yaml_file
 
 # Set-up logger
 log = logging.getLogger("")
