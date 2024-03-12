@@ -16,9 +16,9 @@ docker-powermon-dev-up:
 git-tag-release:
 	@./make_version.sh
 	@echo Creating a tag for version: `awk '/^version/ {print $$3}' pyproject.toml`
-	@echo Pushing pyproject.toml changes to git
-	git add pyproject.toml
-	git commit -m "version bump"
+	@echo Pushing version changes to git
+	git add powermon/libs/version.py
+	git commit -m "remove -dev from version"
 	git push
 	@git tag `awk '/^version/ {print substr($$3, 2, length($$3)-2)}' pyproject.toml`
 	@git push origin --tags
@@ -27,3 +27,7 @@ git-tag-release:
 	@poetry version patch
 	@echo Adding '-dev' to version in git
 	@./make_version_dev.sh
+	@echo Pushing version changes to git
+	git add powermon/libs/version.py pyproject.toml
+	git commit -m "Update versions"
+	git push
