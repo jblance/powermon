@@ -16,8 +16,10 @@ docker-powermon-dev-up:
 git-tag-release:
 	@./make_version.sh
 	@echo Creating a tag for version: `awk '/^version/ {print $$3}' pyproject.toml`
-	@git add pyproject.toml
-	@git commit -m "version bump"
+	@echo Pushing pyproject.toml changes to git
+	git add pyproject.toml
+	git commit -m "version bump"
+	git push
 	@git tag `awk '/^version/ {print substr($$3, 2, length($$3)-2)}' pyproject.toml`
 	@git push origin --tags
 	@echo "Now go to github and create a release for the latest tag" `awk '/^version/ {print substr($$3, 2, length($$3)-2)}' pyproject.toml`
