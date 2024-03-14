@@ -2,12 +2,19 @@
 import logging
 from abc import ABC, abstractmethod
 
-# from powermon.libs.mqttbroker import MqttBroker
+from pydantic import BaseModel
+
 from powermon.commands.result import Result
-from powermon.dto.outputDTO import OutputDTO
-from powermon.outputformats.abstractformat import AbstractFormat
+from powermon.outputformats.abstractformat import AbstractFormat, AbstractFormatDTO
 
 log = logging.getLogger("Output")
+
+
+class AbstractOutputDTO(BaseModel):
+    """ data transfer model for AbstractOutput class """
+    output_type: str
+    topic: None | str
+    formatter: AbstractFormatDTO
 
 
 class AbstractOutput(ABC):
@@ -17,6 +24,14 @@ class AbstractOutput(ABC):
         # self.command_code : str = "not_set"
         # self.device_id : str = "not_set"
         self.topic = None
+
+    def to_dto(self) -> AbstractOutputDTO:
+        """ convert output object to a data transfer object """
+        if self.formatter is None:
+            format_dto = "None"
+        else:
+            format_dto = self.formatter.to_dto()
+        return AbstractOutputDTO(output_type=self.name, topic=self.topic, formatter=format_dto)
 
     @property
     def formatter(self):
@@ -31,11 +46,3 @@ class AbstractOutput(ABC):
     def process(self, command=None, result: Result = None, mqtt_broker=None, device_info=None):
         """ entry point of any output class """
         raise NotImplementedError("need to implement process function")
-
-    def to_dto(self) -> OutputDTO:
-        """ convert output object to a data transfer object """
-        if self.formatter is None:
-            format_dto = "None"
-        else:
-            format_dto = self.formatter.to_dto()
-        return OutputDTO(type=self.name, format=format_dto)

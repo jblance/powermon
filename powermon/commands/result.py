@@ -2,9 +2,11 @@
 import logging
 from enum import Enum, auto
 
+from pydantic import BaseModel
+
 from powermon.commands.reading import Reading
-from powermon.commands.reading_definition import ReadingDefinition, ResponseType
-from powermon.dto.resultDTO import ResultDTO
+from powermon.commands.reading_definition import (ReadingDefinition,
+                                                  ResponseType)
 from powermon.libs.errors import CommandExecutionFailed
 
 log = logging.getLogger("result")
@@ -23,6 +25,13 @@ class ResultType(Enum):
     VED_INDEXED = auto()  # the response has a key / value pair (separated by \t, each pair separated by \r\n), with the key used to find the definition
 
 
+class ResultDTO(BaseModel):
+    """ data transfer object for Result objects """
+    device_identifier: str
+    command_code: str
+    data: dict | list
+
+
 class Result:
     """
     object to contain all the info of a result, including
@@ -30,23 +39,25 @@ class Result:
     - 'raw response' from the device
     - list of Readings (processed results)
     """
-    def __str__(self):
-        return f"Result: {self.command.command_definition.description=}: {self.is_valid=}, {self.error=} - {self.error_messages=}, {self.raw_response=}, " + ','.join(str(reading) for reading in self._readings)
-
-    # def __init__(self, result_type: ResultType, command_definition, raw_response: bytes, responses: list | dict):
-    def __init__(self, command, raw_response: bytes, responses: list | dict):
+    def __init__(self, command, raw_response: bytes, responses: list | dict, is_error=False):
         self.is_valid = True
         self.error = False
         self.error_messages = []
 
         self.command = command
-        self.result_type = command.command_definition.result_type
-        # self.command_definition = command.command_definition
-
         self.raw_response = raw_response
-        self.readings: list[Reading] = responses
+
+        if is_error:
+            self.result_type = ResultType.ERROR
+            self.readings = None
+        else:
+            self.result_type = command.command_definition.result_type
+            self.readings: list[Reading] = responses
 
         log.debug("Result: %s", self)
+
+    def __str__(self):
+        return f"Result: {self.command.command_definition.description=}: {self.is_valid=}, {self.error=} - {self.error_messages=}, {self.raw_response=}, " + ','.join(str(reading) for reading in self._readings)
 
     @property
     def raw_response(self):
@@ -158,21 +169,3 @@ class Result:
         for reading in self.readings:
             reading_dtos.append(reading.to_dto())
         return ResultDTO(device_identifier="self.device_id", command_code="self.command_code", data=reading_dtos)
-
-
-class ResultError(Result):
-    """ docstring todo """
-    def __init__(self, command, raw_response: bytes, responses: list | dict):
-        self.command = command
-        self.raw_response = raw_response
-        self.result_type = ResultType.ERROR
-
-        self.is_valid = False
-        self.error = True
-        self.error_messages = responses
-
-        # self.command_definition = command.command_definition
-
-        self.readings: list[Reading] = None
-
-        log.debug("Result: %s", self)

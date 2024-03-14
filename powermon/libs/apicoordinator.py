@@ -1,20 +1,36 @@
 """ apicoordinator.py """
 import logging
 from time import time
+from typing import Optional
 
-from powermon.commands.command import Command
+from pydantic import BaseModel
+
+from powermon.commands.command import Command, CommandDTO
 from powermon.commands.trigger import Trigger
 from powermon.device import Device
-from powermon.dto.commandDTO import CommandDTO
-from powermon.dto.apicoordinatorDTO import ApicoordinatorDTO
 from powermon.outputformats.simple import SimpleFormat
 from powermon.outputs.api_mqtt import ApiMqtt
 
 log = logging.getLogger("APICoordinator")
 
 
+class ApiCoordinatorDTO(BaseModel):
+    """ data transfer model for ApiCoordinator class """
+    name: str
+    description: Optional[str]
+
+
 class ApiCoordinator:
     """ apicoordinator coordinates the api / mqtt interface """
+    def __init__(self, adhoc_topic_format: str, announce_topic: str, enabled: bool, refresh_interval: int):
+        self.device = None
+        self.mqtt_broker = None
+        self.last_run = None
+        self.adhoc_topic_format = adhoc_topic_format
+        self.announce_topic = announce_topic
+        self.refresh_interval = refresh_interval
+        self.enabled = enabled
+
     def __str__(self):
         if not self.enabled:
             return "ApiCoordinator DISABLED"
@@ -22,7 +38,7 @@ class ApiCoordinator:
 
     def to_dto(self):
         """ convert object to data transfer object """
-        dto = ApicoordinatorDTO(name="ApiCoordinator", description="api coordinator to_dto is todo")
+        dto = ApiCoordinatorDTO(name="ApiCoordinator", description="api coordinator to_dto is todo")
         return dto
 
     @classmethod
@@ -42,15 +58,6 @@ class ApiCoordinator:
             adhoc_topic_format = config.get("adhoc_topic_format", "powermon/{device_id}/addcommand")
 
         return cls(adhoc_topic_format=adhoc_topic_format, announce_topic=announce_topic, enabled=enabled, refresh_interval=refresh_interval)
-
-    def __init__(self, adhoc_topic_format: str, announce_topic: str, enabled: bool, refresh_interval: int):
-        self.device = None
-        self.mqtt_broker = None
-        self.last_run = None
-        self.adhoc_topic_format = adhoc_topic_format
-        self.announce_topic = announce_topic
-        self.refresh_interval = refresh_interval
-        self.enabled = enabled
 
     def set_device(self, device: Device):
         """ store the device in the apicoordinator """

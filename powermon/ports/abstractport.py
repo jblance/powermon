@@ -2,29 +2,34 @@
 import logging
 from abc import ABC, abstractmethod
 
+from pydantic import BaseModel
+
 from powermon.commands.command import Command
 from powermon.commands.result import Result
 from powermon.libs.errors import PowermonProtocolError
-from powermon.protocols.abstractprotocol import AbstractProtocol
+from powermon.protocols.abstractprotocol import AbstractProtocol, AbstractProtocolDTO
 
 log = logging.getLogger("Port")
 
 
+class AbstractPortDTO(BaseModel):
+    """ data transfer model for AbstractPort class """
+    port_type: str
+    protocol: AbstractProtocolDTO
+
+
 class AbstractPort(ABC):
-    """
-    model for all ports
-    """
+    """ base model for all ports """
+    def __init__(self, protocol: AbstractProtocol):
+        self.protocol: AbstractProtocol = protocol
+        self.error_message = None
+        self.port_type = None
 
     @classmethod
     @abstractmethod
     def from_config(cls, config=None):
         """ build port object from config dict """
         raise NotImplementedError
-
-    def __init__(self, protocol: AbstractProtocol):
-        self.protocol: AbstractProtocol = protocol
-        self.error_message = None
-        self.port_type = None
 
     def is_protocol_supported(self):
         """ function to check if the protocol is supported by this port """

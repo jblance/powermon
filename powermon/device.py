@@ -1,18 +1,28 @@
-"""device.py"""
+""" device.py """
 import logging
+from typing import Optional
 
+from pydantic import BaseModel
 
-from powermon.commands.command import Command
+from powermon.commands.command import Command, CommandDTO
 from powermon.commands.result import Result
-from powermon.dto.deviceDTO import DeviceDTO
+# from powermon.dto.deviceDTO import DeviceDTO
 from powermon.libs.errors import CommandDefinitionMissing, ConfigError
 from powermon.libs.mqttbroker import MqttBroker
 from powermon.outputs.abstractoutput import AbstractOutput
 from powermon.ports import from_config as port_from_config
-from powermon.ports.abstractport import AbstractPort
+from powermon.ports.abstractport import AbstractPort, AbstractPortDTO
 
 # Set-up logger
 log = logging.getLogger("Device")
+
+
+class DeviceInfoDTO(BaseModel):
+    """ data transfer model for DeviceInfo class """
+    name: str | int
+    device_id: str | int
+    model: Optional[str | int]
+    manufacturer: Optional[str | int]
 
 
 class DeviceInfo:
@@ -23,17 +33,42 @@ class DeviceInfo:
         self.model = model
         self.manufacturer = manufacturer
 
+    def to_dto(self):
+        """convert the DeviceInfo to a Data Transfer Object"""
+        return DeviceInfoDTO(name=self.name, device_id=self.device_id, model=self.model, manufacturer=self.manufacturer)
+
+
+class DeviceDTO(BaseModel):
+    """ data transfer model for Device class """
+    device_info: DeviceInfoDTO
+    port: AbstractPortDTO
+    commands: list[CommandDTO]
+
 
 class Device:
     """
     A device is a port with a protocol
     also contains the name, model and id of the device
     """
+    def __init__(self, name: str, device_id: str = "", model: str = "", manufacturer: str = "", port: AbstractPort = None):
+        self.device_info = DeviceInfo(name=name, device_id=device_id, model=model, manufacturer=manufacturer)
+        self.port: AbstractPort = port
+        self.commands: list[Command] = []
+        self.mqtt_broker = None
+        self.adhoc_commands: list = []
 
     def __str__(self):
         return f"Device: {self.device_info.name}, {self.device_info.device_id=}, " + \
             f"{self.device_info.model=}, {self.device_info.manufacturer=}, " + \
             f"port: {self.port}, mqtt_broker: {self.mqtt_broker}, commands:{self.commands}"
+
+    def to_dto(self) -> DeviceDTO:
+        """convert the Device to a Data Transfer Object"""
+        commands = []
+        command: Command
+        for command in self.commands:
+            commands.append(command.to_dto())
+        return DeviceDTO(device_info=self.device_info.to_dto(), port=self.port.to_dto(), commands=commands)
 
     @classmethod
     def from_config(cls, config=None):
@@ -54,13 +89,6 @@ class Device:
             raise ConfigError(f"Invalid port config '{config}' found")
 
         return cls(name=name, device_id=device_id, model=model, manufacturer=manufacturer, port=port)
-
-    def __init__(self, name: str, device_id: str = "", model: str = "", manufacturer: str = "", port: AbstractPort = None):
-        self.device_info = DeviceInfo(name=name, device_id=device_id, model=model, manufacturer=manufacturer)
-        self.port: AbstractPort = port
-        self.commands: list[Command] = []
-        self.mqtt_broker = None
-        self.adhoc_commands: list = []
 
     @property
     def port(self) -> AbstractPort:
@@ -110,19 +138,6 @@ class Device:
         # append to commands list
         self.commands.append(command)
         log.debug("added command (%s), command list length: %i", command, len(self.commands))
-
-    def to_dto(self) -> DeviceDTO:
-        """convert the Device to a Data Transfer Object"""
-        commands = []
-        command: Command
-        for command in self.commands:
-            commands.append(command.to_dto())
-        dto = DeviceDTO(device_id=self.device_info.device_id,
-                        model=self.device_info.model,
-                        manufacturer=self.device_info.manufacturer,
-                        port=self.port.to_dto(),
-                        commands=commands)
-        return dto
 
     async def initialize(self):
         """Device initialization activities"""

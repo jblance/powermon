@@ -1,15 +1,18 @@
 """ commands / command.py """
 import logging
+from datetime import (date, datetime,  # pylint: disable=W0611 # noqa: 401
+                      timedelta)
 from enum import Enum
-from datetime import date, datetime, timedelta  # pylint: disable=W0611 # noqa: 401
+
+from pydantic import BaseModel
 
 from powermon.commands.command_definition import CommandDefinition
-from powermon.commands.result import Result, ResultType, ResultError
-from powermon.commands.trigger import Trigger
-from powermon.dto.commandDTO import CommandDTO
-from powermon.libs.errors import ConfigError, InvalidResponse, InvalidCRC, CommandExecutionFailed
+from powermon.commands.result import Result
+from powermon.commands.trigger import Trigger, TriggerDTO
+from powermon.libs.errors import (CommandExecutionFailed, ConfigError,
+                                  InvalidCRC, InvalidResponse)
 from powermon.outputs import OutputType, multiple_from_config
-from powermon.outputs.abstractoutput import AbstractOutput
+from powermon.outputs.abstractoutput import AbstractOutput, AbstractOutputDTO
 from powermon.outputs.api_mqtt import ApiMqtt
 
 log = logging.getLogger("Command")
@@ -34,6 +37,16 @@ class CommandType(Enum):
     JKSERIAL_ACTIVATION = 'jkserial_activation'
 
 
+class CommandDTO(BaseModel):
+    """ model/allowed elements for a command data transfer object """
+    code: str
+    command_type: str
+    template: None | str
+    override: None | str | dict
+    trigger: TriggerDTO
+    outputs: list[AbstractOutputDTO]
+
+
 class Command():
     """
     Command object, holds the details of the command, including:
@@ -43,6 +56,28 @@ class Command():
     - trigger
     - outputs
     """
+    def __init__(self, code: str, commandtype: str, outputs: list[AbstractOutput], trigger: Trigger):
+        self.code = code
+        self.command_type = commandtype
+        self.outputs: list[AbstractOutput] = outputs
+        self.trigger: Trigger = trigger
+
+        self.command_definition: CommandDefinition
+        self.template: str = None
+        self.full_command: str = None
+        self.override: str
+
+    def to_dto(self):
+        """ return the command data transfer object """
+        return CommandDTO(
+            code=self.code,
+            command_type=self.command_type,
+            template=self.template,
+            override=self.override,
+            trigger=self.trigger.to_dto(),
+            outputs=[output.to_dto() for output in self.outputs],
+        )
+
     def __str__(self):
         if self.code is None:
             return "empty command object"
@@ -60,17 +95,6 @@ class Command():
 
         return f"Command: {self.code=} {self.full_command=}, {self.command_type=}, \
             [{_outs=}], {last_run=}, {next_run=}, {str(self.trigger)}, {str(self.command_definition)} {self.override=} {self.template=}"
-
-    def __init__(self, code: str, commandtype: str, outputs: list[AbstractOutput], trigger: Trigger):
-        self.code = code
-        self.command_type = commandtype
-        self.outputs: list[AbstractOutput] = outputs
-        self.trigger: Trigger = trigger
-
-        self.command_definition: CommandDefinition
-        self.template: str = None
-        self.full_command: str = None
-        self.override: str
 
     @classmethod
     def from_config(cls, config=None) -> "Command":
@@ -139,8 +163,7 @@ class Command():
             # build the Result object
             result = Result(command=self, raw_response=raw_response, responses=responses)
         except (InvalidResponse, InvalidCRC, CommandExecutionFailed) as e:
-            result = ResultError(command=self, raw_response=e, responses=[e.__context__, str(e)])
-            result.result_type = ResultType.ERROR
+            result = Result(command=self, raw_response=e, responses=[], is_error=True)
         return result
 
     @property
@@ -211,13 +234,3 @@ class Command():
             except SyntaxError as ex:
                 print(ex)
                 return
-
-    def to_dto(self):
-        """ return the command data transfer object """
-        return CommandDTO(
-            command_code=self.code,
-            device_id="not set",
-            result_topic=self.outputs[0].topic,
-            trigger=self.trigger.to_dto(),
-            outputs=[output.to_dto() for output in self.outputs],
-        )

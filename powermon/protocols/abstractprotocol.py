@@ -4,13 +4,12 @@ import logging
 import re
 
 import construct as cs
+from pydantic import BaseModel
 
 from powermon.commands.command import Command
-from powermon.commands.command_definition import CommandDefinition
+from powermon.commands.command_definition import CommandDefinition, CommandDefinitionDTO
 from powermon.commands.result import ResultType
 from powermon.commands.trigger import Trigger
-from powermon.dto.command_definition_dto import CommandDefinitionDTO
-from powermon.dto.protocolDTO import ProtocolDTO
 from powermon.libs.errors import (CommandDefinitionIncorrect,
                              CommandDefinitionMissing, InvalidResponse,
                              PowermonProtocolError)
@@ -19,6 +18,14 @@ from powermon.ports.porttype import PortType
 from powermon.protocols.helpers import crc_pi30 as crc
 
 log = logging.getLogger("AbstractProtocol")
+
+
+class AbstractProtocolDTO(BaseModel):
+    """ data transfer model for AbstractPort class """
+    protocol_id: str
+    command_definitions: dict[str, CommandDefinitionDTO]
+    supported_ports: list[str]
+    id_command: None | str
 
 
 class AbstractProtocol(metaclass=abc.ABCMeta):
@@ -36,6 +43,11 @@ class AbstractProtocol(metaclass=abc.ABCMeta):
         self.command_definitions: dict[str, CommandDefinition] = {}
         self.supported_ports = [PortType.TEST,]
         self.id_command = None
+
+    def to_dto(self) -> AbstractProtocolDTO:
+        """ convert protocol object to data transfer object """
+        dto = AbstractProtocolDTO(protocol_id=self.protocol_id, command_definitions=self.get_command_definition_dtos(), supported_ports=self.supported_ports, id_command=self.id_command)
+        return dto
 
     @property
     def protocol_id(self) -> bytes:
@@ -217,11 +229,6 @@ class AbstractProtocol(metaclass=abc.ABCMeta):
                 responses = response.split()
         log.debug("responses: '%s'", responses)
         return responses
-
-    def to_dto(self) -> ProtocolDTO:
-        """ convert protocol object to data transfer object """
-        dto = ProtocolDTO(protocol_id=self.protocol_id, commands=self.get_command_definition_dtos())
-        return dto
 
     def get_id_command(self) -> Command:
         """ return the command that generates a unique id for this type of device """

@@ -1,8 +1,7 @@
 """ formats / json_fmt.py """
 import json
 import logging
-from powermon.outputformats.abstractformat import AbstractFormat
-from powermon.dto.formatDTO import FormatDTO
+from powermon.outputformats.abstractformat import AbstractFormat, AbstractFormatDTO
 from powermon.commands.result import Result
 from powermon.commands.reading import Reading
 
@@ -55,6 +54,6 @@ class Json(AbstractFormat):
         return _result
 
     @classmethod
-    def from_dto(cls, dto: FormatDTO):
+    def from_dto(cls, dto: AbstractFormatDTO):
         """ build class object from dto """
         return cls(config=dto)

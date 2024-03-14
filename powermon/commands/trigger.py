@@ -2,9 +2,9 @@
 import datetime
 import logging
 import time
-from enum import StrEnum, auto
+from enum import StrEnum, auto  # pylint: disable=E0611
 
-from powermon.dto.triggerDTO import TriggerDTO
+from pydantic import BaseModel
 
 log = logging.getLogger("Trigger")
 
@@ -18,6 +18,12 @@ class TriggerType(StrEnum):
     DISABLED = auto()
 
 
+class TriggerDTO(BaseModel):
+    """ data transfer model for Trigger class """
+    trigger_type: str
+    value: str | int
+
+
 class Trigger:
     """ the trigger class """
     DATE_FORMAT = "%d %b %Y %H:%M:%S"
@@ -28,6 +34,13 @@ class Trigger:
         self.togo = 0
         self.last_run : float | None = None
         self.next_run : float = self.determine_next_run()
+
+    def to_dto(self):
+        """ data transfer object for Trigger objects """
+        return TriggerDTO(
+            trigger_type=self.trigger_type,
+            value=self.value
+        )
 
     def __str__(self):
         return f"trigger: {self.trigger_type} {self.value} loops togo: {self.togo}"
@@ -58,7 +71,8 @@ class Trigger:
 
     @classmethod
     def from_dto(cls, dto: TriggerDTO) -> "Trigger":
-        return cls(trigger_type=dto.trigger_type, value=dto.value)    
+        """ build a trigger from a dto """
+        return cls(trigger_type=dto.trigger_type, value=dto.value)
 
     def touch(self):
         """ update last and next run times """
@@ -68,77 +82,77 @@ class Trigger:
         self.next_run = self.determine_next_run()
 
     def get_last_run(self) -> str:
+        """ readible form of last_run """
         last_run_str = "Not yet run"
         if self.last_run is not None:
             last_run_str = time.strftime(Trigger.DATE_FORMAT, time.localtime(self.last_run))
         return last_run_str
 
     def get_next_run(self) -> str:
+        """ readible form of next_run """
         next_run_str = "unknown"
         if self.next_run is not None:
             next_run_str = time.strftime(Trigger.DATE_FORMAT, time.localtime(self.next_run))
         return next_run_str
 
     def is_due(self) -> bool:
+        """ determine if this trigger is due or not """
         # Store the time now
         now = time.time()
-        if self.trigger_type == TriggerType.DISABLED:
-            return False
-        elif self.trigger_type == TriggerType.EVERY:
-            if self.last_run is None:
-                return True  # if hasnt run, run now
-            if self.next_run <= now:
-                return True
-            return False
-        elif self.trigger_type == TriggerType.LOOPS:
-            if self.togo <= 0:
-                self.togo = self.value
-                return True
-            else:
-                self.togo -= 1
+        match self.trigger_type:
+            case TriggerType.DISABLED:
                 return False
-        elif self.trigger_type == TriggerType.AT:
-            if self.next_run is None:
-                #log.warning("at type trigger failed to set next run for %s" % command)
+            case TriggerType.EVERY:
+                if self.last_run is None:
+                    return True  # if hasnt run, run now
+                if self.next_run <= now:
+                    return True
                 return False
-            if self.next_run <= now:
-                return True
-            return False
-        elif self.trigger_type == TriggerType.ONCE:
-            if int(self.value) == 0:
-                self.value = 1
-                return True
-            else:
+            case TriggerType.LOOPS:
+                if self.togo <= 0:
+                    self.togo = self.value
+                    return True
+                else:
+                    self.togo -= 1
+                    return False
+            case TriggerType.AT:
+                if self.next_run is None:
+                    #log.warning("at type trigger failed to set next run for %s" % command)
+                    return False
+                if self.next_run <= now:
+                    return True
                 return False
-        #log.warning("no isDue set for %s" % command)
-        return False
+            case TriggerType.ONCE:
+                if int(self.value) == 0:
+                    self.value = 1
+                    return True
+                else:
+                    return False
+            case _:
+                #log.warning("no isDue set for %s" % command)
+                return False
 
     def determine_next_run(self) -> float:
-        #TODO: split this into a function per trigger type
-        if self.trigger_type == TriggerType.EVERY:
-            # triggers every xx seconds
-            # if hasnt run, run now
-            if self.last_run is None:
-                self.next_run = time.time()
-            else:
-                self.next_run = self.last_run + self.value
-        elif self.trigger_type == TriggerType.AT:
-            # triggers at specific time each day
-            dt_today = datetime.datetime.now()
-            dt_now = dt_today.time()
-            at_time = datetime.time.fromisoformat(self.value)
-            if dt_now < at_time:
-                # needs to run today at at_time
-                self.next_run = dt_today.replace(hour=at_time.hour, minute=at_time.minute, second=at_time.second, microsecond=0).timestamp()
-            else:
-                # needs to run tomorrow at at_time
-                self.next_run = (dt_today.replace(hour=at_time.hour, minute=at_time.minute, second=at_time.second, microsecond=0) + datetime.timedelta(days=1)).timestamp()
-        else:
-            self.next_run = None
-        return self.next_run
-
-    def to_dto(self):
-        return TriggerDTO(
-            trigger_type=self.trigger_type,
-            value=self.value
-        )
+        """ calculate next_run value """
+        match self.trigger_type:
+            case TriggerType.EVERY:
+                # triggers every xx seconds
+                # if hasnt run, run now
+                if self.last_run is None:
+                    next_run = time.time()
+                else:
+                    next_run = self.last_run + self.value
+            case TriggerType.AT:
+                # triggers at specific time each day
+                dt_today = datetime.datetime.now()
+                dt_now = dt_today.time()
+                at_time = datetime.time.fromisoformat(self.value)
+                if dt_now < at_time:
+                    # needs to run today at at_time
+                    next_run = dt_today.replace(hour=at_time.hour, minute=at_time.minute, second=at_time.second, microsecond=0).timestamp()
+                else:
+                    # needs to run tomorrow at at_time
+                    next_run = (dt_today.replace(hour=at_time.hour, minute=at_time.minute, second=at_time.second, microsecond=0) + datetime.timedelta(days=1)).timestamp()
+            case _:
+                next_run = None
+        return next_run

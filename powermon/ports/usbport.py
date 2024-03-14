@@ -7,13 +7,18 @@ from glob import glob
 
 from powermon.commands.command import Command
 from powermon.commands.result import Result, ResultType
-from powermon.dto.portDTO import PortDTO
 from powermon.libs.errors import ConfigError
-from powermon.ports.abstractport import AbstractPort
+from powermon.ports.abstractport import AbstractPort, AbstractPortDTO
 from powermon.ports.porttype import PortType
 from powermon.protocols import get_protocol_definition
 
 log = logging.getLogger("USBPort")
+
+
+class UsbPortDTO(AbstractPortDTO):
+    """ data transfer model for SerialPort class """
+    path: str
+    identifier: None | int | str
 
 
 class USBPort(AbstractPort):
@@ -65,7 +70,7 @@ class USBPort(AbstractPort):
         # end of multi-path logic
 
     def to_dto(self):
-        dto = PortDTO(type="usb", path=self.path, protocol=self.protocol.to_dto())
+        dto = UsbPortDTO(port_type="usb", path=self.path, protocol=self.protocol.to_dto())
         return dto
 
     def is_connected(self) -> bool:
@@ -128,7 +133,6 @@ class USBPort(AbstractPort):
                 time.sleep(0.15)
                 r = os.read(self.port, 256)
                 response_line += r
-                    
                 # Finished is \r is in byte_response
                 if bytes([13]) in response_line:
                     # remove anything after the \r

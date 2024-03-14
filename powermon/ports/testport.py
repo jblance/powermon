@@ -5,16 +5,35 @@ import random
 from powermon.commands.command import Command
 from powermon.commands.command_definition import CommandDefinition
 from powermon.commands.result import Result
-from powermon.dto.portDTO import PortDTO
-from powermon.ports.abstractport import AbstractPort
+# from powermon.dto.portDTO import PortDTO
+from powermon.ports.abstractport import AbstractPort, AbstractPortDTO
 from powermon.ports.porttype import PortType
 from powermon.protocols import get_protocol_definition
 
 log = logging.getLogger("test")
 
 
+class TestPortDTO(AbstractPortDTO):
+    """ data transfer model for TestPort class """
+    response_number: None | int
+
+
 class TestPort(AbstractPort):
     """ test port object - responds with test data (if configured in the protocol) """
+    def __init__(self, response_number, protocol):
+        super().__init__(protocol=protocol)
+        self.port_type = PortType.TEST
+        self.response_number = response_number
+        self.connected = False
+        self._test_data = None
+        self.is_protocol_supported()
+
+    def to_dto(self) -> AbstractPortDTO:
+        dto = TestPortDTO(port_type=self.port_type, protocol=self.protocol.to_dto(), response_number=self.response_number)
+        return dto
+
+    def __str__(self):
+        return "Test port"
 
     @classmethod
     def from_config(cls, config=None):
@@ -24,21 +43,6 @@ class TestPort(AbstractPort):
         # get protocol handler, default to PI30 if not supplied
         protocol = get_protocol_definition(protocol=config.get("protocol", "PI30"))
         return cls(response_number=response_number, protocol=protocol)
-
-    def __init__(self, response_number, protocol):
-        super().__init__(protocol=protocol)
-        self.port_type = PortType.TEST
-        self.response_number = response_number
-        self.connected = False
-        self._test_data = None
-        self.is_protocol_supported()
-
-    def __str__(self):
-        return "Test port"
-
-    def to_dto(self) -> PortDTO:
-        dto = PortDTO(type="test", protocol=self.protocol.to_dto())
-        return dto
 
     def is_connected(self):
         log.debug("Test port is connected")

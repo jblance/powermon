@@ -11,7 +11,7 @@ except ImportError:
     print("    python -m pip install 'powermon[ble]'")
     print("or:")
     print("    python -m pip install bleak")
-    return
+    exit(1)
 
 
 from powermon.commands.command import Command, CommandType

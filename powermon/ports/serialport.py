@@ -8,14 +8,19 @@ import serial
 
 from powermon.commands.command import Command, CommandType
 from powermon.commands.result import Result
-from powermon.dto.portDTO import PortDTO
 from powermon.libs.errors import ConfigError
-from powermon.ports.abstractport import AbstractPort
+from powermon.ports.abstractport import AbstractPort, AbstractPortDTO
 from powermon.ports.porttype import PortType
 from powermon.protocols import get_protocol_definition
 
 log = logging.getLogger("SerialPort")
 
+
+class SerialPortDTO(AbstractPortDTO):
+    """ data transfer model for SerialPort class """
+    path: str
+    baud: int
+    identifier: None | int | str
 
 class SerialPort(AbstractPort):
     """ serial port object - normally a usb to serial adapter """
@@ -65,17 +70,14 @@ class SerialPort(AbstractPort):
                     if not res.is_valid:
                         log.debug("path: %s does not match for identifier: %s", _path, identifier)
                         continue
-                    # print(res.readings[0])
-                    # print(res.readings[0].data_value)
-                    # print(res.readings[0].data_value == identifier)
                     if res.readings[0].data_value == identifier:
                         log.info("SUCCESS: path: %s matches for identifier: %s", _path, identifier)
                         return
                 raise ConfigError(f"Multiple paths - none of {paths} match {identifier}")
         # end of multi-path logic
 
-    def to_dto(self) -> PortDTO:
-        dto = PortDTO(type="serial", path=self.path, baud=self.baud, protocol=self.protocol.to_dto())
+    def to_dto(self) -> AbstractPortDTO:
+        dto = SerialPortDTO(port_type="serial", path=self.path, baud=self.baud, protocol=self.protocol.to_dto())
         return dto
 
     def is_connected(self):

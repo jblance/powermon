@@ -3,40 +3,26 @@ import logging
 import re
 from abc import ABC, abstractmethod
 
+from pydantic import BaseModel
+
 from powermon.commands.reading import Reading
 from powermon.commands.result import Result
-# from powermon.device import DeviceInfo
-from powermon.dto.formatDTO import FormatDTO
 
 log = logging.getLogger("Formatter")
 
 
-def pad(text, length):
-    """ expand supplied value to 'length' with spaces, return unchanged if already longer """
-    if isinstance(text, float) or isinstance(text, int):
-        text = str(text)
-    if len(text) > length:
-        return text
-    return text.ljust(length, " ")
-
-
-def get_max_response_lengths(readings: list[Reading]):
-    """ find the max length from a list of Readings """
-    _max_name = 0
-    _max_value = 0
-    _max_unit = 0
-    for reading in readings:
-        _max_name = max(len(reading.data_name), _max_name)
-        _max_value = max(len(str(reading.data_value)), _max_value)
-        _max_unit = max(len(reading.data_unit), _max_unit)
-    return _max_name, _max_value, _max_unit
+class AbstractFormatDTO(BaseModel):
+    """ data transfer object for AbstractFormat objects """
+    format_type: str
+    remove_spaces: None | bool
+    keep_case: None | bool
+    key_filter: None | bool
+    key_exclusion_filter: None | bool
+    extra_info: None | bool
 
 
 class AbstractFormat(ABC):
     """ base for all format types """
-    def __str__(self):
-        return f"Format: {self.name}"
-
     def __init__(self, config=None):
         self.name = "AbstractFormat"
         if config is None:
@@ -46,6 +32,13 @@ class AbstractFormat(ABC):
         self.key_filter = config.get("filter", None)
         self.key_exclusion_filter = config.get("excl_filter", None)
         self.extra_info = config.get("extra_info", False)
+
+    def to_dto(self) -> AbstractFormatDTO:
+        """ return the format data transfer object """
+        return AbstractFormatDTO(format_type=self.name, remove_spaces=self.remove_spaces, keep_case=self.keep_case, key_filter=self.key_filter, key_exclusion_filter=self.key_exclusion_filter, extra_info=self.extra_info)
+
+    def __str__(self):
+        return f"Format: {self.name}"
 
     @property
     def key_filter(self):
@@ -70,9 +63,6 @@ class AbstractFormat(ABC):
     @abstractmethod
     def format(self, command, result: Result, device_info) -> list:
         """ entry point for all formats """
-
-    def to_dto(self) -> FormatDTO:
-        return FormatDTO(type=self.name)
 
     def format_and_filter_data(self, result: Result) -> list[Reading]:
         """ reformat key and remove unwanted readings """

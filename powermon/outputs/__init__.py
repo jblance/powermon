@@ -1,6 +1,6 @@
 """ outputs / __init__.py """
 import logging
-from enum import Enum, auto
+from enum import StrEnum, auto
 
 # from strenum import LowercaseStrEnum
 
@@ -13,7 +13,7 @@ log = logging.getLogger("outputs")
 DEFAULT_OUTPUT = "screen"
 
 
-class OutputType(Enum):
+class OutputType(StrEnum):
     """ enum of valid output types """
     SCREEN = auto()
     MQTT = auto()

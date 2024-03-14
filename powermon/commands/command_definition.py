@@ -3,12 +3,27 @@ import logging
 import re
 
 import construct as cs
+from pydantic import BaseModel
 
 from powermon.commands.reading_definition import ReadingDefinition, ReadingType
 from powermon.commands.result import ResponseType, ResultType
-from powermon.dto.command_definition_dto import CommandDefinitionDTO
 
 log = logging.getLogger("CommandDefinition")
+
+
+class CommandDefinitionDTO(BaseModel):
+    """ model/allowed elements for a CommandDefinition data transfer object """
+    code: str
+    description: str
+    help_text: str | None
+    result_type: str | None
+    command_type: str | None
+    command_code: str | int | None
+    construct_txt: None | str
+    construct_min_response: None | int
+    reading_definitions: list
+    test_responses : list[bytes] | None
+    regex : str | None
 
 
 class CommandDefinition:
@@ -39,6 +54,23 @@ class CommandDefinition:
         self.command_code : str = None
         self.construct: cs.Construct = None
         self.construct_min_response = None
+
+    def to_dto(self) -> CommandDefinitionDTO:
+        """ convert command definition object to data transfer object """
+        return CommandDefinitionDTO(
+            code=self.code,
+            description=self.description,
+            help_text=self.help_text,
+            result_type=str(self.result_type),
+            command_type=self.command_type,
+            command_code=self.command_code,
+            construct_txt=self.construct,
+            construct_min_response=self.construct_min_response,
+            reading_definitions=self.reading_definitions,
+            test_responses=self.test_responses,
+            regex=self.regex
+        )
+
 
     @classmethod
     def from_config(cls, protocol_dictionary : dict) -> "CommandDefinition":
@@ -72,18 +104,6 @@ class CommandDefinition:
         _command_definition.construct = protocol_dictionary.get("construct")
         _command_definition.construct_min_response = protocol_dictionary.get("construct_min_response")
         return _command_definition
-
-    def to_dto(self) -> CommandDefinitionDTO:
-        """ convert command definition object to data transfer object """
-        return CommandDefinitionDTO(
-            command_code=self.code,
-            description=self.description,
-            help_text=self.help_text,
-            result_type=str(self.result_type),
-            # responses=self.response_definitions, #TODO: make DTOs for the response definitions
-            # test_responses=self.test_responses,
-            regex=self.regex
-        )
 
     def is_command_code_valid(self, command_code : str) -> bool:
         """ determines if a command code is valid """
