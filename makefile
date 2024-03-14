@@ -31,3 +31,6 @@ git-tag-release:
 	git add powermon/libs/version.py pyproject.toml
 	git commit -m "Update versions"
 	git push
+
+mqtt-docker-start:
+	docker run --rm  --network=host -v ./docker/mosquitto/config:/mosquitto/config eclipse-mosquitto
