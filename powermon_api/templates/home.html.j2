@@ -33,6 +33,37 @@
 {% else %}
     <p>No config found</p>
 {% endif %}
+{% if announce %}
+    <h2>announce</h2>
+        <ul>
+            <li><strong>device info:</strong></li>
+            <ul>
+            {% for key, value in announce['device_info'].items() %}
+                <li><strong>{{ key }}:</strong> {{ value }}</li>
+            {% endfor %}
+            </ul>
+            <li><strong>port:</strong></li>
+            <ul>
+            {% for key, value in announce['port'].items() %}
+                <li><strong>{{ key }}:</strong> {{ value }}</li>
+            {% endfor %}
+            </ul>
+            <li><strong>commands:</strong></li>
+            <ul>
+            {% for item in announce['commands'] %}
+                <li>{{ item }}</li>
+            {% endfor %}
+            </ul>
+        </ul>
+{% endif %}
+{% if results %}
+    <h2>results</h2>
+    <ul>
+    {% for topic, item in results %}
+        <li><strong>{{ topic }}:</strong> {{ item }}</li>
+    {% endfor %}
+    </ul>
+{% endif %}
 </body>
 </html>
 

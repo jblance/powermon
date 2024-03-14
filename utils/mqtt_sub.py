@@ -5,5 +5,5 @@ def _cb(client, userdata, msg):
     print(f"{msg.topic=}\n{msg.payload=}\n")
 
 
-adhoc_result_topic = "powermon2/#"
+adhoc_result_topic = "powermon/#"
 subscribe.callback(_cb, adhoc_result_topic, hostname="localhost")

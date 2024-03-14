@@ -7,7 +7,7 @@ device:
   port:
     baud: 2400
     path: /dev/ttyUSB0
-    type: test
+    type: serial
     protocol: PI30MAX
 commands:
 - command: f'QED{(date.today()-timedelta(days=1)).strftime("%Y%m%d")}'

@@ -11,14 +11,14 @@ device:
     protocol: PI30
 
 commands:
-- command: QPIGS
+- command: QID
   outputs:
   - type: screen
     format: 
-      type: json
+      type: table
       format: basic
-      # draw_lines: True
-      extra_info: True
+      draw_lines: True
+      # extra_info: True
       include_missing: False
       # filter: ^pv
 loop: once
