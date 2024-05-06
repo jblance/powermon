@@ -1,51 +1,13 @@
 """ tests / pmon / unit / test_protocol_daly.py """
 import unittest
-import construct as cs
 
-from powermon.commands.command_definition import CommandDefinition
-from powermon.commands.result import ResultType
-from powermon.commands.command import CommandType
-from powermon.commands.reading_definition import ReadingType, ResponseType
-from powermon.libs.errors import InvalidResponse
-from powermon.protocols import get_protocol_definition
+from powermon.commands.command import Command
+from powermon.device import DeviceInfo
+from powermon.libs.errors import InvalidCRC, InvalidResponse
+from powermon.outputformats.simple import SimpleFormat
+from powermon.protocols.daly import Daly as Proto
 
-
-soc_construct = cs.Struct(
-    "start_flag" / cs.Bytes(1),
-    "module_address" / cs.Bytes(1),
-    "command_id" / cs.Bytes(1),
-    "data_length" / cs.Byte,
-    "battery_voltage" / cs.Int16ub,
-    "acquistion_voltage" / cs.Int16ub,
-    "current" / cs.Int16ub,
-    "soc" / cs.Int16ub,
-    "checksum" / cs.Bytes(1)
-)
-
-command_definitions_config = {
-    "name": "SOC",
-    "description": "State of Charge",
-    "help": " -- display the battery state of charge",
-    # "type": "DALY",
-    "command_type": CommandType.SERIAL_READ_UNTIL_DONE,
-    "command_code": "90",
-    "result_type": ResultType.CONSTRUCT,
-    "construct": soc_construct,
-    "construct_min_response": 13,
-    "reading_definitions": [
-        {"index": "start_flag", "description": "start flag", "reading_type": ReadingType.IGNORE, "response_type": ResponseType.HEX_CHAR},
-        {"index": "module_address", "description": "module address", "reading_type": ReadingType.IGNORE, "response_type": ResponseType.HEX_CHAR},
-        {"index": "command_id", "description": "command id", "reading_type": ReadingType.IGNORE, "response_type": ResponseType.HEX_CHAR},
-        {"index": "data_length", "description": "data length", "reading_type": ReadingType.IGNORE},
-        {"index": "battery_voltage", "description": "Battery Bank Voltage", "reading_type": ReadingType.VOLTS, "response_type": ResponseType.TEMPLATE_INT, "format_template": "r/10"},
-        {"index": "acquistion_voltage", "description": "acquistion", "reading_type": ReadingType.VOLTS, "response_type": ResponseType.TEMPLATE_INT, "format_template": "r/10"},
-        {"index": "current", "description": "Current", "reading_type": ReadingType.CURRENT, "response_type": ResponseType.TEMPLATE_INT, "format_template": "(r-30000)/10"},
-        {"index": "soc", "description": "SOC", "reading_type": ReadingType.PERCENTAGE, "response_type": ResponseType.TEMPLATE_INT, "format_template": "r/10"},
-        {"index": "checksum", "description": "checksum", "reading_type": ReadingType.IGNORE, "response_type": ResponseType.HEX_CHAR}]}
-cd = CommandDefinition.from_config(command_definitions_config)
-cd.construct = soc_construct
-cd.construct_min_response = 13
-protocol = get_protocol_definition(protocol="daly")
+proto = Proto()
 
 
 class TestProtocolDaly(unittest.TestCase):
@@ -53,9 +15,68 @@ class TestProtocolDaly(unittest.TestCase):
 
     def test_check_crc(self):
         """ test a for correct CRC validation """
-        result = protocol.check_crc(response=b"\x00\x1a:70010007800C6\n", command_definition=cd)
+        # proto = Proto()
+        result = proto.check_crc(response=b"\xa5\x01\x90\x08\x01\t\x00\x00u\xcf\x03\n\x99")
         self.assertTrue(result)
+
+    def test_check_crc_incorrect(self):
+        """ test an exception is raised if CRC validation fails """
+        self.assertRaises(InvalidCRC, proto.check_crc, response=b"\xa5\x01\x90\x08\x01\t\x00\x00u\xcf\x03\n\x98")
+
+    def test_check_valid_ok(self):
+        """ test protocol returns true for a correct response validation check """
+        _result = proto.check_valid(response=b"\xa5\x01\x90\x08\x01\t\x00\x00u\xcf\x03\n\x99")
+        expected = True
+        # print(_result)
+        self.assertEqual(_result, expected)
+
+    def test_check_valid_none(self):
+        """ test protocol returns false for a None response validation check """
+        self.assertRaises(InvalidResponse, proto.check_valid, response=None)
+
+    def test_check_valid_short(self):
+        """ test protocol returns false for a short response validation check """
+        self.assertRaises(InvalidResponse, proto.check_valid, response=b"\xa5\x01\x90")
+
+    def test_check_valid_missing(self):
+        """ test protocol returns false for a response missing start char validation check """
+        self.assertRaises(InvalidResponse, proto.check_valid, response=b"\xa4\x01\x90\x08\x01\t\x00\x00u\xcf\x03\n\x99")
 
     def test_construct_short_response(self):
         """ test for correct failure if response is too short for construct parsing """
-        self.assertRaises(InvalidResponse, protocol.split_response, response=b'', command_definition=cd)
+        # proto = Proto()
+        self.assertRaises(InvalidResponse, proto.split_response, response=b'', command_definition=proto.get_command_definition('SOC'))
+
+    def test_full_command_soc(self):
+        """ test a for correct full command for SOC """
+        # proto = Proto()
+        _result = proto.get_full_command(command="SOC")
+        expected = b'\xa5\x80\x90\x08\x00\x00\x00\x00\x00\x00\x00\x00\xbd\n'
+        # print(_result)
+        self.assertEqual(_result, expected)
+
+    def test_trim(self):
+        """ test protocol does a correct trim operation """
+        _result = proto.trim_response(response=b"\xa5\x01\x90\x08\x01\t\x00\x00u\xcf\x03\n\x99", command_definition=proto.get_command_definition('SOC'))
+        expected = b"\xa5\x01\x90\x08\x01\t\x00\x00u\xcf\x03\n\x99"
+        # print(_result)
+        self.assertEqual(_result, expected)
+
+    def test_split(self):
+        """ test protocol does a correct split operation """
+        _result = proto.split_response(response=b"\xa5\x01\x90\x08\x01\t\x00\x00u\xcf\x03\n\x99", command_definition=proto.get_command_definition('SOC'))
+        expected = [('start_flag', b'\xa5'), ('module_address', b'\x01'), ('command_id', b'\x90'), ('data_length', 8), ('battery_voltage', 265), ('acquistion_voltage', 0), ('current', 30159), ('soc', 778), ('checksum', b'\x99')]
+        # print(_result)
+        self.assertEqual(_result, expected)
+
+    def test_build_result_soc(self):
+        """ test result build for SOC """
+        expected = ['battery_bank_voltage=26.5V', 'acquistion=0.0V', 'current=15.9A', 'soc=77.8%']
+        simple_formatter = SimpleFormat({"extra_info": True})
+        device_info = DeviceInfo(name="name", device_id="device_id", model="model", manufacturer="manufacturer")
+        command = Command.from_config({"command": "SOC"})
+        command.command_definition = proto.get_command_definition('SOC')
+        _result = command.build_result(raw_response=b"\xa5\x01\x90\x08\x01\t\x00\x00u\xcf\x03\n\x99", protocol=proto)
+        formatted_data = simple_formatter.format(command, _result, device_info)
+        # print(formatted_data)
+        self.assertEqual(formatted_data, expected)

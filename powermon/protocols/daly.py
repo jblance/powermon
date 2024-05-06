@@ -7,7 +7,7 @@ from powermon.commands.command import CommandType
 from powermon.commands.command_definition import CommandDefinition
 from powermon.commands.reading_definition import ReadingType, ResponseType
 from powermon.commands.result import ResultType
-# from powermon.libs.errors import CommandError, InvalidCRC, InvalidResponse
+from powermon.libs.errors import InvalidCRC, InvalidResponse
 from powermon.ports.porttype import PortType
 from powermon.protocols.abstractprotocol import AbstractProtocol
 
@@ -101,86 +101,31 @@ class Daly(AbstractProtocol):
         log.debug("full_command: %s", full_command)
         return full_command
 
-        # command_type = command_definition.command_type
-        # match command_type:
-        #     case CommandType.VICTRON_GET:
-        #         # command components
-        #         raw_command_code = command_definition.command_code  # eg 1000 for batteryCapacity
-        #         if raw_command_code is None:
-        #             raise CommandError(f"command_code not found for {command=} - check protocol definition for this command")
-        #         command_code = f"{unpack('<h', bytes.fromhex(raw_command_code))[0]:04X}"
-        #         flags = "00"
-
-        #         # build command
-        #         cmd = f"{command_type.value}{command_code}{flags}"
-        #         # pad cmd and convert to bytes and determine checksum
-        #         checksum = victron_checksum(bytes.fromhex(f"0{cmd}"))
-
-        #         # build full command
-        #         cmd = f":{cmd}{checksum:02X}\n".encode()
-        #         log.debug("full command: %s", cmd)
-        #         return cmd
-        #     case CommandType.VICTRON_LISTEN:
-        #         # Just listen - dont need to send a command
-        #         log.debug("command is LISTEN type so returning %s", command_type)
-        #         return command_type
-        # raise CommandError(f"unable to generate full command for {command}, type {command_type} - is the definition wrong or CommandType not implemented?")
-
     def check_valid(self, response: str, command_definition: CommandDefinition = None) -> bool:
         """ check response is valid """
         log.debug("check valid for %s, definition: %s", response, command_definition)
+        if response is None:
+            raise InvalidResponse("Response is None")
+        if len(response) <= 6:
+            raise InvalidResponse("Response is too short")
+        if response[0] != 0xa5:
+            raise InvalidResponse("Response has incorrect start byte")
+        if int(response[3]) != len(response[4:-1]):
+            raise InvalidResponse("Response length does not match expected")
         return True
-        # if response is None:
-        #     raise InvalidResponse("Response is None")
-        # if len(response) <= 3:
-        #     raise InvalidResponse("Response is too short")
-        # command_type = command_definition.command_type
-        # match command_type:
-        #     case CommandType.VICTRON_GET:
-        #         if response.count(b':') != 1:
-        #             raise InvalidResponse("Response incomplete - missing ':'")
-        # return True
 
     def check_crc(self, response: str, command_definition: CommandDefinition = None) -> bool:
         """ crc check, needs override in protocol """
         log.debug("checking crc for %s", response)
+        calc_crc = sum(response[:-1]) & 0xFF
+        response_crc = response[-1]
+
+        if response_crc != calc_crc:
+            raise InvalidCRC(f"response has invalid CRC - got '\\x{response_crc:02x}', calculated '\\x{calc_crc:02x}")
+        # log.debug("Checksum matches in response '%s' response_crc:'%s'", response, calc_crc)
         return True
-        # command_type = command_definition.command_type
-        # match command_type:
-        #     case CommandType.VICTRON_GET:
-        #         # HEX protocol response
-        #         log.debug("checking validity of '%s'", response)
-        #         _r = response.split(b":")[1][:-1].decode()
-        #         # print(f"trimmed response {_r}")
-        #         _r = f"0{_r}"
-        #         # print(f"padded response {_r}")
-        #         _r = bytes.fromhex(_r)
-        #         # print(f"bytes response {_r}")
-        #         data = _r[:-1]
-        #         checksum = _r[-1:][0]
-        #         expected_checksum = victron_checksum(data)
-        #         if expected_checksum == checksum:
-        #             log.debug("VED Hex Checksum matches in response '%s' checksum:'%s'", response, checksum)
-        #             return True
-        #         else:
-        #             # print("VED Hex Checksum does not match")
-        #             raise InvalidCRC(f"response has invalid CRC - got '\\x{checksum:02x}', calculated '\\x{expected_checksum:02x}")
-        #     case CommandType.VICTRON_LISTEN:
-        #         return True
-        # return True
 
     def trim_response(self, response: str, command_definition: CommandDefinition = None) -> str:
         """ Remove extra characters from response """
         log.debug("response: %s", response)
         return response
-        # command_type = command_definition.command_type
-        # _ret = None
-        # match command_type:
-        #     case CommandType.VICTRON_GET:
-        #         # HEX response, e.g. b":70010007800C6\n"
-        #         _ret = response.split(b":")[1][:-3]
-        #     case CommandType.VICTRON_LISTEN:
-        #         # VEDTEXT response, return the lot
-        #         _ret = response
-        # log.debug("trim_response: %s", _ret)
-        # return _ret
