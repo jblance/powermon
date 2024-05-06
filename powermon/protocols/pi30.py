@@ -5,7 +5,7 @@ from powermon.protocols.helpers import crc_pi30 as crc
 from powermon.commands.command_definition import CommandDefinition
 from powermon.commands.reading_definition import ReadingType, ResponseType
 from powermon.commands.result import ResultType
-from powermon.libs.errors import InvalidCRC
+from powermon.libs.errors import InvalidCRC, InvalidResponse
 from powermon.ports.porttype import PortType
 from powermon.protocols.abstractprotocol import AbstractProtocol
 
@@ -675,6 +675,17 @@ class PI30(AbstractProtocol):
         self.add_supported_ports([PortType.SERIAL, PortType.USB])
         self.id_command = "QID"
 
+    def check_valid(self, response: str, command_definition: CommandDefinition = None) -> bool:
+        """ check response is valid """
+        log.debug("check valid for %s, definition: %s", response, command_definition)
+        if response is None:
+            raise InvalidResponse("Response is None")
+        if len(response) <= 3:
+            raise InvalidResponse("Response is too short")
+        if response[0] != ord(b'('):
+            raise InvalidResponse("Response missing start character '('")
+        return True
+
     def check_crc(self, response: str, command_definition: CommandDefinition = None):
         """ crc check, needs override in protocol """
         log.debug("check crc for %s in pi30", response)
@@ -682,7 +693,6 @@ class PI30(AbstractProtocol):
         calc_crc_high, calc_crc_low = crc(response[:-3])
         crc_high, crc_low = response[-3], response[-2]
         if [calc_crc_high, calc_crc_low] != [crc_high, crc_low]:
-            raise InvalidCRC(f"response has invalid CRC - got '\\x{crc_high:02x}\\x{crc_low:02x}', \
-                calculated '\\x{calc_crc_high:02x}\\x{calc_crc_low:02x}'", )
+            raise InvalidCRC(f"response has invalid CRC - got '\\x{crc_high:02x}\\x{crc_low:02x}', calculated '\\x{calc_crc_high:02x}\\x{calc_crc_low:02x}'", )
         log.debug("CRCs match")
         return True
