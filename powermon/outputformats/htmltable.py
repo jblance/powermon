@@ -8,6 +8,7 @@ log = logging.getLogger("htmltable")
 
 
 class HtmlTable(AbstractFormat):
+    """ output the data as html """
     def __init__(self, config):
         super().__init__(config)
         self.name = "htmltable"
@@ -18,13 +19,11 @@ class HtmlTable(AbstractFormat):
         _result = []
 
         # check for error in result
-        # TODO: have the result output the error
         if result.error:
-            data = {}
-            data["Error"] = [f"Command: {result.command_code} incurred an error or errors during execution or processing", ""]
-            data["Error Count"] = [len(result.error_messages), ""]
+            _result.append(f"<strong>Command: {result.command.code} incurred an error or errors during execution or processing</strong></p><ul>")
             for i, message in enumerate(result.error_messages):
-                data[f"Error #{i}"] = [message, ""]
+                _result.append(f"<li>Error #{i}: {message}</li>")
+            _result.append("</ul>")
 
         if len(result.readings) == 0:
             _result.append("<b>No readings in result</b>")

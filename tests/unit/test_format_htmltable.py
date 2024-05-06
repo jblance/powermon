@@ -8,6 +8,7 @@ from powermon.commands.reading_definition import ReadingDefinition, ReadingType
 from powermon.commands.result import Result, ResultType
 from powermon.device import DeviceInfo
 from powermon.outputformats.htmltable import HtmlTable
+from powermon.protocols.pi30max import PI30MAX as Proto
 
 
 class TestFormatHtmltable(unittest.TestCase):
@@ -65,3 +66,19 @@ class TestFormatHtmltable(unittest.TestCase):
         formatted_data = table_formatter.format(command, _result, device_info)
         # print(formatted_data)
         self.assertEqual(formatted_data, expected)
+
+    def test_format_htmltable_with_error(self):
+        """ test generation of normal html table with an error (invalid crc) """
+        expected = [
+            '<strong>Command: QET incurred an error or errors during execution or processing</strong></p><ul>',
+            "<li>Error #0: response has invalid CRC - got '\\x21\\x48', calculated '\\x21\\x4a'</li>", '</ul>',
+            '<b>No readings in result</b>']
+        proto = Proto()
+        table_formatter = HtmlTable({})
+        device_info = DeviceInfo(name="name", device_id="device_id", model="model", manufacturer="manufacturer")
+        command = Command.from_config({"command": "QET"})
+        command.command_definition = proto.get_command_definition('QET')
+        _result = command.build_result(raw_response=b"(00238800!H\r", protocol=proto)
+        formatted_data = table_formatter.format(command, _result, device_info)
+        # print(formatted_data)
+        self.assertListEqual(formatted_data, expected)
