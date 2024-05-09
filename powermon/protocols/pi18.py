@@ -19,7 +19,7 @@ SETTER_COMMANDS = {}
 QUERY_COMMANDS = {
     "PI": {
         "name": "PI",
-        "command_code": "005",
+        #"command_code": "005",
         "command_type": CommandType.PI18_QUERY,
         "description": "Protocol ID inquiry",
         "help": " -- queries the protocol ID",
@@ -31,7 +31,7 @@ QUERY_COMMANDS = {
     },
     "ET": {
         "name": "ET",
-        "command_code": "005",
+        #"command_code": "005",
         "command_type": CommandType.PI18_QUERY,
         "description": "Total PV Generated Energy Inquiry",
         "result_type": ResultType.SINGLE,
@@ -48,7 +48,7 @@ QUERY_COMMANDS = {
     },
     "EY": {
         "name": "EY",
-        "command_code": "009",
+        #"command_code": "009",
         "command_type": CommandType.PI18_QUERY,
         "description": "Yearly PV Generated Energy Inquiry",
         "result_type": ResultType.SINGLE,
@@ -73,7 +73,7 @@ QUERY_COMMANDS = {
     },
     "EM": {
         "name": "EM",
-        "command_code": "011",
+        #"command_code": "011",
         "command_type": CommandType.PI18_QUERY,
         "description": "Monthly PV Generated Energy Inquiry",
         "result_type": ResultType.SINGLE,
@@ -103,7 +103,7 @@ QUERY_COMMANDS = {
     },
     "ED": {
         "name": "ED",
-        "command_code": "013",
+        #"command_code": "013",
         "command_type": CommandType.PI18_QUERY,
         "description": "Daily PV Generated Energy Inquiry",
         "help": " -- display daily generated energy, format is QEDyyyymmdd",
@@ -139,7 +139,7 @@ QUERY_COMMANDS = {
     },
     "PIRI": {
         "name": "PIRI",
-        "command_code": "007",
+        #"command_code": "007",
         "command_type": CommandType.PI18_QUERY,
         "description": "Current Settings inquiry",
         "help": " -- queries the current settings from the Inverter",
@@ -254,6 +254,7 @@ QUERY_COMMANDS = {
     },
     "GS": {
         "name": "GS",
+        #"command_code": "005",
         "command_type": CommandType.PI18_QUERY,
         "description": "General Status Parameters inquiry",
         "result_type": ResultType.COMMA_DELIMITED,
@@ -462,6 +463,34 @@ QUERY_COMMANDS = {
             b"^D1062232,499,2232,499,1406,1376,028,549,000,000,000,010,095,060,000,000,0082,0000,1604,0000,0,2,0,1,1,1,1,0D\x12\r",
         ],
     },
+
+    "MOD": {
+        "name": "MOD",
+        #"command_code": "006",
+        "command_type": CommandType.PI18_QUERY,
+        "description": "Mode inquiry",
+        "result_type": ResultType.SINGLE,
+        "reading_definitions": [
+            {"description": "Device Mode",
+                "reading_type": ReadingType.MESSAGE,
+                "response_type": ResponseType.OPTION,
+                "options": {
+                    "00": "Power on",
+                    "01": "Standby",
+                    "02": "Bypass",
+                    "03": "Battery",
+                    "04": "Fault",
+                    "05": "Hybrid mode(Line mode, Grid mode)",
+                }
+            },
+        ],
+        "test_responses": [
+            b"^D00505\xd9\x9f\r",
+        ],
+    },
+
+
+
 
 
 }
