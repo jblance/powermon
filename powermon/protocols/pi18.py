@@ -23,8 +23,24 @@ QUERY_COMMANDS = {
         "description": "Protocol ID inquiry",
         "help": " -- queries the protocol ID",
         "result_type": ResultType.SINGLE,
-        "reading_definitions": [{"description": "Protocol ID"}],
-        "test_responses": [b"^D00518m\xae\r"]},
+        "reading_definitions": [
+            {"description": "Protocol ID"}
+        ],
+        "test_responses": [b"^D00518m\xae\r"]
+    },
+    "ET": {
+        "name": "ET",
+        "command_type": CommandType.PI18_QUERY,
+        "description": "Total PV Generated Energy Inquiry",
+        "result_type": ResultType.SINGLE,
+        "reading_definitions": [
+            {"description": "Total PV Generated Energy",
+                "reading_type": ReadingType.WATT_HOURS, "icon": "mdi:solar-power", "device_class": "energy", "state_class": "total",
+                "response_type": ResponseType.INT
+            },
+        ],
+        "test_responses": [""],
+    },
     "PIRI": {
         "name": "PIRI",
         "command_type": CommandType.PI18_QUERY,
@@ -78,7 +94,8 @@ QUERY_COMMANDS = {
         ],
         "test_responses": [
             b"^D0882300,217,2300,500,217,5000,5000,480,480,530,440,570,570,2,10,070,1,1,1,9,0,0,0,0,1,00\xe1k\r",
-        ]},
+        ]
+    },
 }
 
 COMMANDS_TO_REMOVE = []
@@ -95,7 +112,7 @@ class PI18(AbstractProtocol):
         self.add_command_definitions(QUERY_COMMANDS)
         self.add_command_definitions(SETTER_COMMANDS, result_type=ResultType.ACK)
         self.remove_command_definitions(COMMANDS_TO_REMOVE)
-        self.check_definitions_count(expected=2)
+        self.check_definitions_count(expected=None)
         self.add_supported_ports([PortType.SERIAL, PortType.USB])
 
     def check_crc(self, response: str, command_definition: CommandDefinition = None):
