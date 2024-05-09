@@ -13,7 +13,32 @@ from powermon.protocols.pi30 import BATTERY_TYPE_LIST, OUTPUT_MODE_LIST
 
 log = logging.getLogger("pi18")
 
-SETTER_COMMANDS = {}
+SETTER_COMMANDS = {
+    "POP": {
+        "name": "POP",
+        #"command_code": "007",
+        "command_type": CommandType.PI18_SETTER,
+        "description": "Set Device Output Source Priority",
+        "help": " -- examples: POP0 (set utility first), POP01 (set solar first)",
+#        "result_type": ResultType.ACK,
+#        "reading_definitions": [
+#            {"description": "Set Device Output Source Priority",
+#                "reading_type": ReadingType.MESSAGE,
+#                "response_type": ResponseType.OPTION,
+#                "options": {
+#                    "0": "NACK",
+#                    "1": "ACK",
+#                },
+#            },
+#        ],
+        "regex": "POP([01])$",
+        "test_responses": [
+            b"^1\x0b\xc2\r",
+            b"^0\x1b\xe3\r",
+        ]
+    }
+
+}
 
 
 QUERY_COMMANDS = {
@@ -27,7 +52,9 @@ QUERY_COMMANDS = {
         "reading_definitions": [
             {"description": "Protocol ID"},
         ],
-        "test_responses": [b"^D00518m\xae\r"]
+        "test_responses": [
+            b"^D00518m\xae\r"
+        ]
     },
     "ET": {
         "name": "ET",
@@ -44,7 +71,9 @@ QUERY_COMMANDS = {
                 "state_class": "total",
             },
         ],
-        "test_responses": [b""],
+        "test_responses": [
+            b""
+        ],
     },
     "EY": {
         "name": "EY",
@@ -209,7 +238,8 @@ QUERY_COMMANDS = {
             {"description": "Battery Type",
                 "reading_type": ReadingType.MESSAGE,
                 "response_type": ResponseType.LIST,
-                "options": BATTERY_TYPE_LIST},
+                "options": BATTERY_TYPE_LIST
+            },
             {"description": "Max AC Charging Current",
                 "reading_type": ReadingType.CURRENT
             },
@@ -463,7 +493,6 @@ QUERY_COMMANDS = {
             b"^D1062232,499,2232,499,1406,1376,028,549,000,000,000,010,095,060,000,000,0082,0000,1604,0000,0,2,0,1,1,1,1,0D\x12\r",
         ],
     },
-
     "MOD": {
         "name": "MOD",
         #"command_code": "006",
@@ -488,11 +517,40 @@ QUERY_COMMANDS = {
             b"^D00505\xd9\x9f\r",
         ],
     },
-
-
-
-
-
+    "MCHGCR": {
+        "name": "MCHGCR",
+        #"command_code": "009",
+        "command_type": CommandType.PI18_QUERY,
+        "description": "Max Charging Current Options inquiry",
+        "help": " -- queries the maximum charging current setting of the Inverter",
+        "result_type": ResultType.MULTIVALUED,
+        "reading_definitions": [
+            {"reading_type": ReadingType.MESSAGE_AMPS,
+                "description": "Max Charging Current Options",
+                 "response_type": ResponseType.STRING
+            }
+        ],
+        "test_responses": [
+            b"^D034010,020,030,040,050,060,070,080\x161\r",
+        ],
+    },
+    "MUCHGCR": {
+        "name": "MUCHGCR",
+        #"command_code": "010",
+        "command_type": CommandType.PI18_QUERY,
+        "description": "Max Utility Charging Current Options inquiry",
+        "help": " -- queries the maximum utility charging current setting of the Inverter",
+        "result_type": ResultType.MULTIVALUED,
+        "reading_definitions": [
+            {"reading_type": ReadingType.MESSAGE_AMPS,
+                "description": "Max Utility Charging Current",
+                 "response_type": ResponseType.STRING
+            }
+        ],
+        "test_responses": [
+            b"^D038002,010,020,030,040,050,060,070,080\xd01\r"
+        ],
+    },
 }
 
 COMMANDS_TO_REMOVE = []
@@ -509,7 +567,7 @@ class PI18(AbstractProtocol):
         self.add_command_definitions(QUERY_COMMANDS)
         self.add_command_definitions(SETTER_COMMANDS, result_type=ResultType.ACK)
         self.remove_command_definitions(COMMANDS_TO_REMOVE)
-        self.check_definitions_count(expected=None)
+        self.check_definitions_count(expected=None) # Count of all Commands
         self.add_supported_ports([PortType.SERIAL, PortType.USB])
 
     def check_crc(self, response: str, command_definition: CommandDefinition = None):
@@ -526,9 +584,13 @@ class PI18(AbstractProtocol):
             else:
                 log.info("PI18 response check_crc doesnt match got (%x, %x), calc (%x, %x)", crc_high, crc_low, response[-3], response[-2])
                 return False
+        elif response.startswith(b"^1") or response.startswith(b"^0"):
+           log.info("PI18 response doesnt start with ^D - but ACK or NACK ")
+           return True
         else:
             log.info("PI18 response doesnt start with ^D - check_crc fails")
             return False
+
         log.info("PI18 response check_crc fall through")
         return False
 
