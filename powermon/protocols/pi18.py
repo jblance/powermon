@@ -727,7 +727,7 @@ class PI18(AbstractProtocol):
         self.add_command_definitions(QUERY_COMMANDS)
         self.add_command_definitions(SETTER_COMMANDS, result_type=ResultType.ACK)
         self.remove_command_definitions(COMMANDS_TO_REMOVE)
-        self.check_definitions_count(expected=None) # Count of all Commands
+        self.check_definitions_count(expected=21) # Count of all Commands
         self.add_supported_ports([PortType.SERIAL, PortType.USB])
 
     def check_crc(self, response: str, command_definition: CommandDefinition = None):
