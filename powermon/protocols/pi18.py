@@ -20,23 +20,92 @@ SETTER_COMMANDS = {
         "command_type": CommandType.PI18_SETTER,
         "description": "Set Device Output Source Priority",
         "help": " -- examples: POP0 (set utility first), POP01 (set solar first)",
-#        "result_type": ResultType.ACK,
-#        "reading_definitions": [
-#            {"description": "Set Device Output Source Priority",
-#                "reading_type": ReadingType.MESSAGE,
-#                "response_type": ResponseType.OPTION,
-#                "options": {
-#                    "0": "NACK",
-#                    "1": "ACK",
-#                },
-#            },
-#        ],
         "regex": "POP([01])$",
+
+        "reading_definitions": [
+            {"description": "Command execution",
+                "reading_type": ReadingType.ACK,
+            },
+        ],
+
         "test_responses": [
             b"^1\x0b\xc2\r",
             b"^0\x1b\xe3\r",
-        ]
-    }
+        ],
+    },
+
+    "PSP": {
+        "name": "PSP",
+        #"command_code": "007",
+        "command_type": CommandType.PI18_SETTER,
+        "description": "Set Solar Power priority",
+        "help": " -- examples: PSP0 (Battery-Load-Utiliy +AC Charge), PSP1 (Load-Battery-Utiliy)",
+        "regex": "PSP([01])$",
+
+        "reading_definitions": [
+            {"description": "Command execution",
+                "reading_type": ReadingType.ACK,
+            },
+        ],
+        "test_responses": [
+            b"^1\x0b\xc2\r",
+            b"^0\x1b\xe3\r",
+        ],
+    },
+
+    "PEI": {
+        "name": "PEI",
+        #"command_code": "006",
+        "command_type": CommandType.PI18_SETTER,
+        "description": "Set Machine type, enable: Grid-Tie",
+        "help": " -- examples: PEI (enable Grid-Tie)",
+
+        "reading_definitions": [
+            {"description": "Command execution",
+                "reading_type": ReadingType.ACK,
+            },
+        ],
+        "test_responses": [
+            b"^1\x0b\xc2\r",
+            b"^0\x1b\xe3\r",
+        ],
+    },
+    "PDI": {
+        "name": "PDI",
+        #"command_code": "006",
+        "command_type": CommandType.PI18_SETTER,
+        "description": "Set Machine type, disable: Grid-Tie",
+        "help": " -- examples: PDI (disable Grid-Tie)",
+
+        "reading_definitions": [
+            {"description": "Command execution",
+                "reading_type": ReadingType.ACK,
+            },
+        ],
+        "test_responses": [
+            b"^1\x0b\xc2\r",
+            b"^0\x1b\xe3\r",
+        ],
+    },
+    "PCP": {
+        "name": "PCP",
+        #"command_code": "009",
+        "command_type": CommandType.PI18_SETTER,
+        "description": "Set Device Charger Priority",
+        "help": " -- examples: PCP0,1 [ PCP0 set unit 0 [0-9] to]   PCP0,0 (set Solar first), PCP0,1 (set Solar and Utility), PCP0,2 (set solar only charging)",
+
+        "regex": "PCP([0-9],[012])$",
+
+        "reading_definitions": [
+            {"description": "Command execution",
+                "reading_type": ReadingType.ACK,
+            },
+        ],
+        "test_responses": [
+            b"^1\x0b\xc2\r",
+            b"^0\x1b\xe3\r",
+        ],
+    },
 
 }
 
