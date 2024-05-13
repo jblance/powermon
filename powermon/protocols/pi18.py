@@ -733,7 +733,7 @@ class PI18(AbstractProtocol):
     def check_crc(self, response: str, command_definition: CommandDefinition = None):
         """ crc check, override for now """
         log.debug("check crc for %s in pi18", response)
-        if response.startswith(b"^D"):
+        if response.startswith(b"^D") or response.startswith(b"^1") or response.startswith(b"^0"):
             # get response CRC
             data_to_check = response[:-3]
             crc_high, crc_low = crc(data_to_check)
@@ -744,9 +744,6 @@ class PI18(AbstractProtocol):
             else:
                 log.info("PI18 response check_crc doesnt match got (%x, %x), calc (%x, %x)", crc_high, crc_low, response[-3], response[-2])
                 return False
-        elif response.startswith(b"^1") or response.startswith(b"^0"):
-           log.info("PI18 response doesnt start with ^D - but ACK or NACK ")
-           return True
         else:
             log.info("PI18 response doesnt start with ^D - check_crc fails")
             return False
