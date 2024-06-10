@@ -16,6 +16,7 @@ class ResultType(Enum):
     """ enum of valid types of Results """
     ERROR = auto()
     ACK = auto()  # ack / nak type result, normally from a setter command
+    PI18_ACK = auto()  # ack / nak type result, normally from a setter command
     SINGLE = auto()  # single value in result
     ORDERED = auto()  # the order of the values determines what they are
     COMMA_DELIMITED = auto()  # values are in order separated by commas
@@ -109,7 +110,7 @@ class Result:
 
         # Process response based on result type
         match self.result_type:
-            case ResultType.ACK | ResultType.SINGLE | ResultType.MULTIVALUED:
+            case ResultType.ACK | ResultType.PI18_ACK | ResultType.SINGLE | ResultType.MULTIVALUED:
                 # Get the reading definition (there is only one)
                 reading_definition: ReadingDefinition = self.command.command_definition.get_reading_definition()
                 # Process the response using the reading_definition, into readings

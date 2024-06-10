@@ -608,7 +608,7 @@ class PI18(AbstractProtocol):
         super().__init__()
         self.protocol_id = b"PI18"
         self.add_command_definitions(QUERY_COMMANDS)
-        self.add_command_definitions(SETTER_COMMANDS, result_type=ResultType.ACK)
+        self.add_command_definitions(SETTER_COMMANDS, result_type=ResultType.PI18_ACK)
         self.remove_command_definitions(COMMANDS_TO_REMOVE)
         self.check_definitions_count(expected=21) # Count of all Commands
         self.add_supported_ports([PortType.SERIAL, PortType.USB])
@@ -646,6 +646,9 @@ class PI18(AbstractProtocol):
         if response.startswith(b'('):
             # pi30 style response
             response = response[1:]
+        # if response.startswith(b'^1') or response.startswith(b'^0'):
+        #     # ACK / NACK response
+        #     response = response[1:]
         return response
 
     def get_full_command(self, command: str) -> bytes:

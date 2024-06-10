@@ -46,6 +46,7 @@ class ReadingType(StrEnum):
     """
     IGNORE = auto()
     ACK = auto()
+    PI18_ACK = auto()
     NUMBER = auto()
     CURRENT = auto()
     APPARENT_POWER = auto()
@@ -328,6 +329,10 @@ class ReadingDefinition():
                 reading = ReadingDefinitionACK(
                     index=index, response_type=response_type, description=description,
                     device_class=device_class, state_class=state_class, icon=icon)
+            case ReadingType.PI18_ACK:
+                reading = ReadingDefinitionPI18ACK(
+                    index=index, response_type=response_type, description=description,
+                    device_class=device_class, state_class=state_class, icon=icon)
             case ReadingType.NUMBER:
                 reading = ReadingDefinitionNumeric(
                     index=index, response_type=response_type, description=description,
@@ -497,6 +502,16 @@ class ReadingDefinitionACK(ReadingDefinition):
             return [Reading(raw_value=raw_value, processed_value=self.success_description, definition=self)]
         elif value == self.fail_code:
             return [Reading(raw_value=raw_value, processed_value=self.fail_description, definition=self)]
+
+class ReadingDefinitionPI18ACK(ReadingDefinitionACK):
+    """ ReadingDefinition for PI18_ACK type readings """
+    def __init__(self, index: int, response_type: str, description: str, device_class: str = None, state_class: str = None, icon: str = None, ):
+        super().__init__(index, response_type, description, device_class, state_class, icon)
+
+        self.fail_code = "^0"
+        self.fail_description = "Failed"
+        self.success_code = "^1"
+        self.success_description = "Succeeded"
 
 
 class ReadingDefinitionMessage(ReadingDefinition):

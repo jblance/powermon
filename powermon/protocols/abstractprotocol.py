@@ -176,7 +176,7 @@ class AbstractProtocol(metaclass=abc.ABCMeta):
         match result_type:
             case None:
                 responses = []
-            case ResultType.ACK | ResultType.SINGLE | ResultType.MULTIVALUED:
+            case ResultType.ACK | ResultType.PI18_ACK | ResultType.SINGLE | ResultType.MULTIVALUED:
                 responses = response
             case ResultType.COMMA_DELIMITED:
                 responses = response.split(b",")

@@ -89,6 +89,13 @@ class CommandDefinition:
                 reading_definitions : dict[int, ReadingDefinition] = \
                     ReadingDefinition.multiple_from_config([{"description": description, "response_type": ResponseType.ACK, "reading_type": ReadingType.ACK}])
                 test_responses = [b"(NAK\x73\x73\r", b"(ACK\x39\x20\r",]
+                
+            case ResultType.PI18_ACK:
+                # All ResultType.PI18_ACK are the same, so put config here instead of duplicating it in the protocol
+                log.debug("ResultType.PI18_ACK so defaulting reading_definitions")
+                reading_definitions : dict[int, ReadingDefinition] = \
+                    ReadingDefinition.multiple_from_config([{"description": description, "response_type": ResponseType.ACK, "reading_type": ReadingType.PI18_ACK}])
+                test_responses = [b"^0\x1b\xe3\r", b"^1\x0b\xc2\r",]
             case _:
                 reading_definitions : dict[int, ReadingDefinition] = \
                     ReadingDefinition.multiple_from_config(protocol_dictionary.get("reading_definitions"))
@@ -117,7 +124,7 @@ class CommandDefinition:
         if self.reading_definitions is None:
             result = None
         match self.result_type:
-            case ResultType.ACK | ResultType.SINGLE | ResultType.MULTIVALUED:
+            case ResultType.ACK | ResultType.PI18_ACK | ResultType.SINGLE | ResultType.MULTIVALUED:
                 result = self.reading_definitions[0]
             case ResultType.ORDERED | ResultType.SLICED | ResultType.COMMA_DELIMITED:
                 result = self.reading_definitions[position]
@@ -129,7 +136,7 @@ class CommandDefinition:
                     # print(f"command_definition@106:no reading definition found for key: {lookup}")
                     result = None
             case _:
-                print(f"command_definition@109: no get_reading_definition for {self.result_type=}")
+                print(f"command_definition@139: no get_reading_definition for {self.result_type=}")
                 exit()
         log.debug("found reading definition: %s", result)
         return result
