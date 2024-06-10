@@ -114,7 +114,9 @@ class Result:
                 reading_definition: ReadingDefinition = self.command.command_definition.get_reading_definition()
                 # Process the response using the reading_definition, into readings
                 readings = self.readings_from_response(responses, reading_definition)
-                all_readings.extend(readings)
+                # check if readings are not none
+                if readings is not None:
+                   all_readings.extend(readings)
             case ResultType.ORDERED | ResultType.SLICED | ResultType.COMMA_DELIMITED:
                 # Have a list of reading_definitions and a list of responses that correspond to each other
                 # possibly additional INFO definitions (at end of definition list??)
