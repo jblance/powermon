@@ -12,6 +12,8 @@ device:
 
 commands:
 - command: QID
+  # trigger:
+  #   every: 5
   outputs:
   - type: screen
     format: 
@@ -21,4 +23,4 @@ commands:
       # extra_info: True
       include_missing: False
       # filter: ^pv
-loop: once
+loop: 5

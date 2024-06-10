@@ -191,6 +191,14 @@ def main():
     asyncio.run(device.initialize())
     api_coordinator.announce(device)
 
+    # loop config
+    loop = config.get("loop", "once")
+    if loop == "once":
+        loop = False
+    else:
+        loop = int(loop)
+    log.debug("loop set to: %s", loop)
+
     # Main working loop
     try:
         while True:
@@ -204,11 +212,11 @@ def main():
             api_coordinator.run()
 
             # only run loop once if required
-            if config.get("loop") == "once":
+            if not loop:
                 break
 
             # add small delay in loop
-            time.sleep(0.1)
+            time.sleep(loop)
 
     except KeyboardInterrupt:
         print("KeyboardInterrupt - stopping")
