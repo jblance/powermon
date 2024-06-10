@@ -1,17 +1,13 @@
 """ tests / pmon / unit / test_protocol_pi30.py """
 import unittest
 
-from powermon.commands.command import Command  # , CommandType
-# from powermon.commands.command_definition import CommandDefinition
-# from powermon.commands.reading_definition import ReadingType, ResponseType
-# from powermon.commands.result import ResultType
+from powermon.commands.command import Command
 from powermon.device import DeviceInfo
 from powermon.libs.errors import InvalidCRC, InvalidResponse
 from powermon.outputformats.simple import SimpleFormat
 from powermon.protocols.pi30 import PI30 as Proto
 
 # import construct as cs
-
 proto = Proto()
 
 
