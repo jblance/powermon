@@ -1,4 +1,4 @@
-""" formats / simple.py """
+""" powermon / outputformats / simple.py """
 import logging
 from powermon.outputformats.abstractformat import AbstractFormat, AbstractFormatDTO
 from powermon.commands.result import Result

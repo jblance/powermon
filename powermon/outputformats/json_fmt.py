@@ -1,4 +1,4 @@
-""" formats / json_fmt.py """
+""" powermon / outputformats / json_fmt.py """
 import json
 import logging
 from powermon.outputformats.abstractformat import AbstractFormat, AbstractFormatDTO

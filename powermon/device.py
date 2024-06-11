@@ -165,11 +165,6 @@ class Device:
                 # specific errors need to incorporated into Result as part of the processing
                 # so any exceptions at this stage will be truely unexpected
                 log.error("Error decoding result: %s", exception)
-                # result = Result(result_type=ResultType.ERROR, command_definition=None, \
-                #   raw_response=b"Error decoding result", trimmed_response=b"Error decoding result")
-                # result.error_messages.append(f"Error decoding result: {exception}")
-                # result.error_messages.append(f"Exception Type: {exception.__class__.__name__}")
-                # result.error_messages.append(f"Exception args: {exception.args}")
                 raise exception
             # process result
             payload = str(result)  # FIXME: finish this
@@ -198,13 +193,7 @@ class Device:
                     # specific errors need to incorporated into Result as part of the processing
                     # so any exceptions at this stage will be truely unexpected
                     log.error("Error decoding result: %s", exception)
-                    # result = Result(result_type=ResultType.ERROR, command_definition=None, \
-                    #   raw_response=b"Error decoding result", trimmed_response=b"Error decoding result")
-                    # result.error_messages.append(f"Error decoding result: {exception}")
-                    # result.error_messages.append(f"Exception Type: {exception.__class__.__name__}")
-                    # result.error_messages.append(f"Exception args: {exception.args}")
                     raise exception
-                # result.device_id = self.device_id
 
                 # loop through each output and process result
                 output: AbstractOutput

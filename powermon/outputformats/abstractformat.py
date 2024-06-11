@@ -1,4 +1,4 @@
-""" formats / abstractformat.py """
+""" powermon / outputformats / abstractformat.py """
 import logging
 import re
 from abc import ABC, abstractmethod

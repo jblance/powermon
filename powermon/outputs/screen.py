@@ -19,6 +19,10 @@ class Screen(AbstractOutput):
         log.info("Using output sender: screen")
         log.debug("formatter: %s, result: %s, mqtt_broker: %s, device_info: %s", self.formatter, result, mqtt_broker, device_info)
 
+        if self.formatter is None:
+            print("Configured formatter not found or invalid")
+            return
+
         formatted_data = self.formatter.format(command=command, result=result, device_info=device_info)
         if formatted_data is None:
             print("Nothing returned from data formatting")
