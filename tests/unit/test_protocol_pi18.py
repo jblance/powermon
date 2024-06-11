@@ -3,7 +3,7 @@ import unittest
 from powermon.commands.command import Command
 from powermon.protocols.pi18 import PI18 as Proto
 from powermon.device import DeviceInfo
-from powermon.libs.errors import InvalidCRC, InvalidResponse
+from powermon.libs.errors import InvalidCRC, InvalidResponse, CommandDefinitionMissing
 from powermon.outputformats.simple import SimpleFormat
 # from powermon.outputformats.table import Table
 
@@ -46,7 +46,7 @@ class TestProtocolPI18(unittest.TestCase):
         self.assertEqual(expected, fc)
 
     def test_build_result_pop0(self):
-        """ test result build for POP0 """
+        """ test result build for POP0 - success """
         expected = ['set_device_output_source_priority=Succeeded']
         simple_formatter = SimpleFormat({"extra_info": False})
         device_info = DeviceInfo(name="name", device_id="device_id", model="model", manufacturer="manufacturer")
@@ -54,5 +54,37 @@ class TestProtocolPI18(unittest.TestCase):
         command.command_definition = proto.get_command_definition('POP0')
         _result = command.build_result(raw_response=b"^1\x0b\xc2\r", protocol=proto)
         formatted_data = simple_formatter.format(command, _result, device_info)
-        print(formatted_data)
+        # print(formatted_data)
+        self.assertEqual(formatted_data, expected)
+
+    def test_build_result_pop1(self):
+        """ test result build for POP1 - fail """
+        expected = ['set_device_output_source_priority=Failed']
+        simple_formatter = SimpleFormat({"extra_info": False})
+        device_info = DeviceInfo(name="name", device_id="device_id", model="model", manufacturer="manufacturer")
+        command = Command.from_config({"command": "POP1"})
+        command.command_definition = proto.get_command_definition('POP1')
+        _result = command.build_result(raw_response=b"^0\x0b\xe3\r", protocol=proto)
+        formatted_data = simple_formatter.format(command, _result, device_info)
+        # print(formatted_data)
+        self.assertEqual(formatted_data, expected)
+
+    def test_build_result_pop2(self):
+        """ test result build for POP2 - invalid command """
+        expected = ['set_device_output_source_priority=Failed']
+        simple_formatter = SimpleFormat({"extra_info": False})
+        device_info = DeviceInfo(name="name", device_id="device_id", model="model", manufacturer="manufacturer")
+        command = Command.from_config({"command": "POP2"})
+        self.assertRaises(CommandDefinitionMissing, proto.get_command_definition, 'POP2')
+
+    def test_build_result_mchgc(self):
+        """ test result build for MCHGV - success """
+        expected = ['set_battery_bulk,float_charging_voltages=Succeeded']
+        simple_formatter = SimpleFormat({"extra_info": False})
+        device_info = DeviceInfo(name="name", device_id="device_id", model="model", manufacturer="manufacturer")
+        command = Command.from_config({"command": "MCHGV552,540"})
+        command.command_definition = proto.get_command_definition('MCHGV552,540')
+        _result = command.build_result(raw_response=b"^1\x0b\xc2\r", protocol=proto)
+        formatted_data = simple_formatter.format(command, _result, device_info)
+        # print(formatted_data)
         self.assertEqual(formatted_data, expected)
