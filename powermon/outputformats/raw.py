@@ -6,7 +6,7 @@ from powermon.commands.result import Result
 log = logging.getLogger("raw")
 
 
-class raw(AbstractFormat):
+class Raw(AbstractFormat):
     """ return the raw response """
     def __init__(self, config):
         super().__init__(config)
