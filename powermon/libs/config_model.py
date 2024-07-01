@@ -67,6 +67,17 @@ class JsonFormatConfig(BaseFormatConfig):
     format: None | str
     include_missing: None | bool = Field(default=None)
 
+class BMSResponseFormatConfig(BaseFormatConfig):
+    """ model/allowed elements for BMSResponse format config """
+    protocol: None | Literal['pi30'] = Field(default=None)
+    force_charge: None | bool = Field(default=None)
+    battery_charge_voltage: None | float = Field(default=None)
+    battery_float_voltage: None | float = Field(default=None)
+    battery_cutoff_voltage: None | float = Field(default=None)
+    battery_max_charge_current: None | int = Field(default=None)
+    battery_max_discharge_current: None | int = Field(default=None)
+
+
 
 class LoopsTriggerConfig(NoExtraBaseModel):
     """ model/allowed elements for 'loops' trigger config """
@@ -87,7 +98,7 @@ class OutputConfig(NoExtraBaseModel):
     """ model/allowed elements for output config """
     type: Literal['screen'] | Literal['mqtt'] | Literal['api_mqtt']
     topic: None | str = Field(default=None)
-    format: None | str | BaseFormatConfig | HassFormatConfig | MqttFormatConfig | JsonFormatConfig = Field(default=None)
+    format: None | str | BaseFormatConfig | HassFormatConfig | MqttFormatConfig | JsonFormatConfig | BMSResponseFormatConfig = Field(default=None)
 
 
 class CommandConfig(NoExtraBaseModel):

@@ -16,6 +16,7 @@ class FormatterType(StrEnum):
     SIMPLE = auto()
     TABLE = auto()
     TOPICS = auto()
+    BMSRESPONSE = auto()
 
 
 DEFAULT_FORMAT = FormatterType.SIMPLE
@@ -52,7 +53,9 @@ def from_config(format_config) -> AbstractFormat:
         case FormatterType.TABLE:
             from powermon.outputformats.table import Table as fmt
         case FormatterType.RAW:
-            from powermon.outputformats.raw import raw as fmt
+            from powermon.outputformats.raw import Raw as fmt
+        case FormatterType.BMSRESPONSE:
+            from powermon.outputformats.bmsresponse import BMSResponse as fmt
         case _:
             log.warning("No formatter found for: %s", format_type)
             return None

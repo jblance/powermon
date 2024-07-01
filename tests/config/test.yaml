@@ -1,26 +1,28 @@
 # test port config
 device:
-  name: Test_Inverter
-  id: A123456789
-  model: 8048MAX
-  manufacturer: MPP-Solar
+  name: JK BMS
+  id: 12345
+  model: BD6A24S10P
+  manufacturer: JK
   port:
     type: test
-    identifier: A123456789
+    # identifier: A123456789
     # response_number: 3
-    protocol: PI18
+    protocol: JKSERIAL
 
 commands:
-- command: POP1
-  # trigger:
-  #   every: 5
+- command: all_data
   outputs:
+  # - type: screen
+  #   format: table
   - type: screen
-    format: 
-      type: table
-      format: basic
-      draw_lines: True
-      # extra_info: True
-      include_missing: False
-      # filter: ^pv
+    format:
+      type: bmsresponse
+      protocol: pi30
+      force_charge: False
+      battery_charge_voltage: 54.4
+      battery_float_voltage: 52
+      battery_cutoff_voltage: 48
+      battery_max_charge_current: 100
+      battery_max_discharge_current: 100
 loop: once
