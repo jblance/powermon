@@ -58,12 +58,13 @@ def list_protocols():
     print("Supported protocols")
     for name in Protocol:
         try:
-            _module_class = importlib.import_module("powermon.protocols." + name, ".")
-            _module = getattr(_module_class, name)
+            _proto = get_protocol_definition(name)
+            if _proto is not None:
+                print(f"{name}: {_proto}")
         except ModuleNotFoundError as exc:
             log.info("Error in module %s: %s", name, exc)
             continue
         except AttributeError as exc:
             log.info("Error in module %s: %s", name, exc)
             continue
-        print(f"{name}: {_module()}")
+        # print(f"{name}: {_module()}")
