@@ -108,11 +108,12 @@ async def main():
 
     def callback(device, advertising_data):
         if device.address == address:
-            print(f"callback: {device}, ad:{advertising_data}")
             data = advertising_data.manufacturer_data.get(0x02E1)
             if not data or not data.startswith(b"\x10"):
                 return
             decrypt_data(raw_data=data, key=sys.argv[1])
+        else:
+            print(f"callback: {device}, ad:{advertising_data}")
 
     async with BleakScanner(callback) as scanner:
     #async with BleakScanner() as scanner:
