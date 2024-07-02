@@ -26,7 +26,8 @@ def decrypt_data(raw_data=None, key=None):
         "iv" / Int16ul,
         "encrypted_data" / GreedyBytes)
 
-    data = bytes.fromhex(raw_data)
+    #data = bytes.fromhex(raw_data)
+    data = raw_data
     advertisement_key = bytes.fromhex(key)
     container = PARSER.parse(data)
     # The first data byte is a key check byte
@@ -106,17 +107,26 @@ async def main():
     # TODO: add something that calls stop_event.set()
 
     def callback(device, advertising_data):
-        print(f"callback {device}: {advertising_data}")
+        if device.address == address:
+            print(f"callback: {device}, ad:{advertising_data}")
+            data = advertising_data.manufacturer_data.get(0x02E1)
+            if not data or not data.startswith(b"\x10"):
+                return
+            decrypt_data(raw_data=data, key=sys.argv[1])
 
     async with BleakScanner(callback) as scanner:
-        scanner.find_device_by_address(address)
+    #async with BleakScanner() as scanner:
+        #await scanner.find_device_by_address(address)
+        #print(scanner)
 
         # Important! Wait for an event to trigger stop, otherwise scanner
         # will stop immediately.
-        await stop_event.wait()
+        #await stop_event.wait()
+        await asyncio.sleep(5)
+    #print(scanner.discovered_devices_and_advertisement_data)
 
 
 if __name__ == "__main__":
     asyncio.run(main())
-    # test_data = '10 02 89 a3 02 b2 b3 bb 79 5a 9c 40 4a b9 0f 16 2b 4e 58 9b 30 22 3b'
-    # decrypt_data(raw_data=test_data, key=sys.argv[1])
+    #test_data = '10 02 89 a3 02 b2 b3 bb 79 5a 9c 40 4a b9 0f 16 2b 4e 58 9b 30 22 3b'
+    #decrypt_data(raw_data=test_data, key=sys.argv[1])
