@@ -1,8 +1,10 @@
 import asyncio
+import struct
 response = bytearray()
 def notification_callback(handle, data):
   global response
   # print(handle, data)
+  print('got', len(data), 'bytes')
   response += data
 
 address = '66:66:18:01:09:18'
@@ -26,10 +28,22 @@ async def m():
   await client.write_gatt_char(48, bytearray(b""))
   print('write gatt char 15')
   await client.write_gatt_char(15, message)
-  print('sleep 5')
-  await asyncio.sleep(5)
-  print('sleep 5')
-  await asyncio.sleep(5)
-  print(response)
+  # sleep until response is long enough 
+  while len(response) < 207:
+    print('.')
+    await asyncio.sleep(0.1)
+  #print('sleep 5')
+  #await asyncio.sleep(5)
+  #print('sleep 5')
+  #await asyncio.sleep(5)
+  for x in range(int(len(response)/13)):
+    resp = response[:13]
+    response = response[13:]
+    #print(len(resp), resp)
+    result = (struct.unpack('>x x c b b 3h x x', resp))
+    if result[0] == b'\x95':
+      print(result[3], result[4], result[5])
+  #print(response)
+  #print(len(response))
 
 asyncio.run(m())
