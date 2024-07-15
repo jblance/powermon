@@ -29,21 +29,21 @@ async def m():
   print('write gatt char 15')
   await client.write_gatt_char(15, message)
   # sleep until response is long enough 
-  while len(response) < 207:
+  while len(response) < 201:
     print('.')
     await asyncio.sleep(0.1)
   #print('sleep 5')
   #await asyncio.sleep(5)
   #print('sleep 5')
   #await asyncio.sleep(5)
+  print(response)
   for x in range(int(len(response)/13)):
     resp = response[:13]
     response = response[13:]
-    #print(len(resp), resp)
+    print(len(resp), resp)
     result = (struct.unpack('>x x c b b 3h x x', resp))
     if result[0] == b'\x95':
       print(result[3], result[4], result[5])
-  #print(response)
   #print(len(response))
 
 asyncio.run(m())
