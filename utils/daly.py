@@ -12,6 +12,23 @@ def notification_callback(handle, data):
 
 address = '66:66:18:01:09:18'
 message = bytearray(b'\xa5\x80\x95\x08\x00\x00\x00\x00\x00\x00\x00\x00\xc2')
+message_soc = bytearray(b'\xa5\x80\x90\x08\x00\x00\x00\x00\x00\x00\x00\x00\xbd')
+
+def parse2(response):
+  responses = response.split(b'\xa5\x01\x95\x08')
+  for resp in responses:
+    print(len(resp), resp)
+    resp = resp[1:7]
+    structure = '>3h'
+    print(len(resp), resp)
+    if len(resp) < 5:
+      continue
+    if len(resp) == 5:
+      resp.append(resp[3])
+      print(resp)
+    result = (struct.unpack(structure, resp))
+    print(result)
+
 from bleak import BleakClient
 client = BleakClient(address)
 async def m():
@@ -48,5 +65,13 @@ async def m():
     if result[0] == b'\x95':
       print(result[3], result[4], result[5])
   #print(len(response))
+
+  # response = b''
+  # await client.write_gatt_char(15, message_soc)
+  # # sleep until response is long enough
+  # #while len(response) < 201:
+  # #  print('.')
+  # await asyncio.sleep(5.1)
+  # print(response)
 
 asyncio.run(m())
