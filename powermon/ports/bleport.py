@@ -16,7 +16,7 @@ except ImportError:
 
 from powermon.commands.command import Command, CommandType
 from powermon.commands.result import Result
-from powermon.dto.portDTO import PortDTO
+from powermon.ports.abstractport import AbstractPortDTO
 from powermon.libs.errors import PowermonWIP
 from powermon.ports.abstractport import AbstractPort
 from powermon.ports.porttype import PortType
@@ -50,8 +50,8 @@ class BlePort(AbstractPort):
         self.response_cache = {}
         self.response = bytearray()
 
-    def to_dto(self) -> PortDTO:
-        dto = PortDTO(type="ble", mac=self.mac, protocol=self.protocol.to_dto())
+    def to_dto(self) -> AbstractPortDTO:
+        dto = AbstractPortDTO(type="ble", mac=self.mac, protocol=self.protocol.to_dto())
         return dto
 
     def _notification_callback(self, handle, data):

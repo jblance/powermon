@@ -77,8 +77,6 @@ class BMSResponseFormatConfig(BaseFormatConfig):
     battery_max_charge_current: None | int = Field(default=None)
     battery_max_discharge_current: None | int = Field(default=None)
 
-
-
 class LoopsTriggerConfig(NoExtraBaseModel):
     """ model/allowed elements for 'loops' trigger config """
     loops: int
