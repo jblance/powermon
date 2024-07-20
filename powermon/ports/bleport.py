@@ -35,18 +35,20 @@ class BlePort(AbstractPort):
     def from_config(cls, config=None):
         log.debug("building ble port. config:%s", config)
         mac = config.get("mac")
+        # get handles
+        notifier_handle = config.get("notifier_handle", 17)
+        intializing_handle = config.get("intializing_handle", 48)
+        command_handle = config.get("command_handle", 15)
         # get protocol handler, default to PI30 if not supplied
         protocol = get_protocol_definition(protocol=config.get("protocol", "PI30"))
         return cls(mac=mac, protocol=protocol)
 
     def __init__(self, mac, protocol) -> None:
         super().__init__(protocol=protocol)
-        self.port_type = PortType.SERIAL
-        self.mac = mac
-        self.client = None
-        self.is_protocol_supported()
+        self.port_type = PortType.BLE
         # self.error_message = None
         self.response_cache = {}
+        self.response = bytearray()
 
     def to_dto(self) -> PortDTO:
         dto = PortDTO(type="ble", mac=self.mac, protocol=self.protocol.to_dto())
@@ -55,6 +57,7 @@ class BlePort(AbstractPort):
     def _notification_callback(self, handle, data):
         log.debug("%s %s %s", handle, repr(data), len(data))
         print(f"callback - {handle=}, {data=}")
+        self.response += data
         return
         # responses = []
         # command_code =90
@@ -93,9 +96,9 @@ class BlePort(AbstractPort):
             # connect to client
             await self.client.connect()
             # 'turn on' notification characteristic
-            # await self.client.start_notify(17, self._notification_callback)
+            await self.client.start_notify(17, self._notification_callback)
             # write to 'XXX' charateristic
-            # await self.client.write_gatt_char(48, bytearray(b""))
+            await self.client.write_gatt_char(48, bytearray(b""))
             log.debug(self.client)
         except Exception as e:
             # log.error("Incorrect configuration for serial port: %s", e)
@@ -126,13 +129,10 @@ class BlePort(AbstractPort):
         # try:
         log.debug("Executing command via ble...")
         await self.client.write_gatt_char(15, full_command)
-        log.debug("Waiting...")
-        try:
-            response_line = await asyncio.wait_for(self.response_cache["future"], 30)
-        except asyncio.TimeoutError:
-            log.warning("Timeout while waiting for %s response" % command)
-            exit(1)
-            return False
+        # sleep until response is long enough 
+        while len(self.response) < 201:
+            print('.')
+            await asyncio.sleep(0.1)
         print("got %s" % response_line)
         #return result
         # self.serial_port.reset_input_buffer()
