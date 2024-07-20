@@ -1,0 +1,9 @@
+FROM python:slim
+
+RUN apt-get update
+RUN pip install --upgrade pip
+RUN python -V
+RUN python -c 'import platform;print(platform.machine())'
+
+COPY . /powermon/
+RUN pip install /powermon/

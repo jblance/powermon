@@ -38,7 +38,16 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           context: .
-          file: ./Dockerfile
+          file: ./Dockerfile-slim
           push: true
-          tags: ${{ steps.meta.outputs.tags }}
-          labels: ${{ steps.meta.outputs.labels }}
+          tags: ${{ steps.meta.outputs.tags }}-slim
+          labels: ${{ steps.meta.outputs.labels }}-slim
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: ./Dockerfile-systemd
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}-systemd
+          labels: ${{ steps.meta.outputs.labels }}-systemd
