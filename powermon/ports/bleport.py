@@ -58,7 +58,7 @@ class BlePort(AbstractPort):
 
     def _notification_callback(self, handle, data):
         log.debug("%s %s %s", handle, repr(data), len(data))
-        # print(f"callback - {handle=}, {data=}")
+        print(f"callback - {handle.handle=}, {data=}")
         self.response += data
         return
         # responses = []
@@ -120,20 +120,22 @@ class BlePort(AbstractPort):
 
     async def send_and_receive(self, command: Command) -> Result:
         full_command = command.full_command
+        print(full_command)
         command_code = 90
         log.debug("port: %s, full_command: %s", self.client, full_command)
         if not self.is_connected():
             raise RuntimeError("Ble port not open")
         # try:
         log.debug("Executing command via ble...")
-        full_command =  bytearray(b'\xa5\x80\x90\x08\x00\x00\x00\x00\x00\x00\x00\x00\xbd')
+        #full_command =  bytearray(b'\xa5\x80\x90\x08\x00\x00\x00\x00\x00\x00\x00\x00\xbd')
+        print(full_command)
         await self.client.write_gatt_char(15, full_command)
         # sleep until response is long enough 
         while len(self.response) < 12:
             #print(len(self.response))
             #print('.')
             await asyncio.sleep(0.1)
-        print("got %s" % self.response)
+        print(f"got: '{self.response}' len: {len(self.response)}")
         #return result
         # self.serial_port.reset_input_buffer()
         # self.serial_port.reset_output_buffer()
