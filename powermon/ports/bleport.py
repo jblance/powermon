@@ -46,9 +46,11 @@ class BlePort(AbstractPort):
     def __init__(self, mac, protocol) -> None:
         super().__init__(protocol=protocol)
         self.port_type = PortType.BLE
+        self.mac = mac
         # self.error_message = None
         self.response_cache = {}
         self.response = bytearray()
+        self.client = None
 
     def to_dto(self) -> AbstractPortDTO:
         dto = AbstractPortDTO(type="ble", mac=self.mac, protocol=self.protocol.to_dto())
@@ -56,7 +58,7 @@ class BlePort(AbstractPort):
 
     def _notification_callback(self, handle, data):
         log.debug("%s %s %s", handle, repr(data), len(data))
-        print(f"callback - {handle=}, {data=}")
+        # print(f"callback - {handle=}, {data=}")
         self.response += data
         return
         # responses = []
@@ -110,30 +112,28 @@ class BlePort(AbstractPort):
         return self.is_connected()
 
     async def disconnect(self) -> None:
-        log.debug("usbserial port disconnecting")
+        log.debug("ble port disconnecting")
         if self.client is not None:
             await self.client.disconnect()
+            await asyncio.sleep(0.5)
         self.client = None
 
     async def send_and_receive(self, command: Command) -> Result:
         full_command = command.full_command
         command_code = 90
-        self.response_cache = {"queue": [],
-                                "future": asyncio.Future(),
-                                "max_responses": 3,
-                                "done": False}
-        response_line = None
         log.debug("port: %s, full_command: %s", self.client, full_command)
         if not self.is_connected():
             raise RuntimeError("Ble port not open")
         # try:
         log.debug("Executing command via ble...")
+        full_command =  bytearray(b'\xa5\x80\x90\x08\x00\x00\x00\x00\x00\x00\x00\x00\xbd')
         await self.client.write_gatt_char(15, full_command)
         # sleep until response is long enough 
-        while len(self.response) < 201:
-            print('.')
+        while len(self.response) < 12:
+            #print(len(self.response))
+            #print('.')
             await asyncio.sleep(0.1)
-        print("got %s" % response_line)
+        print("got %s" % self.response)
         #return result
         # self.serial_port.reset_input_buffer()
         # self.serial_port.reset_output_buffer()
@@ -144,9 +144,9 @@ class BlePort(AbstractPort):
         #         # this command type doesnt need to send a command, it just listens on the serial port
         #         _lines = 30
         #         log.debug("VictronCommandType.LISTEN s&r, listening for %i lines", _lines)
-        log.debug("serial response was: %s", response_line)
+        log.debug("serial response was: %s", self.response)
         # response = self.get_protocol().check_response_and_trim(response_line)
-        result = command.build_result(raw_response=response_line, protocol=self.protocol)
+        result = command.build_result(raw_response=self.response, protocol=self.protocol)
         return result
         # except Exception as e:
         #     log.warning("Serial read error: %s", e)
