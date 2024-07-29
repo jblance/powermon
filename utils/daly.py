@@ -29,10 +29,16 @@ def parse2(response):
     result = (struct.unpack(structure, resp))
     print(result)
 
-from bleak import BleakClient
-client = BleakClient(address)
+from bleak import BleakClient, BleakScanner
 async def m():
   global response
+  print('scanning for device:', address)
+  bledevice = await BleakScanner.find_device_by_name(name=address, timeout=10.0)
+  if bledevice is None:
+    print(f"device {address} not found")
+    exit()
+  print(bledevice)
+  client = BleakClient(bledevice)
   print('connecting')
   await client.connect()
   print(client.is_connected)
