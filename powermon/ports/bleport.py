@@ -4,7 +4,8 @@ import asyncio
 import logging
 
 try:
-    from bleak import BleakClient, BleakScanner, BleakDeviceNotFoundError
+    from bleak import BleakClient, BleakScanner
+    from bleak.exc import BleakDeviceNotFoundError
 except ImportError:
     print("You are missing a python library - 'bleak'")
     print("To install it, use the below command:")
