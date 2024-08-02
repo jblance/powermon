@@ -69,7 +69,7 @@ class Daly(AbstractProtocol):
         super().__init__()
         self.protocol_id = b"DALY"
         self.add_command_definitions(COMMANDS)
-        self.add_supported_ports([PortType.SERIAL, PortType.USB])
+        self.add_supported_ports([PortType.SERIAL, PortType.USB, PortType.BLE])
         self.check_definitions_count(expected=None)
 
     def get_full_command(self, command) -> bytes:
