@@ -4,7 +4,7 @@ import asyncio
 import logging
 
 try:
-    from bleak import BleakClient
+    from bleak import BleakClient, BleakScanner, BleakDeviceNotFoundError
 except ImportError:
     print("You are missing a python library - 'bleak'")
     print("To install it, use the below command:")
@@ -14,7 +14,7 @@ except ImportError:
     exit(1)
 
 
-from powermon.commands.command import Command, CommandType
+from powermon.commands.command import Command
 from powermon.commands.result import Result
 from powermon.ports.abstractport import AbstractPortDTO
 from powermon.libs.errors import PowermonWIP
@@ -36,9 +36,9 @@ class BlePort(AbstractPort):
         log.debug("building ble port. config:%s", config)
         mac = config.get("mac")
         # get handles
-        notifier_handle = config.get("notifier_handle", 17)
-        intializing_handle = config.get("intializing_handle", 48)
-        command_handle = config.get("command_handle", 15)
+        # notifier_handle = config.get("notifier_handle", 17)
+        # intializing_handle = config.get("intializing_handle", 48)
+        # command_handle = config.get("command_handle", 15)
         # get protocol handler, default to PI30 if not supplied
         protocol = get_protocol_definition(protocol=config.get("protocol", "PI30"))
         return cls(mac=mac, protocol=protocol)
@@ -46,11 +46,11 @@ class BlePort(AbstractPort):
     def __init__(self, mac, protocol) -> None:
         super().__init__(protocol=protocol)
         self.port_type = PortType.BLE
+        self.is_protocol_supported()
         self.mac = mac
-        # self.error_message = None
-        self.response_cache = {}
+        # set handles (from protocol? override from protocol??)
         self.response = bytearray()
-        self.client = None
+        self.client: BleakClient = None
 
     def to_dto(self) -> AbstractPortDTO:
         dto = AbstractPortDTO(type="ble", mac=self.mac, protocol=self.protocol.to_dto())
@@ -90,11 +90,15 @@ class BlePort(AbstractPort):
     def is_connected(self):
         return self.client is not None and self.client.is_connected
 
-    async def connect(self) -> int:
-        log.debug("bleport connecting. mac:%s", self.mac)
+    async def connect(self) -> bool:
+        log.info("bleport connecting. mac:%s", self.mac)
         try:
+            # find ble client 
+            bledevice = await BleakScanner.find_device_by_name(name=self.mac, timeout=10.0)
+            if bledevice is None:
+                raise BleakDeviceNotFoundError(f"Device with address: {self.mac} was not found.")
             # build client object
-            self.client = BleakClient(self.mac, disconnected_callback=self.disconnect_callback)
+            self.client = BleakClient(bledevice, disconnected_callback=self.disconnect_callback)
             # connect to client
             await self.client.connect()
             # 'turn on' notification characteristic
@@ -102,13 +106,15 @@ class BlePort(AbstractPort):
             # write to 'XXX' charateristic
             await self.client.write_gatt_char(48, bytearray(b""))
             log.debug(self.client)
+        except BleakDeviceNotFoundError as e:
+            print(f'not found error {e!r}')
         except Exception as e:
             # log.error("Incorrect configuration for serial port: %s", e)
             # self.error_message = str(e)
             print(e)
             self.client = None
             raise PowermonWIP("connect failed") from e
-        
+
         return self.is_connected()
 
     async def disconnect(self) -> None:
@@ -121,7 +127,6 @@ class BlePort(AbstractPort):
     async def send_and_receive(self, command: Command) -> Result:
         full_command = command.full_command
         print(full_command)
-        command_code = 90
         log.debug("port: %s, full_command: %s", self.client, full_command)
         if not self.is_connected():
             raise RuntimeError("Ble port not open")
@@ -130,7 +135,7 @@ class BlePort(AbstractPort):
         #full_command =  bytearray(b'\xa5\x80\x90\x08\x00\x00\x00\x00\x00\x00\x00\x00\xbd')
         print(full_command)
         await self.client.write_gatt_char(15, full_command)
-        # sleep until response is long enough 
+        # sleep until response is long enough
         while len(self.response) < 12:
             #print(len(self.response))
             #print('.')

@@ -125,14 +125,19 @@ class Device:
         self.adhoc_commands.append(adhoc_command)
 
     def add_command(self, command: Command) -> None:
-        """add a command to the devices' list of commands"""
+        """add a command to the devices' list of commands
+
+        Args:
+            command (Command): Command object to add to list
+        """
         if command is None:
             return
         # get command definition from protocol
         try:
             command.command_definition = self.port.protocol.get_command_definition(command.code)
         except CommandDefinitionMissing as ex:
-            print(ex)
+            log.info("Could not find a definition for command: %s", command.code)
+            log.debug("Exception was %r", ex)
             return
 
         # append to commands list
