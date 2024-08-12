@@ -33,7 +33,7 @@ from bleak import BleakClient, BleakScanner
 async def m():
   global response
   print('scanning for device:', address)
-  bledevice = await BleakScanner.find_device_by_name(name=address, timeout=10.0)
+  bledevice = await BleakScanner.find_device_by_address(device_identifier=address, timeout=10.0)
   if bledevice is None:
     print(f"device {address} not found")
     exit()

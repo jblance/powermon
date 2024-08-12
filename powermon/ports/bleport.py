@@ -95,7 +95,7 @@ class BlePort(AbstractPort):
         log.info("bleport connecting. mac:%s", self.mac)
         try:
             # find ble client 
-            bledevice = await BleakScanner.find_device_by_name(name=self.mac, timeout=10.0)
+            bledevice = await BleakScanner.find_device_by_address(device_identifier=self.mac, timeout=10.0)
             if bledevice is None:
                 raise BleakDeviceNotFoundError(f"Device with address: {self.mac} was not found.")
             # build client object
