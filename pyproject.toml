@@ -58,6 +58,7 @@ build-backend = "poetry.core.masonry.api"
 [tool.poetry.scripts]
 powermon = "powermon:main"
 powermon-api = "powermon_api.api:main"
+powermon-cli = "powermon.cli:main"
 
 [tool.black]
 line-length = 149
