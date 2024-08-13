@@ -2,6 +2,7 @@
 # import serial
 import asyncio
 import logging
+import subprocess
 
 try:
     from bleak import BleakClient, BleakScanner
@@ -114,9 +115,13 @@ class BlePort(AbstractPort):
         return self.is_connected()
 
     async def disconnect(self) -> None:
-        log.info("ble port disconnecting, %s %s", self.client, self.is_connected)
-        # if self.client is not None and self.client.is_connected:
-        #     await self.client.disconnect()
+        log.info("ble port disconnecting, %s %s", self.client, self.is_connected())
+        if self.client is not None and self.client.is_connected:
+            open_blue = subprocess.Popen(["bluetoothctl"], shell=True, stdout=subprocess.PIPE,
+                                         stderr=subprocess.STDOUT, stdin=subprocess.PIPE)
+            open_blue.communicate(b"disconnect %s\n" % self.mac.encode('utf-8'))
+            open_blue.kill()
+            # await self.client.disconnect()
             # await asyncio.sleep(0.5)
         self.client = None
 
