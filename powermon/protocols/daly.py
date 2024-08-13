@@ -1,4 +1,4 @@
-""" protocols / ved.py """
+""" protocols / daly.py """
 import logging
 
 import construct as cs
@@ -70,11 +70,19 @@ class Daly(AbstractProtocol):
         self.protocol_id = b"DALY"
         self.add_command_definitions(COMMANDS)
         self.add_supported_ports([PortType.SERIAL, PortType.USB, PortType.BLE])
+        self.notifier_handle = 17
+        self.intializing_handle = 48
+        self.command_handle = 15
         self.check_definitions_count(expected=None)
 
-    def get_full_command(self, command) -> bytes:
-        """
-        Override the default get_full_command
+    def get_full_command(self, command: bytes|str) -> bytes:
+        """generate the full command for a Daly device from a supplied command name
+
+        Args:
+            command (bytes | str): the command name - references the COMMANDS dict key
+
+        Returns:
+            bytes: full command with start flag, source, command code, data length and checksum
         """
         log.info("Using protocol %s with %i commands", self.protocol_id, len(self.command_definitions))
 
@@ -87,23 +95,39 @@ class Daly(AbstractProtocol):
         #
         # 95 -> a58095080000000000000000c2
         #       a58090080000000000000000bd
-        source = 0x80  # 4 = USB, 8 = Bluetooth
+        if self.port_type == PortType.BLE:
+            source = 0x80  # 4 = USB, 8 = Bluetooth
+        else:
+            source = 0x40
         command = command_definition.command_code
         data_length = 8
         full_command = bytearray()
+
         full_command.append(0xa5)  # start flag
-        full_command.append(source)
-        full_command.append(bytes.fromhex(command_definition.command_code)[0])
-        full_command.append(data_length)
-        full_command += bytearray(data_length)
-        full_command.append(sum(full_command) & 0xFF)
-        full_command.append(10)
+        full_command.append(source)  # source code
+        full_command.append(bytes.fromhex(command_definition.command_code)[0])  # command code
+        full_command.append(data_length)  # data length
+        full_command += bytearray(data_length)  # pad to correct length
+        full_command.append(sum(full_command) & 0xFF)  # append checksum
+        if self.port_type is not PortType.BLE:
+            full_command.append(10)  # append newline except for BLE commands
         full_command = bytes(full_command)
         log.debug("full_command: %s", full_command)
         return full_command
 
     def check_valid(self, response: str, command_definition: CommandDefinition = None) -> bool:
-        """ check response is valid """
+        """check if the response is valid
+
+        Args:
+            response (str): the response to check
+            command_definition (CommandDefinition, optional): not used in the check for this protocol. Defaults to None.
+
+        Raises:
+            InvalidResponse: exception raised if the response is invalid for any reason
+
+        Returns:
+            bool: True if response doesnt meet any 'invalid' tests
+        """
         log.debug("check valid for %s, definition: %s", response, command_definition)
         if response is None:
             raise InvalidResponse("Response is None")

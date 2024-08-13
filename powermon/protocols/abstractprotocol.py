@@ -24,7 +24,7 @@ class AbstractProtocolDTO(BaseModel):
     """ data transfer model for AbstractPort class """
     protocol_id: str
     command_definitions: dict[str, CommandDefinitionDTO]
-    supported_ports: list[str]
+    supported_ports: list[PortType]
     id_command: None | str
 
 
@@ -43,6 +43,7 @@ class AbstractProtocol(metaclass=abc.ABCMeta):
         self.command_definitions: dict[str, CommandDefinition] = {}
         self.supported_ports = [PortType.TEST,]
         self.id_command = None
+        self.port_type = None
 
     def to_dto(self) -> AbstractProtocolDTO:
         """ convert protocol object to data transfer object """
@@ -50,7 +51,7 @@ class AbstractProtocol(metaclass=abc.ABCMeta):
         return dto
 
     @property
-    def protocol_id(self) -> bytes:
+    def protocol_id(self) -> str:
         """ return the protocol id """
         return self._protocol_id
 
@@ -82,7 +83,7 @@ class AbstractProtocol(metaclass=abc.ABCMeta):
                 log.info("couldnt add command definition for code: %s", command_definition_key)
                 log.info("error was: %s", value_error)
 
-    def remove_command_definitions(self, commands_to_remove: list = None):
+    def remove_command_definitions(self, commands_to_remove: list):
         """ Remove specified command definitions """
         if commands_to_remove is None:
             return
@@ -139,10 +140,13 @@ class AbstractProtocol(metaclass=abc.ABCMeta):
             raise ValueError("Attempted to list commands with no protocol defined")
         return self.command_definitions
 
-    def get_full_command(self, command: str) -> bytes:
+    def get_full_command(self, command: bytes|str) -> bytes:
         """ generate the full command including crc and \n as needed """
         log.info("Using protocol: %s with %i commands", self.protocol_id, len(self.command_definitions))
-        byte_cmd = bytes(command, "utf-8")
+        if isinstance(command, str):
+            byte_cmd = bytes(command, "utf-8")
+        else:
+            byte_cmd = command
         # calculate the CRC
         crc_high, crc_low = crc(byte_cmd)
         # combine byte_cmd, CRC , return
@@ -150,26 +154,28 @@ class AbstractProtocol(metaclass=abc.ABCMeta):
         log.debug("full command: %s", full_command)
         return full_command
 
-    def check_valid(self, response: str, command_definition: CommandDefinition = None) -> bool:
+    def check_valid(self, response: str, command_definition: CommandDefinition) -> bool:
         """ check response is valid """
         log.debug("check valid for %s, definition: %s", response, command_definition)
+        if command_definition is None:
+            return False
         if response is None:
             raise InvalidResponse("Response is None")
         if len(response) <= 3:
             raise InvalidResponse("Response is too short")
         return True
 
-    def check_crc(self, response: str, command_definition: CommandDefinition = None) -> bool:
+    def check_crc(self, response: str, command_definition: CommandDefinition) -> bool:
         """ crc check, needs override in protocol """
         log.debug("no check crc for %s, definition: %s", response, command_definition)
         return True
 
-    def trim_response(self, response: str, command_definition: CommandDefinition = None) -> str:
+    def trim_response(self, response: str, command_definition: CommandDefinition) -> str:
         """ Remove extra characters from response """
         log.debug("trim %s, definition: %s", response, command_definition)
         return response[1:-3]
 
-    def split_response(self, response: str, command_definition: CommandDefinition = None) -> list:
+    def split_response(self, response: bytes, command_definition: CommandDefinition) -> list:
         """ split response into individual items, return as ordered list or list of tuples """
         result_type = getattr(command_definition, "result_type", None)
         log.debug("splitting %s, result_type %s", response, result_type)
@@ -209,6 +215,9 @@ class AbstractProtocol(metaclass=abc.ABCMeta):
                 # parse with construct
                 result = command_definition.construct.parse(response)
                 # print(result)
+                if result is None:
+                    log.debug("construct parsing returned None")
+                    return responses
                 for x in result:
                     match type(result[x]):
                         # case cs.ListContainer:

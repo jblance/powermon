@@ -18,7 +18,7 @@ except ImportError:
 from powermon.commands.command import Command
 from powermon.commands.result import Result
 from powermon.ports.abstractport import AbstractPortDTO
-from powermon.libs.errors import PowermonWIP
+from powermon.libs.errors import ConfigError, PowermonWIP, PowermonProtocolError
 from powermon.ports.abstractport import AbstractPort
 from powermon.ports.porttype import PortType
 from powermon.protocols import get_protocol_definition
@@ -33,8 +33,10 @@ class BlePort(AbstractPort):
         return f"BlePort: {self.mac=}, protocol:{self.protocol}, {self.client=}, {self.error_message=}"
 
     @classmethod
-    def from_config(cls, config=None):
+    def from_config(cls, config: dict|None = None):
         log.debug("building ble port. config:%s", config)
+        if config is None:
+            raise ConfigError("BLE port config missing")
         mac = config.get("mac")
         # get handles
         # notifier_handle = config.get("notifier_handle", 17)
@@ -47,14 +49,25 @@ class BlePort(AbstractPort):
     def __init__(self, mac, protocol) -> None:
         super().__init__(protocol=protocol)
         self.port_type = PortType.BLE
+        self.protocol.port_type = self.port_type
         self.is_protocol_supported()
         self.mac = mac
-        # set handles (from protocol? override from protocol??)
+        # set handles (from protocol? override from config??)
+        self.notifier_handle: int = getattr(self.protocol, "notifier_handle", 0)
+        self.intializing_handle: int = getattr(self.protocol, "intializing_handle", 0)
+        self.command_handle: int = getattr(self.protocol, "command_handle", 0)
+        # Check that the needed handles are defined
+        if not self.notifier_handle:
+            raise PowermonProtocolError("notifier_handle needs to be defined in protocol: {self.protocol.protocol_id}")
+        if not self.intializing_handle:
+            raise PowermonProtocolError("intializing_handle needs to be defined in protocol: {self.protocol.protocol_id}")
+        if not self.command_handle:
+            raise PowermonProtocolError("command_handle needs to be defined in protocol: {self.protocol.protocol_id}")
         self.response = bytearray()
-        self.client: BleakClient = None
+        self.client: BleakClient|None = None
 
     def to_dto(self) -> AbstractPortDTO:
-        dto = AbstractPortDTO(type="ble", mac=self.mac, protocol=self.protocol.to_dto())
+        dto = AbstractPortDTO(port_type="ble", protocol=self.protocol.to_dto())  # TODO: add correct dto
         return dto
 
     def _notification_callback(self, handle, data):
@@ -94,7 +107,7 @@ class BlePort(AbstractPort):
     async def connect(self) -> bool:
         log.info("bleport connecting. mac:%s", self.mac)
         try:
-            # find ble client 
+            # find ble client
             bledevice = await BleakScanner.find_device_by_address(device_identifier=self.mac, timeout=10.0)
             if bledevice is None:
                 raise BleakDeviceNotFoundError(f"Device with address: {self.mac} was not found.")
@@ -103,9 +116,10 @@ class BlePort(AbstractPort):
             # connect to client
             await self.client.connect()
             # 'turn on' notification characteristic
-            await self.client.start_notify(17, self._notification_callback)
-            # write to 'XXX' charateristic
-            await self.client.write_gatt_char(48, bytearray(b""))
+            await self.client.start_notify(self.notifier_handle, self._notification_callback)
+            # flush initializing characteristic?
+            if self.intializing_handle:
+                await self.client.write_gatt_char(self.intializing_handle, bytearray(b""))
             log.debug(self.client)
         except BleakDeviceNotFoundError as e:
             print(f'not found error {e!r}')
@@ -120,9 +134,9 @@ class BlePort(AbstractPort):
 
     async def disconnect(self) -> None:
         log.debug("ble port disconnecting")
-        if self.client is not None:
-            await self.client.disconnect()
-            await asyncio.sleep(0.5)
+        # if self.client is not None:
+        #     await self.client.disconnect()
+        #     await asyncio.sleep(0.5)
         self.client = None
 
     async def send_and_receive(self, command: Command) -> Result:
@@ -135,7 +149,7 @@ class BlePort(AbstractPort):
         log.debug("Executing command via ble...")
         #full_command =  bytearray(b'\xa5\x80\x90\x08\x00\x00\x00\x00\x00\x00\x00\x00\xbd')
         print(full_command)
-        await self.client.write_gatt_char(15, full_command)
+        await self.client.write_gatt_char(self.command_handle, full_command)
         # sleep until response is long enough
         while len(self.response) < 12:
             #print(len(self.response))

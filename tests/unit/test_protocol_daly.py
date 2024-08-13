@@ -6,6 +6,7 @@ from powermon.device import DeviceInfo
 from powermon.libs.errors import InvalidCRC, InvalidResponse
 from powermon.outputformats.simple import SimpleFormat
 from powermon.protocols.daly import Daly as Proto
+from powermon.ports.porttype import PortType
 
 proto = Proto()
 
@@ -47,11 +48,21 @@ class TestProtocolDaly(unittest.TestCase):
         # proto = Proto()
         self.assertRaises(InvalidResponse, proto.split_response, response=b'', command_definition=proto.get_command_definition('SOC'))
 
-    def test_full_command_soc(self):
-        """ test a for correct full command for SOC """
+    def test_full_command_soc_ble(self):
+        """ test a for correct full command for SOC for a BLE device """
         # proto = Proto()
+        proto.port_type = PortType.BLE
         _result = proto.get_full_command(command="SOC")
-        expected = b'\xa5\x80\x90\x08\x00\x00\x00\x00\x00\x00\x00\x00\xbd\n'
+        expected = b'\xa5\x80\x90\x08\x00\x00\x00\x00\x00\x00\x00\x00\xbd'
+        # print(_result)
+        self.assertEqual(_result, expected)
+
+    def test_full_command_soc_serial(self):
+        """ test a for correct full command for SOC for a serial device """
+        # proto = Proto()
+        proto.port_type = PortType.SERIAL
+        _result = proto.get_full_command(command="SOC")
+        expected = b'\xa5\x40\x90\x08\x00\x00\x00\x00\x00\x00\x00\x00}\n'
         # print(_result)
         self.assertEqual(_result, expected)
 

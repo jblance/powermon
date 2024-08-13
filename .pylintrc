@@ -1,4 +1,4 @@
 [MASTER]
-ignored-modules=pydantic,paho,serial,construct,pyaml_env
+ignored-modules=pydantic,paho,serial,construct,pyaml_env,yaml
 max-line-length=180
 disable=C0415,C0301
