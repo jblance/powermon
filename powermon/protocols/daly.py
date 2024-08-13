@@ -70,11 +70,22 @@ status_construct = cs.Struct(
     "module_address" / cs.Bytes(1),
     "command_id" / cs.Bytes(1),
     "data_length" / cs.Byte,
-    "mode" / cs.Enum(cs.Int8sb, stationary=0, charging=1, discharging=2),
-    "charging_mosfet" / cs.Byte,
-    "discharging_mosfet" / cs.Byte,
-    "bms_cycles" / cs.Int8ub,
-    "capacity_ah" / cs.Int32ub,
+    "number_of_cells" / cs.Int8sb,
+    "number_of_temperature_sensors" / cs.Int8sb,
+    "charger_running" / cs.Byte,
+    "load_running" / cs.Byte,
+    "states" / cs.BitStruct(
+        "DO4" / cs.Flag,
+        "DO3" / cs.Flag,
+        "DO2" / cs.Flag,
+        "DO1" / cs.Flag,
+        "DI4" / cs.Flag,
+        "DI3" / cs.Flag,
+        "DI2" / cs.Flag,
+        "DI1" / cs.Flag,
+        ),
+    "cycles" / cs.Int16ub,
+    "rest" / cs.Bytes(1),
     "checksum" / cs.Bytes(1)
 )
 
@@ -179,7 +190,7 @@ COMMANDS = {
             {"index": "capacity_ah", "description": "capacity_ah", "reading_type": ReadingType.ENERGY, "response_type": ResponseType.TEMPLATE_INT, "format_template": "r/1000"},
         ],
         "test_responses": [
-            b'\xa5\x01\x93\x08\x02\x01\x01\x97\x00\x04-\xfa\x07'
+            b'\xa5\x01\x93\x08\x02\x01\x01\x97\x00\x04-\xfa\x07',
         ],
     },
     "status": {
@@ -199,14 +210,15 @@ COMMANDS = {
             {"index": "module_address", "description": "module address", "reading_type": ReadingType.IGNORE, "response_type": ResponseType.HEX_CHAR},
             {"index": "command_id", "description": "command id", "reading_type": ReadingType.IGNORE, "response_type": ResponseType.HEX_CHAR},
             {"index": "data_length", "description": "data length", "reading_type": ReadingType.IGNORE},
-            {"index": "mode", "description": "mode", "reading_type": ReadingType.MESSAGE, "response_type": ResponseType.STRING},
-            {"index": "charging_mosfet", "description": "charging_mosfet", "reading_type": ReadingType.ENABLED, "response_type": ResponseType.BOOL},
-            {"index": "discharging_mosfet", "description": "discharging_mosfet", "reading_type": ReadingType.ENABLED, "response_type": ResponseType.BOOL},
-            {"index": "bms_cycles", "description": "bms_cycles", "reading_type": ReadingType.NUMBER},
-            {"index": "capacity_ah", "description": "capacity_ah", "reading_type": ReadingType.ENERGY, "response_type": ResponseType.TEMPLATE_INT, "format_template": "r/1000"},
+            {"index": "number_of_cells", "description": "number_of_cells", "reading_type": ReadingType.MESSAGE, "response_type": ResponseType.STRING},
+            {"index": "number_of_temperature_sensors", "description": "number_of_temperature_sensors", "reading_type": ReadingType.MESSAGE, "response_type": ResponseType.STRING},
+            {"index": "charger_running", "description": "charger_running", "reading_type": ReadingType.MESSAGE, "response_type": ResponseType.BOOL},
+            {"index": "load_running", "description": "load_running", "reading_type": ReadingType.MESSAGE, "response_type": ResponseType.BOOL},
+            #{"index": "DI2", "description": "states", "reading_type": ReadingType.MESSAGE, "response_type": ResponseType.STRING},
+            {"index": "cycles", "description": "cycles", "reading_type": ReadingType.NUMBER},
         ],
         "test_responses": [
-            b'\xa5\x01\x93\x08\x02\x01\x01\x97\x00\x04-\xfa\x07'
+            b'\xa5\x01\x94\x08\x10\x01\x00\x00\x02\x00\x1d\x88\xfa',
         ],
     },
 }
