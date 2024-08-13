@@ -1,6 +1,10 @@
 """ errors.py - collection of powermon specific exceptions """
 
 
+class BLEResponseError(Exception):
+    """ Exception for errors with BLE response """
+
+
 class ConfigError(Exception):
     """ Exception for invaild configurations """
 

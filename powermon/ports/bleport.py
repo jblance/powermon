@@ -18,7 +18,7 @@ except ImportError:
 from powermon.commands.command import Command
 from powermon.commands.result import Result
 from powermon.ports.abstractport import AbstractPortDTO
-from powermon.libs.errors import ConfigError, PowermonWIP, PowermonProtocolError
+from powermon.libs.errors import BLEResponseError, ConfigError, PowermonWIP, PowermonProtocolError
 from powermon.ports.abstractport import AbstractPort
 from powermon.ports.porttype import PortType
 from powermon.protocols import get_protocol_definition
@@ -125,29 +125,16 @@ class BlePort(AbstractPort):
         log.debug("Executing command via ble...")
         await self.client.write_gatt_char(self.command_handle, full_command)
         # sleep until response is long enough
-        print(command.command_definition.construct_min_response)
-        while len(self.response) < 13:
+        required_response_length = command.command_definition.construct_min_response
+        timeout = 0
+        while len(self.response) < required_response_length:
+            timeout += 1
+            if timeout >= 50:
+                raise BLEResponseError(f"BLE response didnt reach len {required_response_length} in 5 seconds - got {len(self.response)}")
             #print(len(self.response))
             #print('.')
             await asyncio.sleep(0.1)
-        # print(f"got: '{self.response}' len: {len(self.response)}")
-        #return result
-        # self.serial_port.reset_input_buffer()
-        # self.serial_port.reset_output_buffer()
-        # # Process i/o differently depending on command type
-        # command_defn = command.command_definition
-        # match command_defn.command_type:
-        #     case CommandType.VICTRON_LISTEN:
-        #         # this command type doesnt need to send a command, it just listens on the serial port
-        #         _lines = 30
-        #         log.debug("VictronCommandType.LISTEN s&r, listening for %i lines", _lines)
         log.debug("serial response was: %s", self.response)
         # response = self.get_protocol().check_response_and_trim(response_line)
         result = command.build_result(raw_response=self.response, protocol=self.protocol)
         return result
-        # except Exception as e:
-        #     log.warning("Serial read error: %s", e)
-        #     result.error = True
-        #     result.error_messages.append(f"Serial read error {e}")
-        #     self.disconnect()
-        #     return result

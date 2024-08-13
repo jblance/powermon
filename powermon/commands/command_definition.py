@@ -46,14 +46,14 @@ class CommandDefinition:
         self.code = code
         self.description = description
         self.help_text = help_text
-        self.result_type : ResultType = result_type
-        self.reading_definitions : dict[int | str, ReadingDefinition] = reading_definitions
-        self.test_responses : list[bytes] = test_responses
-        self.regex : str | None = regex
+        self.result_type: ResultType = result_type
+        self.reading_definitions: dict[int | str, ReadingDefinition] = reading_definitions
+        self.test_responses: list[bytes] = test_responses
+        self.regex: str | None = regex
         self.command_type = None
-        self.command_code : str = None
+        self.command_code: str = None
         self.construct: cs.Construct = None
-        self.construct_min_response = None
+        self.construct_min_response: int = 0
 
     def to_dto(self) -> CommandDefinitionDTO:
         """ convert command definition object to data transfer object """
@@ -89,7 +89,6 @@ class CommandDefinition:
                 reading_definitions : dict[int, ReadingDefinition] = \
                     ReadingDefinition.multiple_from_config([{"description": description, "response_type": ResponseType.ACK, "reading_type": ReadingType.ACK}])
                 test_responses = [b"(NAK\x73\x73\r", b"(ACK\x39\x20\r",]
-                
             case ResultType.PI18_ACK:
                 # All ResultType.PI18_ACK are the same, so put config here instead of duplicating it in the protocol
                 log.debug("ResultType.PI18_ACK so defaulting reading_definitions")
@@ -109,7 +108,7 @@ class CommandDefinition:
         _command_definition.command_type = protocol_dictionary.get("command_type")
         _command_definition.command_code = protocol_dictionary.get("command_code")
         _command_definition.construct = protocol_dictionary.get("construct")
-        _command_definition.construct_min_response = protocol_dictionary.get("construct_min_response")
+        _command_definition.construct_min_response = protocol_dictionary.get("construct_min_response", 8)
         return _command_definition
 
     def is_command_code_valid(self, command_code : str) -> bool:
