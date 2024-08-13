@@ -91,8 +91,8 @@ class BlePort(AbstractPort):
                 raise BleakDeviceNotFoundError(f"Device with address: {self.mac} was not found.")
             log.info("got bledevice: %s", bledevice)
             # build client object
-            #self.client = BleakClient(bledevice, disconnected_callback=self.disconnect_callback)
-            self.client = BleakClient(bledevice)
+            self.client = BleakClient(bledevice, disconnected_callback=self.disconnect_callback)
+            #self.client = BleakClient(bledevice)
             log.info("got bleclient: %s", self.client)
             # connect to client
             await self.client.connect()
