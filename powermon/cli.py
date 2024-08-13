@@ -21,7 +21,6 @@ def main():
     args = parser.parse_args()
 
     # Display version if asked
-    log.info(description)
     if args.version:
         print(description)
         return None
