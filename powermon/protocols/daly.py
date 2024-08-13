@@ -25,6 +25,18 @@ soc_construct = cs.Struct(
     "checksum" / cs.Bytes(1)
 )
 
+cvr_construct = cs.Struct(
+    "start_flag" / cs.Bytes(1),
+    "module_address" / cs.Bytes(1),
+    "command_id" / cs.Bytes(1),
+    "data_length" / cs.Byte,
+    "highest_voltage" / cs.Int16ub,
+    "highest_cell" / cs.Bytes(1),
+    "lowest_voltage" / cs.Int16ub,
+    "lowest_cell" / cs.Bytes(1),
+    "checksum" / cs.Bytes(1)
+)
+
 COMMANDS = {
     "SOC": {
         "name": "SOC",
@@ -53,6 +65,24 @@ COMMANDS = {
             b"",
             b'\xa5\x01\x90\x08\x02\x0c\x00\x00u>\x00\r\x0c',
         ],
+    },
+    "cell_voltage_range": {
+        "name": "cell_voltage_range",
+        "description": "cell_voltage_range",
+        "help": " -- display the battery cell_voltage_range",
+        # "type": "DALY",
+        "command_type": CommandType.SERIAL_READ_UNTIL_DONE,
+        "command_code": "91",
+        "result_type": ResultType.CONSTRUCT,
+        "construct": cvr_construct,
+        "construct_min_response": 13,
+        "reading_definitions": [
+            {"index": "start_flag", "description": "start flag", "reading_type": ReadingType.IGNORE, "response_type": ResponseType.HEX_CHAR},
+            {"index": "module_address", "description": "module address", "reading_type": ReadingType.IGNORE, "response_type": ResponseType.HEX_CHAR},
+            {"index": "command_id", "description": "command id", "reading_type": ReadingType.IGNORE, "response_type": ResponseType.HEX_CHAR},
+            {"index": "data_length", "description": "data length", "reading_type": ReadingType.IGNORE},
+            {"index": "highest_voltage", "description": "highest_voltage", "reading_type": ReadingType.VOLTS, "response_type": ResponseType.TEMPLATE_INT, "format_template": "r/1000"},
+        ]
     },
 }
 
