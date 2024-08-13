@@ -146,5 +146,5 @@ class BlePort(AbstractPort):
         log.debug("serial response was: %s", self.response)
         # response = self.get_protocol().check_response_and_trim(response_line)
         result = command.build_result(raw_response=self.response, protocol=self.protocol)
-        self.response = None
+        self.response = bytearray()
         return result
