@@ -90,7 +90,8 @@ class BlePort(AbstractPort):
                 raise BleakDeviceNotFoundError(f"Device with address: {self.mac} was not found.")
             log.info("got bledevice: %s", bledevice)
             # build client object
-            self.client = BleakClient(bledevice, disconnected_callback=self.disconnect_callback)
+            #self.client = BleakClient(bledevice, disconnected_callback=self.disconnect_callback)
+            self.client = BleakClient(bledevice)
             log.info("got bleclient: %s", self.client)
             # connect to client
             await self.client.connect()
@@ -113,10 +114,10 @@ class BlePort(AbstractPort):
         return self.is_connected()
 
     async def disconnect(self) -> None:
-        log.debug("ble port disconnecting")
-        if self.client is not None:
+        log.info("ble port disconnecting")
+        if self.client is not None and self.client.is_connected:
             await self.client.disconnect()
-            await asyncio.sleep(0.5)
+            # await asyncio.sleep(0.5)
         self.client = None
 
     async def send_and_receive(self, command: Command) -> Result:
