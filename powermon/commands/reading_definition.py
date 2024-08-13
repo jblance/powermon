@@ -47,6 +47,7 @@ class ReadingType(StrEnum):
     IGNORE = auto()
     ACK = auto()
     PI18_ACK = auto()
+    ENABLED = auto()
     NUMBER = auto()
     CURRENT = auto()
     APPARENT_POWER = auto()
@@ -361,6 +362,10 @@ class ReadingDefinition():
                 reading = ReadingDefinitionMessage(
                     index=index, response_type=response_type, description=description,
                     device_class=device_class, state_class=state_class, icon=icon)
+            case ReadingType.ENABLED:
+                reading = ReadingDefinitionEnabled(
+                    index=index, response_type=response_type, description=description,
+                    device_class=device_class, state_class=state_class, icon=icon)
             case ReadingType.MESSAGE_AMPS:
                 reading = ReadingDefinitionMessage(
                     index=index, response_type=response_type, description=description,
@@ -502,6 +507,24 @@ class ReadingDefinitionACK(ReadingDefinition):
             return [Reading(raw_value=raw_value, processed_value=self.success_description, definition=self)]
         elif value == self.fail_code:
             return [Reading(raw_value=raw_value, processed_value=self.fail_description, definition=self)]
+
+class ReadingDefinitionEnabled(ReadingDefinition):
+    """ ReadingDefinition for ACK type readings """
+    def __init__(self, index: int, response_type: str, description: str, device_class: str = None, state_class: str = None, icon: str = None, ):
+        super().__init__(index, response_type, description, device_class, state_class, icon)
+
+        self.enabled_description = "Enabled"
+        self.not_enabled_description = "Disabled"
+
+    def reading_from_raw_response(self, raw_value, override=None) -> list[Reading]:
+        if isinstance(raw_value, bytes):
+            value = bool(raw_value.decode())
+        else:
+            value = raw_value
+        if value:
+            return [Reading(raw_value=raw_value, processed_value=self.enabled_description, definition=self)]
+        else:
+            return [Reading(raw_value=raw_value, processed_value=self.not_enabled_description, definition=self)]
 
 class ReadingDefinitionPI18ACK(ReadingDefinitionACK):
     """ ReadingDefinition for PI18_ACK type readings """
