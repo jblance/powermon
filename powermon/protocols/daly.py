@@ -221,6 +221,34 @@ COMMANDS = {
             b'\xa5\x01\x94\x08\x10\x01\x00\x00\x02\x00\x1d\x88\xfa',
         ],
     },
+    "cell_voltages": {
+        "name": "cell_voltages",
+        "description": "cell_voltages",
+        "help": " -- display the battery cell_voltages",
+        # "type": "DALY",
+        "command_type": CommandType.SERIAL_READ_UNTIL_DONE,
+        "command_code": "95",
+        # "result_type": ResultType.CONSTRUCT,
+        "construct": status_construct,
+        "construct_min_response": 96,
+        "result_type": ResultType.SINGLE,
+        "reading_definitions": [{"reading_type": ReadingType.MESSAGE, "description": "General Model Number", "response_type": ResponseType.BYTES}],
+        # "reading_definitions": [
+        #     {"index": "start_flag", "description": "start flag", "reading_type": ReadingType.IGNORE, "response_type": ResponseType.HEX_CHAR},
+        #     {"index": "module_address", "description": "module address", "reading_type": ReadingType.IGNORE, "response_type": ResponseType.HEX_CHAR},
+        #     {"index": "command_id", "description": "command id", "reading_type": ReadingType.IGNORE, "response_type": ResponseType.HEX_CHAR},
+        #     {"index": "data_length", "description": "data length", "reading_type": ReadingType.IGNORE},
+        #     {"index": "number_of_cells", "description": "number_of_cells", "reading_type": ReadingType.MESSAGE, "response_type": ResponseType.STRING},
+        #     {"index": "number_of_temperature_sensors", "description": "number_of_temperature_sensors", "reading_type": ReadingType.MESSAGE, "response_type": ResponseType.STRING},
+        #     {"index": "charger_running", "description": "charger_running", "reading_type": ReadingType.MESSAGE, "response_type": ResponseType.BOOL},
+        #     {"index": "load_running", "description": "load_running", "reading_type": ReadingType.MESSAGE, "response_type": ResponseType.BOOL},
+        #     #{"index": "DI2", "description": "states", "reading_type": ReadingType.MESSAGE, "response_type": ResponseType.STRING},
+        #     {"index": "cycles", "description": "cycles", "reading_type": ReadingType.NUMBER},
+        # ],
+        "test_responses": [
+            b'\xa5\x01\x94\x08\x10\x01\x00\x00\x02\x00\x1d\x88\xfa',
+        ],
+    },
 }
 
 

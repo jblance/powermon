@@ -9,7 +9,7 @@ device:
     protocol: DALY
 
 commands:
-- command: status
+- command: cell_voltages
   outputs:
   - type: screen
     format: 
