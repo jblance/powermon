@@ -65,6 +65,19 @@ mos_construct = cs.Struct(
     "checksum" / cs.Bytes(1)
 )
 
+status_construct = cs.Struct(
+    "start_flag" / cs.Bytes(1),
+    "module_address" / cs.Bytes(1),
+    "command_id" / cs.Bytes(1),
+    "data_length" / cs.Byte,
+    "mode" / cs.Enum(cs.Int8sb, stationary=0, charging=1, discharging=2),
+    "charging_mosfet" / cs.Byte,
+    "discharging_mosfet" / cs.Byte,
+    "bms_cycles" / cs.Int8ub,
+    "capacity_ah" / cs.Int32ub,
+    "checksum" / cs.Bytes(1)
+)
+
 COMMANDS = {
     "SOC": {
         "name": "SOC",
@@ -151,6 +164,33 @@ COMMANDS = {
         "command_code": "93",
         "result_type": ResultType.CONSTRUCT,
         "construct": mos_construct,
+        "construct_min_response": 13,
+        # "result_type": ResultType.SINGLE,
+        # "reading_definitions": [{"reading_type": ReadingType.MESSAGE, "description": "General Model Number", "response_type": ResponseType.BYTES}],
+        "reading_definitions": [
+            {"index": "start_flag", "description": "start flag", "reading_type": ReadingType.IGNORE, "response_type": ResponseType.HEX_CHAR},
+            {"index": "module_address", "description": "module address", "reading_type": ReadingType.IGNORE, "response_type": ResponseType.HEX_CHAR},
+            {"index": "command_id", "description": "command id", "reading_type": ReadingType.IGNORE, "response_type": ResponseType.HEX_CHAR},
+            {"index": "data_length", "description": "data length", "reading_type": ReadingType.IGNORE},
+            {"index": "mode", "description": "mode", "reading_type": ReadingType.MESSAGE, "response_type": ResponseType.STRING},
+            {"index": "charging_mosfet", "description": "charging_mosfet", "reading_type": ReadingType.ENABLED, "response_type": ResponseType.BOOL},
+            {"index": "discharging_mosfet", "description": "discharging_mosfet", "reading_type": ReadingType.ENABLED, "response_type": ResponseType.BOOL},
+            {"index": "bms_cycles", "description": "bms_cycles", "reading_type": ReadingType.NUMBER},
+            {"index": "capacity_ah", "description": "capacity_ah", "reading_type": ReadingType.ENERGY, "response_type": ResponseType.TEMPLATE_INT, "format_template": "r/1000"},
+        ],
+        "test_responses": [
+            b'\xa5\x01\x93\x08\x02\x01\x01\x97\x00\x04-\xfa\x07'
+        ],
+    },
+    "status": {
+        "name": "status",
+        "description": "status",
+        "help": " -- display the battery status",
+        # "type": "DALY",
+        "command_type": CommandType.SERIAL_READ_UNTIL_DONE,
+        "command_code": "94",
+        "result_type": ResultType.CONSTRUCT,
+        "construct": status_construct,
         "construct_min_response": 13,
         # "result_type": ResultType.SINGLE,
         # "reading_definitions": [{"reading_type": ReadingType.MESSAGE, "description": "General Model Number", "response_type": ResponseType.BYTES}],

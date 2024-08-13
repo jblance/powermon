@@ -9,7 +9,7 @@ device:
     protocol: DALY
 
 commands:
-- command: mosfet
+- command: status
   outputs:
   - type: screen
     format: 
