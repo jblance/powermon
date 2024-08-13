@@ -88,10 +88,13 @@ class BlePort(AbstractPort):
             bledevice = await BleakScanner.find_device_by_address(device_identifier=self.mac, timeout=10.0)
             if bledevice is None:
                 raise BleakDeviceNotFoundError(f"Device with address: {self.mac} was not found.")
+            log.info("got bledevice: %s", bledevice)
             # build client object
             self.client = BleakClient(bledevice, disconnected_callback=self.disconnect_callback)
+            log.info("got bleclient: %s", self.client)
             # connect to client
             await self.client.connect()
+            log.info("bleclient connected")
             # 'turn on' notification characteristic
             await self.client.start_notify(self.notifier_handle, self._notification_callback)
             # flush initializing characteristic?
