@@ -25,6 +25,15 @@ log = logging.getLogger("")
 FORMAT = "%(asctime)-15s:%(levelname)s:%(module)s:%(funcName)s@%(lineno)d: %(message)s"
 logging.basicConfig(format=FORMAT)
 
+async_loop = None
+
+
+def run_async(coroutine):
+    global async_loop
+    if async_loop is None:
+        async_loop = asyncio.get_event_loop()
+    return async_loop.run_until_complete(coroutine)
+
 
 def read_yaml_file(yaml_file=None):
     """function to read a yaml file and return dict"""
@@ -169,7 +178,7 @@ def main():
     api_coordinator.announce(daemon)
 
     # initialize device
-    asyncio.run(device.initialize())
+    run_async(device.initialize())
     api_coordinator.announce(device)
 
     # loop config
@@ -187,7 +196,7 @@ def main():
             daemon.watchdog()
 
             # run device loop (ie run any needed commands)
-            asyncio.run(device.run(args.force))
+            run_async(device.run(args.force))
 
             # run api coordinator ...
             api_coordinator.run()
@@ -203,7 +212,7 @@ def main():
         print("KeyboardInterrupt - stopping")
     finally:
         # disconnect device
-        asyncio.run(device.finalize())
+        run_async(device.finalize())
 
         # disconnect mqtt
         mqtt_broker.stop()

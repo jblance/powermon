@@ -114,9 +114,9 @@ class BlePort(AbstractPort):
 
     async def disconnect(self) -> None:
         log.debug("ble port disconnecting")
-        # if self.client is not None:
-        #     await self.client.disconnect()
-        #     await asyncio.sleep(0.5)
+        if self.client is not None:
+            await self.client.disconnect()
+            await asyncio.sleep(0.5)
         self.client = None
 
     async def send_and_receive(self, command: Command) -> Result:
