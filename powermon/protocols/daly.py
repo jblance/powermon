@@ -1,4 +1,5 @@
 """ protocols / daly.py """
+# much of the deocde info from https://github.com/dreadnought/python-daly-bms/blob/main/dalybms/daly_bms.py
 import logging
 
 import construct as cs
@@ -34,6 +35,20 @@ cvr_construct = cs.Struct(
     "highest_cell" / cs.Byte,
     "lowest_voltage" / cs.Int16ub,
     "lowest_cell" / cs.Byte,
+    "rest" / cs.Bytes(2),
+    "checksum" / cs.Bytes(1)
+)
+
+temps_construct = cs.Struct(
+    "start_flag" / cs.Bytes(1),
+    "module_address" / cs.Bytes(1),
+    "command_id" / cs.Bytes(1),
+    "data_length" / cs.Byte,
+    "highest_temperature" / cs.Byte,
+    "highest_sensor" / cs.Byte,
+    "lowest_temperature" / cs.Byte,
+    "lowest_sensor" / cs.Byte,
+    "rest" / cs.Bytes(4),
     "checksum" / cs.Bytes(1)
 )
 
@@ -98,20 +113,20 @@ COMMANDS = {
         "command_type": CommandType.SERIAL_READ_UNTIL_DONE,
         "command_code": "92",
         "result_type": ResultType.CONSTRUCT,
-        "construct": cvr_construct,
+        "construct": temps_construct,
         "construct_min_response": 13,
         "reading_definitions": [
             {"index": "start_flag", "description": "start flag", "reading_type": ReadingType.IGNORE, "response_type": ResponseType.HEX_CHAR},
             {"index": "module_address", "description": "module address", "reading_type": ReadingType.IGNORE, "response_type": ResponseType.HEX_CHAR},
             {"index": "command_id", "description": "command id", "reading_type": ReadingType.IGNORE, "response_type": ResponseType.HEX_CHAR},
             {"index": "data_length", "description": "data length", "reading_type": ReadingType.IGNORE},
-            {"index": "highest_voltage", "description": "highest_voltage", "reading_type": ReadingType.VOLTS, "response_type": ResponseType.TEMPLATE_INT, "format_template": "r/1000"},
-            {"index": "highest_cell", "description": "highest_cell", "reading_type": ReadingType.NUMBER},
-            {"index": "lowest_voltage", "description": "lowest_voltage", "reading_type": ReadingType.VOLTS, "response_type": ResponseType.TEMPLATE_INT, "format_template": "r/1000"},
-            {"index": "lowest_cell", "description": "lowest_cell", "reading_type": ReadingType.NUMBER},
+            {"index": "highest_temperature", "description": "highest_temperature", "reading_type": ReadingType.TEMPERATURE, "response_type": ResponseType.TEMPLATE_INT, "format_template": "r-40"},
+            {"index": "highest_sensor", "description": "highest_sensor", "reading_type": ReadingType.NUMBER},
+            {"index": "lowest_temperature", "description": "lowest_temperature", "reading_type": ReadingType.TEMPERATURE, "response_type": ResponseType.TEMPLATE_INT, "format_template": "r-40"},
+            {"index": "lowest_sensor", "description": "lowest_sensor", "reading_type": ReadingType.NUMBER},
         ],
         "test_responses": [
-            b'\xa5\x01\x91\x08\x0c\xfc\x07\x0c\xe3\x01\x03\xc7\x08',
+            b'\xa5\x01\x92\x08.\x01.\x01\x8c\x07\x03\xc5\xf9',
         ],
     },
 }
