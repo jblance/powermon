@@ -9,7 +9,7 @@ device:
     protocol: DALY
 
 commands:
-- command: cell_voltage_range
+- command: temperatures
   outputs:
   - type: screen
     format: 

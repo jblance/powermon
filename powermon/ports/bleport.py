@@ -74,11 +74,6 @@ class BlePort(AbstractPort):
         self.response += data
         return
 
-    def disconnect_callback(self, client):
-        """ callback for disconnection """
-        print(f"disconnect callback, {client=}")
-        self.client = None
-
     def is_connected(self):
         return self.client is not None and self.client.is_connected
 
@@ -91,8 +86,7 @@ class BlePort(AbstractPort):
                 raise BleakDeviceNotFoundError(f"Device with address: {self.mac} was not found.")
             log.info("got bledevice: %s", bledevice)
             # build client object
-            self.client = BleakClient(bledevice, disconnected_callback=self.disconnect_callback)
-            #self.client = BleakClient(bledevice)
+            self.client = BleakClient(bledevice)
             log.info("got bleclient: %s", self.client)
             # connect to client
             await self.client.connect()
@@ -117,12 +111,12 @@ class BlePort(AbstractPort):
     async def disconnect(self) -> None:
         log.info("ble port disconnecting, %s %s", self.client, self.is_connected())
         if self.client is not None and self.client.is_connected:
+            # for some reason client.disconnect doesnt seem to work - just hangs...
+            # await self.client.disconnect()
             open_blue = subprocess.Popen(["bluetoothctl"], shell=True, stdout=subprocess.PIPE,
                                          stderr=subprocess.STDOUT, stdin=subprocess.PIPE)
             open_blue.communicate(b"disconnect %s\n" % self.mac.encode('utf-8'))
             open_blue.kill()
-            # await self.client.disconnect()
-            # await asyncio.sleep(0.5)
         self.client = None
 
     async def send_and_receive(self, command: Command) -> Result:

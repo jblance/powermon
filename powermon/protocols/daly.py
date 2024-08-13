@@ -90,6 +90,30 @@ COMMANDS = {
             b'\xa5\x01\x91\x08\x0c\xfc\x07\x0c\xe3\x01\x03\xc7\x08',
         ],
     },
+    "temperatures": {
+        "name": "temperatures",
+        "description": "temperatures",
+        "help": " -- display the battery temperatures",
+        # "type": "DALY",
+        "command_type": CommandType.SERIAL_READ_UNTIL_DONE,
+        "command_code": "92",
+        "result_type": ResultType.CONSTRUCT,
+        "construct": cvr_construct,
+        "construct_min_response": 13,
+        "reading_definitions": [
+            {"index": "start_flag", "description": "start flag", "reading_type": ReadingType.IGNORE, "response_type": ResponseType.HEX_CHAR},
+            {"index": "module_address", "description": "module address", "reading_type": ReadingType.IGNORE, "response_type": ResponseType.HEX_CHAR},
+            {"index": "command_id", "description": "command id", "reading_type": ReadingType.IGNORE, "response_type": ResponseType.HEX_CHAR},
+            {"index": "data_length", "description": "data length", "reading_type": ReadingType.IGNORE},
+            {"index": "highest_voltage", "description": "highest_voltage", "reading_type": ReadingType.VOLTS, "response_type": ResponseType.TEMPLATE_INT, "format_template": "r/1000"},
+            {"index": "highest_cell", "description": "highest_cell", "reading_type": ReadingType.NUMBER},
+            {"index": "lowest_voltage", "description": "lowest_voltage", "reading_type": ReadingType.VOLTS, "response_type": ResponseType.TEMPLATE_INT, "format_template": "r/1000"},
+            {"index": "lowest_cell", "description": "lowest_cell", "reading_type": ReadingType.NUMBER},
+        ],
+        "test_responses": [
+            b'\xa5\x01\x91\x08\x0c\xfc\x07\x0c\xe3\x01\x03\xc7\x08',
+        ],
+    },
 }
 
 
