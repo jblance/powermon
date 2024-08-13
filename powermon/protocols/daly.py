@@ -129,6 +129,32 @@ COMMANDS = {
             b'\xa5\x01\x92\x08.\x01.\x01\x8c\x07\x03\xc5\xf9',
         ],
     },
+    "mosfet": {
+        "name": "mosfet",
+        "description": "mosfet",
+        "help": " -- display the battery mosfet",
+        # "type": "DALY",
+        "command_type": CommandType.SERIAL_READ_UNTIL_DONE,
+        "command_code": "93",
+        # "result_type": ResultType.CONSTRUCT,
+        # "construct": temps_construct,
+        "construct_min_response": 13,
+        "result_type": ResultType.SINGLE,
+        "reading_definitions": [{"reading_type": ReadingType.MESSAGE, "description": "General Model Number", "response_type": ResponseType.BYTES}],
+        # "reading_definitions": [
+        #     {"index": "start_flag", "description": "start flag", "reading_type": ReadingType.IGNORE, "response_type": ResponseType.HEX_CHAR},
+        #     {"index": "module_address", "description": "module address", "reading_type": ReadingType.IGNORE, "response_type": ResponseType.HEX_CHAR},
+        #     {"index": "command_id", "description": "command id", "reading_type": ReadingType.IGNORE, "response_type": ResponseType.HEX_CHAR},
+        #     {"index": "data_length", "description": "data length", "reading_type": ReadingType.IGNORE},
+        #     {"index": "highest_temperature", "description": "highest_temperature", "reading_type": ReadingType.TEMPERATURE, "response_type": ResponseType.TEMPLATE_INT, "format_template": "r-40"},
+        #     {"index": "highest_sensor", "description": "highest_sensor", "reading_type": ReadingType.NUMBER},
+        #     {"index": "lowest_temperature", "description": "lowest_temperature", "reading_type": ReadingType.TEMPERATURE, "response_type": ResponseType.TEMPLATE_INT, "format_template": "r-40"},
+        #     {"index": "lowest_sensor", "description": "lowest_sensor", "reading_type": ReadingType.NUMBER},
+        # ],
+        "test_responses": [
+            b'\xa5\x01\x92\x08.\x01.\x01\x8c\x07\x03\xc5\xf9',
+        ],
+    },
 }
 
 
