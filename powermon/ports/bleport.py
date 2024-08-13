@@ -125,8 +125,8 @@ class BlePort(AbstractPort):
         log.debug("Executing command via ble...")
         await self.client.write_gatt_char(self.command_handle, full_command)
         # sleep until response is long enough
-        print(command)
-        while len(self.response) < 12:
+        print(command.command_definition.construct_min_response)
+        while len(self.response) < 13:
             #print(len(self.response))
             #print('.')
             await asyncio.sleep(0.1)
