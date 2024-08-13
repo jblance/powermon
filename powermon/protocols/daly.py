@@ -31,9 +31,9 @@ cvr_construct = cs.Struct(
     "command_id" / cs.Bytes(1),
     "data_length" / cs.Byte,
     "highest_voltage" / cs.Int16ub,
-    "highest_cell" / cs.Bytes(1),
+    "highest_cell" / cs.Byte,
     "lowest_voltage" / cs.Int16ub,
-    "lowest_cell" / cs.Bytes(1),
+    "lowest_cell" / cs.Byte,
     "checksum" / cs.Bytes(1)
 )
 
@@ -82,7 +82,13 @@ COMMANDS = {
             {"index": "command_id", "description": "command id", "reading_type": ReadingType.IGNORE, "response_type": ResponseType.HEX_CHAR},
             {"index": "data_length", "description": "data length", "reading_type": ReadingType.IGNORE},
             {"index": "highest_voltage", "description": "highest_voltage", "reading_type": ReadingType.VOLTS, "response_type": ResponseType.TEMPLATE_INT, "format_template": "r/1000"},
-        ]
+            {"index": "highest_cell", "description": "highest_cell", "reading_type": ReadingType.NUMBER},
+            {"index": "lowest_voltage", "description": "lowest_voltage", "reading_type": ReadingType.VOLTS, "response_type": ResponseType.TEMPLATE_INT, "format_template": "r/1000"},
+            {"index": "lowest_cell", "description": "lowest_cell", "reading_type": ReadingType.NUMBER},
+        ],
+        "test_responses": [
+            b'\xa5\x01\x91\x08\x0c\xfc\x07\x0c\xe3\x01\x03\xc7\x08',
+        ],
     },
 }
 

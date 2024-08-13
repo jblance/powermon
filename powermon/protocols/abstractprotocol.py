@@ -178,7 +178,7 @@ class AbstractProtocol(metaclass=abc.ABCMeta):
     def split_response(self, response: bytes, command_definition: CommandDefinition) -> list:
         """ split response into individual items, return as ordered list or list of tuples """
         result_type = getattr(command_definition, "result_type", None)
-        log.debug("splitting %s, result_type %s", response, result_type)
+        log.info("splitting %s, result_type %s", response, result_type)
         match result_type:
             case None:
                 responses = []
