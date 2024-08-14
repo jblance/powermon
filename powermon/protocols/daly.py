@@ -8,7 +8,7 @@ from powermon.commands.command import CommandType
 from powermon.commands.command_definition import CommandDefinition
 from powermon.commands.reading_definition import ReadingType, ResponseType
 from powermon.commands.result import ResultType
-from powermon.libs.errors import InvalidCRC, InvalidResponse
+from powermon.libs.errors import InvalidCRC, InvalidResponse, CommandDefinitionIncorrect
 from powermon.ports.porttype import PortType
 from powermon.protocols.abstractprotocol import AbstractProtocol
 
@@ -87,6 +87,19 @@ status_construct = cs.Struct(
     "cycles" / cs.Int16ub,
     "rest" / cs.Bytes(1),
     "checksum" / cs.Bytes(1)
+)
+
+voltage_construct = cs.Struct(
+    "cell_voltages" / cs.Array(14, cs.Struct(
+        "start_flag" / cs.Bytes(1),
+        "module_address" / cs.Bytes(1),
+        "command_id" / cs.Bytes(1),
+        "data_length" / cs.Byte,
+        "frame_number" / cs.Byte,
+        "cell_voltage_array" / cs.Array(3, cs.Int16ub),
+        "reserved" / cs.Bytes(1),
+        "checksum" / cs.Bytes(1),
+    )),
 )
 
 COMMANDS = {
@@ -228,25 +241,43 @@ COMMANDS = {
         # "type": "DALY",
         "command_type": CommandType.SERIAL_READ_UNTIL_DONE,
         "command_code": "95",
-        # "result_type": ResultType.CONSTRUCT,
-        "construct": status_construct,
+        "result_type": ResultType.CONSTRUCT,
+        "construct": voltage_construct,
         "construct_min_response": 96,
-        "result_type": ResultType.SINGLE,
-        "reading_definitions": [{"reading_type": ReadingType.MESSAGE, "description": "General Model Number", "response_type": ResponseType.BYTES}],
-        # "reading_definitions": [
-        #     {"index": "start_flag", "description": "start flag", "reading_type": ReadingType.IGNORE, "response_type": ResponseType.HEX_CHAR},
-        #     {"index": "module_address", "description": "module address", "reading_type": ReadingType.IGNORE, "response_type": ResponseType.HEX_CHAR},
-        #     {"index": "command_id", "description": "command id", "reading_type": ReadingType.IGNORE, "response_type": ResponseType.HEX_CHAR},
-        #     {"index": "data_length", "description": "data length", "reading_type": ReadingType.IGNORE},
-        #     {"index": "number_of_cells", "description": "number_of_cells", "reading_type": ReadingType.MESSAGE, "response_type": ResponseType.STRING},
-        #     {"index": "number_of_temperature_sensors", "description": "number_of_temperature_sensors", "reading_type": ReadingType.MESSAGE, "response_type": ResponseType.STRING},
-        #     {"index": "charger_running", "description": "charger_running", "reading_type": ReadingType.MESSAGE, "response_type": ResponseType.BOOL},
-        #     {"index": "load_running", "description": "load_running", "reading_type": ReadingType.MESSAGE, "response_type": ResponseType.BOOL},
-        #     #{"index": "DI2", "description": "states", "reading_type": ReadingType.MESSAGE, "response_type": ResponseType.STRING},
-        #     {"index": "cycles", "description": "cycles", "reading_type": ReadingType.NUMBER},
-        # ],
+        "reading_definitions": [
+            {"index": "cell_01_voltage", "description": "cell_01_voltage", "reading_type": ReadingType.VOLTS, "response_type": ResponseType.TEMPLATE_INT, "format_template": "r/1000"},
+            {"index": "cell_02_voltage", "description": "cell_02_voltage", "reading_type": ReadingType.VOLTS, "response_type": ResponseType.TEMPLATE_INT, "format_template": "r/1000"},
+            {"index": "cell_03_voltage", "description": "cell_03_voltage", "reading_type": ReadingType.VOLTS, "response_type": ResponseType.TEMPLATE_INT, "format_template": "r/1000"},
+            {"index": "cell_04_voltage", "description": "cell_04_voltage", "reading_type": ReadingType.VOLTS, "response_type": ResponseType.TEMPLATE_INT, "format_template": "r/1000"},
+            {"index": "cell_05_voltage", "description": "cell_05_voltage", "reading_type": ReadingType.VOLTS, "response_type": ResponseType.TEMPLATE_INT, "format_template": "r/1000"},
+            {"index": "cell_06_voltage", "description": "cell_06_voltage", "reading_type": ReadingType.VOLTS, "response_type": ResponseType.TEMPLATE_INT, "format_template": "r/1000"},
+            {"index": "cell_07_voltage", "description": "cell_07_voltage", "reading_type": ReadingType.VOLTS, "response_type": ResponseType.TEMPLATE_INT, "format_template": "r/1000"},
+            {"index": "cell_08_voltage", "description": "cell_08_voltage", "reading_type": ReadingType.VOLTS, "response_type": ResponseType.TEMPLATE_INT, "format_template": "r/1000"},
+            {"index": "cell_09_voltage", "description": "cell_09_voltage", "reading_type": ReadingType.VOLTS, "response_type": ResponseType.TEMPLATE_INT, "format_template": "r/1000"},
+            {"index": "cell_10_voltage", "description": "cell_10_voltage", "reading_type": ReadingType.VOLTS, "response_type": ResponseType.TEMPLATE_INT, "format_template": "r/1000"},
+            {"index": "cell_11_voltage", "description": "cell_11_voltage", "reading_type": ReadingType.VOLTS, "response_type": ResponseType.TEMPLATE_INT, "format_template": "r/1000"},
+            {"index": "cell_12_voltage", "description": "cell_12_voltage", "reading_type": ReadingType.VOLTS, "response_type": ResponseType.TEMPLATE_INT, "format_template": "r/1000"},
+            {"index": "cell_13_voltage", "description": "cell_13_voltage", "reading_type": ReadingType.VOLTS, "response_type": ResponseType.TEMPLATE_INT, "format_template": "r/1000"},
+            {"index": "cell_14_voltage", "description": "cell_14_voltage", "reading_type": ReadingType.VOLTS, "response_type": ResponseType.TEMPLATE_INT, "format_template": "r/1000"},
+            {"index": "cell_15_voltage", "description": "cell_15_voltage", "reading_type": ReadingType.VOLTS, "response_type": ResponseType.TEMPLATE_INT, "format_template": "r/1000"},
+            {"index": "cell_16_voltage", "description": "cell_16_voltage", "reading_type": ReadingType.VOLTS, "response_type": ResponseType.TEMPLATE_INT, "format_template": "r/1000"},
+            {"index": "cell_17_voltage", "description": "cell_17_voltage", "reading_type": ReadingType.VOLTS, "response_type": ResponseType.TEMPLATE_INT, "format_template": "r/1000"},
+            {"index": "cell_18_voltage", "description": "cell_18_voltage", "reading_type": ReadingType.VOLTS, "response_type": ResponseType.TEMPLATE_INT, "format_template": "r/1000"},
+            {"index": "cell_19_voltage", "description": "cell_19_voltage", "reading_type": ReadingType.VOLTS, "response_type": ResponseType.TEMPLATE_INT, "format_template": "r/1000"},
+            {"index": "cell_20_voltage", "description": "cell_20_voltage", "reading_type": ReadingType.VOLTS, "response_type": ResponseType.TEMPLATE_INT, "format_template": "r/1000"},
+            {"index": "cell_21_voltage", "description": "cell_21_voltage", "reading_type": ReadingType.VOLTS, "response_type": ResponseType.TEMPLATE_INT, "format_template": "r/1000"},
+            {"index": "cell_22_voltage", "description": "cell_22_voltage", "reading_type": ReadingType.VOLTS, "response_type": ResponseType.TEMPLATE_INT, "format_template": "r/1000"},
+            {"index": "cell_23_voltage", "description": "cell_23_voltage", "reading_type": ReadingType.VOLTS, "response_type": ResponseType.TEMPLATE_INT, "format_template": "r/1000"},
+            {"index": "cell_24_voltage", "description": "cell_24_voltage", "reading_type": ReadingType.VOLTS, "response_type": ResponseType.TEMPLATE_INT, "format_template": "r/1000"},
+            {"index": "cell_25_voltage", "description": "cell_25_voltage", "reading_type": ReadingType.VOLTS, "response_type": ResponseType.TEMPLATE_INT, "format_template": "r/1000"},
+            {"index": "cell_26_voltage", "description": "cell_26_voltage", "reading_type": ReadingType.VOLTS, "response_type": ResponseType.TEMPLATE_INT, "format_template": "r/1000"},
+            {"index": "cell_27_voltage", "description": "cell_27_voltage", "reading_type": ReadingType.VOLTS, "response_type": ResponseType.TEMPLATE_INT, "format_template": "r/1000"},
+            {"index": "cell_28_voltage", "description": "cell_28_voltage", "reading_type": ReadingType.VOLTS, "response_type": ResponseType.TEMPLATE_INT, "format_template": "r/1000"},
+            {"index": "cell_29_voltage", "description": "cell_29_voltage", "reading_type": ReadingType.VOLTS, "response_type": ResponseType.TEMPLATE_INT, "format_template": "r/1000"},
+            {"index": "cell_30_voltage", "description": "cell_30_voltage", "reading_type": ReadingType.VOLTS, "response_type": ResponseType.TEMPLATE_INT, "format_template": "r/1000"},
+        ],
         "test_responses": [
-            b'\xa5\x01\x94\x08\x10\x01\x00\x00\x02\x00\x1d\x88\xfa',
+            b"\xa5\x01\x95\x08\x01\x0c\xfc\r\x10\r\x0f\x89\x0e\xa5\x01\x95\x08\x02\r3\x0c\xb7\r8\x89\x16\xa5\x01\x95\x08\x03\r\x10\r\x0f\r\x0e\x89#\xa5\x01\x95\x08\x04\r\x10\r\x10\r\x10\x89\'\xa5\x01\x95\x08\x05\r\x10\r\x0f\r\x10\x89\'\xa5\x01\x95\x08\x06\r\x0c\x00\x00\x00\x00\x89\xeb\xa5\x01\x95\x08\x07\x00\x00\x00\x00\x00\x00\x89\xd3\xa5\x01\x95\x08\x08\x00\x00\x00\x00\x00\x00\x89\xd4\xa5\x01\x95\x08\t\x00\x00\x00\x00\x00\x00\x89\xd5\xa5\x01\x95\x08\n\x00\x00\x00\x00\x00\x00\x89\xd6\xa5\x01\x95\x08\x0b\x00\x00\x00\x00\x00\x00\x89\xd7\xa5\xa8\x00@\x00\x00 @\x00\r0\x00\x00\x00 @\x00\x87K\x00\x00m2\x00\x00\x00 @\x00S1\x00\x00\x00\x00\x00\x00\xa8\x00\xa5\x01\x95\x08\x0f\x00\x00\x00\x00\x00\x00\x89\xdb\xa5\x01\x95\x08\x10\x00\x00\x00\x00\x00\x00\x89\xdc",
         ],
     },
 }
@@ -330,6 +361,9 @@ class Daly(AbstractProtocol):
             raise InvalidResponse("Response is too short")
         if response[0] != 0xa5:
             raise InvalidResponse("Response has incorrect start byte")
+        if response.count(b'\xa5') > 1:
+            # multiframe response - length calc incorrect
+            return True
         if int(response[3]) != len(response[4:-1]):
             raise InvalidResponse("Response length does not match expected")
         return True
@@ -337,6 +371,9 @@ class Daly(AbstractProtocol):
     def check_crc(self, response: str, command_definition: CommandDefinition = None) -> bool:
         """ crc check, needs override in protocol """
         log.debug("checking crc for %s", response)
+        if response.count(b'\xa5') > 1:
+            # multiframe response - crch calc incorrect
+            return True
         calc_crc = sum(response[:-1]) & 0xFF
         response_crc = response[-1]
 
@@ -349,3 +386,59 @@ class Daly(AbstractProtocol):
         """ Remove extra characters from response """
         log.debug("response: %s", response)
         return response
+
+    def split_response(self, response: str, command_definition: CommandDefinition = None) -> list:
+        """ split response into individual items, return as ordered list or list of tuples """
+        result_type = getattr(command_definition, "result_type", None)
+        log.debug("jkserial splitting %s, result_type %s", response, result_type)
+        # build a list of (index, value) tuples, after parsing with a construct
+        responses = []
+        # check for construct
+        if command_definition.construct is None:
+            raise CommandDefinitionIncorrect("No construct found in command_definition")
+        if not command_definition.construct_min_response:
+            raise CommandDefinitionIncorrect("No construct_min_response found in command_definition")
+        if len(response) < command_definition.construct_min_response:
+            raise InvalidResponse(f"response:{response}, len:{len(response)} too short for parsing (expecting {command_definition.construct_min_response:})")
+        # parse with construct
+        result = command_definition.construct.parse(response)
+        # print(result)
+        if result is None:
+            log.debug("construct parsing returned None")
+            return responses
+        if 'cell_voltages' in result:
+            # multiframe 'cell_voltages' struct to decode
+            print('multiframe to decode')
+            # loop through all the containers
+            for frame in result.cell_voltages:
+                # ignore incorrect frames
+                if frame.command_id != b'\x95':
+                    continue
+                # print(frame)
+                frame_no = frame.frame_number - 1
+                for i in (0,1,2):
+                    cell_no = frame_no * 3 + i + 1  # using 1 as 'first' cell
+                    voltage = frame.cell_voltage_array[i]
+                    if voltage:
+                        responses.append((f"cell_{cell_no:02d}_voltage", voltage))
+                        # print(f"cell_{cell_no:02d}_voltage", voltage)
+
+        else:
+            for x in result:
+                match type(result[x]):
+                    # case cs.ListContainer:
+                    #     print(f"{x}:listcontainer")
+                    case cs.Container:
+                        # print(f"{x}:")
+                        for y in result[x]:
+                            if y != "_io":
+                                key = y
+                                value = result[x][y]
+                                responses.append((key, value))
+                    case _:
+                        if x != "_io":
+                            key = x
+                            value = result[x]
+                            responses.append((key, value))
+        log.debug("responses: '%s'", responses)
+        return responses

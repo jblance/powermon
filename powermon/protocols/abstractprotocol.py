@@ -208,13 +208,12 @@ class AbstractProtocol(metaclass=abc.ABCMeta):
                 # check for construct
                 if command_definition.construct is None:
                     raise CommandDefinitionIncorrect("No construct found in command_definition")
-                if command_definition.construct_min_response is None:
+                if not command_definition.construct_min_response:
                     raise CommandDefinitionIncorrect("No construct_min_response found in command_definition")
                 if len(response) < command_definition.construct_min_response:
                     raise InvalidResponse(f"response:{response}, len:{len(response)} too short for parsing (expecting {command_definition.construct_min_response:})")
                 # parse with construct
                 result = command_definition.construct.parse(response)
-                # print(result)
                 if result is None:
                     log.debug("construct parsing returned None")
                     return responses
