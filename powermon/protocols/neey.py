@@ -31,10 +31,22 @@ device_info_construct = cs.Struct(
     "end_flag" / cs.Bytes(1),
 )
 
+cell_info_construct = cs.Struct(
+    "start_flag" / cs.Bytes(2),
+    "module_address" / cs.Bytes(1),
+    "function" / cs.Bytes(1),
+    "command" / cs.Int16ul,
+    "length" / cs.Int16ul,
+ 
+    "unused" / cs.Bytes(34),
+    "crc" / cs.Bytes(1),
+    "end_flag" / cs.Bytes(1),
+)
+
 COMMANDS = {
     "device_info": {
         "name": "device_info",
-        "description": "information about the balancer device",
+        "description": "balancer device information",
         "help": " -- display the balancer info",
         # "type": "DALY",
         "command_type": CommandType.SERIAL_READ_UNTIL_DONE,
@@ -57,6 +69,28 @@ COMMANDS = {
             {"index": "total_runtime", "description": "total_runtime", "reading_type": ReadingType.TIME_SECONDS},
             {"index": "crc", "description": "crc", "reading_type": ReadingType.HEX_STR, "response_type": ResponseType.HEX_CHAR},
             {"index": "end_flag", "description": "end flag", "reading_type": ReadingType.HEX_STR, "response_type": ResponseType.HEX_CHAR},
+        ],
+        "test_responses": [
+            b'U\xaa\x11\x01\x01\x00d\x00GW-24S4EB\x00\x00\x00\x00\x00\x00\x00HW-2.8.0ZH-1.2.3V1.0.0\x00\x0020220916\x04\x00\x00\x00n\x85?\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00G\xff'
+        ],
+    },
+    "cell_info": {
+        "name": "cell_info",
+        "description": "information about the cells",
+        "help": " -- display the cell info",
+        # "type": "DALY",
+        "command_type": CommandType.SERIAL_READ_UNTIL_DONE,
+        "command_code": "02",
+        "result_type": ResultType.CONSTRUCT,
+        "construct": cell_info_construct,
+        "construct_min_response": 300,
+        "reading_definitions": [
+            {"index": "start_flag", "description": "start flag", "reading_type": ReadingType.HEX_CHARS, "response_type": ResponseType.HEX_CHARS},
+            {"index": "module_address", "description": "module address", "reading_type": ReadingType.HEX_STR, "response_type": ResponseType.HEX_CHAR},
+            {"index": "function", "description": "function", "reading_type": ReadingType.HEX_STR, "response_type": ResponseType.HEX_CHAR},
+            {"index": "command", "description": "command", "reading_type": ReadingType.MESSAGE},
+            {"index": "length", "description": "length", "reading_type": ReadingType.MESSAGE},
+           
         ],
         "test_responses": [
             b'U\xaa\x11\x01\x01\x00d\x00GW-24S4EB\x00\x00\x00\x00\x00\x00\x00HW-2.8.0ZH-1.2.3V1.0.0\x00\x0020220916\x04\x00\x00\x00n\x85?\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00G\xff'
@@ -123,13 +157,18 @@ class Neey(AbstractProtocol):
 
     def get_full_command(self, command: bytes|str) -> bytes:
         # test_command = bytes.fromhex('aa5511010100140000000000000000000000faff')
+        # test_command = bytes.fromhex('aa5511010200001400000000000000000000f9ff')
         log.info("Using protocol %s with %i commands", self.protocol_id, len(self.command_definitions))
 
         command_definition : CommandDefinition = self.get_command_definition(command)
         if command_definition is None:
             return None
 
-        data_length = cs.Int16ul.build(20)
+        # fix a 'bug' that seems to be implemented on the device?
+        if command_definition.code == "device_info":
+            data_length = cs.Int16ul.build(20)
+        else:
+            data_length = cs.Int16ub.build(20)
         command_bytes = cs.Int16ul.build(int(command_definition.command_code))
 
         full_command = bytearray(20)

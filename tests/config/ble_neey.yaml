@@ -9,7 +9,7 @@ device:
     protocol: NEEY
 
 commands:
-- command: device_info
+- command: cell_info
   outputs:
   - type: screen
     format: 
