@@ -1,0 +1,18 @@
+# BLE advertising config
+device:
+  name: BLE_Advertising
+  id: SmartShunt Bat2
+  model: SmartShunt 500A/50mV
+  manufacturer: Victron
+  port:
+    type: test
+    protocol: NEEY
+
+commands:
+- command: device_info
+  outputs:
+  - type: screen
+    format: 
+      type: table
+      draw_lines: True
+loop: once

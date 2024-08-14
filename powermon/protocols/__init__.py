@@ -16,6 +16,7 @@ class Protocol(StrEnum):
     PI30 = auto()
     PI30MAX = auto()
     DALY = auto()
+    NEEY = auto()
     VED = auto()
     JKSERIAL = auto()
 
@@ -33,6 +34,9 @@ def get_protocol_definition(protocol):
         case Protocol.DALY:
             from powermon.protocols.daly import Daly
             return Daly()
+        case Protocol.NEEY:
+            from powermon.protocols.neey import Neey
+            return Neey()
         case Protocol.PI18:
             from powermon.protocols.pi18 import PI18
             return PI18()

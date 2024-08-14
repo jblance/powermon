@@ -21,6 +21,7 @@ class ResponseType(StrEnum):
     INV_BOOL = auto()      # 1 is false, 0 is true
     INT = auto()
     HEX_CHAR = auto()
+    HEX_CHARS = auto()  # multiple hex characters
     FLOAT = auto()
     STRING = auto()
     BYTES = auto()
@@ -188,6 +189,12 @@ class ReadingDefinition():
                         raise ValueError(f"For Reading Defininition '{self.description}', expected an BOOL, got {raw_value}") from e
             case ResponseType.HEX_CHAR:
                 return raw_value[0]
+                # return ord(raw_value.decode('utf-8')[0])
+            case ResponseType.HEX_CHARS:
+                ret = [x for x in raw_value]
+                print(ret)
+                return ret
+                # return raw_value[0]
                 # return ord(raw_value.decode('utf-8')[0])
             case ResponseType.INT:
                 if isinstance(raw_value, int):
@@ -559,13 +566,11 @@ class ReadingDefinitionHexChars(ReadingDefinition):
         """ generate a reading object from a raw value """
         log.debug("raw_value: %s, override: %s", raw_value, override)
         values = []
-        if isinstance(raw_value, int) or isinstance(raw_value, bytes):
-            values.append(f"{raw_value:#04x}")
-        else:
-            for i in raw_value:
-                # value = self.translate_raw_response(value)
-                # print(value)
-                values.append(f"{i:#04x}")
+        #values = self.translate_raw_response(raw_value)
+        for i in raw_value:
+            # value = self.translate_raw_response(value)
+            # print(i)
+            values.append(f"{i:#04X}")
         return [Reading(raw_value=raw_value, processed_value=" ".join(values), definition=self)]
 
 
