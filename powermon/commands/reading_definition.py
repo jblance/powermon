@@ -229,8 +229,10 @@ class ReadingDefinition():
                     if self.default:
                         return self.default
                     raise ValueError(f"For Reading Defininition '{self.description}', expected an INT, got {raw_value}") from e
-            case ResponseType.FLOAT:
-                return float(raw_value.decode('utf-8'))
+            case ResponseType.FLOAT:  # TODO: add test cases
+                if isinstance(raw_value, float):
+                    return raw_value
+                return float(raw_value.decode('utf-8'))  # TODO: check if this is correct and/or needed
             case ResponseType.LE_2B_S:
                 result = raw_value.decode('utf-8')
                 result = unpack('<h', bytes.fromhex(result))[0]

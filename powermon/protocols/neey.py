@@ -37,6 +37,10 @@ cell_info_construct = cs.Struct(
     "function" / cs.Bytes(1),
     "command" / cs.Int16ul,
     "length" / cs.Int16ul,
+    "frame_counter" / cs.Byte,
+    "cell_voltage_array" / cs.Array(24, cs.Float32l),
+    "cell_resistance_array" / cs.Array(24, cs.Float32l),
+    "total_voltage" / cs.Float32l,
  
     "unused" / cs.Bytes(34),
     "crc" / cs.Bytes(1),
@@ -90,38 +94,26 @@ COMMANDS = {
             {"index": "function", "description": "function", "reading_type": ReadingType.HEX_STR, "response_type": ResponseType.HEX_CHAR},
             {"index": "command", "description": "command", "reading_type": ReadingType.MESSAGE},
             {"index": "length", "description": "length", "reading_type": ReadingType.MESSAGE},
+            {"index": "frame_counter", "description": "frame_counter", "reading_type": ReadingType.MESSAGE},
+            
+            {"index": "total_voltage", "description": "total_voltage", "reading_type": ReadingType.VOLTS, "response_type": ResponseType.FLOAT},
            
         ],
         "test_responses": [
-            b'U\xaa\x11\x01\x01\x00d\x00GW-24S4EB\x00\x00\x00\x00\x00\x00\x00HW-2.8.0ZH-1.2.3V1.0.0\x00\x0020220916\x04\x00\x00\x00n\x85?\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00G\xff'
+            b'U\xaa\x11\x01\x02\x00,\x01\xed\xb2\x15S@4zT@\xe5}T@JuT@o{T@\xd0\x82T@ \x7fT@o{T@\xaflT@\x9aqT@\xf9xT@4zT@ \x7fT@_pT@[\x80T@\xb3\\T@\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\xee\x971>b9;>m\x852>\xb5\xf00>\x14R0>\xd1s3>\x86d5>\xdb\xaf7>f\xf7:>,\xa8@>\xb3)@>\x86\xcd=>\xf2W8>\xd3~3>\x19c1>^\xfe.>\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x9faTB\x9faT@\x00\x8f\xb6<\x05\x00\x0f\x05\xc4?\x81\xc0\xaeG\xf5A\xaeG\xf5A\x00\x00\xff\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x8a\x8a\x04\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\xbe\xff'
         ],
     },
 }
-
-# static const uint8_t SOF_REQUEST_BYTE1 = 0xAA;
-# static const uint8_t SOF_REQUEST_BYTE2 = 0x55;
-# static const uint8_t SOF_RESPONSE_BYTE1 = 0x55;
-# static const uint8_t SOF_RESPONSE_BYTE2 = 0xAA;
-# static const uint8_t DEVICE_ADDRESS = 0x11;
 
 # static const uint8_t FUNCTION_WRITE = 0x00;
 # static const uint8_t FUNCTION_READ = 0x01;
 
 # static const uint8_t COMMAND_NONE = 0x00;
-# static const uint8_t COMMAND_DEVICE_INFO = 0x01;
-# static const uint8_t COMMAND_CELL_INFO = 0x02;
+
 # static const uint8_t COMMAND_FACTORY_DEFAULTS = 0x03;
 # static const uint8_t COMMAND_SETTINGS = 0x04;
 # static const uint8_t COMMAND_WRITE_REGISTER = 0x05;
 
-# static const uint8_t END_OF_FRAME = 0xFF;
-
-#   // Request device info:
-#   // 0xAA 0x55 0x11 0x01 0x01 0x00 0x14 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0xFA 0xFF
-#   //
-#   // Request cell info:
-#   // 0xAA 0x55 0x11 0x01 0x02 0x00 0x00 0x14 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0xF9 0xFF
-#   //
 #   // Request factory settings:
 #   // 0xAA 0x55 0x11 0x01 0x03 0x00 0x14 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0xF8 0xFF
 #   //
