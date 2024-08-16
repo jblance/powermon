@@ -391,7 +391,7 @@ class Daly(AbstractProtocol):
     def split_response(self, response: str, command_definition: CommandDefinition = None) -> list:
         """ split response into individual items, return as ordered list or list of tuples """
         result_type = getattr(command_definition, "result_type", None)
-        log.debug("jkserial splitting %s, result_type %s", response, result_type)
+        log.debug("daly splitting %s, result_type %s", response, result_type)
         # build a list of (index, value) tuples, after parsing with a construct
         responses = []
         # check for construct
