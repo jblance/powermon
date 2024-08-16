@@ -52,6 +52,7 @@ class ReadingType(StrEnum):
     NUMBER = auto()
     CURRENT = auto()
     APPARENT_POWER = auto()
+    RESISTANCE = auto()
     ENERGY = auto()
     WATTS = auto()
     WATT_HOURS = auto()
@@ -367,6 +368,12 @@ class ReadingDefinition():
                     index=index, response_type=response_type, description=description,
                     device_class=device_class, state_class=state_class, icon=icon)
                 reading.unit = "Ah"
+            case ReadingType.RESISTANCE:
+                reading = ReadingDefinitionNumeric(
+                    index=index, response_type=response_type, description=description,
+                    device_class=device_class, state_class=state_class, icon=icon)
+                reading.unit = "Ω"
+                reading.decimal_places = 5
             case ReadingType.MESSAGE:
                 reading = ReadingDefinitionMessage(
                     index=index, response_type=response_type, description=description,
@@ -434,11 +441,13 @@ class ReadingDefinition():
                     index=index, response_type=response_type, description=description,
                     device_class=device_class, state_class=state_class, icon=icon)
                 reading.unit = "A"
+                reading.decimal_places = 4
             case ReadingType.VOLTS:
                 reading = ReadingDefinitionNumeric(
                     index=index, response_type=response_type, description=description,
                     device_class=device_class, state_class=state_class, icon=icon)
                 reading.unit = "V"
+                reading.decimal_places = 4
             case ReadingType.MILLI_VOLTS:
                 reading = ReadingDefinitionNumeric(
                     index=index, response_type=response_type, description=description,
@@ -490,8 +499,24 @@ class ReadingDefinitionNumeric(ReadingDefinition):
     """ A ReadingDefinition for readings that must be numeric """
     def __init__(self, index: int, response_type: str, description: str, device_class: str = None, state_class: str = None, icon: str = None):
         super().__init__(index, response_type, description, device_class, state_class, icon)
+        self.decimal_places = None
         if response_type not in [ResponseType.INT, ResponseType.TEMPLATE_INT, ResponseType.FLOAT, ResponseType.LE_2B_S, ResponseType.HEX_CHAR, ResponseType.TEMPLATE_ORD_INT]:
             raise TypeError(f"{type(self)} response must be of type int or float, ResponseType {response_type} is not valid")
+
+    def reading_from_raw_response(self, raw_value, override=None) -> list[Reading]:
+        """ generate a reading object from a raw value """
+        log.debug("raw_value: %s, override: %s", raw_value, override)
+        value = self.translate_raw_response(raw_value)
+        decimal_places = None
+        if self.decimal_places:
+            decimal_places = self.decimal_places
+        if override is not None and 'decimal_places' in override:
+            decimal_places = override.getInt('decimal_places')
+
+        if decimal_places:
+            value = round(value, decimal_places)
+
+        return [Reading(raw_value=raw_value, processed_value=value, definition=self)]
 
 
 class ReadingDefinitionNull(ReadingDefinition):

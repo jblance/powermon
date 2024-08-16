@@ -31,6 +31,20 @@ device_info_construct = cs.Struct(
     "end_flag" / cs.Bytes(1),
 )
 
+operation_status = cs.Enum(cs.Int8sb, wrong_cell_count=1,
+                                    AcqLine_Res_test=2,
+                                    AcqLine_Res_exceed=3,
+                                    Systest_Completed=4,
+                                    Balancing=5,
+                                    Balancing_finished=6,
+                                    Low_voltage=7,
+                                    System_Overtemp=8,
+                                    Host_fails=9,
+                                    Low_battery_voltage_balancing_stopped=10,
+                                    Temperature_too_high_balancing_stopped=11,
+                                    Self_test_completed=12,
+)
+
 cell_info_construct = cs.Struct(
     "start_flag" / cs.Bytes(2),
     "module_address" / cs.Bytes(1),
@@ -41,11 +55,55 @@ cell_info_construct = cs.Struct(
     "cell_voltage_array" / cs.Array(24, cs.Float32l),
     "cell_resistance_array" / cs.Array(24, cs.Float32l),
     "total_voltage" / cs.Float32l,
- 
+    "average_cell_voltage" / cs.Float32l,
+    "delta_cell_voltage" / cs.Float32l,
+    "max_voltage_cell" / cs.Byte,
+    "min_voltage_cell" / cs.Byte,
+    "unknown" / cs.Bytes(1),
+    "operation_status" / operation_status,
+    "balancing_current" / cs.Float32l,
+
     "unused" / cs.Bytes(34),
     "crc" / cs.Bytes(1),
     "end_flag" / cs.Bytes(1),
 )
+
+# // 221   4   0xC3 0xF5 0x48 0x42              Temperature 1
+#   this->publish_state_(this->temperature_sensor_1_sensor_, ieee_float_(heltec_get_32bit(221)));
+#   // 225   4   0xC3 0xF5 0x48 0x42              Temperature 2
+#   this->publish_state_(this->temperature_sensor_2_sensor_, ieee_float_(heltec_get_32bit(225)));
+#   // 229   3   0x00 0x00 0x00                   Cell detection failed bitmask (24 bits = 1 bit per cell)
+#   this->publish_state_(this->cell_detection_failed_bitmask_sensor_, heltec_get_24bit(229));
+#   // 232   3   0x00 0x00 0x00                   Cell overvoltage bitmask (24 cells)
+#   this->publish_state_(this->cell_overvoltage_bitmask_sensor_, heltec_get_24bit(232));
+#   // 235   3   0x00 0x00 0x00                   Cell undervoltage bitmask (24 cells)
+#   this->publish_state_(this->cell_undervoltage_bitmask_sensor_, heltec_get_24bit(235));
+#   // 238   3   0x00 0x00 0x00                   Cell polarity error bitmask (24 cells)
+#   this->publish_state_(this->cell_polarity_error_bitmask_sensor_, heltec_get_24bit(238));
+#   // 241   3   0x00 0x00 0x00                   Excessive line resistance bitmask (24 cells)
+#   this->publish_state_(this->cell_excessive_line_resistance_bitmask_sensor_, heltec_get_24bit(241));
+#   // 244   1   0x00                             System overheating
+#   this->publish_state_(this->error_system_overheating_binary_sensor_, data[244] != 0x00);
+#   //                                              Bit0: Temperature sensor 1 warning
+#   //                                              Bit1: Temperature sensor 2 warning
+#   // 245   1   0x00                             Charging fault
+#   //                                              0x00: Off
+#   //                                              0x01: On
+#   this->publish_state_(this->error_charging_binary_sensor_, (bool) data[245]);
+#   // 246   1   0x00                             Discharge fault
+#   //                                              0x00: Off
+#   //                                              0x01: On
+#   this->publish_state_(this->error_discharging_binary_sensor_, (bool) data[246]);
+#   // 247   1   0x00                             Unknown
+#   //                                              Bit0: Read failed
+#   //                                              Bit1: Write failed
+#   // 248   6   0x00 0x00 0x00 0x00 0x00 0x00    Reserved
+#   // 254   4   0x76 0x2E 0x09 0x00              Uptime?
+#   ESP_LOGI(TAG, "  Uptime: %s (%ds)", format_total_runtime_(heltec_get_32bit(254)).c_str(), heltec_get_32bit(254));
+#   // 258   40  0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00
+#   //           0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00
+#   // 298   1   0xB6
+#   // 299   1   0xFF
 
 COMMANDS = {
     "device_info": {
@@ -95,8 +153,62 @@ COMMANDS = {
             {"index": "command", "description": "command", "reading_type": ReadingType.MESSAGE},
             {"index": "length", "description": "length", "reading_type": ReadingType.MESSAGE},
             {"index": "frame_counter", "description": "frame_counter", "reading_type": ReadingType.MESSAGE},
-            
+            {"index": "operation_status", "description": "operation_status", "reading_type": ReadingType.MESSAGE, "response_type": ResponseType.STRING},
+            {"index": "balancing_current", "description": "balancing_current", "reading_type": ReadingType.CURRENT, "response_type": ResponseType.FLOAT},
             {"index": "total_voltage", "description": "total_voltage", "reading_type": ReadingType.VOLTS, "response_type": ResponseType.FLOAT},
+            {"index": "average_cell_voltage", "description": "average_cell_voltage", "reading_type": ReadingType.VOLTS, "response_type": ResponseType.FLOAT},
+            {"index": "delta_cell_voltage", "description": "delta_cell_voltage", "reading_type": ReadingType.VOLTS, "response_type": ResponseType.FLOAT},
+            {"index": "max_voltage_cell", "description": "max_voltage_cell", "reading_type": ReadingType.MESSAGE, "response_type": ResponseType.TEMPLATE_INT, "format_template": "r+1"},
+            {"index": "min_voltage_cell", "description": "min_voltage_cell", "reading_type": ReadingType.MESSAGE, "response_type": ResponseType.TEMPLATE_INT, "format_template": "r+1"},
+            {"index": "cell_01_voltage", "description": "cell_01_voltage", "reading_type": ReadingType.VOLTS, "response_type": ResponseType.FLOAT},
+            {"index": "cell_02_voltage", "description": "cell_02_voltage", "reading_type": ReadingType.VOLTS, "response_type": ResponseType.FLOAT},
+            {"index": "cell_03_voltage", "description": "cell_03_voltage", "reading_type": ReadingType.VOLTS, "response_type": ResponseType.FLOAT},
+            {"index": "cell_04_voltage", "description": "cell_04_voltage", "reading_type": ReadingType.VOLTS, "response_type": ResponseType.FLOAT},
+            {"index": "cell_05_voltage", "description": "cell_05_voltage", "reading_type": ReadingType.VOLTS, "response_type": ResponseType.FLOAT},
+            {"index": "cell_06_voltage", "description": "cell_06_voltage", "reading_type": ReadingType.VOLTS, "response_type": ResponseType.FLOAT},
+            {"index": "cell_07_voltage", "description": "cell_07_voltage", "reading_type": ReadingType.VOLTS, "response_type": ResponseType.FLOAT},
+            {"index": "cell_08_voltage", "description": "cell_08_voltage", "reading_type": ReadingType.VOLTS, "response_type": ResponseType.FLOAT},
+            {"index": "cell_09_voltage", "description": "cell_09_voltage", "reading_type": ReadingType.VOLTS, "response_type": ResponseType.FLOAT},
+            {"index": "cell_10_voltage", "description": "cell_10_voltage", "reading_type": ReadingType.VOLTS, "response_type": ResponseType.FLOAT},
+            {"index": "cell_11_voltage", "description": "cell_11_voltage", "reading_type": ReadingType.VOLTS, "response_type": ResponseType.FLOAT},
+            {"index": "cell_12_voltage", "description": "cell_12_voltage", "reading_type": ReadingType.VOLTS, "response_type": ResponseType.FLOAT},
+            {"index": "cell_13_voltage", "description": "cell_13_voltage", "reading_type": ReadingType.VOLTS, "response_type": ResponseType.FLOAT},
+            {"index": "cell_14_voltage", "description": "cell_14_voltage", "reading_type": ReadingType.VOLTS, "response_type": ResponseType.FLOAT},
+            {"index": "cell_15_voltage", "description": "cell_15_voltage", "reading_type": ReadingType.VOLTS, "response_type": ResponseType.FLOAT},
+            {"index": "cell_16_voltage", "description": "cell_16_voltage", "reading_type": ReadingType.VOLTS, "response_type": ResponseType.FLOAT},
+            {"index": "cell_17_voltage", "description": "cell_17_voltage", "reading_type": ReadingType.VOLTS, "response_type": ResponseType.FLOAT},
+            {"index": "cell_18_voltage", "description": "cell_18_voltage", "reading_type": ReadingType.VOLTS, "response_type": ResponseType.FLOAT},
+            {"index": "cell_19_voltage", "description": "cell_19_voltage", "reading_type": ReadingType.VOLTS, "response_type": ResponseType.FLOAT},
+            {"index": "cell_20_voltage", "description": "cell_20_voltage", "reading_type": ReadingType.VOLTS, "response_type": ResponseType.FLOAT},
+            {"index": "cell_21_voltage", "description": "cell_21_voltage", "reading_type": ReadingType.VOLTS, "response_type": ResponseType.FLOAT},
+            {"index": "cell_22_voltage", "description": "cell_22_voltage", "reading_type": ReadingType.VOLTS, "response_type": ResponseType.FLOAT},
+            {"index": "cell_23_voltage", "description": "cell_23_voltage", "reading_type": ReadingType.VOLTS, "response_type": ResponseType.FLOAT},
+            {"index": "cell_24_voltage", "description": "cell_24_voltage", "reading_type": ReadingType.VOLTS, "response_type": ResponseType.FLOAT},
+            {"index": "cell_01_resistance", "description": "cell_01_resistance", "reading_type": ReadingType.RESISTANCE, "response_type": ResponseType.FLOAT},
+            {"index": "cell_02_resistance", "description": "cell_01_resistance", "reading_type": ReadingType.RESISTANCE, "response_type": ResponseType.FLOAT},
+            {"index": "cell_03_resistance", "description": "cell_01_resistance", "reading_type": ReadingType.RESISTANCE, "response_type": ResponseType.FLOAT},
+            {"index": "cell_04_resistance", "description": "cell_01_resistance", "reading_type": ReadingType.RESISTANCE, "response_type": ResponseType.FLOAT},
+            {"index": "cell_05_resistance", "description": "cell_01_resistance", "reading_type": ReadingType.RESISTANCE, "response_type": ResponseType.FLOAT},
+            {"index": "cell_06_resistance", "description": "cell_01_resistance", "reading_type": ReadingType.RESISTANCE, "response_type": ResponseType.FLOAT},
+            {"index": "cell_07_resistance", "description": "cell_01_resistance", "reading_type": ReadingType.RESISTANCE, "response_type": ResponseType.FLOAT},
+            {"index": "cell_08_resistance", "description": "cell_01_resistance", "reading_type": ReadingType.RESISTANCE, "response_type": ResponseType.FLOAT},
+            {"index": "cell_09_resistance", "description": "cell_01_resistance", "reading_type": ReadingType.RESISTANCE, "response_type": ResponseType.FLOAT},
+            {"index": "cell_10_resistance", "description": "cell_01_resistance", "reading_type": ReadingType.RESISTANCE, "response_type": ResponseType.FLOAT},
+            {"index": "cell_11_resistance", "description": "cell_01_resistance", "reading_type": ReadingType.RESISTANCE, "response_type": ResponseType.FLOAT},
+            {"index": "cell_12_resistance", "description": "cell_01_resistance", "reading_type": ReadingType.RESISTANCE, "response_type": ResponseType.FLOAT},
+            {"index": "cell_13_resistance", "description": "cell_01_resistance", "reading_type": ReadingType.RESISTANCE, "response_type": ResponseType.FLOAT},
+            {"index": "cell_14_resistance", "description": "cell_01_resistance", "reading_type": ReadingType.RESISTANCE, "response_type": ResponseType.FLOAT},
+            {"index": "cell_15_resistance", "description": "cell_01_resistance", "reading_type": ReadingType.RESISTANCE, "response_type": ResponseType.FLOAT},
+            {"index": "cell_16_resistance", "description": "cell_01_resistance", "reading_type": ReadingType.RESISTANCE, "response_type": ResponseType.FLOAT},
+            {"index": "cell_17_resistance", "description": "cell_01_resistance", "reading_type": ReadingType.RESISTANCE, "response_type": ResponseType.FLOAT},
+            {"index": "cell_18_resistance", "description": "cell_01_resistance", "reading_type": ReadingType.RESISTANCE, "response_type": ResponseType.FLOAT},
+            {"index": "cell_19_resistance", "description": "cell_01_resistance", "reading_type": ReadingType.RESISTANCE, "response_type": ResponseType.FLOAT},
+            {"index": "cell_20_resistance", "description": "cell_01_resistance", "reading_type": ReadingType.RESISTANCE, "response_type": ResponseType.FLOAT},
+            {"index": "cell_21_resistance", "description": "cell_01_resistance", "reading_type": ReadingType.RESISTANCE, "response_type": ResponseType.FLOAT},
+            {"index": "cell_22_resistance", "description": "cell_01_resistance", "reading_type": ReadingType.RESISTANCE, "response_type": ResponseType.FLOAT},
+            {"index": "cell_23_resistance", "description": "cell_01_resistance", "reading_type": ReadingType.RESISTANCE, "response_type": ResponseType.FLOAT},
+            {"index": "cell_24_resistance", "description": "cell_01_resistance", "reading_type": ReadingType.RESISTANCE, "response_type": ResponseType.FLOAT},
+            
            
         ],
         "test_responses": [
@@ -125,6 +237,32 @@ COMMANDS = {
 #   //
 #   // Disable balancer:
 #   // 0xAA 0x55 0x11 0x00 0x05 0x0D 0x14 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0xF2 0xFF
+
+# single_num     Cell count [1,24]: Set 1                              aa55110005 01 1400 01000000 000000000000ffff
+# triger_mpa     Balancing Trigger Delta [0.001d, 1.0d]: Set 1.0f      aa55110005 02 1400 0000803f 00000000000042ff
+# max_cur        Max balancing current [1.0f, 4.0f]: Set 1.0f          aa55110005 03 1400 0000803f 00000000000043ff
+# auto_close     Balancing stop voltage [1.0f, 4.5f]: Set 1.0f         aa55110005 04 1400 0000803f 00000000000044ff
+# auto_open      Balancing start voltage [1.0f, 4.5f]: Set 1.0f        aa55110005 17 1400 0000803f 00000000000057ff
+# volume         Capacity [1.0f, 2000.0f]: Set 1                       aa55110005 16 1400 01000000 000000000000e8ff
+# alarm_mode     Buzzer mode {1, 2, 3, 4}: Set 1                       aa55110005 14 1400 01000000 000000000000eaff
+# bat_mode       Battery type {1, 2, 3}: Set 2                         aa55110005 15 1400 02000000 000000000000e8ff
+#                Change device name: Set "test"                        aa55110005 13 1400 74657374000000000000 faff
+#
+# Factory defaults
+#
+# standardVol2   ReferenceVoltage [0.001f, 5.0f]: Set 1.0f             aa55110005 05 1400 0000803f 00000000000045ff
+# battery_vol    BatteryVoltage [0.001f, 5.0f]: Set 1.0f               aa55110005 06 1400 0000803f 00000000000046ff
+# standardCur2   Balancing Current Default? [0.001f, 5.0f]: Set 1.0f   aa55110005 07 1400 0000803f 00000000000047ff
+# superBat2      Mean SuperCap Voltage [0.001f, 5.0f]: Set 1.0f        aa55110005 0e 1400 0000803f 0000000000004eff
+# triger_mpa     StartVol(V) [0.001f, 5.0f]: Set 1.0f                  aa55110005 08 1400 0000803f 00000000000048ff
+# open_num       Boot count []: Set 1.0f                               aa55110005 09 1400 0000803f 00000000000049ff
+# batStatu       RefBat Vol [0.001f, 5.0f]: Set 1.0f                   aa55110005 0f 1400 0000803f 0000000000004fff
+# battery_max    BatMax [0.001f, 5.0f]: Set 1.0f                       aa55110005 0b 1400 0000803f 0000000000004bff
+# battery_min    BatMin [0.001f, 5.0f]: Set 1.0f                       aa55110005 0c 1400 0000803f 0000000000004cff
+# ntc_max        NtcMax [-19.9f, 120.0f]: Set 1.0f                     aa55110005 11 1400 0000803f 00000000000051ff
+# ntc_min        NtcMin [-19.9f, 120.0f]: Set 1.0f                     aa55110005 12 1400 0000803f 00000000000052ff
+# total_time     Working time []: Set 1                                aa55110005 0a 1400 01000000 000000000000f4ff
+# cycle          Production date: Set 20220802                         aa55110005 10 1400 3230323230383032 0000e7ff
 
 
 class Neey(AbstractProtocol):
@@ -231,3 +369,47 @@ class Neey(AbstractProtocol):
         """ Remove extra characters from response """
         log.debug("response: %s", response)
         return response
+
+    def split_response(self, response: str, command_definition: CommandDefinition = None) -> list:
+        """ split response into individual items, return as ordered list or list of tuples """
+        result_type = getattr(command_definition, "result_type", None)
+        log.debug("daly splitting %s, result_type %s", response, result_type)
+        # build a list of (index, value) tuples, after parsing with a construct
+        responses = []
+        # check for construct
+        if command_definition.construct is None:
+            raise CommandDefinitionIncorrect("No construct found in command_definition")
+        if not command_definition.construct_min_response:
+            raise CommandDefinitionIncorrect("No construct_min_response found in command_definition")
+        if len(response) < command_definition.construct_min_response:
+            raise InvalidResponse(f"response:{response}, len:{len(response)} too short for parsing (expecting {command_definition.construct_min_response:})")
+        # parse with construct
+        result = command_definition.construct.parse(response)
+        # print(result)
+        if result is None:
+            log.debug("construct parsing returned None")
+            return responses
+
+        for x in result:
+            # print(x)
+            if x == "_io":
+                continue
+            elif x == 'cell_voltage_array':
+                # print("cell_voltages")
+                for i, value in enumerate(result[x]):
+                    # print(i+1,cell)
+                    if value:  # explicit exclusion of 0 value results
+                        key = f"cell_{i+1:02d}_voltage"
+                        responses.append((key,value))
+            elif x == 'cell_resistance_array':
+                for i, value in enumerate(result[x]):
+                    # print(i+1,cell)
+                    if value:  # explicit exclusion of 0 value results
+                        key = f"cell_{i+1:02d}_resistance"
+                        responses.append((key,value))
+            else:
+                key = x
+                value = result[x]
+                responses.append((key, value))
+        log.debug("responses: '%s'", responses)
+        return responses
