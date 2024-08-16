@@ -42,11 +42,11 @@ class MQTT(AbstractOutput):
 
         # Not sure that formatter and mqtt_broker are set, could use builder pattern to ensure they are set
         if self.formatter is None:
-            log.error("No formatter supplied")
+            # log.warning("No formatter supplied")
             raise RuntimeError("No formatter supplied")
 
         if mqtt_broker is None:
-            log.error("No mqtt broker supplied")
+            # log.warning("No mqtt broker supplied")
             raise RuntimeError("No mqtt broker supplied")
 
         # build the messages...

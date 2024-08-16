@@ -7,6 +7,9 @@ powermon-integration-tests:
 test:
 	python3 -m unittest discover -s tests -f
 
+unit-tests:
+	python3 -m unittest discover -s tests/unit -f
+
 docker-up:
 	docker-compose up --build
 

@@ -16,7 +16,7 @@ class TestConfigModel(unittest.TestCase):
         files.extend(glob('docker/dev/config/*.yaml'))
         files.extend(glob('tests/config/*.yaml'))
         for filename in files:
-            print(f"Checking valid: {filename}")
+            # print(f"Checking valid: {filename}")
             config = read_yaml_file(filename)
             config_model = ConfigModel(config=config)
             self.assertTrue(config_model is not None)
@@ -26,7 +26,7 @@ class TestConfigModel(unittest.TestCase):
         """ test that invalid config file raise exception """
         files = glob('tests/config_errors/*.yaml')
         for filename in files:
-            print(f"Checking invalid: {filename}")
+            # print(f"Checking invalid: {filename}")
             config = read_yaml_file(filename)
             # config_model = ConfigModel(config=config)
             with self.assertRaises(ValidationError):
