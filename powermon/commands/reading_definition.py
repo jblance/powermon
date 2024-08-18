@@ -76,7 +76,6 @@ class ReadingType(StrEnum):
     PERCENTAGE = auto()
     FREQUENCY = auto()
     HEX_STR = auto()
-    HEX_CHARS = auto()
 
 
 class ReadingDefinition():
@@ -472,10 +471,6 @@ class ReadingDefinition():
                 reading = ReadingDefinitionHexStr(
                     index=index, response_type=response_type, description=description,
                     device_class=device_class, state_class=state_class, icon=icon)
-            case ReadingType.HEX_CHARS:
-                reading = ReadingDefinitionHexChars(
-                    index=index, response_type=response_type, description=description,
-                    device_class=device_class, state_class=state_class, icon=icon)
             case _:
                 log.error("Reading description: %s has unknown reading_type definition type: %s", description, reading_type)
                 raise ValueError(
@@ -577,28 +572,23 @@ class ReadingDefinitionMessage(ReadingDefinition):
         super().__init__(index, response_type, description, device_class, state_class, icon)
 
 
-class ReadingDefinitionHexStr(ReadingDefinitionNumeric):
+class ReadingDefinitionHexStr(ReadingDefinition):
     """ ReadingDefinition for hex (displayed as a string) type readings """
     def reading_from_raw_response(self, raw_value, override=None) -> list[Reading]:
         """ generate a reading object from a raw value """
         log.debug("raw_value: %s, override: %s", raw_value, override)
-        value = self.translate_raw_response(raw_value)
-        value = hex(value)
-        return [Reading(raw_value=raw_value, processed_value=value, definition=self)]
-
-
-class ReadingDefinitionHexChars(ReadingDefinition):
-    """ ReadingDefinition for multiple hex (displayed as a string) type readings """
-    def reading_from_raw_response(self, raw_value, override=None) -> list[Reading]:
-        """ generate a reading object from a raw value """
-        log.debug("raw_value: %s, override: %s", raw_value, override)
-        values = []
-        #values = self.translate_raw_response(raw_value)
-        for i in raw_value:
-            # value = self.translate_raw_response(value)
-            # print(i)
-            values.append(f"{i:#04X}")
-        return [Reading(raw_value=raw_value, processed_value=" ".join(values), definition=self)]
+        if len(raw_value) == 1:
+            value = self.translate_raw_response(raw_value)
+            value = hex(value)
+            return [Reading(raw_value=raw_value, processed_value=value, definition=self)]
+        else:
+            values = []
+            #values = self.translate_raw_response(raw_value)
+            for i in raw_value:
+                # value = self.translate_raw_response(value)
+                # print(i)
+                values.append(f"{i:#04x}")
+            return [Reading(raw_value=raw_value, processed_value=" ".join(values), definition=self)]
 
 
 class ReadingDefinitionTemperature(ReadingDefinitionNumeric):

@@ -32,18 +32,32 @@ class TestReadingDefinitions(unittest.TestCase):
         self.assertEqual("kWh", result[0].data_unit)
 
     def test_hex_str_1a(self):
-        """ test ReadingType.HEX_STR """
+        """ test ReadingType.HEX_STR 1a"""
         reading_definition_config = {"description": "Checksum", "reading_type": ReadingType.HEX_STR, "response_type": ResponseType.HEX_CHAR}
         reading_definition = ReadingDefinition.from_config(reading_definition_config, 0)
         result = reading_definition.reading_from_raw_response(b"\x1a")
         self.assertEqual("0x1a", result[0].data_value)
 
     def test_hex_str_9c(self):
-        """ test ReadingType.HEX_STR """
+        """ test ReadingType.HEX_STR 9c"""
         reading_definition_config = {"description": "Checksum", "reading_type": ReadingType.HEX_STR, "response_type": ResponseType.HEX_CHAR}
         reading_definition = ReadingDefinition.from_config(reading_definition_config, 0)
         result = reading_definition.reading_from_raw_response(b"\x9c")
         self.assertEqual("0x9c", result[0].data_value)
+
+    def test_hex_str_1a9c(self):
+        """ test ReadingType.HEX_STR 1a9c"""
+        reading_definition_config = {"description": "Checksum", "reading_type": ReadingType.HEX_STR, "response_type": ResponseType.HEX_CHARS}
+        reading_definition = ReadingDefinition.from_config(reading_definition_config, 0)
+        result = reading_definition.reading_from_raw_response(b"\x1a\x9c")
+        self.assertEqual("0x1a 0x9c", result[0].data_value)
+
+    def test_hex_str_uaa(self):
+        """ test ReadingType.HEX_STR Uaa"""
+        reading_definition_config = {"description": "Checksum", "reading_type": ReadingType.HEX_STR, "response_type": ResponseType.HEX_CHARS}
+        reading_definition = ReadingDefinition.from_config(reading_definition_config, 0)
+        result = reading_definition.reading_from_raw_response(b"U\xaa")
+        self.assertEqual("0x55 0xaa", result[0].data_value)
 
     def test_ignore(self):
         """ test ReadingType.IGNORE """
