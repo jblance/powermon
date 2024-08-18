@@ -1,4 +1,5 @@
 """ protocols / neey.py """
+# decode info from https://github.com/syssi/esphome-jk-bms/pull/145/files#diff-55d16e1a76e279db4f13bdef5b408d3c66daa537d85f6ee34861206495be3f63
 import logging
 
 import construct as cs
@@ -80,7 +81,7 @@ cell_info_construct = cs.Struct(
     "end_flag" / cs.Bytes(1),
 )
 
-factory_defaults_construct = cs.Struct(
+settings_construct = cs.Struct(
     "start_flag" / cs.Bytes(2),
     "module_address" / cs.Bytes(1),
     "function" / cs.Bytes(1),  # 01 read
@@ -100,7 +101,33 @@ factory_defaults_construct = cs.Struct(
     "end_flag" / cs.Bytes(1),
 )
 
-
+defaults_construct = cs.Struct(
+    "start_flag" / cs.Bytes(2),
+    "module_address" / cs.Bytes(1),
+    "function" / cs.Bytes(1),  # 01 read
+    "command" / cs.Int16ul,
+    "length" / cs.Int16ul,
+    "standard_voltage_1" / cs.Float32l,
+    "standard_voltage_2" / cs.Float32l,
+    "battery_voltage_1" / cs.Float32l,
+    "battery_voltage_2" / cs.Float32l,
+    "standard_current_1" / cs.Float32l,
+    "standard_current_2" / cs.Float32l,
+    "superbat_1" / cs.Float32l,
+    "superbat_2" / cs.Float32l,
+    "resistor_1" / cs.Float32l,
+    "battery_status" / cs.Bytes(4),
+    "max_voltage" / cs.Float32l,
+    "min_voltage" / cs.Float32l,
+    "max_temperature" / cs.Float32l,
+    "min_temperature" / cs.Float32l,
+    "power_on_counter" / cs.Int32ul,
+    "total_runtime" / cs.Int32ul,
+    "production_date" / cs.Bytes(8),
+    "unused" / cs.Bytes(18),
+    "crc" / cs.Bytes(1),
+    "end_flag" / cs.Bytes(1),
+)
 
 COMMANDS = {
     "device_info": {
@@ -146,15 +173,6 @@ COMMANDS = {
         "construct": cell_info_construct,
         "construct_min_response": 300,
         "reading_definitions": [
-            {"index": "start_flag", "description": "start flag", "reading_type": ReadingType.IGNORE, "response_type": ResponseType.HEX_CHARS},
-            {"index": "module_address", "description": "module address", "reading_type": ReadingType.IGNORE, "response_type": ResponseType.HEX_CHAR},
-            {"index": "function", "description": "function", "reading_type": ReadingType.IGNORE, "response_type": ResponseType.HEX_CHAR},
-            {"index": "command", "description": "command", "reading_type": ReadingType.IGNORE},
-            {"index": "length", "description": "length", "reading_type": ReadingType.IGNORE},
-            {"index": "frame_counter", "description": "frame_counter", "reading_type": ReadingType.IGNORE},
-            {"index": "crc", "description": "crc", "reading_type": ReadingType.IGNORE, "response_type": ResponseType.HEX_CHAR},
-            {"index": "end_flag", "description": "end flag", "reading_type": ReadingType.IGNORE, "response_type": ResponseType.HEX_CHAR},
-
             {"index": "operation_status", "description": "operation_status", "reading_type": ReadingType.MESSAGE, "response_type": ResponseType.STRING},
             {"index": "balancing_current", "description": "balancing_current", "reading_type": ReadingType.CURRENT, "response_type": ResponseType.FLOAT},
             {"index": "total_voltage", "description": "total_voltage", "reading_type": ReadingType.VOLTS, "response_type": ResponseType.FLOAT},
@@ -234,16 +252,42 @@ COMMANDS = {
         "command_type": CommandType.SERIAL_READ_UNTIL_DONE,
         "command_code": "03",
         "result_type": ResultType.CONSTRUCT,
-        "construct": factory_defaults_construct,
+        "construct": defaults_construct,
         "construct_min_response": 100,
         "reading_definitions": [
-            {"index": "start_flag", "description": "start flag", "reading_type": ReadingType.IGNORE, "response_type": ResponseType.HEX_CHARS},
-            {"index": "module_address", "description": "module address", "reading_type": ReadingType.IGNORE, "response_type": ResponseType.HEX_CHAR},
-            {"index": "function", "description": "function", "reading_type": ReadingType.IGNORE, "response_type": ResponseType.HEX_CHAR},
-            {"index": "command", "description": "command", "reading_type": ReadingType.IGNORE},
-            {"index": "length", "description": "length", "reading_type": ReadingType.IGNORE},
-            {"index": "crc", "description": "crc", "reading_type": ReadingType.IGNORE, "response_type": ResponseType.HEX_CHAR},
-            {"index": "end_flag", "description": "end flag", "reading_type": ReadingType.IGNORE, "response_type": ResponseType.HEX_CHAR},
+            {"index": "standard_voltage_1", "description": "standard_voltage_1", "reading_type": ReadingType.VOLTS, "response_type": ResponseType.FLOAT},
+            {"index": "standard_voltage_2", "description": "standard_voltage_2", "reading_type": ReadingType.VOLTS, "response_type": ResponseType.FLOAT},
+            {"index": "battery_voltage_1", "description": "battery_voltage_1", "reading_type": ReadingType.VOLTS, "response_type": ResponseType.FLOAT},
+            {"index": "battery_voltage_2", "description": "battery_voltage_2", "reading_type": ReadingType.VOLTS, "response_type": ResponseType.FLOAT},
+            {"index": "standard_current_1", "description": "standard_current_1", "reading_type": ReadingType.CURRENT, "response_type": ResponseType.FLOAT},
+            {"index": "standard_current_2", "description": "standard_current_2", "reading_type": ReadingType.CURRENT, "response_type": ResponseType.FLOAT},
+            {"index": "production_date", "description": "production_date", "reading_type": ReadingType.MESSAGE, "response_type": ResponseType.STRING},
+            {"index": "max_voltage", "description": "max_voltage", "reading_type": ReadingType.VOLTS, "response_type": ResponseType.FLOAT},
+            {"index": "min_voltage", "description": "min_voltage", "reading_type": ReadingType.VOLTS, "response_type": ResponseType.FLOAT},
+            {"index": "max_temperature", "description": "max_temperature", "reading_type": ReadingType.TEMPERATURE, "response_type": ResponseType.FLOAT},  # F?
+            {"index": "min_temperature", "description": "min_temperature", "reading_type": ReadingType.TEMPERATURE, "response_type": ResponseType.FLOAT},  # F?
+            {"index": "total_runtime", "description": "total_runtime", "reading_type": ReadingType.TIME_SECONDS},
+            {"index": "power_on_counter", "description": "power_on_counter", "reading_type": ReadingType.NUMBER},
+            {"index": "superbat_1", "description": "superbat_1", "reading_type": ReadingType.NUMBER, "response_type": ResponseType.FLOAT},
+            {"index": "superbat_2", "description": "superbat_2", "reading_type": ReadingType.NUMBER, "response_type": ResponseType.FLOAT},
+            {"index": "resistor_1", "description": "resistor_1", "reading_type": ReadingType.NUMBER, "response_type": ResponseType.FLOAT},
+            {"index": "battery_status", "description": "battery_status", "reading_type": ReadingType.HEX_STR, "response_type": ResponseType.HEX_CHAR},
+        ],
+        "test_responses": [
+            b'U\xaa\x11\x01\x03\x00\x14\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00(\xffU\xaa\x11\x01\x03\x00d\x00`\x1b\xbf?@(\xbf?\n\x9eK@33s@"p\xd5?0\xe7\xd4?\x7f\xf2\x00@\x00\x00\x00\x00\x00\x00\x80?33\xd3?\\\x8f\xd2?H\xe1\xba?\x00\x00\xaaB\x00\x00\x82B\x04\x00\x00\x00~\x11E\x0020220916\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x97\xff'
+        ],
+    },
+    "get_settings": {
+        "name": "get_settings",
+        "description": "information about the get_settings",
+        "help": " -- display the get_settings",
+        # "type": "DALY",
+        "command_type": CommandType.SERIAL_READ_UNTIL_DONE,
+        "command_code": "04",
+        "result_type": ResultType.CONSTRUCT,
+        "construct": settings_construct,
+        "construct_min_response": 100,
+        "reading_definitions": [
             {"index": "cell_count", "description": "cell_count", "reading_type": ReadingType.NUMBER, "response_type": ResponseType.HEX_CHAR},
             {"index": "balance_trigger_voltage", "description": "balance_trigger_voltage", "reading_type": ReadingType.VOLTS, "response_type": ResponseType.FLOAT},
             {"index": "balance_stop_voltage", "description": "balance_stop_voltage", "reading_type": ReadingType.VOLTS, "response_type": ResponseType.FLOAT},
@@ -397,9 +441,11 @@ class Neey(AbstractProtocol):
     def check_crc(self, response: str, command_definition: CommandDefinition = None) -> bool:
         """ crc check, needs override in protocol """
         log.debug("checking crc for %s", response)
-        if response.count(b'\xa5') > 1:
-            # multiframe response - crch calc incorrect
-            return True
+        if response.count(b'U\xaa') > 1:
+            # multiframe response
+            # check last frame...
+            last_frame = response.rfind(b'U\xaa')
+            response = response[last_frame:]
         calc_crc = self.crc(response[:-2])
         response_crc = response[-2]
 
@@ -411,7 +457,8 @@ class Neey(AbstractProtocol):
     def trim_response(self, response: str, command_definition: CommandDefinition = None) -> str:
         """ Remove extra characters from response """
         log.debug("response: %s", response)
-        return response
+        last_frame = response.rfind(b'U\xaa')
+        return response[last_frame:]
 
     def split_response(self, response: str, command_definition: CommandDefinition = None) -> list:
         """ split response into individual items, return as ordered list or list of tuples """
