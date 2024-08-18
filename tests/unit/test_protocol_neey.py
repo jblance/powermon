@@ -64,6 +64,13 @@ class TestProtocolNeey(unittest.TestCase):
         # print(_result)
         self.assertEqual(_result, expected)
 
+    def test_full_command_factory_defaults(self):
+        """ test a for correct full command for factory_defaults """
+        _result = proto.get_full_command(command="factory_defaults")
+        expected = b'\xaaU\x11\x01\x03\x00\x14\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\xf8\xff'
+        # print(_result)
+        self.assertEqual(_result, expected)
+
     def test_trim(self):
         """ test protocol does a correct trim operation """
         _result = proto.trim_response(response=device_info_response, command_definition=proto.get_command_definition('device_info'))
@@ -92,7 +99,7 @@ class TestProtocolNeey(unittest.TestCase):
 
     def test_build_result_cell_info(self):
         """ test result build for cell_info """
-        expected = ['cell_01_voltage=3.2982V', 'cell_02_voltage=3.32V', 'cell_03_voltage=3.3202V', 'cell_04_voltage=3.3197V', 'cell_05_voltage=3.32V', 'cell_06_voltage=3.3205V', 'cell_07_voltage=3.3203V', 'cell_08_voltage=3.32V', 'cell_09_voltage=3.3191V', 'cell_10_voltage=3.3194V', 'cell_11_voltage=3.3199V', 'cell_12_voltage=3.32V', 'cell_13_voltage=3.3203V', 'cell_14_voltage=3.3194V', 'cell_15_voltage=3.3203V', 'cell_16_voltage=3.3182V', 'cell_01_resistance=0.17343Ω', 'cell_01_resistance=0.18284Ω', 'cell_01_resistance=0.17434Ω', 'cell_01_resistance=0.17279Ω', 'cell_01_resistance=0.17219Ω', 'cell_01_resistance=0.17525Ω', 'cell_01_resistance=0.17714Ω', 'cell_01_resistance=0.17938Ω', 'cell_01_resistance=0.18258Ω', 'cell_01_resistance=0.18814Ω', 'cell_01_resistance=0.18766Ω', 'cell_01_resistance=0.18535Ω', 'cell_01_resistance=0.18002Ω', 'cell_01_resistance=0.17529Ω', 'cell_01_resistance=0.17323Ω', 'cell_01_resistance=0.17089Ω', 'total_voltage=53.0953V', 'average_cell_voltage=3.3185V', 'delta_cell_voltage=0.0223V', 'max_voltage_cell=6', 'min_voltage_cell=1', 'operation_status=Balancing', 'balancing_current=-4.039A', 'temperature_1=30.65999984741211°C', 'temperature_2=30.65999984741211°C', 'cell_detection_failed=0X00 0X00 0XFF', 'cell_overvoltage_failed=0X00 0X00 0X00', 'cell_undervoltage_failed=0X00 0X00 0X00', 'cell_polarity_error=0X00 0X00 0X00', 'excessive_line_resistance=0X00 0X00 0X00', 'overheating=0x0', 'charging_fault=0x0', 'discharge_fault=0x0', 'read_write_error=0x0']
+        expected = ['cell_01_voltage=3.2982V', 'cell_02_voltage=3.32V', 'cell_03_voltage=3.3202V', 'cell_04_voltage=3.3197V', 'cell_05_voltage=3.32V', 'cell_06_voltage=3.3205V', 'cell_07_voltage=3.3203V', 'cell_08_voltage=3.32V', 'cell_09_voltage=3.3191V', 'cell_10_voltage=3.3194V', 'cell_11_voltage=3.3199V', 'cell_12_voltage=3.32V', 'cell_13_voltage=3.3203V', 'cell_14_voltage=3.3194V', 'cell_15_voltage=3.3203V', 'cell_16_voltage=3.3182V', 'cell_01_resistance=0.17343Ω', 'cell_01_resistance=0.18284Ω', 'cell_01_resistance=0.17434Ω', 'cell_01_resistance=0.17279Ω', 'cell_01_resistance=0.17219Ω', 'cell_01_resistance=0.17525Ω', 'cell_01_resistance=0.17714Ω', 'cell_01_resistance=0.17938Ω', 'cell_01_resistance=0.18258Ω', 'cell_01_resistance=0.18814Ω', 'cell_01_resistance=0.18766Ω', 'cell_01_resistance=0.18535Ω', 'cell_01_resistance=0.18002Ω', 'cell_01_resistance=0.17529Ω', 'cell_01_resistance=0.17323Ω', 'cell_01_resistance=0.17089Ω', 'total_voltage=53.0953V', 'average_cell_voltage=3.3185V', 'delta_cell_voltage=0.0223V', 'max_voltage_cell=6', 'min_voltage_cell=1', 'operation_status=Balancing', 'balancing_current=-4.039A', 'temperature_1=30.65999984741211°C', 'temperature_2=30.65999984741211°C', 'cell_detection_failed=0x00 0x00 0xff', 'cell_overvoltage_failed=0x00 0x00 0x00', 'cell_undervoltage_failed=0x00 0x00 0x00', 'cell_polarity_error=0x00 0x00 0x00', 'excessive_line_resistance=0x00 0x00 0x00', 'overheating=0x0', 'charging_fault=0x0', 'discharge_fault=0x0', 'read_write_error=0x0']
         simple_formatter = SimpleFormat({})
         device_info = DeviceInfo(name="name", device_id="device_id", model="model", manufacturer="manufacturer")
         command = Command.from_config({"command": "cell_info"})

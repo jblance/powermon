@@ -87,13 +87,13 @@ factory_defaults_construct = cs.Struct(
     "command" / cs.Int16ul,
     "length" / cs.Int16ul,
     "cell_count" / cs.Bytes(1),
-    "balance_trigger_voltage" / cs.Bytes(4),
+    "balance_trigger_voltage" / cs.Float32l,
     "max_balance_current" / cs.Float32l,
     "balance_stop_voltage" / cs.Float32l,
     "balancing_enabled" / cs.Bytes(1),
-    "buzzer_mode" / cs.Bytes(1),  # Buzzer mode (0x01: Off, 0x02: Beep once, 0x03: Beep regular)
-    "battery_type" / cs.Bytes(1),  # Battery type (0x01: NCM, 0x02: LFP, 0x03: LTO, 0x04: PbAc)
-    "nominal_battery_capacity" / cs.Float32l,
+    "buzzer_mode" / cs.Enum(cs.Byte, off=1, beep_once=2, beep_regular=3),
+    "battery_type" / cs.Enum(cs.Byte, NCM=1, LFP=2, LTO=3, PbAc=4),
+    "nominal_battery_capacity" / cs.Int32ul,
     "balance_start_voltage" / cs.Float32l,
     "unused" / cs.Bytes(66),
     "crc" / cs.Bytes(1),
@@ -212,11 +212,11 @@ COMMANDS = {
             {"index": "cell_24_resistance", "description": "cell_01_resistance", "reading_type": ReadingType.RESISTANCE, "response_type": ResponseType.FLOAT},
             {"index": "temperature_1", "description": "temperature_1", "reading_type": ReadingType.TEMPERATURE, "response_type": ResponseType.FLOAT},
             {"index": "temperature_2", "description": "temperature_2", "reading_type": ReadingType.TEMPERATURE, "response_type": ResponseType.FLOAT},
-            {"index": "cell_detection_failed", "description": "cell_detection_failed", "reading_type": ReadingType.HEX_CHARS, "response_type": ResponseType.HEX_CHARS},
-            {"index": "cell_overvoltage_failed", "description": "cell_overvoltage_failed", "reading_type": ReadingType.HEX_CHARS, "response_type": ResponseType.HEX_CHARS},
-            {"index": "cell_undervoltage_failed", "description": "cell_undervoltage_failed", "reading_type": ReadingType.HEX_CHARS, "response_type": ResponseType.HEX_CHARS},
-            {"index": "cell_polarity_error", "description": "cell_polarity_error", "reading_type": ReadingType.HEX_CHARS, "response_type": ResponseType.HEX_CHARS},
-            {"index": "excessive_line_resistance", "description": "excessive_line_resistance", "reading_type": ReadingType.HEX_CHARS, "response_type": ResponseType.HEX_CHARS},
+            {"index": "cell_detection_failed", "description": "cell_detection_failed", "reading_type": ReadingType.HEX_STR, "response_type": ResponseType.HEX_CHARS},
+            {"index": "cell_overvoltage_failed", "description": "cell_overvoltage_failed", "reading_type": ReadingType.HEX_STR, "response_type": ResponseType.HEX_CHARS},
+            {"index": "cell_undervoltage_failed", "description": "cell_undervoltage_failed", "reading_type": ReadingType.HEX_STR, "response_type": ResponseType.HEX_CHARS},
+            {"index": "cell_polarity_error", "description": "cell_polarity_error", "reading_type": ReadingType.HEX_STR, "response_type": ResponseType.HEX_CHARS},
+            {"index": "excessive_line_resistance", "description": "excessive_line_resistance", "reading_type": ReadingType.HEX_STR, "response_type": ResponseType.HEX_CHARS},
             {"index": "overheating", "description": "overheating", "reading_type": ReadingType.HEX_STR, "response_type": ResponseType.HEX_CHAR},
             {"index": "charging_fault", "description": "charging_fault", "reading_type": ReadingType.HEX_STR, "response_type": ResponseType.HEX_CHAR},
             {"index": "discharge_fault", "description": "discharge_fault", "reading_type": ReadingType.HEX_STR, "response_type": ResponseType.HEX_CHAR},
@@ -244,17 +244,18 @@ COMMANDS = {
             {"index": "length", "description": "length", "reading_type": ReadingType.IGNORE},
             {"index": "crc", "description": "crc", "reading_type": ReadingType.IGNORE, "response_type": ResponseType.HEX_CHAR},
             {"index": "end_flag", "description": "end flag", "reading_type": ReadingType.IGNORE, "response_type": ResponseType.HEX_CHAR},
-
-            {"index": "model", "description": "model", "reading_type": ReadingType.MESSAGE, "response_type": ResponseType.BYTES_STRIP_NULLS},
-            {"index": "hw_version", "description": "hw_version", "reading_type": ReadingType.MESSAGE, "response_type": ResponseType.BYTES_STRIP_NULLS},
-            {"index": "sw_version", "description": "sw_version", "reading_type": ReadingType.MESSAGE, "response_type": ResponseType.BYTES_STRIP_NULLS},
-            {"index": "protocol_version", "description": "protocol_version", "reading_type": ReadingType.MESSAGE, "response_type": ResponseType.BYTES_STRIP_NULLS},
-            {"index": "production_date", "description": "production_date", "reading_type": ReadingType.MESSAGE, "response_type": ResponseType.BYTES_STRIP_NULLS},
-            {"index": "power_on_count", "description": "power_on_count", "reading_type": ReadingType.MESSAGE},
-            {"index": "total_runtime", "description": "total_runtime", "reading_type": ReadingType.TIME_SECONDS},
+            {"index": "cell_count", "description": "cell_count", "reading_type": ReadingType.NUMBER, "response_type": ResponseType.HEX_CHAR},
+            {"index": "balance_trigger_voltage", "description": "balance_trigger_voltage", "reading_type": ReadingType.VOLTS, "response_type": ResponseType.FLOAT},
+            {"index": "balance_stop_voltage", "description": "balance_stop_voltage", "reading_type": ReadingType.VOLTS, "response_type": ResponseType.FLOAT},
+            {"index": "balance_start_voltage", "description": "balance_start_voltage", "reading_type": ReadingType.VOLTS, "response_type": ResponseType.FLOAT},
+            {"index": "max_balance_current", "description": "max_balance_current", "reading_type": ReadingType.CURRENT, "response_type": ResponseType.FLOAT},
+            {"index": "nominal_battery_capacity", "description": "nominal_battery_capacity", "reading_type": ReadingType.ENERGY},
+            {"index": "balancing_enabled", "description": "balancing_enabled", "reading_type": ReadingType.ENABLED},
+            {"index": "buzzer_mode", "description": "buzzer_mode", "reading_type": ReadingType.MESSAGE, "response_type": ResponseType.STRING},
+            {"index": "battery_type", "description": "battery_type", "reading_type": ReadingType.MESSAGE, "response_type": ResponseType.STRING},
         ],
         "test_responses": [
-            b'U\xaa\x11\x01\x01\x00d\x00GW-24S4EB\x00\x00\x00\x00\x00\x00\x00HW-2.8.0ZH-1.2.3V1.0.0\x00\x0020220916\x04\x00\x00\x00n\x85?\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00G\xff'
+            b'U\xaa\x11\x01\x04\x00d\x00\x10\n\xd7\xa3;\x00\x00\x80@\x00\x00 @\x01\x01\x02\x18\x01\x00\x00ff&@\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\xb7\xff'
         ],
     },
 }
@@ -337,10 +338,10 @@ class Neey(AbstractProtocol):
             return None
 
         # fix a 'bug' that seems to be implemented on the device?
-        if command_definition.code == "device_info":
-            data_length = cs.Int16ul.build(20)
-        else:
+        if command_definition.code == "cell_info":
             data_length = cs.Int16ub.build(20)
+        else:
+            data_length = cs.Int16ul.build(20)
         command_bytes = cs.Int16ul.build(int(command_definition.command_code))
 
         full_command = bytearray(20)
