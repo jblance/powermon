@@ -80,7 +80,7 @@ class TestProtocolNeey(unittest.TestCase):
 
     def test_build_result_device_info(self):
         """ test result build for device_info """
-        expected = ['start_flag=0X55 0XAA', 'module_address=0x11', 'function=0x1', 'command=1', 'length=100', 'model=GW-24S4EB', 'hw_version=HW-2.8.0', 'sw_version=ZH-1.2.3', 'protocol_version=V1.0.0', 'production_date=20220916', 'power_on_count=4', 'total_runtime=4162926sec', 'crc=0x47', 'end_flag=0xff']
+        expected = ['model=GW-24S4EB', 'hw_version=HW-2.8.0', 'sw_version=ZH-1.2.3', 'protocol_version=V1.0.0', 'production_date=20220916', 'power_on_count=4', 'total_runtime=4162926sec']
         simple_formatter = SimpleFormat({})
         device_info = DeviceInfo(name="name", device_id="device_id", model="model", manufacturer="manufacturer")
         command = Command.from_config({"command": "device_info"})
@@ -90,14 +90,14 @@ class TestProtocolNeey(unittest.TestCase):
         # print(formatted_data)
         self.assertEqual(formatted_data, expected)
 
-    # def test_build_result_cell_info(self):
-    #     """ test result build for cell_info """
-    #     expected = []
-    #     simple_formatter = SimpleFormat({})
-    #     device_info = DeviceInfo(name="name", device_id="device_id", model="model", manufacturer="manufacturer")
-    #     command = Command.from_config({"command": "cell_info"})
-    #     command.command_definition = proto.get_command_definition('cell_info')
-    #     _result = command.build_result(raw_response=cell_info_response, protocol=proto)
-    #     formatted_data = simple_formatter.format(command, _result, device_info)
-    #     print(formatted_data)
-    #     self.assertEqual(formatted_data, expected)
+    def test_build_result_cell_info(self):
+        """ test result build for cell_info """
+        expected = ['cell_01_voltage=3.2982V', 'cell_02_voltage=3.32V', 'cell_03_voltage=3.3202V', 'cell_04_voltage=3.3197V', 'cell_05_voltage=3.32V', 'cell_06_voltage=3.3205V', 'cell_07_voltage=3.3203V', 'cell_08_voltage=3.32V', 'cell_09_voltage=3.3191V', 'cell_10_voltage=3.3194V', 'cell_11_voltage=3.3199V', 'cell_12_voltage=3.32V', 'cell_13_voltage=3.3203V', 'cell_14_voltage=3.3194V', 'cell_15_voltage=3.3203V', 'cell_16_voltage=3.3182V', 'cell_01_resistance=0.17343Ω', 'cell_01_resistance=0.18284Ω', 'cell_01_resistance=0.17434Ω', 'cell_01_resistance=0.17279Ω', 'cell_01_resistance=0.17219Ω', 'cell_01_resistance=0.17525Ω', 'cell_01_resistance=0.17714Ω', 'cell_01_resistance=0.17938Ω', 'cell_01_resistance=0.18258Ω', 'cell_01_resistance=0.18814Ω', 'cell_01_resistance=0.18766Ω', 'cell_01_resistance=0.18535Ω', 'cell_01_resistance=0.18002Ω', 'cell_01_resistance=0.17529Ω', 'cell_01_resistance=0.17323Ω', 'cell_01_resistance=0.17089Ω', 'total_voltage=53.0953V', 'average_cell_voltage=3.3185V', 'delta_cell_voltage=0.0223V', 'max_voltage_cell=6', 'min_voltage_cell=1', 'operation_status=Balancing', 'balancing_current=-4.039A', 'temperature_1=30.65999984741211°C', 'temperature_2=30.65999984741211°C', 'cell_detection_failed=0X00 0X00 0XFF', 'cell_overvoltage_failed=0X00 0X00 0X00', 'cell_undervoltage_failed=0X00 0X00 0X00', 'cell_polarity_error=0X00 0X00 0X00', 'excessive_line_resistance=0X00 0X00 0X00', 'overheating=0x0', 'charging_fault=0x0', 'discharge_fault=0x0', 'read_write_error=0x0']
+        simple_formatter = SimpleFormat({})
+        device_info = DeviceInfo(name="name", device_id="device_id", model="model", manufacturer="manufacturer")
+        command = Command.from_config({"command": "cell_info"})
+        command.command_definition = proto.get_command_definition('cell_info')
+        _result = command.build_result(raw_response=cell_info_response, protocol=proto)
+        formatted_data = simple_formatter.format(command, _result, device_info)
+        # print(formatted_data)
+        self.assertEqual(formatted_data, expected)

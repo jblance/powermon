@@ -62,48 +62,25 @@ cell_info_construct = cs.Struct(
     "unknown" / cs.Bytes(1),
     "operation_status" / operation_status,
     "balancing_current" / cs.Float32l,
-
-    "unused" / cs.Bytes(34),
+    "temperature_1" / cs.Float32l,
+    "temperature_2" / cs.Float32l,
+    "cell_detection_failed" / cs.Bytes(3),      # bitmask
+    "cell_overvoltage_failed" / cs.Bytes(3),    # bitmask
+    "cell_undervoltage_failed" / cs.Bytes(3),   # bitmask
+    "cell_polarity_error" / cs.Bytes(3),        # bitmask
+    "excessive_line_resistance" / cs.Bytes(3),  # bitmask
+    "overheating" / cs.Bytes(1),  # bit 0 - sensor 1 warning, bit 1 - sensor 2
+    "charging_fault" / cs.Bytes(1),  # 00: off, 01:on
+    "discharge_fault" / cs.Bytes(1),  # 00: off, 01:on
+    "read_write_error" / cs.Bytes(1),  # bit 0: read failed, bit 1 write failedd
+    "unused" / cs.Bytes(6),
+    "uptime" / cs.Float32l,
+    "unused" / cs.Bytes(40),
     "crc" / cs.Bytes(1),
     "end_flag" / cs.Bytes(1),
 )
 
-# // 221   4   0xC3 0xF5 0x48 0x42              Temperature 1
-#   this->publish_state_(this->temperature_sensor_1_sensor_, ieee_float_(heltec_get_32bit(221)));
-#   // 225   4   0xC3 0xF5 0x48 0x42              Temperature 2
-#   this->publish_state_(this->temperature_sensor_2_sensor_, ieee_float_(heltec_get_32bit(225)));
-#   // 229   3   0x00 0x00 0x00                   Cell detection failed bitmask (24 bits = 1 bit per cell)
-#   this->publish_state_(this->cell_detection_failed_bitmask_sensor_, heltec_get_24bit(229));
-#   // 232   3   0x00 0x00 0x00                   Cell overvoltage bitmask (24 cells)
-#   this->publish_state_(this->cell_overvoltage_bitmask_sensor_, heltec_get_24bit(232));
-#   // 235   3   0x00 0x00 0x00                   Cell undervoltage bitmask (24 cells)
-#   this->publish_state_(this->cell_undervoltage_bitmask_sensor_, heltec_get_24bit(235));
-#   // 238   3   0x00 0x00 0x00                   Cell polarity error bitmask (24 cells)
-#   this->publish_state_(this->cell_polarity_error_bitmask_sensor_, heltec_get_24bit(238));
-#   // 241   3   0x00 0x00 0x00                   Excessive line resistance bitmask (24 cells)
-#   this->publish_state_(this->cell_excessive_line_resistance_bitmask_sensor_, heltec_get_24bit(241));
-#   // 244   1   0x00                             System overheating
-#   this->publish_state_(this->error_system_overheating_binary_sensor_, data[244] != 0x00);
-#   //                                              Bit0: Temperature sensor 1 warning
-#   //                                              Bit1: Temperature sensor 2 warning
-#   // 245   1   0x00                             Charging fault
-#   //                                              0x00: Off
-#   //                                              0x01: On
-#   this->publish_state_(this->error_charging_binary_sensor_, (bool) data[245]);
-#   // 246   1   0x00                             Discharge fault
-#   //                                              0x00: Off
-#   //                                              0x01: On
-#   this->publish_state_(this->error_discharging_binary_sensor_, (bool) data[246]);
-#   // 247   1   0x00                             Unknown
-#   //                                              Bit0: Read failed
-#   //                                              Bit1: Write failed
-#   // 248   6   0x00 0x00 0x00 0x00 0x00 0x00    Reserved
-#   // 254   4   0x76 0x2E 0x09 0x00              Uptime?
-#   ESP_LOGI(TAG, "  Uptime: %s (%ds)", format_total_runtime_(heltec_get_32bit(254)).c_str(), heltec_get_32bit(254));
-#   // 258   40  0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00
-#   //           0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00
-#   // 298   1   0xB6
-#   // 299   1   0xFF
+
 
 COMMANDS = {
     "device_info": {
@@ -117,11 +94,14 @@ COMMANDS = {
         "construct": device_info_construct,
         "construct_min_response": 100,
         "reading_definitions": [
-            {"index": "start_flag", "description": "start flag", "reading_type": ReadingType.HEX_CHARS, "response_type": ResponseType.HEX_CHARS},
-            {"index": "module_address", "description": "module address", "reading_type": ReadingType.HEX_STR, "response_type": ResponseType.HEX_CHAR},
-            {"index": "function", "description": "function", "reading_type": ReadingType.HEX_STR, "response_type": ResponseType.HEX_CHAR},
-            {"index": "command", "description": "command", "reading_type": ReadingType.MESSAGE},
-            {"index": "length", "description": "length", "reading_type": ReadingType.MESSAGE},
+            {"index": "start_flag", "description": "start flag", "reading_type": ReadingType.IGNORE, "response_type": ResponseType.HEX_CHARS},
+            {"index": "module_address", "description": "module address", "reading_type": ReadingType.IGNORE, "response_type": ResponseType.HEX_CHAR},
+            {"index": "function", "description": "function", "reading_type": ReadingType.IGNORE, "response_type": ResponseType.HEX_CHAR},
+            {"index": "command", "description": "command", "reading_type": ReadingType.IGNORE},
+            {"index": "length", "description": "length", "reading_type": ReadingType.IGNORE},
+            {"index": "crc", "description": "crc", "reading_type": ReadingType.IGNORE, "response_type": ResponseType.HEX_CHAR},
+            {"index": "end_flag", "description": "end flag", "reading_type": ReadingType.IGNORE, "response_type": ResponseType.HEX_CHAR},
+
             {"index": "model", "description": "model", "reading_type": ReadingType.MESSAGE, "response_type": ResponseType.BYTES_STRIP_NULLS},
             {"index": "hw_version", "description": "hw_version", "reading_type": ReadingType.MESSAGE, "response_type": ResponseType.BYTES_STRIP_NULLS},
             {"index": "sw_version", "description": "sw_version", "reading_type": ReadingType.MESSAGE, "response_type": ResponseType.BYTES_STRIP_NULLS},
@@ -129,8 +109,7 @@ COMMANDS = {
             {"index": "production_date", "description": "production_date", "reading_type": ReadingType.MESSAGE, "response_type": ResponseType.BYTES_STRIP_NULLS},
             {"index": "power_on_count", "description": "power_on_count", "reading_type": ReadingType.MESSAGE},
             {"index": "total_runtime", "description": "total_runtime", "reading_type": ReadingType.TIME_SECONDS},
-            {"index": "crc", "description": "crc", "reading_type": ReadingType.HEX_STR, "response_type": ResponseType.HEX_CHAR},
-            {"index": "end_flag", "description": "end flag", "reading_type": ReadingType.HEX_STR, "response_type": ResponseType.HEX_CHAR},
+
         ],
         "test_responses": [
             b'U\xaa\x11\x01\x01\x00d\x00GW-24S4EB\x00\x00\x00\x00\x00\x00\x00HW-2.8.0ZH-1.2.3V1.0.0\x00\x0020220916\x04\x00\x00\x00n\x85?\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00G\xff'
@@ -147,12 +126,15 @@ COMMANDS = {
         "construct": cell_info_construct,
         "construct_min_response": 300,
         "reading_definitions": [
-            {"index": "start_flag", "description": "start flag", "reading_type": ReadingType.HEX_CHARS, "response_type": ResponseType.HEX_CHARS},
-            {"index": "module_address", "description": "module address", "reading_type": ReadingType.HEX_STR, "response_type": ResponseType.HEX_CHAR},
-            {"index": "function", "description": "function", "reading_type": ReadingType.HEX_STR, "response_type": ResponseType.HEX_CHAR},
-            {"index": "command", "description": "command", "reading_type": ReadingType.MESSAGE},
-            {"index": "length", "description": "length", "reading_type": ReadingType.MESSAGE},
-            {"index": "frame_counter", "description": "frame_counter", "reading_type": ReadingType.MESSAGE},
+            {"index": "start_flag", "description": "start flag", "reading_type": ReadingType.IGNORE, "response_type": ResponseType.HEX_CHARS},
+            {"index": "module_address", "description": "module address", "reading_type": ReadingType.IGNORE, "response_type": ResponseType.HEX_CHAR},
+            {"index": "function", "description": "function", "reading_type": ReadingType.IGNORE, "response_type": ResponseType.HEX_CHAR},
+            {"index": "command", "description": "command", "reading_type": ReadingType.IGNORE},
+            {"index": "length", "description": "length", "reading_type": ReadingType.IGNORE},
+            {"index": "frame_counter", "description": "frame_counter", "reading_type": ReadingType.IGNORE},
+            {"index": "crc", "description": "crc", "reading_type": ReadingType.IGNORE, "response_type": ResponseType.HEX_CHAR},
+            {"index": "end_flag", "description": "end flag", "reading_type": ReadingType.IGNORE, "response_type": ResponseType.HEX_CHAR},
+
             {"index": "operation_status", "description": "operation_status", "reading_type": ReadingType.MESSAGE, "response_type": ResponseType.STRING},
             {"index": "balancing_current", "description": "balancing_current", "reading_type": ReadingType.CURRENT, "response_type": ResponseType.FLOAT},
             {"index": "total_voltage", "description": "total_voltage", "reading_type": ReadingType.VOLTS, "response_type": ResponseType.FLOAT},
@@ -208,8 +190,17 @@ COMMANDS = {
             {"index": "cell_22_resistance", "description": "cell_01_resistance", "reading_type": ReadingType.RESISTANCE, "response_type": ResponseType.FLOAT},
             {"index": "cell_23_resistance", "description": "cell_01_resistance", "reading_type": ReadingType.RESISTANCE, "response_type": ResponseType.FLOAT},
             {"index": "cell_24_resistance", "description": "cell_01_resistance", "reading_type": ReadingType.RESISTANCE, "response_type": ResponseType.FLOAT},
-            
-           
+            {"index": "temperature_1", "description": "temperature_1", "reading_type": ReadingType.TEMPERATURE, "response_type": ResponseType.FLOAT},
+            {"index": "temperature_2", "description": "temperature_2", "reading_type": ReadingType.TEMPERATURE, "response_type": ResponseType.FLOAT},
+            {"index": "cell_detection_failed", "description": "cell_detection_failed", "reading_type": ReadingType.HEX_CHARS, "response_type": ResponseType.HEX_CHARS},
+            {"index": "cell_overvoltage_failed", "description": "cell_overvoltage_failed", "reading_type": ReadingType.HEX_CHARS, "response_type": ResponseType.HEX_CHARS},
+            {"index": "cell_undervoltage_failed", "description": "cell_undervoltage_failed", "reading_type": ReadingType.HEX_CHARS, "response_type": ResponseType.HEX_CHARS},
+            {"index": "cell_polarity_error", "description": "cell_polarity_error", "reading_type": ReadingType.HEX_CHARS, "response_type": ResponseType.HEX_CHARS},
+            {"index": "excessive_line_resistance", "description": "excessive_line_resistance", "reading_type": ReadingType.HEX_CHARS, "response_type": ResponseType.HEX_CHARS},
+            {"index": "overheating", "description": "overheating", "reading_type": ReadingType.HEX_STR, "response_type": ResponseType.HEX_CHAR},
+            {"index": "charging_fault", "description": "charging_fault", "reading_type": ReadingType.HEX_STR, "response_type": ResponseType.HEX_CHAR},
+            {"index": "discharge_fault", "description": "discharge_fault", "reading_type": ReadingType.HEX_STR, "response_type": ResponseType.HEX_CHAR},
+            {"index": "read_write_error", "description": "read_write_error", "reading_type": ReadingType.HEX_STR, "response_type": ResponseType.HEX_CHAR},
         ],
         "test_responses": [
             b'U\xaa\x11\x01\x02\x00,\x01\xed\xb2\x15S@4zT@\xe5}T@JuT@o{T@\xd0\x82T@ \x7fT@o{T@\xaflT@\x9aqT@\xf9xT@4zT@ \x7fT@_pT@[\x80T@\xb3\\T@\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\xee\x971>b9;>m\x852>\xb5\xf00>\x14R0>\xd1s3>\x86d5>\xdb\xaf7>f\xf7:>,\xa8@>\xb3)@>\x86\xcd=>\xf2W8>\xd3~3>\x19c1>^\xfe.>\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x9faTB\x9faT@\x00\x8f\xb6<\x05\x00\x0f\x05\xc4?\x81\xc0\xaeG\xf5A\xaeG\xf5A\x00\x00\xff\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x8a\x8a\x04\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\xbe\xff'
