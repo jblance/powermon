@@ -80,6 +80,26 @@ cell_info_construct = cs.Struct(
     "end_flag" / cs.Bytes(1),
 )
 
+factory_defaults_construct = cs.Struct(
+    "start_flag" / cs.Bytes(2),
+    "module_address" / cs.Bytes(1),
+    "function" / cs.Bytes(1),  # 01 read
+    "command" / cs.Int16ul,
+    "length" / cs.Int16ul,
+    "cell_count" / cs.Bytes(1),
+    "balance_trigger_voltage" / cs.Bytes(4),
+    "max_balance_current" / cs.Float32l,
+    "balance_stop_voltage" / cs.Float32l,
+    "balancing_enabled" / cs.Bytes(1),
+    "buzzer_mode" / cs.Bytes(1),  # Buzzer mode (0x01: Off, 0x02: Beep once, 0x03: Beep regular)
+    "battery_type" / cs.Bytes(1),  # Battery type (0x01: NCM, 0x02: LFP, 0x03: LTO, 0x04: PbAc)
+    "nominal_battery_capacity" / cs.Float32l,
+    "balance_start_voltage" / cs.Float32l,
+    "unused" / cs.Bytes(66),
+    "crc" / cs.Bytes(1),
+    "end_flag" / cs.Bytes(1),
+)
+
 
 
 COMMANDS = {
@@ -204,6 +224,37 @@ COMMANDS = {
         ],
         "test_responses": [
             b'U\xaa\x11\x01\x02\x00,\x01\xed\xb2\x15S@4zT@\xe5}T@JuT@o{T@\xd0\x82T@ \x7fT@o{T@\xaflT@\x9aqT@\xf9xT@4zT@ \x7fT@_pT@[\x80T@\xb3\\T@\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\xee\x971>b9;>m\x852>\xb5\xf00>\x14R0>\xd1s3>\x86d5>\xdb\xaf7>f\xf7:>,\xa8@>\xb3)@>\x86\xcd=>\xf2W8>\xd3~3>\x19c1>^\xfe.>\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x9faTB\x9faT@\x00\x8f\xb6<\x05\x00\x0f\x05\xc4?\x81\xc0\xaeG\xf5A\xaeG\xf5A\x00\x00\xff\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x8a\x8a\x04\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\xbe\xff'
+        ],
+    },
+    "factory_defaults": {
+        "name": "factory_defaults",
+        "description": "information about the factory_defaults",
+        "help": " -- display the factory_defaults",
+        # "type": "DALY",
+        "command_type": CommandType.SERIAL_READ_UNTIL_DONE,
+        "command_code": "03",
+        "result_type": ResultType.CONSTRUCT,
+        "construct": factory_defaults_construct,
+        "construct_min_response": 100,
+        "reading_definitions": [
+            {"index": "start_flag", "description": "start flag", "reading_type": ReadingType.IGNORE, "response_type": ResponseType.HEX_CHARS},
+            {"index": "module_address", "description": "module address", "reading_type": ReadingType.IGNORE, "response_type": ResponseType.HEX_CHAR},
+            {"index": "function", "description": "function", "reading_type": ReadingType.IGNORE, "response_type": ResponseType.HEX_CHAR},
+            {"index": "command", "description": "command", "reading_type": ReadingType.IGNORE},
+            {"index": "length", "description": "length", "reading_type": ReadingType.IGNORE},
+            {"index": "crc", "description": "crc", "reading_type": ReadingType.IGNORE, "response_type": ResponseType.HEX_CHAR},
+            {"index": "end_flag", "description": "end flag", "reading_type": ReadingType.IGNORE, "response_type": ResponseType.HEX_CHAR},
+
+            {"index": "model", "description": "model", "reading_type": ReadingType.MESSAGE, "response_type": ResponseType.BYTES_STRIP_NULLS},
+            {"index": "hw_version", "description": "hw_version", "reading_type": ReadingType.MESSAGE, "response_type": ResponseType.BYTES_STRIP_NULLS},
+            {"index": "sw_version", "description": "sw_version", "reading_type": ReadingType.MESSAGE, "response_type": ResponseType.BYTES_STRIP_NULLS},
+            {"index": "protocol_version", "description": "protocol_version", "reading_type": ReadingType.MESSAGE, "response_type": ResponseType.BYTES_STRIP_NULLS},
+            {"index": "production_date", "description": "production_date", "reading_type": ReadingType.MESSAGE, "response_type": ResponseType.BYTES_STRIP_NULLS},
+            {"index": "power_on_count", "description": "power_on_count", "reading_type": ReadingType.MESSAGE},
+            {"index": "total_runtime", "description": "total_runtime", "reading_type": ReadingType.TIME_SECONDS},
+        ],
+        "test_responses": [
+            b'U\xaa\x11\x01\x01\x00d\x00GW-24S4EB\x00\x00\x00\x00\x00\x00\x00HW-2.8.0ZH-1.2.3V1.0.0\x00\x0020220916\x04\x00\x00\x00n\x85?\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00G\xff'
         ],
     },
 }
