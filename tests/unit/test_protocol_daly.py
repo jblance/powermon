@@ -82,7 +82,7 @@ class TestProtocolDaly(unittest.TestCase):
 
     def test_build_result_soc(self):
         """ test result build for SOC """
-        expected = ['battery_bank_voltage=26.5V', 'acquistion=0.0V', 'current=15.9A', 'soc=77.8%']
+        expected = ['battery_bank_voltage=26.5V', 'current=15.9A', 'soc=77.8%']
         simple_formatter = SimpleFormat({"extra_info": True})
         device_info = DeviceInfo(name="name", device_id="device_id", model="model", manufacturer="manufacturer")
         command = Command.from_config({"command": "SOC"})
