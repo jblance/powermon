@@ -92,7 +92,7 @@ class Device:
 
     @property
     def port(self) -> AbstractPort:
-        """ the port associated with this device """
+        """the port associated with this device"""
         return self._port
 
     @port.setter
