@@ -1,0 +1,41 @@
+powermon package
+================
+
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   powermon.libs
+   powermon.outputformats
+   powermon.outputs
+   powermon.ports
+   powermon.protocols
+
+Submodules
+----------
+
+powermon.cli module
+-------------------
+
+.. automodule:: powermon.cli
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+powermon.device module
+----------------------
+
+.. automodule:: powermon.device
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: powermon
+   :members:
+   :undoc-members:
+   :show-inheritance:

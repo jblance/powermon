@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>powermon.outputformats package &#8212; powermon  documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=d1102ebc" />
+    <link rel="stylesheet" type="text/css" href="_static/basic.css?v=c058f7c8" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=27fed22d" />
+    <script src="_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="powermon-outputformats-package">
+<h1>powermon.outputformats package<a class="headerlink" href="#powermon-outputformats-package" title="Link to this heading">¶</a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading">¶</a></h2>
+</section>
+<section id="module-powermon.outputformats.abstractformat">
+<span id="powermon-outputformats-abstractformat-module"></span><h2>powermon.outputformats.abstractformat module<a class="headerlink" href="#module-powermon.outputformats.abstractformat" title="Link to this heading">¶</a></h2>
+<p>powermon / outputformats / abstractformat.py</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="powermon.outputformats.abstractformat.AbstractFormat">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">powermon.outputformats.abstractformat.</span></span><span class="sig-name descname"><span class="pre">AbstractFormat</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#powermon.outputformats.abstractformat.AbstractFormat" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ABC</span></code></p>
+<p>base for all format types</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="powermon.outputformats.abstractformat.AbstractFormat.format">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">format</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">command</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">result</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Result</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device_info</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span></span></span><a class="headerlink" href="#powermon.outputformats.abstractformat.AbstractFormat.format" title="Link to this definition">¶</a></dt>
+<dd><p>entry point for all formats</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="powermon.outputformats.abstractformat.AbstractFormat.format_and_filter_data">
+<span class="sig-name descname"><span class="pre">format_and_filter_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">result</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Result</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">Reading</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#powermon.outputformats.abstractformat.AbstractFormat.format_and_filter_data" title="Link to this definition">¶</a></dt>
+<dd><p>reformat key and remove unwanted readings</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="powermon.outputformats.abstractformat.AbstractFormat.format_key">
+<span class="sig-name descname"><span class="pre">format_key</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#powermon.outputformats.abstractformat.AbstractFormat.format_key" title="Link to this definition">¶</a></dt>
+<dd><p>reformat key</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="powermon.outputformats.abstractformat.AbstractFormat.is_key_wanted">
+<span class="sig-name descname"><span class="pre">is_key_wanted</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#powermon.outputformats.abstractformat.AbstractFormat.is_key_wanted" title="Link to this definition">¶</a></dt>
+<dd><p>determine if this item is wanted</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="powermon.outputformats.abstractformat.AbstractFormat.key_exclusion_filter">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">key_exclusion_filter</span></span><a class="headerlink" href="#powermon.outputformats.abstractformat.AbstractFormat.key_exclusion_filter" title="Link to this definition">¶</a></dt>
+<dd><p>regular expression use to find keys to be excluded - or None to exclude none</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="powermon.outputformats.abstractformat.AbstractFormat.key_filter">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">key_filter</span></span><a class="headerlink" href="#powermon.outputformats.abstractformat.AbstractFormat.key_filter" title="Link to this definition">¶</a></dt>
+<dd><p>regular expression use to find keys wanted - or None to keep all</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="powermon.outputformats.abstractformat.AbstractFormat.to_dto">
+<span class="sig-name descname"><span class="pre">to_dto</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#powermon.outputformats.abstractformat.AbstractFormatDTO" title="powermon.outputformats.abstractformat.AbstractFormatDTO"><span class="pre">AbstractFormatDTO</span></a></span></span><a class="headerlink" href="#powermon.outputformats.abstractformat.AbstractFormat.to_dto" title="Link to this definition">¶</a></dt>
+<dd><p>return the format data transfer object</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="powermon.outputformats.abstractformat.AbstractFormatDTO">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">powermon.outputformats.abstractformat.</span></span><span class="sig-name descname"><span class="pre">AbstractFormatDTO</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">format_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">remove_spaces</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">None</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">bool</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keep_case</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">None</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">bool</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key_filter</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">None</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">bool</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key_exclusion_filter</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">None</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">bool</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">extra_info</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">None</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">bool</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#powermon.outputformats.abstractformat.AbstractFormatDTO" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseModel</span></code></p>
+<p>data transfer object for AbstractFormat objects</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="powermon.outputformats.abstractformat.AbstractFormatDTO.extra_info">
+<span class="sig-name descname"><span class="pre">extra_info</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">None</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#powermon.outputformats.abstractformat.AbstractFormatDTO.extra_info" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="powermon.outputformats.abstractformat.AbstractFormatDTO.format_type">
+<span class="sig-name descname"><span class="pre">format_type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#powermon.outputformats.abstractformat.AbstractFormatDTO.format_type" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="powermon.outputformats.abstractformat.AbstractFormatDTO.keep_case">
+<span class="sig-name descname"><span class="pre">keep_case</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">None</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#powermon.outputformats.abstractformat.AbstractFormatDTO.keep_case" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="powermon.outputformats.abstractformat.AbstractFormatDTO.key_exclusion_filter">
+<span class="sig-name descname"><span class="pre">key_exclusion_filter</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">None</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#powermon.outputformats.abstractformat.AbstractFormatDTO.key_exclusion_filter" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="powermon.outputformats.abstractformat.AbstractFormatDTO.key_filter">
+<span class="sig-name descname"><span class="pre">key_filter</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">None</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#powermon.outputformats.abstractformat.AbstractFormatDTO.key_filter" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="powermon.outputformats.abstractformat.AbstractFormatDTO.model_computed_fields">
+<span class="sig-name descname"><span class="pre">model_computed_fields</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">ComputedFieldInfo</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></em><a class="headerlink" href="#powermon.outputformats.abstractformat.AbstractFormatDTO.model_computed_fields" title="Link to this definition">¶</a></dt>
+<dd><p>A dictionary of computed field names and their corresponding <cite>ComputedFieldInfo</cite> objects.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="powermon.outputformats.abstractformat.AbstractFormatDTO.model_config">
+<span class="sig-name descname"><span class="pre">model_config</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">ConfigDict</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></em><a class="headerlink" href="#powermon.outputformats.abstractformat.AbstractFormatDTO.model_config" title="Link to this definition">¶</a></dt>
+<dd><p>Configuration for the model, should be a dictionary conforming to [<cite>ConfigDict</cite>][pydantic.config.ConfigDict].</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="powermon.outputformats.abstractformat.AbstractFormatDTO.model_fields">
+<span class="sig-name descname"><span class="pre">model_fields</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">FieldInfo</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'extra_info':</span> <span class="pre">FieldInfo(annotation=Union[NoneType,</span> <span class="pre">bool],</span> <span class="pre">required=True),</span> <span class="pre">'format_type':</span> <span class="pre">FieldInfo(annotation=str,</span> <span class="pre">required=True),</span> <span class="pre">'keep_case':</span> <span class="pre">FieldInfo(annotation=Union[NoneType,</span> <span class="pre">bool],</span> <span class="pre">required=True),</span> <span class="pre">'key_exclusion_filter':</span> <span class="pre">FieldInfo(annotation=Union[NoneType,</span> <span class="pre">bool],</span> <span class="pre">required=True),</span> <span class="pre">'key_filter':</span> <span class="pre">FieldInfo(annotation=Union[NoneType,</span> <span class="pre">bool],</span> <span class="pre">required=True),</span> <span class="pre">'remove_spaces':</span> <span class="pre">FieldInfo(annotation=Union[NoneType,</span> <span class="pre">bool],</span> <span class="pre">required=True)}</span></em><a class="headerlink" href="#powermon.outputformats.abstractformat.AbstractFormatDTO.model_fields" title="Link to this definition">¶</a></dt>
+<dd><p>Metadata about the fields defined on the model,
+mapping of field names to [<cite>FieldInfo</cite>][pydantic.fields.FieldInfo].</p>
+<p>This replaces <cite>Model.__fields__</cite> from Pydantic V1.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="powermon.outputformats.abstractformat.AbstractFormatDTO.remove_spaces">
+<span class="sig-name descname"><span class="pre">remove_spaces</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">None</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#powermon.outputformats.abstractformat.AbstractFormatDTO.remove_spaces" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-powermon.outputformats.bmsresponse">
+<span id="powermon-outputformats-bmsresponse-module"></span><h2>powermon.outputformats.bmsresponse module<a class="headerlink" href="#module-powermon.outputformats.bmsresponse" title="Link to this heading">¶</a></h2>
+<p>powermon / outputformats / bmsresponse.py</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="powermon.outputformats.bmsresponse.BMSResponse">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">powermon.outputformats.bmsresponse.</span></span><span class="sig-name descname"><span class="pre">BMSResponse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#powermon.outputformats.bmsresponse.BMSResponse" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#powermon.outputformats.abstractformat.AbstractFormat" title="powermon.outputformats.abstractformat.AbstractFormat"><code class="xref py py-class docutils literal notranslate"><span class="pre">AbstractFormat</span></code></a></p>
+<p>bmsresponse in PI30 format</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="powermon.outputformats.bmsresponse.BMSResponse.format">
+<span class="sig-name descname"><span class="pre">format</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">command</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">result</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Result</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device_info</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span></span></span><a class="headerlink" href="#powermon.outputformats.bmsresponse.BMSResponse.format" title="Link to this definition">¶</a></dt>
+<dd><p>entry point for all formats</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="powermon.outputformats.bmsresponse.BMSResponse.from_dto">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_dto</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dto</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#powermon.outputformats.abstractformat.AbstractFormatDTO" title="powermon.outputformats.abstractformat.AbstractFormatDTO"><span class="pre">AbstractFormatDTO</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#powermon.outputformats.bmsresponse.BMSResponse.from_dto" title="Link to this definition">¶</a></dt>
+<dd><p>build class object from dto</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-powermon.outputformats.hass">
+<span id="powermon-outputformats-hass-module"></span><h2>powermon.outputformats.hass module<a class="headerlink" href="#module-powermon.outputformats.hass" title="Link to this heading">¶</a></h2>
+<p>powermon / outputformats / hass.py</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="powermon.outputformats.hass.Hass">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">powermon.outputformats.hass.</span></span><span class="sig-name descname"><span class="pre">Hass</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#powermon.outputformats.hass.Hass" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#powermon.outputformats.abstractformat.AbstractFormat" title="powermon.outputformats.abstractformat.AbstractFormat"><code class="xref py py-class docutils literal notranslate"><span class="pre">AbstractFormat</span></code></a></p>
+<p>formatter to generate home assistant auto config mqtt messages</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="powermon.outputformats.hass.Hass.format">
+<span class="sig-name descname"><span class="pre">format</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">command</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Command</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">result</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Result</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device_info</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span></span></span><a class="headerlink" href="#powermon.outputformats.hass.Hass.format" title="Link to this definition">¶</a></dt>
+<dd><p>entry point for all formats</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-powermon.outputformats.htmltable">
+<span id="powermon-outputformats-htmltable-module"></span><h2>powermon.outputformats.htmltable module<a class="headerlink" href="#module-powermon.outputformats.htmltable" title="Link to this heading">¶</a></h2>
+<p>powermon / outputformats / htmltable.py</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="powermon.outputformats.htmltable.HtmlTable">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">powermon.outputformats.htmltable.</span></span><span class="sig-name descname"><span class="pre">HtmlTable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#powermon.outputformats.htmltable.HtmlTable" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#powermon.outputformats.abstractformat.AbstractFormat" title="powermon.outputformats.abstractformat.AbstractFormat"><code class="xref py py-class docutils literal notranslate"><span class="pre">AbstractFormat</span></code></a></p>
+<p>output the data as html</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="powermon.outputformats.htmltable.HtmlTable.format">
+<span class="sig-name descname"><span class="pre">format</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">command</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">result</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Result</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device_info</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#powermon.outputformats.htmltable.HtmlTable.format" title="Link to this definition">¶</a></dt>
+<dd><p>entry point for all formats</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-powermon.outputformats.json_fmt">
+<span id="powermon-outputformats-json-fmt-module"></span><h2>powermon.outputformats.json_fmt module<a class="headerlink" href="#module-powermon.outputformats.json_fmt" title="Link to this heading">¶</a></h2>
+<p>powermon / outputformats / json_fmt.py</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="powermon.outputformats.json_fmt.Json">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">powermon.outputformats.json_fmt.</span></span><span class="sig-name descname"><span class="pre">Json</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#powermon.outputformats.json_fmt.Json" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#powermon.outputformats.abstractformat.AbstractFormat" title="powermon.outputformats.abstractformat.AbstractFormat"><code class="xref py py-class docutils literal notranslate"><span class="pre">AbstractFormat</span></code></a></p>
+<p>simple format - {name}={value}{unit} format</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="powermon.outputformats.json_fmt.Json.format">
+<span class="sig-name descname"><span class="pre">format</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">command</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">result</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Result</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device_info</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span></span></span><a class="headerlink" href="#powermon.outputformats.json_fmt.Json.format" title="Link to this definition">¶</a></dt>
+<dd><p>entry point for all formats</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="powermon.outputformats.json_fmt.Json.from_dto">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_dto</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dto</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#powermon.outputformats.abstractformat.AbstractFormatDTO" title="powermon.outputformats.abstractformat.AbstractFormatDTO"><span class="pre">AbstractFormatDTO</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#powermon.outputformats.json_fmt.Json.from_dto" title="Link to this definition">¶</a></dt>
+<dd><p>build class object from dto</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-powermon.outputformats.raw">
+<span id="powermon-outputformats-raw-module"></span><h2>powermon.outputformats.raw module<a class="headerlink" href="#module-powermon.outputformats.raw" title="Link to this heading">¶</a></h2>
+<p>powermon / outputformats / raw.py</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="powermon.outputformats.raw.Raw">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">powermon.outputformats.raw.</span></span><span class="sig-name descname"><span class="pre">Raw</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#powermon.outputformats.raw.Raw" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#powermon.outputformats.abstractformat.AbstractFormat" title="powermon.outputformats.abstractformat.AbstractFormat"><code class="xref py py-class docutils literal notranslate"><span class="pre">AbstractFormat</span></code></a></p>
+<p>return the raw response</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="powermon.outputformats.raw.Raw.format">
+<span class="sig-name descname"><span class="pre">format</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">command</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">result</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Result</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device_info</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#powermon.outputformats.raw.Raw.format" title="Link to this definition">¶</a></dt>
+<dd><p>entry point for all formats</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-powermon.outputformats.simple">
+<span id="powermon-outputformats-simple-module"></span><h2>powermon.outputformats.simple module<a class="headerlink" href="#module-powermon.outputformats.simple" title="Link to this heading">¶</a></h2>
+<p>powermon / outputformats / simple.py</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="powermon.outputformats.simple.SimpleFormat">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">powermon.outputformats.simple.</span></span><span class="sig-name descname"><span class="pre">SimpleFormat</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#powermon.outputformats.simple.SimpleFormat" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#powermon.outputformats.abstractformat.AbstractFormat" title="powermon.outputformats.abstractformat.AbstractFormat"><code class="xref py py-class docutils literal notranslate"><span class="pre">AbstractFormat</span></code></a></p>
+<p>simple format - {name}={value}{unit} format</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="powermon.outputformats.simple.SimpleFormat.format">
+<span class="sig-name descname"><span class="pre">format</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">command</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">result</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Result</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device_info</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span></span></span><a class="headerlink" href="#powermon.outputformats.simple.SimpleFormat.format" title="Link to this definition">¶</a></dt>
+<dd><p>entry point for all formats</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="powermon.outputformats.simple.SimpleFormat.from_dto">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_dto</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dto</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#powermon.outputformats.abstractformat.AbstractFormatDTO" title="powermon.outputformats.abstractformat.AbstractFormatDTO"><span class="pre">AbstractFormatDTO</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#powermon.outputformats.simple.SimpleFormat.from_dto" title="Link to this definition">¶</a></dt>
+<dd><p>build class object from dto</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-powermon.outputformats.table">
+<span id="powermon-outputformats-table-module"></span><h2>powermon.outputformats.table module<a class="headerlink" href="#module-powermon.outputformats.table" title="Link to this heading">¶</a></h2>
+<p>formats / table.py</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="powermon.outputformats.table.Table">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">powermon.outputformats.table.</span></span><span class="sig-name descname"><span class="pre">Table</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#powermon.outputformats.table.Table" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#powermon.outputformats.abstractformat.AbstractFormat" title="powermon.outputformats.abstractformat.AbstractFormat"><code class="xref py py-class docutils literal notranslate"><span class="pre">AbstractFormat</span></code></a></p>
+<p>table formatter - formats results in a table suitable for std out</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="powermon.outputformats.table.Table.format">
+<span class="sig-name descname"><span class="pre">format</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">command</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">result</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Result</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device_info</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#powermon.outputformats.table.Table.format" title="Link to this definition">¶</a></dt>
+<dd><p>entry point for all formats</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-powermon.outputformats.topics">
+<span id="powermon-outputformats-topics-module"></span><h2>powermon.outputformats.topics module<a class="headerlink" href="#module-powermon.outputformats.topics" title="Link to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="powermon.outputformats.topics.Topics">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">powermon.outputformats.topics.</span></span><span class="sig-name descname"><span class="pre">Topics</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">topic</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#powermon.outputformats.topics.Topics" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#powermon.outputformats.abstractformat.AbstractFormat" title="powermon.outputformats.abstractformat.AbstractFormat"><code class="xref py py-class docutils literal notranslate"><span class="pre">AbstractFormat</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="powermon.outputformats.topics.Topics.format">
+<span class="sig-name descname"><span class="pre">format</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">result</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Result</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#powermon.outputformats.topics.Topics.format" title="Link to this definition">¶</a></dt>
+<dd><p>entry point for all formats</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="powermon.outputformats.topics.Topics.sendsMultipleMessages">
+<span class="sig-name descname"><span class="pre">sendsMultipleMessages</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#powermon.outputformats.topics.Topics.sendsMultipleMessages" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-powermon.outputformats">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-powermon.outputformats" title="Link to this heading">¶</a></h2>
+<p>outputformats / __init__.py</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="powermon.outputformats.FormatterType">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">powermon.outputformats.</span></span><span class="sig-name descname"><span class="pre">FormatterType</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">names</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">module</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qualname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">boundary</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#powermon.outputformats.FormatterType" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">StrEnum</span></code></p>
+<p>enumeration of valid formatter types</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="powermon.outputformats.FormatterType.BMSRESPONSE">
+<span class="sig-name descname"><span class="pre">BMSRESPONSE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'bmsresponse'</span></em><a class="headerlink" href="#powermon.outputformats.FormatterType.BMSRESPONSE" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="powermon.outputformats.FormatterType.HASS">
+<span class="sig-name descname"><span class="pre">HASS</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'hass'</span></em><a class="headerlink" href="#powermon.outputformats.FormatterType.HASS" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="powermon.outputformats.FormatterType.HTMLTABLE">
+<span class="sig-name descname"><span class="pre">HTMLTABLE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'htmltable'</span></em><a class="headerlink" href="#powermon.outputformats.FormatterType.HTMLTABLE" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="powermon.outputformats.FormatterType.JSON">
+<span class="sig-name descname"><span class="pre">JSON</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'json'</span></em><a class="headerlink" href="#powermon.outputformats.FormatterType.JSON" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="powermon.outputformats.FormatterType.RAW">
+<span class="sig-name descname"><span class="pre">RAW</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'raw'</span></em><a class="headerlink" href="#powermon.outputformats.FormatterType.RAW" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="powermon.outputformats.FormatterType.SIMPLE">
+<span class="sig-name descname"><span class="pre">SIMPLE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'simple'</span></em><a class="headerlink" href="#powermon.outputformats.FormatterType.SIMPLE" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="powermon.outputformats.FormatterType.TABLE">
+<span class="sig-name descname"><span class="pre">TABLE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'table'</span></em><a class="headerlink" href="#powermon.outputformats.FormatterType.TABLE" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="powermon.outputformats.FormatterType.TOPICS">
+<span class="sig-name descname"><span class="pre">TOPICS</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'topics'</span></em><a class="headerlink" href="#powermon.outputformats.FormatterType.TOPICS" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="powermon.outputformats.from_config">
+<span class="sig-prename descclassname"><span class="pre">powermon.outputformats.</span></span><span class="sig-name descname"><span class="pre">from_config</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">format_config</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#powermon.outputformats.abstractformat.AbstractFormat" title="powermon.outputformats.abstractformat.AbstractFormat"><span class="pre">AbstractFormat</span></a></span></span><a class="headerlink" href="#powermon.outputformats.from_config" title="Link to this definition">¶</a></dt>
+<dd><p>use a config dict to build and return a format class</p>
+</dd></dl>
+
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">powermon</a></h1>
+
+
+
+
+
+
+
+
+
+<search id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;2024, jblance.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 8.0.2</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
+      
+      |
+      <a href="_sources/powermon.outputformats.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

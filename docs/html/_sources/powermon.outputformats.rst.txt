@@ -1,0 +1,85 @@
+powermon.outputformats package
+==============================
+
+Submodules
+----------
+
+powermon.outputformats.abstractformat module
+--------------------------------------------
+
+.. automodule:: powermon.outputformats.abstractformat
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+powermon.outputformats.bmsresponse module
+-----------------------------------------
+
+.. automodule:: powermon.outputformats.bmsresponse
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+powermon.outputformats.hass module
+----------------------------------
+
+.. automodule:: powermon.outputformats.hass
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+powermon.outputformats.htmltable module
+---------------------------------------
+
+.. automodule:: powermon.outputformats.htmltable
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+powermon.outputformats.json\_fmt module
+---------------------------------------
+
+.. automodule:: powermon.outputformats.json_fmt
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+powermon.outputformats.raw module
+---------------------------------
+
+.. automodule:: powermon.outputformats.raw
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+powermon.outputformats.simple module
+------------------------------------
+
+.. automodule:: powermon.outputformats.simple
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+powermon.outputformats.table module
+-----------------------------------
+
+.. automodule:: powermon.outputformats.table
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+powermon.outputformats.topics module
+------------------------------------
+
+.. automodule:: powermon.outputformats.topics
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: powermon.outputformats
+   :members:
+   :undoc-members:
+   :show-inheritance:
