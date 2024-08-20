@@ -1,17 +1,5 @@
-    """_summary_
-
-    Raises:
-        ConfigError: _description_
-        PowermonProtocolError: _description_
-        PowermonProtocolError: _description_
-        BleakDeviceNotFoundError: _description_
-        PowermonWIP: _description_
-        RuntimeError: _description_
-        BLEResponseError: _description_
-
-    Returns:
-        _type_: _description_
-    """
+""" 
+"""
 # import serial
 import asyncio
 import logging

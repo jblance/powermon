@@ -114,10 +114,12 @@
 </li>
       <li><a href="powermon.libs.config_model.html#powermon.libs.config_model.BaseFormatConfig">BaseFormatConfig (class in powermon.libs.config_model)</a>
 </li>
-      <li><a href="powermon.libs.config_model.html#powermon.libs.config_model.BlePortConfig">BlePortConfig (class in powermon.libs.config_model)</a>
+      <li><a href="powermon.ports.bleport.html#powermon.ports.bleport.BlePort">BlePort (class in powermon.ports.bleport)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="powermon.libs.config_model.html#powermon.libs.config_model.BlePortConfig">BlePortConfig (class in powermon.libs.config_model)</a>
+</li>
       <li><a href="powermon.libs.errors.html#powermon.libs.errors.BLEResponseError">BLEResponseError</a>
 </li>
       <li><a href="powermon.outputformats.bmsresponse.html#powermon.outputformats.bmsresponse.BMSResponse">BMSResponse (class in powermon.outputformats.bmsresponse)</a>
@@ -162,10 +164,10 @@
         <li><a href="powermon.protocols.ved.html#powermon.protocols.ved.VictronEnergyDirect.check_valid">(powermon.protocols.ved.VictronEnergyDirect method)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="powermon.protocols.abstractprotocol.html#powermon.protocols.abstractprotocol.AbstractProtocol.clear_supported_ports">clear_supported_ports() (powermon.protocols.abstractprotocol.AbstractProtocol method)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="powermon.libs.config_model.html#powermon.libs.config_model.CommandConfig">CommandConfig (class in powermon.libs.config_model)</a>
 </li>
       <li><a href="powermon.libs.errors.html#powermon.libs.errors.CommandDefinitionIncorrect">CommandDefinitionIncorrect</a>
@@ -184,6 +186,8 @@
 
       <ul>
         <li><a href="powermon.ports.abstractport.html#powermon.ports.abstractport.AbstractPort.connect">(powermon.ports.abstractport.AbstractPort method)</a>
+</li>
+        <li><a href="powermon.ports.bleport.html#powermon.ports.bleport.BlePort.connect">(powermon.ports.bleport.BlePort method)</a>
 </li>
         <li><a href="powermon.ports.serialport.html#powermon.ports.serialport.SerialPort.connect">(powermon.ports.serialport.SerialPort method)</a>
 </li>
@@ -216,10 +220,10 @@
 </li>
       <li><a href="powermon.libs.config_model.html#powermon.libs.config_model.DeviceConfig">DeviceConfig (class in powermon.libs.config_model)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="powermon.device.html#powermon.device.DeviceDTO">DeviceDTO (class in powermon.device)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="powermon.device.html#powermon.device.DeviceInfo">DeviceInfo (class in powermon.device)</a>
 </li>
       <li><a href="powermon.device.html#powermon.device.DeviceInfoDTO">DeviceInfoDTO (class in powermon.device)</a>
@@ -227,6 +231,8 @@
       <li><a href="powermon.ports.abstractport.html#powermon.ports.abstractport.AbstractPort.disconnect">disconnect() (powermon.ports.abstractport.AbstractPort method)</a>
 
       <ul>
+        <li><a href="powermon.ports.bleport.html#powermon.ports.bleport.BlePort.disconnect">(powermon.ports.bleport.BlePort method)</a>
+</li>
         <li><a href="powermon.ports.serialport.html#powermon.ports.serialport.SerialPort.disconnect">(powermon.ports.serialport.SerialPort method)</a>
 </li>
         <li><a href="powermon.ports.testport.html#powermon.ports.testport.TestPort.disconnect">(powermon.ports.testport.TestPort method)</a>
@@ -280,8 +286,6 @@
 </li>
       <li><a href="powermon.outputformats.html#powermon.outputformats.FormatterType">FormatterType (class in powermon.outputformats)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="powermon.outputformats.html#powermon.outputformats.from_config">from_config() (in module powermon.outputformats)</a>
 
       <ul>
@@ -301,6 +305,8 @@
 </li>
         <li><a href="powermon.ports.abstractport.html#powermon.ports.abstractport.AbstractPort.from_config">(powermon.ports.abstractport.AbstractPort class method)</a>
 </li>
+        <li><a href="powermon.ports.bleport.html#powermon.ports.bleport.BlePort.from_config">(powermon.ports.bleport.BlePort class method)</a>
+</li>
         <li><a href="powermon.ports.serialport.html#powermon.ports.serialport.SerialPort.from_config">(powermon.ports.serialport.SerialPort class method)</a>
 </li>
         <li><a href="powermon.ports.testport.html#powermon.ports.testport.TestPort.from_config">(powermon.ports.testport.TestPort class method)</a>
@@ -308,6 +314,8 @@
         <li><a href="powermon.ports.usbport.html#powermon.ports.usbport.USBPort.from_config">(powermon.ports.usbport.USBPort class method)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="powermon.outputformats.bmsresponse.html#powermon.outputformats.bmsresponse.BMSResponse.from_dto">from_dto() (powermon.outputformats.bmsresponse.BMSResponse class method)</a>
 
       <ul>
@@ -382,11 +390,11 @@
 </li>
       <li><a href="powermon.libs.errors.html#powermon.libs.errors.InvalidResponse">InvalidResponse</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="powermon.ports.abstractport.html#powermon.ports.abstractport.AbstractPort.is_connected">is_connected() (powermon.ports.abstractport.AbstractPort method)</a>
 
       <ul>
+        <li><a href="powermon.ports.bleport.html#powermon.ports.bleport.BlePort.is_connected">(powermon.ports.bleport.BlePort method)</a>
+</li>
         <li><a href="powermon.ports.serialport.html#powermon.ports.serialport.SerialPort.is_connected">(powermon.ports.serialport.SerialPort method)</a>
 </li>
         <li><a href="powermon.ports.testport.html#powermon.ports.testport.TestPort.is_connected">(powermon.ports.testport.TestPort method)</a>
@@ -394,6 +402,8 @@
         <li><a href="powermon.ports.usbport.html#powermon.ports.usbport.USBPort.is_connected">(powermon.ports.usbport.USBPort method)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="powermon.outputformats.abstractformat.html#powermon.outputformats.abstractformat.AbstractFormat.is_key_wanted">is_key_wanted() (powermon.outputformats.abstractformat.AbstractFormat method)</a>
 </li>
       <li><a href="powermon.ports.abstractport.html#powermon.ports.abstractport.AbstractPort.is_protocol_supported">is_protocol_supported() (powermon.ports.abstractport.AbstractPort method)</a>
@@ -714,6 +724,8 @@
 </li>
         <li><a href="powermon.ports.abstractport.html#module-powermon.ports.abstractport">powermon.ports.abstractport</a>
 </li>
+        <li><a href="powermon.ports.bleport.html#module-powermon.ports.bleport">powermon.ports.bleport</a>
+</li>
         <li><a href="powermon.ports.porttype.html#module-powermon.ports.porttype">powermon.ports.porttype</a>
 </li>
         <li><a href="powermon.ports.serialport.html#module-powermon.ports.serialport">powermon.ports.serialport</a>
@@ -997,6 +1009,13 @@
 </li>
       </ul></li>
       <li>
+    powermon.ports.bleport
+
+      <ul>
+        <li><a href="powermon.ports.bleport.html#module-powermon.ports.bleport">module</a>
+</li>
+      </ul></li>
+      <li>
     powermon.ports.porttype
 
       <ul>
@@ -1153,6 +1172,8 @@
       <li><a href="powermon.ports.abstractport.html#powermon.ports.abstractport.AbstractPort.send_and_receive">send_and_receive() (powermon.ports.abstractport.AbstractPort method)</a>
 
       <ul>
+        <li><a href="powermon.ports.bleport.html#powermon.ports.bleport.BlePort.send_and_receive">(powermon.ports.bleport.BlePort method)</a>
+</li>
         <li><a href="powermon.ports.serialport.html#powermon.ports.serialport.SerialPort.send_and_receive">(powermon.ports.serialport.SerialPort method)</a>
 </li>
         <li><a href="powermon.ports.testport.html#powermon.ports.testport.TestPort.send_and_receive">(powermon.ports.testport.TestPort method)</a>
@@ -1166,10 +1187,10 @@
 </li>
       <li><a href="powermon.ports.serialport.html#powermon.ports.serialport.SerialPortDTO">SerialPortDTO (class in powermon.ports.serialport)</a>
 </li>
-      <li><a href="powermon.libs.apicoordinator.html#powermon.libs.apicoordinator.ApiCoordinator.set_device">set_device() (powermon.libs.apicoordinator.ApiCoordinator method)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="powermon.libs.apicoordinator.html#powermon.libs.apicoordinator.ApiCoordinator.set_device">set_device() (powermon.libs.apicoordinator.ApiCoordinator method)</a>
+</li>
       <li><a href="powermon.libs.apicoordinator.html#powermon.libs.apicoordinator.ApiCoordinator.set_mqtt_broker">set_mqtt_broker() (powermon.libs.apicoordinator.ApiCoordinator method)</a>
 </li>
       <li><a href="powermon.outputformats.simple.html#powermon.outputformats.simple.SimpleFormat">SimpleFormat (class in powermon.outputformats.simple)</a>
@@ -1218,6 +1239,8 @@
         <li><a href="powermon.outputs.abstractoutput.html#powermon.outputs.abstractoutput.AbstractOutput.to_dto">(powermon.outputs.abstractoutput.AbstractOutput method)</a>
 </li>
         <li><a href="powermon.ports.abstractport.html#powermon.ports.abstractport.AbstractPort.to_dto">(powermon.ports.abstractport.AbstractPort method)</a>
+</li>
+        <li><a href="powermon.ports.bleport.html#powermon.ports.bleport.BlePort.to_dto">(powermon.ports.bleport.BlePort method)</a>
 </li>
         <li><a href="powermon.ports.serialport.html#powermon.ports.serialport.SerialPort.to_dto">(powermon.ports.serialport.SerialPort method)</a>
 </li>
