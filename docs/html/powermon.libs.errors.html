@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>powermon.libs.errors module &#8212; powermon  documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="_static/nature.css?v=0f882399" />
+    <script src="_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="powermon.libs.mqttbroker module" href="powermon.libs.mqttbroker.html" />
+    <link rel="prev" title="powermon.libs.daemon module" href="powermon.libs.daemon.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="powermon.libs.mqttbroker.html" title="powermon.libs.mqttbroker module"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="powermon.libs.daemon.html" title="powermon.libs.daemon module"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">powermon  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="powermon.html" >powermon package</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="powermon.libs.html" accesskey="U">powermon.libs package</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">powermon.libs.errors module</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="module-powermon.libs.errors">
+<span id="powermon-libs-errors-module"></span><h1>powermon.libs.errors module<a class="headerlink" href="#module-powermon.libs.errors" title="Link to this heading">¶</a></h1>
+<p>errors.py - collection of powermon specific exceptions</p>
+<dl class="py exception">
+<dt class="sig sig-object py" id="powermon.libs.errors.BLEResponseError">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">powermon.libs.errors.</span></span><span class="sig-name descname"><span class="pre">BLEResponseError</span></span><a class="headerlink" href="#powermon.libs.errors.BLEResponseError" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code></p>
+<p>Exception for errors with BLE response</p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="powermon.libs.errors.CommandDefinitionIncorrect">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">powermon.libs.errors.</span></span><span class="sig-name descname"><span class="pre">CommandDefinitionIncorrect</span></span><a class="headerlink" href="#powermon.libs.errors.CommandDefinitionIncorrect" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code></p>
+<p>Exception for errors in command definition</p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="powermon.libs.errors.CommandDefinitionMissing">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">powermon.libs.errors.</span></span><span class="sig-name descname"><span class="pre">CommandDefinitionMissing</span></span><a class="headerlink" href="#powermon.libs.errors.CommandDefinitionMissing" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code></p>
+<p>Exception for missing / not found command definition</p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="powermon.libs.errors.CommandError">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">powermon.libs.errors.</span></span><span class="sig-name descname"><span class="pre">CommandError</span></span><a class="headerlink" href="#powermon.libs.errors.CommandError" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code></p>
+<p>Exception for errors with commands</p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="powermon.libs.errors.CommandExecutionFailed">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">powermon.libs.errors.</span></span><span class="sig-name descname"><span class="pre">CommandExecutionFailed</span></span><a class="headerlink" href="#powermon.libs.errors.CommandExecutionFailed" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code></p>
+<p>Exception for errors with execution of commands</p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="powermon.libs.errors.ConfigError">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">powermon.libs.errors.</span></span><span class="sig-name descname"><span class="pre">ConfigError</span></span><a class="headerlink" href="#powermon.libs.errors.ConfigError" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code></p>
+<p>Exception for invaild configurations</p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="powermon.libs.errors.InvalidCRC">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">powermon.libs.errors.</span></span><span class="sig-name descname"><span class="pre">InvalidCRC</span></span><a class="headerlink" href="#powermon.libs.errors.InvalidCRC" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code></p>
+<p>Exception for invalid crc</p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="powermon.libs.errors.InvalidResponse">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">powermon.libs.errors.</span></span><span class="sig-name descname"><span class="pre">InvalidResponse</span></span><a class="headerlink" href="#powermon.libs.errors.InvalidResponse" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code></p>
+<p>Exception for invalid responses</p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="powermon.libs.errors.PowermonProtocolError">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">powermon.libs.errors.</span></span><span class="sig-name descname"><span class="pre">PowermonProtocolError</span></span><a class="headerlink" href="#powermon.libs.errors.PowermonProtocolError" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code></p>
+<p>Exception for errors with protocol definitions</p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="powermon.libs.errors.PowermonWIP">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">powermon.libs.errors.</span></span><span class="sig-name descname"><span class="pre">PowermonWIP</span></span><a class="headerlink" href="#powermon.libs.errors.PowermonWIP" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code></p>
+<p>Exception for work not yet done</p>
+</dd></dl>
+
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">powermon.libs.errors module</a><ul>
+<li><a class="reference internal" href="#powermon.libs.errors.BLEResponseError"><code class="docutils literal notranslate"><span class="pre">BLEResponseError</span></code></a></li>
+<li><a class="reference internal" href="#powermon.libs.errors.CommandDefinitionIncorrect"><code class="docutils literal notranslate"><span class="pre">CommandDefinitionIncorrect</span></code></a></li>
+<li><a class="reference internal" href="#powermon.libs.errors.CommandDefinitionMissing"><code class="docutils literal notranslate"><span class="pre">CommandDefinitionMissing</span></code></a></li>
+<li><a class="reference internal" href="#powermon.libs.errors.CommandError"><code class="docutils literal notranslate"><span class="pre">CommandError</span></code></a></li>
+<li><a class="reference internal" href="#powermon.libs.errors.CommandExecutionFailed"><code class="docutils literal notranslate"><span class="pre">CommandExecutionFailed</span></code></a></li>
+<li><a class="reference internal" href="#powermon.libs.errors.ConfigError"><code class="docutils literal notranslate"><span class="pre">ConfigError</span></code></a></li>
+<li><a class="reference internal" href="#powermon.libs.errors.InvalidCRC"><code class="docutils literal notranslate"><span class="pre">InvalidCRC</span></code></a></li>
+<li><a class="reference internal" href="#powermon.libs.errors.InvalidResponse"><code class="docutils literal notranslate"><span class="pre">InvalidResponse</span></code></a></li>
+<li><a class="reference internal" href="#powermon.libs.errors.PowermonProtocolError"><code class="docutils literal notranslate"><span class="pre">PowermonProtocolError</span></code></a></li>
+<li><a class="reference internal" href="#powermon.libs.errors.PowermonWIP"><code class="docutils literal notranslate"><span class="pre">PowermonWIP</span></code></a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="powermon.libs.daemon.html"
+                          title="previous chapter">powermon.libs.daemon module</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="powermon.libs.mqttbroker.html"
+                          title="next chapter">powermon.libs.mqttbroker module</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/powermon.libs.errors.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="powermon.libs.mqttbroker.html" title="powermon.libs.mqttbroker module"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="powermon.libs.daemon.html" title="powermon.libs.daemon module"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">powermon  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="powermon.html" >powermon package</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="powermon.libs.html" >powermon.libs package</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">powermon.libs.errors module</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+    &#169; Copyright 2024, jblance.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.0.2.
+    </div>
+  </body>
+</html>

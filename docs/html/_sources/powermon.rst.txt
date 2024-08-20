@@ -1,6 +1,11 @@
 powermon package
 ================
 
+.. automodule:: powermon
+   :members:
+   :no-undoc-members:
+   :show-inheritance:
+
 Subpackages
 -----------
 
@@ -16,26 +21,8 @@ Subpackages
 Submodules
 ----------
 
-powermon.cli module
--------------------
+.. toctree::
+   :maxdepth: 4
 
-.. automodule:: powermon.cli
-   :members:
-   :no-undoc-members:
-   :show-inheritance:
-
-powermon.device module
-----------------------
-
-.. automodule:: powermon.device
-   :members:
-   :no-undoc-members:
-   :show-inheritance:
-
-Module contents
----------------
-
-.. automodule:: powermon
-   :members:
-   :no-undoc-members:
-   :show-inheritance:
+   powermon.cli
+   powermon.device

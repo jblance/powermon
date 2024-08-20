@@ -13,8 +13,8 @@
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="powermon.ports package" href="powermon.ports.html" />
-    <link rel="prev" title="powermon.outputformats package" href="powermon.outputformats.html" /> 
+    <link rel="next" title="powermon.outputs.abstractoutput module" href="powermon.outputs.abstractoutput.html" />
+    <link rel="prev" title="powermon.outputformats.topics module" href="powermon.outputformats.topics.html" /> 
   </head><body>
     <div class="related" role="navigation" aria-label="Related">
       <h3>Navigation</h3>
@@ -26,10 +26,10 @@
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="powermon.ports.html" title="powermon.ports package"
+          <a href="powermon.outputs.abstractoutput.html" title="powermon.outputs.abstractoutput module"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="powermon.outputformats.html" title="powermon.outputformats package"
+          <a href="powermon.outputformats.topics.html" title="powermon.outputformats.topics module"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">powermon  documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="powermon.html" accesskey="U">powermon package</a> &#187;</li>
@@ -42,139 +42,8 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <section id="powermon-outputs-package">
-<h1>powermon.outputs package<a class="headerlink" href="#powermon-outputs-package" title="Link to this heading">¶</a></h1>
-<section id="submodules">
-<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading">¶</a></h2>
-</section>
-<section id="module-powermon.outputs.abstractoutput">
-<span id="powermon-outputs-abstractoutput-module"></span><h2>powermon.outputs.abstractoutput module<a class="headerlink" href="#module-powermon.outputs.abstractoutput" title="Link to this heading">¶</a></h2>
-<p>outputs / abstractoutput.py</p>
-<dl class="py class">
-<dt class="sig sig-object py" id="powermon.outputs.abstractoutput.AbstractOutput">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">powermon.outputs.abstractoutput.</span></span><span class="sig-name descname"><span class="pre">AbstractOutput</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#powermon.outputs.abstractoutput.AbstractOutput" title="Link to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ABC</span></code></p>
-<p>base class for all output modules</p>
-<dl class="py property">
-<dt class="sig sig-object py" id="powermon.outputs.abstractoutput.AbstractOutput.formatter">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">formatter</span></span><a class="headerlink" href="#powermon.outputs.abstractoutput.AbstractOutput.formatter" title="Link to this definition">¶</a></dt>
-<dd><p>the formatter for this output</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="powermon.outputs.abstractoutput.AbstractOutput.process">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">process</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">command</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">result</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Result</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mqtt_broker</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device_info</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#powermon.outputs.abstractoutput.AbstractOutput.process" title="Link to this definition">¶</a></dt>
-<dd><p>entry point of any output class</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="powermon.outputs.abstractoutput.AbstractOutput.to_dto">
-<span class="sig-name descname"><span class="pre">to_dto</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#powermon.outputs.abstractoutput.AbstractOutputDTO" title="powermon.outputs.abstractoutput.AbstractOutputDTO"><span class="pre">AbstractOutputDTO</span></a></span></span><a class="headerlink" href="#powermon.outputs.abstractoutput.AbstractOutput.to_dto" title="Link to this definition">¶</a></dt>
-<dd><p>convert output object to a data transfer object</p>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="py class">
-<dt class="sig sig-object py" id="powermon.outputs.abstractoutput.AbstractOutputDTO">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">powermon.outputs.abstractoutput.</span></span><span class="sig-name descname"><span class="pre">AbstractOutputDTO</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">topic</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">None</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">formatter</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="powermon.outputformats.html#powermon.outputformats.abstractformat.AbstractFormatDTO" title="powermon.outputformats.abstractformat.AbstractFormatDTO"><span class="pre">AbstractFormatDTO</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#powermon.outputs.abstractoutput.AbstractOutputDTO" title="Link to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseModel</span></code></p>
-<p>data transfer model for AbstractOutput class</p>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="powermon.outputs.abstractoutput.AbstractOutputDTO.model_computed_fields">
-<span class="sig-name descname"><span class="pre">model_computed_fields</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">ComputedFieldInfo</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></em><a class="headerlink" href="#powermon.outputs.abstractoutput.AbstractOutputDTO.model_computed_fields" title="Link to this definition">¶</a></dt>
-<dd><p>A dictionary of computed field names and their corresponding <cite>ComputedFieldInfo</cite> objects.</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="powermon.outputs.abstractoutput.AbstractOutputDTO.model_config">
-<span class="sig-name descname"><span class="pre">model_config</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">ConfigDict</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></em><a class="headerlink" href="#powermon.outputs.abstractoutput.AbstractOutputDTO.model_config" title="Link to this definition">¶</a></dt>
-<dd><p>Configuration for the model, should be a dictionary conforming to [<cite>ConfigDict</cite>][pydantic.config.ConfigDict].</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="powermon.outputs.abstractoutput.AbstractOutputDTO.model_fields">
-<span class="sig-name descname"><span class="pre">model_fields</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">FieldInfo</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'formatter':</span> <span class="pre">FieldInfo(annotation=AbstractFormatDTO,</span> <span class="pre">required=True),</span> <span class="pre">'output_type':</span> <span class="pre">FieldInfo(annotation=str,</span> <span class="pre">required=True),</span> <span class="pre">'topic':</span> <span class="pre">FieldInfo(annotation=Union[NoneType,</span> <span class="pre">str],</span> <span class="pre">required=True)}</span></em><a class="headerlink" href="#powermon.outputs.abstractoutput.AbstractOutputDTO.model_fields" title="Link to this definition">¶</a></dt>
-<dd><p>Metadata about the fields defined on the model,
-mapping of field names to [<cite>FieldInfo</cite>][pydantic.fields.FieldInfo].</p>
-<p>This replaces <cite>Model.__fields__</cite> from Pydantic V1.</p>
-</dd></dl>
-
-</dd></dl>
-
-</section>
-<section id="module-powermon.outputs.api_mqtt">
-<span id="powermon-outputs-api-mqtt-module"></span><h2>powermon.outputs.api_mqtt module<a class="headerlink" href="#module-powermon.outputs.api_mqtt" title="Link to this heading">¶</a></h2>
-<p>outputs / api_mqtt.py</p>
-<dl class="py class">
-<dt class="sig sig-object py" id="powermon.outputs.api_mqtt.ApiMqtt">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">powermon.outputs.api_mqtt.</span></span><span class="sig-name descname"><span class="pre">ApiMqtt</span></span><a class="headerlink" href="#powermon.outputs.api_mqtt.ApiMqtt" title="Link to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#powermon.outputs.abstractoutput.AbstractOutput" title="powermon.outputs.abstractoutput.AbstractOutput"><code class="xref py py-class docutils literal notranslate"><span class="pre">AbstractOutput</span></code></a></p>
-<p>docstring about ApiMqtt</p>
-<dl class="py method">
-<dt class="sig sig-object py" id="powermon.outputs.api_mqtt.ApiMqtt.process">
-<span class="sig-name descname"><span class="pre">process</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">command</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">result</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Result</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mqtt_broker</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device_info</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#powermon.outputs.api_mqtt.ApiMqtt.process" title="Link to this definition">¶</a></dt>
-<dd><p>entry point of any output class</p>
-</dd></dl>
-
-</dd></dl>
-
-</section>
-<section id="module-powermon.outputs.mqtt">
-<span id="powermon-outputs-mqtt-module"></span><h2>powermon.outputs.mqtt module<a class="headerlink" href="#module-powermon.outputs.mqtt" title="Link to this heading">¶</a></h2>
-<p>mqtt output module
-outputs messages to mqtt broker</p>
-<dl class="py class">
-<dt class="sig sig-object py" id="powermon.outputs.mqtt.MQTT">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">powermon.outputs.mqtt.</span></span><span class="sig-name descname"><span class="pre">MQTT</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">topic</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#powermon.outputs.mqtt.MQTT" title="Link to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#powermon.outputs.abstractoutput.AbstractOutput" title="powermon.outputs.abstractoutput.AbstractOutput"><code class="xref py py-class docutils literal notranslate"><span class="pre">AbstractOutput</span></code></a></p>
-<p>mqtt output class</p>
-<dl class="py method">
-<dt class="sig sig-object py" id="powermon.outputs.mqtt.MQTT.from_config">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_config</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">output_config</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#powermon.outputs.mqtt.MQTT" title="powermon.outputs.mqtt.MQTT"><span class="pre">MQTT</span></a></span></span><a class="headerlink" href="#powermon.outputs.mqtt.MQTT.from_config" title="Link to this definition">¶</a></dt>
-<dd><p>build object from config dict</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="powermon.outputs.mqtt.MQTT.process">
-<span class="sig-name descname"><span class="pre">process</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">command</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">result</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Result</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mqtt_broker</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device_info</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#powermon.outputs.mqtt.MQTT.process" title="Link to this definition">¶</a></dt>
-<dd><p>entry point of any output class</p>
-</dd></dl>
-
-<dl class="py property">
-<dt class="sig sig-object py" id="powermon.outputs.mqtt.MQTT.topic">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">topic</span></span><a class="headerlink" href="#powermon.outputs.mqtt.MQTT.topic" title="Link to this definition">¶</a></dt>
-<dd><p>the topic to send the output to</p>
-</dd></dl>
-
-</dd></dl>
-
-</section>
-<section id="module-powermon.outputs.screen">
-<span id="powermon-outputs-screen-module"></span><h2>powermon.outputs.screen module<a class="headerlink" href="#module-powermon.outputs.screen" title="Link to this heading">¶</a></h2>
-<p>outputs / screen.py</p>
-<dl class="py class">
-<dt class="sig sig-object py" id="powermon.outputs.screen.Screen">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">powermon.outputs.screen.</span></span><span class="sig-name descname"><span class="pre">Screen</span></span><a class="headerlink" href="#powermon.outputs.screen.Screen" title="Link to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#powermon.outputs.abstractoutput.AbstractOutput" title="powermon.outputs.abstractoutput.AbstractOutput"><code class="xref py py-class docutils literal notranslate"><span class="pre">AbstractOutput</span></code></a></p>
-<p>outputs the results to the screen as per the formatter supplied</p>
-<dl class="py method">
-<dt class="sig sig-object py" id="powermon.outputs.screen.Screen.from_config">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_config</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">output_config</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#powermon.outputs.screen.Screen" title="powermon.outputs.screen.Screen"><span class="pre">Screen</span></a></span></span><a class="headerlink" href="#powermon.outputs.screen.Screen.from_config" title="Link to this definition">¶</a></dt>
-<dd><p>If we need to include any config for the Screen output but the processing here</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="powermon.outputs.screen.Screen.process">
-<span class="sig-name descname"><span class="pre">process</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">command</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">result</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Result</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mqtt_broker</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device_info</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#powermon.outputs.screen.Screen.process" title="Link to this definition">¶</a></dt>
-<dd><p>entry point of any output class</p>
-</dd></dl>
-
-</dd></dl>
-
-</section>
-<section id="module-powermon.outputs">
-<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-powermon.outputs" title="Link to this heading">¶</a></h2>
+  <section id="module-powermon.outputs">
+<span id="powermon-outputs-package"></span><h1>powermon.outputs package<a class="headerlink" href="#module-powermon.outputs" title="Link to this heading">¶</a></h1>
 <p>outputs / __init__.py</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="powermon.outputs.OutputType">
@@ -201,6 +70,51 @@ outputs messages to mqtt broker</p>
 <dd><p>generate a single output object from a config</p>
 </dd></dl>
 
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="powermon.outputs.abstractoutput.html">powermon.outputs.abstractoutput module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="powermon.outputs.abstractoutput.html#powermon.outputs.abstractoutput.AbstractOutput"><code class="docutils literal notranslate"><span class="pre">AbstractOutput</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="powermon.outputs.abstractoutput.html#powermon.outputs.abstractoutput.AbstractOutput.formatter"><code class="docutils literal notranslate"><span class="pre">AbstractOutput.formatter</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="powermon.outputs.abstractoutput.html#powermon.outputs.abstractoutput.AbstractOutput.process"><code class="docutils literal notranslate"><span class="pre">AbstractOutput.process()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="powermon.outputs.abstractoutput.html#powermon.outputs.abstractoutput.AbstractOutput.to_dto"><code class="docutils literal notranslate"><span class="pre">AbstractOutput.to_dto()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="powermon.outputs.abstractoutput.html#powermon.outputs.abstractoutput.AbstractOutputDTO"><code class="docutils literal notranslate"><span class="pre">AbstractOutputDTO</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="powermon.outputs.abstractoutput.html#powermon.outputs.abstractoutput.AbstractOutputDTO.model_computed_fields"><code class="docutils literal notranslate"><span class="pre">AbstractOutputDTO.model_computed_fields</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="powermon.outputs.abstractoutput.html#powermon.outputs.abstractoutput.AbstractOutputDTO.model_config"><code class="docutils literal notranslate"><span class="pre">AbstractOutputDTO.model_config</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="powermon.outputs.abstractoutput.html#powermon.outputs.abstractoutput.AbstractOutputDTO.model_fields"><code class="docutils literal notranslate"><span class="pre">AbstractOutputDTO.model_fields</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="powermon.outputs.api_mqtt.html">powermon.outputs.api_mqtt module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="powermon.outputs.api_mqtt.html#powermon.outputs.api_mqtt.ApiMqtt"><code class="docutils literal notranslate"><span class="pre">ApiMqtt</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="powermon.outputs.api_mqtt.html#powermon.outputs.api_mqtt.ApiMqtt.process"><code class="docutils literal notranslate"><span class="pre">ApiMqtt.process()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="powermon.outputs.mqtt.html">powermon.outputs.mqtt module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="powermon.outputs.mqtt.html#powermon.outputs.mqtt.MQTT"><code class="docutils literal notranslate"><span class="pre">MQTT</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="powermon.outputs.mqtt.html#powermon.outputs.mqtt.MQTT.from_config"><code class="docutils literal notranslate"><span class="pre">MQTT.from_config()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="powermon.outputs.mqtt.html#powermon.outputs.mqtt.MQTT.process"><code class="docutils literal notranslate"><span class="pre">MQTT.process()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="powermon.outputs.mqtt.html#powermon.outputs.mqtt.MQTT.topic"><code class="docutils literal notranslate"><span class="pre">MQTT.topic</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="powermon.outputs.screen.html">powermon.outputs.screen module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="powermon.outputs.screen.html#powermon.outputs.screen.Screen"><code class="docutils literal notranslate"><span class="pre">Screen</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="powermon.outputs.screen.html#powermon.outputs.screen.Screen.from_config"><code class="docutils literal notranslate"><span class="pre">Screen.from_config()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="powermon.outputs.screen.html#powermon.outputs.screen.Screen.process"><code class="docutils literal notranslate"><span class="pre">Screen.process()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
 </section>
 </section>
 
@@ -215,53 +129,11 @@ outputs messages to mqtt broker</p>
     <h3><a href="index.html">Table of Contents</a></h3>
     <ul>
 <li><a class="reference internal" href="#">powermon.outputs package</a><ul>
-<li><a class="reference internal" href="#submodules">Submodules</a></li>
-<li><a class="reference internal" href="#module-powermon.outputs.abstractoutput">powermon.outputs.abstractoutput module</a><ul>
-<li><a class="reference internal" href="#powermon.outputs.abstractoutput.AbstractOutput"><code class="docutils literal notranslate"><span class="pre">AbstractOutput</span></code></a><ul>
-<li><a class="reference internal" href="#powermon.outputs.abstractoutput.AbstractOutput.formatter"><code class="docutils literal notranslate"><span class="pre">AbstractOutput.formatter</span></code></a></li>
-<li><a class="reference internal" href="#powermon.outputs.abstractoutput.AbstractOutput.process"><code class="docutils literal notranslate"><span class="pre">AbstractOutput.process()</span></code></a></li>
-<li><a class="reference internal" href="#powermon.outputs.abstractoutput.AbstractOutput.to_dto"><code class="docutils literal notranslate"><span class="pre">AbstractOutput.to_dto()</span></code></a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#powermon.outputs.abstractoutput.AbstractOutputDTO"><code class="docutils literal notranslate"><span class="pre">AbstractOutputDTO</span></code></a><ul>
-<li><a class="reference internal" href="#powermon.outputs.abstractoutput.AbstractOutputDTO.model_computed_fields"><code class="docutils literal notranslate"><span class="pre">AbstractOutputDTO.model_computed_fields</span></code></a></li>
-<li><a class="reference internal" href="#powermon.outputs.abstractoutput.AbstractOutputDTO.model_config"><code class="docutils literal notranslate"><span class="pre">AbstractOutputDTO.model_config</span></code></a></li>
-<li><a class="reference internal" href="#powermon.outputs.abstractoutput.AbstractOutputDTO.model_fields"><code class="docutils literal notranslate"><span class="pre">AbstractOutputDTO.model_fields</span></code></a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a class="reference internal" href="#module-powermon.outputs.api_mqtt">powermon.outputs.api_mqtt module</a><ul>
-<li><a class="reference internal" href="#powermon.outputs.api_mqtt.ApiMqtt"><code class="docutils literal notranslate"><span class="pre">ApiMqtt</span></code></a><ul>
-<li><a class="reference internal" href="#powermon.outputs.api_mqtt.ApiMqtt.process"><code class="docutils literal notranslate"><span class="pre">ApiMqtt.process()</span></code></a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a class="reference internal" href="#module-powermon.outputs.mqtt">powermon.outputs.mqtt module</a><ul>
-<li><a class="reference internal" href="#powermon.outputs.mqtt.MQTT"><code class="docutils literal notranslate"><span class="pre">MQTT</span></code></a><ul>
-<li><a class="reference internal" href="#powermon.outputs.mqtt.MQTT.from_config"><code class="docutils literal notranslate"><span class="pre">MQTT.from_config()</span></code></a></li>
-<li><a class="reference internal" href="#powermon.outputs.mqtt.MQTT.process"><code class="docutils literal notranslate"><span class="pre">MQTT.process()</span></code></a></li>
-<li><a class="reference internal" href="#powermon.outputs.mqtt.MQTT.topic"><code class="docutils literal notranslate"><span class="pre">MQTT.topic</span></code></a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a class="reference internal" href="#module-powermon.outputs.screen">powermon.outputs.screen module</a><ul>
-<li><a class="reference internal" href="#powermon.outputs.screen.Screen"><code class="docutils literal notranslate"><span class="pre">Screen</span></code></a><ul>
-<li><a class="reference internal" href="#powermon.outputs.screen.Screen.from_config"><code class="docutils literal notranslate"><span class="pre">Screen.from_config()</span></code></a></li>
-<li><a class="reference internal" href="#powermon.outputs.screen.Screen.process"><code class="docutils literal notranslate"><span class="pre">Screen.process()</span></code></a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a class="reference internal" href="#module-powermon.outputs">Module contents</a><ul>
 <li><a class="reference internal" href="#powermon.outputs.OutputType"><code class="docutils literal notranslate"><span class="pre">OutputType</span></code></a></li>
 <li><a class="reference internal" href="#powermon.outputs.get_output_class"><code class="docutils literal notranslate"><span class="pre">get_output_class()</span></code></a></li>
 <li><a class="reference internal" href="#powermon.outputs.multiple_from_config"><code class="docutils literal notranslate"><span class="pre">multiple_from_config()</span></code></a></li>
 <li><a class="reference internal" href="#powermon.outputs.parse_output_config"><code class="docutils literal notranslate"><span class="pre">parse_output_config()</span></code></a></li>
-</ul>
-</li>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
 </ul>
 </li>
 </ul>
@@ -269,13 +141,13 @@ outputs messages to mqtt broker</p>
   </div>
   <div>
     <h4>Previous topic</h4>
-    <p class="topless"><a href="powermon.outputformats.html"
-                          title="previous chapter">powermon.outputformats package</a></p>
+    <p class="topless"><a href="powermon.outputformats.topics.html"
+                          title="previous chapter">powermon.outputformats.topics module</a></p>
   </div>
   <div>
     <h4>Next topic</h4>
-    <p class="topless"><a href="powermon.ports.html"
-                          title="next chapter">powermon.ports package</a></p>
+    <p class="topless"><a href="powermon.outputs.abstractoutput.html"
+                          title="next chapter">powermon.outputs.abstractoutput module</a></p>
   </div>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
@@ -308,10 +180,10 @@ outputs messages to mqtt broker</p>
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="powermon.ports.html" title="powermon.ports package"
+          <a href="powermon.outputs.abstractoutput.html" title="powermon.outputs.abstractoutput module"
              >next</a> |</li>
         <li class="right" >
-          <a href="powermon.outputformats.html" title="powermon.outputformats package"
+          <a href="powermon.outputformats.topics.html" title="powermon.outputformats.topics module"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">powermon  documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="powermon.html" >powermon package</a> &#187;</li>

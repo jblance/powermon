@@ -1,4 +1,17 @@
-""" powermon / ports / bleport.py """
+    """_summary_
+
+    Raises:
+        ConfigError: _description_
+        PowermonProtocolError: _description_
+        PowermonProtocolError: _description_
+        BleakDeviceNotFoundError: _description_
+        PowermonWIP: _description_
+        RuntimeError: _description_
+        BLEResponseError: _description_
+
+    Returns:
+        _type_: _description_
+    """
 # import serial
 import asyncio
 import logging
@@ -28,7 +41,11 @@ log = logging.getLogger("BlePort")
 
 
 class BlePort(AbstractPort):
-    """ BLE port object """
+    """_summary_
+
+    Args:
+        AbstractPort (_type_): _description_
+    """
 
     def __str__(self):
         return f"BlePort: {self.mac=}, protocol:{self.protocol}, {self.client=}, {self.error_message=}"

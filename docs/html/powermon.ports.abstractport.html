@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>powermon.ports.abstractport module &#8212; powermon  documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="_static/nature.css?v=0f882399" />
+    <script src="_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="powermon.ports.bleport module" href="powermon.ports.bleport.html" />
+    <link rel="prev" title="powermon.ports package" href="powermon.ports.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="powermon.ports.bleport.html" title="powermon.ports.bleport module"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="powermon.ports.html" title="powermon.ports package"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">powermon  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="powermon.html" >powermon package</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="powermon.ports.html" accesskey="U">powermon.ports package</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">powermon.ports.abstractport module</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="module-powermon.ports.abstractport">
+<span id="powermon-ports-abstractport-module"></span><h1>powermon.ports.abstractport module<a class="headerlink" href="#module-powermon.ports.abstractport" title="Link to this heading">¶</a></h1>
+<p>abstractport.py</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="powermon.ports.abstractport.AbstractPort">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">powermon.ports.abstractport.</span></span><span class="sig-name descname"><span class="pre">AbstractPort</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">protocol</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="powermon.protocols.abstractprotocol.html#powermon.protocols.abstractprotocol.AbstractProtocol" title="powermon.protocols.abstractprotocol.AbstractProtocol"><span class="pre">AbstractProtocol</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#powermon.ports.abstractport.AbstractPort" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ABC</span></code></p>
+<p>base model for all ports</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="powermon.ports.abstractport.AbstractPort.connect">
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">connect</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#powermon.ports.abstractport.AbstractPort.connect" title="Link to this definition">¶</a></dt>
+<dd><p>default port connect function</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="powermon.ports.abstractport.AbstractPort.disconnect">
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">disconnect</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#powermon.ports.abstractport.AbstractPort.disconnect" title="Link to this definition">¶</a></dt>
+<dd><p>default port disconnect function</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="powermon.ports.abstractport.AbstractPort.from_config">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_config</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#powermon.ports.abstractport.AbstractPort.from_config" title="Link to this definition">¶</a></dt>
+<dd><p>build port object from config dict</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="powermon.ports.abstractport.AbstractPort.is_connected">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">is_connected</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#powermon.ports.abstractport.AbstractPort.is_connected" title="Link to this definition">¶</a></dt>
+<dd><p>default is_connected function</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="powermon.ports.abstractport.AbstractPort.is_protocol_supported">
+<span class="sig-name descname"><span class="pre">is_protocol_supported</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#powermon.ports.abstractport.AbstractPort.is_protocol_supported" title="Link to this definition">¶</a></dt>
+<dd><p>function to check if the protocol is supported by this port</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="powermon.ports.abstractport.AbstractPort.protocol">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">protocol</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="powermon.protocols.abstractprotocol.html#powermon.protocols.abstractprotocol.AbstractProtocol" title="powermon.protocols.abstractprotocol.AbstractProtocol"><span class="pre">AbstractProtocol</span></a></em><a class="headerlink" href="#powermon.ports.abstractport.AbstractPort.protocol" title="Link to this definition">¶</a></dt>
+<dd><p>return the protocol associated with this port</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="powermon.ports.abstractport.AbstractPort.run_command">
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">run_command</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">command</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Command</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Result</span></span></span><a class="headerlink" href="#powermon.ports.abstractport.AbstractPort.run_command" title="Link to this definition">¶</a></dt>
+<dd><p>run_command takes a command object, runs the command and returns a result object (replaces process_command)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="powermon.ports.abstractport.AbstractPort.send_and_receive">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">send_and_receive</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">command</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Command</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Result</span></span></span><a class="headerlink" href="#powermon.ports.abstractport.AbstractPort.send_and_receive" title="Link to this definition">¶</a></dt>
+<dd><p>main worker function for port objects, specific to each port type</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="powermon.ports.abstractport.AbstractPort.to_dto">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">to_dto</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#powermon.ports.abstractport.AbstractPort.to_dto" title="Link to this definition">¶</a></dt>
+<dd><p>convert port object to data transfer object</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="powermon.ports.abstractport.AbstractPortDTO">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">powermon.ports.abstractport.</span></span><span class="sig-name descname"><span class="pre">AbstractPortDTO</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">port_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">protocol</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="powermon.protocols.abstractprotocol.html#powermon.protocols.abstractprotocol.AbstractProtocolDTO" title="powermon.protocols.abstractprotocol.AbstractProtocolDTO"><span class="pre">AbstractProtocolDTO</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#powermon.ports.abstractport.AbstractPortDTO" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseModel</span></code></p>
+<p>data transfer model for AbstractPort class</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="powermon.ports.abstractport.AbstractPortDTO.model_computed_fields">
+<span class="sig-name descname"><span class="pre">model_computed_fields</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">ComputedFieldInfo</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></em><a class="headerlink" href="#powermon.ports.abstractport.AbstractPortDTO.model_computed_fields" title="Link to this definition">¶</a></dt>
+<dd><p>A dictionary of computed field names and their corresponding <cite>ComputedFieldInfo</cite> objects.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="powermon.ports.abstractport.AbstractPortDTO.model_config">
+<span class="sig-name descname"><span class="pre">model_config</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">ConfigDict</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></em><a class="headerlink" href="#powermon.ports.abstractport.AbstractPortDTO.model_config" title="Link to this definition">¶</a></dt>
+<dd><p>Configuration for the model, should be a dictionary conforming to [<cite>ConfigDict</cite>][pydantic.config.ConfigDict].</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="powermon.ports.abstractport.AbstractPortDTO.model_fields">
+<span class="sig-name descname"><span class="pre">model_fields</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">FieldInfo</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'port_type':</span> <span class="pre">FieldInfo(annotation=str,</span> <span class="pre">required=True),</span> <span class="pre">'protocol':</span> <span class="pre">FieldInfo(annotation=AbstractProtocolDTO,</span> <span class="pre">required=True)}</span></em><a class="headerlink" href="#powermon.ports.abstractport.AbstractPortDTO.model_fields" title="Link to this definition">¶</a></dt>
+<dd><p>Metadata about the fields defined on the model,
+mapping of field names to [<cite>FieldInfo</cite>][pydantic.fields.FieldInfo].</p>
+<p>This replaces <cite>Model.__fields__</cite> from Pydantic V1.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">powermon.ports.abstractport module</a><ul>
+<li><a class="reference internal" href="#powermon.ports.abstractport.AbstractPort"><code class="docutils literal notranslate"><span class="pre">AbstractPort</span></code></a><ul>
+<li><a class="reference internal" href="#powermon.ports.abstractport.AbstractPort.connect"><code class="docutils literal notranslate"><span class="pre">AbstractPort.connect()</span></code></a></li>
+<li><a class="reference internal" href="#powermon.ports.abstractport.AbstractPort.disconnect"><code class="docutils literal notranslate"><span class="pre">AbstractPort.disconnect()</span></code></a></li>
+<li><a class="reference internal" href="#powermon.ports.abstractport.AbstractPort.from_config"><code class="docutils literal notranslate"><span class="pre">AbstractPort.from_config()</span></code></a></li>
+<li><a class="reference internal" href="#powermon.ports.abstractport.AbstractPort.is_connected"><code class="docutils literal notranslate"><span class="pre">AbstractPort.is_connected()</span></code></a></li>
+<li><a class="reference internal" href="#powermon.ports.abstractport.AbstractPort.is_protocol_supported"><code class="docutils literal notranslate"><span class="pre">AbstractPort.is_protocol_supported()</span></code></a></li>
+<li><a class="reference internal" href="#powermon.ports.abstractport.AbstractPort.protocol"><code class="docutils literal notranslate"><span class="pre">AbstractPort.protocol</span></code></a></li>
+<li><a class="reference internal" href="#powermon.ports.abstractport.AbstractPort.run_command"><code class="docutils literal notranslate"><span class="pre">AbstractPort.run_command()</span></code></a></li>
+<li><a class="reference internal" href="#powermon.ports.abstractport.AbstractPort.send_and_receive"><code class="docutils literal notranslate"><span class="pre">AbstractPort.send_and_receive()</span></code></a></li>
+<li><a class="reference internal" href="#powermon.ports.abstractport.AbstractPort.to_dto"><code class="docutils literal notranslate"><span class="pre">AbstractPort.to_dto()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#powermon.ports.abstractport.AbstractPortDTO"><code class="docutils literal notranslate"><span class="pre">AbstractPortDTO</span></code></a><ul>
+<li><a class="reference internal" href="#powermon.ports.abstractport.AbstractPortDTO.model_computed_fields"><code class="docutils literal notranslate"><span class="pre">AbstractPortDTO.model_computed_fields</span></code></a></li>
+<li><a class="reference internal" href="#powermon.ports.abstractport.AbstractPortDTO.model_config"><code class="docutils literal notranslate"><span class="pre">AbstractPortDTO.model_config</span></code></a></li>
+<li><a class="reference internal" href="#powermon.ports.abstractport.AbstractPortDTO.model_fields"><code class="docutils literal notranslate"><span class="pre">AbstractPortDTO.model_fields</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="powermon.ports.html"
+                          title="previous chapter">powermon.ports package</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="powermon.ports.bleport.html"
+                          title="next chapter">powermon.ports.bleport module</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/powermon.ports.abstractport.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="powermon.ports.bleport.html" title="powermon.ports.bleport module"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="powermon.ports.html" title="powermon.ports package"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">powermon  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="powermon.html" >powermon package</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="powermon.ports.html" >powermon.ports package</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">powermon.ports.abstractport module</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+    &#169; Copyright 2024, jblance.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.0.2.
+    </div>
+  </body>
+</html>

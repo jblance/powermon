@@ -13,7 +13,8 @@
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="prev" title="powermon.ports package" href="powermon.ports.html" /> 
+    <link rel="next" title="powermon.protocols.abstractprotocol module" href="powermon.protocols.abstractprotocol.html" />
+    <link rel="prev" title="powermon.ports.usbport module" href="powermon.ports.usbport.html" /> 
   </head><body>
     <div class="related" role="navigation" aria-label="Related">
       <h3>Navigation</h3>
@@ -25,7 +26,10 @@
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="powermon.ports.html" title="powermon.ports package"
+          <a href="powermon.protocols.abstractprotocol.html" title="powermon.protocols.abstractprotocol module"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="powermon.ports.usbport.html" title="powermon.ports.usbport module"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">powermon  documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="powermon.html" accesskey="U">powermon package</a> &#187;</li>
@@ -38,447 +42,8 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <section id="powermon-protocols-package">
-<h1>powermon.protocols package<a class="headerlink" href="#powermon-protocols-package" title="Link to this heading">¶</a></h1>
-<section id="submodules">
-<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading">¶</a></h2>
-</section>
-<section id="module-powermon.protocols.abstractprotocol">
-<span id="powermon-protocols-abstractprotocol-module"></span><h2>powermon.protocols.abstractprotocol module<a class="headerlink" href="#module-powermon.protocols.abstractprotocol" title="Link to this heading">¶</a></h2>
-<p>protocols / abstractprotocol.py</p>
-<dl class="py class">
-<dt class="sig sig-object py" id="powermon.protocols.abstractprotocol.AbstractProtocol">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">powermon.protocols.abstractprotocol.</span></span><span class="sig-name descname"><span class="pre">AbstractProtocol</span></span><a class="headerlink" href="#powermon.protocols.abstractprotocol.AbstractProtocol" title="Link to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>base definition for all protocols
-protocol has:
-- protocol id
-- dict of command definitions
-and functions to:
-- add / remove / count / get command definitions
-- check validity / crc / trim / split response</p>
-<dl class="py method">
-<dt class="sig sig-object py" id="powermon.protocols.abstractprotocol.AbstractProtocol.add_command_definitions">
-<span class="sig-name descname"><span class="pre">add_command_definitions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">command_definitions_config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">result_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ResultType</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#powermon.protocols.abstractprotocol.AbstractProtocol.add_command_definitions" title="Link to this definition">¶</a></dt>
-<dd><p>Add command definitions from the configuration</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="powermon.protocols.abstractprotocol.AbstractProtocol.add_supported_ports">
-<span class="sig-name descname"><span class="pre">add_supported_ports</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">port_types</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#powermon.protocols.abstractprotocol.AbstractProtocol.add_supported_ports" title="Link to this definition">¶</a></dt>
-<dd><p>Add to the supported port types list</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="powermon.protocols.abstractprotocol.AbstractProtocol.check_crc">
-<span class="sig-name descname"><span class="pre">check_crc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">response</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">command_definition</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">CommandDefinition</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#powermon.protocols.abstractprotocol.AbstractProtocol.check_crc" title="Link to this definition">¶</a></dt>
-<dd><p>crc check, needs override in protocol</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="powermon.protocols.abstractprotocol.AbstractProtocol.check_definitions_count">
-<span class="sig-name descname"><span class="pre">check_definitions_count</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">expected</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#powermon.protocols.abstractprotocol.AbstractProtocol.check_definitions_count" title="Link to this definition">¶</a></dt>
-<dd><p>check and report number of command definitions, error if 0</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="powermon.protocols.abstractprotocol.AbstractProtocol.check_valid">
-<span class="sig-name descname"><span class="pre">check_valid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">response</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">command_definition</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">CommandDefinition</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#powermon.protocols.abstractprotocol.AbstractProtocol.check_valid" title="Link to this definition">¶</a></dt>
-<dd><p>check response is valid</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="powermon.protocols.abstractprotocol.AbstractProtocol.clear_supported_ports">
-<span class="sig-name descname"><span class="pre">clear_supported_ports</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#powermon.protocols.abstractprotocol.AbstractProtocol.clear_supported_ports" title="Link to this definition">¶</a></dt>
-<dd><p>Remove all supported port types except the TEST port type</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="powermon.protocols.abstractprotocol.AbstractProtocol.get_command_definition">
-<span class="sig-name descname"><span class="pre">get_command_definition</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">command</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">CommandDefinition</span></span></span><a class="headerlink" href="#powermon.protocols.abstractprotocol.AbstractProtocol.get_command_definition" title="Link to this definition">¶</a></dt>
-<dd><p>Get the command definition for a given command string</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="powermon.protocols.abstractprotocol.AbstractProtocol.get_command_definition_dtos">
-<span class="sig-name descname"><span class="pre">get_command_definition_dtos</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">CommandDefinitionDTO</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#powermon.protocols.abstractprotocol.AbstractProtocol.get_command_definition_dtos" title="Link to this definition">¶</a></dt>
-<dd><p>convert all associated command objects to data transfer objects</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="powermon.protocols.abstractprotocol.AbstractProtocol.get_full_command">
-<span class="sig-name descname"><span class="pre">get_full_command</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">command</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bytes</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bytes</span></span></span><a class="headerlink" href="#powermon.protocols.abstractprotocol.AbstractProtocol.get_full_command" title="Link to this definition">¶</a></dt>
-<dd><p>generate the full command including crc and
-as needed</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="powermon.protocols.abstractprotocol.AbstractProtocol.get_id_command">
-<span class="sig-name descname"><span class="pre">get_id_command</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Command</span></span></span><a class="headerlink" href="#powermon.protocols.abstractprotocol.AbstractProtocol.get_id_command" title="Link to this definition">¶</a></dt>
-<dd><p>return the command that generates a unique id for this type of device</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="powermon.protocols.abstractprotocol.AbstractProtocol.list_commands">
-<span class="sig-name descname"><span class="pre">list_commands</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">CommandDefinition</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#powermon.protocols.abstractprotocol.AbstractProtocol.list_commands" title="Link to this definition">¶</a></dt>
-<dd><p>list available commands for the protocol</p>
-</dd></dl>
-
-<dl class="py property">
-<dt class="sig sig-object py" id="powermon.protocols.abstractprotocol.AbstractProtocol.protocol_id">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">protocol_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#powermon.protocols.abstractprotocol.AbstractProtocol.protocol_id" title="Link to this definition">¶</a></dt>
-<dd><p>return the protocol id</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="powermon.protocols.abstractprotocol.AbstractProtocol.remove_command_definitions">
-<span class="sig-name descname"><span class="pre">remove_command_definitions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">commands_to_remove</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#powermon.protocols.abstractprotocol.AbstractProtocol.remove_command_definitions" title="Link to this definition">¶</a></dt>
-<dd><p>Remove specified command definitions</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="powermon.protocols.abstractprotocol.AbstractProtocol.split_response">
-<span class="sig-name descname"><span class="pre">split_response</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">response</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bytes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">command_definition</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">CommandDefinition</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span></span></span><a class="headerlink" href="#powermon.protocols.abstractprotocol.AbstractProtocol.split_response" title="Link to this definition">¶</a></dt>
-<dd><p>split response into individual items, return as ordered list or list of tuples</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="powermon.protocols.abstractprotocol.AbstractProtocol.to_dto">
-<span class="sig-name descname"><span class="pre">to_dto</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#powermon.protocols.abstractprotocol.AbstractProtocolDTO" title="powermon.protocols.abstractprotocol.AbstractProtocolDTO"><span class="pre">AbstractProtocolDTO</span></a></span></span><a class="headerlink" href="#powermon.protocols.abstractprotocol.AbstractProtocol.to_dto" title="Link to this definition">¶</a></dt>
-<dd><p>convert protocol object to data transfer object</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="powermon.protocols.abstractprotocol.AbstractProtocol.trim_response">
-<span class="sig-name descname"><span class="pre">trim_response</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">response</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">command_definition</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">CommandDefinition</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#powermon.protocols.abstractprotocol.AbstractProtocol.trim_response" title="Link to this definition">¶</a></dt>
-<dd><p>Remove extra characters from response</p>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="py class">
-<dt class="sig sig-object py" id="powermon.protocols.abstractprotocol.AbstractProtocolDTO">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">powermon.protocols.abstractprotocol.</span></span><span class="sig-name descname"><span class="pre">AbstractProtocolDTO</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">protocol_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">command_definitions</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">CommandDefinitionDTO</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">supported_ports</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="powermon.ports.html#powermon.ports.porttype.PortType" title="powermon.ports.porttype.PortType"><span class="pre">PortType</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id_command</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">None</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#powermon.protocols.abstractprotocol.AbstractProtocolDTO" title="Link to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseModel</span></code></p>
-<p>data transfer model for AbstractPort class</p>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="powermon.protocols.abstractprotocol.AbstractProtocolDTO.model_computed_fields">
-<span class="sig-name descname"><span class="pre">model_computed_fields</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">ComputedFieldInfo</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></em><a class="headerlink" href="#powermon.protocols.abstractprotocol.AbstractProtocolDTO.model_computed_fields" title="Link to this definition">¶</a></dt>
-<dd><p>A dictionary of computed field names and their corresponding <cite>ComputedFieldInfo</cite> objects.</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="powermon.protocols.abstractprotocol.AbstractProtocolDTO.model_config">
-<span class="sig-name descname"><span class="pre">model_config</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">ConfigDict</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></em><a class="headerlink" href="#powermon.protocols.abstractprotocol.AbstractProtocolDTO.model_config" title="Link to this definition">¶</a></dt>
-<dd><p>Configuration for the model, should be a dictionary conforming to [<cite>ConfigDict</cite>][pydantic.config.ConfigDict].</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="powermon.protocols.abstractprotocol.AbstractProtocolDTO.model_fields">
-<span class="sig-name descname"><span class="pre">model_fields</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">FieldInfo</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'command_definitions':</span> <span class="pre">FieldInfo(annotation=dict[str,</span> <span class="pre">CommandDefinitionDTO],</span> <span class="pre">required=True),</span> <span class="pre">'id_command':</span> <span class="pre">FieldInfo(annotation=Union[NoneType,</span> <span class="pre">str],</span> <span class="pre">required=True),</span> <span class="pre">'protocol_id':</span> <span class="pre">FieldInfo(annotation=str,</span> <span class="pre">required=True),</span> <span class="pre">'supported_ports':</span> <span class="pre">FieldInfo(annotation=list[PortType],</span> <span class="pre">required=True)}</span></em><a class="headerlink" href="#powermon.protocols.abstractprotocol.AbstractProtocolDTO.model_fields" title="Link to this definition">¶</a></dt>
-<dd><p>Metadata about the fields defined on the model,
-mapping of field names to [<cite>FieldInfo</cite>][pydantic.fields.FieldInfo].</p>
-<p>This replaces <cite>Model.__fields__</cite> from Pydantic V1.</p>
-</dd></dl>
-
-</dd></dl>
-
-</section>
-<section id="module-powermon.protocols.daly">
-<span id="powermon-protocols-daly-module"></span><h2>powermon.protocols.daly module<a class="headerlink" href="#module-powermon.protocols.daly" title="Link to this heading">¶</a></h2>
-<p>protocols / daly.py</p>
-<dl class="py class">
-<dt class="sig sig-object py" id="powermon.protocols.daly.Daly">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">powermon.protocols.daly.</span></span><span class="sig-name descname"><span class="pre">Daly</span></span><a class="headerlink" href="#powermon.protocols.daly.Daly" title="Link to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#powermon.protocols.abstractprotocol.AbstractProtocol" title="powermon.protocols.abstractprotocol.AbstractProtocol"><code class="xref py py-class docutils literal notranslate"><span class="pre">AbstractProtocol</span></code></a></p>
-<p>Daly BMS protocol handler</p>
-<dl class="py method">
-<dt class="sig sig-object py" id="powermon.protocols.daly.Daly.check_crc">
-<span class="sig-name descname"><span class="pre">check_crc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">response</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">command_definition</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">CommandDefinition</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#powermon.protocols.daly.Daly.check_crc" title="Link to this definition">¶</a></dt>
-<dd><p>crc check, needs override in protocol</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="powermon.protocols.daly.Daly.check_valid">
-<span class="sig-name descname"><span class="pre">check_valid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">response</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">command_definition</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">CommandDefinition</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#powermon.protocols.daly.Daly.check_valid" title="Link to this definition">¶</a></dt>
-<dd><p>check if the response is valid</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>response</strong> (<em>str</em>) – the response to check</p></li>
-<li><p><strong>command_definition</strong> (<em>CommandDefinition</em><em>, </em><em>optional</em>) – not used in the check for this protocol. Defaults to None.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Raises<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference internal" href="powermon.libs.html#powermon.libs.errors.InvalidResponse" title="powermon.libs.errors.InvalidResponse"><strong>InvalidResponse</strong></a> – exception raised if the response is invalid for any reason</p>
-</dd>
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>True if response doesnt meet any ‘invalid’ tests</p>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>bool</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="powermon.protocols.daly.Daly.get_full_command">
-<span class="sig-name descname"><span class="pre">get_full_command</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">command</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bytes</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bytes</span></span></span><a class="headerlink" href="#powermon.protocols.daly.Daly.get_full_command" title="Link to this definition">¶</a></dt>
-<dd><p>generate the full command for a Daly device from a supplied command name</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>command</strong> (<em>bytes</em><em> | </em><em>str</em>) – the command name - references the COMMANDS dict key</p>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>full command with start flag, source, command code, data length and checksum</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>bytes</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="powermon.protocols.daly.Daly.split_response">
-<span class="sig-name descname"><span class="pre">split_response</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">response</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">command_definition</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">CommandDefinition</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span></span></span><a class="headerlink" href="#powermon.protocols.daly.Daly.split_response" title="Link to this definition">¶</a></dt>
-<dd><p>split response into individual items, return as ordered list or list of tuples</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="powermon.protocols.daly.Daly.trim_response">
-<span class="sig-name descname"><span class="pre">trim_response</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">response</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">command_definition</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">CommandDefinition</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#powermon.protocols.daly.Daly.trim_response" title="Link to this definition">¶</a></dt>
-<dd><p>Remove extra characters from response</p>
-</dd></dl>
-
-</dd></dl>
-
-</section>
-<section id="module-powermon.protocols.helpers">
-<span id="powermon-protocols-helpers-module"></span><h2>powermon.protocols.helpers module<a class="headerlink" href="#module-powermon.protocols.helpers" title="Link to this heading">¶</a></h2>
-<p>powermon / protocols / helpers.py</p>
-<dl class="py function">
-<dt class="sig sig-object py" id="powermon.protocols.helpers.crc_jk232">
-<span class="sig-prename descclassname"><span class="pre">powermon.protocols.helpers.</span></span><span class="sig-name descname"><span class="pre">crc_jk232</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">byte_data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#powermon.protocols.helpers.crc_jk232" title="Link to this definition">¶</a></dt>
-<dd><p>Generate JK RS232 / RS485 CRC
-- 2 bytes, the verification field is “command code + length byte + data segment content”,
-the verification method is thesum of the above fields and then the inverse plus 1, the high bit is in the front and the low bit is in the back.</p>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="powermon.protocols.helpers.crc_pi30">
-<span class="sig-prename descclassname"><span class="pre">powermon.protocols.helpers.</span></span><span class="sig-name descname"><span class="pre">crc_pi30</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_bytes</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#powermon.protocols.helpers.crc_pi30" title="Link to this definition">¶</a></dt>
-<dd><p>Calculates CRC for supplied data_bytes</p>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="powermon.protocols.helpers.victron_checksum">
-<span class="sig-prename descclassname"><span class="pre">powermon.protocols.helpers.</span></span><span class="sig-name descname"><span class="pre">victron_checksum</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">byte_data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#powermon.protocols.helpers.victron_checksum" title="Link to this definition">¶</a></dt>
-<dd><p>Generate VE Direct HEX Checksum
-- sum of byteData + checksum = 0x55</p>
-</dd></dl>
-
-</section>
-<section id="module-powermon.protocols.jkserial">
-<span id="powermon-protocols-jkserial-module"></span><h2>powermon.protocols.jkserial module<a class="headerlink" href="#module-powermon.protocols.jkserial" title="Link to this heading">¶</a></h2>
-<p>powermon / protocols / jkserial.py</p>
-<dl class="py class">
-<dt class="sig sig-object py" id="powermon.protocols.jkserial.JkSerial">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">powermon.protocols.jkserial.</span></span><span class="sig-name descname"><span class="pre">JkSerial</span></span><a class="headerlink" href="#powermon.protocols.jkserial.JkSerial" title="Link to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#powermon.protocols.abstractprotocol.AbstractProtocol" title="powermon.protocols.abstractprotocol.AbstractProtocol"><code class="xref py py-class docutils literal notranslate"><span class="pre">AbstractProtocol</span></code></a></p>
-<p>JKBMS TTL serial communication protocol handler</p>
-<dl class="py method">
-<dt class="sig sig-object py" id="powermon.protocols.jkserial.JkSerial.check_crc">
-<span class="sig-name descname"><span class="pre">check_crc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">response</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">command_definition</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">CommandDefinition</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#powermon.protocols.jkserial.JkSerial.check_crc" title="Link to this definition">¶</a></dt>
-<dd><p>crc check, needs override in protocol</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="powermon.protocols.jkserial.JkSerial.check_valid">
-<span class="sig-name descname"><span class="pre">check_valid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">response</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">command_definition</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">CommandDefinition</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#powermon.protocols.jkserial.JkSerial.check_valid" title="Link to this definition">¶</a></dt>
-<dd><p>check response is valid</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="powermon.protocols.jkserial.JkSerial.get_full_command">
-<span class="sig-name descname"><span class="pre">get_full_command</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">command</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bytes</span></span></span><a class="headerlink" href="#powermon.protocols.jkserial.JkSerial.get_full_command" title="Link to this definition">¶</a></dt>
-<dd><p>Override the default get_full_command as its different</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="powermon.protocols.jkserial.JkSerial.split_response">
-<span class="sig-name descname"><span class="pre">split_response</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">response</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">command_definition</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">CommandDefinition</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span></span></span><a class="headerlink" href="#powermon.protocols.jkserial.JkSerial.split_response" title="Link to this definition">¶</a></dt>
-<dd><p>split response into individual items, return as ordered list or list of tuples</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="powermon.protocols.jkserial.JkSerial.trim_response">
-<span class="sig-name descname"><span class="pre">trim_response</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">response</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">command_definition</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">CommandDefinition</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#powermon.protocols.jkserial.JkSerial.trim_response" title="Link to this definition">¶</a></dt>
-<dd><p>Remove extra characters from response</p>
-</dd></dl>
-
-</dd></dl>
-
-</section>
-<section id="module-powermon.protocols.neey">
-<span id="powermon-protocols-neey-module"></span><h2>powermon.protocols.neey module<a class="headerlink" href="#module-powermon.protocols.neey" title="Link to this heading">¶</a></h2>
-<p>protocols / neey.py</p>
-<dl class="py class">
-<dt class="sig sig-object py" id="powermon.protocols.neey.Neey">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">powermon.protocols.neey.</span></span><span class="sig-name descname"><span class="pre">Neey</span></span><a class="headerlink" href="#powermon.protocols.neey.Neey" title="Link to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#powermon.protocols.abstractprotocol.AbstractProtocol" title="powermon.protocols.abstractprotocol.AbstractProtocol"><code class="xref py py-class docutils literal notranslate"><span class="pre">AbstractProtocol</span></code></a></p>
-<p>Neey Active Balancer rotocol handler</p>
-<dl class="py method">
-<dt class="sig sig-object py" id="powermon.protocols.neey.Neey.check_crc">
-<span class="sig-name descname"><span class="pre">check_crc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">response</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">command_definition</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">CommandDefinition</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#powermon.protocols.neey.Neey.check_crc" title="Link to this definition">¶</a></dt>
-<dd><p>crc check, needs override in protocol</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="powermon.protocols.neey.Neey.check_valid">
-<span class="sig-name descname"><span class="pre">check_valid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">response</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">command_definition</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">CommandDefinition</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#powermon.protocols.neey.Neey.check_valid" title="Link to this definition">¶</a></dt>
-<dd><p>check if the response is valid</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>response</strong> (<em>str</em>) – the response to check</p></li>
-<li><p><strong>command_definition</strong> (<em>CommandDefinition</em><em>, </em><em>optional</em>) – not used in the check for this protocol. Defaults to None.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Raises<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference internal" href="powermon.libs.html#powermon.libs.errors.InvalidResponse" title="powermon.libs.errors.InvalidResponse"><strong>InvalidResponse</strong></a> – exception raised if the response is invalid for any reason</p>
-</dd>
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>True if response doesnt meet any ‘invalid’ tests</p>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>bool</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="powermon.protocols.neey.Neey.get_full_command">
-<span class="sig-name descname"><span class="pre">get_full_command</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">command</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bytes</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bytes</span></span></span><a class="headerlink" href="#powermon.protocols.neey.Neey.get_full_command" title="Link to this definition">¶</a></dt>
-<dd><p>generate the full command including crc and
-as needed</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="powermon.protocols.neey.Neey.split_response">
-<span class="sig-name descname"><span class="pre">split_response</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">response</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">command_definition</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">CommandDefinition</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span></span></span><a class="headerlink" href="#powermon.protocols.neey.Neey.split_response" title="Link to this definition">¶</a></dt>
-<dd><p>split response into individual items, return as ordered list or list of tuples</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="powermon.protocols.neey.Neey.trim_response">
-<span class="sig-name descname"><span class="pre">trim_response</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">response</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">command_definition</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">CommandDefinition</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#powermon.protocols.neey.Neey.trim_response" title="Link to this definition">¶</a></dt>
-<dd><p>Remove extra characters from response</p>
-</dd></dl>
-
-</dd></dl>
-
-</section>
-<section id="module-powermon.protocols.pi18">
-<span id="powermon-protocols-pi18-module"></span><h2>powermon.protocols.pi18 module<a class="headerlink" href="#module-powermon.protocols.pi18" title="Link to this heading">¶</a></h2>
-<p>powermon / protocols / pi18.py</p>
-<dl class="py class">
-<dt class="sig sig-object py" id="powermon.protocols.pi18.PI18">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">powermon.protocols.pi18.</span></span><span class="sig-name descname"><span class="pre">PI18</span></span><a class="headerlink" href="#powermon.protocols.pi18.PI18" title="Link to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#powermon.protocols.abstractprotocol.AbstractProtocol" title="powermon.protocols.abstractprotocol.AbstractProtocol"><code class="xref py py-class docutils literal notranslate"><span class="pre">AbstractProtocol</span></code></a></p>
-<p>pi18 protocol handler</p>
-<dl class="py method">
-<dt class="sig sig-object py" id="powermon.protocols.pi18.PI18.check_crc">
-<span class="sig-name descname"><span class="pre">check_crc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">response</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">command_definition</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">CommandDefinition</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#powermon.protocols.pi18.PI18.check_crc" title="Link to this definition">¶</a></dt>
-<dd><p>crc check, override for now</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="powermon.protocols.pi18.PI18.get_full_command">
-<span class="sig-name descname"><span class="pre">get_full_command</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">command</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bytes</span></span></span><a class="headerlink" href="#powermon.protocols.pi18.PI18.get_full_command" title="Link to this definition">¶</a></dt>
-<dd><p>generate the full command including prefix, crc and
-as needed</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="powermon.protocols.pi18.PI18.trim_response">
-<span class="sig-name descname"><span class="pre">trim_response</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">response</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">command_definition</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">CommandDefinition</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#powermon.protocols.pi18.PI18.trim_response" title="Link to this definition">¶</a></dt>
-<dd><p>Remove extra characters from response</p>
-</dd></dl>
-
-</dd></dl>
-
-</section>
-<section id="module-powermon.protocols.pi30">
-<span id="powermon-protocols-pi30-module"></span><h2>powermon.protocols.pi30 module<a class="headerlink" href="#module-powermon.protocols.pi30" title="Link to this heading">¶</a></h2>
-<p>pi30.py</p>
-<dl class="py class">
-<dt class="sig sig-object py" id="powermon.protocols.pi30.PI30">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">powermon.protocols.pi30.</span></span><span class="sig-name descname"><span class="pre">PI30</span></span><a class="headerlink" href="#powermon.protocols.pi30.PI30" title="Link to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#powermon.protocols.abstractprotocol.AbstractProtocol" title="powermon.protocols.abstractprotocol.AbstractProtocol"><code class="xref py py-class docutils literal notranslate"><span class="pre">AbstractProtocol</span></code></a></p>
-<p>pi30 protocol handler</p>
-<dl class="py method">
-<dt class="sig sig-object py" id="powermon.protocols.pi30.PI30.check_crc">
-<span class="sig-name descname"><span class="pre">check_crc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">response</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">command_definition</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">CommandDefinition</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#powermon.protocols.pi30.PI30.check_crc" title="Link to this definition">¶</a></dt>
-<dd><p>crc check, needs override in protocol</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="powermon.protocols.pi30.PI30.check_valid">
-<span class="sig-name descname"><span class="pre">check_valid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">response</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">command_definition</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">CommandDefinition</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#powermon.protocols.pi30.PI30.check_valid" title="Link to this definition">¶</a></dt>
-<dd><p>check response is valid</p>
-</dd></dl>
-
-</dd></dl>
-
-</section>
-<section id="module-powermon.protocols.pi30max">
-<span id="powermon-protocols-pi30max-module"></span><h2>powermon.protocols.pi30max module<a class="headerlink" href="#module-powermon.protocols.pi30max" title="Link to this heading">¶</a></h2>
-<p>powermon / protocols / pi30max.py</p>
-<dl class="py class">
-<dt class="sig sig-object py" id="powermon.protocols.pi30max.PI30MAX">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">powermon.protocols.pi30max.</span></span><span class="sig-name descname"><span class="pre">PI30MAX</span></span><a class="headerlink" href="#powermon.protocols.pi30max.PI30MAX" title="Link to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#powermon.protocols.pi30.PI30" title="powermon.protocols.pi30.PI30"><code class="xref py py-class docutils literal notranslate"><span class="pre">PI30</span></code></a></p>
-<p>PI30 protocol handler for LV6048MAX and similar inverters</p>
-</dd></dl>
-
-</section>
-<section id="module-powermon.protocols.ved">
-<span id="powermon-protocols-ved-module"></span><h2>powermon.protocols.ved module<a class="headerlink" href="#module-powermon.protocols.ved" title="Link to this heading">¶</a></h2>
-<p>protocols / ved.py</p>
-<dl class="py class">
-<dt class="sig sig-object py" id="powermon.protocols.ved.VictronEnergyDirect">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">powermon.protocols.ved.</span></span><span class="sig-name descname"><span class="pre">VictronEnergyDirect</span></span><a class="headerlink" href="#powermon.protocols.ved.VictronEnergyDirect" title="Link to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#powermon.protocols.abstractprotocol.AbstractProtocol" title="powermon.protocols.abstractprotocol.AbstractProtocol"><code class="xref py py-class docutils literal notranslate"><span class="pre">AbstractProtocol</span></code></a></p>
-<p>VictronEnergyDirect - VEDirect protocol handler</p>
-<dl class="py method">
-<dt class="sig sig-object py" id="powermon.protocols.ved.VictronEnergyDirect.check_crc">
-<span class="sig-name descname"><span class="pre">check_crc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">response</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">command_definition</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">CommandDefinition</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#powermon.protocols.ved.VictronEnergyDirect.check_crc" title="Link to this definition">¶</a></dt>
-<dd><p>crc check, needs override in protocol</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="powermon.protocols.ved.VictronEnergyDirect.check_valid">
-<span class="sig-name descname"><span class="pre">check_valid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">response</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">command_definition</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">CommandDefinition</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#powermon.protocols.ved.VictronEnergyDirect.check_valid" title="Link to this definition">¶</a></dt>
-<dd><p>check response is valid</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="powermon.protocols.ved.VictronEnergyDirect.get_full_command">
-<span class="sig-name descname"><span class="pre">get_full_command</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">command</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bytes</span></span></span><a class="headerlink" href="#powermon.protocols.ved.VictronEnergyDirect.get_full_command" title="Link to this definition">¶</a></dt>
-<dd><p>Override the default get_full_command as its different for VEDirect</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="powermon.protocols.ved.VictronEnergyDirect.trim_response">
-<span class="sig-name descname"><span class="pre">trim_response</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">response</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">command_definition</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">CommandDefinition</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#powermon.protocols.ved.VictronEnergyDirect.trim_response" title="Link to this definition">¶</a></dt>
-<dd><p>Remove extra characters from response</p>
-</dd></dl>
-
-</dd></dl>
-
-</section>
-<section id="module-powermon.protocols">
-<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-powermon.protocols" title="Link to this heading">¶</a></h2>
+  <section id="module-powermon.protocols">
+<span id="powermon-protocols-package"></span><h1>powermon.protocols package<a class="headerlink" href="#module-powermon.protocols" title="Link to this heading">¶</a></h1>
 <p>protocol __init__.py</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="powermon.protocols.Protocol">
@@ -499,6 +64,110 @@ as needed</p>
 <dd><p>helper function to display a list of supported protocols</p>
 </dd></dl>
 
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="powermon.protocols.abstractprotocol.html">powermon.protocols.abstractprotocol module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="powermon.protocols.abstractprotocol.html#powermon.protocols.abstractprotocol.AbstractProtocol"><code class="docutils literal notranslate"><span class="pre">AbstractProtocol</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="powermon.protocols.abstractprotocol.html#powermon.protocols.abstractprotocol.AbstractProtocol.add_command_definitions"><code class="docutils literal notranslate"><span class="pre">AbstractProtocol.add_command_definitions()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="powermon.protocols.abstractprotocol.html#powermon.protocols.abstractprotocol.AbstractProtocol.add_supported_ports"><code class="docutils literal notranslate"><span class="pre">AbstractProtocol.add_supported_ports()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="powermon.protocols.abstractprotocol.html#powermon.protocols.abstractprotocol.AbstractProtocol.check_crc"><code class="docutils literal notranslate"><span class="pre">AbstractProtocol.check_crc()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="powermon.protocols.abstractprotocol.html#powermon.protocols.abstractprotocol.AbstractProtocol.check_definitions_count"><code class="docutils literal notranslate"><span class="pre">AbstractProtocol.check_definitions_count()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="powermon.protocols.abstractprotocol.html#powermon.protocols.abstractprotocol.AbstractProtocol.check_valid"><code class="docutils literal notranslate"><span class="pre">AbstractProtocol.check_valid()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="powermon.protocols.abstractprotocol.html#powermon.protocols.abstractprotocol.AbstractProtocol.clear_supported_ports"><code class="docutils literal notranslate"><span class="pre">AbstractProtocol.clear_supported_ports()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="powermon.protocols.abstractprotocol.html#powermon.protocols.abstractprotocol.AbstractProtocol.get_command_definition"><code class="docutils literal notranslate"><span class="pre">AbstractProtocol.get_command_definition()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="powermon.protocols.abstractprotocol.html#powermon.protocols.abstractprotocol.AbstractProtocol.get_command_definition_dtos"><code class="docutils literal notranslate"><span class="pre">AbstractProtocol.get_command_definition_dtos()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="powermon.protocols.abstractprotocol.html#powermon.protocols.abstractprotocol.AbstractProtocol.get_full_command"><code class="docutils literal notranslate"><span class="pre">AbstractProtocol.get_full_command()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="powermon.protocols.abstractprotocol.html#powermon.protocols.abstractprotocol.AbstractProtocol.get_id_command"><code class="docutils literal notranslate"><span class="pre">AbstractProtocol.get_id_command()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="powermon.protocols.abstractprotocol.html#powermon.protocols.abstractprotocol.AbstractProtocol.list_commands"><code class="docutils literal notranslate"><span class="pre">AbstractProtocol.list_commands()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="powermon.protocols.abstractprotocol.html#powermon.protocols.abstractprotocol.AbstractProtocol.protocol_id"><code class="docutils literal notranslate"><span class="pre">AbstractProtocol.protocol_id</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="powermon.protocols.abstractprotocol.html#powermon.protocols.abstractprotocol.AbstractProtocol.remove_command_definitions"><code class="docutils literal notranslate"><span class="pre">AbstractProtocol.remove_command_definitions()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="powermon.protocols.abstractprotocol.html#powermon.protocols.abstractprotocol.AbstractProtocol.split_response"><code class="docutils literal notranslate"><span class="pre">AbstractProtocol.split_response()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="powermon.protocols.abstractprotocol.html#powermon.protocols.abstractprotocol.AbstractProtocol.to_dto"><code class="docutils literal notranslate"><span class="pre">AbstractProtocol.to_dto()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="powermon.protocols.abstractprotocol.html#powermon.protocols.abstractprotocol.AbstractProtocol.trim_response"><code class="docutils literal notranslate"><span class="pre">AbstractProtocol.trim_response()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="powermon.protocols.abstractprotocol.html#powermon.protocols.abstractprotocol.AbstractProtocolDTO"><code class="docutils literal notranslate"><span class="pre">AbstractProtocolDTO</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="powermon.protocols.abstractprotocol.html#powermon.protocols.abstractprotocol.AbstractProtocolDTO.model_computed_fields"><code class="docutils literal notranslate"><span class="pre">AbstractProtocolDTO.model_computed_fields</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="powermon.protocols.abstractprotocol.html#powermon.protocols.abstractprotocol.AbstractProtocolDTO.model_config"><code class="docutils literal notranslate"><span class="pre">AbstractProtocolDTO.model_config</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="powermon.protocols.abstractprotocol.html#powermon.protocols.abstractprotocol.AbstractProtocolDTO.model_fields"><code class="docutils literal notranslate"><span class="pre">AbstractProtocolDTO.model_fields</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="powermon.protocols.daly.html">powermon.protocols.daly module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="powermon.protocols.daly.html#powermon.protocols.daly.Daly"><code class="docutils literal notranslate"><span class="pre">Daly</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="powermon.protocols.daly.html#powermon.protocols.daly.Daly.check_crc"><code class="docutils literal notranslate"><span class="pre">Daly.check_crc()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="powermon.protocols.daly.html#powermon.protocols.daly.Daly.check_valid"><code class="docutils literal notranslate"><span class="pre">Daly.check_valid()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="powermon.protocols.daly.html#powermon.protocols.daly.Daly.get_full_command"><code class="docutils literal notranslate"><span class="pre">Daly.get_full_command()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="powermon.protocols.daly.html#powermon.protocols.daly.Daly.split_response"><code class="docutils literal notranslate"><span class="pre">Daly.split_response()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="powermon.protocols.daly.html#powermon.protocols.daly.Daly.trim_response"><code class="docutils literal notranslate"><span class="pre">Daly.trim_response()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="powermon.protocols.helpers.html">powermon.protocols.helpers module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="powermon.protocols.helpers.html#powermon.protocols.helpers.crc_jk232"><code class="docutils literal notranslate"><span class="pre">crc_jk232()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="powermon.protocols.helpers.html#powermon.protocols.helpers.crc_pi30"><code class="docutils literal notranslate"><span class="pre">crc_pi30()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="powermon.protocols.helpers.html#powermon.protocols.helpers.victron_checksum"><code class="docutils literal notranslate"><span class="pre">victron_checksum()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="powermon.protocols.jkserial.html">powermon.protocols.jkserial module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="powermon.protocols.jkserial.html#powermon.protocols.jkserial.JkSerial"><code class="docutils literal notranslate"><span class="pre">JkSerial</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="powermon.protocols.jkserial.html#powermon.protocols.jkserial.JkSerial.check_crc"><code class="docutils literal notranslate"><span class="pre">JkSerial.check_crc()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="powermon.protocols.jkserial.html#powermon.protocols.jkserial.JkSerial.check_valid"><code class="docutils literal notranslate"><span class="pre">JkSerial.check_valid()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="powermon.protocols.jkserial.html#powermon.protocols.jkserial.JkSerial.get_full_command"><code class="docutils literal notranslate"><span class="pre">JkSerial.get_full_command()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="powermon.protocols.jkserial.html#powermon.protocols.jkserial.JkSerial.split_response"><code class="docutils literal notranslate"><span class="pre">JkSerial.split_response()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="powermon.protocols.jkserial.html#powermon.protocols.jkserial.JkSerial.trim_response"><code class="docutils literal notranslate"><span class="pre">JkSerial.trim_response()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="powermon.protocols.neey.html">powermon.protocols.neey module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="powermon.protocols.neey.html#powermon.protocols.neey.Neey"><code class="docutils literal notranslate"><span class="pre">Neey</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="powermon.protocols.neey.html#powermon.protocols.neey.Neey.check_crc"><code class="docutils literal notranslate"><span class="pre">Neey.check_crc()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="powermon.protocols.neey.html#powermon.protocols.neey.Neey.check_valid"><code class="docutils literal notranslate"><span class="pre">Neey.check_valid()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="powermon.protocols.neey.html#powermon.protocols.neey.Neey.get_full_command"><code class="docutils literal notranslate"><span class="pre">Neey.get_full_command()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="powermon.protocols.neey.html#powermon.protocols.neey.Neey.split_response"><code class="docutils literal notranslate"><span class="pre">Neey.split_response()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="powermon.protocols.neey.html#powermon.protocols.neey.Neey.trim_response"><code class="docutils literal notranslate"><span class="pre">Neey.trim_response()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="powermon.protocols.pi18.html">powermon.protocols.pi18 module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="powermon.protocols.pi18.html#powermon.protocols.pi18.PI18"><code class="docutils literal notranslate"><span class="pre">PI18</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="powermon.protocols.pi18.html#powermon.protocols.pi18.PI18.check_crc"><code class="docutils literal notranslate"><span class="pre">PI18.check_crc()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="powermon.protocols.pi18.html#powermon.protocols.pi18.PI18.get_full_command"><code class="docutils literal notranslate"><span class="pre">PI18.get_full_command()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="powermon.protocols.pi18.html#powermon.protocols.pi18.PI18.trim_response"><code class="docutils literal notranslate"><span class="pre">PI18.trim_response()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="powermon.protocols.pi30.html">powermon.protocols.pi30 module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="powermon.protocols.pi30.html#powermon.protocols.pi30.PI30"><code class="docutils literal notranslate"><span class="pre">PI30</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="powermon.protocols.pi30.html#powermon.protocols.pi30.PI30.check_crc"><code class="docutils literal notranslate"><span class="pre">PI30.check_crc()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="powermon.protocols.pi30.html#powermon.protocols.pi30.PI30.check_valid"><code class="docutils literal notranslate"><span class="pre">PI30.check_valid()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="powermon.protocols.pi30max.html">powermon.protocols.pi30max module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="powermon.protocols.pi30max.html#powermon.protocols.pi30max.PI30MAX"><code class="docutils literal notranslate"><span class="pre">PI30MAX</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="powermon.protocols.ved.html">powermon.protocols.ved module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="powermon.protocols.ved.html#powermon.protocols.ved.VictronEnergyDirect"><code class="docutils literal notranslate"><span class="pre">VictronEnergyDirect</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="powermon.protocols.ved.html#powermon.protocols.ved.VictronEnergyDirect.check_crc"><code class="docutils literal notranslate"><span class="pre">VictronEnergyDirect.check_crc()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="powermon.protocols.ved.html#powermon.protocols.ved.VictronEnergyDirect.check_valid"><code class="docutils literal notranslate"><span class="pre">VictronEnergyDirect.check_valid()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="powermon.protocols.ved.html#powermon.protocols.ved.VictronEnergyDirect.get_full_command"><code class="docutils literal notranslate"><span class="pre">VictronEnergyDirect.get_full_command()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="powermon.protocols.ved.html#powermon.protocols.ved.VictronEnergyDirect.trim_response"><code class="docutils literal notranslate"><span class="pre">VictronEnergyDirect.trim_response()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
 </section>
 </section>
 
@@ -513,111 +182,10 @@ as needed</p>
     <h3><a href="index.html">Table of Contents</a></h3>
     <ul>
 <li><a class="reference internal" href="#">powermon.protocols package</a><ul>
-<li><a class="reference internal" href="#submodules">Submodules</a></li>
-<li><a class="reference internal" href="#module-powermon.protocols.abstractprotocol">powermon.protocols.abstractprotocol module</a><ul>
-<li><a class="reference internal" href="#powermon.protocols.abstractprotocol.AbstractProtocol"><code class="docutils literal notranslate"><span class="pre">AbstractProtocol</span></code></a><ul>
-<li><a class="reference internal" href="#powermon.protocols.abstractprotocol.AbstractProtocol.add_command_definitions"><code class="docutils literal notranslate"><span class="pre">AbstractProtocol.add_command_definitions()</span></code></a></li>
-<li><a class="reference internal" href="#powermon.protocols.abstractprotocol.AbstractProtocol.add_supported_ports"><code class="docutils literal notranslate"><span class="pre">AbstractProtocol.add_supported_ports()</span></code></a></li>
-<li><a class="reference internal" href="#powermon.protocols.abstractprotocol.AbstractProtocol.check_crc"><code class="docutils literal notranslate"><span class="pre">AbstractProtocol.check_crc()</span></code></a></li>
-<li><a class="reference internal" href="#powermon.protocols.abstractprotocol.AbstractProtocol.check_definitions_count"><code class="docutils literal notranslate"><span class="pre">AbstractProtocol.check_definitions_count()</span></code></a></li>
-<li><a class="reference internal" href="#powermon.protocols.abstractprotocol.AbstractProtocol.check_valid"><code class="docutils literal notranslate"><span class="pre">AbstractProtocol.check_valid()</span></code></a></li>
-<li><a class="reference internal" href="#powermon.protocols.abstractprotocol.AbstractProtocol.clear_supported_ports"><code class="docutils literal notranslate"><span class="pre">AbstractProtocol.clear_supported_ports()</span></code></a></li>
-<li><a class="reference internal" href="#powermon.protocols.abstractprotocol.AbstractProtocol.get_command_definition"><code class="docutils literal notranslate"><span class="pre">AbstractProtocol.get_command_definition()</span></code></a></li>
-<li><a class="reference internal" href="#powermon.protocols.abstractprotocol.AbstractProtocol.get_command_definition_dtos"><code class="docutils literal notranslate"><span class="pre">AbstractProtocol.get_command_definition_dtos()</span></code></a></li>
-<li><a class="reference internal" href="#powermon.protocols.abstractprotocol.AbstractProtocol.get_full_command"><code class="docutils literal notranslate"><span class="pre">AbstractProtocol.get_full_command()</span></code></a></li>
-<li><a class="reference internal" href="#powermon.protocols.abstractprotocol.AbstractProtocol.get_id_command"><code class="docutils literal notranslate"><span class="pre">AbstractProtocol.get_id_command()</span></code></a></li>
-<li><a class="reference internal" href="#powermon.protocols.abstractprotocol.AbstractProtocol.list_commands"><code class="docutils literal notranslate"><span class="pre">AbstractProtocol.list_commands()</span></code></a></li>
-<li><a class="reference internal" href="#powermon.protocols.abstractprotocol.AbstractProtocol.protocol_id"><code class="docutils literal notranslate"><span class="pre">AbstractProtocol.protocol_id</span></code></a></li>
-<li><a class="reference internal" href="#powermon.protocols.abstractprotocol.AbstractProtocol.remove_command_definitions"><code class="docutils literal notranslate"><span class="pre">AbstractProtocol.remove_command_definitions()</span></code></a></li>
-<li><a class="reference internal" href="#powermon.protocols.abstractprotocol.AbstractProtocol.split_response"><code class="docutils literal notranslate"><span class="pre">AbstractProtocol.split_response()</span></code></a></li>
-<li><a class="reference internal" href="#powermon.protocols.abstractprotocol.AbstractProtocol.to_dto"><code class="docutils literal notranslate"><span class="pre">AbstractProtocol.to_dto()</span></code></a></li>
-<li><a class="reference internal" href="#powermon.protocols.abstractprotocol.AbstractProtocol.trim_response"><code class="docutils literal notranslate"><span class="pre">AbstractProtocol.trim_response()</span></code></a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#powermon.protocols.abstractprotocol.AbstractProtocolDTO"><code class="docutils literal notranslate"><span class="pre">AbstractProtocolDTO</span></code></a><ul>
-<li><a class="reference internal" href="#powermon.protocols.abstractprotocol.AbstractProtocolDTO.model_computed_fields"><code class="docutils literal notranslate"><span class="pre">AbstractProtocolDTO.model_computed_fields</span></code></a></li>
-<li><a class="reference internal" href="#powermon.protocols.abstractprotocol.AbstractProtocolDTO.model_config"><code class="docutils literal notranslate"><span class="pre">AbstractProtocolDTO.model_config</span></code></a></li>
-<li><a class="reference internal" href="#powermon.protocols.abstractprotocol.AbstractProtocolDTO.model_fields"><code class="docutils literal notranslate"><span class="pre">AbstractProtocolDTO.model_fields</span></code></a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a class="reference internal" href="#module-powermon.protocols.daly">powermon.protocols.daly module</a><ul>
-<li><a class="reference internal" href="#powermon.protocols.daly.Daly"><code class="docutils literal notranslate"><span class="pre">Daly</span></code></a><ul>
-<li><a class="reference internal" href="#powermon.protocols.daly.Daly.check_crc"><code class="docutils literal notranslate"><span class="pre">Daly.check_crc()</span></code></a></li>
-<li><a class="reference internal" href="#powermon.protocols.daly.Daly.check_valid"><code class="docutils literal notranslate"><span class="pre">Daly.check_valid()</span></code></a></li>
-<li><a class="reference internal" href="#powermon.protocols.daly.Daly.get_full_command"><code class="docutils literal notranslate"><span class="pre">Daly.get_full_command()</span></code></a></li>
-<li><a class="reference internal" href="#powermon.protocols.daly.Daly.split_response"><code class="docutils literal notranslate"><span class="pre">Daly.split_response()</span></code></a></li>
-<li><a class="reference internal" href="#powermon.protocols.daly.Daly.trim_response"><code class="docutils literal notranslate"><span class="pre">Daly.trim_response()</span></code></a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a class="reference internal" href="#module-powermon.protocols.helpers">powermon.protocols.helpers module</a><ul>
-<li><a class="reference internal" href="#powermon.protocols.helpers.crc_jk232"><code class="docutils literal notranslate"><span class="pre">crc_jk232()</span></code></a></li>
-<li><a class="reference internal" href="#powermon.protocols.helpers.crc_pi30"><code class="docutils literal notranslate"><span class="pre">crc_pi30()</span></code></a></li>
-<li><a class="reference internal" href="#powermon.protocols.helpers.victron_checksum"><code class="docutils literal notranslate"><span class="pre">victron_checksum()</span></code></a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#module-powermon.protocols.jkserial">powermon.protocols.jkserial module</a><ul>
-<li><a class="reference internal" href="#powermon.protocols.jkserial.JkSerial"><code class="docutils literal notranslate"><span class="pre">JkSerial</span></code></a><ul>
-<li><a class="reference internal" href="#powermon.protocols.jkserial.JkSerial.check_crc"><code class="docutils literal notranslate"><span class="pre">JkSerial.check_crc()</span></code></a></li>
-<li><a class="reference internal" href="#powermon.protocols.jkserial.JkSerial.check_valid"><code class="docutils literal notranslate"><span class="pre">JkSerial.check_valid()</span></code></a></li>
-<li><a class="reference internal" href="#powermon.protocols.jkserial.JkSerial.get_full_command"><code class="docutils literal notranslate"><span class="pre">JkSerial.get_full_command()</span></code></a></li>
-<li><a class="reference internal" href="#powermon.protocols.jkserial.JkSerial.split_response"><code class="docutils literal notranslate"><span class="pre">JkSerial.split_response()</span></code></a></li>
-<li><a class="reference internal" href="#powermon.protocols.jkserial.JkSerial.trim_response"><code class="docutils literal notranslate"><span class="pre">JkSerial.trim_response()</span></code></a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a class="reference internal" href="#module-powermon.protocols.neey">powermon.protocols.neey module</a><ul>
-<li><a class="reference internal" href="#powermon.protocols.neey.Neey"><code class="docutils literal notranslate"><span class="pre">Neey</span></code></a><ul>
-<li><a class="reference internal" href="#powermon.protocols.neey.Neey.check_crc"><code class="docutils literal notranslate"><span class="pre">Neey.check_crc()</span></code></a></li>
-<li><a class="reference internal" href="#powermon.protocols.neey.Neey.check_valid"><code class="docutils literal notranslate"><span class="pre">Neey.check_valid()</span></code></a></li>
-<li><a class="reference internal" href="#powermon.protocols.neey.Neey.get_full_command"><code class="docutils literal notranslate"><span class="pre">Neey.get_full_command()</span></code></a></li>
-<li><a class="reference internal" href="#powermon.protocols.neey.Neey.split_response"><code class="docutils literal notranslate"><span class="pre">Neey.split_response()</span></code></a></li>
-<li><a class="reference internal" href="#powermon.protocols.neey.Neey.trim_response"><code class="docutils literal notranslate"><span class="pre">Neey.trim_response()</span></code></a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a class="reference internal" href="#module-powermon.protocols.pi18">powermon.protocols.pi18 module</a><ul>
-<li><a class="reference internal" href="#powermon.protocols.pi18.PI18"><code class="docutils literal notranslate"><span class="pre">PI18</span></code></a><ul>
-<li><a class="reference internal" href="#powermon.protocols.pi18.PI18.check_crc"><code class="docutils literal notranslate"><span class="pre">PI18.check_crc()</span></code></a></li>
-<li><a class="reference internal" href="#powermon.protocols.pi18.PI18.get_full_command"><code class="docutils literal notranslate"><span class="pre">PI18.get_full_command()</span></code></a></li>
-<li><a class="reference internal" href="#powermon.protocols.pi18.PI18.trim_response"><code class="docutils literal notranslate"><span class="pre">PI18.trim_response()</span></code></a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a class="reference internal" href="#module-powermon.protocols.pi30">powermon.protocols.pi30 module</a><ul>
-<li><a class="reference internal" href="#powermon.protocols.pi30.PI30"><code class="docutils literal notranslate"><span class="pre">PI30</span></code></a><ul>
-<li><a class="reference internal" href="#powermon.protocols.pi30.PI30.check_crc"><code class="docutils literal notranslate"><span class="pre">PI30.check_crc()</span></code></a></li>
-<li><a class="reference internal" href="#powermon.protocols.pi30.PI30.check_valid"><code class="docutils literal notranslate"><span class="pre">PI30.check_valid()</span></code></a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a class="reference internal" href="#module-powermon.protocols.pi30max">powermon.protocols.pi30max module</a><ul>
-<li><a class="reference internal" href="#powermon.protocols.pi30max.PI30MAX"><code class="docutils literal notranslate"><span class="pre">PI30MAX</span></code></a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#module-powermon.protocols.ved">powermon.protocols.ved module</a><ul>
-<li><a class="reference internal" href="#powermon.protocols.ved.VictronEnergyDirect"><code class="docutils literal notranslate"><span class="pre">VictronEnergyDirect</span></code></a><ul>
-<li><a class="reference internal" href="#powermon.protocols.ved.VictronEnergyDirect.check_crc"><code class="docutils literal notranslate"><span class="pre">VictronEnergyDirect.check_crc()</span></code></a></li>
-<li><a class="reference internal" href="#powermon.protocols.ved.VictronEnergyDirect.check_valid"><code class="docutils literal notranslate"><span class="pre">VictronEnergyDirect.check_valid()</span></code></a></li>
-<li><a class="reference internal" href="#powermon.protocols.ved.VictronEnergyDirect.get_full_command"><code class="docutils literal notranslate"><span class="pre">VictronEnergyDirect.get_full_command()</span></code></a></li>
-<li><a class="reference internal" href="#powermon.protocols.ved.VictronEnergyDirect.trim_response"><code class="docutils literal notranslate"><span class="pre">VictronEnergyDirect.trim_response()</span></code></a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a class="reference internal" href="#module-powermon.protocols">Module contents</a><ul>
 <li><a class="reference internal" href="#powermon.protocols.Protocol"><code class="docutils literal notranslate"><span class="pre">Protocol</span></code></a></li>
 <li><a class="reference internal" href="#powermon.protocols.get_protocol_definition"><code class="docutils literal notranslate"><span class="pre">get_protocol_definition()</span></code></a></li>
 <li><a class="reference internal" href="#powermon.protocols.list_protocols"><code class="docutils literal notranslate"><span class="pre">list_protocols()</span></code></a></li>
-</ul>
-</li>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
 </ul>
 </li>
 </ul>
@@ -625,8 +193,13 @@ as needed</p>
   </div>
   <div>
     <h4>Previous topic</h4>
-    <p class="topless"><a href="powermon.ports.html"
-                          title="previous chapter">powermon.ports package</a></p>
+    <p class="topless"><a href="powermon.ports.usbport.html"
+                          title="previous chapter">powermon.ports.usbport module</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="powermon.protocols.abstractprotocol.html"
+                          title="next chapter">powermon.protocols.abstractprotocol module</a></p>
   </div>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
@@ -659,7 +232,10 @@ as needed</p>
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="powermon.ports.html" title="powermon.ports package"
+          <a href="powermon.protocols.abstractprotocol.html" title="powermon.protocols.abstractprotocol module"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="powermon.ports.usbport.html" title="powermon.ports.usbport module"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">powermon  documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="powermon.html" >powermon package</a> &#187;</li>

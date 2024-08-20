@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>powermon.outputs.abstractoutput module &#8212; powermon  documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="_static/nature.css?v=0f882399" />
+    <script src="_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="powermon.outputs.api_mqtt module" href="powermon.outputs.api_mqtt.html" />
+    <link rel="prev" title="powermon.outputs package" href="powermon.outputs.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="powermon.outputs.api_mqtt.html" title="powermon.outputs.api_mqtt module"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="powermon.outputs.html" title="powermon.outputs package"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">powermon  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="powermon.html" >powermon package</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="powermon.outputs.html" accesskey="U">powermon.outputs package</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">powermon.outputs.abstractoutput module</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="module-powermon.outputs.abstractoutput">
+<span id="powermon-outputs-abstractoutput-module"></span><h1>powermon.outputs.abstractoutput module<a class="headerlink" href="#module-powermon.outputs.abstractoutput" title="Link to this heading">¶</a></h1>
+<p>outputs / abstractoutput.py</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="powermon.outputs.abstractoutput.AbstractOutput">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">powermon.outputs.abstractoutput.</span></span><span class="sig-name descname"><span class="pre">AbstractOutput</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#powermon.outputs.abstractoutput.AbstractOutput" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ABC</span></code></p>
+<p>base class for all output modules</p>
+<dl class="py property">
+<dt class="sig sig-object py" id="powermon.outputs.abstractoutput.AbstractOutput.formatter">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">formatter</span></span><a class="headerlink" href="#powermon.outputs.abstractoutput.AbstractOutput.formatter" title="Link to this definition">¶</a></dt>
+<dd><p>the formatter for this output</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="powermon.outputs.abstractoutput.AbstractOutput.process">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">process</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">command</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">result</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Result</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mqtt_broker</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device_info</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#powermon.outputs.abstractoutput.AbstractOutput.process" title="Link to this definition">¶</a></dt>
+<dd><p>entry point of any output class</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="powermon.outputs.abstractoutput.AbstractOutput.to_dto">
+<span class="sig-name descname"><span class="pre">to_dto</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#powermon.outputs.abstractoutput.AbstractOutputDTO" title="powermon.outputs.abstractoutput.AbstractOutputDTO"><span class="pre">AbstractOutputDTO</span></a></span></span><a class="headerlink" href="#powermon.outputs.abstractoutput.AbstractOutput.to_dto" title="Link to this definition">¶</a></dt>
+<dd><p>convert output object to a data transfer object</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="powermon.outputs.abstractoutput.AbstractOutputDTO">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">powermon.outputs.abstractoutput.</span></span><span class="sig-name descname"><span class="pre">AbstractOutputDTO</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">topic</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">None</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">formatter</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="powermon.outputformats.abstractformat.html#powermon.outputformats.abstractformat.AbstractFormatDTO" title="powermon.outputformats.abstractformat.AbstractFormatDTO"><span class="pre">AbstractFormatDTO</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#powermon.outputs.abstractoutput.AbstractOutputDTO" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseModel</span></code></p>
+<p>data transfer model for AbstractOutput class</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="powermon.outputs.abstractoutput.AbstractOutputDTO.model_computed_fields">
+<span class="sig-name descname"><span class="pre">model_computed_fields</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">ComputedFieldInfo</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></em><a class="headerlink" href="#powermon.outputs.abstractoutput.AbstractOutputDTO.model_computed_fields" title="Link to this definition">¶</a></dt>
+<dd><p>A dictionary of computed field names and their corresponding <cite>ComputedFieldInfo</cite> objects.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="powermon.outputs.abstractoutput.AbstractOutputDTO.model_config">
+<span class="sig-name descname"><span class="pre">model_config</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">ConfigDict</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></em><a class="headerlink" href="#powermon.outputs.abstractoutput.AbstractOutputDTO.model_config" title="Link to this definition">¶</a></dt>
+<dd><p>Configuration for the model, should be a dictionary conforming to [<cite>ConfigDict</cite>][pydantic.config.ConfigDict].</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="powermon.outputs.abstractoutput.AbstractOutputDTO.model_fields">
+<span class="sig-name descname"><span class="pre">model_fields</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">FieldInfo</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'formatter':</span> <span class="pre">FieldInfo(annotation=AbstractFormatDTO,</span> <span class="pre">required=True),</span> <span class="pre">'output_type':</span> <span class="pre">FieldInfo(annotation=str,</span> <span class="pre">required=True),</span> <span class="pre">'topic':</span> <span class="pre">FieldInfo(annotation=Union[NoneType,</span> <span class="pre">str],</span> <span class="pre">required=True)}</span></em><a class="headerlink" href="#powermon.outputs.abstractoutput.AbstractOutputDTO.model_fields" title="Link to this definition">¶</a></dt>
+<dd><p>Metadata about the fields defined on the model,
+mapping of field names to [<cite>FieldInfo</cite>][pydantic.fields.FieldInfo].</p>
+<p>This replaces <cite>Model.__fields__</cite> from Pydantic V1.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">powermon.outputs.abstractoutput module</a><ul>
+<li><a class="reference internal" href="#powermon.outputs.abstractoutput.AbstractOutput"><code class="docutils literal notranslate"><span class="pre">AbstractOutput</span></code></a><ul>
+<li><a class="reference internal" href="#powermon.outputs.abstractoutput.AbstractOutput.formatter"><code class="docutils literal notranslate"><span class="pre">AbstractOutput.formatter</span></code></a></li>
+<li><a class="reference internal" href="#powermon.outputs.abstractoutput.AbstractOutput.process"><code class="docutils literal notranslate"><span class="pre">AbstractOutput.process()</span></code></a></li>
+<li><a class="reference internal" href="#powermon.outputs.abstractoutput.AbstractOutput.to_dto"><code class="docutils literal notranslate"><span class="pre">AbstractOutput.to_dto()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#powermon.outputs.abstractoutput.AbstractOutputDTO"><code class="docutils literal notranslate"><span class="pre">AbstractOutputDTO</span></code></a><ul>
+<li><a class="reference internal" href="#powermon.outputs.abstractoutput.AbstractOutputDTO.model_computed_fields"><code class="docutils literal notranslate"><span class="pre">AbstractOutputDTO.model_computed_fields</span></code></a></li>
+<li><a class="reference internal" href="#powermon.outputs.abstractoutput.AbstractOutputDTO.model_config"><code class="docutils literal notranslate"><span class="pre">AbstractOutputDTO.model_config</span></code></a></li>
+<li><a class="reference internal" href="#powermon.outputs.abstractoutput.AbstractOutputDTO.model_fields"><code class="docutils literal notranslate"><span class="pre">AbstractOutputDTO.model_fields</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="powermon.outputs.html"
+                          title="previous chapter">powermon.outputs package</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="powermon.outputs.api_mqtt.html"
+                          title="next chapter">powermon.outputs.api_mqtt module</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/powermon.outputs.abstractoutput.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="powermon.outputs.api_mqtt.html" title="powermon.outputs.api_mqtt module"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="powermon.outputs.html" title="powermon.outputs package"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">powermon  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="powermon.html" >powermon package</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="powermon.outputs.html" >powermon.outputs package</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">powermon.outputs.abstractoutput module</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+    &#169; Copyright 2024, jblance.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.0.2.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>powermon.device module &#8212; powermon  documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="_static/nature.css?v=0f882399" />
+    <script src="_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="powermon.cli module" href="powermon.cli.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="powermon.cli.html" title="powermon.cli module"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">powermon  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="powermon.html" accesskey="U">powermon package</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">powermon.device module</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="module-powermon.device">
+<span id="powermon-device-module"></span><h1>powermon.device module<a class="headerlink" href="#module-powermon.device" title="Link to this heading">¶</a></h1>
+<p>device.py</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="powermon.device.Device">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">powermon.device.</span></span><span class="sig-name descname"><span class="pre">Device</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">manufacturer</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">port</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="powermon.ports.abstractport.html#powermon.ports.abstractport.AbstractPort" title="powermon.ports.abstractport.AbstractPort"><span class="pre">AbstractPort</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#powermon.device.Device" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>A device is a port with a protocol
+also contains the name, model and id of the device</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="powermon.device.Device.add_command">
+<span class="sig-name descname"><span class="pre">add_command</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">command</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Command</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#powermon.device.Device.add_command" title="Link to this definition">¶</a></dt>
+<dd><p>add a command to the devices’ list of commands</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>command</strong> (<em>Command</em>) – Command object to add to list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="powermon.device.Device.adhoc_command_cb">
+<span class="sig-name descname"><span class="pre">adhoc_command_cb</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">client</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">userdata</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">msg</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#powermon.device.Device.adhoc_command_cb" title="Link to this definition">¶</a></dt>
+<dd><p>callback for adhoc command messages</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="powermon.device.Device.finalize">
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">finalize</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#powermon.device.Device.finalize" title="Link to this definition">¶</a></dt>
+<dd><p>Device finalization activities</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="powermon.device.Device.from_config">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_config</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#powermon.device.Device.from_config" title="Link to this definition">¶</a></dt>
+<dd><p>build the object from a config dict</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="powermon.device.Device.initialize">
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">initialize</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#powermon.device.Device.initialize" title="Link to this definition">¶</a></dt>
+<dd><p>Device initialization activities</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="powermon.device.Device.mqtt_broker">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">mqtt_broker</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="powermon.libs.mqttbroker.html#powermon.libs.mqttbroker.MqttBroker" title="powermon.libs.mqttbroker.MqttBroker"><span class="pre">MqttBroker</span></a></em><a class="headerlink" href="#powermon.device.Device.mqtt_broker" title="Link to this definition">¶</a></dt>
+<dd><p>the mqtt_broker object</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="powermon.device.Device.port">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">port</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="powermon.ports.abstractport.html#powermon.ports.abstractport.AbstractPort" title="powermon.ports.abstractport.AbstractPort"><span class="pre">AbstractPort</span></a></em><a class="headerlink" href="#powermon.device.Device.port" title="Link to this definition">¶</a></dt>
+<dd><p>the port associated with this device</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="powermon.device.Device.run">
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">force</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#powermon.device.Device.run" title="Link to this definition">¶</a></dt>
+<dd><p>checks for commands to run and runs them</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="powermon.device.Device.run_adhoc_commands">
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">run_adhoc_commands</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#powermon.device.Device.run_adhoc_commands" title="Link to this definition">¶</a></dt>
+<dd><p>check for any adhoc commands in the queue and run them</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="powermon.device.Device.to_dto">
+<span class="sig-name descname"><span class="pre">to_dto</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#powermon.device.DeviceDTO" title="powermon.device.DeviceDTO"><span class="pre">DeviceDTO</span></a></span></span><a class="headerlink" href="#powermon.device.Device.to_dto" title="Link to this definition">¶</a></dt>
+<dd><p>convert the Device to a Data Transfer Object</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="powermon.device.DeviceDTO">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">powermon.device.</span></span><span class="sig-name descname"><span class="pre">DeviceDTO</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device_info</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#powermon.device.DeviceInfoDTO" title="powermon.device.DeviceInfoDTO"><span class="pre">DeviceInfoDTO</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">port</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="powermon.ports.abstractport.html#powermon.ports.abstractport.AbstractPortDTO" title="powermon.ports.abstractport.AbstractPortDTO"><span class="pre">AbstractPortDTO</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">commands</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">CommandDTO</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#powermon.device.DeviceDTO" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseModel</span></code></p>
+<p>data transfer model for Device class</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="powermon.device.DeviceDTO.model_computed_fields">
+<span class="sig-name descname"><span class="pre">model_computed_fields</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">ComputedFieldInfo</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></em><a class="headerlink" href="#powermon.device.DeviceDTO.model_computed_fields" title="Link to this definition">¶</a></dt>
+<dd><p>A dictionary of computed field names and their corresponding <cite>ComputedFieldInfo</cite> objects.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="powermon.device.DeviceDTO.model_config">
+<span class="sig-name descname"><span class="pre">model_config</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">ConfigDict</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></em><a class="headerlink" href="#powermon.device.DeviceDTO.model_config" title="Link to this definition">¶</a></dt>
+<dd><p>Configuration for the model, should be a dictionary conforming to [<cite>ConfigDict</cite>][pydantic.config.ConfigDict].</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="powermon.device.DeviceDTO.model_fields">
+<span class="sig-name descname"><span class="pre">model_fields</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">FieldInfo</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'commands':</span> <span class="pre">FieldInfo(annotation=list[CommandDTO],</span> <span class="pre">required=True),</span> <span class="pre">'device_info':</span> <span class="pre">FieldInfo(annotation=DeviceInfoDTO,</span> <span class="pre">required=True),</span> <span class="pre">'port':</span> <span class="pre">FieldInfo(annotation=AbstractPortDTO,</span> <span class="pre">required=True)}</span></em><a class="headerlink" href="#powermon.device.DeviceDTO.model_fields" title="Link to this definition">¶</a></dt>
+<dd><p>Metadata about the fields defined on the model,
+mapping of field names to [<cite>FieldInfo</cite>][pydantic.fields.FieldInfo].</p>
+<p>This replaces <cite>Model.__fields__</cite> from Pydantic V1.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="powermon.device.DeviceInfo">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">powermon.device.</span></span><span class="sig-name descname"><span class="pre">DeviceInfo</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">manufacturer</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#powermon.device.DeviceInfo" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>struct like class to contain info about the device</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="powermon.device.DeviceInfo.to_dto">
+<span class="sig-name descname"><span class="pre">to_dto</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#powermon.device.DeviceInfo.to_dto" title="Link to this definition">¶</a></dt>
+<dd><p>convert the DeviceInfo to a Data Transfer Object</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="powermon.device.DeviceInfoDTO">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">powermon.device.</span></span><span class="sig-name descname"><span class="pre">DeviceInfoDTO</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">manufacturer</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#powermon.device.DeviceInfoDTO" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseModel</span></code></p>
+<p>data transfer model for DeviceInfo class</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="powermon.device.DeviceInfoDTO.model_computed_fields">
+<span class="sig-name descname"><span class="pre">model_computed_fields</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">ComputedFieldInfo</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></em><a class="headerlink" href="#powermon.device.DeviceInfoDTO.model_computed_fields" title="Link to this definition">¶</a></dt>
+<dd><p>A dictionary of computed field names and their corresponding <cite>ComputedFieldInfo</cite> objects.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="powermon.device.DeviceInfoDTO.model_config">
+<span class="sig-name descname"><span class="pre">model_config</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">ConfigDict</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></em><a class="headerlink" href="#powermon.device.DeviceInfoDTO.model_config" title="Link to this definition">¶</a></dt>
+<dd><p>Configuration for the model, should be a dictionary conforming to [<cite>ConfigDict</cite>][pydantic.config.ConfigDict].</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="powermon.device.DeviceInfoDTO.model_fields">
+<span class="sig-name descname"><span class="pre">model_fields</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">FieldInfo</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'device_id':</span> <span class="pre">FieldInfo(annotation=Union[str,</span> <span class="pre">int],</span> <span class="pre">required=True),</span> <span class="pre">'manufacturer':</span> <span class="pre">FieldInfo(annotation=Union[str,</span> <span class="pre">int,</span> <span class="pre">NoneType],</span> <span class="pre">required=True),</span> <span class="pre">'model':</span> <span class="pre">FieldInfo(annotation=Union[str,</span> <span class="pre">int,</span> <span class="pre">NoneType],</span> <span class="pre">required=True),</span> <span class="pre">'name':</span> <span class="pre">FieldInfo(annotation=Union[str,</span> <span class="pre">int],</span> <span class="pre">required=True)}</span></em><a class="headerlink" href="#powermon.device.DeviceInfoDTO.model_fields" title="Link to this definition">¶</a></dt>
+<dd><p>Metadata about the fields defined on the model,
+mapping of field names to [<cite>FieldInfo</cite>][pydantic.fields.FieldInfo].</p>
+<p>This replaces <cite>Model.__fields__</cite> from Pydantic V1.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">powermon.device module</a><ul>
+<li><a class="reference internal" href="#powermon.device.Device"><code class="docutils literal notranslate"><span class="pre">Device</span></code></a><ul>
+<li><a class="reference internal" href="#powermon.device.Device.add_command"><code class="docutils literal notranslate"><span class="pre">Device.add_command()</span></code></a></li>
+<li><a class="reference internal" href="#powermon.device.Device.adhoc_command_cb"><code class="docutils literal notranslate"><span class="pre">Device.adhoc_command_cb()</span></code></a></li>
+<li><a class="reference internal" href="#powermon.device.Device.finalize"><code class="docutils literal notranslate"><span class="pre">Device.finalize()</span></code></a></li>
+<li><a class="reference internal" href="#powermon.device.Device.from_config"><code class="docutils literal notranslate"><span class="pre">Device.from_config()</span></code></a></li>
+<li><a class="reference internal" href="#powermon.device.Device.initialize"><code class="docutils literal notranslate"><span class="pre">Device.initialize()</span></code></a></li>
+<li><a class="reference internal" href="#powermon.device.Device.mqtt_broker"><code class="docutils literal notranslate"><span class="pre">Device.mqtt_broker</span></code></a></li>
+<li><a class="reference internal" href="#powermon.device.Device.port"><code class="docutils literal notranslate"><span class="pre">Device.port</span></code></a></li>
+<li><a class="reference internal" href="#powermon.device.Device.run"><code class="docutils literal notranslate"><span class="pre">Device.run()</span></code></a></li>
+<li><a class="reference internal" href="#powermon.device.Device.run_adhoc_commands"><code class="docutils literal notranslate"><span class="pre">Device.run_adhoc_commands()</span></code></a></li>
+<li><a class="reference internal" href="#powermon.device.Device.to_dto"><code class="docutils literal notranslate"><span class="pre">Device.to_dto()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#powermon.device.DeviceDTO"><code class="docutils literal notranslate"><span class="pre">DeviceDTO</span></code></a><ul>
+<li><a class="reference internal" href="#powermon.device.DeviceDTO.model_computed_fields"><code class="docutils literal notranslate"><span class="pre">DeviceDTO.model_computed_fields</span></code></a></li>
+<li><a class="reference internal" href="#powermon.device.DeviceDTO.model_config"><code class="docutils literal notranslate"><span class="pre">DeviceDTO.model_config</span></code></a></li>
+<li><a class="reference internal" href="#powermon.device.DeviceDTO.model_fields"><code class="docutils literal notranslate"><span class="pre">DeviceDTO.model_fields</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#powermon.device.DeviceInfo"><code class="docutils literal notranslate"><span class="pre">DeviceInfo</span></code></a><ul>
+<li><a class="reference internal" href="#powermon.device.DeviceInfo.to_dto"><code class="docutils literal notranslate"><span class="pre">DeviceInfo.to_dto()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#powermon.device.DeviceInfoDTO"><code class="docutils literal notranslate"><span class="pre">DeviceInfoDTO</span></code></a><ul>
+<li><a class="reference internal" href="#powermon.device.DeviceInfoDTO.model_computed_fields"><code class="docutils literal notranslate"><span class="pre">DeviceInfoDTO.model_computed_fields</span></code></a></li>
+<li><a class="reference internal" href="#powermon.device.DeviceInfoDTO.model_config"><code class="docutils literal notranslate"><span class="pre">DeviceInfoDTO.model_config</span></code></a></li>
+<li><a class="reference internal" href="#powermon.device.DeviceInfoDTO.model_fields"><code class="docutils literal notranslate"><span class="pre">DeviceInfoDTO.model_fields</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="powermon.cli.html"
+                          title="previous chapter">powermon.cli module</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/powermon.device.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="powermon.cli.html" title="powermon.cli module"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">powermon  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="powermon.html" >powermon package</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">powermon.device module</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+    &#169; Copyright 2024, jblance.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.0.2.
+    </div>
+  </body>
+</html>
