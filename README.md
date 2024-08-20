@@ -20,7 +20,7 @@ Currently has support for:
 
 ## Install ##
 - `pip install powermon` (minimal install)
-- `pip install powermon[api]` (install web api )
+- `pip install powermon[api]` (install web api)
 
 
 ## Documentation ##
