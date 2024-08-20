@@ -1,7 +1,6 @@
-powermon
-========
+Contents
+--------
 
 .. toctree::
-   :maxdepth: 4
 
-   powermon
+   modules
