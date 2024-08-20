@@ -35,7 +35,9 @@ sqlalchemy = { version = "^2.0.15", optional = true }
 uvicorn = { version = ">=0.15.0", optional = true }
 
 # dev dependencies
-twine = { version = "^4.0.2", optional = true }
+#twine = { version = "^4.0.2", optional = true }
+sphinx = { version = "^8.0.2", optional = true }
+autodocsumm = {version = "^0.2.13", optional = true}
 # flake8 = { version = "^6.0.0", optional = true }
 # black = { version = "^23.3.0", optional = true }
 # coverage = { version = "^7.2.5", optional = true }
@@ -43,11 +45,10 @@ twine = { version = "^4.0.2", optional = true }
 # modbus dependencies
 pymodbus = { version = "^3.6.4", optional = true }
 
-
 [tool.poetry.extras]
 api = ["fastapi", "fastapi-mqtt", "jinja2", "requests", "sqlalchemy", "uvicorn"]
 ble = ["bleak", "pycryptodome"]
-dev = ["twine"]
+dev = ["sphinx", "autodocsumm"]
 modbus = ["pymodbus"]
 systemd = ["cysystemd"]
 

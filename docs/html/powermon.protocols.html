@@ -6,29 +6,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>powermon.protocols package &#8212; powermon  documentation</title>
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=d1102ebc" />
-    <link rel="stylesheet" type="text/css" href="_static/basic.css?v=c058f7c8" />
-    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=27fed22d" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="_static/nature.css?v=0f882399" />
     <script src="_static/documentation_options.js?v=5929fcd5"></script>
     <script src="_static/doctools.js?v=9a2dae69"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" />
-   
-  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
-  
-
-  
-  
-
+    <link rel="search" title="Search" href="search.html" /> 
   </head><body>
-  
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">powermon  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">powermon.protocols package</a></li> 
+      </ul>
+    </div>  
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          
-
           <div class="body" role="main">
             
   <section id="powermon-protocols-package">
@@ -561,65 +563,178 @@ as needed</p>
 </section>
 
 
+            <div class="clearer"></div>
           </div>
-          
         </div>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="Main">
         <div class="sphinxsidebarwrapper">
-<h1 class="logo"><a href="index.html">powermon</a></h1>
+  <div>
+    <h3><a href="index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">powermon.protocols package</a><ul>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-powermon.protocols.abstractprotocol">powermon.protocols.abstractprotocol module</a><ul>
+<li><a class="reference internal" href="#powermon.protocols.abstractprotocol.AbstractProtocol"><code class="docutils literal notranslate"><span class="pre">AbstractProtocol</span></code></a><ul>
+<li><a class="reference internal" href="#powermon.protocols.abstractprotocol.AbstractProtocol.add_command_definitions"><code class="docutils literal notranslate"><span class="pre">AbstractProtocol.add_command_definitions()</span></code></a></li>
+<li><a class="reference internal" href="#powermon.protocols.abstractprotocol.AbstractProtocol.add_supported_ports"><code class="docutils literal notranslate"><span class="pre">AbstractProtocol.add_supported_ports()</span></code></a></li>
+<li><a class="reference internal" href="#powermon.protocols.abstractprotocol.AbstractProtocol.check_crc"><code class="docutils literal notranslate"><span class="pre">AbstractProtocol.check_crc()</span></code></a></li>
+<li><a class="reference internal" href="#powermon.protocols.abstractprotocol.AbstractProtocol.check_definitions_count"><code class="docutils literal notranslate"><span class="pre">AbstractProtocol.check_definitions_count()</span></code></a></li>
+<li><a class="reference internal" href="#powermon.protocols.abstractprotocol.AbstractProtocol.check_valid"><code class="docutils literal notranslate"><span class="pre">AbstractProtocol.check_valid()</span></code></a></li>
+<li><a class="reference internal" href="#powermon.protocols.abstractprotocol.AbstractProtocol.clear_supported_ports"><code class="docutils literal notranslate"><span class="pre">AbstractProtocol.clear_supported_ports()</span></code></a></li>
+<li><a class="reference internal" href="#powermon.protocols.abstractprotocol.AbstractProtocol.get_command_definition"><code class="docutils literal notranslate"><span class="pre">AbstractProtocol.get_command_definition()</span></code></a></li>
+<li><a class="reference internal" href="#powermon.protocols.abstractprotocol.AbstractProtocol.get_command_definition_dtos"><code class="docutils literal notranslate"><span class="pre">AbstractProtocol.get_command_definition_dtos()</span></code></a></li>
+<li><a class="reference internal" href="#powermon.protocols.abstractprotocol.AbstractProtocol.get_full_command"><code class="docutils literal notranslate"><span class="pre">AbstractProtocol.get_full_command()</span></code></a></li>
+<li><a class="reference internal" href="#powermon.protocols.abstractprotocol.AbstractProtocol.get_id_command"><code class="docutils literal notranslate"><span class="pre">AbstractProtocol.get_id_command()</span></code></a></li>
+<li><a class="reference internal" href="#powermon.protocols.abstractprotocol.AbstractProtocol.list_commands"><code class="docutils literal notranslate"><span class="pre">AbstractProtocol.list_commands()</span></code></a></li>
+<li><a class="reference internal" href="#powermon.protocols.abstractprotocol.AbstractProtocol.protocol_id"><code class="docutils literal notranslate"><span class="pre">AbstractProtocol.protocol_id</span></code></a></li>
+<li><a class="reference internal" href="#powermon.protocols.abstractprotocol.AbstractProtocol.remove_command_definitions"><code class="docutils literal notranslate"><span class="pre">AbstractProtocol.remove_command_definitions()</span></code></a></li>
+<li><a class="reference internal" href="#powermon.protocols.abstractprotocol.AbstractProtocol.split_response"><code class="docutils literal notranslate"><span class="pre">AbstractProtocol.split_response()</span></code></a></li>
+<li><a class="reference internal" href="#powermon.protocols.abstractprotocol.AbstractProtocol.to_dto"><code class="docutils literal notranslate"><span class="pre">AbstractProtocol.to_dto()</span></code></a></li>
+<li><a class="reference internal" href="#powermon.protocols.abstractprotocol.AbstractProtocol.trim_response"><code class="docutils literal notranslate"><span class="pre">AbstractProtocol.trim_response()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#powermon.protocols.abstractprotocol.AbstractProtocolDTO"><code class="docutils literal notranslate"><span class="pre">AbstractProtocolDTO</span></code></a><ul>
+<li><a class="reference internal" href="#powermon.protocols.abstractprotocol.AbstractProtocolDTO.command_definitions"><code class="docutils literal notranslate"><span class="pre">AbstractProtocolDTO.command_definitions</span></code></a></li>
+<li><a class="reference internal" href="#powermon.protocols.abstractprotocol.AbstractProtocolDTO.id_command"><code class="docutils literal notranslate"><span class="pre">AbstractProtocolDTO.id_command</span></code></a></li>
+<li><a class="reference internal" href="#powermon.protocols.abstractprotocol.AbstractProtocolDTO.model_computed_fields"><code class="docutils literal notranslate"><span class="pre">AbstractProtocolDTO.model_computed_fields</span></code></a></li>
+<li><a class="reference internal" href="#powermon.protocols.abstractprotocol.AbstractProtocolDTO.model_config"><code class="docutils literal notranslate"><span class="pre">AbstractProtocolDTO.model_config</span></code></a></li>
+<li><a class="reference internal" href="#powermon.protocols.abstractprotocol.AbstractProtocolDTO.model_fields"><code class="docutils literal notranslate"><span class="pre">AbstractProtocolDTO.model_fields</span></code></a></li>
+<li><a class="reference internal" href="#powermon.protocols.abstractprotocol.AbstractProtocolDTO.protocol_id"><code class="docutils literal notranslate"><span class="pre">AbstractProtocolDTO.protocol_id</span></code></a></li>
+<li><a class="reference internal" href="#powermon.protocols.abstractprotocol.AbstractProtocolDTO.supported_ports"><code class="docutils literal notranslate"><span class="pre">AbstractProtocolDTO.supported_ports</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-powermon.protocols.daly">powermon.protocols.daly module</a><ul>
+<li><a class="reference internal" href="#powermon.protocols.daly.Daly"><code class="docutils literal notranslate"><span class="pre">Daly</span></code></a><ul>
+<li><a class="reference internal" href="#powermon.protocols.daly.Daly.check_crc"><code class="docutils literal notranslate"><span class="pre">Daly.check_crc()</span></code></a></li>
+<li><a class="reference internal" href="#powermon.protocols.daly.Daly.check_valid"><code class="docutils literal notranslate"><span class="pre">Daly.check_valid()</span></code></a></li>
+<li><a class="reference internal" href="#powermon.protocols.daly.Daly.get_full_command"><code class="docutils literal notranslate"><span class="pre">Daly.get_full_command()</span></code></a></li>
+<li><a class="reference internal" href="#powermon.protocols.daly.Daly.split_response"><code class="docutils literal notranslate"><span class="pre">Daly.split_response()</span></code></a></li>
+<li><a class="reference internal" href="#powermon.protocols.daly.Daly.trim_response"><code class="docutils literal notranslate"><span class="pre">Daly.trim_response()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-powermon.protocols.helpers">powermon.protocols.helpers module</a><ul>
+<li><a class="reference internal" href="#powermon.protocols.helpers.crc_jk232"><code class="docutils literal notranslate"><span class="pre">crc_jk232()</span></code></a></li>
+<li><a class="reference internal" href="#powermon.protocols.helpers.crc_pi30"><code class="docutils literal notranslate"><span class="pre">crc_pi30()</span></code></a></li>
+<li><a class="reference internal" href="#powermon.protocols.helpers.victron_checksum"><code class="docutils literal notranslate"><span class="pre">victron_checksum()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-powermon.protocols.jkserial">powermon.protocols.jkserial module</a><ul>
+<li><a class="reference internal" href="#powermon.protocols.jkserial.JkSerial"><code class="docutils literal notranslate"><span class="pre">JkSerial</span></code></a><ul>
+<li><a class="reference internal" href="#powermon.protocols.jkserial.JkSerial.check_crc"><code class="docutils literal notranslate"><span class="pre">JkSerial.check_crc()</span></code></a></li>
+<li><a class="reference internal" href="#powermon.protocols.jkserial.JkSerial.check_valid"><code class="docutils literal notranslate"><span class="pre">JkSerial.check_valid()</span></code></a></li>
+<li><a class="reference internal" href="#powermon.protocols.jkserial.JkSerial.get_full_command"><code class="docutils literal notranslate"><span class="pre">JkSerial.get_full_command()</span></code></a></li>
+<li><a class="reference internal" href="#powermon.protocols.jkserial.JkSerial.split_response"><code class="docutils literal notranslate"><span class="pre">JkSerial.split_response()</span></code></a></li>
+<li><a class="reference internal" href="#powermon.protocols.jkserial.JkSerial.trim_response"><code class="docutils literal notranslate"><span class="pre">JkSerial.trim_response()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-powermon.protocols.neey">powermon.protocols.neey module</a><ul>
+<li><a class="reference internal" href="#powermon.protocols.neey.Neey"><code class="docutils literal notranslate"><span class="pre">Neey</span></code></a><ul>
+<li><a class="reference internal" href="#powermon.protocols.neey.Neey.check_crc"><code class="docutils literal notranslate"><span class="pre">Neey.check_crc()</span></code></a></li>
+<li><a class="reference internal" href="#powermon.protocols.neey.Neey.check_valid"><code class="docutils literal notranslate"><span class="pre">Neey.check_valid()</span></code></a></li>
+<li><a class="reference internal" href="#powermon.protocols.neey.Neey.checksum"><code class="docutils literal notranslate"><span class="pre">Neey.checksum()</span></code></a></li>
+<li><a class="reference internal" href="#powermon.protocols.neey.Neey.crc"><code class="docutils literal notranslate"><span class="pre">Neey.crc()</span></code></a></li>
+<li><a class="reference internal" href="#powermon.protocols.neey.Neey.get_full_command"><code class="docutils literal notranslate"><span class="pre">Neey.get_full_command()</span></code></a></li>
+<li><a class="reference internal" href="#powermon.protocols.neey.Neey.split_response"><code class="docutils literal notranslate"><span class="pre">Neey.split_response()</span></code></a></li>
+<li><a class="reference internal" href="#powermon.protocols.neey.Neey.trim_response"><code class="docutils literal notranslate"><span class="pre">Neey.trim_response()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-powermon.protocols.pi18">powermon.protocols.pi18 module</a><ul>
+<li><a class="reference internal" href="#powermon.protocols.pi18.PI18"><code class="docutils literal notranslate"><span class="pre">PI18</span></code></a><ul>
+<li><a class="reference internal" href="#powermon.protocols.pi18.PI18.check_crc"><code class="docutils literal notranslate"><span class="pre">PI18.check_crc()</span></code></a></li>
+<li><a class="reference internal" href="#powermon.protocols.pi18.PI18.get_full_command"><code class="docutils literal notranslate"><span class="pre">PI18.get_full_command()</span></code></a></li>
+<li><a class="reference internal" href="#powermon.protocols.pi18.PI18.trim_response"><code class="docutils literal notranslate"><span class="pre">PI18.trim_response()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-powermon.protocols.pi30">powermon.protocols.pi30 module</a><ul>
+<li><a class="reference internal" href="#powermon.protocols.pi30.PI30"><code class="docutils literal notranslate"><span class="pre">PI30</span></code></a><ul>
+<li><a class="reference internal" href="#powermon.protocols.pi30.PI30.check_crc"><code class="docutils literal notranslate"><span class="pre">PI30.check_crc()</span></code></a></li>
+<li><a class="reference internal" href="#powermon.protocols.pi30.PI30.check_valid"><code class="docutils literal notranslate"><span class="pre">PI30.check_valid()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-powermon.protocols.pi30max">powermon.protocols.pi30max module</a><ul>
+<li><a class="reference internal" href="#powermon.protocols.pi30max.PI30MAX"><code class="docutils literal notranslate"><span class="pre">PI30MAX</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-powermon.protocols.ved">powermon.protocols.ved module</a><ul>
+<li><a class="reference internal" href="#powermon.protocols.ved.VictronEnergyDirect"><code class="docutils literal notranslate"><span class="pre">VictronEnergyDirect</span></code></a><ul>
+<li><a class="reference internal" href="#powermon.protocols.ved.VictronEnergyDirect.check_crc"><code class="docutils literal notranslate"><span class="pre">VictronEnergyDirect.check_crc()</span></code></a></li>
+<li><a class="reference internal" href="#powermon.protocols.ved.VictronEnergyDirect.check_valid"><code class="docutils literal notranslate"><span class="pre">VictronEnergyDirect.check_valid()</span></code></a></li>
+<li><a class="reference internal" href="#powermon.protocols.ved.VictronEnergyDirect.get_full_command"><code class="docutils literal notranslate"><span class="pre">VictronEnergyDirect.get_full_command()</span></code></a></li>
+<li><a class="reference internal" href="#powermon.protocols.ved.VictronEnergyDirect.trim_response"><code class="docutils literal notranslate"><span class="pre">VictronEnergyDirect.trim_response()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-powermon.protocols">Module contents</a><ul>
+<li><a class="reference internal" href="#powermon.protocols.Protocol"><code class="docutils literal notranslate"><span class="pre">Protocol</span></code></a><ul>
+<li><a class="reference internal" href="#powermon.protocols.Protocol.DALY"><code class="docutils literal notranslate"><span class="pre">Protocol.DALY</span></code></a></li>
+<li><a class="reference internal" href="#powermon.protocols.Protocol.JKSERIAL"><code class="docutils literal notranslate"><span class="pre">Protocol.JKSERIAL</span></code></a></li>
+<li><a class="reference internal" href="#powermon.protocols.Protocol.NEEY"><code class="docutils literal notranslate"><span class="pre">Protocol.NEEY</span></code></a></li>
+<li><a class="reference internal" href="#powermon.protocols.Protocol.PI18"><code class="docutils literal notranslate"><span class="pre">Protocol.PI18</span></code></a></li>
+<li><a class="reference internal" href="#powermon.protocols.Protocol.PI30"><code class="docutils literal notranslate"><span class="pre">Protocol.PI30</span></code></a></li>
+<li><a class="reference internal" href="#powermon.protocols.Protocol.PI30MAX"><code class="docutils literal notranslate"><span class="pre">Protocol.PI30MAX</span></code></a></li>
+<li><a class="reference internal" href="#powermon.protocols.Protocol.VED"><code class="docutils literal notranslate"><span class="pre">Protocol.VED</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#powermon.protocols.get_protocol_definition"><code class="docutils literal notranslate"><span class="pre">get_protocol_definition()</span></code></a></li>
+<li><a class="reference internal" href="#powermon.protocols.list_protocols"><code class="docutils literal notranslate"><span class="pre">list_protocols()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
 
-
-
-
-
-
-
-
-
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/powermon.protocols.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
 <search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
       <input type="submit" value="Go" />
     </form>
     </div>
 </search>
-<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
-
-<div class="relations">
-<h3>Related Topics</h3>
-<ul>
-  <li><a href="index.html">Documentation overview</a><ul>
-  </ul></li>
-</ul>
-</div>
-
-
-
-
-
-
-
-
+<script>document.getElementById('searchbox').style.display = "block"</script>
         </div>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="footer">
-      &#169;2024, jblance.
-      
-      |
-      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 8.0.2</a>
-      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
-      
-      |
-      <a href="_sources/powermon.protocols.rst.txt"
-          rel="nofollow">Page source</a>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">powermon  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">powermon.protocols package</a></li> 
+      </ul>
     </div>
-
-    
-
-    
+    <div class="footer" role="contentinfo">
+    &#169; Copyright 2024, jblance.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.0.2.
+    </div>
   </body>
 </html>
