@@ -12,7 +12,9 @@
     <script src="_static/doctools.js?v=9a2dae69"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" /> 
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="powermon.protocols package" href="powermon.protocols.html" />
+    <link rel="prev" title="powermon.outputs package" href="powermon.outputs.html" /> 
   </head><body>
     <div class="related" role="navigation" aria-label="Related">
       <h3>Navigation</h3>
@@ -23,7 +25,14 @@
         <li class="right" >
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
+        <li class="right" >
+          <a href="powermon.protocols.html" title="powermon.protocols package"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="powermon.outputs.html" title="powermon.outputs package"
+             accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">powermon  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="powermon.html" accesskey="U">powermon package</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">powermon.ports package</a></li> 
       </ul>
     </div>  
@@ -127,16 +136,6 @@ mapping of field names to [<cite>FieldInfo</cite>][pydantic.fields.FieldInfo].</
 <p>This replaces <cite>Model.__fields__</cite> from Pydantic V1.</p>
 </dd></dl>
 
-<dl class="py attribute">
-<dt class="sig sig-object py" id="powermon.ports.abstractport.AbstractPortDTO.port_type">
-<span class="sig-name descname"><span class="pre">port_type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#powermon.ports.abstractport.AbstractPortDTO.port_type" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="powermon.ports.abstractport.AbstractPortDTO.protocol">
-<span class="sig-name descname"><span class="pre">protocol</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="powermon.protocols.html#powermon.protocols.abstractprotocol.AbstractProtocolDTO" title="powermon.protocols.abstractprotocol.AbstractProtocolDTO"><span class="pre">AbstractProtocolDTO</span></a></em><a class="headerlink" href="#powermon.ports.abstractport.AbstractPortDTO.protocol" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
 </dd></dl>
 
 </section>
@@ -195,56 +194,6 @@ mapping of field names to [<cite>FieldInfo</cite>][pydantic.fields.FieldInfo].</
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">powermon.ports.porttype.</span></span><span class="sig-name descname"><span class="pre">PortType</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">names</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">module</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qualname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">boundary</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#powermon.ports.porttype.PortType" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">StrEnum</span></code></p>
 <p>enumeration of supported / known port types</p>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="powermon.ports.porttype.PortType.BLE">
-<span class="sig-name descname"><span class="pre">BLE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'ble'</span></em><a class="headerlink" href="#powermon.ports.porttype.PortType.BLE" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="powermon.ports.porttype.PortType.DALYSERIAL">
-<span class="sig-name descname"><span class="pre">DALYSERIAL</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'dalyserial'</span></em><a class="headerlink" href="#powermon.ports.porttype.PortType.DALYSERIAL" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="powermon.ports.porttype.PortType.ESP32">
-<span class="sig-name descname"><span class="pre">ESP32</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'esp32'</span></em><a class="headerlink" href="#powermon.ports.porttype.PortType.ESP32" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="powermon.ports.porttype.PortType.JKBLE">
-<span class="sig-name descname"><span class="pre">JKBLE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'jkble'</span></em><a class="headerlink" href="#powermon.ports.porttype.PortType.JKBLE" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="powermon.ports.porttype.PortType.MQTT">
-<span class="sig-name descname"><span class="pre">MQTT</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'mqtt'</span></em><a class="headerlink" href="#powermon.ports.porttype.PortType.MQTT" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="powermon.ports.porttype.PortType.SERIAL">
-<span class="sig-name descname"><span class="pre">SERIAL</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'serial'</span></em><a class="headerlink" href="#powermon.ports.porttype.PortType.SERIAL" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="powermon.ports.porttype.PortType.TEST">
-<span class="sig-name descname"><span class="pre">TEST</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'test'</span></em><a class="headerlink" href="#powermon.ports.porttype.PortType.TEST" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="powermon.ports.porttype.PortType.UNKNOWN">
-<span class="sig-name descname"><span class="pre">UNKNOWN</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'unknown'</span></em><a class="headerlink" href="#powermon.ports.porttype.PortType.UNKNOWN" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="powermon.ports.porttype.PortType.USB">
-<span class="sig-name descname"><span class="pre">USB</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'usb'</span></em><a class="headerlink" href="#powermon.ports.porttype.PortType.USB" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="powermon.ports.porttype.PortType.VSERIAL">
-<span class="sig-name descname"><span class="pre">VSERIAL</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'vserial'</span></em><a class="headerlink" href="#powermon.ports.porttype.PortType.VSERIAL" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
 </dd></dl>
 
 <dl class="py class">
@@ -271,11 +220,6 @@ mapping of field names to [<cite>FieldInfo</cite>][pydantic.fields.FieldInfo].</
 mapping of field names to [<cite>FieldInfo</cite>][pydantic.fields.FieldInfo].</p>
 <p>This replaces <cite>Model.__fields__</cite> from Pydantic V1.</p>
 </dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="powermon.ports.porttype.PortTypeDTO.port_type">
-<span class="sig-name descname"><span class="pre">port_type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#powermon.ports.porttype.PortTypeDTO.port_type" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
 
 </dd></dl>
 
@@ -332,16 +276,6 @@ mapping of field names to [<cite>FieldInfo</cite>][pydantic.fields.FieldInfo].</
 <dd><p>Bases: <a class="reference internal" href="#powermon.ports.abstractport.AbstractPortDTO" title="powermon.ports.abstractport.AbstractPortDTO"><code class="xref py py-class docutils literal notranslate"><span class="pre">AbstractPortDTO</span></code></a></p>
 <p>data transfer model for SerialPort class</p>
 <dl class="py attribute">
-<dt class="sig sig-object py" id="powermon.ports.serialport.SerialPortDTO.baud">
-<span class="sig-name descname"><span class="pre">baud</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#powermon.ports.serialport.SerialPortDTO.baud" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="powermon.ports.serialport.SerialPortDTO.identifier">
-<span class="sig-name descname"><span class="pre">identifier</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">None</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#powermon.ports.serialport.SerialPortDTO.identifier" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
 <dt class="sig sig-object py" id="powermon.ports.serialport.SerialPortDTO.model_computed_fields">
 <span class="sig-name descname"><span class="pre">model_computed_fields</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">ComputedFieldInfo</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></em><a class="headerlink" href="#powermon.ports.serialport.SerialPortDTO.model_computed_fields" title="Link to this definition">¶</a></dt>
 <dd><p>A dictionary of computed field names and their corresponding <cite>ComputedFieldInfo</cite> objects.</p>
@@ -360,11 +294,6 @@ mapping of field names to [<cite>FieldInfo</cite>][pydantic.fields.FieldInfo].</
 mapping of field names to [<cite>FieldInfo</cite>][pydantic.fields.FieldInfo].</p>
 <p>This replaces <cite>Model.__fields__</cite> from Pydantic V1.</p>
 </dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="powermon.ports.serialport.SerialPortDTO.path">
-<span class="sig-name descname"><span class="pre">path</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#powermon.ports.serialport.SerialPortDTO.path" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
 
 </dd></dl>
 
@@ -440,11 +369,6 @@ mapping of field names to [<cite>FieldInfo</cite>][pydantic.fields.FieldInfo].</
 <p>This replaces <cite>Model.__fields__</cite> from Pydantic V1.</p>
 </dd></dl>
 
-<dl class="py attribute">
-<dt class="sig sig-object py" id="powermon.ports.testport.TestPortDTO.response_number">
-<span class="sig-name descname"><span class="pre">response_number</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">None</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#powermon.ports.testport.TestPortDTO.response_number" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
 </dd></dl>
 
 </section>
@@ -500,11 +424,6 @@ mapping of field names to [<cite>FieldInfo</cite>][pydantic.fields.FieldInfo].</
 <dd><p>Bases: <a class="reference internal" href="#powermon.ports.abstractport.AbstractPortDTO" title="powermon.ports.abstractport.AbstractPortDTO"><code class="xref py py-class docutils literal notranslate"><span class="pre">AbstractPortDTO</span></code></a></p>
 <p>data transfer model for SerialPort class</p>
 <dl class="py attribute">
-<dt class="sig sig-object py" id="powermon.ports.usbport.UsbPortDTO.identifier">
-<span class="sig-name descname"><span class="pre">identifier</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">None</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#powermon.ports.usbport.UsbPortDTO.identifier" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
 <dt class="sig sig-object py" id="powermon.ports.usbport.UsbPortDTO.model_computed_fields">
 <span class="sig-name descname"><span class="pre">model_computed_fields</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">ComputedFieldInfo</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></em><a class="headerlink" href="#powermon.ports.usbport.UsbPortDTO.model_computed_fields" title="Link to this definition">¶</a></dt>
 <dd><p>A dictionary of computed field names and their corresponding <cite>ComputedFieldInfo</cite> objects.</p>
@@ -523,11 +442,6 @@ mapping of field names to [<cite>FieldInfo</cite>][pydantic.fields.FieldInfo].</
 mapping of field names to [<cite>FieldInfo</cite>][pydantic.fields.FieldInfo].</p>
 <p>This replaces <cite>Model.__fields__</cite> from Pydantic V1.</p>
 </dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="powermon.ports.usbport.UsbPortDTO.path">
-<span class="sig-name descname"><span class="pre">path</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#powermon.ports.usbport.UsbPortDTO.path" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
 
 </dd></dl>
 
@@ -573,8 +487,6 @@ mapping of field names to [<cite>FieldInfo</cite>][pydantic.fields.FieldInfo].</
 <li><a class="reference internal" href="#powermon.ports.abstractport.AbstractPortDTO.model_computed_fields"><code class="docutils literal notranslate"><span class="pre">AbstractPortDTO.model_computed_fields</span></code></a></li>
 <li><a class="reference internal" href="#powermon.ports.abstractport.AbstractPortDTO.model_config"><code class="docutils literal notranslate"><span class="pre">AbstractPortDTO.model_config</span></code></a></li>
 <li><a class="reference internal" href="#powermon.ports.abstractport.AbstractPortDTO.model_fields"><code class="docutils literal notranslate"><span class="pre">AbstractPortDTO.model_fields</span></code></a></li>
-<li><a class="reference internal" href="#powermon.ports.abstractport.AbstractPortDTO.port_type"><code class="docutils literal notranslate"><span class="pre">AbstractPortDTO.port_type</span></code></a></li>
-<li><a class="reference internal" href="#powermon.ports.abstractport.AbstractPortDTO.protocol"><code class="docutils literal notranslate"><span class="pre">AbstractPortDTO.protocol</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -592,24 +504,11 @@ mapping of field names to [<cite>FieldInfo</cite>][pydantic.fields.FieldInfo].</
 </ul>
 </li>
 <li><a class="reference internal" href="#module-powermon.ports.porttype">powermon.ports.porttype module</a><ul>
-<li><a class="reference internal" href="#powermon.ports.porttype.PortType"><code class="docutils literal notranslate"><span class="pre">PortType</span></code></a><ul>
-<li><a class="reference internal" href="#powermon.ports.porttype.PortType.BLE"><code class="docutils literal notranslate"><span class="pre">PortType.BLE</span></code></a></li>
-<li><a class="reference internal" href="#powermon.ports.porttype.PortType.DALYSERIAL"><code class="docutils literal notranslate"><span class="pre">PortType.DALYSERIAL</span></code></a></li>
-<li><a class="reference internal" href="#powermon.ports.porttype.PortType.ESP32"><code class="docutils literal notranslate"><span class="pre">PortType.ESP32</span></code></a></li>
-<li><a class="reference internal" href="#powermon.ports.porttype.PortType.JKBLE"><code class="docutils literal notranslate"><span class="pre">PortType.JKBLE</span></code></a></li>
-<li><a class="reference internal" href="#powermon.ports.porttype.PortType.MQTT"><code class="docutils literal notranslate"><span class="pre">PortType.MQTT</span></code></a></li>
-<li><a class="reference internal" href="#powermon.ports.porttype.PortType.SERIAL"><code class="docutils literal notranslate"><span class="pre">PortType.SERIAL</span></code></a></li>
-<li><a class="reference internal" href="#powermon.ports.porttype.PortType.TEST"><code class="docutils literal notranslate"><span class="pre">PortType.TEST</span></code></a></li>
-<li><a class="reference internal" href="#powermon.ports.porttype.PortType.UNKNOWN"><code class="docutils literal notranslate"><span class="pre">PortType.UNKNOWN</span></code></a></li>
-<li><a class="reference internal" href="#powermon.ports.porttype.PortType.USB"><code class="docutils literal notranslate"><span class="pre">PortType.USB</span></code></a></li>
-<li><a class="reference internal" href="#powermon.ports.porttype.PortType.VSERIAL"><code class="docutils literal notranslate"><span class="pre">PortType.VSERIAL</span></code></a></li>
-</ul>
-</li>
+<li><a class="reference internal" href="#powermon.ports.porttype.PortType"><code class="docutils literal notranslate"><span class="pre">PortType</span></code></a></li>
 <li><a class="reference internal" href="#powermon.ports.porttype.PortTypeDTO"><code class="docutils literal notranslate"><span class="pre">PortTypeDTO</span></code></a><ul>
 <li><a class="reference internal" href="#powermon.ports.porttype.PortTypeDTO.model_computed_fields"><code class="docutils literal notranslate"><span class="pre">PortTypeDTO.model_computed_fields</span></code></a></li>
 <li><a class="reference internal" href="#powermon.ports.porttype.PortTypeDTO.model_config"><code class="docutils literal notranslate"><span class="pre">PortTypeDTO.model_config</span></code></a></li>
 <li><a class="reference internal" href="#powermon.ports.porttype.PortTypeDTO.model_fields"><code class="docutils literal notranslate"><span class="pre">PortTypeDTO.model_fields</span></code></a></li>
-<li><a class="reference internal" href="#powermon.ports.porttype.PortTypeDTO.port_type"><code class="docutils literal notranslate"><span class="pre">PortTypeDTO.port_type</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -625,12 +524,9 @@ mapping of field names to [<cite>FieldInfo</cite>][pydantic.fields.FieldInfo].</
 </ul>
 </li>
 <li><a class="reference internal" href="#powermon.ports.serialport.SerialPortDTO"><code class="docutils literal notranslate"><span class="pre">SerialPortDTO</span></code></a><ul>
-<li><a class="reference internal" href="#powermon.ports.serialport.SerialPortDTO.baud"><code class="docutils literal notranslate"><span class="pre">SerialPortDTO.baud</span></code></a></li>
-<li><a class="reference internal" href="#powermon.ports.serialport.SerialPortDTO.identifier"><code class="docutils literal notranslate"><span class="pre">SerialPortDTO.identifier</span></code></a></li>
 <li><a class="reference internal" href="#powermon.ports.serialport.SerialPortDTO.model_computed_fields"><code class="docutils literal notranslate"><span class="pre">SerialPortDTO.model_computed_fields</span></code></a></li>
 <li><a class="reference internal" href="#powermon.ports.serialport.SerialPortDTO.model_config"><code class="docutils literal notranslate"><span class="pre">SerialPortDTO.model_config</span></code></a></li>
 <li><a class="reference internal" href="#powermon.ports.serialport.SerialPortDTO.model_fields"><code class="docutils literal notranslate"><span class="pre">SerialPortDTO.model_fields</span></code></a></li>
-<li><a class="reference internal" href="#powermon.ports.serialport.SerialPortDTO.path"><code class="docutils literal notranslate"><span class="pre">SerialPortDTO.path</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -649,7 +545,6 @@ mapping of field names to [<cite>FieldInfo</cite>][pydantic.fields.FieldInfo].</
 <li><a class="reference internal" href="#powermon.ports.testport.TestPortDTO.model_computed_fields"><code class="docutils literal notranslate"><span class="pre">TestPortDTO.model_computed_fields</span></code></a></li>
 <li><a class="reference internal" href="#powermon.ports.testport.TestPortDTO.model_config"><code class="docutils literal notranslate"><span class="pre">TestPortDTO.model_config</span></code></a></li>
 <li><a class="reference internal" href="#powermon.ports.testport.TestPortDTO.model_fields"><code class="docutils literal notranslate"><span class="pre">TestPortDTO.model_fields</span></code></a></li>
-<li><a class="reference internal" href="#powermon.ports.testport.TestPortDTO.response_number"><code class="docutils literal notranslate"><span class="pre">TestPortDTO.response_number</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -665,11 +560,9 @@ mapping of field names to [<cite>FieldInfo</cite>][pydantic.fields.FieldInfo].</
 </ul>
 </li>
 <li><a class="reference internal" href="#powermon.ports.usbport.UsbPortDTO"><code class="docutils literal notranslate"><span class="pre">UsbPortDTO</span></code></a><ul>
-<li><a class="reference internal" href="#powermon.ports.usbport.UsbPortDTO.identifier"><code class="docutils literal notranslate"><span class="pre">UsbPortDTO.identifier</span></code></a></li>
 <li><a class="reference internal" href="#powermon.ports.usbport.UsbPortDTO.model_computed_fields"><code class="docutils literal notranslate"><span class="pre">UsbPortDTO.model_computed_fields</span></code></a></li>
 <li><a class="reference internal" href="#powermon.ports.usbport.UsbPortDTO.model_config"><code class="docutils literal notranslate"><span class="pre">UsbPortDTO.model_config</span></code></a></li>
 <li><a class="reference internal" href="#powermon.ports.usbport.UsbPortDTO.model_fields"><code class="docutils literal notranslate"><span class="pre">UsbPortDTO.model_fields</span></code></a></li>
-<li><a class="reference internal" href="#powermon.ports.usbport.UsbPortDTO.path"><code class="docutils literal notranslate"><span class="pre">UsbPortDTO.path</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -682,6 +575,16 @@ mapping of field names to [<cite>FieldInfo</cite>][pydantic.fields.FieldInfo].</
 </li>
 </ul>
 
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="powermon.outputs.html"
+                          title="previous chapter">powermon.outputs package</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="powermon.protocols.html"
+                          title="next chapter">powermon.protocols package</a></p>
   </div>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
@@ -713,7 +616,14 @@ mapping of field names to [<cite>FieldInfo</cite>][pydantic.fields.FieldInfo].</
         <li class="right" >
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
+        <li class="right" >
+          <a href="powermon.protocols.html" title="powermon.protocols package"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="powermon.outputs.html" title="powermon.outputs package"
+             >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">powermon  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="powermon.html" >powermon package</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">powermon.ports package</a></li> 
       </ul>
     </div>

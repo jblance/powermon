@@ -12,7 +12,9 @@
     <script src="_static/doctools.js?v=9a2dae69"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" /> 
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="powermon.outputs package" href="powermon.outputs.html" />
+    <link rel="prev" title="powermon.libs package" href="powermon.libs.html" /> 
   </head><body>
     <div class="related" role="navigation" aria-label="Related">
       <h3>Navigation</h3>
@@ -23,7 +25,14 @@
         <li class="right" >
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
+        <li class="right" >
+          <a href="powermon.outputs.html" title="powermon.outputs package"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="powermon.libs.html" title="powermon.libs package"
+             accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">powermon  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="powermon.html" accesskey="U">powermon package</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">powermon.outputformats package</a></li> 
       </ul>
     </div>  
@@ -96,31 +105,6 @@
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseModel</span></code></p>
 <p>data transfer object for AbstractFormat objects</p>
 <dl class="py attribute">
-<dt class="sig sig-object py" id="powermon.outputformats.abstractformat.AbstractFormatDTO.extra_info">
-<span class="sig-name descname"><span class="pre">extra_info</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">None</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#powermon.outputformats.abstractformat.AbstractFormatDTO.extra_info" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="powermon.outputformats.abstractformat.AbstractFormatDTO.format_type">
-<span class="sig-name descname"><span class="pre">format_type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#powermon.outputformats.abstractformat.AbstractFormatDTO.format_type" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="powermon.outputformats.abstractformat.AbstractFormatDTO.keep_case">
-<span class="sig-name descname"><span class="pre">keep_case</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">None</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#powermon.outputformats.abstractformat.AbstractFormatDTO.keep_case" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="powermon.outputformats.abstractformat.AbstractFormatDTO.key_exclusion_filter">
-<span class="sig-name descname"><span class="pre">key_exclusion_filter</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">None</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#powermon.outputformats.abstractformat.AbstractFormatDTO.key_exclusion_filter" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="powermon.outputformats.abstractformat.AbstractFormatDTO.key_filter">
-<span class="sig-name descname"><span class="pre">key_filter</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">None</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#powermon.outputformats.abstractformat.AbstractFormatDTO.key_filter" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
 <dt class="sig sig-object py" id="powermon.outputformats.abstractformat.AbstractFormatDTO.model_computed_fields">
 <span class="sig-name descname"><span class="pre">model_computed_fields</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">ComputedFieldInfo</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></em><a class="headerlink" href="#powermon.outputformats.abstractformat.AbstractFormatDTO.model_computed_fields" title="Link to this definition">¶</a></dt>
 <dd><p>A dictionary of computed field names and their corresponding <cite>ComputedFieldInfo</cite> objects.</p>
@@ -139,11 +123,6 @@
 mapping of field names to [<cite>FieldInfo</cite>][pydantic.fields.FieldInfo].</p>
 <p>This replaces <cite>Model.__fields__</cite> from Pydantic V1.</p>
 </dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="powermon.outputformats.abstractformat.AbstractFormatDTO.remove_spaces">
-<span class="sig-name descname"><span class="pre">remove_spaces</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">None</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#powermon.outputformats.abstractformat.AbstractFormatDTO.remove_spaces" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
 
 </dd></dl>
 
@@ -297,11 +276,6 @@ mapping of field names to [<cite>FieldInfo</cite>][pydantic.fields.FieldInfo].</
 <dd><p>entry point for all formats</p>
 </dd></dl>
 
-<dl class="py method">
-<dt class="sig sig-object py" id="powermon.outputformats.topics.Topics.sendsMultipleMessages">
-<span class="sig-name descname"><span class="pre">sendsMultipleMessages</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#powermon.outputformats.topics.Topics.sendsMultipleMessages" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
 </dd></dl>
 
 </section>
@@ -313,46 +287,6 @@ mapping of field names to [<cite>FieldInfo</cite>][pydantic.fields.FieldInfo].</
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">powermon.outputformats.</span></span><span class="sig-name descname"><span class="pre">FormatterType</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">names</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">module</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qualname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">boundary</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#powermon.outputformats.FormatterType" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">StrEnum</span></code></p>
 <p>enumeration of valid formatter types</p>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="powermon.outputformats.FormatterType.BMSRESPONSE">
-<span class="sig-name descname"><span class="pre">BMSRESPONSE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'bmsresponse'</span></em><a class="headerlink" href="#powermon.outputformats.FormatterType.BMSRESPONSE" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="powermon.outputformats.FormatterType.HASS">
-<span class="sig-name descname"><span class="pre">HASS</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'hass'</span></em><a class="headerlink" href="#powermon.outputformats.FormatterType.HASS" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="powermon.outputformats.FormatterType.HTMLTABLE">
-<span class="sig-name descname"><span class="pre">HTMLTABLE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'htmltable'</span></em><a class="headerlink" href="#powermon.outputformats.FormatterType.HTMLTABLE" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="powermon.outputformats.FormatterType.JSON">
-<span class="sig-name descname"><span class="pre">JSON</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'json'</span></em><a class="headerlink" href="#powermon.outputformats.FormatterType.JSON" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="powermon.outputformats.FormatterType.RAW">
-<span class="sig-name descname"><span class="pre">RAW</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'raw'</span></em><a class="headerlink" href="#powermon.outputformats.FormatterType.RAW" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="powermon.outputformats.FormatterType.SIMPLE">
-<span class="sig-name descname"><span class="pre">SIMPLE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'simple'</span></em><a class="headerlink" href="#powermon.outputformats.FormatterType.SIMPLE" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="powermon.outputformats.FormatterType.TABLE">
-<span class="sig-name descname"><span class="pre">TABLE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'table'</span></em><a class="headerlink" href="#powermon.outputformats.FormatterType.TABLE" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="powermon.outputformats.FormatterType.TOPICS">
-<span class="sig-name descname"><span class="pre">TOPICS</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'topics'</span></em><a class="headerlink" href="#powermon.outputformats.FormatterType.TOPICS" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
 </dd></dl>
 
 <dl class="py function">
@@ -388,15 +322,9 @@ mapping of field names to [<cite>FieldInfo</cite>][pydantic.fields.FieldInfo].</
 </ul>
 </li>
 <li><a class="reference internal" href="#powermon.outputformats.abstractformat.AbstractFormatDTO"><code class="docutils literal notranslate"><span class="pre">AbstractFormatDTO</span></code></a><ul>
-<li><a class="reference internal" href="#powermon.outputformats.abstractformat.AbstractFormatDTO.extra_info"><code class="docutils literal notranslate"><span class="pre">AbstractFormatDTO.extra_info</span></code></a></li>
-<li><a class="reference internal" href="#powermon.outputformats.abstractformat.AbstractFormatDTO.format_type"><code class="docutils literal notranslate"><span class="pre">AbstractFormatDTO.format_type</span></code></a></li>
-<li><a class="reference internal" href="#powermon.outputformats.abstractformat.AbstractFormatDTO.keep_case"><code class="docutils literal notranslate"><span class="pre">AbstractFormatDTO.keep_case</span></code></a></li>
-<li><a class="reference internal" href="#powermon.outputformats.abstractformat.AbstractFormatDTO.key_exclusion_filter"><code class="docutils literal notranslate"><span class="pre">AbstractFormatDTO.key_exclusion_filter</span></code></a></li>
-<li><a class="reference internal" href="#powermon.outputformats.abstractformat.AbstractFormatDTO.key_filter"><code class="docutils literal notranslate"><span class="pre">AbstractFormatDTO.key_filter</span></code></a></li>
 <li><a class="reference internal" href="#powermon.outputformats.abstractformat.AbstractFormatDTO.model_computed_fields"><code class="docutils literal notranslate"><span class="pre">AbstractFormatDTO.model_computed_fields</span></code></a></li>
 <li><a class="reference internal" href="#powermon.outputformats.abstractformat.AbstractFormatDTO.model_config"><code class="docutils literal notranslate"><span class="pre">AbstractFormatDTO.model_config</span></code></a></li>
 <li><a class="reference internal" href="#powermon.outputformats.abstractformat.AbstractFormatDTO.model_fields"><code class="docutils literal notranslate"><span class="pre">AbstractFormatDTO.model_fields</span></code></a></li>
-<li><a class="reference internal" href="#powermon.outputformats.abstractformat.AbstractFormatDTO.remove_spaces"><code class="docutils literal notranslate"><span class="pre">AbstractFormatDTO.remove_spaces</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -456,23 +384,12 @@ mapping of field names to [<cite>FieldInfo</cite>][pydantic.fields.FieldInfo].</
 <li><a class="reference internal" href="#module-powermon.outputformats.topics">powermon.outputformats.topics module</a><ul>
 <li><a class="reference internal" href="#powermon.outputformats.topics.Topics"><code class="docutils literal notranslate"><span class="pre">Topics</span></code></a><ul>
 <li><a class="reference internal" href="#powermon.outputformats.topics.Topics.format"><code class="docutils literal notranslate"><span class="pre">Topics.format()</span></code></a></li>
-<li><a class="reference internal" href="#powermon.outputformats.topics.Topics.sendsMultipleMessages"><code class="docutils literal notranslate"><span class="pre">Topics.sendsMultipleMessages()</span></code></a></li>
 </ul>
 </li>
 </ul>
 </li>
 <li><a class="reference internal" href="#module-powermon.outputformats">Module contents</a><ul>
-<li><a class="reference internal" href="#powermon.outputformats.FormatterType"><code class="docutils literal notranslate"><span class="pre">FormatterType</span></code></a><ul>
-<li><a class="reference internal" href="#powermon.outputformats.FormatterType.BMSRESPONSE"><code class="docutils literal notranslate"><span class="pre">FormatterType.BMSRESPONSE</span></code></a></li>
-<li><a class="reference internal" href="#powermon.outputformats.FormatterType.HASS"><code class="docutils literal notranslate"><span class="pre">FormatterType.HASS</span></code></a></li>
-<li><a class="reference internal" href="#powermon.outputformats.FormatterType.HTMLTABLE"><code class="docutils literal notranslate"><span class="pre">FormatterType.HTMLTABLE</span></code></a></li>
-<li><a class="reference internal" href="#powermon.outputformats.FormatterType.JSON"><code class="docutils literal notranslate"><span class="pre">FormatterType.JSON</span></code></a></li>
-<li><a class="reference internal" href="#powermon.outputformats.FormatterType.RAW"><code class="docutils literal notranslate"><span class="pre">FormatterType.RAW</span></code></a></li>
-<li><a class="reference internal" href="#powermon.outputformats.FormatterType.SIMPLE"><code class="docutils literal notranslate"><span class="pre">FormatterType.SIMPLE</span></code></a></li>
-<li><a class="reference internal" href="#powermon.outputformats.FormatterType.TABLE"><code class="docutils literal notranslate"><span class="pre">FormatterType.TABLE</span></code></a></li>
-<li><a class="reference internal" href="#powermon.outputformats.FormatterType.TOPICS"><code class="docutils literal notranslate"><span class="pre">FormatterType.TOPICS</span></code></a></li>
-</ul>
-</li>
+<li><a class="reference internal" href="#powermon.outputformats.FormatterType"><code class="docutils literal notranslate"><span class="pre">FormatterType</span></code></a></li>
 <li><a class="reference internal" href="#powermon.outputformats.from_config"><code class="docutils literal notranslate"><span class="pre">from_config()</span></code></a></li>
 </ul>
 </li>
@@ -480,6 +397,16 @@ mapping of field names to [<cite>FieldInfo</cite>][pydantic.fields.FieldInfo].</
 </li>
 </ul>
 
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="powermon.libs.html"
+                          title="previous chapter">powermon.libs package</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="powermon.outputs.html"
+                          title="next chapter">powermon.outputs package</a></p>
   </div>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
@@ -511,7 +438,14 @@ mapping of field names to [<cite>FieldInfo</cite>][pydantic.fields.FieldInfo].</
         <li class="right" >
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
+        <li class="right" >
+          <a href="powermon.outputs.html" title="powermon.outputs package"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="powermon.libs.html" title="powermon.libs package"
+             >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">powermon  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="powermon.html" >powermon package</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">powermon.outputformats package</a></li> 
       </ul>
     </div>

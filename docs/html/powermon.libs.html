@@ -12,7 +12,9 @@
     <script src="_static/doctools.js?v=9a2dae69"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" /> 
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="powermon.outputformats package" href="powermon.outputformats.html" />
+    <link rel="prev" title="powermon package" href="powermon.html" /> 
   </head><body>
     <div class="related" role="navigation" aria-label="Related">
       <h3>Navigation</h3>
@@ -23,7 +25,14 @@
         <li class="right" >
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
+        <li class="right" >
+          <a href="powermon.outputformats.html" title="powermon.outputformats package"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="powermon.html" title="powermon package"
+             accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">powermon  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="powermon.html" accesskey="U">powermon package</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">powermon.libs package</a></li> 
       </ul>
     </div>  
@@ -108,11 +117,6 @@
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseModel</span></code></p>
 <p>data transfer model for ApiCoordinator class</p>
 <dl class="py attribute">
-<dt class="sig sig-object py" id="powermon.libs.apicoordinator.ApiCoordinatorDTO.description">
-<span class="sig-name descname"><span class="pre">description</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#powermon.libs.apicoordinator.ApiCoordinatorDTO.description" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
 <dt class="sig sig-object py" id="powermon.libs.apicoordinator.ApiCoordinatorDTO.model_computed_fields">
 <span class="sig-name descname"><span class="pre">model_computed_fields</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">ComputedFieldInfo</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></em><a class="headerlink" href="#powermon.libs.apicoordinator.ApiCoordinatorDTO.model_computed_fields" title="Link to this definition">¶</a></dt>
 <dd><p>A dictionary of computed field names and their corresponding <cite>ComputedFieldInfo</cite> objects.</p>
@@ -132,11 +136,6 @@ mapping of field names to [<cite>FieldInfo</cite>][pydantic.fields.FieldInfo].</
 <p>This replaces <cite>Model.__fields__</cite> from Pydantic V1.</p>
 </dd></dl>
 
-<dl class="py attribute">
-<dt class="sig sig-object py" id="powermon.libs.apicoordinator.ApiCoordinatorDTO.name">
-<span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#powermon.libs.apicoordinator.ApiCoordinatorDTO.name" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
 </dd></dl>
 
 </section>
@@ -148,31 +147,6 @@ mapping of field names to [<cite>FieldInfo</cite>][pydantic.fields.FieldInfo].</
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">powermon.libs.config_model.</span></span><span class="sig-name descname"><span class="pre">APIConfig</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">host</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">None</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">port</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">None</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">enabled</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">None</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">log_level</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">None</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">announce_topic</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">None</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">adhoc_topic</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">None</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">refresh_interval</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">None</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#powermon.libs.config_model.APIConfig" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#powermon.libs.config_model.NoExtraBaseModel" title="powermon.libs.config_model.NoExtraBaseModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">NoExtraBaseModel</span></code></a></p>
 <p>model/allowed elements for api section of config</p>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="powermon.libs.config_model.APIConfig.adhoc_topic">
-<span class="sig-name descname"><span class="pre">adhoc_topic</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">None</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#powermon.libs.config_model.APIConfig.adhoc_topic" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="powermon.libs.config_model.APIConfig.announce_topic">
-<span class="sig-name descname"><span class="pre">announce_topic</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">None</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#powermon.libs.config_model.APIConfig.announce_topic" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="powermon.libs.config_model.APIConfig.enabled">
-<span class="sig-name descname"><span class="pre">enabled</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">None</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#powermon.libs.config_model.APIConfig.enabled" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="powermon.libs.config_model.APIConfig.host">
-<span class="sig-name descname"><span class="pre">host</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">None</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#powermon.libs.config_model.APIConfig.host" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="powermon.libs.config_model.APIConfig.log_level">
-<span class="sig-name descname"><span class="pre">log_level</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">None</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#powermon.libs.config_model.APIConfig.log_level" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
 <dl class="py attribute">
 <dt class="sig sig-object py" id="powermon.libs.config_model.APIConfig.model_computed_fields">
 <span class="sig-name descname"><span class="pre">model_computed_fields</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">ComputedFieldInfo</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></em><a class="headerlink" href="#powermon.libs.config_model.APIConfig.model_computed_fields" title="Link to this definition">¶</a></dt>
@@ -193,16 +167,6 @@ mapping of field names to [<cite>FieldInfo</cite>][pydantic.fields.FieldInfo].</
 <p>This replaces <cite>Model.__fields__</cite> from Pydantic V1.</p>
 </dd></dl>
 
-<dl class="py attribute">
-<dt class="sig sig-object py" id="powermon.libs.config_model.APIConfig.port">
-<span class="sig-name descname"><span class="pre">port</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">None</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#powermon.libs.config_model.APIConfig.port" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="powermon.libs.config_model.APIConfig.refresh_interval">
-<span class="sig-name descname"><span class="pre">refresh_interval</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">None</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#powermon.libs.config_model.APIConfig.refresh_interval" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
 </dd></dl>
 
 <dl class="py class">
@@ -210,11 +174,6 @@ mapping of field names to [<cite>FieldInfo</cite>][pydantic.fields.FieldInfo].</
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">powermon.libs.config_model.</span></span><span class="sig-name descname"><span class="pre">AtTriggerConfig</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">at</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#powermon.libs.config_model.AtTriggerConfig" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#powermon.libs.config_model.NoExtraBaseModel" title="powermon.libs.config_model.NoExtraBaseModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">NoExtraBaseModel</span></code></a></p>
 <p>model/allowed elements for ‘at’ trigger config</p>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="powermon.libs.config_model.AtTriggerConfig.at">
-<span class="sig-name descname"><span class="pre">at</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#powermon.libs.config_model.AtTriggerConfig.at" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
 <dl class="py attribute">
 <dt class="sig sig-object py" id="powermon.libs.config_model.AtTriggerConfig.model_computed_fields">
 <span class="sig-name descname"><span class="pre">model_computed_fields</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">ComputedFieldInfo</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></em><a class="headerlink" href="#powermon.libs.config_model.AtTriggerConfig.model_computed_fields" title="Link to this definition">¶</a></dt>
@@ -243,36 +202,6 @@ mapping of field names to [<cite>FieldInfo</cite>][pydantic.fields.FieldInfo].</
 <dd><p>Bases: <a class="reference internal" href="#powermon.libs.config_model.BaseFormatConfig" title="powermon.libs.config_model.BaseFormatConfig"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseFormatConfig</span></code></a></p>
 <p>model/allowed elements for BMSResponse format config</p>
 <dl class="py attribute">
-<dt class="sig sig-object py" id="powermon.libs.config_model.BMSResponseFormatConfig.battery_charge_voltage">
-<span class="sig-name descname"><span class="pre">battery_charge_voltage</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">None</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#powermon.libs.config_model.BMSResponseFormatConfig.battery_charge_voltage" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="powermon.libs.config_model.BMSResponseFormatConfig.battery_cutoff_voltage">
-<span class="sig-name descname"><span class="pre">battery_cutoff_voltage</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">None</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#powermon.libs.config_model.BMSResponseFormatConfig.battery_cutoff_voltage" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="powermon.libs.config_model.BMSResponseFormatConfig.battery_float_voltage">
-<span class="sig-name descname"><span class="pre">battery_float_voltage</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">None</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#powermon.libs.config_model.BMSResponseFormatConfig.battery_float_voltage" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="powermon.libs.config_model.BMSResponseFormatConfig.battery_max_charge_current">
-<span class="sig-name descname"><span class="pre">battery_max_charge_current</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">None</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#powermon.libs.config_model.BMSResponseFormatConfig.battery_max_charge_current" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="powermon.libs.config_model.BMSResponseFormatConfig.battery_max_discharge_current">
-<span class="sig-name descname"><span class="pre">battery_max_discharge_current</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">None</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#powermon.libs.config_model.BMSResponseFormatConfig.battery_max_discharge_current" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="powermon.libs.config_model.BMSResponseFormatConfig.force_charge">
-<span class="sig-name descname"><span class="pre">force_charge</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">None</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#powermon.libs.config_model.BMSResponseFormatConfig.force_charge" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
 <dt class="sig sig-object py" id="powermon.libs.config_model.BMSResponseFormatConfig.model_computed_fields">
 <span class="sig-name descname"><span class="pre">model_computed_fields</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">ComputedFieldInfo</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></em><a class="headerlink" href="#powermon.libs.config_model.BMSResponseFormatConfig.model_computed_fields" title="Link to this definition">¶</a></dt>
 <dd><p>A dictionary of computed field names and their corresponding <cite>ComputedFieldInfo</cite> objects.</p>
@@ -292,11 +221,6 @@ mapping of field names to [<cite>FieldInfo</cite>][pydantic.fields.FieldInfo].</
 <p>This replaces <cite>Model.__fields__</cite> from Pydantic V1.</p>
 </dd></dl>
 
-<dl class="py attribute">
-<dt class="sig sig-object py" id="powermon.libs.config_model.BMSResponseFormatConfig.protocol">
-<span class="sig-name descname"><span class="pre">protocol</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">None</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'pi30'</span></span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#powermon.libs.config_model.BMSResponseFormatConfig.protocol" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
 </dd></dl>
 
 <dl class="py class">
@@ -304,36 +228,6 @@ mapping of field names to [<cite>FieldInfo</cite>][pydantic.fields.FieldInfo].</
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">powermon.libs.config_model.</span></span><span class="sig-name descname"><span class="pre">BaseConfig</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#powermon.libs.config_model.DeviceConfig" title="powermon.libs.config_model.DeviceConfig"><span class="pre">DeviceConfig</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">commands</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#powermon.libs.config_model.CommandConfig" title="powermon.libs.config_model.CommandConfig"><span class="pre">CommandConfig</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mqttbroker</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">None</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="#powermon.libs.config_model.MQTTConfig" title="powermon.libs.config_model.MQTTConfig"><span class="pre">MQTTConfig</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">api</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">None</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="#powermon.libs.config_model.APIConfig" title="powermon.libs.config_model.APIConfig"><span class="pre">APIConfig</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">daemon</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">None</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="#powermon.libs.config_model.DaemonConfig" title="powermon.libs.config_model.DaemonConfig"><span class="pre">DaemonConfig</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">debuglevel</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">None</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">loop</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">None</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'once'</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#powermon.libs.config_model.BaseConfig" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#powermon.libs.config_model.NoExtraBaseModel" title="powermon.libs.config_model.NoExtraBaseModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">NoExtraBaseModel</span></code></a></p>
 <p>model/allowed elements for first level of config</p>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="powermon.libs.config_model.BaseConfig.api">
-<span class="sig-name descname"><span class="pre">api</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">None</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="#powermon.libs.config_model.APIConfig" title="powermon.libs.config_model.APIConfig"><span class="pre">APIConfig</span></a></em><a class="headerlink" href="#powermon.libs.config_model.BaseConfig.api" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="powermon.libs.config_model.BaseConfig.commands">
-<span class="sig-name descname"><span class="pre">commands</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#powermon.libs.config_model.CommandConfig" title="powermon.libs.config_model.CommandConfig"><span class="pre">CommandConfig</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#powermon.libs.config_model.BaseConfig.commands" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="powermon.libs.config_model.BaseConfig.daemon">
-<span class="sig-name descname"><span class="pre">daemon</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">None</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="#powermon.libs.config_model.DaemonConfig" title="powermon.libs.config_model.DaemonConfig"><span class="pre">DaemonConfig</span></a></em><a class="headerlink" href="#powermon.libs.config_model.BaseConfig.daemon" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="powermon.libs.config_model.BaseConfig.debuglevel">
-<span class="sig-name descname"><span class="pre">debuglevel</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">None</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#powermon.libs.config_model.BaseConfig.debuglevel" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="powermon.libs.config_model.BaseConfig.device">
-<span class="sig-name descname"><span class="pre">device</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#powermon.libs.config_model.DeviceConfig" title="powermon.libs.config_model.DeviceConfig"><span class="pre">DeviceConfig</span></a></em><a class="headerlink" href="#powermon.libs.config_model.BaseConfig.device" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="powermon.libs.config_model.BaseConfig.loop">
-<span class="sig-name descname"><span class="pre">loop</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">None</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'once'</span></span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#powermon.libs.config_model.BaseConfig.loop" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
 <dl class="py attribute">
 <dt class="sig sig-object py" id="powermon.libs.config_model.BaseConfig.model_computed_fields">
 <span class="sig-name descname"><span class="pre">model_computed_fields</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">ComputedFieldInfo</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></em><a class="headerlink" href="#powermon.libs.config_model.BaseConfig.model_computed_fields" title="Link to this definition">¶</a></dt>
@@ -354,11 +248,6 @@ mapping of field names to [<cite>FieldInfo</cite>][pydantic.fields.FieldInfo].</
 <p>This replaces <cite>Model.__fields__</cite> from Pydantic V1.</p>
 </dd></dl>
 
-<dl class="py attribute">
-<dt class="sig sig-object py" id="powermon.libs.config_model.BaseConfig.mqttbroker">
-<span class="sig-name descname"><span class="pre">mqttbroker</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">None</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="#powermon.libs.config_model.MQTTConfig" title="powermon.libs.config_model.MQTTConfig"><span class="pre">MQTTConfig</span></a></em><a class="headerlink" href="#powermon.libs.config_model.BaseConfig.mqttbroker" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
 </dd></dl>
 
 <dl class="py class">
@@ -366,31 +255,6 @@ mapping of field names to [<cite>FieldInfo</cite>][pydantic.fields.FieldInfo].</
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">powermon.libs.config_model.</span></span><span class="sig-name descname"><span class="pre">BaseFormatConfig</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tag</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">None</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">draw_lines</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">None</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keep_case</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">None</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">remove_spaces</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">None</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">extra_info</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">None</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">excl_filter</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">None</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filter</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">None</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#powermon.libs.config_model.BaseFormatConfig" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#powermon.libs.config_model.NoExtraBaseModel" title="powermon.libs.config_model.NoExtraBaseModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">NoExtraBaseModel</span></code></a></p>
 <p>model/allowed elements for base format config</p>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="powermon.libs.config_model.BaseFormatConfig.draw_lines">
-<span class="sig-name descname"><span class="pre">draw_lines</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">None</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#powermon.libs.config_model.BaseFormatConfig.draw_lines" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="powermon.libs.config_model.BaseFormatConfig.excl_filter">
-<span class="sig-name descname"><span class="pre">excl_filter</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">None</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#powermon.libs.config_model.BaseFormatConfig.excl_filter" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="powermon.libs.config_model.BaseFormatConfig.extra_info">
-<span class="sig-name descname"><span class="pre">extra_info</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">None</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#powermon.libs.config_model.BaseFormatConfig.extra_info" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="powermon.libs.config_model.BaseFormatConfig.filter">
-<span class="sig-name descname"><span class="pre">filter</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">None</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#powermon.libs.config_model.BaseFormatConfig.filter" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="powermon.libs.config_model.BaseFormatConfig.keep_case">
-<span class="sig-name descname"><span class="pre">keep_case</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">None</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#powermon.libs.config_model.BaseFormatConfig.keep_case" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
 <dl class="py attribute">
 <dt class="sig sig-object py" id="powermon.libs.config_model.BaseFormatConfig.model_computed_fields">
 <span class="sig-name descname"><span class="pre">model_computed_fields</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">ComputedFieldInfo</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></em><a class="headerlink" href="#powermon.libs.config_model.BaseFormatConfig.model_computed_fields" title="Link to this definition">¶</a></dt>
@@ -411,21 +275,6 @@ mapping of field names to [<cite>FieldInfo</cite>][pydantic.fields.FieldInfo].</
 <p>This replaces <cite>Model.__fields__</cite> from Pydantic V1.</p>
 </dd></dl>
 
-<dl class="py attribute">
-<dt class="sig sig-object py" id="powermon.libs.config_model.BaseFormatConfig.remove_spaces">
-<span class="sig-name descname"><span class="pre">remove_spaces</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">None</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#powermon.libs.config_model.BaseFormatConfig.remove_spaces" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="powermon.libs.config_model.BaseFormatConfig.tag">
-<span class="sig-name descname"><span class="pre">tag</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">None</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#powermon.libs.config_model.BaseFormatConfig.tag" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="powermon.libs.config_model.BaseFormatConfig.type">
-<span class="sig-name descname"><span class="pre">type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#powermon.libs.config_model.BaseFormatConfig.type" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
 </dd></dl>
 
 <dl class="py class">
@@ -433,11 +282,6 @@ mapping of field names to [<cite>FieldInfo</cite>][pydantic.fields.FieldInfo].</
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">powermon.libs.config_model.</span></span><span class="sig-name descname"><span class="pre">BlePortConfig</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'ble'</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mac</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">protocol</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">None</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#powermon.libs.config_model.BlePortConfig" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseModel</span></code></p>
 <p>model/allowed elements for serial port config</p>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="powermon.libs.config_model.BlePortConfig.mac">
-<span class="sig-name descname"><span class="pre">mac</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#powermon.libs.config_model.BlePortConfig.mac" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
 <dl class="py attribute">
 <dt class="sig sig-object py" id="powermon.libs.config_model.BlePortConfig.model_computed_fields">
 <span class="sig-name descname"><span class="pre">model_computed_fields</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">ComputedFieldInfo</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></em><a class="headerlink" href="#powermon.libs.config_model.BlePortConfig.model_computed_fields" title="Link to this definition">¶</a></dt>
@@ -458,16 +302,6 @@ mapping of field names to [<cite>FieldInfo</cite>][pydantic.fields.FieldInfo].</
 <p>This replaces <cite>Model.__fields__</cite> from Pydantic V1.</p>
 </dd></dl>
 
-<dl class="py attribute">
-<dt class="sig sig-object py" id="powermon.libs.config_model.BlePortConfig.protocol">
-<span class="sig-name descname"><span class="pre">protocol</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">None</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#powermon.libs.config_model.BlePortConfig.protocol" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="powermon.libs.config_model.BlePortConfig.type">
-<span class="sig-name descname"><span class="pre">type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'ble'</span></span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#powermon.libs.config_model.BlePortConfig.type" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
 </dd></dl>
 
 <dl class="py class">
@@ -475,11 +309,6 @@ mapping of field names to [<cite>FieldInfo</cite>][pydantic.fields.FieldInfo].</
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">powermon.libs.config_model.</span></span><span class="sig-name descname"><span class="pre">CommandConfig</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">command</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">None</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'basic'</span></span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'templated'</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'basic'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">override</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">None</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">dict</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">trigger</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">None</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="#powermon.libs.config_model.LoopsTriggerConfig" title="powermon.libs.config_model.LoopsTriggerConfig"><span class="pre">LoopsTriggerConfig</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="#powermon.libs.config_model.AtTriggerConfig" title="powermon.libs.config_model.AtTriggerConfig"><span class="pre">AtTriggerConfig</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="#powermon.libs.config_model.EveryTriggerConfig" title="powermon.libs.config_model.EveryTriggerConfig"><span class="pre">EveryTriggerConfig</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outputs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">None</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#powermon.libs.config_model.OutputConfig" title="powermon.libs.config_model.OutputConfig"><span class="pre">OutputConfig</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#powermon.libs.config_model.CommandConfig" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#powermon.libs.config_model.NoExtraBaseModel" title="powermon.libs.config_model.NoExtraBaseModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">NoExtraBaseModel</span></code></a></p>
 <p>model/allowed elements for command section of config</p>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="powermon.libs.config_model.CommandConfig.command">
-<span class="sig-name descname"><span class="pre">command</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#powermon.libs.config_model.CommandConfig.command" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
 <dl class="py attribute">
 <dt class="sig sig-object py" id="powermon.libs.config_model.CommandConfig.model_computed_fields">
 <span class="sig-name descname"><span class="pre">model_computed_fields</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">ComputedFieldInfo</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></em><a class="headerlink" href="#powermon.libs.config_model.CommandConfig.model_computed_fields" title="Link to this definition">¶</a></dt>
@@ -500,26 +329,6 @@ mapping of field names to [<cite>FieldInfo</cite>][pydantic.fields.FieldInfo].</
 <p>This replaces <cite>Model.__fields__</cite> from Pydantic V1.</p>
 </dd></dl>
 
-<dl class="py attribute">
-<dt class="sig sig-object py" id="powermon.libs.config_model.CommandConfig.outputs">
-<span class="sig-name descname"><span class="pre">outputs</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">None</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#powermon.libs.config_model.OutputConfig" title="powermon.libs.config_model.OutputConfig"><span class="pre">OutputConfig</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#powermon.libs.config_model.CommandConfig.outputs" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="powermon.libs.config_model.CommandConfig.override">
-<span class="sig-name descname"><span class="pre">override</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">None</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">dict</span></em><a class="headerlink" href="#powermon.libs.config_model.CommandConfig.override" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="powermon.libs.config_model.CommandConfig.trigger">
-<span class="sig-name descname"><span class="pre">trigger</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">None</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="#powermon.libs.config_model.LoopsTriggerConfig" title="powermon.libs.config_model.LoopsTriggerConfig"><span class="pre">LoopsTriggerConfig</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="#powermon.libs.config_model.AtTriggerConfig" title="powermon.libs.config_model.AtTriggerConfig"><span class="pre">AtTriggerConfig</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="#powermon.libs.config_model.EveryTriggerConfig" title="powermon.libs.config_model.EveryTriggerConfig"><span class="pre">EveryTriggerConfig</span></a></em><a class="headerlink" href="#powermon.libs.config_model.CommandConfig.trigger" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="powermon.libs.config_model.CommandConfig.type">
-<span class="sig-name descname"><span class="pre">type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">None</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'basic'</span></span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'templated'</span></span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#powermon.libs.config_model.CommandConfig.type" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
 </dd></dl>
 
 <dl class="py class">
@@ -527,11 +336,6 @@ mapping of field names to [<cite>FieldInfo</cite>][pydantic.fields.FieldInfo].</
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">powermon.libs.config_model.</span></span><span class="sig-name descname"><span class="pre">ConfigModel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#powermon.libs.config_model.BaseConfig" title="powermon.libs.config_model.BaseConfig"><span class="pre">BaseConfig</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#powermon.libs.config_model.ConfigModel" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#powermon.libs.config_model.NoExtraBaseModel" title="powermon.libs.config_model.NoExtraBaseModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">NoExtraBaseModel</span></code></a></p>
 <p>Entry point for config model</p>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="powermon.libs.config_model.ConfigModel.config">
-<span class="sig-name descname"><span class="pre">config</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#powermon.libs.config_model.BaseConfig" title="powermon.libs.config_model.BaseConfig"><span class="pre">BaseConfig</span></a></em><a class="headerlink" href="#powermon.libs.config_model.ConfigModel.config" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
 <dl class="py attribute">
 <dt class="sig sig-object py" id="powermon.libs.config_model.ConfigModel.model_computed_fields">
 <span class="sig-name descname"><span class="pre">model_computed_fields</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">ComputedFieldInfo</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></em><a class="headerlink" href="#powermon.libs.config_model.ConfigModel.model_computed_fields" title="Link to this definition">¶</a></dt>
@@ -560,11 +364,6 @@ mapping of field names to [<cite>FieldInfo</cite>][pydantic.fields.FieldInfo].</
 <dd><p>Bases: <a class="reference internal" href="#powermon.libs.config_model.NoExtraBaseModel" title="powermon.libs.config_model.NoExtraBaseModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">NoExtraBaseModel</span></code></a></p>
 <p>model/allowed elements for daemon section of config</p>
 <dl class="py attribute">
-<dt class="sig sig-object py" id="powermon.libs.config_model.DaemonConfig.keepalive">
-<span class="sig-name descname"><span class="pre">keepalive</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">None</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#powermon.libs.config_model.DaemonConfig.keepalive" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
 <dt class="sig sig-object py" id="powermon.libs.config_model.DaemonConfig.model_computed_fields">
 <span class="sig-name descname"><span class="pre">model_computed_fields</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">ComputedFieldInfo</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></em><a class="headerlink" href="#powermon.libs.config_model.DaemonConfig.model_computed_fields" title="Link to this definition">¶</a></dt>
 <dd><p>A dictionary of computed field names and their corresponding <cite>ComputedFieldInfo</cite> objects.</p>
@@ -584,11 +383,6 @@ mapping of field names to [<cite>FieldInfo</cite>][pydantic.fields.FieldInfo].</
 <p>This replaces <cite>Model.__fields__</cite> from Pydantic V1.</p>
 </dd></dl>
 
-<dl class="py attribute">
-<dt class="sig sig-object py" id="powermon.libs.config_model.DaemonConfig.type">
-<span class="sig-name descname"><span class="pre">type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">None</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#powermon.libs.config_model.DaemonConfig.type" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
 </dd></dl>
 
 <dl class="py class">
@@ -596,21 +390,6 @@ mapping of field names to [<cite>FieldInfo</cite>][pydantic.fields.FieldInfo].</
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">powermon.libs.config_model.</span></span><span class="sig-name descname"><span class="pre">DeviceConfig</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">None</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">None</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">None</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">manufacturer</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">None</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">port</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#powermon.libs.config_model.TestPortConfig" title="powermon.libs.config_model.TestPortConfig"><span class="pre">TestPortConfig</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="#powermon.libs.config_model.SerialPortConfig" title="powermon.libs.config_model.SerialPortConfig"><span class="pre">SerialPortConfig</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="#powermon.libs.config_model.UsbPortConfig" title="powermon.libs.config_model.UsbPortConfig"><span class="pre">UsbPortConfig</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="#powermon.libs.config_model.BlePortConfig" title="powermon.libs.config_model.BlePortConfig"><span class="pre">BlePortConfig</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#powermon.libs.config_model.DeviceConfig" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#powermon.libs.config_model.NoExtraBaseModel" title="powermon.libs.config_model.NoExtraBaseModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">NoExtraBaseModel</span></code></a></p>
 <p>model/allowed elements for device section of config</p>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="powermon.libs.config_model.DeviceConfig.id">
-<span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">None</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#powermon.libs.config_model.DeviceConfig.id" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="powermon.libs.config_model.DeviceConfig.manufacturer">
-<span class="sig-name descname"><span class="pre">manufacturer</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">None</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#powermon.libs.config_model.DeviceConfig.manufacturer" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="powermon.libs.config_model.DeviceConfig.model">
-<span class="sig-name descname"><span class="pre">model</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">None</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#powermon.libs.config_model.DeviceConfig.model" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
 <dl class="py attribute">
 <dt class="sig sig-object py" id="powermon.libs.config_model.DeviceConfig.model_computed_fields">
 <span class="sig-name descname"><span class="pre">model_computed_fields</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">ComputedFieldInfo</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></em><a class="headerlink" href="#powermon.libs.config_model.DeviceConfig.model_computed_fields" title="Link to this definition">¶</a></dt>
@@ -631,16 +410,6 @@ mapping of field names to [<cite>FieldInfo</cite>][pydantic.fields.FieldInfo].</
 <p>This replaces <cite>Model.__fields__</cite> from Pydantic V1.</p>
 </dd></dl>
 
-<dl class="py attribute">
-<dt class="sig sig-object py" id="powermon.libs.config_model.DeviceConfig.name">
-<span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">None</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#powermon.libs.config_model.DeviceConfig.name" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="powermon.libs.config_model.DeviceConfig.port">
-<span class="sig-name descname"><span class="pre">port</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#powermon.libs.config_model.TestPortConfig" title="powermon.libs.config_model.TestPortConfig"><span class="pre">TestPortConfig</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="#powermon.libs.config_model.SerialPortConfig" title="powermon.libs.config_model.SerialPortConfig"><span class="pre">SerialPortConfig</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="#powermon.libs.config_model.UsbPortConfig" title="powermon.libs.config_model.UsbPortConfig"><span class="pre">UsbPortConfig</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="#powermon.libs.config_model.BlePortConfig" title="powermon.libs.config_model.BlePortConfig"><span class="pre">BlePortConfig</span></a></em><a class="headerlink" href="#powermon.libs.config_model.DeviceConfig.port" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
 </dd></dl>
 
 <dl class="py class">
@@ -648,11 +417,6 @@ mapping of field names to [<cite>FieldInfo</cite>][pydantic.fields.FieldInfo].</
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">powermon.libs.config_model.</span></span><span class="sig-name descname"><span class="pre">EveryTriggerConfig</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">every</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#powermon.libs.config_model.EveryTriggerConfig" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#powermon.libs.config_model.NoExtraBaseModel" title="powermon.libs.config_model.NoExtraBaseModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">NoExtraBaseModel</span></code></a></p>
 <p>model/allowed elements for ‘every’ trigger config</p>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="powermon.libs.config_model.EveryTriggerConfig.every">
-<span class="sig-name descname"><span class="pre">every</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#powermon.libs.config_model.EveryTriggerConfig.every" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
 <dl class="py attribute">
 <dt class="sig sig-object py" id="powermon.libs.config_model.EveryTriggerConfig.model_computed_fields">
 <span class="sig-name descname"><span class="pre">model_computed_fields</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">ComputedFieldInfo</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></em><a class="headerlink" href="#powermon.libs.config_model.EveryTriggerConfig.model_computed_fields" title="Link to this definition">¶</a></dt>
@@ -681,16 +445,6 @@ mapping of field names to [<cite>FieldInfo</cite>][pydantic.fields.FieldInfo].</
 <dd><p>Bases: <a class="reference internal" href="#powermon.libs.config_model.BaseFormatConfig" title="powermon.libs.config_model.BaseFormatConfig"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseFormatConfig</span></code></a></p>
 <p>model/allowed elements for hass format config</p>
 <dl class="py attribute">
-<dt class="sig sig-object py" id="powermon.libs.config_model.HassFormatConfig.discovery_prefix">
-<span class="sig-name descname"><span class="pre">discovery_prefix</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">None</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#powermon.libs.config_model.HassFormatConfig.discovery_prefix" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="powermon.libs.config_model.HassFormatConfig.entity_id_prefix">
-<span class="sig-name descname"><span class="pre">entity_id_prefix</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">None</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#powermon.libs.config_model.HassFormatConfig.entity_id_prefix" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
 <dt class="sig sig-object py" id="powermon.libs.config_model.HassFormatConfig.model_computed_fields">
 <span class="sig-name descname"><span class="pre">model_computed_fields</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">ComputedFieldInfo</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></em><a class="headerlink" href="#powermon.libs.config_model.HassFormatConfig.model_computed_fields" title="Link to this definition">¶</a></dt>
 <dd><p>A dictionary of computed field names and their corresponding <cite>ComputedFieldInfo</cite> objects.</p>
@@ -717,16 +471,6 @@ mapping of field names to [<cite>FieldInfo</cite>][pydantic.fields.FieldInfo].</
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">powermon.libs.config_model.</span></span><span class="sig-name descname"><span class="pre">JsonFormatConfig</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tag</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">None</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">draw_lines</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">None</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keep_case</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">None</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">remove_spaces</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">None</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">extra_info</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">None</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">excl_filter</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">None</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filter</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">None</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">format</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">None</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_missing</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">None</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#powermon.libs.config_model.JsonFormatConfig" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#powermon.libs.config_model.BaseFormatConfig" title="powermon.libs.config_model.BaseFormatConfig"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseFormatConfig</span></code></a></p>
 <p>model/allowed elements for mqtt format config</p>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="powermon.libs.config_model.JsonFormatConfig.format">
-<span class="sig-name descname"><span class="pre">format</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">None</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#powermon.libs.config_model.JsonFormatConfig.format" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="powermon.libs.config_model.JsonFormatConfig.include_missing">
-<span class="sig-name descname"><span class="pre">include_missing</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">None</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#powermon.libs.config_model.JsonFormatConfig.include_missing" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
 <dl class="py attribute">
 <dt class="sig sig-object py" id="powermon.libs.config_model.JsonFormatConfig.model_computed_fields">
 <span class="sig-name descname"><span class="pre">model_computed_fields</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">ComputedFieldInfo</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></em><a class="headerlink" href="#powermon.libs.config_model.JsonFormatConfig.model_computed_fields" title="Link to this definition">¶</a></dt>
@@ -755,11 +499,6 @@ mapping of field names to [<cite>FieldInfo</cite>][pydantic.fields.FieldInfo].</
 <dd><p>Bases: <a class="reference internal" href="#powermon.libs.config_model.NoExtraBaseModel" title="powermon.libs.config_model.NoExtraBaseModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">NoExtraBaseModel</span></code></a></p>
 <p>model/allowed elements for ‘loops’ trigger config</p>
 <dl class="py attribute">
-<dt class="sig sig-object py" id="powermon.libs.config_model.LoopsTriggerConfig.loops">
-<span class="sig-name descname"><span class="pre">loops</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#powermon.libs.config_model.LoopsTriggerConfig.loops" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
 <dt class="sig sig-object py" id="powermon.libs.config_model.LoopsTriggerConfig.model_computed_fields">
 <span class="sig-name descname"><span class="pre">model_computed_fields</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">ComputedFieldInfo</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></em><a class="headerlink" href="#powermon.libs.config_model.LoopsTriggerConfig.model_computed_fields" title="Link to this definition">¶</a></dt>
 <dd><p>A dictionary of computed field names and their corresponding <cite>ComputedFieldInfo</cite> objects.</p>
@@ -787,16 +526,6 @@ mapping of field names to [<cite>FieldInfo</cite>][pydantic.fields.FieldInfo].</
 <dd><p>Bases: <a class="reference internal" href="#powermon.libs.config_model.NoExtraBaseModel" title="powermon.libs.config_model.NoExtraBaseModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">NoExtraBaseModel</span></code></a></p>
 <p>model/allowed elements for mqtt broker section of config</p>
 <dl class="py attribute">
-<dt class="sig sig-object py" id="powermon.libs.config_model.MQTTConfig.adhoc_result_topic">
-<span class="sig-name descname"><span class="pre">adhoc_result_topic</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">None</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#powermon.libs.config_model.MQTTConfig.adhoc_result_topic" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="powermon.libs.config_model.MQTTConfig.adhoc_topic">
-<span class="sig-name descname"><span class="pre">adhoc_topic</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">None</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#powermon.libs.config_model.MQTTConfig.adhoc_topic" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
 <dt class="sig sig-object py" id="powermon.libs.config_model.MQTTConfig.model_computed_fields">
 <span class="sig-name descname"><span class="pre">model_computed_fields</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">ComputedFieldInfo</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></em><a class="headerlink" href="#powermon.libs.config_model.MQTTConfig.model_computed_fields" title="Link to this definition">¶</a></dt>
 <dd><p>A dictionary of computed field names and their corresponding <cite>ComputedFieldInfo</cite> objects.</p>
@@ -815,26 +544,6 @@ mapping of field names to [<cite>FieldInfo</cite>][pydantic.fields.FieldInfo].</
 mapping of field names to [<cite>FieldInfo</cite>][pydantic.fields.FieldInfo].</p>
 <p>This replaces <cite>Model.__fields__</cite> from Pydantic V1.</p>
 </dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="powermon.libs.config_model.MQTTConfig.name">
-<span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#powermon.libs.config_model.MQTTConfig.name" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="powermon.libs.config_model.MQTTConfig.password">
-<span class="sig-name descname"><span class="pre">password</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">None</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#powermon.libs.config_model.MQTTConfig.password" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="powermon.libs.config_model.MQTTConfig.port">
-<span class="sig-name descname"><span class="pre">port</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">None</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#powermon.libs.config_model.MQTTConfig.port" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="powermon.libs.config_model.MQTTConfig.username">
-<span class="sig-name descname"><span class="pre">username</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">None</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#powermon.libs.config_model.MQTTConfig.username" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
 
 </dd></dl>
 
@@ -863,11 +572,6 @@ mapping of field names to [<cite>FieldInfo</cite>][pydantic.fields.FieldInfo].</
 <p>This replaces <cite>Model.__fields__</cite> from Pydantic V1.</p>
 </dd></dl>
 
-<dl class="py attribute">
-<dt class="sig sig-object py" id="powermon.libs.config_model.MqttFormatConfig.topic">
-<span class="sig-name descname"><span class="pre">topic</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">None</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#powermon.libs.config_model.MqttFormatConfig.topic" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
 </dd></dl>
 
 <dl class="py class">
@@ -880,11 +584,6 @@ mapping of field names to [<cite>FieldInfo</cite>][pydantic.fields.FieldInfo].</
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Config</span></span><a class="headerlink" href="#powermon.libs.config_model.NoExtraBaseModel.Config" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>pydantic BaseModel config</p>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="powermon.libs.config_model.NoExtraBaseModel.Config.extra">
-<span class="sig-name descname"><span class="pre">extra</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'forbid'</span></em><a class="headerlink" href="#powermon.libs.config_model.NoExtraBaseModel.Config.extra" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
 </dd></dl>
 
 <dl class="py attribute">
@@ -915,11 +614,6 @@ mapping of field names to [<cite>FieldInfo</cite>][pydantic.fields.FieldInfo].</
 <dd><p>Bases: <a class="reference internal" href="#powermon.libs.config_model.NoExtraBaseModel" title="powermon.libs.config_model.NoExtraBaseModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">NoExtraBaseModel</span></code></a></p>
 <p>model/allowed elements for output config</p>
 <dl class="py attribute">
-<dt class="sig sig-object py" id="powermon.libs.config_model.OutputConfig.format">
-<span class="sig-name descname"><span class="pre">format</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">None</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="#powermon.libs.config_model.BaseFormatConfig" title="powermon.libs.config_model.BaseFormatConfig"><span class="pre">BaseFormatConfig</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="#powermon.libs.config_model.HassFormatConfig" title="powermon.libs.config_model.HassFormatConfig"><span class="pre">HassFormatConfig</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="#powermon.libs.config_model.MqttFormatConfig" title="powermon.libs.config_model.MqttFormatConfig"><span class="pre">MqttFormatConfig</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="#powermon.libs.config_model.JsonFormatConfig" title="powermon.libs.config_model.JsonFormatConfig"><span class="pre">JsonFormatConfig</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="#powermon.libs.config_model.BMSResponseFormatConfig" title="powermon.libs.config_model.BMSResponseFormatConfig"><span class="pre">BMSResponseFormatConfig</span></a></em><a class="headerlink" href="#powermon.libs.config_model.OutputConfig.format" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
 <dt class="sig sig-object py" id="powermon.libs.config_model.OutputConfig.model_computed_fields">
 <span class="sig-name descname"><span class="pre">model_computed_fields</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">ComputedFieldInfo</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></em><a class="headerlink" href="#powermon.libs.config_model.OutputConfig.model_computed_fields" title="Link to this definition">¶</a></dt>
 <dd><p>A dictionary of computed field names and their corresponding <cite>ComputedFieldInfo</cite> objects.</p>
@@ -939,16 +633,6 @@ mapping of field names to [<cite>FieldInfo</cite>][pydantic.fields.FieldInfo].</
 <p>This replaces <cite>Model.__fields__</cite> from Pydantic V1.</p>
 </dd></dl>
 
-<dl class="py attribute">
-<dt class="sig sig-object py" id="powermon.libs.config_model.OutputConfig.topic">
-<span class="sig-name descname"><span class="pre">topic</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">None</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#powermon.libs.config_model.OutputConfig.topic" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="powermon.libs.config_model.OutputConfig.type">
-<span class="sig-name descname"><span class="pre">type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'screen'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'mqtt'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'api_mqtt'</span></span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#powermon.libs.config_model.OutputConfig.type" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
 </dd></dl>
 
 <dl class="py class">
@@ -956,11 +640,6 @@ mapping of field names to [<cite>FieldInfo</cite>][pydantic.fields.FieldInfo].</
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">powermon.libs.config_model.</span></span><span class="sig-name descname"><span class="pre">SerialPortConfig</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'serial'</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">baud</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">None</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">protocol</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">None</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#powermon.libs.config_model.SerialPortConfig" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseModel</span></code></p>
 <p>model/allowed elements for serial port config</p>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="powermon.libs.config_model.SerialPortConfig.baud">
-<span class="sig-name descname"><span class="pre">baud</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">None</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#powermon.libs.config_model.SerialPortConfig.baud" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
 <dl class="py attribute">
 <dt class="sig sig-object py" id="powermon.libs.config_model.SerialPortConfig.model_computed_fields">
 <span class="sig-name descname"><span class="pre">model_computed_fields</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">ComputedFieldInfo</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></em><a class="headerlink" href="#powermon.libs.config_model.SerialPortConfig.model_computed_fields" title="Link to this definition">¶</a></dt>
@@ -980,21 +659,6 @@ mapping of field names to [<cite>FieldInfo</cite>][pydantic.fields.FieldInfo].</
 mapping of field names to [<cite>FieldInfo</cite>][pydantic.fields.FieldInfo].</p>
 <p>This replaces <cite>Model.__fields__</cite> from Pydantic V1.</p>
 </dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="powermon.libs.config_model.SerialPortConfig.path">
-<span class="sig-name descname"><span class="pre">path</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#powermon.libs.config_model.SerialPortConfig.path" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="powermon.libs.config_model.SerialPortConfig.protocol">
-<span class="sig-name descname"><span class="pre">protocol</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">None</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#powermon.libs.config_model.SerialPortConfig.protocol" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="powermon.libs.config_model.SerialPortConfig.type">
-<span class="sig-name descname"><span class="pre">type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'serial'</span></span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#powermon.libs.config_model.SerialPortConfig.type" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
 
 </dd></dl>
 
@@ -1023,21 +687,6 @@ mapping of field names to [<cite>FieldInfo</cite>][pydantic.fields.FieldInfo].</
 <p>This replaces <cite>Model.__fields__</cite> from Pydantic V1.</p>
 </dd></dl>
 
-<dl class="py attribute">
-<dt class="sig sig-object py" id="powermon.libs.config_model.TestPortConfig.protocol">
-<span class="sig-name descname"><span class="pre">protocol</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">None</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#powermon.libs.config_model.TestPortConfig.protocol" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="powermon.libs.config_model.TestPortConfig.response_number">
-<span class="sig-name descname"><span class="pre">response_number</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">None</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#powermon.libs.config_model.TestPortConfig.response_number" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="powermon.libs.config_model.TestPortConfig.type">
-<span class="sig-name descname"><span class="pre">type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'test'</span></span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#powermon.libs.config_model.TestPortConfig.type" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
 </dd></dl>
 
 <dl class="py class">
@@ -1065,21 +714,6 @@ mapping of field names to [<cite>FieldInfo</cite>][pydantic.fields.FieldInfo].</
 <p>This replaces <cite>Model.__fields__</cite> from Pydantic V1.</p>
 </dd></dl>
 
-<dl class="py attribute">
-<dt class="sig sig-object py" id="powermon.libs.config_model.UsbPortConfig.path">
-<span class="sig-name descname"><span class="pre">path</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">None</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#powermon.libs.config_model.UsbPortConfig.path" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="powermon.libs.config_model.UsbPortConfig.protocol">
-<span class="sig-name descname"><span class="pre">protocol</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">None</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#powermon.libs.config_model.UsbPortConfig.protocol" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="powermon.libs.config_model.UsbPortConfig.type">
-<span class="sig-name descname"><span class="pre">type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'usb'</span></span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#powermon.libs.config_model.UsbPortConfig.type" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
 </dd></dl>
 
 </section>
@@ -1104,30 +738,10 @@ mapping of field names to [<cite>FieldInfo</cite>][pydantic.fields.FieldInfo].</
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="powermon.libs.daemon.Daemon.log">
-<span class="sig-name descname"><span class="pre">log</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#powermon.libs.daemon.Daemon.log" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="powermon.libs.daemon.Daemon.notify">
-<span class="sig-name descname"><span class="pre">notify</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">status</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'OK'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#powermon.libs.daemon.Daemon.notify" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="powermon.libs.daemon.Daemon.stop">
-<span class="sig-name descname"><span class="pre">stop</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#powermon.libs.daemon.Daemon.stop" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
 <dt class="sig sig-object py" id="powermon.libs.daemon.Daemon.to_dto">
 <span class="sig-name descname"><span class="pre">to_dto</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#powermon.libs.daemon.Daemon.to_dto" title="Link to this definition">¶</a></dt>
 <dd><p>return the data transfer object version of this object</p>
 </dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="powermon.libs.daemon.Daemon.watchdog">
-<span class="sig-name descname"><span class="pre">watchdog</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#powermon.libs.daemon.Daemon.watchdog" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
 
 </dd></dl>
 
@@ -1136,21 +750,6 @@ mapping of field names to [<cite>FieldInfo</cite>][pydantic.fields.FieldInfo].</
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">powermon.libs.daemon.</span></span><span class="sig-name descname"><span class="pre">DaemonDTO</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">daemon_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#powermon.libs.daemon.DaemonType" title="powermon.libs.daemon.DaemonType"><span class="pre">DaemonType</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">enabled</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keepalive</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#powermon.libs.daemon.DaemonDTO" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseModel</span></code></p>
 <p>data transfer ojbect model</p>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="powermon.libs.daemon.DaemonDTO.daemon_type">
-<span class="sig-name descname"><span class="pre">daemon_type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#powermon.libs.daemon.DaemonType" title="powermon.libs.daemon.DaemonType"><span class="pre">DaemonType</span></a></em><a class="headerlink" href="#powermon.libs.daemon.DaemonDTO.daemon_type" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="powermon.libs.daemon.DaemonDTO.enabled">
-<span class="sig-name descname"><span class="pre">enabled</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#powermon.libs.daemon.DaemonDTO.enabled" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="powermon.libs.daemon.DaemonDTO.keepalive">
-<span class="sig-name descname"><span class="pre">keepalive</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#powermon.libs.daemon.DaemonDTO.keepalive" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
 <dl class="py attribute">
 <dt class="sig sig-object py" id="powermon.libs.daemon.DaemonDTO.model_computed_fields">
 <span class="sig-name descname"><span class="pre">model_computed_fields</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">ComputedFieldInfo</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></em><a class="headerlink" href="#powermon.libs.daemon.DaemonDTO.model_computed_fields" title="Link to this definition">¶</a></dt>
@@ -1178,42 +777,12 @@ mapping of field names to [<cite>FieldInfo</cite>][pydantic.fields.FieldInfo].</
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">powermon.libs.daemon.</span></span><span class="sig-name descname"><span class="pre">DaemonType</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">names</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">module</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qualname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">boundary</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#powermon.libs.daemon.DaemonType" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">StrEnum</span></code></p>
 <p>Daemon types implemented</p>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="powermon.libs.daemon.DaemonType.DISABLED">
-<span class="sig-name descname"><span class="pre">DISABLED</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'disabled'</span></em><a class="headerlink" href="#powermon.libs.daemon.DaemonType.DISABLED" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="powermon.libs.daemon.DaemonType.SYSTEMD">
-<span class="sig-name descname"><span class="pre">SYSTEMD</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'systemd'</span></em><a class="headerlink" href="#powermon.libs.daemon.DaemonType.SYSTEMD" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="powermon.libs.daemon.dummyNotification">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">powermon.libs.daemon.</span></span><span class="sig-name descname"><span class="pre">dummyNotification</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">names</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">module</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qualname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">boundary</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#powermon.libs.daemon.dummyNotification" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">StrEnum</span></code></p>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="powermon.libs.daemon.dummyNotification.READY">
-<span class="sig-name descname"><span class="pre">READY</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'ready'</span></em><a class="headerlink" href="#powermon.libs.daemon.dummyNotification.READY" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="powermon.libs.daemon.dummyNotification.STATUS">
-<span class="sig-name descname"><span class="pre">STATUS</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'status'</span></em><a class="headerlink" href="#powermon.libs.daemon.dummyNotification.STATUS" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="powermon.libs.daemon.dummyNotification.STOPPING">
-<span class="sig-name descname"><span class="pre">STOPPING</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'stopping'</span></em><a class="headerlink" href="#powermon.libs.daemon.dummyNotification.STOPPING" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="powermon.libs.daemon.dummyNotification.WATCHDOG">
-<span class="sig-name descname"><span class="pre">WATCHDOG</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'watchdog'</span></em><a class="headerlink" href="#powermon.libs.daemon.dummyNotification.WATCHDOG" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
 </dd></dl>
 
 </section>
@@ -1390,216 +959,139 @@ mapping of field names to [<cite>FieldInfo</cite>][pydantic.fields.FieldInfo].</
 </ul>
 </li>
 <li><a class="reference internal" href="#powermon.libs.apicoordinator.ApiCoordinatorDTO"><code class="docutils literal notranslate"><span class="pre">ApiCoordinatorDTO</span></code></a><ul>
-<li><a class="reference internal" href="#powermon.libs.apicoordinator.ApiCoordinatorDTO.description"><code class="docutils literal notranslate"><span class="pre">ApiCoordinatorDTO.description</span></code></a></li>
 <li><a class="reference internal" href="#powermon.libs.apicoordinator.ApiCoordinatorDTO.model_computed_fields"><code class="docutils literal notranslate"><span class="pre">ApiCoordinatorDTO.model_computed_fields</span></code></a></li>
 <li><a class="reference internal" href="#powermon.libs.apicoordinator.ApiCoordinatorDTO.model_config"><code class="docutils literal notranslate"><span class="pre">ApiCoordinatorDTO.model_config</span></code></a></li>
 <li><a class="reference internal" href="#powermon.libs.apicoordinator.ApiCoordinatorDTO.model_fields"><code class="docutils literal notranslate"><span class="pre">ApiCoordinatorDTO.model_fields</span></code></a></li>
-<li><a class="reference internal" href="#powermon.libs.apicoordinator.ApiCoordinatorDTO.name"><code class="docutils literal notranslate"><span class="pre">ApiCoordinatorDTO.name</span></code></a></li>
 </ul>
 </li>
 </ul>
 </li>
 <li><a class="reference internal" href="#module-powermon.libs.config_model">powermon.libs.config_model module</a><ul>
 <li><a class="reference internal" href="#powermon.libs.config_model.APIConfig"><code class="docutils literal notranslate"><span class="pre">APIConfig</span></code></a><ul>
-<li><a class="reference internal" href="#powermon.libs.config_model.APIConfig.adhoc_topic"><code class="docutils literal notranslate"><span class="pre">APIConfig.adhoc_topic</span></code></a></li>
-<li><a class="reference internal" href="#powermon.libs.config_model.APIConfig.announce_topic"><code class="docutils literal notranslate"><span class="pre">APIConfig.announce_topic</span></code></a></li>
-<li><a class="reference internal" href="#powermon.libs.config_model.APIConfig.enabled"><code class="docutils literal notranslate"><span class="pre">APIConfig.enabled</span></code></a></li>
-<li><a class="reference internal" href="#powermon.libs.config_model.APIConfig.host"><code class="docutils literal notranslate"><span class="pre">APIConfig.host</span></code></a></li>
-<li><a class="reference internal" href="#powermon.libs.config_model.APIConfig.log_level"><code class="docutils literal notranslate"><span class="pre">APIConfig.log_level</span></code></a></li>
 <li><a class="reference internal" href="#powermon.libs.config_model.APIConfig.model_computed_fields"><code class="docutils literal notranslate"><span class="pre">APIConfig.model_computed_fields</span></code></a></li>
 <li><a class="reference internal" href="#powermon.libs.config_model.APIConfig.model_config"><code class="docutils literal notranslate"><span class="pre">APIConfig.model_config</span></code></a></li>
 <li><a class="reference internal" href="#powermon.libs.config_model.APIConfig.model_fields"><code class="docutils literal notranslate"><span class="pre">APIConfig.model_fields</span></code></a></li>
-<li><a class="reference internal" href="#powermon.libs.config_model.APIConfig.port"><code class="docutils literal notranslate"><span class="pre">APIConfig.port</span></code></a></li>
-<li><a class="reference internal" href="#powermon.libs.config_model.APIConfig.refresh_interval"><code class="docutils literal notranslate"><span class="pre">APIConfig.refresh_interval</span></code></a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#powermon.libs.config_model.AtTriggerConfig"><code class="docutils literal notranslate"><span class="pre">AtTriggerConfig</span></code></a><ul>
-<li><a class="reference internal" href="#powermon.libs.config_model.AtTriggerConfig.at"><code class="docutils literal notranslate"><span class="pre">AtTriggerConfig.at</span></code></a></li>
 <li><a class="reference internal" href="#powermon.libs.config_model.AtTriggerConfig.model_computed_fields"><code class="docutils literal notranslate"><span class="pre">AtTriggerConfig.model_computed_fields</span></code></a></li>
 <li><a class="reference internal" href="#powermon.libs.config_model.AtTriggerConfig.model_config"><code class="docutils literal notranslate"><span class="pre">AtTriggerConfig.model_config</span></code></a></li>
 <li><a class="reference internal" href="#powermon.libs.config_model.AtTriggerConfig.model_fields"><code class="docutils literal notranslate"><span class="pre">AtTriggerConfig.model_fields</span></code></a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#powermon.libs.config_model.BMSResponseFormatConfig"><code class="docutils literal notranslate"><span class="pre">BMSResponseFormatConfig</span></code></a><ul>
-<li><a class="reference internal" href="#powermon.libs.config_model.BMSResponseFormatConfig.battery_charge_voltage"><code class="docutils literal notranslate"><span class="pre">BMSResponseFormatConfig.battery_charge_voltage</span></code></a></li>
-<li><a class="reference internal" href="#powermon.libs.config_model.BMSResponseFormatConfig.battery_cutoff_voltage"><code class="docutils literal notranslate"><span class="pre">BMSResponseFormatConfig.battery_cutoff_voltage</span></code></a></li>
-<li><a class="reference internal" href="#powermon.libs.config_model.BMSResponseFormatConfig.battery_float_voltage"><code class="docutils literal notranslate"><span class="pre">BMSResponseFormatConfig.battery_float_voltage</span></code></a></li>
-<li><a class="reference internal" href="#powermon.libs.config_model.BMSResponseFormatConfig.battery_max_charge_current"><code class="docutils literal notranslate"><span class="pre">BMSResponseFormatConfig.battery_max_charge_current</span></code></a></li>
-<li><a class="reference internal" href="#powermon.libs.config_model.BMSResponseFormatConfig.battery_max_discharge_current"><code class="docutils literal notranslate"><span class="pre">BMSResponseFormatConfig.battery_max_discharge_current</span></code></a></li>
-<li><a class="reference internal" href="#powermon.libs.config_model.BMSResponseFormatConfig.force_charge"><code class="docutils literal notranslate"><span class="pre">BMSResponseFormatConfig.force_charge</span></code></a></li>
 <li><a class="reference internal" href="#powermon.libs.config_model.BMSResponseFormatConfig.model_computed_fields"><code class="docutils literal notranslate"><span class="pre">BMSResponseFormatConfig.model_computed_fields</span></code></a></li>
 <li><a class="reference internal" href="#powermon.libs.config_model.BMSResponseFormatConfig.model_config"><code class="docutils literal notranslate"><span class="pre">BMSResponseFormatConfig.model_config</span></code></a></li>
 <li><a class="reference internal" href="#powermon.libs.config_model.BMSResponseFormatConfig.model_fields"><code class="docutils literal notranslate"><span class="pre">BMSResponseFormatConfig.model_fields</span></code></a></li>
-<li><a class="reference internal" href="#powermon.libs.config_model.BMSResponseFormatConfig.protocol"><code class="docutils literal notranslate"><span class="pre">BMSResponseFormatConfig.protocol</span></code></a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#powermon.libs.config_model.BaseConfig"><code class="docutils literal notranslate"><span class="pre">BaseConfig</span></code></a><ul>
-<li><a class="reference internal" href="#powermon.libs.config_model.BaseConfig.api"><code class="docutils literal notranslate"><span class="pre">BaseConfig.api</span></code></a></li>
-<li><a class="reference internal" href="#powermon.libs.config_model.BaseConfig.commands"><code class="docutils literal notranslate"><span class="pre">BaseConfig.commands</span></code></a></li>
-<li><a class="reference internal" href="#powermon.libs.config_model.BaseConfig.daemon"><code class="docutils literal notranslate"><span class="pre">BaseConfig.daemon</span></code></a></li>
-<li><a class="reference internal" href="#powermon.libs.config_model.BaseConfig.debuglevel"><code class="docutils literal notranslate"><span class="pre">BaseConfig.debuglevel</span></code></a></li>
-<li><a class="reference internal" href="#powermon.libs.config_model.BaseConfig.device"><code class="docutils literal notranslate"><span class="pre">BaseConfig.device</span></code></a></li>
-<li><a class="reference internal" href="#powermon.libs.config_model.BaseConfig.loop"><code class="docutils literal notranslate"><span class="pre">BaseConfig.loop</span></code></a></li>
 <li><a class="reference internal" href="#powermon.libs.config_model.BaseConfig.model_computed_fields"><code class="docutils literal notranslate"><span class="pre">BaseConfig.model_computed_fields</span></code></a></li>
 <li><a class="reference internal" href="#powermon.libs.config_model.BaseConfig.model_config"><code class="docutils literal notranslate"><span class="pre">BaseConfig.model_config</span></code></a></li>
 <li><a class="reference internal" href="#powermon.libs.config_model.BaseConfig.model_fields"><code class="docutils literal notranslate"><span class="pre">BaseConfig.model_fields</span></code></a></li>
-<li><a class="reference internal" href="#powermon.libs.config_model.BaseConfig.mqttbroker"><code class="docutils literal notranslate"><span class="pre">BaseConfig.mqttbroker</span></code></a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#powermon.libs.config_model.BaseFormatConfig"><code class="docutils literal notranslate"><span class="pre">BaseFormatConfig</span></code></a><ul>
-<li><a class="reference internal" href="#powermon.libs.config_model.BaseFormatConfig.draw_lines"><code class="docutils literal notranslate"><span class="pre">BaseFormatConfig.draw_lines</span></code></a></li>
-<li><a class="reference internal" href="#powermon.libs.config_model.BaseFormatConfig.excl_filter"><code class="docutils literal notranslate"><span class="pre">BaseFormatConfig.excl_filter</span></code></a></li>
-<li><a class="reference internal" href="#powermon.libs.config_model.BaseFormatConfig.extra_info"><code class="docutils literal notranslate"><span class="pre">BaseFormatConfig.extra_info</span></code></a></li>
-<li><a class="reference internal" href="#powermon.libs.config_model.BaseFormatConfig.filter"><code class="docutils literal notranslate"><span class="pre">BaseFormatConfig.filter</span></code></a></li>
-<li><a class="reference internal" href="#powermon.libs.config_model.BaseFormatConfig.keep_case"><code class="docutils literal notranslate"><span class="pre">BaseFormatConfig.keep_case</span></code></a></li>
 <li><a class="reference internal" href="#powermon.libs.config_model.BaseFormatConfig.model_computed_fields"><code class="docutils literal notranslate"><span class="pre">BaseFormatConfig.model_computed_fields</span></code></a></li>
 <li><a class="reference internal" href="#powermon.libs.config_model.BaseFormatConfig.model_config"><code class="docutils literal notranslate"><span class="pre">BaseFormatConfig.model_config</span></code></a></li>
 <li><a class="reference internal" href="#powermon.libs.config_model.BaseFormatConfig.model_fields"><code class="docutils literal notranslate"><span class="pre">BaseFormatConfig.model_fields</span></code></a></li>
-<li><a class="reference internal" href="#powermon.libs.config_model.BaseFormatConfig.remove_spaces"><code class="docutils literal notranslate"><span class="pre">BaseFormatConfig.remove_spaces</span></code></a></li>
-<li><a class="reference internal" href="#powermon.libs.config_model.BaseFormatConfig.tag"><code class="docutils literal notranslate"><span class="pre">BaseFormatConfig.tag</span></code></a></li>
-<li><a class="reference internal" href="#powermon.libs.config_model.BaseFormatConfig.type"><code class="docutils literal notranslate"><span class="pre">BaseFormatConfig.type</span></code></a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#powermon.libs.config_model.BlePortConfig"><code class="docutils literal notranslate"><span class="pre">BlePortConfig</span></code></a><ul>
-<li><a class="reference internal" href="#powermon.libs.config_model.BlePortConfig.mac"><code class="docutils literal notranslate"><span class="pre">BlePortConfig.mac</span></code></a></li>
 <li><a class="reference internal" href="#powermon.libs.config_model.BlePortConfig.model_computed_fields"><code class="docutils literal notranslate"><span class="pre">BlePortConfig.model_computed_fields</span></code></a></li>
 <li><a class="reference internal" href="#powermon.libs.config_model.BlePortConfig.model_config"><code class="docutils literal notranslate"><span class="pre">BlePortConfig.model_config</span></code></a></li>
 <li><a class="reference internal" href="#powermon.libs.config_model.BlePortConfig.model_fields"><code class="docutils literal notranslate"><span class="pre">BlePortConfig.model_fields</span></code></a></li>
-<li><a class="reference internal" href="#powermon.libs.config_model.BlePortConfig.protocol"><code class="docutils literal notranslate"><span class="pre">BlePortConfig.protocol</span></code></a></li>
-<li><a class="reference internal" href="#powermon.libs.config_model.BlePortConfig.type"><code class="docutils literal notranslate"><span class="pre">BlePortConfig.type</span></code></a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#powermon.libs.config_model.CommandConfig"><code class="docutils literal notranslate"><span class="pre">CommandConfig</span></code></a><ul>
-<li><a class="reference internal" href="#powermon.libs.config_model.CommandConfig.command"><code class="docutils literal notranslate"><span class="pre">CommandConfig.command</span></code></a></li>
 <li><a class="reference internal" href="#powermon.libs.config_model.CommandConfig.model_computed_fields"><code class="docutils literal notranslate"><span class="pre">CommandConfig.model_computed_fields</span></code></a></li>
 <li><a class="reference internal" href="#powermon.libs.config_model.CommandConfig.model_config"><code class="docutils literal notranslate"><span class="pre">CommandConfig.model_config</span></code></a></li>
 <li><a class="reference internal" href="#powermon.libs.config_model.CommandConfig.model_fields"><code class="docutils literal notranslate"><span class="pre">CommandConfig.model_fields</span></code></a></li>
-<li><a class="reference internal" href="#powermon.libs.config_model.CommandConfig.outputs"><code class="docutils literal notranslate"><span class="pre">CommandConfig.outputs</span></code></a></li>
-<li><a class="reference internal" href="#powermon.libs.config_model.CommandConfig.override"><code class="docutils literal notranslate"><span class="pre">CommandConfig.override</span></code></a></li>
-<li><a class="reference internal" href="#powermon.libs.config_model.CommandConfig.trigger"><code class="docutils literal notranslate"><span class="pre">CommandConfig.trigger</span></code></a></li>
-<li><a class="reference internal" href="#powermon.libs.config_model.CommandConfig.type"><code class="docutils literal notranslate"><span class="pre">CommandConfig.type</span></code></a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#powermon.libs.config_model.ConfigModel"><code class="docutils literal notranslate"><span class="pre">ConfigModel</span></code></a><ul>
-<li><a class="reference internal" href="#powermon.libs.config_model.ConfigModel.config"><code class="docutils literal notranslate"><span class="pre">ConfigModel.config</span></code></a></li>
 <li><a class="reference internal" href="#powermon.libs.config_model.ConfigModel.model_computed_fields"><code class="docutils literal notranslate"><span class="pre">ConfigModel.model_computed_fields</span></code></a></li>
 <li><a class="reference internal" href="#powermon.libs.config_model.ConfigModel.model_config"><code class="docutils literal notranslate"><span class="pre">ConfigModel.model_config</span></code></a></li>
 <li><a class="reference internal" href="#powermon.libs.config_model.ConfigModel.model_fields"><code class="docutils literal notranslate"><span class="pre">ConfigModel.model_fields</span></code></a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#powermon.libs.config_model.DaemonConfig"><code class="docutils literal notranslate"><span class="pre">DaemonConfig</span></code></a><ul>
-<li><a class="reference internal" href="#powermon.libs.config_model.DaemonConfig.keepalive"><code class="docutils literal notranslate"><span class="pre">DaemonConfig.keepalive</span></code></a></li>
 <li><a class="reference internal" href="#powermon.libs.config_model.DaemonConfig.model_computed_fields"><code class="docutils literal notranslate"><span class="pre">DaemonConfig.model_computed_fields</span></code></a></li>
 <li><a class="reference internal" href="#powermon.libs.config_model.DaemonConfig.model_config"><code class="docutils literal notranslate"><span class="pre">DaemonConfig.model_config</span></code></a></li>
 <li><a class="reference internal" href="#powermon.libs.config_model.DaemonConfig.model_fields"><code class="docutils literal notranslate"><span class="pre">DaemonConfig.model_fields</span></code></a></li>
-<li><a class="reference internal" href="#powermon.libs.config_model.DaemonConfig.type"><code class="docutils literal notranslate"><span class="pre">DaemonConfig.type</span></code></a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#powermon.libs.config_model.DeviceConfig"><code class="docutils literal notranslate"><span class="pre">DeviceConfig</span></code></a><ul>
-<li><a class="reference internal" href="#powermon.libs.config_model.DeviceConfig.id"><code class="docutils literal notranslate"><span class="pre">DeviceConfig.id</span></code></a></li>
-<li><a class="reference internal" href="#powermon.libs.config_model.DeviceConfig.manufacturer"><code class="docutils literal notranslate"><span class="pre">DeviceConfig.manufacturer</span></code></a></li>
-<li><a class="reference internal" href="#powermon.libs.config_model.DeviceConfig.model"><code class="docutils literal notranslate"><span class="pre">DeviceConfig.model</span></code></a></li>
 <li><a class="reference internal" href="#powermon.libs.config_model.DeviceConfig.model_computed_fields"><code class="docutils literal notranslate"><span class="pre">DeviceConfig.model_computed_fields</span></code></a></li>
 <li><a class="reference internal" href="#powermon.libs.config_model.DeviceConfig.model_config"><code class="docutils literal notranslate"><span class="pre">DeviceConfig.model_config</span></code></a></li>
 <li><a class="reference internal" href="#powermon.libs.config_model.DeviceConfig.model_fields"><code class="docutils literal notranslate"><span class="pre">DeviceConfig.model_fields</span></code></a></li>
-<li><a class="reference internal" href="#powermon.libs.config_model.DeviceConfig.name"><code class="docutils literal notranslate"><span class="pre">DeviceConfig.name</span></code></a></li>
-<li><a class="reference internal" href="#powermon.libs.config_model.DeviceConfig.port"><code class="docutils literal notranslate"><span class="pre">DeviceConfig.port</span></code></a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#powermon.libs.config_model.EveryTriggerConfig"><code class="docutils literal notranslate"><span class="pre">EveryTriggerConfig</span></code></a><ul>
-<li><a class="reference internal" href="#powermon.libs.config_model.EveryTriggerConfig.every"><code class="docutils literal notranslate"><span class="pre">EveryTriggerConfig.every</span></code></a></li>
 <li><a class="reference internal" href="#powermon.libs.config_model.EveryTriggerConfig.model_computed_fields"><code class="docutils literal notranslate"><span class="pre">EveryTriggerConfig.model_computed_fields</span></code></a></li>
 <li><a class="reference internal" href="#powermon.libs.config_model.EveryTriggerConfig.model_config"><code class="docutils literal notranslate"><span class="pre">EveryTriggerConfig.model_config</span></code></a></li>
 <li><a class="reference internal" href="#powermon.libs.config_model.EveryTriggerConfig.model_fields"><code class="docutils literal notranslate"><span class="pre">EveryTriggerConfig.model_fields</span></code></a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#powermon.libs.config_model.HassFormatConfig"><code class="docutils literal notranslate"><span class="pre">HassFormatConfig</span></code></a><ul>
-<li><a class="reference internal" href="#powermon.libs.config_model.HassFormatConfig.discovery_prefix"><code class="docutils literal notranslate"><span class="pre">HassFormatConfig.discovery_prefix</span></code></a></li>
-<li><a class="reference internal" href="#powermon.libs.config_model.HassFormatConfig.entity_id_prefix"><code class="docutils literal notranslate"><span class="pre">HassFormatConfig.entity_id_prefix</span></code></a></li>
 <li><a class="reference internal" href="#powermon.libs.config_model.HassFormatConfig.model_computed_fields"><code class="docutils literal notranslate"><span class="pre">HassFormatConfig.model_computed_fields</span></code></a></li>
 <li><a class="reference internal" href="#powermon.libs.config_model.HassFormatConfig.model_config"><code class="docutils literal notranslate"><span class="pre">HassFormatConfig.model_config</span></code></a></li>
 <li><a class="reference internal" href="#powermon.libs.config_model.HassFormatConfig.model_fields"><code class="docutils literal notranslate"><span class="pre">HassFormatConfig.model_fields</span></code></a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#powermon.libs.config_model.JsonFormatConfig"><code class="docutils literal notranslate"><span class="pre">JsonFormatConfig</span></code></a><ul>
-<li><a class="reference internal" href="#powermon.libs.config_model.JsonFormatConfig.format"><code class="docutils literal notranslate"><span class="pre">JsonFormatConfig.format</span></code></a></li>
-<li><a class="reference internal" href="#powermon.libs.config_model.JsonFormatConfig.include_missing"><code class="docutils literal notranslate"><span class="pre">JsonFormatConfig.include_missing</span></code></a></li>
 <li><a class="reference internal" href="#powermon.libs.config_model.JsonFormatConfig.model_computed_fields"><code class="docutils literal notranslate"><span class="pre">JsonFormatConfig.model_computed_fields</span></code></a></li>
 <li><a class="reference internal" href="#powermon.libs.config_model.JsonFormatConfig.model_config"><code class="docutils literal notranslate"><span class="pre">JsonFormatConfig.model_config</span></code></a></li>
 <li><a class="reference internal" href="#powermon.libs.config_model.JsonFormatConfig.model_fields"><code class="docutils literal notranslate"><span class="pre">JsonFormatConfig.model_fields</span></code></a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#powermon.libs.config_model.LoopsTriggerConfig"><code class="docutils literal notranslate"><span class="pre">LoopsTriggerConfig</span></code></a><ul>
-<li><a class="reference internal" href="#powermon.libs.config_model.LoopsTriggerConfig.loops"><code class="docutils literal notranslate"><span class="pre">LoopsTriggerConfig.loops</span></code></a></li>
 <li><a class="reference internal" href="#powermon.libs.config_model.LoopsTriggerConfig.model_computed_fields"><code class="docutils literal notranslate"><span class="pre">LoopsTriggerConfig.model_computed_fields</span></code></a></li>
 <li><a class="reference internal" href="#powermon.libs.config_model.LoopsTriggerConfig.model_config"><code class="docutils literal notranslate"><span class="pre">LoopsTriggerConfig.model_config</span></code></a></li>
 <li><a class="reference internal" href="#powermon.libs.config_model.LoopsTriggerConfig.model_fields"><code class="docutils literal notranslate"><span class="pre">LoopsTriggerConfig.model_fields</span></code></a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#powermon.libs.config_model.MQTTConfig"><code class="docutils literal notranslate"><span class="pre">MQTTConfig</span></code></a><ul>
-<li><a class="reference internal" href="#powermon.libs.config_model.MQTTConfig.adhoc_result_topic"><code class="docutils literal notranslate"><span class="pre">MQTTConfig.adhoc_result_topic</span></code></a></li>
-<li><a class="reference internal" href="#powermon.libs.config_model.MQTTConfig.adhoc_topic"><code class="docutils literal notranslate"><span class="pre">MQTTConfig.adhoc_topic</span></code></a></li>
 <li><a class="reference internal" href="#powermon.libs.config_model.MQTTConfig.model_computed_fields"><code class="docutils literal notranslate"><span class="pre">MQTTConfig.model_computed_fields</span></code></a></li>
 <li><a class="reference internal" href="#powermon.libs.config_model.MQTTConfig.model_config"><code class="docutils literal notranslate"><span class="pre">MQTTConfig.model_config</span></code></a></li>
 <li><a class="reference internal" href="#powermon.libs.config_model.MQTTConfig.model_fields"><code class="docutils literal notranslate"><span class="pre">MQTTConfig.model_fields</span></code></a></li>
-<li><a class="reference internal" href="#powermon.libs.config_model.MQTTConfig.name"><code class="docutils literal notranslate"><span class="pre">MQTTConfig.name</span></code></a></li>
-<li><a class="reference internal" href="#powermon.libs.config_model.MQTTConfig.password"><code class="docutils literal notranslate"><span class="pre">MQTTConfig.password</span></code></a></li>
-<li><a class="reference internal" href="#powermon.libs.config_model.MQTTConfig.port"><code class="docutils literal notranslate"><span class="pre">MQTTConfig.port</span></code></a></li>
-<li><a class="reference internal" href="#powermon.libs.config_model.MQTTConfig.username"><code class="docutils literal notranslate"><span class="pre">MQTTConfig.username</span></code></a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#powermon.libs.config_model.MqttFormatConfig"><code class="docutils literal notranslate"><span class="pre">MqttFormatConfig</span></code></a><ul>
 <li><a class="reference internal" href="#powermon.libs.config_model.MqttFormatConfig.model_computed_fields"><code class="docutils literal notranslate"><span class="pre">MqttFormatConfig.model_computed_fields</span></code></a></li>
 <li><a class="reference internal" href="#powermon.libs.config_model.MqttFormatConfig.model_config"><code class="docutils literal notranslate"><span class="pre">MqttFormatConfig.model_config</span></code></a></li>
 <li><a class="reference internal" href="#powermon.libs.config_model.MqttFormatConfig.model_fields"><code class="docutils literal notranslate"><span class="pre">MqttFormatConfig.model_fields</span></code></a></li>
-<li><a class="reference internal" href="#powermon.libs.config_model.MqttFormatConfig.topic"><code class="docutils literal notranslate"><span class="pre">MqttFormatConfig.topic</span></code></a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#powermon.libs.config_model.NoExtraBaseModel"><code class="docutils literal notranslate"><span class="pre">NoExtraBaseModel</span></code></a><ul>
-<li><a class="reference internal" href="#powermon.libs.config_model.NoExtraBaseModel.Config"><code class="docutils literal notranslate"><span class="pre">NoExtraBaseModel.Config</span></code></a><ul>
-<li><a class="reference internal" href="#powermon.libs.config_model.NoExtraBaseModel.Config.extra"><code class="docutils literal notranslate"><span class="pre">NoExtraBaseModel.Config.extra</span></code></a></li>
-</ul>
-</li>
+<li><a class="reference internal" href="#powermon.libs.config_model.NoExtraBaseModel.Config"><code class="docutils literal notranslate"><span class="pre">NoExtraBaseModel.Config</span></code></a></li>
 <li><a class="reference internal" href="#powermon.libs.config_model.NoExtraBaseModel.model_computed_fields"><code class="docutils literal notranslate"><span class="pre">NoExtraBaseModel.model_computed_fields</span></code></a></li>
 <li><a class="reference internal" href="#powermon.libs.config_model.NoExtraBaseModel.model_config"><code class="docutils literal notranslate"><span class="pre">NoExtraBaseModel.model_config</span></code></a></li>
 <li><a class="reference internal" href="#powermon.libs.config_model.NoExtraBaseModel.model_fields"><code class="docutils literal notranslate"><span class="pre">NoExtraBaseModel.model_fields</span></code></a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#powermon.libs.config_model.OutputConfig"><code class="docutils literal notranslate"><span class="pre">OutputConfig</span></code></a><ul>
-<li><a class="reference internal" href="#powermon.libs.config_model.OutputConfig.format"><code class="docutils literal notranslate"><span class="pre">OutputConfig.format</span></code></a></li>
 <li><a class="reference internal" href="#powermon.libs.config_model.OutputConfig.model_computed_fields"><code class="docutils literal notranslate"><span class="pre">OutputConfig.model_computed_fields</span></code></a></li>
 <li><a class="reference internal" href="#powermon.libs.config_model.OutputConfig.model_config"><code class="docutils literal notranslate"><span class="pre">OutputConfig.model_config</span></code></a></li>
 <li><a class="reference internal" href="#powermon.libs.config_model.OutputConfig.model_fields"><code class="docutils literal notranslate"><span class="pre">OutputConfig.model_fields</span></code></a></li>
-<li><a class="reference internal" href="#powermon.libs.config_model.OutputConfig.topic"><code class="docutils literal notranslate"><span class="pre">OutputConfig.topic</span></code></a></li>
-<li><a class="reference internal" href="#powermon.libs.config_model.OutputConfig.type"><code class="docutils literal notranslate"><span class="pre">OutputConfig.type</span></code></a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#powermon.libs.config_model.SerialPortConfig"><code class="docutils literal notranslate"><span class="pre">SerialPortConfig</span></code></a><ul>
-<li><a class="reference internal" href="#powermon.libs.config_model.SerialPortConfig.baud"><code class="docutils literal notranslate"><span class="pre">SerialPortConfig.baud</span></code></a></li>
 <li><a class="reference internal" href="#powermon.libs.config_model.SerialPortConfig.model_computed_fields"><code class="docutils literal notranslate"><span class="pre">SerialPortConfig.model_computed_fields</span></code></a></li>
 <li><a class="reference internal" href="#powermon.libs.config_model.SerialPortConfig.model_config"><code class="docutils literal notranslate"><span class="pre">SerialPortConfig.model_config</span></code></a></li>
 <li><a class="reference internal" href="#powermon.libs.config_model.SerialPortConfig.model_fields"><code class="docutils literal notranslate"><span class="pre">SerialPortConfig.model_fields</span></code></a></li>
-<li><a class="reference internal" href="#powermon.libs.config_model.SerialPortConfig.path"><code class="docutils literal notranslate"><span class="pre">SerialPortConfig.path</span></code></a></li>
-<li><a class="reference internal" href="#powermon.libs.config_model.SerialPortConfig.protocol"><code class="docutils literal notranslate"><span class="pre">SerialPortConfig.protocol</span></code></a></li>
-<li><a class="reference internal" href="#powermon.libs.config_model.SerialPortConfig.type"><code class="docutils literal notranslate"><span class="pre">SerialPortConfig.type</span></code></a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#powermon.libs.config_model.TestPortConfig"><code class="docutils literal notranslate"><span class="pre">TestPortConfig</span></code></a><ul>
 <li><a class="reference internal" href="#powermon.libs.config_model.TestPortConfig.model_computed_fields"><code class="docutils literal notranslate"><span class="pre">TestPortConfig.model_computed_fields</span></code></a></li>
 <li><a class="reference internal" href="#powermon.libs.config_model.TestPortConfig.model_config"><code class="docutils literal notranslate"><span class="pre">TestPortConfig.model_config</span></code></a></li>
 <li><a class="reference internal" href="#powermon.libs.config_model.TestPortConfig.model_fields"><code class="docutils literal notranslate"><span class="pre">TestPortConfig.model_fields</span></code></a></li>
-<li><a class="reference internal" href="#powermon.libs.config_model.TestPortConfig.protocol"><code class="docutils literal notranslate"><span class="pre">TestPortConfig.protocol</span></code></a></li>
-<li><a class="reference internal" href="#powermon.libs.config_model.TestPortConfig.response_number"><code class="docutils literal notranslate"><span class="pre">TestPortConfig.response_number</span></code></a></li>
-<li><a class="reference internal" href="#powermon.libs.config_model.TestPortConfig.type"><code class="docutils literal notranslate"><span class="pre">TestPortConfig.type</span></code></a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#powermon.libs.config_model.UsbPortConfig"><code class="docutils literal notranslate"><span class="pre">UsbPortConfig</span></code></a><ul>
 <li><a class="reference internal" href="#powermon.libs.config_model.UsbPortConfig.model_computed_fields"><code class="docutils literal notranslate"><span class="pre">UsbPortConfig.model_computed_fields</span></code></a></li>
 <li><a class="reference internal" href="#powermon.libs.config_model.UsbPortConfig.model_config"><code class="docutils literal notranslate"><span class="pre">UsbPortConfig.model_config</span></code></a></li>
 <li><a class="reference internal" href="#powermon.libs.config_model.UsbPortConfig.model_fields"><code class="docutils literal notranslate"><span class="pre">UsbPortConfig.model_fields</span></code></a></li>
-<li><a class="reference internal" href="#powermon.libs.config_model.UsbPortConfig.path"><code class="docutils literal notranslate"><span class="pre">UsbPortConfig.path</span></code></a></li>
-<li><a class="reference internal" href="#powermon.libs.config_model.UsbPortConfig.protocol"><code class="docutils literal notranslate"><span class="pre">UsbPortConfig.protocol</span></code></a></li>
-<li><a class="reference internal" href="#powermon.libs.config_model.UsbPortConfig.type"><code class="docutils literal notranslate"><span class="pre">UsbPortConfig.type</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -1608,34 +1100,17 @@ mapping of field names to [<cite>FieldInfo</cite>][pydantic.fields.FieldInfo].</
 <li><a class="reference internal" href="#powermon.libs.daemon.Daemon"><code class="docutils literal notranslate"><span class="pre">Daemon</span></code></a><ul>
 <li><a class="reference internal" href="#powermon.libs.daemon.Daemon.from_config"><code class="docutils literal notranslate"><span class="pre">Daemon.from_config()</span></code></a></li>
 <li><a class="reference internal" href="#powermon.libs.daemon.Daemon.initialize"><code class="docutils literal notranslate"><span class="pre">Daemon.initialize()</span></code></a></li>
-<li><a class="reference internal" href="#powermon.libs.daemon.Daemon.log"><code class="docutils literal notranslate"><span class="pre">Daemon.log()</span></code></a></li>
-<li><a class="reference internal" href="#powermon.libs.daemon.Daemon.notify"><code class="docutils literal notranslate"><span class="pre">Daemon.notify()</span></code></a></li>
-<li><a class="reference internal" href="#powermon.libs.daemon.Daemon.stop"><code class="docutils literal notranslate"><span class="pre">Daemon.stop()</span></code></a></li>
 <li><a class="reference internal" href="#powermon.libs.daemon.Daemon.to_dto"><code class="docutils literal notranslate"><span class="pre">Daemon.to_dto()</span></code></a></li>
-<li><a class="reference internal" href="#powermon.libs.daemon.Daemon.watchdog"><code class="docutils literal notranslate"><span class="pre">Daemon.watchdog()</span></code></a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#powermon.libs.daemon.DaemonDTO"><code class="docutils literal notranslate"><span class="pre">DaemonDTO</span></code></a><ul>
-<li><a class="reference internal" href="#powermon.libs.daemon.DaemonDTO.daemon_type"><code class="docutils literal notranslate"><span class="pre">DaemonDTO.daemon_type</span></code></a></li>
-<li><a class="reference internal" href="#powermon.libs.daemon.DaemonDTO.enabled"><code class="docutils literal notranslate"><span class="pre">DaemonDTO.enabled</span></code></a></li>
-<li><a class="reference internal" href="#powermon.libs.daemon.DaemonDTO.keepalive"><code class="docutils literal notranslate"><span class="pre">DaemonDTO.keepalive</span></code></a></li>
 <li><a class="reference internal" href="#powermon.libs.daemon.DaemonDTO.model_computed_fields"><code class="docutils literal notranslate"><span class="pre">DaemonDTO.model_computed_fields</span></code></a></li>
 <li><a class="reference internal" href="#powermon.libs.daemon.DaemonDTO.model_config"><code class="docutils literal notranslate"><span class="pre">DaemonDTO.model_config</span></code></a></li>
 <li><a class="reference internal" href="#powermon.libs.daemon.DaemonDTO.model_fields"><code class="docutils literal notranslate"><span class="pre">DaemonDTO.model_fields</span></code></a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#powermon.libs.daemon.DaemonType"><code class="docutils literal notranslate"><span class="pre">DaemonType</span></code></a><ul>
-<li><a class="reference internal" href="#powermon.libs.daemon.DaemonType.DISABLED"><code class="docutils literal notranslate"><span class="pre">DaemonType.DISABLED</span></code></a></li>
-<li><a class="reference internal" href="#powermon.libs.daemon.DaemonType.SYSTEMD"><code class="docutils literal notranslate"><span class="pre">DaemonType.SYSTEMD</span></code></a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#powermon.libs.daemon.dummyNotification"><code class="docutils literal notranslate"><span class="pre">dummyNotification</span></code></a><ul>
-<li><a class="reference internal" href="#powermon.libs.daemon.dummyNotification.READY"><code class="docutils literal notranslate"><span class="pre">dummyNotification.READY</span></code></a></li>
-<li><a class="reference internal" href="#powermon.libs.daemon.dummyNotification.STATUS"><code class="docutils literal notranslate"><span class="pre">dummyNotification.STATUS</span></code></a></li>
-<li><a class="reference internal" href="#powermon.libs.daemon.dummyNotification.STOPPING"><code class="docutils literal notranslate"><span class="pre">dummyNotification.STOPPING</span></code></a></li>
-<li><a class="reference internal" href="#powermon.libs.daemon.dummyNotification.WATCHDOG"><code class="docutils literal notranslate"><span class="pre">dummyNotification.WATCHDOG</span></code></a></li>
-</ul>
-</li>
+<li><a class="reference internal" href="#powermon.libs.daemon.DaemonType"><code class="docutils literal notranslate"><span class="pre">DaemonType</span></code></a></li>
+<li><a class="reference internal" href="#powermon.libs.daemon.dummyNotification"><code class="docutils literal notranslate"><span class="pre">dummyNotification</span></code></a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#module-powermon.libs.errors">powermon.libs.errors module</a><ul>
@@ -1673,6 +1148,16 @@ mapping of field names to [<cite>FieldInfo</cite>][pydantic.fields.FieldInfo].</
 </ul>
 
   </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="powermon.html"
+                          title="previous chapter">powermon package</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="powermon.outputformats.html"
+                          title="next chapter">powermon.outputformats package</a></p>
+  </div>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
@@ -1703,7 +1188,14 @@ mapping of field names to [<cite>FieldInfo</cite>][pydantic.fields.FieldInfo].</
         <li class="right" >
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
+        <li class="right" >
+          <a href="powermon.outputformats.html" title="powermon.outputformats package"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="powermon.html" title="powermon package"
+             >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">powermon  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="powermon.html" >powermon package</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">powermon.libs package</a></li> 
       </ul>
     </div>
