@@ -1,15 +1,34 @@
 """ powermon / ports / __init__.py """
 import logging
+from enum import StrEnum, auto
+
+from pydantic import BaseModel
 
 from powermon.libs.errors import ConfigError
-from powermon.ports.porttype import PortType
-from powermon.ports.serialport import SerialPort
-from powermon.ports.testport import TestPort
-from powermon.ports.usbport import USBPort
+
 
 # Set-up logger
 log = logging.getLogger("ports")
 
+
+class PortType(StrEnum):
+    """ enumeration of supported / known port types """
+    UNKNOWN = auto()
+    TEST = auto()
+    SERIAL = auto()
+    USB = auto()
+    BLE = auto()
+
+    JKBLE = auto()
+    MQTT = auto()
+    VSERIAL = auto()
+    DALYSERIAL = auto()
+    ESP32 = auto()
+
+
+class PortTypeDTO(BaseModel):
+    """ data transfer model for PortType class """
+    port_type: PortType
 
 def from_config(port_config):
     """ get a port object from config data """
@@ -30,10 +49,13 @@ def from_config(port_config):
     # build port object
     match port_type:
         case PortType.TEST:
+            from powermon.ports.testport import TestPort
             port_object = TestPort.from_config(config=port_config)
         case PortType.SERIAL:
+            from powermon.ports.serialport import SerialPort
             port_object = SerialPort.from_config(config=port_config)
         case PortType.USB:
+            from powermon.ports.usbport import USBPort
             port_object = USBPort.from_config(config=port_config)
         # Pattern for port types that cause problems when imported
         case PortType.BLE:

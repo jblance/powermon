@@ -9,8 +9,8 @@ import serial
 from powermon.commands.command import Command, CommandType
 from powermon.commands.result import Result
 from powermon.libs.errors import ConfigError
+from powermon.ports import PortType
 from powermon.ports.abstractport import AbstractPort, AbstractPortDTO
-from powermon.ports.porttype import PortType
 from powermon.protocols import get_protocol_definition
 
 log = logging.getLogger("SerialPort")

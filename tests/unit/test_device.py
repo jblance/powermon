@@ -5,7 +5,7 @@ from unittest.mock import Mock
 from powermon import Device
 from powermon.commands.command import Command
 from powermon.outputs.abstractoutput import AbstractOutput
-from powermon.ports import SerialPort
+from powermon.ports.serialport import SerialPort
 from powermon.protocols.pi30 import PI30
 
 

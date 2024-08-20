@@ -14,7 +14,7 @@ from powermon.libs.errors import (CommandDefinitionIncorrect,
                              CommandDefinitionMissing, InvalidResponse,
                              PowermonProtocolError)
 from powermon.outputs import multiple_from_config
-from powermon.ports.porttype import PortType
+from powermon.ports import PortType
 from powermon.protocols.helpers import crc_pi30 as crc
 
 log = logging.getLogger("AbstractProtocol")

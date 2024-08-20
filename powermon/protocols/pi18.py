@@ -6,7 +6,7 @@ from powermon.commands.command_definition import CommandDefinition
 from powermon.commands.reading_definition import ReadingType, ResponseType
 from powermon.commands.result import ResultType
 from powermon.libs.errors import CommandDefinitionMissing
-from powermon.ports.porttype import PortType
+from powermon.ports import PortType
 from powermon.protocols.abstractprotocol import AbstractProtocol
 from powermon.protocols.helpers import crc_pi30 as crc
 from powermon.protocols.pi30 import BATTERY_TYPE_LIST, OUTPUT_MODE_LIST

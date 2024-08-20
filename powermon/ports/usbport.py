@@ -8,8 +8,8 @@ from glob import glob
 from powermon.commands.command import Command
 from powermon.commands.result import Result, ResultType
 from powermon.libs.errors import ConfigError
+from powermon.ports import PortType
 from powermon.ports.abstractport import AbstractPort, AbstractPortDTO
-from powermon.ports.porttype import PortType
 from powermon.protocols import get_protocol_definition
 
 log = logging.getLogger("USBPort")

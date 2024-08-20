@@ -5,9 +5,9 @@ import random
 from powermon.commands.command import Command
 from powermon.commands.command_definition import CommandDefinition
 from powermon.commands.result import Result
+from powermon.ports import PortType
 # from powermon.dto.portDTO import PortDTO
 from powermon.ports.abstractport import AbstractPort, AbstractPortDTO
-from powermon.ports.porttype import PortType
 from powermon.protocols import get_protocol_definition
 
 log = logging.getLogger("test")

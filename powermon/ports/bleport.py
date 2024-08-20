@@ -19,10 +19,10 @@ except ImportError:
 
 from powermon.commands.command import Command
 from powermon.commands.result import Result
-from powermon.ports.abstractport import AbstractPortDTO
-from powermon.libs.errors import BLEResponseError, ConfigError, PowermonWIP, PowermonProtocolError
-from powermon.ports.abstractport import AbstractPort
-from powermon.ports.porttype import PortType
+from powermon.libs.errors import (BLEResponseError, ConfigError,
+                                  PowermonProtocolError, PowermonWIP)
+from powermon.ports import PortType
+from powermon.ports.abstractport import AbstractPort, AbstractPortDTO
 from powermon.protocols import get_protocol_definition
 
 log = logging.getLogger("BlePort")

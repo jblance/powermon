@@ -5,8 +5,8 @@ from powermon.commands.command import Command
 from powermon.device import DeviceInfo
 from powermon.libs.errors import InvalidCRC, InvalidResponse
 from powermon.outputformats.simple import SimpleFormat
+from powermon.ports import PortType
 from powermon.protocols.daly import Daly as Proto
-from powermon.ports.porttype import PortType
 
 proto = Proto()
 
