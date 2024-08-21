@@ -149,9 +149,9 @@
 <h2>Installing Docker on pi raspberry pi<a class="headerlink" href="#installing-docker-on-pi-raspberry-pi" title="Link to this heading">¶</a></h2>
 <p><strong>on a fresh raspbian lite install</strong></p>
 <ul class="simple">
-<li><p>install git <cite>sudo apt-get install git</cite></p></li>
-<li><p>install docker <cite>curl -fsSL https://get.docker.com -o get-docker.sh</cite> and then <cite>sudo sh get-docker.sh</cite></p></li>
-<li><p>allow current user to run containers <cite>sudo usermod -aG docker [user_name]</cite></p></li>
+<li><p>install git <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">apt-get</span> <span class="pre">install</span> <span class="pre">git</span></code></p></li>
+<li><p>install docker <code class="docutils literal notranslate"><span class="pre">curl</span> <span class="pre">-fsSL</span> <span class="pre">https://get.docker.com</span> <span class="pre">-o</span> <span class="pre">get-docker.sh`</span> <span class="pre">and</span> <span class="pre">then</span> <span class="pre">`sudo</span> <span class="pre">sh</span> <span class="pre">get-docker.sh</span></code></p></li>
+<li><p>allow current user to run containers <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">usermod</span> <span class="pre">-aG</span> <span class="pre">docker</span> <span class="pre">[user_name]</span></code></p></li>
 </ul>
 </section>
 <section id="run-powermon-in-docker-using-docker-hub-image">
@@ -160,29 +160,29 @@
 <li><p>assuming docker is installed (otherwise see previous section)</p></li>
 <li><p>pull image</p></li>
 </ul>
-<p><cite>$ docker pull jblance/powermon</cite>
-<code class="docutils literal notranslate"><span class="pre">`</span>
-<span class="pre">Using</span> <span class="pre">default</span> <span class="pre">tag:</span> <span class="pre">latest</span>
-<span class="pre">latest:</span> <span class="pre">Pulling</span> <span class="pre">from</span> <span class="pre">jblance/powermon</span>
-<span class="pre">8a1e25ce7c4f:</span> <span class="pre">Already</span> <span class="pre">exists</span>
-<span class="pre">1103112ebfc4:</span> <span class="pre">Already</span> <span class="pre">exists</span>
-<span class="pre">e71929d49167:</span> <span class="pre">Already</span> <span class="pre">exists</span>
-<span class="pre">c529235f83c8:</span> <span class="pre">Already</span> <span class="pre">exists</span>
-<span class="pre">a47354887c31:</span> <span class="pre">Already</span> <span class="pre">exists</span>
-<span class="pre">22dedeb685d0:</span> <span class="pre">Pull</span> <span class="pre">complete</span>
-<span class="pre">69254e400de9:</span> <span class="pre">Pull</span> <span class="pre">complete</span>
-<span class="pre">a5ccada1c8dc:</span> <span class="pre">Pull</span> <span class="pre">complete</span>
-<span class="pre">Digest:</span> <span class="pre">sha256:68ed3d15a40f3cd2f1b2c1cef9ae0f3c038c281bfe57afe3ea4ed57574c55c37</span>
-<span class="pre">Status:</span> <span class="pre">Downloaded</span> <span class="pre">newer</span> <span class="pre">image</span> <span class="pre">for</span> <span class="pre">jblance/powermon:latest</span>
-<span class="pre">docker.io/jblance/powermon:latest</span>
-<span class="pre">`</span></code>
-<cite>$ docker images</cite>
-<code class="docutils literal notranslate"><span class="pre">`</span>
-<span class="pre">REPOSITORY</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">TAG</span>&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">IMAGE</span> <span class="pre">ID</span>&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">CREATED</span>&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">SIZE</span>
-<span class="pre">jblance/powermon</span>&#160;&#160;&#160; <span class="pre">latest</span>&#160;&#160;&#160; <span class="pre">3822e3bee24a</span>&#160;&#160; <span class="pre">2</span> <span class="pre">days</span> <span class="pre">ago</span>&#160;&#160;&#160; <span class="pre">198MB</span>
-<span class="pre">`</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">$</span> <span class="pre">docker</span> <span class="pre">pull</span> <span class="pre">jblance/powermon</span></code></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">Using default tag: latest</span>
+<span class="go">latest: Pulling from jblance/powermon</span>
+<span class="go">8a1e25ce7c4f: Already exists</span>
+<span class="go">1103112ebfc4: Already exists</span>
+<span class="go">e71929d49167: Already exists</span>
+<span class="go">c529235f83c8: Already exists</span>
+<span class="go">a47354887c31: Already exists</span>
+<span class="go">22dedeb685d0: Pull complete</span>
+<span class="go">69254e400de9: Pull complete</span>
+<span class="go">a5ccada1c8dc: Pull complete</span>
+<span class="go">Digest: sha256:68ed3d15a40f3cd2f1b2c1cef9ae0f3c038c281bfe57afe3ea4ed57574c55c37</span>
+<span class="go">Status: Downloaded newer image for jblance/powermon:latest</span>
+<span class="go">docker.io/jblance/powermon:latest</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">$</span> <span class="pre">docker</span> <span class="pre">images</span></code></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">REPOSITORY          TAG       IMAGE ID       CREATED       SIZE</span>
+<span class="go">jblance/powermon    latest    3822e3bee24a   2 days ago    198MB</span>
+</pre></div>
+</div>
 <ul class="simple">
-<li><p>if wanted, add a simpler tag (for easier running) <cite>$ docker tag jblance/powermon pm</cite></p></li>
+<li><p>if wanted, add a simpler tag (for easier running) <code class="docutils literal notranslate"><span class="pre">$</span> <span class="pre">docker</span> <span class="pre">tag</span> <span class="pre">jblance/powermon</span> <span class="pre">pm</span></code></p></li>
 </ul>
 <p><code class="docutils literal notranslate"><span class="pre">`</span>
 <span class="pre">REPOSITORY</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">TAG</span>&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">IMAGE</span> <span class="pre">ID</span>&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">CREATED</span>&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">SIZE</span>
@@ -190,7 +190,7 @@
 <span class="pre">jblance/powermon</span>&#160;&#160;&#160; <span class="pre">latest</span>&#160;&#160;&#160; <span class="pre">3822e3bee24a</span>&#160;&#160; <span class="pre">2</span> <span class="pre">days</span> <span class="pre">ago</span>&#160;&#160;&#160; <span class="pre">198MB</span>
 <span class="pre">`</span></code></p>
 <ul class="simple">
-<li><p>run a test command <cite>$ docker run –rm pm powermon -v</cite></p></li>
+<li><p>run a test command <code class="docutils literal notranslate"><span class="pre">$</span> <span class="pre">docker</span> <span class="pre">run</span> <span class="pre">--rm</span> <span class="pre">pm</span> <span class="pre">powermon</span> <span class="pre">-v</span></code></p></li>
 </ul>
 <p><code class="docutils literal notranslate"><span class="pre">`</span>
 <span class="pre">Power</span> <span class="pre">Device</span> <span class="pre">Monitoring</span> <span class="pre">Utility,</span> <span class="pre">version:</span> <span class="pre">1.0.5,</span> <span class="pre">python</span> <span class="pre">version:</span> <span class="pre">3.12.2</span>
@@ -201,14 +201,14 @@
 <ul class="simple">
 <li><p>clone git repo
 * ensure you have setup ssh key for git <a class="reference external" href="https://docs.github.com/en/authentication/connecting-to-github-with-ssh">https://docs.github.com/en/authentication/connecting-to-github-with-ssh</a>
-* clone repo <cite>git clone git&#64;github.com:jblance/powermon.git</cite></p></li>
-<li><p>build an image and tag it <cite>$ docker build -t pm .</cite></p></li>
-<li><p>then commands can be run against it <cite>$ docker run –rm pm powermon -C /powermon/tests/config/test.yaml</cite></p></li>
+* clone repo <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">clone</span> <span class="pre">git&#64;github.com:jblance/powermon.git</span></code></p></li>
+<li><p>build an image and tag it <code class="docutils literal notranslate"><span class="pre">$</span> <span class="pre">docker</span> <span class="pre">build</span> <span class="pre">-t</span> <span class="pre">pm</span> <span class="pre">.</span></code></p></li>
+<li><p>then commands can be run against it <code class="docutils literal notranslate"><span class="pre">$</span> <span class="pre">docker</span> <span class="pre">run</span> <span class="pre">--rm</span> <span class="pre">pm</span> <span class="pre">powermon</span> <span class="pre">-C</span> <span class="pre">/powermon/tests/config/test.yaml</span></code></p></li>
 </ul>
 </section>
 <section id="running-a-simple-mqtt-container">
 <h2>running a simple mqtt container<a class="headerlink" href="#running-a-simple-mqtt-container" title="Link to this heading">¶</a></h2>
-<p><cite>docker run –rm  –network=host -v ./docker/mosquitto/config:/mosquitto/config eclipse-mosquitto</cite></p>
+<p><code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">run</span> <span class="pre">--rm</span>&#160; <span class="pre">--network=host</span> <span class="pre">-v</span> <span class="pre">./docker/mosquitto/config:/mosquitto/config</span> <span class="pre">eclipse-mosquitto</span></code></p>
 </section>
 </section>
 
