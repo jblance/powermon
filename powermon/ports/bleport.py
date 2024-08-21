@@ -1,4 +1,4 @@
-""" 
+""" bleport module ....
 """
 # import serial
 import asyncio
@@ -29,7 +29,7 @@ log = logging.getLogger("BlePort")
 
 
 class BlePort(AbstractPort):
-    """_summary_
+    """ represents a BLE port - extends AbstractPort
 
     Args:
         AbstractPort (_type_): _description_
@@ -79,10 +79,24 @@ class BlePort(AbstractPort):
         self.response += data
         return
 
-    def is_connected(self):
+    def is_connected(self) -> bool:
+        """ is this port connected to a device 
+
+        Returns:
+            bool: True if port is defined and connected
+        """
         return self.client is not None and self.client.is_connected
 
     async def connect(self) -> bool:
+        """ try to find and connect to the device identified by self.mac
+
+        Raises:
+            BleakDeviceNotFoundError: could not find or connect to the identified device
+            PowermonWIP: unexpected error - signified code updates are needed
+
+        Returns:
+            bool: True is connection successful
+        """
         log.info("bleport connecting. mac:%s", self.mac)
         try:
             # find ble client
@@ -110,7 +124,6 @@ class BlePort(AbstractPort):
             print(e)
             self.client = None
             raise PowermonWIP("connect failed") from e
-
         return self.is_connected()
 
     async def disconnect(self) -> None:
