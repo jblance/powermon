@@ -18,6 +18,7 @@ Currently has support for:
 
 Installation
 ------------
+powermon is packaged on pypi. There are a number of optional dependancies based on the usage required
 
 .. code-block:: console
 
@@ -28,10 +29,10 @@ Installation
    pip install powermon[modbus]   # include modbus dependancies
    pip install powermon[systemd]  # include systemd dependancies
 
-Contents
---------
+Module Documentation
+--------------------
 
 .. toctree::
-   :maxdepth: 3
+   :maxdepth: 4
 
    modules
