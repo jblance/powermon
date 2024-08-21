@@ -15,10 +15,10 @@ Run powermon in docker (using docker hub image)
 * assuming docker is installed (otherwise see previous section)
 * pull image
 
-``$ docker pull jblance/powermon``
-
 .. code-block:: console
+    :caption: pull powermon docker image
 
+    $ docker pull jblance/powermon
     Using default tag: latest
     latest: Pulling from jblance/powermon
     8a1e25ce7c4f: Already exists 
@@ -33,25 +33,26 @@ Run powermon in docker (using docker hub image)
     Status: Downloaded newer image for jblance/powermon:latest
     docker.io/jblance/powermon:latest
 
-``$ docker images``
-
 .. code-block:: console
 
+    $ docker images
     REPOSITORY          TAG       IMAGE ID       CREATED       SIZE
     jblance/powermon    latest    3822e3bee24a   2 days ago    198MB
 
-* if wanted, add a simpler tag (for easier running) ``$ docker tag jblance/powermon pm``
+* if wanted, add a simpler tag (for easier running)
 
 .. code-block:: console
 
+    $ docker tag jblance/powermon pm
     REPOSITORY          TAG       IMAGE ID       CREATED       SIZE
     pm                  latest    3822e3bee24a   2 days ago    198MB
     jblance/powermon    latest    3822e3bee24a   2 days ago    198MB
 
-* run a test command ``$ docker run --rm pm powermon -v``
+* run a test command
 
 .. code-block:: console
 
+    $ docker run --rm pm powermon -v
     Power Device Monitoring Utility, version: 1.0.5, python version: 3.12.2
 
 

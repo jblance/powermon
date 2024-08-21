@@ -160,8 +160,10 @@
 <li><p>assuming docker is installed (otherwise see previous section)</p></li>
 <li><p>pull image</p></li>
 </ul>
-<p><code class="docutils literal notranslate"><span class="pre">$</span> <span class="pre">docker</span> <span class="pre">pull</span> <span class="pre">jblance/powermon</span></code></p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">Using default tag: latest</span>
+<div class="literal-block-wrapper docutils container" id="id1">
+<div class="code-block-caption"><span class="caption-text">pull powermon docker image</span><a class="headerlink" href="#id1" title="Link to this code">¶</a></div>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>docker<span class="w"> </span>pull<span class="w"> </span>jblance/powermon
+<span class="go">Using default tag: latest</span>
 <span class="go">latest: Pulling from jblance/powermon</span>
 <span class="go">8a1e25ce7c4f: Already exists</span>
 <span class="go">1103112ebfc4: Already exists</span>
@@ -176,25 +178,28 @@
 <span class="go">docker.io/jblance/powermon:latest</span>
 </pre></div>
 </div>
-<p><code class="docutils literal notranslate"><span class="pre">$</span> <span class="pre">docker</span> <span class="pre">images</span></code></p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">REPOSITORY          TAG       IMAGE ID       CREATED       SIZE</span>
+</div>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>docker<span class="w"> </span>images
+<span class="go">REPOSITORY          TAG       IMAGE ID       CREATED       SIZE</span>
 <span class="go">jblance/powermon    latest    3822e3bee24a   2 days ago    198MB</span>
 </pre></div>
 </div>
 <ul class="simple">
-<li><p>if wanted, add a simpler tag (for easier running) <code class="docutils literal notranslate"><span class="pre">$</span> <span class="pre">docker</span> <span class="pre">tag</span> <span class="pre">jblance/powermon</span> <span class="pre">pm</span></code></p></li>
+<li><p>if wanted, add a simpler tag (for easier running)</p></li>
 </ul>
-<p><code class="docutils literal notranslate"><span class="pre">`</span>
-<span class="pre">REPOSITORY</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">TAG</span>&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">IMAGE</span> <span class="pre">ID</span>&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">CREATED</span>&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">SIZE</span>
-<span class="pre">pm</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">latest</span>&#160;&#160;&#160; <span class="pre">3822e3bee24a</span>&#160;&#160; <span class="pre">2</span> <span class="pre">days</span> <span class="pre">ago</span>&#160;&#160;&#160; <span class="pre">198MB</span>
-<span class="pre">jblance/powermon</span>&#160;&#160;&#160; <span class="pre">latest</span>&#160;&#160;&#160; <span class="pre">3822e3bee24a</span>&#160;&#160; <span class="pre">2</span> <span class="pre">days</span> <span class="pre">ago</span>&#160;&#160;&#160; <span class="pre">198MB</span>
-<span class="pre">`</span></code></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>docker<span class="w"> </span>tag<span class="w"> </span>jblance/powermon<span class="w"> </span>pm
+<span class="go">REPOSITORY          TAG       IMAGE ID       CREATED       SIZE</span>
+<span class="go">pm                  latest    3822e3bee24a   2 days ago    198MB</span>
+<span class="go">jblance/powermon    latest    3822e3bee24a   2 days ago    198MB</span>
+</pre></div>
+</div>
 <ul class="simple">
-<li><p>run a test command <code class="docutils literal notranslate"><span class="pre">$</span> <span class="pre">docker</span> <span class="pre">run</span> <span class="pre">--rm</span> <span class="pre">pm</span> <span class="pre">powermon</span> <span class="pre">-v</span></code></p></li>
+<li><p>run a test command</p></li>
 </ul>
-<p><code class="docutils literal notranslate"><span class="pre">`</span>
-<span class="pre">Power</span> <span class="pre">Device</span> <span class="pre">Monitoring</span> <span class="pre">Utility,</span> <span class="pre">version:</span> <span class="pre">1.0.5,</span> <span class="pre">python</span> <span class="pre">version:</span> <span class="pre">3.12.2</span>
-<span class="pre">`</span></code></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>pm<span class="w"> </span>powermon<span class="w"> </span>-v
+<span class="go">Power Device Monitoring Utility, version: 1.0.5, python version: 3.12.2</span>
+</pre></div>
+</div>
 </section>
 <section id="run-development-code-in-docker">
 <h2>Run development code in docker<a class="headerlink" href="#run-development-code-in-docker" title="Link to this heading">¶</a></h2>
