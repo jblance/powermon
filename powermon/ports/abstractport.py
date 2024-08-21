@@ -12,7 +12,7 @@ from powermon.protocols.abstractprotocol import AbstractProtocol, AbstractProtoc
 log = logging.getLogger("Port")
 
 
-class AbstractPortDTO(BaseModel):
+class _AbstractPortDTO(BaseModel):
     """ data transfer model for AbstractPort class """
     port_type: str
     protocol: AbstractProtocolDTO

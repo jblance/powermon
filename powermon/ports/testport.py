@@ -7,13 +7,13 @@ from powermon.commands.command_definition import CommandDefinition
 from powermon.commands.result import Result
 from powermon.ports import PortType
 # from powermon.dto.portDTO import PortDTO
-from powermon.ports.abstractport import AbstractPort, AbstractPortDTO
+from powermon.ports.abstractport import AbstractPort, _AbstractPortDTO
 from powermon.protocols import get_protocol_definition
 
 log = logging.getLogger("test")
 
 
-class TestPortDTO(AbstractPortDTO):
+class TestPortDTO(_AbstractPortDTO):
     """ data transfer model for TestPort class """
     response_number: None | int
 
@@ -28,7 +28,7 @@ class TestPort(AbstractPort):
         self.connected = False
         self._test_data = None
 
-    def to_dto(self) -> AbstractPortDTO:
+    def to_dto(self) -> _AbstractPortDTO:
         dto = TestPortDTO(port_type=self.port_type, protocol=self.protocol.to_dto(), response_number=self.response_number)
         return dto
 

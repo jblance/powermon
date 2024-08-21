@@ -9,13 +9,13 @@ from powermon.commands.command import Command
 from powermon.commands.result import Result, ResultType
 from powermon.libs.errors import ConfigError
 from powermon.ports import PortType
-from powermon.ports.abstractport import AbstractPort, AbstractPortDTO
+from powermon.ports.abstractport import AbstractPort, _AbstractPortDTO
 from powermon.protocols import get_protocol_definition
 
 log = logging.getLogger("USBPort")
 
 
-class UsbPortDTO(AbstractPortDTO):
+class UsbPortDTO(_AbstractPortDTO):
     """ data transfer model for SerialPort class """
     path: str
     identifier: None | int | str

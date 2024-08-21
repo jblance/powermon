@@ -11,7 +11,7 @@ from powermon.libs.errors import CommandDefinitionMissing, ConfigError
 from powermon.libs.mqttbroker import MqttBroker
 from powermon.outputs.abstractoutput import AbstractOutput
 from powermon.ports import from_config as port_from_config
-from powermon.ports.abstractport import AbstractPort, AbstractPortDTO
+from powermon.ports.abstractport import AbstractPort, _AbstractPortDTO
 
 # Set-up logger
 log = logging.getLogger("Device")
@@ -41,7 +41,7 @@ class DeviceInfo:
 class DeviceDTO(BaseModel):
     """ data transfer model for Device class """
     device_info: DeviceInfoDTO
-    port: AbstractPortDTO
+    port: _AbstractPortDTO
     commands: list[CommandDTO]
 
 

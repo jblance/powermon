@@ -10,13 +10,13 @@ from powermon.commands.command import Command, CommandType
 from powermon.commands.result import Result
 from powermon.libs.errors import ConfigError
 from powermon.ports import PortType
-from powermon.ports.abstractport import AbstractPort, AbstractPortDTO
+from powermon.ports.abstractport import AbstractPort, _AbstractPortDTO
 from powermon.protocols import get_protocol_definition
 
 log = logging.getLogger("SerialPort")
 
 
-class SerialPortDTO(AbstractPortDTO):
+class SerialPortDTO(_AbstractPortDTO):
     """ data transfer model for SerialPort class """
     path: str
     baud: int
@@ -76,7 +76,7 @@ class SerialPort(AbstractPort):
                 raise ConfigError(f"Multiple paths - none of {paths} match {identifier}")
         # end of multi-path logic
 
-    def to_dto(self) -> AbstractPortDTO:
+    def to_dto(self) -> _AbstractPortDTO:
         dto = SerialPortDTO(port_type="serial", path=self.path, baud=self.baud, protocol=self.protocol.to_dto())
         return dto
 

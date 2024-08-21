@@ -22,7 +22,7 @@ from powermon.commands.result import Result
 from powermon.libs.errors import (BLEResponseError, ConfigError,
                                   PowermonProtocolError, PowermonWIP)
 from powermon.ports import PortType
-from powermon.ports.abstractport import AbstractPort, AbstractPortDTO
+from powermon.ports.abstractport import AbstractPort, _AbstractPortDTO
 from powermon.protocols import get_protocol_definition
 from powermon.protocols.abstractprotocol import AbstractProtocol
 
@@ -83,8 +83,8 @@ class BlePort(AbstractPort):
         self.response = bytearray()
         self.client: BleakClient|None = None
 
-    def to_dto(self) -> AbstractPortDTO:
-        dto = AbstractPortDTO(port_type="ble", protocol=self.protocol.to_dto())  # TODO: add correct dto
+    def to_dto(self) -> _AbstractPortDTO:
+        dto = _AbstractPortDTO(port_type="ble", protocol=self.protocol.to_dto())  # TODO: add correct dto
         return dto
 
     def _notification_callback(self, handle, data):
