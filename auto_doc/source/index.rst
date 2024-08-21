@@ -3,6 +3,7 @@ Powermon
 Python package designed to get information from inverters and other solar inverters and power monitoring devices
 
 Currently has support for:
+
 * MPP-Solar and similar inverters, e.g.
 
   * PIP-4048MS
@@ -17,12 +18,15 @@ Currently has support for:
 
 Installation
 ------------
- (install web api)
 
 .. code-block:: console
 
-   pip install powermon
-   pip install powermon[api]
+   pip install powermon           # minimal install
+   pip install powermon[api]      # include web api dependancies
+   pip install powermon[ble]      # include web bluetooth dependancies
+   pip install powermon[dev]      # include development dependancies
+   pip install powermon[modbus]   # include modbus dependancies
+   pip install powermon[systemd]  # include systemd dependancies
 
 Contents
 --------

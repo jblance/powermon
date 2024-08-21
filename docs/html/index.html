@@ -40,17 +40,16 @@
   <section id="powermon">
 <h1>Powermon<a class="headerlink" href="#powermon" title="Link to this heading">¶</a></h1>
 <p>Python package designed to get information from inverters and other solar inverters and power monitoring devices</p>
-<p>Currently has support for:
-* MPP-Solar and similar inverters, e.g.</p>
-<blockquote>
-<div><ul class="simple">
+<p>Currently has support for:</p>
+<ul class="simple">
+<li><p>MPP-Solar and similar inverters, e.g.</p>
+<ul>
 <li><p>PIP-4048MS</p></li>
 <li><p>IPS-4000WM</p></li>
 <li><p>Voltronic Axpert MKS 5KVA Off-grid Inverter-Chargers</p></li>
 <li><p>LV5048</p></li>
 </ul>
-</div></blockquote>
-<ul class="simple">
+</li>
 <li><p>JK BMS</p></li>
 <li><p>Victron VE Direct Devices, e.g. SmartShunt 500A</p></li>
 <li><p>Daly BMS</p></li>
@@ -61,8 +60,12 @@
 <blockquote>
 <div><p>(install web api)</p>
 </div></blockquote>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">pip install powermon</span>
-<span class="go">pip install powermon[api]</span>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">pip install powermon           # minimal install</span>
+<span class="go">pip install powermon[api]      # include web api dependancies</span>
+<span class="go">pip install powermon[ble]      # include web bluetooth dependancies</span>
+<span class="go">pip install powermon[dev]      # include development dependancies</span>
+<span class="go">pip install powermon[modbus]   # include modbus dependancies</span>
+<span class="go">pip install powermon[systemd]  # include systemd dependancies</span>
 </pre></div>
 </div>
 </section>
