@@ -142,14 +142,9 @@
 <p>bleport module ….</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="powermon.ports.bleport.BlePort">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">powermon.ports.bleport.</span></span><span class="sig-name descname"><span class="pre">BlePort</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mac</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">protocol</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#powermon.ports.bleport.BlePort" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">powermon.ports.bleport.</span></span><span class="sig-name descname"><span class="pre">BlePort</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mac</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">protocol</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="powermon.protocols.abstractprotocol.html#powermon.protocols.abstractprotocol.AbstractProtocol" title="powermon.protocols.abstractprotocol.AbstractProtocol"><span class="pre">AbstractProtocol</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#powermon.ports.bleport.BlePort" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="powermon.ports.abstractport.html#powermon.ports.abstractport.AbstractPort" title="powermon.ports.abstractport.AbstractPort"><code class="xref py py-class docutils literal notranslate"><span class="pre">AbstractPort</span></code></a></p>
-<p>represents a BLE port - extends AbstractPort</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>AbstractPort</strong> (<em>_type_</em>) – _description_</p>
-</dd>
-</dl>
+<p>BlePort class - represents a BLE port - extends AbstractPort</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="powermon.ports.bleport.BlePort.connect">
 <em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">connect</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#powermon.ports.bleport.BlePort.connect" title="Link to this definition">¶</a></dt>
@@ -162,7 +157,7 @@
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>True is connection successful</p>
+<dd class="field-even"><p>True if connection was successful</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>bool</p>
@@ -178,14 +173,28 @@
 
 <dl class="py method">
 <dt class="sig sig-object py" id="powermon.ports.bleport.BlePort.from_config">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_config</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#powermon.ports.bleport.BlePort.from_config" title="Link to this definition">¶</a></dt>
-<dd><p>build port object from config dict</p>
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_config</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#powermon.ports.bleport.BlePort" title="powermon.ports.bleport.BlePort"><span class="pre">BlePort</span></a></span></span><a class="headerlink" href="#powermon.ports.bleport.BlePort.from_config" title="Link to this definition">¶</a></dt>
+<dd><p>function to build the BlePort object from a config dict</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>config</strong> (<em>dict</em><em> | </em><em>None</em><em>, </em><em>optional</em>) – a dict of the config for this class initialization. Defaults to None.</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="powermon.libs.errors.html#powermon.libs.errors.ConfigError" title="powermon.libs.errors.ConfigError"><strong>ConfigError</strong></a> – Raised if something is wrong with the config</p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>_description_</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#powermon.ports.bleport.BlePort" title="powermon.ports.bleport.BlePort">BlePort</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="powermon.ports.bleport.BlePort.is_connected">
 <span class="sig-name descname"><span class="pre">is_connected</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#powermon.ports.bleport.BlePort.is_connected" title="Link to this definition">¶</a></dt>
-<dd><p>is this port connected to a device</p>
+<dd><p>is this port connected to a device?</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>True if port is defined and connected</p>

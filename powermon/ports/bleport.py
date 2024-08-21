@@ -24,22 +24,31 @@ from powermon.libs.errors import (BLEResponseError, ConfigError,
 from powermon.ports import PortType
 from powermon.ports.abstractport import AbstractPort, AbstractPortDTO
 from powermon.protocols import get_protocol_definition
+from powermon.protocols.abstractprotocol import AbstractProtocol
 
 log = logging.getLogger("BlePort")
 
 
 class BlePort(AbstractPort):
-    """ represents a BLE port - extends AbstractPort
-
-    Args:
-        AbstractPort (_type_): _description_
+    """ BlePort class - represents a BLE port - extends AbstractPort
     """
 
     def __str__(self):
         return f"BlePort: {self.mac=}, protocol:{self.protocol}, {self.client=}, {self.error_message=}"
 
     @classmethod
-    def from_config(cls, config: dict|None = None):
+    def from_config(cls, config: dict|None = None) -> 'BlePort':
+        """function to build the BlePort object from a config dict
+
+        Args:
+            config (dict | None, optional): a dict of the config for this class initialization. Defaults to None.
+
+        Raises:
+            ConfigError: Raised if something is wrong with the config
+
+        Returns:
+            BlePort: _description_
+        """
         log.debug("building ble port. config:%s", config)
         if config is None:
             raise ConfigError("BLE port config missing")
@@ -52,7 +61,19 @@ class BlePort(AbstractPort):
         protocol = get_protocol_definition(protocol=config.get("protocol", "PI30"))
         return cls(mac=mac, protocol=protocol)
 
-    def __init__(self, mac, protocol) -> None:
+    def __init__(self, mac, protocol: AbstractProtocol) -> None:
+        """BlePort class initializer
+
+           Not normally directly used, build from from_config function using a config dict
+
+        Args:
+            mac (str): mac address of the device that the port is to communicate with
+            protocol (AbstractProtocol): the protocol needed to communicate with the device connected to the port
+
+        Raises:
+            PowermonProtocolError: Raised if initialization does not include the notifier handle
+            PowermonProtocolError: Raised if initialization does not include the command handle
+        """
         super().__init__(protocol=protocol)
         self.port_type = PortType.BLE
         self.protocol.port_type = self.port_type
@@ -80,7 +101,7 @@ class BlePort(AbstractPort):
         return
 
     def is_connected(self) -> bool:
-        """ is this port connected to a device 
+        """is this port connected to a device?
 
         Returns:
             bool: True if port is defined and connected
@@ -88,14 +109,14 @@ class BlePort(AbstractPort):
         return self.client is not None and self.client.is_connected
 
     async def connect(self) -> bool:
-        """ try to find and connect to the device identified by self.mac
+        """try to find and connect to the device identified by self.mac
 
         Raises:
             BleakDeviceNotFoundError: could not find or connect to the identified device
             PowermonWIP: unexpected error - signified code updates are needed
 
         Returns:
-            bool: True is connection successful
+            bool: True if connection was successful
         """
         log.info("bleport connecting. mac:%s", self.mac)
         try:
