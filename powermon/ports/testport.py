@@ -21,12 +21,12 @@ class TestPortDTO(AbstractPortDTO):
 class TestPort(AbstractPort):
     """ test port object - responds with test data (if configured in the protocol) """
     def __init__(self, response_number, protocol):
-        super().__init__(protocol=protocol)
         self.port_type = PortType.TEST
+        super().__init__(protocol=protocol)
+
         self.response_number = response_number
         self.connected = False
         self._test_data = None
-        self.is_protocol_supported()
 
     def to_dto(self) -> AbstractPortDTO:
         dto = TestPortDTO(port_type=self.port_type, protocol=self.protocol.to_dto(), response_number=self.response_number)

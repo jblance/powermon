@@ -37,22 +37,24 @@ class BlePort(AbstractPort):
         return f"BlePort: {self.mac=}, protocol:{self.protocol}, {self.client=}, {self.error_message=}"
 
     @classmethod
-    def from_config(cls, config: dict|None = None) -> 'BlePort':
-        """function to build the BlePort object from a config dict
+    def from_config(cls, config: dict) -> 'BlePort':
+        """build the BlePort object from a config dict
 
         Args:
-            config (dict | None, optional): a dict of the config for this class initialization. Defaults to None.
+            config (dict): a dict of the config for this class initialization - must include 'mac'
 
         Raises:
             ConfigError: Raised if something is wrong with the config
 
         Returns:
-            BlePort: _description_
+            BlePort: the instantiated class object
         """
         log.debug("building ble port. config:%s", config)
         if config is None:
             raise ConfigError("BLE port config missing")
         mac = config.get("mac")
+        if mac is None:
+            raise ConfigError("BLE port config must include the 'mac' item")
         # get handles
         # notifier_handle = config.get("notifier_handle", 17)
         # intializing_handle = config.get("intializing_handle", 48)
@@ -62,23 +64,12 @@ class BlePort(AbstractPort):
         return cls(mac=mac, protocol=protocol)
 
     def __init__(self, mac, protocol: AbstractProtocol) -> None:
-        """BlePort class initializer
-
-           Not normally directly used, build from from_config function using a config dict
-
-        Args:
-            mac (str): mac address of the device that the port is to communicate with
-            protocol (AbstractProtocol): the protocol needed to communicate with the device connected to the port
-
-        Raises:
-            PowermonProtocolError: Raised if initialization does not include the notifier handle
-            PowermonProtocolError: Raised if initialization does not include the command handle
-        """
-        super().__init__(protocol=protocol)
         self.port_type = PortType.BLE
+        super().__init__(protocol=protocol)
+
         self.protocol.port_type = self.port_type
-        self.is_protocol_supported()
         self.mac = mac
+
         # set handles (from protocol? override from config??)
         self.notifier_handle: int = getattr(self.protocol, "notifier_handle", 0)
         self.intializing_handle: int = getattr(self.protocol, "intializing_handle", 0)
@@ -88,6 +79,7 @@ class BlePort(AbstractPort):
             raise PowermonProtocolError("notifier_handle needs to be defined in protocol: {self.protocol.protocol_id}")
         if not self.command_handle:
             raise PowermonProtocolError("command_handle needs to be defined in protocol: {self.protocol.protocol_id}")
+
         self.response = bytearray()
         self.client: BleakClient|None = None
 

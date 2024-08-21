@@ -39,9 +39,9 @@ class SerialPort(AbstractPort):
         return cls(path=path, baud=baud, protocol=protocol, identifier=identifier)
 
     def __init__(self, path, baud, protocol, identifier) -> None:
-        super().__init__(protocol=protocol)
         self.port_type = PortType.SERIAL
-        self.is_protocol_supported()
+        super().__init__(protocol=protocol)
+        
         self.path = None
         self.baud = baud
         self.serial_port = None

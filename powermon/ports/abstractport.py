@@ -23,11 +23,12 @@ class AbstractPort(ABC):
     def __init__(self, protocol: AbstractProtocol):
         self.protocol: AbstractProtocol = protocol
         self.error_message = None
-        self.port_type = None
+        # self.port_type = None
+        self.is_protocol_supported()
 
     @classmethod
     @abstractmethod
-    def from_config(cls, config=None):
+    def from_config(cls, config: dict) -> "AbstractPort":
         """ build port object from config dict """
         raise NotImplementedError
 

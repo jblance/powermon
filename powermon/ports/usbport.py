@@ -33,11 +33,12 @@ class USBPort(AbstractPort):
         return cls(path=path, protocol=protocol, identifier=identifier)
 
     def __init__(self, path, protocol, identifier) -> None:
-        super().__init__(protocol=protocol)
         self.port_type = PortType.USB
+        super().__init__(protocol=protocol)
+
         self.path = None
         self.port = None
-        self.is_protocol_supported()
+
         # using glob to determine path(s)
         paths = glob(path)
         path_count = len(paths)
