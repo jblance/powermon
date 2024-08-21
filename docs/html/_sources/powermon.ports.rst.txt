@@ -14,7 +14,6 @@ Submodules
 
    powermon.ports.abstractport
    powermon.ports.bleport
-   powermon.ports.porttype
    powermon.ports.serialport
    powermon.ports.testport
    powermon.ports.usbport
