@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html  lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1"><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+      <title>Using powermon with Docker</title>
+    
+          <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+          <link rel="stylesheet" href="_static/theme.css " type="text/css" />
+      
+      <!-- sphinx script_files -->
+        <script src="_static/documentation_options.js?v=5929fcd5"></script>
+        <script src="_static/doctools.js?v=9a2dae69"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+
+      
+      <!-- bundled in js (rollup iife) -->
+      <!-- <script src="_static/theme-vendors.js"></script> -->
+      <script src="_static/theme.js" defer></script>
+    
+  <link rel="index" title="Index" href="genindex.html" />
+  <link rel="search" title="Search" href="search.html" />
+  <link rel="next" title="powermon" href="modules.html" />
+  <link rel="prev" title="Usage" href="usage.html" /> 
+  </head>
+
+  <body>
+    <div id="app">
+    <div class="theme-container" :class="pageClasses"><navbar @toggle-sidebar="toggleSidebar">
+  <router-link to="index.html" class="home-link">
+    
+      <span class="site-name">powermon</span>
+    
+  </router-link>
+
+  <div class="links">
+    <navlinks class="can-hide">
+
+
+
+    </navlinks>
+  </div>
+</navbar>
+
+      
+      <div class="sidebar-mask" @click="toggleSidebar(false)">
+      </div>
+        <sidebar @toggle-sidebar="toggleSidebar">
+          
+          <navlinks>
+            
+
+
+
+            
+          </navlinks><div id="searchbox" class="searchbox" role="search">
+  <div class="caption"><span class="caption-text">Quick search</span>
+    <div class="searchformwrapper">
+      <form class="search" action="search.html" method="get">
+        <input type="text" name="q" />
+        <input type="submit" value="Search" />
+        <input type="hidden" name="check_keywords" value="yes" />
+        <input type="hidden" name="area" value="default" />
+      </form>
+    </div>
+  </div>
+</div><div class="sidebar-links" role="navigation" aria-label="main navigation">
+  
+    <div class="sidebar-group">
+      <p class="caption">
+        <span class="caption-text"><a href="index.html#documentation">documentation</a></span>
+      </p>
+      <ul class="current">
+        
+          <li class="toctree-l1 ">
+            
+              <a href="usage.html" class="reference internal ">Usage</a>
+            
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 current">
+            
+              <a href="#" class="reference internal current">Using powermon with Docker</a>
+            
+
+            
+              <ul>
+                
+                  <li class="toctree-l2"><a href="#installing-docker-on-pi-raspberry-pi" class="reference internal">Installing Docker on pi raspberry pi</a></li>
+                
+                  <li class="toctree-l2"><a href="#run-powermon-in-docker-using-docker-hub-image" class="reference internal">Run powermon in docker (using docker hub image)</a></li>
+                
+                  <li class="toctree-l2"><a href="#run-development-code-in-docker" class="reference internal">Run development code in docker</a></li>
+                
+                  <li class="toctree-l2"><a href="#running-a-simple-mqtt-container" class="reference internal">running a simple mqtt container</a></li>
+                
+              </ul>
+            
+          </li>
+
+        
+          <li class="toctree-l1 ">
+            
+              <a href="modules.html" class="reference internal ">powermon</a>
+            
+
+            
+          </li>
+
+        
+      </ul>
+    </div>
+  
+</div>
+        </sidebar>
+
+      <page>
+          <div class="body-header" role="navigation" aria-label="navigation">
+  
+  <ul class="breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+    
+    <li>Using powermon with Docker</li>
+  </ul>
+  
+
+  <ul class="page-nav">
+  <li class="prev">
+    <a href="usage.html"
+       title="previous chapter">← Usage</a>
+  </li>
+  <li class="next">
+    <a href="modules.html"
+       title="next chapter">powermon →</a>
+  </li>
+</ul>
+  
+</div>
+<hr>
+          <div class="content" role="main" v-pre>
+            
+  <section id="using-powermon-with-docker">
+<h1>Using powermon with Docker<a class="headerlink" href="#using-powermon-with-docker" title="Link to this heading">¶</a></h1>
+<section id="installing-docker-on-pi-raspberry-pi">
+<h2>Installing Docker on pi raspberry pi<a class="headerlink" href="#installing-docker-on-pi-raspberry-pi" title="Link to this heading">¶</a></h2>
+<p><strong>on a fresh raspbian lite install</strong></p>
+<ul class="simple">
+<li><p>install git <cite>sudo apt-get install git</cite></p></li>
+<li><p>install docker <cite>curl -fsSL https://get.docker.com -o get-docker.sh</cite> and then <cite>sudo sh get-docker.sh</cite></p></li>
+<li><p>allow current user to run containers <cite>sudo usermod -aG docker [user_name]</cite></p></li>
+</ul>
+</section>
+<section id="run-powermon-in-docker-using-docker-hub-image">
+<h2>Run powermon in docker (using docker hub image)<a class="headerlink" href="#run-powermon-in-docker-using-docker-hub-image" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p>assuming docker is installed (otherwise see previous section)</p></li>
+<li><p>pull image</p></li>
+</ul>
+<p><cite>$ docker pull jblance/powermon</cite>
+<code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">Using</span> <span class="pre">default</span> <span class="pre">tag:</span> <span class="pre">latest</span>
+<span class="pre">latest:</span> <span class="pre">Pulling</span> <span class="pre">from</span> <span class="pre">jblance/powermon</span>
+<span class="pre">8a1e25ce7c4f:</span> <span class="pre">Already</span> <span class="pre">exists</span>
+<span class="pre">1103112ebfc4:</span> <span class="pre">Already</span> <span class="pre">exists</span>
+<span class="pre">e71929d49167:</span> <span class="pre">Already</span> <span class="pre">exists</span>
+<span class="pre">c529235f83c8:</span> <span class="pre">Already</span> <span class="pre">exists</span>
+<span class="pre">a47354887c31:</span> <span class="pre">Already</span> <span class="pre">exists</span>
+<span class="pre">22dedeb685d0:</span> <span class="pre">Pull</span> <span class="pre">complete</span>
+<span class="pre">69254e400de9:</span> <span class="pre">Pull</span> <span class="pre">complete</span>
+<span class="pre">a5ccada1c8dc:</span> <span class="pre">Pull</span> <span class="pre">complete</span>
+<span class="pre">Digest:</span> <span class="pre">sha256:68ed3d15a40f3cd2f1b2c1cef9ae0f3c038c281bfe57afe3ea4ed57574c55c37</span>
+<span class="pre">Status:</span> <span class="pre">Downloaded</span> <span class="pre">newer</span> <span class="pre">image</span> <span class="pre">for</span> <span class="pre">jblance/powermon:latest</span>
+<span class="pre">docker.io/jblance/powermon:latest</span>
+<span class="pre">`</span></code>
+<cite>$ docker images</cite>
+<code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">REPOSITORY</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">TAG</span>&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">IMAGE</span> <span class="pre">ID</span>&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">CREATED</span>&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">SIZE</span>
+<span class="pre">jblance/powermon</span>&#160;&#160;&#160; <span class="pre">latest</span>&#160;&#160;&#160; <span class="pre">3822e3bee24a</span>&#160;&#160; <span class="pre">2</span> <span class="pre">days</span> <span class="pre">ago</span>&#160;&#160;&#160; <span class="pre">198MB</span>
+<span class="pre">`</span></code></p>
+<ul class="simple">
+<li><p>if wanted, add a simpler tag (for easier running) <cite>$ docker tag jblance/powermon pm</cite></p></li>
+</ul>
+<p><code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">REPOSITORY</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">TAG</span>&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">IMAGE</span> <span class="pre">ID</span>&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">CREATED</span>&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">SIZE</span>
+<span class="pre">pm</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">latest</span>&#160;&#160;&#160; <span class="pre">3822e3bee24a</span>&#160;&#160; <span class="pre">2</span> <span class="pre">days</span> <span class="pre">ago</span>&#160;&#160;&#160; <span class="pre">198MB</span>
+<span class="pre">jblance/powermon</span>&#160;&#160;&#160; <span class="pre">latest</span>&#160;&#160;&#160; <span class="pre">3822e3bee24a</span>&#160;&#160; <span class="pre">2</span> <span class="pre">days</span> <span class="pre">ago</span>&#160;&#160;&#160; <span class="pre">198MB</span>
+<span class="pre">`</span></code></p>
+<ul class="simple">
+<li><p>run a test command <cite>$ docker run –rm pm powermon -v</cite></p></li>
+</ul>
+<p><code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">Power</span> <span class="pre">Device</span> <span class="pre">Monitoring</span> <span class="pre">Utility,</span> <span class="pre">version:</span> <span class="pre">1.0.5,</span> <span class="pre">python</span> <span class="pre">version:</span> <span class="pre">3.12.2</span>
+<span class="pre">`</span></code></p>
+</section>
+<section id="run-development-code-in-docker">
+<h2>Run development code in docker<a class="headerlink" href="#run-development-code-in-docker" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p>clone git repo
+* ensure you have setup ssh key for git <a class="reference external" href="https://docs.github.com/en/authentication/connecting-to-github-with-ssh">https://docs.github.com/en/authentication/connecting-to-github-with-ssh</a>
+* clone repo <cite>git clone git&#64;github.com:jblance/powermon.git</cite></p></li>
+<li><p>build an image and tag it <cite>$ docker build -t pm .</cite></p></li>
+<li><p>then commands can be run against it <cite>$ docker run –rm pm powermon -C /powermon/tests/config/test.yaml</cite></p></li>
+</ul>
+</section>
+<section id="running-a-simple-mqtt-container">
+<h2>running a simple mqtt container<a class="headerlink" href="#running-a-simple-mqtt-container" title="Link to this heading">¶</a></h2>
+<p><cite>docker run –rm  –network=host -v ./docker/mosquitto/config:/mosquitto/config eclipse-mosquitto</cite></p>
+</section>
+</section>
+
+
+          </div>
+          <div class="page-nav">
+            <div class="inner"><ul class="page-nav">
+  <li class="prev">
+    <a href="usage.html"
+       title="previous chapter">← Usage</a>
+  </li>
+  <li class="next">
+    <a href="modules.html"
+       title="next chapter">powermon →</a>
+  </li>
+</ul><div class="footer" role="contentinfo">
+      &#169; Copyright 2024, jblance.
+    <br>
+    Created using <a href="http://sphinx-doc.org/">Sphinx</a> 8.0.2 with <a href="https://github.com/schettino72/sphinx_press_theme">Press Theme</a> 0.9.1.
+</div>
+            </div>
+          </div>
+      </page>
+    </div></div>
+    
+    
+  </body>
+</html>

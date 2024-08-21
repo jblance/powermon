@@ -29,11 +29,12 @@ powermon is packaged on pypi. There are a number of optional dependancies based 
    pip install powermon[modbus]   # include modbus dependancies
    pip install powermon[systemd]  # include systemd dependancies
 
-Module Documentation
---------------------
+Documentation
+-------------
 
 .. toctree::
    :maxdepth: 4
 
    usage
+   docker
    modules
