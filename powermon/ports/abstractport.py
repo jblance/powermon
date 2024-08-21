@@ -34,8 +34,11 @@ class AbstractPort(ABC):
 
     def is_protocol_supported(self):
         """ function to check if the protocol is supported by this port """
-        if self.port_type not in self.protocol.supported_ports:
-            raise PowermonProtocolError(f"Protocol {self.protocol.protocol_id.decode()} not supported by port type {self.port_type}")
+        port_type = getattr(self, "port_type", None)
+        if port_type is None:
+            raise PowermonProtocolError("Port type not defined")
+        if port_type not in self.protocol.supported_ports:
+            raise PowermonProtocolError(f"Protocol {self.protocol.protocol_id.decode()} not supported by port type {port_type}")
 
     async def connect(self) -> bool:
         """ default port connect function """
