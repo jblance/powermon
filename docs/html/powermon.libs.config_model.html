@@ -1,48 +1,123 @@
 <!DOCTYPE html>
-
-<html lang="en" data-content_root="./">
+<html  lang="en">
   <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1"><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>powermon.libs.config_model module &#8212; powermon  documentation</title>
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=a746c00c" />
-    <link rel="stylesheet" type="text/css" href="_static/nature.css?v=0f882399" />
-    <script src="_static/documentation_options.js?v=5929fcd5"></script>
-    <script src="_static/doctools.js?v=9a2dae69"></script>
-    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
-    <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="powermon.libs.daemon module" href="powermon.libs.daemon.html" />
-    <link rel="prev" title="powermon.libs.apicoordinator module" href="powermon.libs.apicoordinator.html" /> 
-  </head><body>
-    <div class="related" role="navigation" aria-label="Related">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="genindex.html" title="General Index"
-             accesskey="I">index</a></li>
-        <li class="right" >
-          <a href="py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="right" >
-          <a href="powermon.libs.daemon.html" title="powermon.libs.daemon module"
-             accesskey="N">next</a> |</li>
-        <li class="right" >
-          <a href="powermon.libs.apicoordinator.html" title="powermon.libs.apicoordinator module"
-             accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">powermon  documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="modules.html" >powermon</a> &#187;</li>
-          <li class="nav-item nav-item-2"><a href="powermon.html" >powermon package</a> &#187;</li>
-          <li class="nav-item nav-item-3"><a href="powermon.libs.html" accesskey="U">powermon.libs package</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href="">powermon.libs.config_model module</a></li> 
+      <title>powermon.libs.config_model module</title>
+    
+          <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+          <link rel="stylesheet" href="_static/theme.css " type="text/css" />
+      
+      <!-- sphinx script_files -->
+        <script src="_static/documentation_options.js?v=5929fcd5"></script>
+        <script src="_static/doctools.js?v=9a2dae69"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+
+      
+      <!-- bundled in js (rollup iife) -->
+      <!-- <script src="_static/theme-vendors.js"></script> -->
+      <script src="_static/theme.js" defer></script>
+    
+  <link rel="index" title="Index" href="genindex.html" />
+  <link rel="search" title="Search" href="search.html" />
+  <link rel="next" title="powermon.libs.daemon module" href="powermon.libs.daemon.html" />
+  <link rel="prev" title="powermon.libs.apicoordinator module" href="powermon.libs.apicoordinator.html" /> 
+  </head>
+
+  <body>
+    <div id="app">
+    <div class="theme-container" :class="pageClasses"><navbar @toggle-sidebar="toggleSidebar">
+  <router-link to="index.html" class="home-link">
+    
+      <span class="site-name">powermon</span>
+    
+  </router-link>
+
+  <div class="links">
+    <navlinks class="can-hide">
+
+
+
+    </navlinks>
+  </div>
+</navbar>
+
+      
+      <div class="sidebar-mask" @click="toggleSidebar(false)">
+      </div>
+        <sidebar @toggle-sidebar="toggleSidebar">
+          
+          <navlinks>
+            
+
+
+
+            
+          </navlinks><div id="searchbox" class="searchbox" role="search">
+  <div class="caption"><span class="caption-text">Quick search</span>
+    <div class="searchformwrapper">
+      <form class="search" action="search.html" method="get">
+        <input type="text" name="q" />
+        <input type="submit" value="Search" />
+        <input type="hidden" name="check_keywords" value="yes" />
+        <input type="hidden" name="area" value="default" />
+      </form>
+    </div>
+  </div>
+</div><div class="sidebar-links" role="navigation" aria-label="main navigation">
+  
+    <div class="sidebar-group">
+      <p class="caption">
+        <span class="caption-text"><a href="modules.html#powermon">powermon</a></span>
+      </p>
+      <ul class="">
+        
+          <li class="toctree-l1 ">
+            
+              <a href="powermon.html" class="reference internal ">powermon package</a>
+            
+
+            
+          </li>
+
+        
       </ul>
-    </div>  
+    </div>
+  
+</div>
+        </sidebar>
 
-    <div class="document">
-      <div class="documentwrapper">
-        <div class="bodywrapper">
-          <div class="body" role="main">
+      <page>
+          <div class="body-header" role="navigation" aria-label="navigation">
+  
+  <ul class="breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+    
+      <li><a href="modules.html">powermon</a> &raquo;</li>
+    
+      <li><a href="powermon.html">powermon package</a> &raquo;</li>
+    
+      <li><a href="powermon.libs.html">powermon.libs package</a> &raquo;</li>
+    
+    <li>powermon.libs.config_model module</li>
+  </ul>
+  
+
+  <ul class="page-nav">
+  <li class="prev">
+    <a href="powermon.libs.apicoordinator.html"
+       title="previous chapter">← powermon.libs.apicoordinator module</a>
+  </li>
+  <li class="next">
+    <a href="powermon.libs.daemon.html"
+       title="next chapter">powermon.libs.daemon module →</a>
+  </li>
+</ul>
+  
+</div>
+<hr>
+          <div class="content" role="main" v-pre>
             
   <section id="module-powermon.libs.config_model">
 <span id="powermon-libs-config-model-module"></span><h1>powermon.libs.config_model module<a class="headerlink" href="#module-powermon.libs.config_model" title="Link to this heading">¶</a></h1>
@@ -624,204 +699,27 @@ mapping of field names to [<cite>FieldInfo</cite>][pydantic.fields.FieldInfo].</
 </section>
 
 
-            <div class="clearer"></div>
           </div>
-        </div>
-      </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="Main">
-        <div class="sphinxsidebarwrapper">
-  <div>
-    <h3><a href="index.html">Table of Contents</a></h3>
-    <ul>
-<li><a class="reference internal" href="#">powermon.libs.config_model module</a><ul>
-<li><a class="reference internal" href="#powermon.libs.config_model.APIConfig"><code class="docutils literal notranslate"><span class="pre">APIConfig</span></code></a><ul>
-<li><a class="reference internal" href="#powermon.libs.config_model.APIConfig.model_computed_fields"><code class="docutils literal notranslate"><span class="pre">APIConfig.model_computed_fields</span></code></a></li>
-<li><a class="reference internal" href="#powermon.libs.config_model.APIConfig.model_config"><code class="docutils literal notranslate"><span class="pre">APIConfig.model_config</span></code></a></li>
-<li><a class="reference internal" href="#powermon.libs.config_model.APIConfig.model_fields"><code class="docutils literal notranslate"><span class="pre">APIConfig.model_fields</span></code></a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#powermon.libs.config_model.AtTriggerConfig"><code class="docutils literal notranslate"><span class="pre">AtTriggerConfig</span></code></a><ul>
-<li><a class="reference internal" href="#powermon.libs.config_model.AtTriggerConfig.model_computed_fields"><code class="docutils literal notranslate"><span class="pre">AtTriggerConfig.model_computed_fields</span></code></a></li>
-<li><a class="reference internal" href="#powermon.libs.config_model.AtTriggerConfig.model_config"><code class="docutils literal notranslate"><span class="pre">AtTriggerConfig.model_config</span></code></a></li>
-<li><a class="reference internal" href="#powermon.libs.config_model.AtTriggerConfig.model_fields"><code class="docutils literal notranslate"><span class="pre">AtTriggerConfig.model_fields</span></code></a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#powermon.libs.config_model.BMSResponseFormatConfig"><code class="docutils literal notranslate"><span class="pre">BMSResponseFormatConfig</span></code></a><ul>
-<li><a class="reference internal" href="#powermon.libs.config_model.BMSResponseFormatConfig.model_computed_fields"><code class="docutils literal notranslate"><span class="pre">BMSResponseFormatConfig.model_computed_fields</span></code></a></li>
-<li><a class="reference internal" href="#powermon.libs.config_model.BMSResponseFormatConfig.model_config"><code class="docutils literal notranslate"><span class="pre">BMSResponseFormatConfig.model_config</span></code></a></li>
-<li><a class="reference internal" href="#powermon.libs.config_model.BMSResponseFormatConfig.model_fields"><code class="docutils literal notranslate"><span class="pre">BMSResponseFormatConfig.model_fields</span></code></a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#powermon.libs.config_model.BaseConfig"><code class="docutils literal notranslate"><span class="pre">BaseConfig</span></code></a><ul>
-<li><a class="reference internal" href="#powermon.libs.config_model.BaseConfig.model_computed_fields"><code class="docutils literal notranslate"><span class="pre">BaseConfig.model_computed_fields</span></code></a></li>
-<li><a class="reference internal" href="#powermon.libs.config_model.BaseConfig.model_config"><code class="docutils literal notranslate"><span class="pre">BaseConfig.model_config</span></code></a></li>
-<li><a class="reference internal" href="#powermon.libs.config_model.BaseConfig.model_fields"><code class="docutils literal notranslate"><span class="pre">BaseConfig.model_fields</span></code></a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#powermon.libs.config_model.BaseFormatConfig"><code class="docutils literal notranslate"><span class="pre">BaseFormatConfig</span></code></a><ul>
-<li><a class="reference internal" href="#powermon.libs.config_model.BaseFormatConfig.model_computed_fields"><code class="docutils literal notranslate"><span class="pre">BaseFormatConfig.model_computed_fields</span></code></a></li>
-<li><a class="reference internal" href="#powermon.libs.config_model.BaseFormatConfig.model_config"><code class="docutils literal notranslate"><span class="pre">BaseFormatConfig.model_config</span></code></a></li>
-<li><a class="reference internal" href="#powermon.libs.config_model.BaseFormatConfig.model_fields"><code class="docutils literal notranslate"><span class="pre">BaseFormatConfig.model_fields</span></code></a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#powermon.libs.config_model.BlePortConfig"><code class="docutils literal notranslate"><span class="pre">BlePortConfig</span></code></a><ul>
-<li><a class="reference internal" href="#powermon.libs.config_model.BlePortConfig.model_computed_fields"><code class="docutils literal notranslate"><span class="pre">BlePortConfig.model_computed_fields</span></code></a></li>
-<li><a class="reference internal" href="#powermon.libs.config_model.BlePortConfig.model_config"><code class="docutils literal notranslate"><span class="pre">BlePortConfig.model_config</span></code></a></li>
-<li><a class="reference internal" href="#powermon.libs.config_model.BlePortConfig.model_fields"><code class="docutils literal notranslate"><span class="pre">BlePortConfig.model_fields</span></code></a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#powermon.libs.config_model.CommandConfig"><code class="docutils literal notranslate"><span class="pre">CommandConfig</span></code></a><ul>
-<li><a class="reference internal" href="#powermon.libs.config_model.CommandConfig.model_computed_fields"><code class="docutils literal notranslate"><span class="pre">CommandConfig.model_computed_fields</span></code></a></li>
-<li><a class="reference internal" href="#powermon.libs.config_model.CommandConfig.model_config"><code class="docutils literal notranslate"><span class="pre">CommandConfig.model_config</span></code></a></li>
-<li><a class="reference internal" href="#powermon.libs.config_model.CommandConfig.model_fields"><code class="docutils literal notranslate"><span class="pre">CommandConfig.model_fields</span></code></a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#powermon.libs.config_model.ConfigModel"><code class="docutils literal notranslate"><span class="pre">ConfigModel</span></code></a><ul>
-<li><a class="reference internal" href="#powermon.libs.config_model.ConfigModel.model_computed_fields"><code class="docutils literal notranslate"><span class="pre">ConfigModel.model_computed_fields</span></code></a></li>
-<li><a class="reference internal" href="#powermon.libs.config_model.ConfigModel.model_config"><code class="docutils literal notranslate"><span class="pre">ConfigModel.model_config</span></code></a></li>
-<li><a class="reference internal" href="#powermon.libs.config_model.ConfigModel.model_fields"><code class="docutils literal notranslate"><span class="pre">ConfigModel.model_fields</span></code></a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#powermon.libs.config_model.DaemonConfig"><code class="docutils literal notranslate"><span class="pre">DaemonConfig</span></code></a><ul>
-<li><a class="reference internal" href="#powermon.libs.config_model.DaemonConfig.model_computed_fields"><code class="docutils literal notranslate"><span class="pre">DaemonConfig.model_computed_fields</span></code></a></li>
-<li><a class="reference internal" href="#powermon.libs.config_model.DaemonConfig.model_config"><code class="docutils literal notranslate"><span class="pre">DaemonConfig.model_config</span></code></a></li>
-<li><a class="reference internal" href="#powermon.libs.config_model.DaemonConfig.model_fields"><code class="docutils literal notranslate"><span class="pre">DaemonConfig.model_fields</span></code></a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#powermon.libs.config_model.DeviceConfig"><code class="docutils literal notranslate"><span class="pre">DeviceConfig</span></code></a><ul>
-<li><a class="reference internal" href="#powermon.libs.config_model.DeviceConfig.model_computed_fields"><code class="docutils literal notranslate"><span class="pre">DeviceConfig.model_computed_fields</span></code></a></li>
-<li><a class="reference internal" href="#powermon.libs.config_model.DeviceConfig.model_config"><code class="docutils literal notranslate"><span class="pre">DeviceConfig.model_config</span></code></a></li>
-<li><a class="reference internal" href="#powermon.libs.config_model.DeviceConfig.model_fields"><code class="docutils literal notranslate"><span class="pre">DeviceConfig.model_fields</span></code></a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#powermon.libs.config_model.EveryTriggerConfig"><code class="docutils literal notranslate"><span class="pre">EveryTriggerConfig</span></code></a><ul>
-<li><a class="reference internal" href="#powermon.libs.config_model.EveryTriggerConfig.model_computed_fields"><code class="docutils literal notranslate"><span class="pre">EveryTriggerConfig.model_computed_fields</span></code></a></li>
-<li><a class="reference internal" href="#powermon.libs.config_model.EveryTriggerConfig.model_config"><code class="docutils literal notranslate"><span class="pre">EveryTriggerConfig.model_config</span></code></a></li>
-<li><a class="reference internal" href="#powermon.libs.config_model.EveryTriggerConfig.model_fields"><code class="docutils literal notranslate"><span class="pre">EveryTriggerConfig.model_fields</span></code></a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#powermon.libs.config_model.HassFormatConfig"><code class="docutils literal notranslate"><span class="pre">HassFormatConfig</span></code></a><ul>
-<li><a class="reference internal" href="#powermon.libs.config_model.HassFormatConfig.model_computed_fields"><code class="docutils literal notranslate"><span class="pre">HassFormatConfig.model_computed_fields</span></code></a></li>
-<li><a class="reference internal" href="#powermon.libs.config_model.HassFormatConfig.model_config"><code class="docutils literal notranslate"><span class="pre">HassFormatConfig.model_config</span></code></a></li>
-<li><a class="reference internal" href="#powermon.libs.config_model.HassFormatConfig.model_fields"><code class="docutils literal notranslate"><span class="pre">HassFormatConfig.model_fields</span></code></a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#powermon.libs.config_model.JsonFormatConfig"><code class="docutils literal notranslate"><span class="pre">JsonFormatConfig</span></code></a><ul>
-<li><a class="reference internal" href="#powermon.libs.config_model.JsonFormatConfig.model_computed_fields"><code class="docutils literal notranslate"><span class="pre">JsonFormatConfig.model_computed_fields</span></code></a></li>
-<li><a class="reference internal" href="#powermon.libs.config_model.JsonFormatConfig.model_config"><code class="docutils literal notranslate"><span class="pre">JsonFormatConfig.model_config</span></code></a></li>
-<li><a class="reference internal" href="#powermon.libs.config_model.JsonFormatConfig.model_fields"><code class="docutils literal notranslate"><span class="pre">JsonFormatConfig.model_fields</span></code></a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#powermon.libs.config_model.LoopsTriggerConfig"><code class="docutils literal notranslate"><span class="pre">LoopsTriggerConfig</span></code></a><ul>
-<li><a class="reference internal" href="#powermon.libs.config_model.LoopsTriggerConfig.model_computed_fields"><code class="docutils literal notranslate"><span class="pre">LoopsTriggerConfig.model_computed_fields</span></code></a></li>
-<li><a class="reference internal" href="#powermon.libs.config_model.LoopsTriggerConfig.model_config"><code class="docutils literal notranslate"><span class="pre">LoopsTriggerConfig.model_config</span></code></a></li>
-<li><a class="reference internal" href="#powermon.libs.config_model.LoopsTriggerConfig.model_fields"><code class="docutils literal notranslate"><span class="pre">LoopsTriggerConfig.model_fields</span></code></a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#powermon.libs.config_model.MQTTConfig"><code class="docutils literal notranslate"><span class="pre">MQTTConfig</span></code></a><ul>
-<li><a class="reference internal" href="#powermon.libs.config_model.MQTTConfig.model_computed_fields"><code class="docutils literal notranslate"><span class="pre">MQTTConfig.model_computed_fields</span></code></a></li>
-<li><a class="reference internal" href="#powermon.libs.config_model.MQTTConfig.model_config"><code class="docutils literal notranslate"><span class="pre">MQTTConfig.model_config</span></code></a></li>
-<li><a class="reference internal" href="#powermon.libs.config_model.MQTTConfig.model_fields"><code class="docutils literal notranslate"><span class="pre">MQTTConfig.model_fields</span></code></a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#powermon.libs.config_model.MqttFormatConfig"><code class="docutils literal notranslate"><span class="pre">MqttFormatConfig</span></code></a><ul>
-<li><a class="reference internal" href="#powermon.libs.config_model.MqttFormatConfig.model_computed_fields"><code class="docutils literal notranslate"><span class="pre">MqttFormatConfig.model_computed_fields</span></code></a></li>
-<li><a class="reference internal" href="#powermon.libs.config_model.MqttFormatConfig.model_config"><code class="docutils literal notranslate"><span class="pre">MqttFormatConfig.model_config</span></code></a></li>
-<li><a class="reference internal" href="#powermon.libs.config_model.MqttFormatConfig.model_fields"><code class="docutils literal notranslate"><span class="pre">MqttFormatConfig.model_fields</span></code></a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#powermon.libs.config_model.NoExtraBaseModel"><code class="docutils literal notranslate"><span class="pre">NoExtraBaseModel</span></code></a><ul>
-<li><a class="reference internal" href="#powermon.libs.config_model.NoExtraBaseModel.Config"><code class="docutils literal notranslate"><span class="pre">NoExtraBaseModel.Config</span></code></a></li>
-<li><a class="reference internal" href="#powermon.libs.config_model.NoExtraBaseModel.model_computed_fields"><code class="docutils literal notranslate"><span class="pre">NoExtraBaseModel.model_computed_fields</span></code></a></li>
-<li><a class="reference internal" href="#powermon.libs.config_model.NoExtraBaseModel.model_config"><code class="docutils literal notranslate"><span class="pre">NoExtraBaseModel.model_config</span></code></a></li>
-<li><a class="reference internal" href="#powermon.libs.config_model.NoExtraBaseModel.model_fields"><code class="docutils literal notranslate"><span class="pre">NoExtraBaseModel.model_fields</span></code></a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#powermon.libs.config_model.OutputConfig"><code class="docutils literal notranslate"><span class="pre">OutputConfig</span></code></a><ul>
-<li><a class="reference internal" href="#powermon.libs.config_model.OutputConfig.model_computed_fields"><code class="docutils literal notranslate"><span class="pre">OutputConfig.model_computed_fields</span></code></a></li>
-<li><a class="reference internal" href="#powermon.libs.config_model.OutputConfig.model_config"><code class="docutils literal notranslate"><span class="pre">OutputConfig.model_config</span></code></a></li>
-<li><a class="reference internal" href="#powermon.libs.config_model.OutputConfig.model_fields"><code class="docutils literal notranslate"><span class="pre">OutputConfig.model_fields</span></code></a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#powermon.libs.config_model.SerialPortConfig"><code class="docutils literal notranslate"><span class="pre">SerialPortConfig</span></code></a><ul>
-<li><a class="reference internal" href="#powermon.libs.config_model.SerialPortConfig.model_computed_fields"><code class="docutils literal notranslate"><span class="pre">SerialPortConfig.model_computed_fields</span></code></a></li>
-<li><a class="reference internal" href="#powermon.libs.config_model.SerialPortConfig.model_config"><code class="docutils literal notranslate"><span class="pre">SerialPortConfig.model_config</span></code></a></li>
-<li><a class="reference internal" href="#powermon.libs.config_model.SerialPortConfig.model_fields"><code class="docutils literal notranslate"><span class="pre">SerialPortConfig.model_fields</span></code></a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#powermon.libs.config_model.TestPortConfig"><code class="docutils literal notranslate"><span class="pre">TestPortConfig</span></code></a><ul>
-<li><a class="reference internal" href="#powermon.libs.config_model.TestPortConfig.model_computed_fields"><code class="docutils literal notranslate"><span class="pre">TestPortConfig.model_computed_fields</span></code></a></li>
-<li><a class="reference internal" href="#powermon.libs.config_model.TestPortConfig.model_config"><code class="docutils literal notranslate"><span class="pre">TestPortConfig.model_config</span></code></a></li>
-<li><a class="reference internal" href="#powermon.libs.config_model.TestPortConfig.model_fields"><code class="docutils literal notranslate"><span class="pre">TestPortConfig.model_fields</span></code></a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#powermon.libs.config_model.UsbPortConfig"><code class="docutils literal notranslate"><span class="pre">UsbPortConfig</span></code></a><ul>
-<li><a class="reference internal" href="#powermon.libs.config_model.UsbPortConfig.model_computed_fields"><code class="docutils literal notranslate"><span class="pre">UsbPortConfig.model_computed_fields</span></code></a></li>
-<li><a class="reference internal" href="#powermon.libs.config_model.UsbPortConfig.model_config"><code class="docutils literal notranslate"><span class="pre">UsbPortConfig.model_config</span></code></a></li>
-<li><a class="reference internal" href="#powermon.libs.config_model.UsbPortConfig.model_fields"><code class="docutils literal notranslate"><span class="pre">UsbPortConfig.model_fields</span></code></a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-
-  </div>
-  <div>
-    <h4>Previous topic</h4>
-    <p class="topless"><a href="powermon.libs.apicoordinator.html"
-                          title="previous chapter">powermon.libs.apicoordinator module</a></p>
-  </div>
-  <div>
-    <h4>Next topic</h4>
-    <p class="topless"><a href="powermon.libs.daemon.html"
-                          title="next chapter">powermon.libs.daemon module</a></p>
-  </div>
-  <div role="note" aria-label="source link">
-    <h3>This Page</h3>
-    <ul class="this-page-menu">
-      <li><a href="_sources/powermon.libs.config_model.rst.txt"
-            rel="nofollow">Show Source</a></li>
-    </ul>
-   </div>
-<search id="searchbox" style="display: none" role="search">
-  <h3 id="searchlabel">Quick search</h3>
-    <div class="searchformwrapper">
-    <form class="search" action="search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
-      <input type="submit" value="Go" />
-    </form>
-    </div>
-</search>
-<script>document.getElementById('searchbox').style.display = "block"</script>
-        </div>
-      </div>
-      <div class="clearer"></div>
-    </div>
-    <div class="related" role="navigation" aria-label="Related">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="genindex.html" title="General Index"
-             >index</a></li>
-        <li class="right" >
-          <a href="py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="right" >
-          <a href="powermon.libs.daemon.html" title="powermon.libs.daemon module"
-             >next</a> |</li>
-        <li class="right" >
-          <a href="powermon.libs.apicoordinator.html" title="powermon.libs.apicoordinator module"
-             >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">powermon  documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="modules.html" >powermon</a> &#187;</li>
-          <li class="nav-item nav-item-2"><a href="powermon.html" >powermon package</a> &#187;</li>
-          <li class="nav-item nav-item-3"><a href="powermon.libs.html" >powermon.libs package</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href="">powermon.libs.config_model module</a></li> 
-      </ul>
-    </div>
-    <div class="footer" role="contentinfo">
-    &#169; Copyright 2024, jblance.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.0.2.
-    </div>
+          <div class="page-nav">
+            <div class="inner"><ul class="page-nav">
+  <li class="prev">
+    <a href="powermon.libs.apicoordinator.html"
+       title="previous chapter">← powermon.libs.apicoordinator module</a>
+  </li>
+  <li class="next">
+    <a href="powermon.libs.daemon.html"
+       title="next chapter">powermon.libs.daemon module →</a>
+  </li>
+</ul><div class="footer" role="contentinfo">
+      &#169; Copyright 2024, jblance.
+    <br>
+    Created using <a href="http://sphinx-doc.org/">Sphinx</a> 8.0.2 with <a href="https://github.com/schettino72/sphinx_press_theme">Press Theme</a> 0.9.1.
+</div>
+            </div>
+          </div>
+      </page>
+    </div></div>
+    
+    
   </body>
 </html>

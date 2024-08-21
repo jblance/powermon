@@ -18,7 +18,6 @@ Currently has support for:
 
 Installation
 ------------
- (install web api)
 
 .. code-block:: console
 

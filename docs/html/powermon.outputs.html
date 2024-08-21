@@ -1,47 +1,121 @@
 <!DOCTYPE html>
-
-<html lang="en" data-content_root="./">
+<html  lang="en">
   <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1"><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>powermon.outputs package &#8212; powermon  documentation</title>
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=a746c00c" />
-    <link rel="stylesheet" type="text/css" href="_static/nature.css?v=0f882399" />
-    <script src="_static/documentation_options.js?v=5929fcd5"></script>
-    <script src="_static/doctools.js?v=9a2dae69"></script>
-    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
-    <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="powermon.outputs.abstractoutput module" href="powermon.outputs.abstractoutput.html" />
-    <link rel="prev" title="powermon.outputformats.topics module" href="powermon.outputformats.topics.html" /> 
-  </head><body>
-    <div class="related" role="navigation" aria-label="Related">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="genindex.html" title="General Index"
-             accesskey="I">index</a></li>
-        <li class="right" >
-          <a href="py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="right" >
-          <a href="powermon.outputs.abstractoutput.html" title="powermon.outputs.abstractoutput module"
-             accesskey="N">next</a> |</li>
-        <li class="right" >
-          <a href="powermon.outputformats.topics.html" title="powermon.outputformats.topics module"
-             accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">powermon  documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="modules.html" >powermon</a> &#187;</li>
-          <li class="nav-item nav-item-2"><a href="powermon.html" accesskey="U">powermon package</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href="">powermon.outputs package</a></li> 
+      <title>powermon.outputs package</title>
+    
+          <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+          <link rel="stylesheet" href="_static/theme.css " type="text/css" />
+      
+      <!-- sphinx script_files -->
+        <script src="_static/documentation_options.js?v=5929fcd5"></script>
+        <script src="_static/doctools.js?v=9a2dae69"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+
+      
+      <!-- bundled in js (rollup iife) -->
+      <!-- <script src="_static/theme-vendors.js"></script> -->
+      <script src="_static/theme.js" defer></script>
+    
+  <link rel="index" title="Index" href="genindex.html" />
+  <link rel="search" title="Search" href="search.html" />
+  <link rel="next" title="powermon.outputs.abstractoutput module" href="powermon.outputs.abstractoutput.html" />
+  <link rel="prev" title="powermon.outputformats.topics module" href="powermon.outputformats.topics.html" /> 
+  </head>
+
+  <body>
+    <div id="app">
+    <div class="theme-container" :class="pageClasses"><navbar @toggle-sidebar="toggleSidebar">
+  <router-link to="index.html" class="home-link">
+    
+      <span class="site-name">powermon</span>
+    
+  </router-link>
+
+  <div class="links">
+    <navlinks class="can-hide">
+
+
+
+    </navlinks>
+  </div>
+</navbar>
+
+      
+      <div class="sidebar-mask" @click="toggleSidebar(false)">
+      </div>
+        <sidebar @toggle-sidebar="toggleSidebar">
+          
+          <navlinks>
+            
+
+
+
+            
+          </navlinks><div id="searchbox" class="searchbox" role="search">
+  <div class="caption"><span class="caption-text">Quick search</span>
+    <div class="searchformwrapper">
+      <form class="search" action="search.html" method="get">
+        <input type="text" name="q" />
+        <input type="submit" value="Search" />
+        <input type="hidden" name="check_keywords" value="yes" />
+        <input type="hidden" name="area" value="default" />
+      </form>
+    </div>
+  </div>
+</div><div class="sidebar-links" role="navigation" aria-label="main navigation">
+  
+    <div class="sidebar-group">
+      <p class="caption">
+        <span class="caption-text"><a href="modules.html#powermon">powermon</a></span>
+      </p>
+      <ul class="">
+        
+          <li class="toctree-l1 ">
+            
+              <a href="powermon.html" class="reference internal ">powermon package</a>
+            
+
+            
+          </li>
+
+        
       </ul>
-    </div>  
+    </div>
+  
+</div>
+        </sidebar>
 
-    <div class="document">
-      <div class="documentwrapper">
-        <div class="bodywrapper">
-          <div class="body" role="main">
+      <page>
+          <div class="body-header" role="navigation" aria-label="navigation">
+  
+  <ul class="breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+    
+      <li><a href="modules.html">powermon</a> &raquo;</li>
+    
+      <li><a href="powermon.html">powermon package</a> &raquo;</li>
+    
+    <li>powermon.outputs package</li>
+  </ul>
+  
+
+  <ul class="page-nav">
+  <li class="prev">
+    <a href="powermon.outputformats.topics.html"
+       title="previous chapter">← powermon.outputformats.topics module</a>
+  </li>
+  <li class="next">
+    <a href="powermon.outputs.abstractoutput.html"
+       title="next chapter">powermon.outputs.abstractoutput module →</a>
+  </li>
+</ul>
+  
+</div>
+<hr>
+          <div class="content" role="main" v-pre>
             
   <section id="module-powermon.outputs">
 <span id="powermon-outputs-package"></span><h1>powermon.outputs package<a class="headerlink" href="#module-powermon.outputs" title="Link to this heading">¶</a></h1>
@@ -120,81 +194,27 @@
 </section>
 
 
-            <div class="clearer"></div>
           </div>
-        </div>
-      </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="Main">
-        <div class="sphinxsidebarwrapper">
-  <div>
-    <h3><a href="index.html">Table of Contents</a></h3>
-    <ul>
-<li><a class="reference internal" href="#">powermon.outputs package</a><ul>
-<li><a class="reference internal" href="#powermon.outputs.OutputType"><code class="docutils literal notranslate"><span class="pre">OutputType</span></code></a></li>
-<li><a class="reference internal" href="#powermon.outputs.get_output_class"><code class="docutils literal notranslate"><span class="pre">get_output_class()</span></code></a></li>
-<li><a class="reference internal" href="#powermon.outputs.multiple_from_config"><code class="docutils literal notranslate"><span class="pre">multiple_from_config()</span></code></a></li>
-<li><a class="reference internal" href="#powermon.outputs.parse_output_config"><code class="docutils literal notranslate"><span class="pre">parse_output_config()</span></code></a></li>
-<li><a class="reference internal" href="#submodules">Submodules</a></li>
-</ul>
-</li>
-</ul>
-
-  </div>
-  <div>
-    <h4>Previous topic</h4>
-    <p class="topless"><a href="powermon.outputformats.topics.html"
-                          title="previous chapter">powermon.outputformats.topics module</a></p>
-  </div>
-  <div>
-    <h4>Next topic</h4>
-    <p class="topless"><a href="powermon.outputs.abstractoutput.html"
-                          title="next chapter">powermon.outputs.abstractoutput module</a></p>
-  </div>
-  <div role="note" aria-label="source link">
-    <h3>This Page</h3>
-    <ul class="this-page-menu">
-      <li><a href="_sources/powermon.outputs.rst.txt"
-            rel="nofollow">Show Source</a></li>
-    </ul>
-   </div>
-<search id="searchbox" style="display: none" role="search">
-  <h3 id="searchlabel">Quick search</h3>
-    <div class="searchformwrapper">
-    <form class="search" action="search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
-      <input type="submit" value="Go" />
-    </form>
-    </div>
-</search>
-<script>document.getElementById('searchbox').style.display = "block"</script>
-        </div>
-      </div>
-      <div class="clearer"></div>
-    </div>
-    <div class="related" role="navigation" aria-label="Related">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="genindex.html" title="General Index"
-             >index</a></li>
-        <li class="right" >
-          <a href="py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="right" >
-          <a href="powermon.outputs.abstractoutput.html" title="powermon.outputs.abstractoutput module"
-             >next</a> |</li>
-        <li class="right" >
-          <a href="powermon.outputformats.topics.html" title="powermon.outputformats.topics module"
-             >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">powermon  documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="modules.html" >powermon</a> &#187;</li>
-          <li class="nav-item nav-item-2"><a href="powermon.html" >powermon package</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href="">powermon.outputs package</a></li> 
-      </ul>
-    </div>
-    <div class="footer" role="contentinfo">
-    &#169; Copyright 2024, jblance.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.0.2.
-    </div>
+          <div class="page-nav">
+            <div class="inner"><ul class="page-nav">
+  <li class="prev">
+    <a href="powermon.outputformats.topics.html"
+       title="previous chapter">← powermon.outputformats.topics module</a>
+  </li>
+  <li class="next">
+    <a href="powermon.outputs.abstractoutput.html"
+       title="next chapter">powermon.outputs.abstractoutput module →</a>
+  </li>
+</ul><div class="footer" role="contentinfo">
+      &#169; Copyright 2024, jblance.
+    <br>
+    Created using <a href="http://sphinx-doc.org/">Sphinx</a> 8.0.2 with <a href="https://github.com/schettino72/sphinx_press_theme">Press Theme</a> 0.9.1.
+</div>
+            </div>
+          </div>
+      </page>
+    </div></div>
+    
+    
   </body>
 </html>
