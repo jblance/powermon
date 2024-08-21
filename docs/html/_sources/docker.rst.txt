@@ -1,7 +1,7 @@
-Using powermon with Docker
+Docker
 ==========================
 
-Installing Docker on pi raspberry pi
+Installing Docker on a raspberry pi
 ------------------------------------
 **on a fresh raspbian lite install**
 
@@ -57,12 +57,15 @@ Run development code in docker
 ------------------------------
 
 * clone git repo
+
   * ensure you have setup ssh key for git https://docs.github.com/en/authentication/connecting-to-github-with-ssh
   * clone repo ``git clone git@github.com:jblance/powermon.git``
+
 * build an image and tag it ``$ docker build -t pm .``
 * then commands can be run against it ``$ docker run --rm pm powermon -C /powermon/tests/config/test.yaml``
 
-running a simple mqtt container
--------------------------------
+Run a simple mqtt container
+---------------------------
+
 ``docker run --rm  --network=host -v ./docker/mosquitto/config:/mosquitto/config eclipse-mosquitto``
 

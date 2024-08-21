@@ -16,18 +16,7 @@ Currently has support for:
 * Daly BMS
 * Neey / Heltec active balancers
 
-Installation
-------------
-powermon is packaged on pypi. There are a number of optional dependancies based on the usage required
 
-.. code-block:: console
-
-   pip install powermon           # minimal install
-   pip install powermon[api]      # include web api dependancies
-   pip install powermon[ble]      # include web bluetooth dependancies
-   pip install powermon[dev]      # include development dependancies
-   pip install powermon[modbus]   # include modbus dependancies
-   pip install powermon[systemd]  # include systemd dependancies
 
 Documentation
 -------------
@@ -35,6 +24,6 @@ Documentation
 .. toctree::
    :maxdepth: 4
 
-   usage
+   installation
    docker
    modules

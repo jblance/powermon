@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1"><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-      <title>Using powermon with Docker</title>
+      <title>Docker</title>
     
           <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
           <link rel="stylesheet" href="_static/theme.css " type="text/css" />
@@ -22,7 +22,7 @@
   <link rel="index" title="Index" href="genindex.html" />
   <link rel="search" title="Search" href="search.html" />
   <link rel="next" title="powermon" href="modules.html" />
-  <link rel="prev" title="Usage" href="usage.html" /> 
+  <link rel="prev" title="Installation" href="installation.html" /> 
   </head>
 
   <body>
@@ -75,7 +75,7 @@
         
           <li class="toctree-l1 ">
             
-              <a href="usage.html" class="reference internal ">Usage</a>
+              <a href="installation.html" class="reference internal ">Installation</a>
             
 
             
@@ -84,19 +84,19 @@
         
           <li class="toctree-l1 current">
             
-              <a href="#" class="reference internal current">Using powermon with Docker</a>
+              <a href="#" class="reference internal current">Docker</a>
             
 
             
               <ul>
                 
-                  <li class="toctree-l2"><a href="#installing-docker-on-pi-raspberry-pi" class="reference internal">Installing Docker on pi raspberry pi</a></li>
+                  <li class="toctree-l2"><a href="#installing-docker-on-a-raspberry-pi" class="reference internal">Installing Docker on a raspberry pi</a></li>
                 
                   <li class="toctree-l2"><a href="#run-powermon-in-docker-using-docker-hub-image" class="reference internal">Run powermon in docker (using docker hub image)</a></li>
                 
                   <li class="toctree-l2"><a href="#run-development-code-in-docker" class="reference internal">Run development code in docker</a></li>
                 
-                  <li class="toctree-l2"><a href="#running-a-simple-mqtt-container" class="reference internal">running a simple mqtt container</a></li>
+                  <li class="toctree-l2"><a href="#run-a-simple-mqtt-container" class="reference internal">Run a simple mqtt container</a></li>
                 
               </ul>
             
@@ -124,14 +124,14 @@
   <ul class="breadcrumbs">
     <li><a href="index.html">Docs</a> &raquo;</li>
     
-    <li>Using powermon with Docker</li>
+    <li>Docker</li>
   </ul>
   
 
   <ul class="page-nav">
   <li class="prev">
-    <a href="usage.html"
-       title="previous chapter">← Usage</a>
+    <a href="installation.html"
+       title="previous chapter">← Installation</a>
   </li>
   <li class="next">
     <a href="modules.html"
@@ -143,10 +143,10 @@
 <hr>
           <div class="content" role="main" v-pre>
             
-  <section id="using-powermon-with-docker">
-<h1>Using powermon with Docker<a class="headerlink" href="#using-powermon-with-docker" title="Link to this heading">¶</a></h1>
-<section id="installing-docker-on-pi-raspberry-pi">
-<h2>Installing Docker on pi raspberry pi<a class="headerlink" href="#installing-docker-on-pi-raspberry-pi" title="Link to this heading">¶</a></h2>
+  <section id="docker">
+<h1>Docker<a class="headerlink" href="#docker" title="Link to this heading">¶</a></h1>
+<section id="installing-docker-on-a-raspberry-pi">
+<h2>Installing Docker on a raspberry pi<a class="headerlink" href="#installing-docker-on-a-raspberry-pi" title="Link to this heading">¶</a></h2>
 <p><strong>on a fresh raspbian lite install</strong></p>
 <ul class="simple">
 <li><p>install git <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">apt-get</span> <span class="pre">install</span> <span class="pre">git</span></code></p></li>
@@ -204,15 +204,18 @@
 <section id="run-development-code-in-docker">
 <h2>Run development code in docker<a class="headerlink" href="#run-development-code-in-docker" title="Link to this heading">¶</a></h2>
 <ul class="simple">
-<li><p>clone git repo
-* ensure you have setup ssh key for git <a class="reference external" href="https://docs.github.com/en/authentication/connecting-to-github-with-ssh">https://docs.github.com/en/authentication/connecting-to-github-with-ssh</a>
-* clone repo <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">clone</span> <span class="pre">git&#64;github.com:jblance/powermon.git</span></code></p></li>
+<li><p>clone git repo</p>
+<ul>
+<li><p>ensure you have setup ssh key for git <a class="reference external" href="https://docs.github.com/en/authentication/connecting-to-github-with-ssh">https://docs.github.com/en/authentication/connecting-to-github-with-ssh</a></p></li>
+<li><p>clone repo <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">clone</span> <span class="pre">git&#64;github.com:jblance/powermon.git</span></code></p></li>
+</ul>
+</li>
 <li><p>build an image and tag it <code class="docutils literal notranslate"><span class="pre">$</span> <span class="pre">docker</span> <span class="pre">build</span> <span class="pre">-t</span> <span class="pre">pm</span> <span class="pre">.</span></code></p></li>
 <li><p>then commands can be run against it <code class="docutils literal notranslate"><span class="pre">$</span> <span class="pre">docker</span> <span class="pre">run</span> <span class="pre">--rm</span> <span class="pre">pm</span> <span class="pre">powermon</span> <span class="pre">-C</span> <span class="pre">/powermon/tests/config/test.yaml</span></code></p></li>
 </ul>
 </section>
-<section id="running-a-simple-mqtt-container">
-<h2>running a simple mqtt container<a class="headerlink" href="#running-a-simple-mqtt-container" title="Link to this heading">¶</a></h2>
+<section id="run-a-simple-mqtt-container">
+<h2>Run a simple mqtt container<a class="headerlink" href="#run-a-simple-mqtt-container" title="Link to this heading">¶</a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">run</span> <span class="pre">--rm</span>&#160; <span class="pre">--network=host</span> <span class="pre">-v</span> <span class="pre">./docker/mosquitto/config:/mosquitto/config</span> <span class="pre">eclipse-mosquitto</span></code></p>
 </section>
 </section>
@@ -222,8 +225,8 @@
           <div class="page-nav">
             <div class="inner"><ul class="page-nav">
   <li class="prev">
-    <a href="usage.html"
-       title="previous chapter">← Usage</a>
+    <a href="installation.html"
+       title="previous chapter">← Installation</a>
   </li>
   <li class="next">
     <a href="modules.html"
