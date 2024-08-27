@@ -26,4 +26,6 @@ Documentation
 
    installation
    docker
+   protocols
    modules
+   

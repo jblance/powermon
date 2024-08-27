@@ -60,7 +60,7 @@ class AbstractPort(ABC):
         raise NotImplementedError
 
     @abstractmethod
-    def to_dto(self):
+    def to_dto(self) -> _AbstractPortDTO:
         """ convert port object to data transfer object """
         raise NotImplementedError
 

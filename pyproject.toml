@@ -9,7 +9,7 @@ packages = [
     {include = "api"},
     {include = "powermon_api"},
 ]
-respository = "https://github.com/jblance/powermon"
+repository = "https://github.com/jblance/powermon"
 documentation = "https://jblance.github.io/powermon/index.html"
 
 [tool.poetry.urls]
