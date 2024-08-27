@@ -20,7 +20,9 @@
       <script src="_static/theme.js" defer></script>
     
   <link rel="index" title="Index" href="genindex.html" />
-  <link rel="search" title="Search" href="search.html" /> 
+  <link rel="search" title="Search" href="search.html" />
+  <link rel="next" title="powermon" href="modules.html" />
+  <link rel="prev" title="Protocols" href="protocols.docs.html" /> 
   </head>
 
   <body>
@@ -91,6 +93,15 @@
         
           <li class="toctree-l1 ">
             
+              <a href="protocols.html" class="reference internal ">Protocol Documentation</a>
+            
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 ">
+            
               <a href="modules.html" class="reference internal ">powermon</a>
             
 
@@ -110,11 +121,23 @@
   <ul class="breadcrumbs">
     <li><a href="index.html">Docs</a> &raquo;</li>
     
+      <li><a href="protocols.html">Protocol Documentation</a> &raquo;</li>
+    
+      <li><a href="protocols.docs.html">Protocols</a> &raquo;</li>
+    
     <li>General Protocol V4</li>
   </ul>
   
 
   <ul class="page-nav">
+  <li class="prev">
+    <a href="protocols.docs.html"
+       title="previous chapter">← Protocols</a>
+  </li>
+  <li class="next">
+    <a href="modules.html"
+       title="next chapter">powermon →</a>
+  </li>
 </ul>
   
 </div>
@@ -142,12 +165,22 @@
 </thead>
 <tbody>
 <tr class="row-even"><td><p>0xDD</p></td>
-<td><p>0xA5 read
-0x5A write</p></td>
-<td><p>xx</p></td>
-<td><p>xx</p></td>
+<td><ul class="simple">
+<li><p>0xA5 read</p></li>
+<li><p>0x5A write</p></li>
+</ul>
+</td>
+<td><ul class="simple">
+<li><p>0x03 basic information and status</p></li>
+<li><p>0x04 voltage of cell block</p></li>
+<li><p>0x05 BMS version</p></li>
+</ul>
+</td>
+<td><p>length of data only
+, 0 is to skip data
+content</p></td>
 <td><p>cc</p></td>
-<td><p>dd</p></td>
+<td><p>see crc calc</p></td>
 <td><p>0x77</p></td>
 </tr>
 </tbody>
@@ -159,6 +192,14 @@
           </div>
           <div class="page-nav">
             <div class="inner"><ul class="page-nav">
+  <li class="prev">
+    <a href="protocols.docs.html"
+       title="previous chapter">← Protocols</a>
+  </li>
+  <li class="next">
+    <a href="modules.html"
+       title="next chapter">powermon →</a>
+  </li>
 </ul><div class="footer" role="contentinfo">
       &#169; Copyright 2024, jblance.
     <br>
