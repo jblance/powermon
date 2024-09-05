@@ -240,15 +240,15 @@
 <p>Response: <code class="docutils literal notranslate"><span class="pre">DD</span> <span class="pre">03</span> <span class="pre">00</span> <span class="pre">1B</span> <span class="pre">17</span> <span class="pre">00</span> <span class="pre">00</span> <span class="pre">00</span> <span class="pre">02</span> <span class="pre">D0</span> <span class="pre">03</span> <span class="pre">E8</span> <span class="pre">00</span> <span class="pre">00</span> <span class="pre">20</span> <span class="pre">78</span> <span class="pre">00</span> <span class="pre">00</span> <span class="pre">00</span> <span class="pre">00</span> <span class="pre">00</span> <span class="pre">00</span> <span class="pre">10</span> <span class="pre">48</span> <span class="pre">03</span> <span class="pre">0F</span> <span class="pre">02</span> <span class="pre">0B</span> <span class="pre">76</span> <span class="pre">0B</span> <span class="pre">82</span> <span class="pre">FB</span> <span class="pre">FF</span> <span class="pre">77</span></code></p>
 <div class="literal-block-wrapper docutils container" id="id2">
 <div class="code-block-caption"><span class="caption-text">response decode</span><a class="headerlink" href="#id2" title="Link to this code">¶</a></div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span>
 </pre></div>
 </div>
 </div>
 <p>DD  start byte
 03  command
 00  status (00 is correct)
-1B  data length  1B=27</p>
-<p>1700  total voltage (10mV)        0x1700=5888 -&gt; 58.88V
+1B  data length  1B=27
+1700  total voltage (10mV)        0x1700=5888 -&gt; 58.88V
 0000  current (10mA)              0
 02D0  remaining capacity (10mAh)  0x02D0=720  -&gt; 7.2Ah
 03E8  nominal capacity (10mAh)    0x03E8=1000 -&gt; 10Ah

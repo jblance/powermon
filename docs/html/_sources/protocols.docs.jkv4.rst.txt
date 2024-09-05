@@ -44,6 +44,7 @@ sum of command code, length, data bytes, inverted + 1
 >>> hex((0xffff ^ sum(b'\x03\x00')) + 1)
 >>> '0xfffd'
 
+
 Command Details - ``0x03`` Read Basic Information and Status
 ------------------------------------------------------------
 
@@ -51,7 +52,7 @@ Command: ``DD A5 03 00 FF FD 77``
 
 Response: ``DD 03 00 1B 17 00 00 00 02 D0 03 E8 00 00 20 78 00 00 00 00 00 00 10 48 03 0F 02 0B 76 0B 82 FB FF 77``
 
-.. code-block:: python
+.. code-block::
     :caption: response decode
     :linenos:
 
@@ -59,7 +60,6 @@ DD  start byte
 03  command
 00  status (00 is correct)
 1B  data length  1B=27
-
 1700  total voltage (10mV)        0x1700=5888 -> 58.88V
 0000  current (10mA)              0
 02D0  remaining capacity (10mAh)  0x02D0=720  -> 7.2Ah
