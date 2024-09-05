@@ -40,9 +40,9 @@ sum of command code, length, data bytes, inverted + 1
 .. code-block:: python
     :caption: crc calc example
 
->>> # dd a5 03 00 ff fd 77 
->>> hex((0xffff ^ sum(b'\x03\x00')) + 1)
->>> '0xfffd'
+    >>> # dd a5 03 00 ff fd 77 
+    >>> hex((0xffff ^ sum(b'\x03\x00')) + 1)
+    >>> '0xfffd'
 
 
 Command Details - ``0x03`` Read Basic Information and Status
@@ -56,25 +56,25 @@ Response: ``DD 03 00 1B 17 00 00 00 02 D0 03 E8 00 00 20 78 00 00 00 00 00 00 10
     :caption: response decode
     :linenos:
 
-DD  start byte
-03  command
-00  status (00 is correct)
-1B  data length  1B=27
-1700  total voltage (10mV)        0x1700=5888 -> 58.88V
-0000  current (10mA)              0
-02D0  remaining capacity (10mAh)  0x02D0=720  -> 7.2Ah
-03E8  nominal capacity (10mAh)    0x03E8=1000 -> 10Ah
-0000  cycles                      0
-2078  production date             0x2078&0x1f=24, 0x2078>>5&1f=3, 0x2078>>9&0x1f=16 -> 24 Mar 2016
-0000  equilibrium                 (by bit) 1-16 cells, balanced 0=off, 1=on
-0000  equilibrium                 (by bit) 17-32 cells
-0000  protection status           (by bit) 0=unprotected, 1=protected
-10    software version            0x10 = version 1.0
-48    remaining soc               0x48 = 72%
-03    fet control                 0x03=0b11 -> bit0 is charge, bit1 is discharge 0=off 1=on
-0F    number of cells             0x0F = 15
-02    number of temp sensors      0x02 = 2
-0B76  temp#1                      0x0B76=2934 -> 2934-2731=203=20.3C
-0B82  temp#2                      0x0B82=2946 -> 2946-2731=215=21.5C
-FBFF  crc
-77    end byte
+    DD  start byte
+    03  command
+    00  status (00 is correct)
+    1B  data length  1B=27
+    1700  total voltage (10mV)        0x1700=5888 -> 58.88V
+    0000  current (10mA)              0
+    02D0  remaining capacity (10mAh)  0x02D0=720  -> 7.2Ah
+    03E8  nominal capacity (10mAh)    0x03E8=1000 -> 10Ah
+    0000  cycles                      0
+    2078  production date             0x2078&0x1f=24, 0x2078>>5&1f=3, 0x2078>>9&0x1f=16 -> 24 Mar 2016
+    0000  equilibrium                 (by bit) 1-16 cells, balanced 0=off, 1=on
+    0000  equilibrium                 (by bit) 17-32 cells
+    0000  protection status           (by bit) 0=unprotected, 1=protected
+    10    software version            0x10 = version 1.0
+    48    remaining soc               0x48 = 72%
+    03    fet control                 0x03=0b11 -> bit0 is charge, bit1 is discharge 0=off 1=on
+    0F    number of cells             0x0F = 15
+    02    number of temp sensors      0x02 = 2
+    0B76  temp#1                      0x0B76=2934 -> 2934-2731=203=20.3C
+    0B82  temp#2                      0x0B82=2946 -> 2946-2731=215=21.5C
+    FBFF  crc
+    77    end byte

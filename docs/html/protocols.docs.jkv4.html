@@ -224,14 +224,11 @@
 <p>sum of command code, length, data bytes, inverted + 1</p>
 <div class="literal-block-wrapper docutils container" id="id1">
 <div class="code-block-caption"><span class="caption-text">crc calc example</span><a class="headerlink" href="#id1" title="Link to this code">¶</a></div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>
-</pre></div>
-</div>
-</div>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># dd a5 03 00 ff fd 77</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># dd a5 03 00 ff fd 77</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">hex</span><span class="p">((</span><span class="mh">0xffff</span> <span class="o">^</span> <span class="nb">sum</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;</span><span class="se">\x03\x00</span><span class="s1">&#39;</span><span class="p">))</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="s1">&#39;0xfffd&#39;</span>
 </pre></div>
+</div>
 </div>
 </section>
 <section id="command-details-0x03-read-basic-information-and-status">
@@ -240,32 +237,31 @@
 <p>Response: <code class="docutils literal notranslate"><span class="pre">DD</span> <span class="pre">03</span> <span class="pre">00</span> <span class="pre">1B</span> <span class="pre">17</span> <span class="pre">00</span> <span class="pre">00</span> <span class="pre">00</span> <span class="pre">02</span> <span class="pre">D0</span> <span class="pre">03</span> <span class="pre">E8</span> <span class="pre">00</span> <span class="pre">00</span> <span class="pre">20</span> <span class="pre">78</span> <span class="pre">00</span> <span class="pre">00</span> <span class="pre">00</span> <span class="pre">00</span> <span class="pre">00</span> <span class="pre">00</span> <span class="pre">10</span> <span class="pre">48</span> <span class="pre">03</span> <span class="pre">0F</span> <span class="pre">02</span> <span class="pre">0B</span> <span class="pre">76</span> <span class="pre">0B</span> <span class="pre">82</span> <span class="pre">FB</span> <span class="pre">FF</span> <span class="pre">77</span></code></p>
 <div class="literal-block-wrapper docutils container" id="id2">
 <div class="code-block-caption"><span class="caption-text">response decode</span><a class="headerlink" href="#id2" title="Link to this code">¶</a></div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="n">DD</span>  <span class="n">start</span> <span class="n">byte</span>
+<span class="linenos"> 2</span><span class="mi">03</span>  <span class="n">command</span>
+<span class="linenos"> 3</span><span class="mi">00</span>  <span class="n">status</span> <span class="p">(</span><span class="mi">00</span> <span class="ow">is</span> <span class="n">correct</span><span class="p">)</span>
+<span class="linenos"> 4</span><span class="mi">1</span><span class="n">B</span>  <span class="n">data</span> <span class="n">length</span>  <span class="mi">1</span><span class="n">B</span><span class="o">=</span><span class="mi">27</span>
+<span class="linenos"> 5</span><span class="mi">1700</span>  <span class="n">total</span> <span class="n">voltage</span> <span class="p">(</span><span class="mi">10</span><span class="n">mV</span><span class="p">)</span>        <span class="mh">0x1700</span><span class="o">=</span><span class="mi">5888</span> <span class="o">-&gt;</span> <span class="mf">58.88</span><span class="n">V</span>
+<span class="linenos"> 6</span><span class="mi">0000</span>  <span class="n">current</span> <span class="p">(</span><span class="mi">10</span><span class="n">mA</span><span class="p">)</span>              <span class="mi">0</span>
+<span class="linenos"> 7</span><span class="mi">02</span><span class="n">D0</span>  <span class="n">remaining</span> <span class="n">capacity</span> <span class="p">(</span><span class="mi">10</span><span class="n">mAh</span><span class="p">)</span>  <span class="mh">0x02D0</span><span class="o">=</span><span class="mi">720</span>  <span class="o">-&gt;</span> <span class="mf">7.2</span><span class="n">Ah</span>
+<span class="linenos"> 8</span><span class="mf">03E8</span>  <span class="n">nominal</span> <span class="n">capacity</span> <span class="p">(</span><span class="mi">10</span><span class="n">mAh</span><span class="p">)</span>    <span class="mh">0x03E8</span><span class="o">=</span><span class="mi">1000</span> <span class="o">-&gt;</span> <span class="mi">10</span><span class="n">Ah</span>
+<span class="linenos"> 9</span><span class="mi">0000</span>  <span class="n">cycles</span>                      <span class="mi">0</span>
+<span class="linenos">10</span><span class="mi">2078</span>  <span class="n">production</span> <span class="n">date</span>             <span class="mh">0x2078</span><span class="o">&amp;</span><span class="mh">0x1f</span><span class="o">=</span><span class="mi">24</span><span class="p">,</span> <span class="mh">0x2078</span><span class="o">&gt;&gt;</span><span class="mi">5</span><span class="o">&amp;</span><span class="mi">1</span><span class="n">f</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="mh">0x2078</span><span class="o">&gt;&gt;</span><span class="mi">9</span><span class="o">&amp;</span><span class="mh">0x1f</span><span class="o">=</span><span class="mi">16</span> <span class="o">-&gt;</span> <span class="mi">24</span> <span class="n">Mar</span> <span class="mi">2016</span>
+<span class="linenos">11</span><span class="mi">0000</span>  <span class="n">equilibrium</span>                 <span class="p">(</span><span class="n">by</span> <span class="n">bit</span><span class="p">)</span> <span class="mi">1</span><span class="o">-</span><span class="mi">16</span> <span class="n">cells</span><span class="p">,</span> <span class="n">balanced</span> <span class="mi">0</span><span class="o">=</span><span class="n">off</span><span class="p">,</span> <span class="mi">1</span><span class="o">=</span><span class="n">on</span>
+<span class="linenos">12</span><span class="mi">0000</span>  <span class="n">equilibrium</span>                 <span class="p">(</span><span class="n">by</span> <span class="n">bit</span><span class="p">)</span> <span class="mi">17</span><span class="o">-</span><span class="mi">32</span> <span class="n">cells</span>
+<span class="linenos">13</span><span class="mi">0000</span>  <span class="n">protection</span> <span class="n">status</span>           <span class="p">(</span><span class="n">by</span> <span class="n">bit</span><span class="p">)</span> <span class="mi">0</span><span class="o">=</span><span class="n">unprotected</span><span class="p">,</span> <span class="mi">1</span><span class="o">=</span><span class="n">protected</span>
+<span class="linenos">14</span><span class="mi">10</span>    <span class="n">software</span> <span class="n">version</span>            <span class="mh">0x10</span> <span class="o">=</span> <span class="n">version</span> <span class="mf">1.0</span>
+<span class="linenos">15</span><span class="mi">48</span>    <span class="n">remaining</span> <span class="n">soc</span>               <span class="mh">0x48</span> <span class="o">=</span> <span class="mi">72</span><span class="o">%</span>
+<span class="linenos">16</span><span class="mi">03</span>    <span class="n">fet</span> <span class="n">control</span>                 <span class="mh">0x03</span><span class="o">=</span><span class="mb">0b11</span> <span class="o">-&gt;</span> <span class="n">bit0</span> <span class="ow">is</span> <span class="n">charge</span><span class="p">,</span> <span class="n">bit1</span> <span class="ow">is</span> <span class="n">discharge</span> <span class="mi">0</span><span class="o">=</span><span class="n">off</span> <span class="mi">1</span><span class="o">=</span><span class="n">on</span>
+<span class="linenos">17</span><span class="mi">0</span><span class="n">F</span>    <span class="n">number</span> <span class="n">of</span> <span class="n">cells</span>             <span class="mh">0x0F</span> <span class="o">=</span> <span class="mi">15</span>
+<span class="linenos">18</span><span class="mi">02</span>    <span class="n">number</span> <span class="n">of</span> <span class="n">temp</span> <span class="n">sensors</span>      <span class="mh">0x02</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="linenos">19</span><span class="mi">0</span><span class="n">B76</span>  <span class="n">temp</span><span class="c1">#1                      0x0B76=2934 -&gt; 2934-2731=203=20.3C</span>
+<span class="linenos">20</span><span class="mi">0</span><span class="n">B82</span>  <span class="n">temp</span><span class="c1">#2                      0x0B82=2946 -&gt; 2946-2731=215=21.5C</span>
+<span class="linenos">21</span><span class="n">FBFF</span>  <span class="n">crc</span>
+<span class="linenos">22</span><span class="mi">77</span>    <span class="n">end</span> <span class="n">byte</span>
 </pre></div>
 </div>
 </div>
-<p>DD  start byte
-03  command
-00  status (00 is correct)
-1B  data length  1B=27
-1700  total voltage (10mV)        0x1700=5888 -&gt; 58.88V
-0000  current (10mA)              0
-02D0  remaining capacity (10mAh)  0x02D0=720  -&gt; 7.2Ah
-03E8  nominal capacity (10mAh)    0x03E8=1000 -&gt; 10Ah
-0000  cycles                      0
-2078  production date             0x2078&amp;0x1f=24, 0x2078&gt;&gt;5&amp;1f=3, 0x2078&gt;&gt;9&amp;0x1f=16 -&gt; 24 Mar 2016
-0000  equilibrium                 (by bit) 1-16 cells, balanced 0=off, 1=on
-0000  equilibrium                 (by bit) 17-32 cells
-0000  protection status           (by bit) 0=unprotected, 1=protected
-10    software version            0x10 = version 1.0
-48    remaining soc               0x48 = 72%
-03    fet control                 0x03=0b11 -&gt; bit0 is charge, bit1 is discharge 0=off 1=on
-0F    number of cells             0x0F = 15
-02    number of temp sensors      0x02 = 2
-0B76  temp#1                      0x0B76=2934 -&gt; 2934-2731=203=20.3C
-0B82  temp#2                      0x0B82=2946 -&gt; 2946-2731=215=21.5C
-FBFF  crc
-77    end byte</p>
 </section>
 </section>
 
