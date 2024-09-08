@@ -428,13 +428,29 @@ class Neey(AbstractProtocol):
             raise InvalidResponse("Response has incorrect end byte")
         return True
 
-    def checksum(self, response):
-        calc_crc = 0 
+    def checksum(self, response: bytes) -> int:
+        """Calculate neey checksum of supplied bytes (OR of each byte)
+
+        Args:
+            response (_type_): bytes to calculate checksum of
+
+        Returns:
+            int: calculated checksum
+        """
+        calc_crc = 0
         for i in response:
             calc_crc = calc_crc ^ i
         return calc_crc
 
-    def crc(self, response):
+    def crc(self, response: bytes) -> int:
+        """Calculate neey crc of supplied bytes (sum bytes & 0xFF)
+
+        Args:
+            response (bytes): bytes to calculate crc of
+
+        Returns:
+            int: calculated crc
+        """
         return sum(response) & 0xFF
 
     def check_crc(self, response: str, command_definition: CommandDefinition = None) -> bool:

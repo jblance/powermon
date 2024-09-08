@@ -1,9 +1,9 @@
 """ test_sbleport.py """
-import asyncio
+# import asyncio
 from unittest import TestCase
-from unittest.mock import Mock, patch
+from unittest.mock import patch
 
-from powermon.commands.command import Command
+# from powermon.commands.command import Command
 from powermon.libs.errors import PowermonProtocolError
 from powermon.ports.bleport import BlePort
 from powermon.protocols.daly import Daly
