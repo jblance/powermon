@@ -14,7 +14,7 @@ from pydantic import ValidationError
 from powermon.commands.command import Command
 from powermon.device import Device
 from powermon.libs.apicoordinator import ApiCoordinator
-from powermon.libs.config_model import ConfigModel
+from powermon.configmodel.config_model import ConfigModel
 from powermon.libs.daemon import Daemon
 from powermon.libs.mqttbroker import MqttBroker
 from powermon.libs.version import __version__  # noqa: F401

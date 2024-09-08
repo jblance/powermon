@@ -5,7 +5,7 @@ from glob import glob
 from pydantic import ValidationError
 
 from powermon import read_yaml_file
-from powermon.libs.config_model import ConfigModel
+from powermon.configmodel.config_model import ConfigModel
 
 
 class TestConfigModel(unittest.TestCase):

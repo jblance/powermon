@@ -21,7 +21,7 @@
     
   <link rel="index" title="Index" href="genindex.html" />
   <link rel="search" title="Search" href="search.html" />
-  <link rel="next" title="powermon.libs package" href="powermon.libs.html" />
+  <link rel="next" title="powermon.configmodel package" href="powermon.configmodel.html" />
   <link rel="prev" title="powermon" href="modules.html" /> 
   </head>
 
@@ -93,6 +93,15 @@
         
           <li class="toctree-l1 ">
             
+              <a href="protocols.html" class="reference internal ">Protocol Documentation</a>
+            
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 ">
+            
               <a href="modules.html" class="reference internal ">powermon</a>
             
 
@@ -124,8 +133,8 @@
        title="previous chapter">← powermon</a>
   </li>
   <li class="next">
-    <a href="powermon.libs.html"
-       title="next chapter">powermon.libs package →</a>
+    <a href="powermon.configmodel.html"
+       title="next chapter">powermon.configmodel package →</a>
   </li>
 </ul>
   
@@ -158,35 +167,56 @@
 <h2>Subpackages<a class="headerlink" href="#subpackages" title="Link to this heading">¶</a></h2>
 <div class="toctree-wrapper compound">
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="powermon.configmodel.html">powermon.configmodel package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="powermon.configmodel.html#powermon.configmodel.NoExtraBaseModel"><code class="docutils literal notranslate"><span class="pre">NoExtraBaseModel</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="powermon.configmodel.html#powermon.configmodel.NoExtraBaseModel.Config"><code class="docutils literal notranslate"><span class="pre">NoExtraBaseModel.Config</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="powermon.configmodel.html#powermon.configmodel.NoExtraBaseModel.model_computed_fields"><code class="docutils literal notranslate"><span class="pre">NoExtraBaseModel.model_computed_fields</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="powermon.configmodel.html#powermon.configmodel.NoExtraBaseModel.model_config"><code class="docutils literal notranslate"><span class="pre">NoExtraBaseModel.model_config</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="powermon.configmodel.html#powermon.configmodel.NoExtraBaseModel.model_fields"><code class="docutils literal notranslate"><span class="pre">NoExtraBaseModel.model_fields</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="powermon.configmodel.html#submodules">Submodules</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="powermon.configmodel.config_model.html">powermon.configmodel.config_model module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="powermon.configmodel.config_model.html#powermon.configmodel.config_model.APIConfig"><code class="docutils literal notranslate"><span class="pre">APIConfig</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="powermon.configmodel.config_model.html#powermon.configmodel.config_model.BaseConfig"><code class="docutils literal notranslate"><span class="pre">BaseConfig</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="powermon.configmodel.config_model.html#powermon.configmodel.config_model.CommandConfig"><code class="docutils literal notranslate"><span class="pre">CommandConfig</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="powermon.configmodel.config_model.html#powermon.configmodel.config_model.ConfigModel"><code class="docutils literal notranslate"><span class="pre">ConfigModel</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="powermon.configmodel.config_model.html#powermon.configmodel.config_model.DaemonConfig"><code class="docutils literal notranslate"><span class="pre">DaemonConfig</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="powermon.configmodel.config_model.html#powermon.configmodel.config_model.DeviceConfig"><code class="docutils literal notranslate"><span class="pre">DeviceConfig</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="powermon.configmodel.config_model.html#powermon.configmodel.config_model.MQTTConfig"><code class="docutils literal notranslate"><span class="pre">MQTTConfig</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="powermon.configmodel.config_model.html#powermon.configmodel.config_model.OutputConfig"><code class="docutils literal notranslate"><span class="pre">OutputConfig</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="powermon.configmodel.format_config_model.html">powermon.configmodel.format_config_model module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="powermon.configmodel.format_config_model.html#powermon.configmodel.format_config_model.BMSResponseFormatConfig"><code class="docutils literal notranslate"><span class="pre">BMSResponseFormatConfig</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="powermon.configmodel.format_config_model.html#powermon.configmodel.format_config_model.BaseFormatConfig"><code class="docutils literal notranslate"><span class="pre">BaseFormatConfig</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="powermon.configmodel.format_config_model.html#powermon.configmodel.format_config_model.HassFormatConfig"><code class="docutils literal notranslate"><span class="pre">HassFormatConfig</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="powermon.configmodel.format_config_model.html#powermon.configmodel.format_config_model.JsonFormatConfig"><code class="docutils literal notranslate"><span class="pre">JsonFormatConfig</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="powermon.configmodel.format_config_model.html#powermon.configmodel.format_config_model.MqttFormatConfig"><code class="docutils literal notranslate"><span class="pre">MqttFormatConfig</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="powermon.configmodel.port_config_model.html">powermon.configmodel.port_config_model module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="powermon.configmodel.port_config_model.html#powermon.configmodel.port_config_model.BlePortConfig"><code class="docutils literal notranslate"><span class="pre">BlePortConfig</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="powermon.configmodel.port_config_model.html#powermon.configmodel.port_config_model.SerialPortConfig"><code class="docutils literal notranslate"><span class="pre">SerialPortConfig</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="powermon.configmodel.port_config_model.html#powermon.configmodel.port_config_model.TestPortConfig"><code class="docutils literal notranslate"><span class="pre">TestPortConfig</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="powermon.configmodel.port_config_model.html#powermon.configmodel.port_config_model.UsbPortConfig"><code class="docutils literal notranslate"><span class="pre">UsbPortConfig</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="powermon.configmodel.trigger_config_model.html">powermon.configmodel.trigger_config_model module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="powermon.configmodel.trigger_config_model.html#powermon.configmodel.trigger_config_model.AtTriggerConfig"><code class="docutils literal notranslate"><span class="pre">AtTriggerConfig</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="powermon.configmodel.trigger_config_model.html#powermon.configmodel.trigger_config_model.EveryTriggerConfig"><code class="docutils literal notranslate"><span class="pre">EveryTriggerConfig</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="powermon.configmodel.trigger_config_model.html#powermon.configmodel.trigger_config_model.LoopsTriggerConfig"><code class="docutils literal notranslate"><span class="pre">LoopsTriggerConfig</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="powermon.libs.html">powermon.libs package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="powermon.libs.html#submodules">Submodules</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="powermon.libs.apicoordinator.html">powermon.libs.apicoordinator module</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="powermon.libs.apicoordinator.html#powermon.libs.apicoordinator.ApiCoordinator"><code class="docutils literal notranslate"><span class="pre">ApiCoordinator</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="powermon.libs.apicoordinator.html#powermon.libs.apicoordinator.ApiCoordinatorDTO"><code class="docutils literal notranslate"><span class="pre">ApiCoordinatorDTO</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="powermon.libs.config_model.html">powermon.libs.config_model module</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="powermon.libs.config_model.html#powermon.libs.config_model.APIConfig"><code class="docutils literal notranslate"><span class="pre">APIConfig</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="powermon.libs.config_model.html#powermon.libs.config_model.AtTriggerConfig"><code class="docutils literal notranslate"><span class="pre">AtTriggerConfig</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="powermon.libs.config_model.html#powermon.libs.config_model.BMSResponseFormatConfig"><code class="docutils literal notranslate"><span class="pre">BMSResponseFormatConfig</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="powermon.libs.config_model.html#powermon.libs.config_model.BaseConfig"><code class="docutils literal notranslate"><span class="pre">BaseConfig</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="powermon.libs.config_model.html#powermon.libs.config_model.BaseFormatConfig"><code class="docutils literal notranslate"><span class="pre">BaseFormatConfig</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="powermon.libs.config_model.html#powermon.libs.config_model.BlePortConfig"><code class="docutils literal notranslate"><span class="pre">BlePortConfig</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="powermon.libs.config_model.html#powermon.libs.config_model.CommandConfig"><code class="docutils literal notranslate"><span class="pre">CommandConfig</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="powermon.libs.config_model.html#powermon.libs.config_model.ConfigModel"><code class="docutils literal notranslate"><span class="pre">ConfigModel</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="powermon.libs.config_model.html#powermon.libs.config_model.DaemonConfig"><code class="docutils literal notranslate"><span class="pre">DaemonConfig</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="powermon.libs.config_model.html#powermon.libs.config_model.DeviceConfig"><code class="docutils literal notranslate"><span class="pre">DeviceConfig</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="powermon.libs.config_model.html#powermon.libs.config_model.EveryTriggerConfig"><code class="docutils literal notranslate"><span class="pre">EveryTriggerConfig</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="powermon.libs.config_model.html#powermon.libs.config_model.HassFormatConfig"><code class="docutils literal notranslate"><span class="pre">HassFormatConfig</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="powermon.libs.config_model.html#powermon.libs.config_model.JsonFormatConfig"><code class="docutils literal notranslate"><span class="pre">JsonFormatConfig</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="powermon.libs.config_model.html#powermon.libs.config_model.LoopsTriggerConfig"><code class="docutils literal notranslate"><span class="pre">LoopsTriggerConfig</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="powermon.libs.config_model.html#powermon.libs.config_model.MQTTConfig"><code class="docutils literal notranslate"><span class="pre">MQTTConfig</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="powermon.libs.config_model.html#powermon.libs.config_model.MqttFormatConfig"><code class="docutils literal notranslate"><span class="pre">MqttFormatConfig</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="powermon.libs.config_model.html#powermon.libs.config_model.NoExtraBaseModel"><code class="docutils literal notranslate"><span class="pre">NoExtraBaseModel</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="powermon.libs.config_model.html#powermon.libs.config_model.OutputConfig"><code class="docutils literal notranslate"><span class="pre">OutputConfig</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="powermon.libs.config_model.html#powermon.libs.config_model.SerialPortConfig"><code class="docutils literal notranslate"><span class="pre">SerialPortConfig</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="powermon.libs.config_model.html#powermon.libs.config_model.TestPortConfig"><code class="docutils literal notranslate"><span class="pre">TestPortConfig</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="powermon.libs.config_model.html#powermon.libs.config_model.UsbPortConfig"><code class="docutils literal notranslate"><span class="pre">UsbPortConfig</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="powermon.libs.daemon.html">powermon.libs.daemon module</a><ul>
@@ -432,8 +462,8 @@
        title="previous chapter">← powermon</a>
   </li>
   <li class="next">
-    <a href="powermon.libs.html"
-       title="next chapter">powermon.libs package →</a>
+    <a href="powermon.configmodel.html"
+       title="next chapter">powermon.configmodel package →</a>
   </li>
 </ul><div class="footer" role="contentinfo">
       &#169; Copyright 2024, jblance.

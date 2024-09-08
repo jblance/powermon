@@ -371,8 +371,6 @@ class Neey(AbstractProtocol):
         self.command_handle = 15
         self.check_definitions_count(expected=None)
 
-        # bytes.fromhex('aa5511 010100140000000000000000000000faff')
-
     def get_full_command(self, command: bytes|str) -> bytes:
         # test_command = bytes.fromhex('aa5511010100140000000000000000000000faff')
         # test_command = bytes.fromhex('aa5511010200001400000000000000000000f9ff')

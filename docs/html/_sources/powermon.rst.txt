@@ -12,6 +12,7 @@ Subpackages
 .. toctree::
    :maxdepth: 4
 
+   powermon.configmodel
    powermon.libs
    powermon.outputformats
    powermon.outputs
