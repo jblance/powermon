@@ -148,6 +148,7 @@ class BlePort(AbstractPort):
                                          stderr=subprocess.STDOUT, stdin=subprocess.PIPE)
             open_blue.communicate(b"disconnect %s\n" % self.mac.encode('utf-8'))
             open_blue.kill()
+        log.info("ble port disconnect result, %s", self.is_connected())
         self.client = None
 
     async def send_and_receive(self, command: Command) -> Result:
