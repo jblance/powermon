@@ -25,14 +25,14 @@ log = logging.getLogger("")
 FORMAT = "%(asctime)-15s:%(levelname)s:%(module)s:%(funcName)s@%(lineno)d: %(message)s"
 logging.basicConfig(format=FORMAT)
 
-async_loop = None
+ASYNC_LOOP = None
 
 
 def run_async(coroutine):
-    global async_loop
-    if async_loop is None:
-        async_loop = asyncio.get_event_loop()
-    return async_loop.run_until_complete(coroutine)
+    global ASYNC_LOOP
+    if ASYNC_LOOP is None:
+        ASYNC_LOOP = asyncio.get_event_loop()
+    return ASYNC_LOOP.run_until_complete(coroutine)
 
 
 def read_yaml_file(yaml_file=None):
