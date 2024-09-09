@@ -41,7 +41,7 @@ class SerialPort(AbstractPort):
     def __init__(self, path, baud, protocol, identifier) -> None:
         self.port_type = PortType.SERIAL
         super().__init__(protocol=protocol)
-        
+
         self.path = None
         self.baud = baud
         self.serial_port = None
@@ -69,6 +69,7 @@ class SerialPort(AbstractPort):
                     res = asyncio.run(self.send_and_receive(command=command))
                     if not res.is_valid:
                         log.debug("path: %s does not match for identifier: %s", _path, identifier)
+                        asyncio.run(self.disconnect())
                         continue
                     if res.readings[0].data_value == identifier:
                         log.info("SUCCESS: path: %s matches for identifier: %s", _path, identifier)
