@@ -27,7 +27,7 @@ class DeviceInfoDTO(BaseModel):
 
 class DeviceInfo:
     """ struct like class to contain info about the device """
-    def __init__(self, name, device_id, model, manufacturer):
+    def __init__(self, name, device_id, model=None, manufacturer=None):
         self.name = name
         self.device_id = device_id
         self.model = model
