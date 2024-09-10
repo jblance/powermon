@@ -86,6 +86,14 @@ class TestProtocolPi30(unittest.TestCase):
         # print(_result)
         self.assertEqual(_result, expected)
 
+    def test_full_command_mchgc040(self):
+        """ test a for correct full command for MCHGC040 """
+        _result = proto.get_full_command(command="MCHGC040")
+        expected = b'MCHGC040{\xd3\r'
+        # print(_result)
+        self.assertEqual(_result, expected)
+        #MCHGC040
+
     def test_build_result_qvfw(self):
         """ test result build for QVFW """
         expected = ['main_cpu_firmware_version=00072.70']
