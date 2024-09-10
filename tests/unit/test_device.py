@@ -2,7 +2,7 @@ import asyncio
 from unittest import TestCase
 from unittest.mock import Mock
 
-from powermon import Device
+from powermon.device import Device
 from powermon.commands.command import Command
 from powermon.outputs.abstractoutput import AbstractOutput
 from powermon.ports.serialport import SerialPort
