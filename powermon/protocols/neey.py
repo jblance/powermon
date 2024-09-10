@@ -355,19 +355,19 @@ SETTER_COMMANDS = {
 #
 # Factory defaults
 #
-# standardVol2   ReferenceVoltage [0.001f, 5.0f]: Set 1.0f             aa55110005 05 1400 0000803f000000000000 45ff
-# battery_vol    BatteryVoltage [0.001f, 5.0f]: Set 1.0f               aa55110005 06 1400 0000803f000000000000 46ff
-# standardCur2   Balancing Current Default? [0.001f, 5.0f]: Set 1.0f   aa55110005 07 1400 0000803f000000000000 47ff
-# superBat2      Mean SuperCap Voltage [0.001f, 5.0f]: Set 1.0f        aa55110005 0e 1400 0000803f000000000000 4eff
-# triger_mpa     StartVol(V) [0.001f, 5.0f]: Set 1.0f                  aa55110005 08 1400 0000803f000000000000 48ff
-# open_num       Boot count []: Set 1.0f                               aa55110005 09 1400 0000803f000000000000 49ff
-# batStatu       RefBat Vol [0.001f, 5.0f]: Set 1.0f                   aa55110005 0f 1400 0000803f000000000000 4fff
-# battery_max    BatMax [0.001f, 5.0f]: Set 1.0f                       aa55110005 0b 1400 0000803f000000000000 4bff
-# battery_min    BatMin [0.001f, 5.0f]: Set 1.0f                       aa55110005 0c 1400 0000803f000000000000 4cff
-# ntc_max        NtcMax [-19.9f, 120.0f]: Set 1.0f                     aa55110005 11 1400 0000803f000000000000 51ff
-# ntc_min        NtcMin [-19.9f, 120.0f]: Set 1.0f                     aa55110005 12 1400 0000803f000000000000 52ff
-# total_time     Working time []: Set 1                                aa55110005 0a 1400 01000000000000000000 f4ff
-# cycle          Production date: Set 20220802                         aa55110005 10 1400 32303232303830320000 e7ff
+# standardVol2   ReferenceVoltage [0.001f, 5.0f]: Set 1.0f             aa551100 0505 1400 0000803f000000000000 45ff
+# battery_vol    BatteryVoltage [0.001f, 5.0f]: Set 1.0f               aa551100 0506 1400 0000803f000000000000 46ff
+# standardCur2   Balancing Current Default? [0.001f, 5.0f]: Set 1.0f   aa551100 0507 1400 0000803f000000000000 47ff
+# superBat2      Mean SuperCap Voltage [0.001f, 5.0f]: Set 1.0f        aa551100 050e 1400 0000803f000000000000 4eff
+# triger_mpa     StartVol(V) [0.001f, 5.0f]: Set 1.0f                  aa551100 0508 1400 0000803f000000000000 48ff
+# open_num       Boot count []: Set 1.0f                               aa551100 0509 1400 0000803f000000000000 49ff
+# batStatu       RefBat Vol [0.001f, 5.0f]: Set 1.0f                   aa551100 050f 1400 0000803f000000000000 4fff
+# battery_max    BatMax [0.001f, 5.0f]: Set 1.0f                       aa551100 050b 1400 0000803f000000000000 4bff
+# battery_min    BatMin [0.001f, 5.0f]: Set 1.0f                       aa551100 050c 1400 0000803f000000000000 4cff
+# ntc_max        NtcMax [-19.9f, 120.0f]: Set 1.0f                     aa551100 0511 1400 0000803f000000000000 51ff
+# ntc_min        NtcMin [-19.9f, 120.0f]: Set 1.0f                     aa551100 0512 1400 0000803f000000000000 52ff
+# total_time     Working time []: Set 1                                aa551100 050a 1400 01000000000000000000 f4ff
+# cycle          Production date: Set 20220802                         aa551100 0510 1400 32303232303830320000 e7ff
 
 # >>> cs.Float32l.parse(b'\x00\x00\x80\x3f')
 # 1.0
@@ -413,7 +413,6 @@ class Neey(AbstractProtocol):
         # _data = bytearray()
         command_data = bytearray(10)
         if command_definition.command_data is not None:
-            print(command_definition.command_data)
             command_data = cs.Int16ul.build(int(command_definition.command_data))
         # print(command_definition)
 
