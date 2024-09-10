@@ -144,12 +144,7 @@ class BlePort(AbstractPort):
         if self.client is not None and self.client.is_connected:
             # for some reason client.disconnect doesnt seem to work - just hangs...
             # await self.client.disconnect()
-            # 
-            # try:
-            #     outs, errs = proc.communicate(timeout=15)
-            # except TimeoutExpired:
-            #     proc.kill()
-            #        outs, errs = proc.communicate()
+            #
             try:
                 open_blue = subprocess.Popen(["bluetoothctl"], shell=True, stdout=subprocess.PIPE,
                                             stderr=subprocess.STDOUT, stdin=subprocess.PIPE)
