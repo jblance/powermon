@@ -13,7 +13,6 @@ repository = "https://github.com/jblance/powermon"
 documentation = "https://jblance.github.io/powermon/index.html"
 
 [tool.poetry.urls]
-
 "Bug Tracker" = "https://github.com/jblance/powermon/issues"
 
 [tool.poetry.dependencies]
