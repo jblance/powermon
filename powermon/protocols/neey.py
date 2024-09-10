@@ -304,6 +304,28 @@ COMMANDS = {
         ],
     },
 }
+SETTER_COMMANDS = {
+    "balancer_on": {
+        "name": "balancer_on",
+        "description": "turn balancer on",
+        "help": " -- display the balancer info",
+        "command_type": CommandType.SERIAL_READ_UNTIL_DONE,
+        "command_code": 0x0d05,
+        "command_data": 0x01,
+        # "reading_definitions": []
+        # "regex": "F([56]0)$",
+    },
+    "balancer_off": {
+        "name": "balancer_off",
+        "description": "turn balancer off",
+        "help": " -- display the balancer info",
+        "command_type": CommandType.SERIAL_READ_UNTIL_DONE,
+        "command_code": 0x0d05,
+        #"command_data": 0x01,
+        # "reading_definitions": []
+        # "regex": "F([56]0)$",
+    },
+}
 
 # static const uint8_t FUNCTION_WRITE = 0x00;
 # static const uint8_t FUNCTION_READ = 0x01;
@@ -314,38 +336,41 @@ COMMANDS = {
 # static const uint8_t COMMAND_SETTINGS = 0x04;
 # static const uint8_t COMMAND_WRITE_REGISTER = 0x05;
 
-#   //
-#   // Enable balancer:
-#   // 0xAA 0x55 0x11 0x00 0x05 0x0D 0x14 0x00 0x01 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0xF3 0xFF
-#   //
-#   // Disable balancer:
-#   // 0xAA 0x55 0x11 0x00 0x05 0x0D 0x14 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0xF2 0xFF
+# device_info                                                          aa551101 0100 1400 00000000000000000000 faff
+# cell_info **                                                         aa551101 0200 0014 00000000000000000000 f9ff
+# device_info                                                          aa551101 0300 1400 00000000000000000000 f8ff
 
-# single_num     Cell count [1,24]: Set 1                              aa55110005 01 1400 01000000 000000000000ffff
-# triger_mpa     Balancing Trigger Delta [0.001d, 1.0d]: Set 1.0f      aa55110005 02 1400 0000803f 00000000000042ff
-# max_cur        Max balancing current [1.0f, 4.0f]: Set 1.0f          aa55110005 03 1400 0000803f 00000000000043ff
-# auto_close     Balancing stop voltage [1.0f, 4.5f]: Set 1.0f         aa55110005 04 1400 0000803f 00000000000044ff
-# auto_open      Balancing start voltage [1.0f, 4.5f]: Set 1.0f        aa55110005 17 1400 0000803f 00000000000057ff
-# volume         Capacity [1.0f, 2000.0f]: Set 1                       aa55110005 16 1400 01000000 000000000000e8ff
-# alarm_mode     Buzzer mode {1, 2, 3, 4}: Set 1                       aa55110005 14 1400 01000000 000000000000eaff
-# bat_mode       Battery type {1, 2, 3}: Set 2                         aa55110005 15 1400 02000000 000000000000e8ff
-#                Change device name: Set "test"                        aa55110005 13 1400 74657374000000000000 faff
+# enable balancer                                                      aa551100 050d 1400 01000000000000000000 f3ff
+# disable balancer                                                     aa551100 050d 1400 00000000000000000000 f2ff
+
+# single_num     Cell count [1,24]: Set 1                              aa551100 0501 1400 01000000000000000000 ffff
+# triger_mpa     Balancing Trigger Delta [0.001d, 1.0d]: Set 1.0f      aa551100 0502 1400 0000803f000000000000 42ff
+# max_cur        Max balancing current [1.0f, 4.0f]: Set 1.0f          aa551100 0503 1400 0000803f000000000000 43ff
+# auto_close     Balancing stop voltage [1.0f, 4.5f]: Set 1.0f         aa551100 0504 1400 0000803f000000000000 44ff
+# auto_open      Balancing start voltage [1.0f, 4.5f]: Set 1.0f        aa551100 0517 1400 0000803f000000000000 57ff
+# volume         Capacity [1.0f, 2000.0f]: Set 1                       aa551100 0516 1400 01000000000000000000 e8ff
+# alarm_mode     Buzzer mode {1, 2, 3, 4}: Set 1                       aa551100 0514 1400 01000000000000000000 eaff
+# bat_mode       Battery type {1, 2, 3}: Set 2                         aa551100 0515 1400 02000000000000000000 e8ff
+#                Change device name: Set "test"                        aa551100 0513 1400 74657374000000000000 faff
 #
 # Factory defaults
 #
-# standardVol2   ReferenceVoltage [0.001f, 5.0f]: Set 1.0f             aa55110005 05 1400 0000803f 00000000000045ff
-# battery_vol    BatteryVoltage [0.001f, 5.0f]: Set 1.0f               aa55110005 06 1400 0000803f 00000000000046ff
-# standardCur2   Balancing Current Default? [0.001f, 5.0f]: Set 1.0f   aa55110005 07 1400 0000803f 00000000000047ff
-# superBat2      Mean SuperCap Voltage [0.001f, 5.0f]: Set 1.0f        aa55110005 0e 1400 0000803f 0000000000004eff
-# triger_mpa     StartVol(V) [0.001f, 5.0f]: Set 1.0f                  aa55110005 08 1400 0000803f 00000000000048ff
-# open_num       Boot count []: Set 1.0f                               aa55110005 09 1400 0000803f 00000000000049ff
-# batStatu       RefBat Vol [0.001f, 5.0f]: Set 1.0f                   aa55110005 0f 1400 0000803f 0000000000004fff
-# battery_max    BatMax [0.001f, 5.0f]: Set 1.0f                       aa55110005 0b 1400 0000803f 0000000000004bff
-# battery_min    BatMin [0.001f, 5.0f]: Set 1.0f                       aa55110005 0c 1400 0000803f 0000000000004cff
-# ntc_max        NtcMax [-19.9f, 120.0f]: Set 1.0f                     aa55110005 11 1400 0000803f 00000000000051ff
-# ntc_min        NtcMin [-19.9f, 120.0f]: Set 1.0f                     aa55110005 12 1400 0000803f 00000000000052ff
-# total_time     Working time []: Set 1                                aa55110005 0a 1400 01000000 000000000000f4ff
-# cycle          Production date: Set 20220802                         aa55110005 10 1400 3230323230383032 0000e7ff
+# standardVol2   ReferenceVoltage [0.001f, 5.0f]: Set 1.0f             aa55110005 05 1400 0000803f000000000000 45ff
+# battery_vol    BatteryVoltage [0.001f, 5.0f]: Set 1.0f               aa55110005 06 1400 0000803f000000000000 46ff
+# standardCur2   Balancing Current Default? [0.001f, 5.0f]: Set 1.0f   aa55110005 07 1400 0000803f000000000000 47ff
+# superBat2      Mean SuperCap Voltage [0.001f, 5.0f]: Set 1.0f        aa55110005 0e 1400 0000803f000000000000 4eff
+# triger_mpa     StartVol(V) [0.001f, 5.0f]: Set 1.0f                  aa55110005 08 1400 0000803f000000000000 48ff
+# open_num       Boot count []: Set 1.0f                               aa55110005 09 1400 0000803f000000000000 49ff
+# batStatu       RefBat Vol [0.001f, 5.0f]: Set 1.0f                   aa55110005 0f 1400 0000803f000000000000 4fff
+# battery_max    BatMax [0.001f, 5.0f]: Set 1.0f                       aa55110005 0b 1400 0000803f000000000000 4bff
+# battery_min    BatMin [0.001f, 5.0f]: Set 1.0f                       aa55110005 0c 1400 0000803f000000000000 4cff
+# ntc_max        NtcMax [-19.9f, 120.0f]: Set 1.0f                     aa55110005 11 1400 0000803f000000000000 51ff
+# ntc_min        NtcMin [-19.9f, 120.0f]: Set 1.0f                     aa55110005 12 1400 0000803f000000000000 52ff
+# total_time     Working time []: Set 1                                aa55110005 0a 1400 01000000000000000000 f4ff
+# cycle          Production date: Set 20220802                         aa55110005 10 1400 32303232303830320000 e7ff
+
+# >>> cs.Float32l.parse(b'\x00\x00\x80\x3f')
+# 1.0
 
 
 class Neey(AbstractProtocol):
@@ -360,6 +385,7 @@ class Neey(AbstractProtocol):
         super().__init__()
         self.protocol_id = b"NEEY"
         self.add_command_definitions(COMMANDS)
+        self.add_command_definitions(SETTER_COMMANDS, result_type=ResultType.ACK)
         self.add_supported_ports([PortType.BLE])
         self.notifier_handle = 9
         self.intializing_handle = 0
@@ -381,16 +407,27 @@ class Neey(AbstractProtocol):
         else:
             data_length = cs.Int16ul.build(20)
         command_bytes = cs.Int16ul.build(int(command_definition.command_code))
+        function = 0x01
+        if command_definition.result_type == ResultType.ACK:
+            function = 0x00
+        # _data = bytearray()
+        command_data = bytearray(10)
+        if command_definition.command_data is not None:
+            print(command_definition.command_data)
+            command_data = cs.Int16ul.build(int(command_definition.command_data))
+        # print(command_definition)
 
         full_command = bytearray(20)
         full_command[0] = 0xaa  # start flag
         full_command[1] = 0x55  # start flag
         full_command[2] = 0x11  # module address
-        full_command[3] = 0x01  # function
+        full_command[3] = function  # function
         full_command[4] = command_bytes[0]  # command code
         full_command[5] = command_bytes[1]  # command code
         full_command[6] = data_length[0]  # length
         full_command[7] = data_length[1]  # length
+        for i, x in enumerate(command_data):
+            full_command[8+i] = x
         checksum = self.checksum(full_command)
         full_command[-2] = checksum
         full_command[-1] = 0xff

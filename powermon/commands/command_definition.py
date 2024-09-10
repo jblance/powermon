@@ -19,6 +19,7 @@ class CommandDefinitionDTO(BaseModel):
     result_type: str | None
     command_type: str | None
     command_code: str | int | None
+    command_data: str | int | None
     construct_txt: None | str
     construct_min_response: None | int
     reading_definitions: list
@@ -36,7 +37,7 @@ class CommandDefinition:
     - test responses
     """
     def __str__(self):
-        return f"CommandDefinition: {self.code=}, {self.description=}, {self.result_type=}, reading_definition count: {self.reading_definition_count()}, {self.command_code=}, {self.command_type=}"
+        return f"CommandDefinition: {self.code=}, {self.description=}, {self.result_type=}, reading_definition count: {self.reading_definition_count()}, {self.command_code=}, {self.command_type=}, {self.command_data=}"
 
     def __init__(self, code, description, help_text: str, result_type : ResultType, reading_definitions, test_responses: list = None, regex: str = None):
         """ init CommandDefinition class """
@@ -52,6 +53,7 @@ class CommandDefinition:
         self.regex: str | None = regex
         self.command_type = None
         self.command_code: str = None
+        self.command_data: str = None
         self.construct: cs.Construct = None
         self.construct_min_response: int = 0
 
@@ -64,6 +66,7 @@ class CommandDefinition:
             result_type=str(self.result_type),
             command_type=self.command_type,
             command_code=self.command_code,
+            command_data=self.command_data,
             construct_txt=self.construct,
             construct_min_response=self.construct_min_response,
             reading_definitions=self.reading_definitions,
@@ -107,6 +110,7 @@ class CommandDefinition:
         )
         _command_definition.command_type = protocol_dictionary.get("command_type")
         _command_definition.command_code = protocol_dictionary.get("command_code")
+        _command_definition.command_data = protocol_dictionary.get("command_data")
         _command_definition.construct = protocol_dictionary.get("construct")
         _command_definition.construct_min_response = protocol_dictionary.get("construct_min_response", 8)
         return _command_definition

@@ -85,6 +85,24 @@ class TestProtocolNeey(unittest.TestCase):
         self.assertEqual(_result, expected)
 
 
+    def test_full_command_balancer_on(self):
+        """ test a for correct full command for balancer on """
+        _result = proto.get_full_command(command="balancer_on")
+        expected = b'\xaaU\x11\x00\x05\x0D\x14\x00\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\xF3\xFF'
+        # print()
+        # print(expected)
+        # print(_result)
+        self.assertEqual(_result, expected)
+
+    def test_full_command_balancer_off(self):
+        """ test a for correct full command for balancer off """
+        _result = proto.get_full_command(command="balancer_off")
+        expected = b'\xaaU\x11\x00\x05\x0D\x14\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\xF2\xFF'
+        # print()
+        # print(expected)
+        # print(_result)
+        self.assertEqual(_result, expected)
+
     def test_trim(self):
         """ test protocol does a correct trim operation """
         _result = proto.trim_response(response=device_info_response, command_definition=proto.get_command_definition('device_info'))
