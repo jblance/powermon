@@ -24,8 +24,8 @@ Currently has support for:
 
 
 ## Documentation ##
-[See the wiki for documentation](https://github.com/jblance/powermon/wiki)
-[or githu io documentation - wip](https://jblance.github.io/powermon/index.html)
+- [See the wiki for documentation](https://github.com/jblance/powermon/wiki)
+- [or github io documentation - wip](https://jblance.github.io/powermon/index.html)
 
 ## Support ##
 If you want to tip me for this work, you can now buy me a coffee
