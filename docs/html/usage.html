@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html  lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1"><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+      <title>Usage</title>
+    
+          <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+          <link rel="stylesheet" href="_static/theme.css " type="text/css" />
+      
+      <!-- sphinx script_files -->
+        <script src="_static/documentation_options.js?v=5929fcd5"></script>
+        <script src="_static/doctools.js?v=9a2dae69"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+
+      
+      <!-- bundled in js (rollup iife) -->
+      <!-- <script src="_static/theme-vendors.js"></script> -->
+      <script src="_static/theme.js" defer></script>
+    
+  <link rel="index" title="Index" href="genindex.html" />
+  <link rel="search" title="Search" href="search.html" />
+  <link rel="next" title="Docker" href="docker.html" />
+  <link rel="prev" title="Installation" href="installation.html" /> 
+  </head>
+
+  <body>
+    <div id="app">
+    <div class="theme-container" :class="pageClasses"><navbar @toggle-sidebar="toggleSidebar">
+  <router-link to="index.html" class="home-link">
+    
+      <span class="site-name">powermon</span>
+    
+  </router-link>
+
+  <div class="links">
+    <navlinks class="can-hide">
+
+
+
+    </navlinks>
+  </div>
+</navbar>
+
+      
+      <div class="sidebar-mask" @click="toggleSidebar(false)">
+      </div>
+        <sidebar @toggle-sidebar="toggleSidebar">
+          
+          <navlinks>
+            
+
+
+
+            
+          </navlinks><div id="searchbox" class="searchbox" role="search">
+  <div class="caption"><span class="caption-text">Quick search</span>
+    <div class="searchformwrapper">
+      <form class="search" action="search.html" method="get">
+        <input type="text" name="q" />
+        <input type="submit" value="Search" />
+        <input type="hidden" name="check_keywords" value="yes" />
+        <input type="hidden" name="area" value="default" />
+      </form>
+    </div>
+  </div>
+</div><div class="sidebar-links" role="navigation" aria-label="main navigation">
+  
+    <div class="sidebar-group">
+      <p class="caption">
+        <span class="caption-text"><a href="index.html#documentation">documentation</a></span>
+      </p>
+      <ul class="current">
+        
+          <li class="toctree-l1 ">
+            
+              <a href="installation.html" class="reference internal ">Installation</a>
+            
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 current">
+            
+              <a href="#" class="reference internal current">Usage</a>
+            
+
+            
+              <ul>
+                
+                  <li class="toctree-l2"><a href="#usage" class="reference internal">Usage</a></li>
+                
+                  <li class="toctree-l2"><a href="#config-file-syntax" class="reference internal">Config File Syntax</a></li>
+                
+              </ul>
+            
+          </li>
+
+        
+          <li class="toctree-l1 ">
+            
+              <a href="docker.html" class="reference internal ">Docker</a>
+            
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 ">
+            
+              <a href="protocols.html" class="reference internal ">Protocol Documentation</a>
+            
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 ">
+            
+              <a href="modules.html" class="reference internal ">powermon</a>
+            
+
+            
+          </li>
+
+        
+      </ul>
+    </div>
+  
+</div>
+        </sidebar>
+
+      <page>
+          <div class="body-header" role="navigation" aria-label="navigation">
+  
+  <ul class="breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+    
+    <li>Usage</li>
+  </ul>
+  
+
+  <ul class="page-nav">
+  <li class="prev">
+    <a href="installation.html"
+       title="previous chapter">← Installation</a>
+  </li>
+  <li class="next">
+    <a href="docker.html"
+       title="next chapter">Docker →</a>
+  </li>
+</ul>
+  
+</div>
+<hr>
+          <div class="content" role="main" v-pre>
+            
+  <section id="usage">
+<h1>Usage<a class="headerlink" href="#usage" title="Link to this heading">¶</a></h1>
+<p>powermon usage …</p>
+<div class="literal-block-wrapper docutils container" id="id1">
+<div class="code-block-caption"><span class="caption-text">powermon command options</span><a class="headerlink" href="#id1" title="Link to this code">¶</a></div>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>powermon<span class="w"> </span>-h
+<span class="go">usage: powermon [-h] [-C [CONFIGFILE]] [--config CONFIG] [-V] [-v] [--listProtocols] [-1] [--force] [-D] [-I] [--adhoc ADHOC]</span>
+
+<span class="go">Power Device Monitoring Utility, version: 1.0.10-dev, python version: 3.11.7</span>
+
+<span class="go">options:</span>
+<span class="go">-h, --help            show this help message and exit</span>
+<span class="go">-C [CONFIGFILE], --configFile [CONFIGFILE]</span>
+<span class="go">                        Full location of config file</span>
+<span class="go">--config CONFIG       Supply config items on the commandline in json format, eg &#39;{&quot;device&quot;: {&quot;port&quot;:{&quot;type&quot;:&quot;test&quot;}}, &quot;commands&quot;: [{&quot;command&quot;:&quot;QPI&quot;}]}&#39;</span>
+<span class="go">-V, --validate        Validate the configuration</span>
+<span class="go">-v, --version         Display the version</span>
+<span class="go">--listProtocols       Display the currently supported protocols</span>
+<span class="go">-1, --once            Only loop through config once</span>
+<span class="go">--force               Force commands to run even if wouldnt be triggered (should only be used with --once)</span>
+<span class="go">-D, --debug           Enable Debug and above (i.e. all) messages</span>
+<span class="go">-I, --info            Enable Info and above level messages</span>
+<span class="go">--adhoc ADHOC         Send adhoc command to mqtt adhoc command queue - needs config file specified and populated</span>
+</pre></div>
+</div>
+</div>
+<p>Standard usage is <cite>powermon -C /path/to/configfile.yaml</cite></p>
+</section>
+<section id="config-file-syntax">
+<h1>Config File Syntax<a class="headerlink" href="#config-file-syntax" title="Link to this heading">¶</a></h1>
+<p>There are 5 sections in the config file:
+- <cite>device</cite> [required]
+- <cite>commands</cite> [required]
+- <cite>mqttbroker</cite> [optional]
+- <cite>api</cite> [optional]
+- <cite>daemon</cite> [optional]</p>
+<section id="config-section-device">
+<h2>Config Section - device<a class="headerlink" href="#config-section-device" title="Link to this heading">¶</a></h2>
+<div class="literal-block-wrapper docutils container" id="id2">
+<div class="code-block-caption"><span class="caption-text">device section example</span><a class="headerlink" href="#id2" title="Link to this code">¶</a></div>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">device</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">My Inverter</span><span class="w">          </span><span class="c1"># user name for physical device</span>
+<span class="w">    </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">123456789</span><span class="w">              </span><span class="c1"># unique id of the physical device (suggest serial number)</span>
+<span class="w">    </span><span class="nt">model</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1012LV-MK</span><span class="w">           </span><span class="c1">#</span>
+<span class="w">    </span><span class="nt">manufacturer</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">MPP-Solar</span><span class="w">    </span><span class="c1">#</span>
+<span class="w">    </span><span class="nt">port</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">test</span><span class="w">             </span><span class="c1"># must be one of test, usb, serial, ble</span>
+<span class="w">        </span><span class="nt">protocol</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">PI30</span><span class="w">         </span><span class="c1"># [defaults to PI30] the protocol must be defined for any type of port - valid protocols are listed in the protocols document</span>
+<span class="w">                               </span><span class="c1"># the options for each port type are shown in separate sections below</span>
+</pre></div>
+</div>
+</div>
+<div class="literal-block-wrapper docutils container" id="id3">
+<div class="code-block-caption"><span class="caption-text">port - test</span><a class="headerlink" href="#id3" title="Link to this code">¶</a></div>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">port</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">test</span><span class="w">                </span><span class="c1"># test port - returns one of the defined test_responses in the protocol definition - used for testing protocols</span>
+<span class="w">    </span><span class="nt">protocol</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">PI30</span>
+<span class="w">    </span><span class="nt">response_number</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span><span class="w">        </span><span class="c1"># [optional] - if defined uses the number test_response from the protocol command definition (0 is first test_response)</span>
+</pre></div>
+</div>
+</div>
+<div class="literal-block-wrapper docutils container" id="id4">
+<div class="code-block-caption"><span class="caption-text">port - usb</span><a class="headerlink" href="#id4" title="Link to this code">¶</a></div>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">port</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">usb</span><span class="w">                 </span><span class="c1"># usb port - uses direct usb access to device (as opposed to serial which needs a usb to serial converter)</span>
+<span class="w">    </span><span class="nt">protocol</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">PI30</span>
+<span class="w">    </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/dev/hidrawX</span><span class="w">        </span><span class="c1"># X can be a number to specify a particular path or a wildcard to check a range of paths</span>
+<span class="w">    </span><span class="nt">identifier</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">XX1234566</span><span class="w">     </span><span class="c1"># [optional] if path uses a wildcard, identifier must be what is returned by the protocol get_id command</span>
+</pre></div>
+</div>
+</div>
+<div class="literal-block-wrapper docutils container" id="id5">
+<div class="code-block-caption"><span class="caption-text">port - serial</span><a class="headerlink" href="#id5" title="Link to this code">¶</a></div>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">port</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">serial</span><span class="w">              </span><span class="c1"># serial port - typically uses a usb to serial converter to connect to the device</span>
+<span class="w">    </span><span class="nt">protocol</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">PI30</span>
+<span class="w">    </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/dev/ttyUSBX</span><span class="w">        </span><span class="c1"># X can be a number to specify a particular path or a wildcard to check a range of paths</span>
+<span class="w">    </span><span class="nt">baud</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2400</span><span class="w">                </span><span class="c1"># [optional, defaults to 2400] baud rate of connection</span>
+<span class="w">    </span><span class="nt">identifier</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">XX1234566</span><span class="w">     </span><span class="c1"># [optional] if path uses a wildcard, identifier must be what is returned by the protocol get_id command</span>
+</pre></div>
+</div>
+</div>
+<div class="literal-block-wrapper docutils container" id="id6">
+<div class="code-block-caption"><span class="caption-text">port - ble</span><a class="headerlink" href="#id6" title="Link to this code">¶</a></div>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">port</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ble</span><span class="w">              </span><span class="c1"># ble port - uses Bluetooth Low Energy to connect to device and get info via BLE characteristics</span>
+<span class="w">    </span><span class="nt">protocol</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">PI30</span>
+<span class="w">    </span><span class="nt">mac</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">00:00:00:00:00</span><span class="w">    </span><span class="c1"># mac address of ble device</span>
+<span class="w">    </span><span class="nt">victron_key</span><span class="p">:</span><span class="w"> </span><span class="kt">!ENV</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${VICTRON_KEY}</span><span class="w">  </span><span class="c1"># [optional] required for victron devices - see XXXX document</span>
+</pre></div>
+</div>
+</div>
+</section>
+</section>
+
+
+          </div>
+          <div class="page-nav">
+            <div class="inner"><ul class="page-nav">
+  <li class="prev">
+    <a href="installation.html"
+       title="previous chapter">← Installation</a>
+  </li>
+  <li class="next">
+    <a href="docker.html"
+       title="next chapter">Docker →</a>
+  </li>
+</ul><div class="footer" role="contentinfo">
+      &#169; Copyright 2024, jblance.
+    <br>
+    Created using <a href="http://sphinx-doc.org/">Sphinx</a> 8.0.2 with <a href="https://github.com/schettino72/sphinx_press_theme">Press Theme</a> 0.9.1.
+</div>
+            </div>
+          </div>
+      </page>
+    </div></div>
+    
+    
+  </body>
+</html>

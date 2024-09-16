@@ -4,7 +4,7 @@ device:
   model: 1012LV-MK
   manufacturer: MPP-Solar
   port:
-    path: /dev/hidraw0
+    #path: /dev/hidraw0
     type: test
     protocol: PI30
 

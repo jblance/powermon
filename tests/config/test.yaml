@@ -8,7 +8,7 @@ device:
     type: test
     # identifier: A123456789
     # response_number: 3
-    protocol: JKSERIAL
+    protocol: jkserial
 
 commands:
 - command: all_data
@@ -17,7 +17,7 @@ commands:
   #   format: table
   - type: screen
     format:
-      type: bmsresponse
+      type: table
       protocol: pi30
       force_charge: False
       battery_charge_voltage: 54.4

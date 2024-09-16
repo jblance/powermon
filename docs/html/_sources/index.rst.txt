@@ -25,6 +25,7 @@ Documentation
    :maxdepth: 5
 
    installation
+   usage
    docker
    protocols
    modules
