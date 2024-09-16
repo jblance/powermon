@@ -21,7 +21,7 @@
     
   <link rel="index" title="Index" href="genindex.html" />
   <link rel="search" title="Search" href="search.html" />
-  <link rel="next" title="Docker" href="docker.html" />
+  <link rel="next" title="Config File Syntax" href="config_file.html" />
   <link rel="prev" title="Installation" href="installation.html" /> 
   </head>
 
@@ -92,11 +92,16 @@
                 
                   <li class="toctree-l2"><a href="#usage" class="reference internal">Usage</a></li>
                 
-                  <li class="toctree-l2"><a href="#config-file-syntax" class="reference internal">Config File Syntax</a></li>
-                
-                  <li class="toctree-l2"><a href="#config-section-device" class="reference internal">Config Section - device</a></li>
-                
               </ul>
+            
+          </li>
+
+        
+          <li class="toctree-l1 ">
+            
+              <a href="config_file.html" class="reference internal ">Config File Syntax</a>
+            
+
             
           </li>
 
@@ -150,8 +155,8 @@
        title="previous chapter">← Installation</a>
   </li>
   <li class="next">
-    <a href="docker.html"
-       title="next chapter">Docker →</a>
+    <a href="config_file.html"
+       title="next chapter">Config File Syntax →</a>
   </li>
 </ul>
   
@@ -189,83 +194,7 @@
 </div>
 </div>
 <p>Standard usage is <code class="docutils literal notranslate"><span class="pre">powermon</span> <span class="pre">-C</span> <span class="pre">/path/to/configfile.yaml</span></code></p>
-</section>
-<section id="config-file-syntax">
-<h1>Config File Syntax<a class="headerlink" href="#config-file-syntax" title="Link to this heading">¶</a></h1>
-<p>There are 5 sections in the config file:</p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">device</span></code> [required]</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">commands</span></code> [required]</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">mqttbroker</span></code> [optional]</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">api</span></code> [optional]</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">daemon</span></code> [optional]</p></li>
-</ul>
-</section>
-<section id="config-section-device">
-<h1>Config Section - device<a class="headerlink" href="#config-section-device" title="Link to this heading">¶</a></h1>
-<div class="literal-block-wrapper docutils container" id="id2">
-<div class="code-block-caption"><span class="caption-text">device section example</span><a class="headerlink" href="#id2" title="Link to this code">¶</a></div>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">device</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">My Inverter</span><span class="w">          </span><span class="c1"># user name for physical device</span>
-<span class="w">    </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">123456789</span><span class="w">              </span><span class="c1"># unique id of the physical device (suggest serial number)</span>
-<span class="w">    </span><span class="nt">model</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1012LV-MK</span><span class="w">           </span><span class="c1">#</span>
-<span class="w">    </span><span class="nt">manufacturer</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">MPP-Solar</span><span class="w">    </span><span class="c1">#</span>
-<span class="w">    </span><span class="nt">port</span><span class="p">:</span>
-<span class="w">        </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">test</span><span class="w">             </span><span class="c1"># must be one of test, usb, serial, ble</span>
-<span class="w">        </span><span class="nt">protocol</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">PI30</span><span class="w">         </span><span class="c1"># [defaults to PI30] the protocol must be defined for any type of port</span>
-<span class="w">                               </span><span class="c1">#  - valid protocols are listed in the protocols document</span>
-<span class="w">                               </span><span class="c1"># the options for each port type are shown in separate sections below</span>
-</pre></div>
-</div>
-</div>
-<div class="literal-block-wrapper docutils container" id="id3">
-<div class="code-block-caption"><span class="caption-text">port - test</span><a class="headerlink" href="#id3" title="Link to this code">¶</a></div>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">port</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">test</span><span class="w">                </span><span class="c1"># test port - returns one of the defined test_responses</span>
-<span class="w">                              </span><span class="c1">#  in the protocol definition - used for testing protocols</span>
-<span class="w">    </span><span class="nt">protocol</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">PI30</span>
-<span class="w">    </span><span class="nt">response_number</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span><span class="w">        </span><span class="c1"># [optional] - if defined uses the number test_response</span>
-<span class="w">                              </span><span class="c1">#  from the protocol command definition (0 is first test_response)</span>
-</pre></div>
-</div>
-</div>
-<div class="literal-block-wrapper docutils container" id="id4">
-<div class="code-block-caption"><span class="caption-text">port - usb</span><a class="headerlink" href="#id4" title="Link to this code">¶</a></div>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">port</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">usb</span><span class="w">                 </span><span class="c1"># usb port - uses direct usb access to device</span>
-<span class="w">                              </span><span class="c1">#  (as opposed to serial which needs a usb to serial converter)</span>
-<span class="w">    </span><span class="nt">protocol</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">PI30</span>
-<span class="w">    </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/dev/hidrawX</span><span class="w">        </span><span class="c1"># X can be a number to specify a particular path</span>
-<span class="w">                              </span><span class="c1">#   or a wildcard (eg ?) to check a range of paths</span>
-<span class="w">    </span><span class="nt">identifier</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">XX1234566</span><span class="w">     </span><span class="c1"># [optional] if path uses a wildcard identifier</span>
-<span class="w">                              </span><span class="c1">#   must be what is returned by the protocol get_id command</span>
-</pre></div>
-</div>
-</div>
-<div class="literal-block-wrapper docutils container" id="id5">
-<div class="code-block-caption"><span class="caption-text">port - serial</span><a class="headerlink" href="#id5" title="Link to this code">¶</a></div>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">port</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">serial</span><span class="w">              </span><span class="c1"># serial port - typically uses a usb to serial converter to connect to the device</span>
-<span class="w">    </span><span class="nt">protocol</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">PI30</span>
-<span class="w">    </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/dev/ttyUSBX</span><span class="w">        </span><span class="c1"># X can be a number to specify a particular path</span>
-<span class="w">                              </span><span class="c1">#   or a wildcard to check a range of paths</span>
-<span class="w">    </span><span class="nt">baud</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2400</span><span class="w">                </span><span class="c1"># [optional, defaults to 2400] baud rate of connection</span>
-<span class="w">    </span><span class="nt">identifier</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">XX1234566</span><span class="w">     </span><span class="c1"># [optional] if path uses a wildcard, identifier</span>
-<span class="w">                              </span><span class="c1">#   must be what is returned by the protocol get_id command</span>
-</pre></div>
-</div>
-</div>
-<div class="literal-block-wrapper docutils container" id="id6">
-<div class="code-block-caption"><span class="caption-text">port - ble</span><a class="headerlink" href="#id6" title="Link to this code">¶</a></div>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">port</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ble</span><span class="w">              </span><span class="c1"># ble port - uses Bluetooth Low Energy to connect</span>
-<span class="w">                           </span><span class="c1">#  to device and get info via BLE characteristics</span>
-<span class="w">    </span><span class="nt">protocol</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">PI30</span>
-<span class="w">    </span><span class="nt">mac</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">00:00:00:00:00</span><span class="w">    </span><span class="c1"># mac address of ble device</span>
-<span class="w">    </span><span class="nt">victron_key</span><span class="p">:</span><span class="w"> </span><span class="kt">!ENV</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${VICTRON_KEY}</span><span class="w">  </span><span class="c1"># [optional] required for victron devices - see XXXX document</span>
-</pre></div>
-</div>
-</div>
+<p>Config file syntax is described in <a class="reference internal" href="config_file.html"><span class="doc">Config File Syntax</span></a></p>
 </section>
 
 
@@ -277,8 +206,8 @@
        title="previous chapter">← Installation</a>
   </li>
   <li class="next">
-    <a href="docker.html"
-       title="next chapter">Docker →</a>
+    <a href="config_file.html"
+       title="next chapter">Config File Syntax →</a>
   </li>
 </ul><div class="footer" role="contentinfo">
       &#169; Copyright 2024, jblance.

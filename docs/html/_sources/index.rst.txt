@@ -26,6 +26,7 @@ Documentation
 
    installation
    usage
+   config_file
    docker
    protocols
    modules
