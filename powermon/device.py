@@ -77,11 +77,12 @@ class Device:
             log.warning("No device definition in config. Check configFile argument?")
             return cls(name="unnamed")
         name = config.get("name", "unnamed_device")
-        device_id = config.get("id", "1")  # device_id needs to be unique if there are two devices
+        device_id = config.get("id", "1")  # device_id needs to be unique if there are two devices  # TODO: rename id to device_id
+        # TODO: add exception for id in config file
         model = config.get("model")
         manufacturer = config.get("manufacturer")
 
-        port = port_from_config(config.get("port"))
+        port = port_from_config(config.get("port"))  # TODO: move identifier from port config to device_id
 
         # raise error if unable to configure port
         if not port:

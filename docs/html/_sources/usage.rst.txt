@@ -32,11 +32,13 @@ Standard usage is ``powermon -C /path/to/configfile.yaml``
 Config File Syntax
 ==================
 There are 5 sections in the config file:
-- ``device`` [required]
-- ``commands`` [required]
-- ``mqttbroker`` [optional]
-- ``api`` [optional]
-- ``daemon`` [optional]
+
+* ``device`` [required]
+* ``commands`` [required]
+* ``mqttbroker`` [optional]
+* ``api`` [optional]
+* ``daemon`` [optional]
+
 
 Config Section - device
 -----------------------
