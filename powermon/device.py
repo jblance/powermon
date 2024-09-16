@@ -83,7 +83,7 @@ class Device:
         # check if old config still in use
         if "id" in config:
             raise ConfigNeedsUpdatingError("Breaking Change: Please rename 'id' device config item to 'serial_number'")
-        
+
         serial_number = config.get("serial_number")   
         port = port_from_config(config.get("port"), serial_number=serial_number)
 
@@ -140,7 +140,7 @@ class Device:
         try:
             command.command_definition = self.port.protocol.get_command_definition(command.code)
         except CommandDefinitionMissing as ex:
-            log.info("Could not find a definition for command: %s", command.code)
+            log.warning("Could not find a definition for command: %s", command.code)
             log.debug("Exception was %r", ex)
             return
 
