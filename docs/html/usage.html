@@ -171,28 +171,31 @@
 <span class="go">-h, --help            show this help message and exit</span>
 <span class="go">-C [CONFIGFILE], --configFile [CONFIGFILE]</span>
 <span class="go">                        Full location of config file</span>
-<span class="go">--config CONFIG       Supply config items on the commandline in json format, eg &#39;{&quot;device&quot;: {&quot;port&quot;:{&quot;type&quot;:&quot;test&quot;}}, &quot;commands&quot;: [{&quot;command&quot;:&quot;QPI&quot;}]}&#39;</span>
+<span class="go">--config CONFIG       Supply config items on the commandline in json format,</span>
+<span class="go">                        eg &#39;{&quot;device&quot;: {&quot;port&quot;:{&quot;type&quot;:&quot;test&quot;}}, &quot;commands&quot;: [{&quot;command&quot;:&quot;QPI&quot;}]}&#39;</span>
 <span class="go">-V, --validate        Validate the configuration</span>
 <span class="go">-v, --version         Display the version</span>
 <span class="go">--listProtocols       Display the currently supported protocols</span>
 <span class="go">-1, --once            Only loop through config once</span>
-<span class="go">--force               Force commands to run even if wouldnt be triggered (should only be used with --once)</span>
+<span class="go">--force               Force commands to run even if wouldnt be triggered</span>
+<span class="go">                        (should only be used with --once)</span>
 <span class="go">-D, --debug           Enable Debug and above (i.e. all) messages</span>
 <span class="go">-I, --info            Enable Info and above level messages</span>
-<span class="go">--adhoc ADHOC         Send adhoc command to mqtt adhoc command queue - needs config file specified and populated</span>
+<span class="go">--adhoc ADHOC         Send adhoc command to mqtt adhoc command queue</span>
+<span class="go">                         - needs config file specified and populated</span>
 </pre></div>
 </div>
 </div>
-<p>Standard usage is <cite>powermon -C /path/to/configfile.yaml</cite></p>
+<p>Standard usage is <code class="docutils literal notranslate"><span class="pre">powermon</span> <span class="pre">-C</span> <span class="pre">/path/to/configfile.yaml</span></code></p>
 </section>
 <section id="config-file-syntax">
 <h1>Config File Syntax<a class="headerlink" href="#config-file-syntax" title="Link to this heading">¶</a></h1>
 <p>There are 5 sections in the config file:
-- <cite>device</cite> [required]
-- <cite>commands</cite> [required]
-- <cite>mqttbroker</cite> [optional]
-- <cite>api</cite> [optional]
-- <cite>daemon</cite> [optional]</p>
+- <code class="docutils literal notranslate"><span class="pre">device</span></code> [required]
+- <code class="docutils literal notranslate"><span class="pre">commands</span></code> [required]
+- <code class="docutils literal notranslate"><span class="pre">mqttbroker</span></code> [optional]
+- <code class="docutils literal notranslate"><span class="pre">api</span></code> [optional]
+- <code class="docutils literal notranslate"><span class="pre">daemon</span></code> [optional]</p>
 <section id="config-section-device">
 <h2>Config Section - device<a class="headerlink" href="#config-section-device" title="Link to this heading">¶</a></h2>
 <div class="literal-block-wrapper docutils container" id="id2">
@@ -204,7 +207,8 @@
 <span class="w">    </span><span class="nt">manufacturer</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">MPP-Solar</span><span class="w">    </span><span class="c1">#</span>
 <span class="w">    </span><span class="nt">port</span><span class="p">:</span>
 <span class="w">        </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">test</span><span class="w">             </span><span class="c1"># must be one of test, usb, serial, ble</span>
-<span class="w">        </span><span class="nt">protocol</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">PI30</span><span class="w">         </span><span class="c1"># [defaults to PI30] the protocol must be defined for any type of port - valid protocols are listed in the protocols document</span>
+<span class="w">        </span><span class="nt">protocol</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">PI30</span><span class="w">         </span><span class="c1"># [defaults to PI30] the protocol must be defined for any type of port</span>
+<span class="w">                               </span><span class="c1">#  - valid protocols are listed in the protocols document</span>
 <span class="w">                               </span><span class="c1"># the options for each port type are shown in separate sections below</span>
 </pre></div>
 </div>
@@ -212,19 +216,24 @@
 <div class="literal-block-wrapper docutils container" id="id3">
 <div class="code-block-caption"><span class="caption-text">port - test</span><a class="headerlink" href="#id3" title="Link to this code">¶</a></div>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">port</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">test</span><span class="w">                </span><span class="c1"># test port - returns one of the defined test_responses in the protocol definition - used for testing protocols</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">test</span><span class="w">                </span><span class="c1"># test port - returns one of the defined test_responses</span>
+<span class="w">                              </span><span class="c1">#  in the protocol definition - used for testing protocols</span>
 <span class="w">    </span><span class="nt">protocol</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">PI30</span>
-<span class="w">    </span><span class="nt">response_number</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span><span class="w">        </span><span class="c1"># [optional] - if defined uses the number test_response from the protocol command definition (0 is first test_response)</span>
+<span class="w">    </span><span class="nt">response_number</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span><span class="w">        </span><span class="c1"># [optional] - if defined uses the number test_response</span>
+<span class="w">                              </span><span class="c1">#  from the protocol command definition (0 is first test_response)</span>
 </pre></div>
 </div>
 </div>
 <div class="literal-block-wrapper docutils container" id="id4">
 <div class="code-block-caption"><span class="caption-text">port - usb</span><a class="headerlink" href="#id4" title="Link to this code">¶</a></div>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">port</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">usb</span><span class="w">                 </span><span class="c1"># usb port - uses direct usb access to device (as opposed to serial which needs a usb to serial converter)</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">usb</span><span class="w">                 </span><span class="c1"># usb port - uses direct usb access to device</span>
+<span class="w">                              </span><span class="c1">#  (as opposed to serial which needs a usb to serial converter)</span>
 <span class="w">    </span><span class="nt">protocol</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">PI30</span>
-<span class="w">    </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/dev/hidrawX</span><span class="w">        </span><span class="c1"># X can be a number to specify a particular path or a wildcard to check a range of paths</span>
-<span class="w">    </span><span class="nt">identifier</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">XX1234566</span><span class="w">     </span><span class="c1"># [optional] if path uses a wildcard, identifier must be what is returned by the protocol get_id command</span>
+<span class="w">    </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/dev/hidrawX</span><span class="w">        </span><span class="c1"># X can be a number to specify a particular path</span>
+<span class="w">                              </span><span class="c1">#   or a wildcard (eg ?) to check a range of paths</span>
+<span class="w">    </span><span class="nt">identifier</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">XX1234566</span><span class="w">     </span><span class="c1"># [optional] if path uses a wildcard identifier</span>
+<span class="w">                              </span><span class="c1">#   must be what is returned by the protocol get_id command</span>
 </pre></div>
 </div>
 </div>
@@ -233,16 +242,19 @@
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">port</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">serial</span><span class="w">              </span><span class="c1"># serial port - typically uses a usb to serial converter to connect to the device</span>
 <span class="w">    </span><span class="nt">protocol</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">PI30</span>
-<span class="w">    </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/dev/ttyUSBX</span><span class="w">        </span><span class="c1"># X can be a number to specify a particular path or a wildcard to check a range of paths</span>
+<span class="w">    </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/dev/ttyUSBX</span><span class="w">        </span><span class="c1"># X can be a number to specify a particular path</span>
+<span class="w">                              </span><span class="c1">#   or a wildcard to check a range of paths</span>
 <span class="w">    </span><span class="nt">baud</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2400</span><span class="w">                </span><span class="c1"># [optional, defaults to 2400] baud rate of connection</span>
-<span class="w">    </span><span class="nt">identifier</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">XX1234566</span><span class="w">     </span><span class="c1"># [optional] if path uses a wildcard, identifier must be what is returned by the protocol get_id command</span>
+<span class="w">    </span><span class="nt">identifier</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">XX1234566</span><span class="w">     </span><span class="c1"># [optional] if path uses a wildcard, identifier</span>
+<span class="w">                              </span><span class="c1">#   must be what is returned by the protocol get_id command</span>
 </pre></div>
 </div>
 </div>
 <div class="literal-block-wrapper docutils container" id="id6">
 <div class="code-block-caption"><span class="caption-text">port - ble</span><a class="headerlink" href="#id6" title="Link to this code">¶</a></div>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">port</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ble</span><span class="w">              </span><span class="c1"># ble port - uses Bluetooth Low Energy to connect to device and get info via BLE characteristics</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ble</span><span class="w">              </span><span class="c1"># ble port - uses Bluetooth Low Energy to connect</span>
+<span class="w">                           </span><span class="c1">#  to device and get info via BLE characteristics</span>
 <span class="w">    </span><span class="nt">protocol</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">PI30</span>
 <span class="w">    </span><span class="nt">mac</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">00:00:00:00:00</span><span class="w">    </span><span class="c1"># mac address of ble device</span>
 <span class="w">    </span><span class="nt">victron_key</span><span class="p">:</span><span class="w"> </span><span class="kt">!ENV</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${VICTRON_KEY}</span><span class="w">  </span><span class="c1"># [optional] required for victron devices - see XXXX document</span>
