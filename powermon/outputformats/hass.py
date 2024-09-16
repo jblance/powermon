@@ -75,7 +75,7 @@ class Hass(AbstractFormat):
             payload = {
                 "name": f"{name}",
                 "state_topic": f"{state_topic}",
-                "unique_id": f"{object_id}_{device_info.device_id}",
+                "unique_id": f"{object_id}_{device_info.serial_number}",
                 "force_update": "true",
                 "last_reset": str(datetime.now()),
             }
@@ -84,7 +84,7 @@ class Hass(AbstractFormat):
             # payload["device"] = {"name": f"{device_name}", "identifiers": ["mppsolar"], "model": "PIP6048MAX", "manufacturer": "MPP-Solar"}
             payload["device"] = {
                 "name": device_info.name,
-                "identifiers": [device_info.device_id],
+                "identifiers": [device_info.serial_number],
                 "model": device_info.model,
                 "manufacturer": device_info.manufacturer,
             }

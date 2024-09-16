@@ -20,7 +20,7 @@ class TestFormatHtmltable(unittest.TestCase):
                     "</table>"]
         config = {}
         table_formatter = HtmlTable(config)
-        device_info = DeviceInfo(name="name", device_id="device_id", model="model", manufacturer="manufacturer")
+        device_info = DeviceInfo(name="name", serial_number="serial_number", model="model", manufacturer="manufacturer")
         reading_definition = ReadingDefinition.from_config({"description": "Energy Today", "reading_type": ReadingType.WATT_HOURS, "icon": "mdi:solar-power", "device-class": "energy", "state_class": "total"})
         command_definition = CommandDefinition(code="CODE", description="description", help_text="", result_type=ResultType.SINGLE, reading_definitions=[reading_definition])
         command = Command.from_config({"command": "CODE"})
@@ -39,7 +39,7 @@ class TestFormatHtmltable(unittest.TestCase):
                     "</table>"]
         config = {}
         table_formatter = HtmlTable(config)
-        device_info = DeviceInfo(name="name", device_id="device_id", model="model", manufacturer="manufacturer")
+        device_info = DeviceInfo(name="name", serial_number="serial_number", model="model", manufacturer="manufacturer")
         reading_definition1 = ReadingDefinition.from_config({"description": "Energy Today", "reading_type": ReadingType.WATT_HOURS, "icon": "mdi:solar-power", "device-class": "energy", "state_class": "total"})
         reading_definition2 = ReadingDefinition.from_config({"description": "Energy This Week", "reading_type": ReadingType.WATT_HOURS, "icon": "mdi:solar-power", "device-class": "energy", "state_class": "total"})
         command_definition = CommandDefinition(code="CODE", description="description", help_text="", result_type=ResultType.COMMA_DELIMITED, reading_definitions=[reading_definition1, reading_definition2])
@@ -56,7 +56,7 @@ class TestFormatHtmltable(unittest.TestCase):
         expected = ["<b>No readings in result</b>"]
         config = {}
         table_formatter = HtmlTable(config)
-        device_info = DeviceInfo(name="name", device_id="device_id", model="model", manufacturer="manufacturer")
+        device_info = DeviceInfo(name="name", serial_number="serial_number", model="model", manufacturer="manufacturer")
         reading_definition = ReadingDefinition.from_config({"description": "Energy Today", "reading_type": ReadingType.WATT_HOURS, "icon": "mdi:solar-power", "device-class": "energy", "state_class": "total"})
         command_definition = CommandDefinition(code="CODE", description="description", help_text="", result_type=ResultType.SINGLE, reading_definitions=[reading_definition])
         command = Command.from_config({"command": "CODE"})
@@ -75,7 +75,7 @@ class TestFormatHtmltable(unittest.TestCase):
             '<b>No readings in result</b>']
         proto = Proto()
         table_formatter = HtmlTable({})
-        device_info = DeviceInfo(name="name", device_id="device_id", model="model", manufacturer="manufacturer")
+        device_info = DeviceInfo(name="name", serial_number="serial_number", model="model", manufacturer="manufacturer")
         command = Command.from_config({"command": "QET"})
         command.command_definition = proto.get_command_definition('QET')
         _result = command.build_result(raw_response=b"(00238800!H\r", protocol=proto)

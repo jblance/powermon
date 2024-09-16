@@ -17,7 +17,7 @@ class TestFormatHass(unittest.TestCase):
     def test_format_hass(self):
         """ test generation of hass config and state messages """
         hass_formatter = Hass({})
-        device_info = DeviceInfo(name="device_name", device_id="device_id", model="device_model", manufacturer="device_manufacturer")
+        device_info = DeviceInfo(name="device_name", serial_number="serial_number", model="device_model", manufacturer="device_manufacturer")
         reading_definition = ReadingDefinition.from_config({"description": "Energy Today", "reading_type": ReadingType.WATT_HOURS, "response_type": ResponseType.INT, "icon": "mdi:solar-power", "device-class": "energy", "state_class": "total"}, 0)
         command_definition = CommandDefinition(code="CODE", description="description", help_text="", result_type=ResultType.SINGLE, reading_definitions=[reading_definition])
         command = Command.from_config({"command": "CODE"})
@@ -36,11 +36,11 @@ class TestFormatHass(unittest.TestCase):
         self.assertListEqual(list(config_payload), ['name', 'state_topic', 'unique_id', 'force_update', 'last_reset', 'device', 'unit_of_measurement', 'icon', 'state_class'])
         self.assertEqual(config_payload['name'], "energy_today")
         self.assertEqual(config_payload['state_topic'], "homeassistant/sensor/energy_today/state")
-        self.assertEqual(config_payload['unique_id'], "energy_today_device_id")
+        self.assertEqual(config_payload['unique_id'], "energy_today_serial_number")
         self.assertEqual(config_payload['unit_of_measurement'], "Wh")
         self.assertEqual(config_payload['icon'], "mdi:solar-power")
         self.assertEqual(config_payload['state_class'], "total")
-        self.assertDictEqual(config_payload['device'], {'name': 'device_name', 'identifiers': ['device_id'], 'model': 'device_model', 'manufacturer': 'device_manufacturer'})
+        self.assertDictEqual(config_payload['device'], {'name': 'device_name', 'identifiers': ['serial_number'], 'model': 'device_model', 'manufacturer': 'device_manufacturer'})
 
         # second list item is state message (a dict with only topic and payload keys)
         self.assertIsInstance(fd[1], dict)

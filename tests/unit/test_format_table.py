@@ -23,7 +23,7 @@ class TestFormatTable(unittest.TestCase):
                     '║ test      │ 0.0   │             ║',
                     '╚═══════════╧═══════╧═════════════╝']
         table_formatter = Table({'draw_lines': True})
-        device_info = DeviceInfo(name="name", device_id="device_id", model="model", manufacturer="manufacturer")
+        device_info = DeviceInfo(name="name", serial_number="serial_number", model="model", manufacturer="manufacturer")
         reading_definition = ReadingDefinition.from_config({"description": "test", "reading_type": ReadingType.MESSAGE, "response_type": ResponseType.FLOAT, "icon": "mdi:solar-power"})
         command_definition = CommandDefinition(code="None", description="unknown command", help_text="", result_type=ResultType.SINGLE, reading_definitions=[reading_definition])
         command = Command.from_config({"command": "None"})
@@ -41,7 +41,7 @@ class TestFormatTable(unittest.TestCase):
                     'Parameter     Value  Unit ',
                     'test_message  0.0         ',]
         table_formatter = Table({})
-        device_info = DeviceInfo(name="name", device_id="device_id", model="model", manufacturer="manufacturer")
+        device_info = DeviceInfo(name="name", serial_number="serial_number", model="model", manufacturer="manufacturer")
         reading_definition = ReadingDefinition.from_config({"description": "Test Message", "response_type": ResponseType.FLOAT})
         command_definition = CommandDefinition(code="None", description="unknown command", help_text="", result_type=ResultType.SINGLE, reading_definitions=[reading_definition])
         command = Command.from_config({"command": "None"})
@@ -59,7 +59,7 @@ class TestFormatTable(unittest.TestCase):
                     'Parameter  Value                           Unit ',
                     'test       123456789012345678901234567890  Wh   ']
         table_formatter = Table({})
-        device_info = DeviceInfo(name="name", device_id="device_id", model="model", manufacturer="manufacturer")
+        device_info = DeviceInfo(name="name", serial_number="serial_number", model="model", manufacturer="manufacturer")
         reading_definition = ReadingDefinition.from_config({"description": "test", "reading_type": ReadingType.WATT_HOURS})
         command_definition = CommandDefinition(code="None", description="unknown command", help_text="", result_type=ResultType.SINGLE, reading_definitions=[reading_definition])
         command = Command.from_config({"command": "None"})
@@ -80,7 +80,7 @@ class TestFormatTable(unittest.TestCase):
                     'error_#1     another error message       ',
                     'test         238800                 Wh   ']
         table_formatter = Table({})
-        device_info = DeviceInfo(name="name", device_id="device_id", model="model", manufacturer="manufacturer")
+        device_info = DeviceInfo(name="name", serial_number="serial_number", model="model", manufacturer="manufacturer")
         reading_definition = ReadingDefinition.from_config({"description": "test", "reading_type": ReadingType.WATT_HOURS})
         command_definition = CommandDefinition(code="None", description="unknown command", help_text="", result_type=ResultType.SINGLE, reading_definitions=[reading_definition])
         command = Command.from_config({"command": "None"})
@@ -101,7 +101,7 @@ class TestFormatTable(unittest.TestCase):
                     'Parameter     Value  Unit  Extra Info',
                     'test_message  0.0          icon:mdi:current-ac, device_class:frequency']
         table_formatter = Table({'extra_info': True})
-        device_info = DeviceInfo(name="name", device_id="device_id", model="model", manufacturer="manufacturer")
+        device_info = DeviceInfo(name="name", serial_number="serial_number", model="model", manufacturer="manufacturer")
         reading_definition = ReadingDefinition.from_config({"description": "Test Message", "response_type": ResponseType.FLOAT, "icon": "mdi:current-ac", "device_class": "frequency"})
         command_definition = CommandDefinition(code="QT", description="Test Command", help_text="", result_type=ResultType.SINGLE, reading_definitions=[reading_definition])
         command = Command.from_config({"command": "QT"})

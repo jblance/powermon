@@ -1,7 +1,7 @@
 # test port config
 device:
   name: JK BMS
-  id: 12345
+  serial_number: 12345
   model: BD6A24S10P
   manufacturer: JK
   port:

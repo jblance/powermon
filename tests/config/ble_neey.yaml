@@ -1,7 +1,7 @@
 # BLE advertising config
 device:
-  name: BLE_Advertising
-  id: SmartShunt Bat2
+  name: SmartShunt Bat2
+  serial_number: xx12345678
   model: SmartShunt 500A/50mV
   manufacturer: Victron
   port:

@@ -49,7 +49,7 @@ class TestProtocolPI18(unittest.TestCase):
         """ test result build for POP0 - success """
         expected = ['set_device_output_source_priority=Succeeded']
         simple_formatter = SimpleFormat({"extra_info": False})
-        device_info = DeviceInfo(name="name", device_id="device_id", model="model", manufacturer="manufacturer")
+        device_info = DeviceInfo(name="name", serial_number="serial_number", model="model", manufacturer="manufacturer")
         command = Command.from_config({"command": "POP0"})
         command.command_definition = proto.get_command_definition('POP0')
         _result = command.build_result(raw_response=b"^1\x0b\xc2\r", protocol=proto)
@@ -61,7 +61,7 @@ class TestProtocolPI18(unittest.TestCase):
         """ test result build for POP1 - fail """
         expected = ['set_device_output_source_priority=Failed']
         simple_formatter = SimpleFormat({"extra_info": False})
-        device_info = DeviceInfo(name="name", device_id="device_id", model="model", manufacturer="manufacturer")
+        device_info = DeviceInfo(name="name", serial_number="serial_number", model="model", manufacturer="manufacturer")
         command = Command.from_config({"command": "POP1"})
         command.command_definition = proto.get_command_definition('POP1')
         _result = command.build_result(raw_response=b"^0\x0b\xe3\r", protocol=proto)
@@ -73,7 +73,7 @@ class TestProtocolPI18(unittest.TestCase):
         """ test result build for POP2 - invalid command """
         expected = ['set_device_output_source_priority=Failed']
         simple_formatter = SimpleFormat({"extra_info": False})
-        device_info = DeviceInfo(name="name", device_id="device_id", model="model", manufacturer="manufacturer")
+        device_info = DeviceInfo(name="name", serial_number="serial_number", model="model", manufacturer="manufacturer")
         command = Command.from_config({"command": "POP2"})
         self.assertRaises(CommandDefinitionMissing, proto.get_command_definition, 'POP2')
 
@@ -81,7 +81,7 @@ class TestProtocolPI18(unittest.TestCase):
         """ test result build for MCHGV - success """
         expected = ['set_battery_bulk,float_charging_voltages=Succeeded']
         simple_formatter = SimpleFormat({"extra_info": False})
-        device_info = DeviceInfo(name="name", device_id="device_id", model="model", manufacturer="manufacturer")
+        device_info = DeviceInfo(name="name", serial_number="serial_number", model="model", manufacturer="manufacturer")
         command = Command.from_config({"command": "MCHGV552,540"})
         command.command_definition = proto.get_command_definition('MCHGV552,540')
         _result = command.build_result(raw_response=b"^1\x0b\xc2\r", protocol=proto)

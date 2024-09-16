@@ -6,8 +6,8 @@ from pydantic import BaseModel
 
 from powermon.commands.command import Command, CommandDTO
 from powermon.commands.result import Result
-# from powermon.dto.deviceDTO import DeviceDTO
-from powermon.libs.errors import CommandDefinitionMissing, ConfigError
+from powermon.libs.errors import (CommandDefinitionMissing, ConfigError,
+                                  ConfigNeedsUpdatingError)
 from powermon.libs.mqttbroker import MqttBroker
 from powermon.outputs.abstractoutput import AbstractOutput
 from powermon.ports import from_config as port_from_config
@@ -20,22 +20,22 @@ log = logging.getLogger("Device")
 class DeviceInfoDTO(BaseModel):
     """ data transfer model for DeviceInfo class """
     name: str | int
-    device_id: str | int
+    serial_number: str | int
     model: Optional[str | int]
     manufacturer: Optional[str | int]
 
 
 class DeviceInfo:
     """ struct like class to contain info about the device """
-    def __init__(self, name, device_id, model=None, manufacturer=None):
+    def __init__(self, name, serial_number, model=None, manufacturer=None):
         self.name = name
-        self.device_id = device_id
+        self.serial_number = serial_number
         self.model = model
         self.manufacturer = manufacturer
 
     def to_dto(self):
         """convert the DeviceInfo to a Data Transfer Object"""
-        return DeviceInfoDTO(name=self.name, device_id=self.device_id, model=self.model, manufacturer=self.manufacturer)
+        return DeviceInfoDTO(name=self.name, serial_number=self.serial_number, model=self.model, manufacturer=self.manufacturer)
 
 
 class DeviceDTO(BaseModel):
@@ -50,15 +50,15 @@ class Device:
     A device is a port with a protocol
     also contains the name, model and id of the device
     """
-    def __init__(self, name: str, device_id: str = "", model: str = "", manufacturer: str = "", port: AbstractPort = None):
-        self.device_info = DeviceInfo(name=name, device_id=device_id, model=model, manufacturer=manufacturer)
+    def __init__(self, name: str, serial_number: str = "", model: str = "", manufacturer: str = "", port: AbstractPort = None):
+        self.device_info = DeviceInfo(name=name, serial_number=serial_number, model=model, manufacturer=manufacturer)
         self.port: AbstractPort = port
         self.commands: list[Command] = []
         self.mqtt_broker = None
         self.adhoc_commands: list = []
 
     def __str__(self):
-        return f"Device: {self.device_info.name}, {self.device_info.device_id=}, " + \
+        return f"Device: {self.device_info.name}, {self.device_info.serial_number=}, " + \
             f"{self.device_info.model=}, {self.device_info.manufacturer=}, " + \
             f"port: {self.port}, mqtt_broker: {self.mqtt_broker}, commands:{self.commands}"
 
@@ -77,19 +77,22 @@ class Device:
             log.warning("No device definition in config. Check configFile argument?")
             return cls(name="unnamed")
         name = config.get("name", "unnamed_device")
-        device_id = config.get("id", "1")  # device_id needs to be unique if there are two devices  # TODO: rename id to device_id
-        # TODO: add exception for id in config file
         model = config.get("model")
         manufacturer = config.get("manufacturer")
 
-        port = port_from_config(config.get("port"))  # TODO: move identifier from port config to device_id
+        # check if old config still in use
+        if "id" in config:
+            raise ConfigNeedsUpdatingError("Breaking Change: Please rename 'id' device config item to 'serial_number'")
+        
+        serial_number = config.get("serial_number")   
+        port = port_from_config(config.get("port"), serial_number=serial_number)
 
         # raise error if unable to configure port
         if not port:
             log.error("Invalid port config '%s' found", config)
             raise ConfigError(f"Invalid port config '{config}' found")
 
-        return cls(name=name, device_id=device_id, model=model, manufacturer=manufacturer, port=port)
+        return cls(name=name, serial_number=serial_number, model=model, manufacturer=manufacturer, port=port)
 
     @property
     def port(self) -> AbstractPort:

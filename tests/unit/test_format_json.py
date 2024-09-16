@@ -16,7 +16,7 @@ class TestFormatJson(unittest.TestCase):
         """ test json format with no config """
         expected = ['{"data_name": "test_energy_total", "data_value": 238, "data_unit": "Wh"}']
         formatter = fmt({})
-        device_info = DeviceInfo(name="name", device_id="device_id", model="model", manufacturer="manufacturer")
+        device_info = DeviceInfo(name="name", serial_number="serial_number", model="model", manufacturer="manufacturer")
         reading_definition = ReadingDefinition.from_config({"description": "Test Energy Total", "reading_type": ReadingType.WATT_HOURS, "icon": "mdi:solar-power", "device_class": "energy", "state_class": "total"})
         command_definition = CommandDefinition(code="TEST", description="description", help_text="", result_type=ResultType.SINGLE, reading_definitions=[reading_definition])
         command = Command.from_config({"command": "TEST"})
@@ -30,7 +30,7 @@ class TestFormatJson(unittest.TestCase):
         """ test json format with extra_info requested """
         expected = ['{"data_name": "test_energy_total", "data_value": 238, "data_unit": "Wh", "icon": "mdi:solar-power", "state_class": "total", "device_class": "energy"}']
         formatter = fmt({'extra_info': True})
-        device_info = DeviceInfo(name="name", device_id="device_id", model="model", manufacturer="manufacturer")
+        device_info = DeviceInfo(name="name", serial_number="serial_number", model="model", manufacturer="manufacturer")
         reading_definition = ReadingDefinition.from_config({"description": "Test Energy Total", "reading_type": ReadingType.WATT_HOURS, "icon": "mdi:solar-power", "device_class": "energy", "state_class": "total"})
         command_definition = CommandDefinition(code="TEST", description="description", help_text="", result_type=ResultType.SINGLE, reading_definitions=[reading_definition])
         command = Command.from_config({"command": "TEST"})
@@ -44,7 +44,7 @@ class TestFormatJson(unittest.TestCase):
         """ test json format with extra_info and include missing requested """
         expected = ['{"data_name": "test_energy_total", "data_value": 238, "data_unit": "Wh", "icon": null, "state_class": "total", "device_class": "energy"}']
         formatter = fmt({'extra_info': True, 'include_missing': True})
-        device_info = DeviceInfo(name="name", device_id="device_id", model="model", manufacturer="manufacturer")
+        device_info = DeviceInfo(name="name", serial_number="serial_number", model="model", manufacturer="manufacturer")
         reading_definition = ReadingDefinition.from_config({"description": "Test Energy Total", "reading_type": ReadingType.WATT_HOURS, "device_class": "energy", "state_class": "total"})
         command_definition = CommandDefinition(code="TEST", description="description", help_text="", result_type=ResultType.SINGLE, reading_definitions=[reading_definition])
         command = Command.from_config({"command": "TEST"})
@@ -61,7 +61,7 @@ class TestFormatJson(unittest.TestCase):
         formatter = fmt({})
         reading_definition = ReadingDefinition.from_config({"description": "Test Energy Total", "reading_type": ReadingType.WATT_HOURS, "icon": "mdi:solar-power", "device_class": "energy", "state-class": "total"})
         reading_definition2 = ReadingDefinition.from_config({"description": "Test Temperature", "reading_type": ReadingType.TEMPERATURE, "response_type": ResponseType.FLOAT, "icon": "mdi:solar-power", "device_class": "energy", "state-class": "total"}, 1)
-        device_info = DeviceInfo(name="name", device_id="device_id", model="model", manufacturer="manufacturer")
+        device_info = DeviceInfo(name="name", serial_number="serial_number", model="model", manufacturer="manufacturer")
         command_definition = CommandDefinition(code="TEST", description="description", help_text="", result_type=ResultType.ORDERED, reading_definitions=[reading_definition, reading_definition2])
         command = Command.from_config({"command": "TEST"})
         command.command_definition = command_definition

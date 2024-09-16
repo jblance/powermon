@@ -130,7 +130,7 @@ class TestProtocolVed(unittest.TestCase):
         expected = ['battery_capacity=120Ah']
         simple_formatter = SimpleFormat({"extra_info": True})
 
-        device_info = DeviceInfo(name="name", device_id="device_id", model="model", manufacturer="manufacturer")
+        device_info = DeviceInfo(name="name", serial_number="serial_number", model="model", manufacturer="manufacturer")
         command = Command.from_config({"command": "battery_capacity"})
         command.command_definition = cd
         ved = VictronEnergyDirect()
@@ -147,7 +147,7 @@ class TestProtocolVed(unittest.TestCase):
         expected = ['Error Count: 1', "Error #0: Response incomplete - missing ':'"]
         simple_formatter = SimpleFormat({"extra_info": True})
 
-        device_info = DeviceInfo(name="name", device_id="device_id", model="model", manufacturer="manufacturer")
+        device_info = DeviceInfo(name="name", serial_number="serial_number", model="model", manufacturer="manufacturer")
         command = Command.from_config({"command": "battery_capacity"})
         command.command_definition = cd
         ved = VictronEnergyDirect()

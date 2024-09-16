@@ -71,7 +71,7 @@ class TestProtocolPi30(unittest.TestCase):
             'battery_max_charging_current=0A',
             'battery_max_discharge_current=30A']
         simple_formatter = SimpleFormat({"extra_info": True})
-        device_info = DeviceInfo(name="name", device_id="device_id", model="model", manufacturer="manufacturer")
+        device_info = DeviceInfo(name="name", serial_number="serial_number", model="model", manufacturer="manufacturer")
         command = Command.from_config({"command": "QBMS"})
         command.command_definition = proto.get_command_definition('QBMS')
         _result = command.build_result(raw_response=b"(0 100 0 0 1 532 532 450 0000 0030\x0e\x5E\n", protocol=proto)
@@ -98,7 +98,7 @@ class TestProtocolPi30(unittest.TestCase):
         """ test result build for QVFW """
         expected = ['main_cpu_firmware_version=00072.70']
         simple_formatter = SimpleFormat({"extra_info": True})
-        device_info = DeviceInfo(name="name", device_id="device_id", model="model", manufacturer="manufacturer")
+        device_info = DeviceInfo(name="name", serial_number="serial_number", model="model", manufacturer="manufacturer")
         command = Command.from_config({"command": "QVFW"})
         command.command_definition = proto.get_command_definition('QVFW')
         _result = command.build_result(raw_response=b"(VERFW:00072.70\x53\xA7\r", protocol=proto)
@@ -111,7 +111,7 @@ class TestProtocolPi30(unittest.TestCase):
         expected = ['Error Count: 1',
             "Error #0: response has invalid CRC - got '\\x53\\xa6', calculated '\\x53\\xa7'"]
         simple_formatter = SimpleFormat({"extra_info": True})
-        device_info = DeviceInfo(name="name", device_id="device_id", model="model", manufacturer="manufacturer")
+        device_info = DeviceInfo(name="name", serial_number="serial_number", model="model", manufacturer="manufacturer")
         command = Command.from_config({"command": "QVFW"})
         command.command_definition = proto.get_command_definition('QVFW')
         _result = command.build_result(raw_response=b"(VERFW:00072.70\x53\xA6\r", protocol=proto)

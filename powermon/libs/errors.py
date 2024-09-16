@@ -8,6 +8,9 @@ class BLEResponseError(Exception):
 class ConfigError(Exception):
     """ Exception for invaild configurations """
 
+class ConfigNeedsUpdatingError(Exception):
+    """ Exception for invalid configurations due to a breaking change """
+
 
 class PowermonProtocolError(Exception):
     """ Exception for errors with protocol definitions """

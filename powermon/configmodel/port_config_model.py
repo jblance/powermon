@@ -3,6 +3,7 @@
 from typing import Literal
 
 from pydantic import Field
+
 from powermon.configmodel import NoExtraBaseModel
 
 
@@ -20,7 +21,6 @@ class SerialPortConfig(NoExtraBaseModel):
     path: str
     baud: None | int = Field(default=None)
     protocol: None | str
-    identifier: None | str = Field(default=None)
 
 
 class UsbPortConfig(NoExtraBaseModel):
@@ -28,7 +28,6 @@ class UsbPortConfig(NoExtraBaseModel):
     type: Literal["usb"]
     path: None | str
     protocol: None | str
-    identifier: None | str = Field(default=None)
 
 
 class TestPortConfig(NoExtraBaseModel):

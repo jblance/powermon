@@ -18,7 +18,7 @@ log = logging.getLogger("USBPort")
 class UsbPortDTO(_AbstractPortDTO):
     """ data transfer model for SerialPort class """
     path: str
-    identifier: None | int | str
+    serial_number: None | int | str
 
 
 class USBPort(AbstractPort):
@@ -27,12 +27,12 @@ class USBPort(AbstractPort):
     def from_config(cls, config=None):
         log.debug("building usb port. config:%s", config)
         path = config.get("path", "/dev/hidraw0")
-        identifier = config.get("identifier")
+        serial_number = config.get("serial_number")
         # get protocol handler, default to PI30 if not supplied
         protocol = get_protocol_definition(protocol=config.get("protocol", "PI30"))
-        return cls(path=path, protocol=protocol, identifier=identifier)
+        return cls(path=path, protocol=protocol, serial_number=serial_number)
 
-    def __init__(self, path, protocol, identifier) -> None:
+    def __init__(self, path, protocol, serial_number) -> None:
         self.port_type = PortType.USB
         super().__init__(protocol=protocol)
 
@@ -51,23 +51,23 @@ class USBPort(AbstractPort):
                 self.path = paths[0]
             case _:
                 # more than one valid path - so we need to determine which to use
-                if identifier is None:
-                    raise ConfigError("To use wildcard paths an identifier must be specified in the config file for the port")
+                if serial_number is None:
+                    raise ConfigError("To use wildcard paths an serial_number must be specified in the config file for the port")
                 # need to build a command
                 command = self.protocol.get_id_command()
                 for _path in paths:
-                    log.debug("Multiple paths - checking path: %s to see if it matches %s", _path, identifier)
+                    log.debug("Multiple paths - checking path: %s to see if it matches %s", _path, serial_number)
                     self.path = _path
                     asyncio.run(self.connect())
                     res = asyncio.run(self.send_and_receive(command=command))
                     if not res.is_valid:
-                        log.info("path: %s does not match for identifier: %s", _path, identifier)
+                        log.info("path: %s does not match for serial_number: %s", _path, serial_number)
                         asyncio.run(self.disconnect())
                         continue
-                    if res.readings[0].data_value == str(identifier):
-                        log.info("SUCCESS: path: %s matches for identifier: %s", _path, identifier)
+                    if res.readings[0].data_value == str(serial_number):
+                        log.info("SUCCESS: path: %s matches for serial_number: %s", _path, serial_number)
                         return
-                raise ConfigError(f"Multiple paths - none of {paths} match {identifier}")
+                raise ConfigError(f"Multiple paths - none of {paths} match {serial_number}")
         # end of multi-path logic
 
     def to_dto(self):

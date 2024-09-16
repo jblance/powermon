@@ -17,7 +17,7 @@ class TestSerialPort(TestCase):
 
     # Given
     def setUp(self):
-        self.port = SerialPort(path='/dev/tty0', baud=None, protocol=PI30MAX(), identifier=None)
+        self.port = SerialPort(path='/dev/tty0', baud=None, protocol=PI30MAX(), serial_number=None)
 
     def test_is_connected_when_port_is_open(self):
         """

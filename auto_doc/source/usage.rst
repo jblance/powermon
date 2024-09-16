@@ -41,7 +41,7 @@ There are 5 sections in the config file:
 
 
 Config Section - device
------------------------
+=======================
 
 .. code-block:: yaml
     :caption: device section example

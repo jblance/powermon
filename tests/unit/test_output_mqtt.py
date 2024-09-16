@@ -12,7 +12,7 @@ from powermon.outputs.mqtt import MQTT
 
 reading_definition = ReadingDefinition.from_config({"index": 0, "description": "test", "reading_type": ReadingType.MESSAGE, "response_type": ResponseType.FLOAT, "icon": "mdi:solar-power"}, 0)
 command_definition = CommandDefinition(code="None", description="unknown command", help_text="", result_type=ResultType.SINGLE, reading_definitions=[reading_definition])
-device_info = DeviceInfo(name="name", device_id="device_id", model="model", manufacturer="manufacturer")
+device_info = DeviceInfo(name="name", serial_number="serial_number", model="model", manufacturer="manufacturer")
 command = Command.from_config({"command": "None"})
 command.command_definition = command_definition
 _result = Result(command=command, raw_response=b"(238800\xcd\xcd\r", responses=b"0.0")

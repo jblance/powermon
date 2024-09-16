@@ -20,7 +20,7 @@ class SerialPortDTO(_AbstractPortDTO):
     """ data transfer model for SerialPort class """
     path: str
     baud: int
-    identifier: None | int | str
+    serial_number: None | int | str
 
 class SerialPort(AbstractPort):
     """ serial port object - normally a usb to serial adapter """
@@ -33,19 +33,19 @@ class SerialPort(AbstractPort):
         log.debug("building serial port. config:%s", config)
         path = config.get("path", "/dev/ttyUSB0")
         baud = config.get("baud", 2400)
-        identifier = config.get("identifier")
+        serial_number = config.get("serial_number")
         # get protocol handler, default to PI30 if not supplied
         protocol = get_protocol_definition(protocol=config.get("protocol", "PI30"))
-        return cls(path=path, baud=baud, protocol=protocol, identifier=identifier)
+        return cls(path=path, baud=baud, protocol=protocol, serial_number=serial_number)
 
-    def __init__(self, path, baud, protocol, identifier) -> None:
+    def __init__(self, path, baud, protocol, serial_number) -> None:
         self.port_type = PortType.SERIAL
         super().__init__(protocol=protocol)
 
         self.path = None
         self.baud = baud
         self.serial_port = None
-        # self.identifier = identifier
+        # self.serial_number = serial_number
         # using glob to determine path(s)
         paths = glob(path)
         path_count = len(paths)
@@ -58,23 +58,23 @@ class SerialPort(AbstractPort):
                 self.path = paths[0]
             case _:
                 # more than one valid path - so we need to determine which to use
-                if identifier is None:
-                    raise ConfigError("To use wildcard paths an identifier must be specified in the config file for the port")
+                if serial_number is None:
+                    raise ConfigError("To use wildcard paths an serial_number must be specified in the config file for the port")
                 # need to build a command
                 command = self.protocol.get_id_command()
                 for _path in paths:
-                    log.debug("Multiple paths - checking path: %s to see if it matches %s", _path, identifier)
+                    log.debug("Multiple paths - checking path: %s to see if it matches %s", _path, serial_number)
                     self.path = _path
                     asyncio.run(self.connect())
                     res = asyncio.run(self.send_and_receive(command=command))
                     if not res.is_valid:
-                        log.debug("path: %s does not match for identifier: %s", _path, identifier)
+                        log.debug("path: %s does not match for serial_number: %s", _path, serial_number)
                         asyncio.run(self.disconnect())
                         continue
-                    if res.readings[0].data_value == identifier:
-                        log.info("SUCCESS: path: %s matches for identifier: %s", _path, identifier)
+                    if res.readings[0].data_value == serial_number:
+                        log.info("SUCCESS: path: %s matches for serial_number: %s", _path, serial_number)
                         return
-                raise ConfigError(f"Multiple paths - none of {paths} match {identifier}")
+                raise ConfigError(f"Multiple paths - none of {paths} match {serial_number}")
         # end of multi-path logic
 
     def to_dto(self) -> _AbstractPortDTO:
