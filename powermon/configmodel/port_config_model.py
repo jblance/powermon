@@ -2,7 +2,7 @@
 """
 from typing import Literal
 
-from pydantic import BaseModel, Field
+from pydantic import Field
 from powermon.configmodel import NoExtraBaseModel
 
 
