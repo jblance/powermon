@@ -543,6 +543,7 @@ QUERY_COMMANDS = {
     },
     "QID": {
         "name": "QID",
+        "aliases": ["get_id"],
         "description": "Device Serial Number inquiry",
         "help": " -- queries the device serial number",
         "result_type": ResultType.SINGLE,

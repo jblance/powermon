@@ -23,8 +23,9 @@ class CommandDefinitionDTO(BaseModel):
     construct_txt: None | str
     construct_min_response: None | int
     reading_definitions: list
-    test_responses : list[bytes] | None
-    regex : str | None
+    test_responses: list[bytes] | None
+    regex: str | None
+    aliases: str | None
 
 
 class CommandDefinition:
@@ -51,6 +52,7 @@ class CommandDefinition:
         self.reading_definitions: dict[int | str, ReadingDefinition] = reading_definitions
         self.test_responses: list[bytes] = test_responses
         self.regex: str | None = regex
+        self.aliases: str = None
         self.command_type = None
         self.command_code: str = None
         self.command_data: str = None
@@ -64,6 +66,7 @@ class CommandDefinition:
             description=self.description,
             help_text=self.help_text,
             result_type=str(self.result_type),
+            aliases=self.aliases,
             command_type=self.command_type,
             command_code=self.command_code,
             command_data=self.command_data,
@@ -108,6 +111,7 @@ class CommandDefinition:
             reading_definitions=reading_definitions, test_responses=test_responses,
             regex=regex
         )
+        _command_definition.aliases = protocol_dictionary.get("aliases")
         _command_definition.command_type = protocol_dictionary.get("command_type")
         _command_definition.command_code = protocol_dictionary.get("command_code")
         _command_definition.command_data = protocol_dictionary.get("command_data")
@@ -117,9 +121,11 @@ class CommandDefinition:
 
     def is_command_code_valid(self, command_code : str) -> bool:
         """ determines if a command code is valid """
-        if self.regex is None:
-            return self.code == command_code
-        return re.match(self.regex, command_code) is not None
+        if self.regex is not None:
+            return re.match(self.regex, command_code) is not None
+        if self.aliases is not None and command_code in self.aliases:
+            return True
+        return self.code == command_code
 
     def get_reading_definition(self, lookup=None, position=0) -> ReadingDefinition:
         """ return the reading definition that corresponds to lookup """

@@ -99,8 +99,10 @@ class AbstractProtocol(metaclass=abc.ABCMeta):
             # log.debug(command_definition)
             return command_definition
 
-        # Try the regex commands
+        # Try the aliases and regex commands
         for _, command_definition in self.command_definitions.items():
+            if command_definition.aliases is not None and command in command_definition.aliases:
+                return command_definition
             if command_definition.regex is not None:
                 # log.debug("Regex commands _command: %s", command_code)
                 _re = re.compile(command_definition.regex)
