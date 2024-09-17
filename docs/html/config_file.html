@@ -103,6 +103,8 @@
                 
                   <li class="toctree-l2"><a href="#config-section-device" class="reference internal">Config Section - device</a></li>
                 
+                  <li class="toctree-l2"><a href="#config-section-commands" class="reference internal">Config Section - commands</a></li>
+                
               </ul>
             
           </li>
@@ -168,26 +170,30 @@
             
   <section id="config-file-syntax">
 <h1>Config File Syntax<a class="headerlink" href="#config-file-syntax" title="Link to this heading">¶</a></h1>
-<p>There are 5 sections in the config file:</p>
+<p>There are 7 sections in the config file:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">device</span></code> [required]</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">commands</span></code> [required]</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">mqttbroker</span></code> [optional]</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">api</span></code> [optional]</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">daemon</span></code> [optional]</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">debuglevel</span></code> [optional]</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">loop</span></code> [optional]</p></li>
 </ul>
 </section>
 <section id="config-section-device">
 <h1>Config Section - device<a class="headerlink" href="#config-section-device" title="Link to this heading">¶</a></h1>
+<p>The device section has some optional details about the device (though these details are used by some of the output formats)</p>
+<p>The port section is required, with at least the <code class="docutils literal notranslate"><span class="pre">type</span></code> defined</p>
 <div class="literal-block-wrapper docutils container" id="id1">
 <div class="code-block-caption"><span class="caption-text">device section example</span><a class="headerlink" href="#id1" title="Link to this code">¶</a></div>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">device</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">My Inverter</span><span class="w">       </span><span class="c1"># user name for physical device</span>
-<span class="w">    </span><span class="nt">serial_number</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1234589</span><span class="w">  </span><span class="c1"># serial number of physical device</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">My Inverter</span><span class="w">       </span><span class="c1"># [optional] user name for physical device</span>
+<span class="w">    </span><span class="nt">serial_number</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1234589</span><span class="w">  </span><span class="c1"># [optional] serial number of physical device</span>
 <span class="w">                            </span><span class="c1"># must be what is returned by get_id command</span>
 <span class="w">                            </span><span class="c1"># if port path is a wildcard</span>
-<span class="w">    </span><span class="nt">model</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1012LV-MK</span><span class="w">        </span><span class="c1">#</span>
-<span class="w">    </span><span class="nt">manufacturer</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">MPP-Solar</span><span class="w"> </span><span class="c1">#</span>
+<span class="w">    </span><span class="nt">model</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1012LV-MK</span><span class="w">        </span><span class="c1"># [optional]</span>
+<span class="w">    </span><span class="nt">manufacturer</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">MPP-Solar</span><span class="w"> </span><span class="c1"># [optional]</span>
 <span class="w">    </span><span class="nt">port</span><span class="p">:</span>
 <span class="w">        </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">test</span><span class="w">          </span><span class="c1"># must be one of test, usb, serial, ble</span>
 <span class="w">        </span><span class="nt">protocol</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">PI30</span><span class="w">      </span><span class="c1"># [defaults to PI30] the protocol must be defined for any type of port</span>
@@ -196,6 +202,7 @@
 </pre></div>
 </div>
 </div>
+<p>The port section is required and must be one of <code class="docutils literal notranslate"><span class="pre">test</span></code>, <code class="docutils literal notranslate"><span class="pre">usb</span></code>, <code class="docutils literal notranslate"><span class="pre">serial</span></code>, <code class="docutils literal notranslate"><span class="pre">ble</span></code>, each of which has different config items/requirements</p>
 <div class="literal-block-wrapper docutils container" id="id2">
 <div class="code-block-caption"><span class="caption-text">port - test</span><a class="headerlink" href="#id2" title="Link to this code">¶</a></div>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">port</span><span class="p">:</span>
@@ -237,6 +244,23 @@
 <span class="w">    </span><span class="nt">protocol</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">PI30</span>
 <span class="w">    </span><span class="nt">mac</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">00:00:00:00:00</span><span class="w">  </span><span class="c1"># mac address of ble device</span>
 <span class="w">    </span><span class="nt">victron_key</span><span class="p">:</span><span class="w"> </span><span class="kt">!ENV</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${VICTRON_KEY}</span><span class="w">  </span><span class="c1"># [optional] required for victron devices - see XXXX document</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="config-section-commands">
+<h1>Config Section - commands<a class="headerlink" href="#config-section-commands" title="Link to this heading">¶</a></h1>
+<p>This section details the commands to be run against the device</p>
+<div class="literal-block-wrapper docutils container" id="id6">
+<div class="code-block-caption"><span class="caption-text">commands section example</span><a class="headerlink" href="#id6" title="Link to this code">¶</a></div>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">commands</span><span class="p">:</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">QPIGS</span>
+<span class="w">  </span><span class="nt">outputs</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">screen</span>
+<span class="w">    </span><span class="nt">format</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">table</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">screen</span>
+<span class="w">    </span><span class="nt">format</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">table</span>
 </pre></div>
 </div>
 </div>

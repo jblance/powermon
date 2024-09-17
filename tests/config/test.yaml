@@ -8,21 +8,21 @@ device:
     type: test
     # identifier: A123456789
     # response_number: 3
-    protocol: jkserial
+    # protocol: jkserial
 
 commands:
-- command: all_data
+- command: get_id
   outputs:
-  # - type: screen
-  #   format: table
+  - type: screen
+    format: table
   - type: screen
     format:
       type: table
-      protocol: pi30
-      force_charge: False
-      battery_charge_voltage: 54.4
-      battery_float_voltage: 52
-      battery_cutoff_voltage: 48
-      battery_max_charge_current: 100
-      battery_max_discharge_current: 100
+      # protocol: pi30
+      # force_charge: False
+      # battery_charge_voltage: 54.4
+      # battery_float_voltage: 52
+      # battery_cutoff_voltage: 48
+      # battery_max_charge_current: 100
+      # battery_max_discharge_current: 100
 loop: once
