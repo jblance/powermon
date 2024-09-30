@@ -1,7 +1,7 @@
 import asyncio
 from enum import Enum
 import sys
-from bleak import BleakClient, BleakScanner
+from bleak import BleakScanner
 from construct import FixedSized, GreedyBytes, Int8sl, Int16ul, Struct, Int24sl
 from Crypto.Cipher import AES
 from Crypto.Util import Counter
@@ -102,9 +102,9 @@ async def main():
     #     print('reading soc')
     #     char = await client.read_gatt_char('65970fff-4bda-4c1e-af4b-551c4cf74769')
     #     print(f"{char=}")
-    stop_event = asyncio.Event()
+    # stop_event = asyncio.Event()
 
-    # TODO: add something that calls stop_event.set()
+    # to do: add something that calls stop_event.set()
 
     def callback(device, advertising_data):
         if device.address == address:
@@ -115,8 +115,8 @@ async def main():
         else:
             print(f"callback: {device}, ad:{advertising_data}")
 
-    async with BleakScanner(callback) as scanner:
-    #async with BleakScanner() as scanner:
+    #async with BleakScanner(callback) as scanner:
+    async with BleakScanner(callback):
         #await scanner.find_device_by_address(address)
         #print(scanner)
 
