@@ -118,3 +118,10 @@ class TestProtocolPi30(unittest.TestCase):
         formatted_data = simple_formatter.format(command, _result, device_info)
         # print(formatted_data)
         self.assertEqual(formatted_data, expected)
+
+    def test_get_id(self):
+        """ test get id command - should return QID """
+        expected = "QID"
+        res = proto.get_command_definition("get_id")
+        # print(res.code)
+        self.assertEqual(res.code, expected)
