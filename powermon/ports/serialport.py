@@ -67,9 +67,10 @@ class SerialPort(AbstractPort):
                     self.path = _path
                     asyncio.run(self.connect())
                     res = asyncio.run(self.send_and_receive(command=command))
+                    asyncio.run(self.disconnect())
                     if not res.is_valid:
                         log.debug("path: %s does not match for serial_number: %s", _path, serial_number)
-                        asyncio.run(self.disconnect())
+                        # asyncio.run(self.disconnect())
                         continue
                     if res.readings[0].data_value == serial_number:
                         log.info("SUCCESS: path: %s matches for serial_number: %s", _path, serial_number)

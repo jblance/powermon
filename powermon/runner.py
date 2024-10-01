@@ -25,14 +25,19 @@ log = logging.getLogger("")
 FORMAT = "%(asctime)-15s:%(levelname)s:%(module)s:%(funcName)s@%(lineno)d: %(message)s"
 logging.basicConfig(format=FORMAT)
 
-ASYNC_LOOP = None
+# ASYNC_LOOP = None
 
 
 def _run_async(coroutine):
-    global ASYNC_LOOP  # pylint: disable=W0603
-    if ASYNC_LOOP is None:
-        ASYNC_LOOP = asyncio.get_event_loop()
-    return ASYNC_LOOP.run_until_complete(coroutine)
+    # global ASYNC_LOOP  # pylint: disable=W0603
+    # if ASYNC_LOOP is None:
+    async_loop = asyncio.get_event_loop()
+    try:
+        async_loop = asyncio.get_running_loop()
+    except RuntimeError:
+        async_loop = asyncio.new_event_loop()
+    asyncio.set_event_loop(async_loop)
+    return async_loop.run_until_complete(coroutine)
 
 
 def _read_yaml_file(yaml_file=None):
