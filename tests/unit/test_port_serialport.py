@@ -4,6 +4,7 @@ from unittest import TestCase
 from unittest.mock import Mock, patch
 
 from powermon.commands.command import Command
+from powermon.libs.errors import ConfigError
 from powermon.ports.serialport import SerialPort
 from powermon.protocols.pi30max import PI30MAX
 
@@ -19,12 +20,24 @@ class TestSerialPort(TestCase):
     def setUp(self):
         self.port = SerialPort(path='/dev/tty0', baud=None, protocol=PI30MAX(), serial_number=None)
 
+    def test_multi_paths_without_serial(self):
+        """ test serialport with glob path raises exception if serial number not defined """
+        # _port = SerialPort(path='/dev/tty[0,1]', baud=None, protocol=PI30MAX(), serial_number=None)
+        self.assertRaises(ConfigError, SerialPort, path='/dev/tty[0,1]', baud=None, protocol=PI30MAX(), serial_number=None)
+        # print(_port)
+
+    # def test_multi_paths(self):
+    #     """ test serialport with glob path """
+    #     _port = SerialPort(path='/dev/tty[0,1]', baud=None, protocol=PI30MAX(), serial_number='1234')
+    #     print(_port)
+    #     self.assertFalse(True)
+
     def test_is_connected_when_port_is_open(self):
         """
         Test if is_connected() method return True if serial_port is not None and is_open is True
         """
         # When: serial_port.is_open == True
-        with patch.object(self.port, 'serial_port', Mock(is_open=True)):
+        with patch.object(self.port, 'serial_port', Mock(is_open=True), 'serial_port.send_and_receive', Mock(return_value='2')):
             # Then: is_connected() == True
             self.assertTrue(self.port.is_connected())
 

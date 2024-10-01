@@ -29,7 +29,7 @@ ASYNC_LOOP = None
 
 
 def _run_async(coroutine):
-    global ASYNC_LOOP
+    global ASYNC_LOOP  # pylint: disable=W0603
     if ASYNC_LOOP is None:
         ASYNC_LOOP = asyncio.get_event_loop()
     return ASYNC_LOOP.run_until_complete(coroutine)
