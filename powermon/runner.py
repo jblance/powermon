@@ -29,9 +29,6 @@ logging.basicConfig(format=FORMAT)
 
 
 def _run_async(coroutine):
-    # global ASYNC_LOOP  # pylint: disable=W0603
-    # if ASYNC_LOOP is None:
-    async_loop = asyncio.get_event_loop()
     try:
         async_loop = asyncio.get_running_loop()
     except RuntimeError:
