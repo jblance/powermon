@@ -14,8 +14,9 @@ def main():
 
     parser.add_argument("-v", "--version", action="store_true", help="Display the version")
     parser.add_argument("--bleScan", action="store_true", help="Scan for BLE devices")
+    parser.add_argument("--details", action="store_true", help="Show extra BLE device data")
     parser.add_argument("--advData", action="store_true", help="Include advertisement data in BLE Scan")
-    parser.add_argument("--getChars", action="store_true", help="COnnect to BLE device(s) and list characteristics")
+    parser.add_argument("--getChars", action="store_true", help="Connect to BLE device(s) and list characteristics")
     parser.add_argument("--address", type=str, default=None, help="Only scan for supplied mac address")
 
     args = parser.parse_args()
@@ -31,6 +32,9 @@ def main():
 
         async def print_bledevice(bledevice, advertisementdata=None, address=None, getChars=False):
             if (address is not None and bledevice.address != address.upper()):
+                return
+            if not args.details:
+                print(f"Name: {bledevice.name}\tAddress: {bledevice.address}")
                 return
             print("Name:", bledevice.name)
             print("Address:", bledevice.address)

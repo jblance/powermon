@@ -25,8 +25,6 @@ log = logging.getLogger("")
 FORMAT = "%(asctime)-15s:%(levelname)s:%(module)s:%(funcName)s@%(lineno)d: %(message)s"
 logging.basicConfig(format=FORMAT)
 
-# ASYNC_LOOP = None
-
 
 def _run_async(coroutine):
     try:
