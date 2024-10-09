@@ -401,11 +401,12 @@ class Neey(AbstractProtocol):
         if command_definition is None:
             return None
 
+        data_length = cs.Int16ul.build(20)
+
         # fix a 'bug' that seems to be implemented on the device?
         if command_definition.code == "cell_info":
             data_length = cs.Int16ub.build(20)
-        else:
-            data_length = cs.Int16ul.build(20)
+            
         command_bytes = cs.Int16ul.build(int(command_definition.command_code))
         function = 0x01
         if command_definition.result_type == ResultType.ACK:
