@@ -161,7 +161,13 @@ def main():
         # abort if no running mqttbroker
         # QUESTION: should this do a direct command, ie process config file except commands?
         if device.mqtt_broker.disabled or not device.mqtt_broker.is_connected:
-            print("MQTT Broker must be defined, enabled and connected for adhoc commands\n - this is needed to connect to running instance of powermon\n - no running instance?, just put the command in the yaml file")
+            # print("MQTT Broker must be defined, enabled and connected for adhoc commands\n - this is needed to connect to running instance of powermon\n - no running instance?, just put the command in the yaml file")
+            print("Running adhoc command to non-connected device")
+            adhoc_command_config = {"command": args.adhoc}
+            device.add_command(Command.from_config(adhoc_command_config))
+            _run_async(device.initialize())
+            _run_async(device.run(True))
+            _run_async(device.finalize())
             return
         # post adhoc command to mqtt
         device.mqtt_broker.post_adhoc_command(command_code=args.adhoc)
