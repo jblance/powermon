@@ -7,7 +7,7 @@ device:
   port:
     type: test
     protocol: DALY
-    response_number: 2
+    response_number: 3
 
 commands:
 - command: cell_voltages
