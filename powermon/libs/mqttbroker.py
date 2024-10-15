@@ -146,6 +146,10 @@ class MqttBroker:
         else:
             log.warning("Did not subscribe to topic: %s as not connected to broker", topic)
 
+    def post_adhoc_command(self, command_code):
+        """ shortcut function to publish an adhoc command """
+        self.publish(topic=self.adhoc_topic, payload=command_code)
+
     def publish(self, topic: str = None, payload: str = None):
         """ function to publish messages to mqtt broker """
         if self.disabled:

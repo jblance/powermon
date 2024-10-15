@@ -15,4 +15,13 @@ commands:
     format: 
       type: table
       draw_lines: True
+
+mqttbroker:
+  name: localhost
+  port: 1883
+  username: null
+  password: null
+  adhoc_topic: powermon/adhoc_commands
+  adhoc_result_topic: powermon/adhoc_results
+  
 loop: once

@@ -154,6 +154,21 @@ def main():
     device = Device.from_config(config=config.get("device"))
     device.mqtt_broker = mqtt_broker
     log.debug(device)
+
+    # process adhoc command line command
+    if args.adhoc:
+        print("Received an adhoc command")
+        # abort if no running mqttbroker
+        # QUESTION: should this do a direct command, ie process config file except commands?
+        if device.mqtt_broker.disabled or not device.mqtt_broker.is_connected:
+            print("MQTT Broker must be defined, enabled and connected for adhoc commands\n - this is needed to connect to running instance of powermon\n - no running instance?, just put the command in the yaml file")
+            return
+        # post adhoc command to mqtt
+        device.mqtt_broker.post_adhoc_command(command_code=args.adhoc)
+        # _command = Command.from_code(args.adhoc)
+        # _command.command_definition = device.port.protocol.get_command_definition(args.adhoc)
+        # print(_command)
+        return
     # add commands to device command list
     for command_config in config.get("commands"):
         log.info("Adding command, config: %s", command_config)
