@@ -64,11 +64,11 @@ class TestPort(AbstractPort):
             # Have test data defined, so use that
             number_of_test_responses = len(command_defn.test_responses)
             if self.response_number is not None and self.response_number < number_of_test_responses:
-                log.info('Selected response number %s', self.response_number)
                 self._test_data = command_defn.test_responses[self.response_number]
+                log.info('Selected response number %s:, %s', self.response_number, self._test_data)
             else:
-                log.info('Applying random response')
                 self._test_data = command_defn.test_responses[random.randrange(number_of_test_responses)]
+                log.info('Applying random response: %s', self._test_data)
         else:
             # No test responses defined
             raise ValueError(f"Testing a command '{command.code}' with no test responses defined")

@@ -1,9 +1,8 @@
 """ commands / command.py """
 import logging
-from datetime import (date, datetime,  # pylint: disable=W0611 # noqa: 401
-                      timedelta)
 from enum import Enum
 
+from dateparser import parse as dateparse  # pylint: disable=W0611 # noqa: 401
 from pydantic import BaseModel
 
 from powermon.commands.command_definition import CommandDefinition
