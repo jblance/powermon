@@ -260,6 +260,7 @@ COMMANDS = {
         "test_responses": [
             b"\xa5\x01\x95\x08\x01\x0c\xfc\r\x10\r\x0f\x89\x0e\xa5\x01\x95\x08\x02\r3\x0c\xb7\r8\x89\x16\xa5\x01\x95\x08\x03\r\x10\r\x0f\r\x0e\x89#\xa5\x01\x95\x08\x04\r\x10\r\x10\r\x10\x89\'\xa5\x01\x95\x08\x05\r\x10\r\x0f\r\x10\x89\'\xa5\x01\x95\x08\x06\r\x0c\x00\x00\x00\x00\x89\xeb\xa5\x01\x95\x08\x07\x00\x00\x00\x00\x00\x00\x89\xd3\xa5\x01\x95\x08\x08\x00\x00\x00\x00\x00\x00\x89\xd4\xa5\x01\x95\x08\t\x00\x00\x00\x00\x00\x00\x89\xd5\xa5\x01\x95\x08\n\x00\x00\x00\x00\x00\x00\x89\xd6\xa5\x01\x95\x08\x0b\x00\x00\x00\x00\x00\x00\x89\xd7\xa5\xa8\x00@\x00\x00 @\x00\r0\x00\x00\x00 @\x00\x87K\x00\x00m2\x00\x00\x00 @\x00S1\x00\x00\x00\x00\x00\x00\xa8\x00\xa5\x01\x95\x08\x0f\x00\x00\x00\x00\x00\x00\x89\xdb\xa5\x01\x95\x08\x10\x00\x00\x00\x00\x00\x00\x89\xdc",
             b'\xa5\x01\x95\x08\x01\rU\rD\rN\x89\xdb\xa5\x01\x95\x08\x02\ra\r\\\rL\x89\xfe\xa5\x01\x95\x08\x03\rJ\rV\rT\x89\xea\xa5\x01\x95\x08\x04\rY\r^\rb\x89\x10\xa5\x01\x95\x08\x05\rR\r^\rX\x89\x00\xa5\x01\x95\x08\x06\rK\x00\x00\x00\x00\x89*\xa5\x01\x95\x08\x07\x00\x00\x00\x00\x00\x00\x89\xd3\xa5\x01\x95\x08\x08\x00\x00\x00\x00\x00\xa5\x01\x95\x08\t\x00\x00\x00\x00\x00\x00\x89\xd5\xa5\x01\x95\x08\n\x00\x00\x00\x00\x00\x00\x89\xd6\xa5\x01\x95\x08\x0b\x00\x00\x00\x00\x00\x00\x89\xd7\xa5\x01\x95\x08\xa8\x00@\x00\x00 @\x00\r0\x00\x00\x00 @\x00\xf3Z\x00\x00m2\x00\x00\x00 @\x00S1\x00\x00\x00\x00\x00\xa5\x01\x95\x08\x0f\x00\x00\x00\x00\x00\x00\x89\xdb\xa5\x01\x95\x08\x10\x00\x00\x00\x00\x00\x00\x89\xdc',
+            b'\xd4\x0c\xd3\x0c\xd4\x82g\xa5\x01\x95\x08\x04\x0c\xd3\x0c\xd4\x0c\xd3\x82g\xa5\x01\x95\x08\x05\x0c\xd4\x0c\xd3\x0c\xd4\x82i\xa5\x01\x95\x08\x06\x0c\xd2\x0c\xd3\x0c\xd4\x82h\xa5\x01\x95\x08\x01\x0c\xd5\x0c\xd4\x0c\xd3\x82f\xa5\x01\x95\x08\x02\x0c\xd4\x0c\xd3\x0c\xd4\x82f\xa5\x01\x95\x08\x03\x0c\xd3\x0c\xd4\x0c\xd3\x82f\xa5\x01\x95\x08\x04\x0c\xd4\x0c\xd3\x0c\xd4\x82h\xa5\x01\x95\x08\x05\x0c\xd3\x0c\xd4\x0c\xd3\x82h\xa5\x01\x95\x08\x06\x0c\xd2\x0c\xd4\x0c\xd3\x82h\xa5\x01\x93\x08\x02\x01\x01\x1f\x00\x01\xa60;\xa5\x01\x96\x08\x017\x00\x00\x00\x00\x000\xac\xa5\x01\x94\x08\x10\x01\x00\x00\x00\x00\x0fT\xb6',
         ],
     },
 }
@@ -341,11 +342,11 @@ class Daly(AbstractProtocol):
             raise InvalidResponse("Response is None")
         if len(response) <= 6:
             raise InvalidResponse("Response is too short")
-        if response[0] != 0xa5:
-            raise InvalidResponse("Response has incorrect start byte")
         if response.count(b'\xa5') > 1:
             # multiframe response - length calc incorrect
             return True
+        if response[0] != 0xa5:
+            raise InvalidResponse("Response has incorrect start byte")
         if int(response[3]) != len(response[4:-1]):
             raise InvalidResponse("Response length does not match expected")
         return True
@@ -354,7 +355,7 @@ class Daly(AbstractProtocol):
         """ crc check, needs override in protocol """
         log.debug("checking crc for %s", response)
         if response.count(b'\xa5') > 1:
-            # multiframe response - crch calc incorrect
+            # multiframe response - crc calc incorrect
             return True
         calc_crc = sum(response[:-1]) & 0xFF
         response_crc = response[-1]
@@ -367,6 +368,9 @@ class Daly(AbstractProtocol):
     def trim_response(self, response: str, command_definition: CommandDefinition = None) -> str:
         """ Remove extra characters from response """
         log.debug("response: %s", response)
+        # remove any extra bytes at start - only for cell_voltages
+        if command_definition.code == 'cell_voltages' and response[0] != 0xa5:
+            response = response[response.find(0xa5):]
         return response
 
     def split_response(self, response: str, command_definition: CommandDefinition = None) -> list:
@@ -382,29 +386,56 @@ class Daly(AbstractProtocol):
             raise CommandDefinitionIncorrect("No construct_min_response found in command_definition")
         if len(response) < command_definition.construct_min_response:
             raise InvalidResponse(f"response:{response}, len:{len(response)} too short for parsing (expecting {command_definition.construct_min_response:})")
-        # parse with construct
-        result = command_definition.construct.parse(response)
-        # print(result)
-        if result is None:
-            log.debug("construct parsing returned None")
-            return responses
-        if 'cell_voltages' in result:
+        # parse response
+        if command_definition.code == 'cell_voltages':
+            # cell voltages have multiple frames - but sometimes not all of them
             # multiframe 'cell_voltages' struct to decode
             log.debug('daly multiframe decode')
-            # loop through all the containers
-            for frame in result.cell_voltages:
-                # ignore incorrect frames
-                if frame.command_id != b'\x95':
+            chunks = response.split(b'\xa5\x01')
+            # remove the blank 'first result'
+            chunks.pop(0)
+
+            for chunk in chunks:
+                # re-add inital bytes
+                chunk = b'\xa5\x01' + chunk
+                calc_crc = sum(chunk[:-1]) & 0xFF
+                # ignore chunks with incorrect crc
+                if calc_crc != chunk[-1]:
                     continue
-                # print(frame)
-                frame_no = frame.frame_number - 1
-                for i in (0,1,2):
-                    cell_no = frame_no * 3 + i + 1  # using 1 as 'first' cell
-                    voltage = frame.cell_voltage_array[i]
-                    if voltage:
-                        responses.append((f"cell_{cell_no:02d}_voltage", voltage))
-                        # print(f"cell_{cell_no:02d}_voltage", voltage)
+                # ignore chunks with incorrect command code
+                if chunk[2] != 0x95:
+                    continue
+                frame_number = chunk[4]
+                cell_voltages = cs.Int16ub.parse(chunk[5:7]), cs.Int16ub.parse(chunk[7:9]), cs.Int16ub.parse(chunk[9:11])
+                cell_number_offset = (frame_number - 1) * 3
+                for i, cell_voltage in enumerate(cell_voltages):
+                    if cell_voltage <= 0:
+                        continue
+                    # print(f'cell: {cell_number_offset + i + 1}, voltage: {cell_voltage}')
+                    responses.append((f"cell_{cell_number_offset + i + 1:02d}_voltage", cell_voltage))
+
+
+            # loop through all the containers
+
+            # for frame in result.cell_voltages:
+            #     # ignore incorrect frames
+            #     if frame.command_id != b'\x95':
+            #         continue
+            #     # print(frame)
+            #     frame_no = frame.frame_number - 1
+            #     for i in (0,1,2):
+            #         cell_no = frame_no * 3 + i + 1  # using 1 as 'first' cell
+            #         voltage = frame.cell_voltage_array[i]
+            #         if voltage:
+            #             responses.append((f"cell_{cell_no:02d}_voltage", voltage))
+            #             # print(f"cell_{cell_no:02d}_voltage", voltage)
         else:
+            # parse with construct
+            result = command_definition.construct.parse(response)
+            # print(result)
+            if result is None:
+                log.debug("construct parsing returned None")
+                return responses
             for x in result:
                 match type(result[x]):
                     # case cs.ListContainer:
