@@ -118,7 +118,7 @@ class Result:
                 readings = self.readings_from_response(responses, reading_definition)
                 # check if readings are not none
                 if readings is not None:
-                   all_readings.extend(readings)
+                    all_readings.extend(readings)
             case ResultType.ORDERED | ResultType.SLICED | ResultType.COMMA_DELIMITED:
                 # Have a list of reading_definitions and a list of responses that correspond to each other
                 # possibly additional INFO definitions (at end of definition list??)
