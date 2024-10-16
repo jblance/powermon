@@ -383,11 +383,16 @@ class Daly(AbstractProtocol):
                 calc_crc = sum(chunk[:-1]) & 0xFF
                 # ignore chunks with incorrect crc
                 if calc_crc != chunk[-1]:
+                    log.debug("chuck has incorrect crc: %s", chunk)
                     continue
                 # ignore chunks with incorrect command code
                 if chunk[2] != 0x95:
+                    log.debug("chuck has incorrect command code: %s", chunk)
                     continue
                 frame_number = chunk[4]
+                if frame_number > 14:
+                    log.debug("chuck frame number exceeds 14: %s", chunk)
+                    continue
                 cell_voltages = cs.Int16ub.parse(chunk[5:7]), cs.Int16ub.parse(chunk[7:9]), cs.Int16ub.parse(chunk[9:11])
                 cell_number_offset = (frame_number - 1) * 3
                 for i, cell_voltage in enumerate(cell_voltages):
