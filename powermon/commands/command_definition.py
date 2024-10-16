@@ -137,7 +137,7 @@ class CommandDefinition:
                 result = self.reading_definitions[0]
             case ResultType.ORDERED | ResultType.SLICED | ResultType.COMMA_DELIMITED:
                 result = self.reading_definitions[position]
-            case ResultType.VED_INDEXED | ResultType.CONSTRUCT:
+            case ResultType.VED_INDEXED | ResultType.CONSTRUCT | ResultType.BYTEARRAY:
                 try:
                     result = self.reading_definitions[lookup]
                 except KeyError:

@@ -67,7 +67,7 @@ class TestCommand(unittest.TestCase):
 
     def test_template_command(self):
         """ test that a correct template 'works' """
-        command_config = {'command': """f'QED{datetime.today().strftime("%Y%m%d")}'""", 'type': 'templated'}
+        command_config = {'command': """f'QED{dateparse("today").strftime("%Y%m%d")}'""", 'type': 'templated'}
         command = Command.from_config(command_config)
         expected_code = f'QED{datetime.today().strftime("%Y%m%d")}'
         # print(expected_code)
@@ -75,7 +75,7 @@ class TestCommand(unittest.TestCase):
 
     def test_template_command_touch(self):
         """ test that the command code is updated for a template after a touch' """
-        command_config = {'command': """f'QED{datetime.today().strftime("%Y%m%S")}'""", 'type': 'templated'}
+        command_config = {'command': """f'QED{dateparse("today").strftime("%Y%m%S")}'""", 'type': 'templated'}
         expected_code = f'QED{datetime.today().strftime("%Y%m%S")}'
         # print(expected_code)
         command = Command.from_config(command_config)

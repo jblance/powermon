@@ -16,6 +16,7 @@ class ResultType(Enum):
     """ enum of valid types of Results """
     ERROR = auto()
     ACK = auto()  # ack / nak type result, normally from a setter command
+    BYTEARRAY = auto() # manually processed bytearray response
     PI18_ACK = auto()  # ack / nak type result, normally from a setter command
     SINGLE = auto()  # single value in result
     ORDERED = auto()  # the order of the values determines what they are
@@ -136,7 +137,7 @@ class Result:
                             # INFO is contained in supplied command eg QEY2023 -> 2023
                             readings = self.readings_from_response(self.command.code, reading_definition)
                             all_readings.extend(readings)
-            case ResultType.VED_INDEXED | ResultType.CONSTRUCT:
+            case ResultType.VED_INDEXED | ResultType.CONSTRUCT | ResultType.BYTEARRAY:
                 # have a list of (index,value) tuples
                 for key, value in responses:
                     reading_definition: ReadingDefinition = self.command.command_definition.get_reading_definition(lookup=key)

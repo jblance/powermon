@@ -90,18 +90,6 @@ status_construct = cs.Struct(
     "checksum" / cs.Bytes(1)
 )
 
-voltage_construct = cs.Struct(
-    "cell_voltages" / cs.Array(14, cs.Struct(
-        "start_flag" / cs.Bytes(1),
-        "module_address" / cs.Bytes(1),
-        "command_id" / cs.Bytes(1),
-        "data_length" / cs.Byte,
-        "frame_number" / cs.Byte,
-        "cell_voltage_array" / cs.Array(3, cs.Int16ub),
-        "reserved" / cs.Bytes(1),
-        "checksum" / cs.Bytes(1),
-    )),
-)
 
 COMMANDS = {
     "SOC": {
@@ -222,8 +210,7 @@ COMMANDS = {
         # "type": "DALY",
         "command_type": CommandType.SERIAL_READ_UNTIL_DONE,
         "command_code": "95",
-        "result_type": ResultType.CONSTRUCT,
-        "construct": voltage_construct,
+        "result_type": ResultType.BYTEARRAY,
         "construct_min_response": 13,
         "reading_definitions": [
             {"index": "cell_01_voltage", "description": "cell_01_voltage", "reading_type": ReadingType.VOLTS, "response_type": ResponseType.TEMPLATE_INT, "format_template": "r/1000"},
@@ -380,13 +367,7 @@ class Daly(AbstractProtocol):
         log.debug("daly splitting %s, result_type %s", response, result_type)
         # build a list of (index, value) tuples, after parsing with a construct
         responses = []
-        # check for construct
-        if command_definition.construct is None:
-            raise CommandDefinitionIncorrect("No construct found in command_definition")
-        if not command_definition.construct_min_response:
-            raise CommandDefinitionIncorrect("No construct_min_response found in command_definition")
-        if len(response) < command_definition.construct_min_response:
-            raise InvalidResponse(f"response:{response}, len:{len(response)} too short for parsing (expecting {command_definition.construct_min_response:})")
+
         # parse response
         if command_definition.code == 'cell_voltages':
             # cell voltages have multiple frames - but sometimes not all of them
@@ -414,23 +395,14 @@ class Daly(AbstractProtocol):
                         continue
                     # print(f'cell: {cell_number_offset + i + 1}, voltage: {cell_voltage}')
                     responses.append((f"cell_{cell_number_offset + i + 1:02d}_voltage", cell_voltage))
-
-
-            # loop through all the containers
-
-            # for frame in result.cell_voltages:
-            #     # ignore incorrect frames
-            #     if frame.command_id != b'\x95':
-            #         continue
-            #     # print(frame)
-            #     frame_no = frame.frame_number - 1
-            #     for i in (0,1,2):
-            #         cell_no = frame_no * 3 + i + 1  # using 1 as 'first' cell
-            #         voltage = frame.cell_voltage_array[i]
-            #         if voltage:
-            #             responses.append((f"cell_{cell_no:02d}_voltage", voltage))
-            #             # print(f"cell_{cell_no:02d}_voltage", voltage)
         else:
+            # check for construct
+            if command_definition.construct is None:
+                raise CommandDefinitionIncorrect("No construct found in command_definition")
+            if not command_definition.construct_min_response:
+                raise CommandDefinitionIncorrect("No construct_min_response found in command_definition")
+            if len(response) < command_definition.construct_min_response:
+                raise InvalidResponse(f"response:{response}, len:{len(response)} too short for parsing (expecting {command_definition.construct_min_response:})")
             # parse with construct
             result = command_definition.construct.parse(response)
             # print(result)
