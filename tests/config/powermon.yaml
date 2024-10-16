@@ -1,6 +1,6 @@
 # yaml config for powermon
 device:
-  id: 123456789
+  serial_number: 123456789
   model: 1012LV-MK
   manufacturer: MPP-Solar
   port:

@@ -3,7 +3,7 @@
 
 device:
   name: Inverter1
-  id: a123456789
+  serial_number: a123456789
   model: HybridV25048
   manufacturer: MPP-Solar
   port:

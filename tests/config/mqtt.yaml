@@ -1,6 +1,7 @@
 # yaml config example with mqtt
 device:
-  id: 123456789
+  name: MQTT_Inverter
+  serial_number: 123456789
   model: 1012LV-MK
   manufacturer: MPP-Solar
   port:
@@ -16,7 +17,7 @@ commands:
   - type: screen
     format: 
       type: table
-      draw_lines: True
+      # draw_lines: True
       extra_info: True
   - type: mqtt
     topic: powermon/serial_number/results
