@@ -55,7 +55,7 @@ dateparser = "^1.2.0"
 [tool.poetry.extras]
 api = ["fastapi", "fastapi-mqtt", "jinja2", "requests", "sqlalchemy", "uvicorn"]
 ble = ["bleak", "pycryptodome"]
-dev = ["sphinx", "autodocsumm", "sphinx-press-theme"]
+dev = ["sphinx", "autodocsumm", "sphinx-press-theme", "bleak", "pycryptodome"]
 modbus = ["pymodbus"]
 systemd = ["cysystemd"]
 
