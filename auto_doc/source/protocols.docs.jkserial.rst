@@ -36,7 +36,7 @@ Example: ``'NW\x00\x13\x00\x00\x00\x00\x06\x03\x00\x00\x00\x00\x00\x00h\x00\x00\
     2, 2, length, ``0x0013`` all data bytes except the first two characters including the checksum and the length field itself
     3, 4, bms terminal no, ``0x00000000``
     4, 1, command word, ``0x06`` read all the data - see Command Word section5
-    5, 1, frame source, ``0x03`` "0: BMS, 1: Bluetooth, 2: GPS, 3: PC"
+    5, 1, frame source, "``0x03`` 0: BMS, 1: Bluetooth, 2: GPS, 3: PC"
     6, 1, transport type, "``0x00`` 0: request frame, 1: reply frame, 2: BMS active reporting"
     7, n, data, ``0x00`` not used for 'read all data' command
     8, 4, record number, "``0x00000000`` The high 1 byte is the random code meaningless (reserved for encryption), the low 3 bytes is the record sequence number"

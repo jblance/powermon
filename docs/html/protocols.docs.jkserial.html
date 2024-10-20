@@ -189,9 +189,6 @@ dormant, the control terminal will send the activation information, activate the
 <th class="head"><p>length</p></th>
 <th class="head"><p>byte description</p></th>
 <th class="head"><p>description</p></th>
-<th class="head"></th>
-<th class="head"></th>
-<th class="head"></th>
 </tr>
 </thead>
 <tbody>
@@ -199,81 +196,51 @@ dormant, the control terminal will send the activation information, activate the
 <td><p>2</p></td>
 <td><p>start bytes</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">0x4E57</span></code> or <code class="docutils literal notranslate"><span class="pre">NW</span></code></p></td>
-<td></td>
-<td></td>
-<td></td>
 </tr>
 <tr class="row-odd"><td><p>2</p></td>
 <td><p>2</p></td>
 <td><p>length</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">0x0013</span></code> all data bytes except the first two characters including the checksum and the length field itself</p></td>
-<td></td>
-<td></td>
-<td></td>
 </tr>
 <tr class="row-even"><td><p>3</p></td>
 <td><p>4</p></td>
 <td><p>bms terminal no</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">0x00000000</span></code></p></td>
-<td></td>
-<td></td>
-<td></td>
 </tr>
 <tr class="row-odd"><td><p>4</p></td>
 <td><p>1</p></td>
 <td><p>command word</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">0x06</span></code> read all the data - see Command Word section5</p></td>
-<td></td>
-<td></td>
-<td></td>
 </tr>
 <tr class="row-even"><td><p>5</p></td>
 <td><p>1</p></td>
 <td><p>frame source</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">0x03</span></code> “0: BMS</p></td>
-<td><p>1: Bluetooth</p></td>
-<td><p>2: GPS</p></td>
-<td><p>3: PC”</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0x03</span></code> 0: BMS, 1: Bluetooth, 2: GPS, 3: PC</p></td>
 </tr>
 <tr class="row-odd"><td><p>6</p></td>
 <td><p>1</p></td>
 <td><p>transport type</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">0x00</span></code> 0: request frame, 1: reply frame, 2: BMS active reporting</p></td>
-<td></td>
-<td></td>
-<td></td>
 </tr>
 <tr class="row-even"><td><p>7</p></td>
 <td><p>n</p></td>
 <td><p>data</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">0x00</span></code> not used for ‘read all data’ command</p></td>
-<td></td>
-<td></td>
-<td></td>
 </tr>
 <tr class="row-odd"><td><p>8</p></td>
 <td><p>4</p></td>
 <td><p>record number</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">0x00000000</span></code> The high 1 byte is the random code meaningless (reserved for encryption), the low 3 bytes is the record sequence number</p></td>
-<td></td>
-<td></td>
-<td></td>
 </tr>
 <tr class="row-even"><td><p>9</p></td>
 <td><p>1</p></td>
 <td><p>end byte</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">0x68</span></code> or <code class="docutils literal notranslate"><span class="pre">h</span></code></p></td>
-<td></td>
-<td></td>
-<td></td>
 </tr>
 <tr class="row-odd"><td><p>10</p></td>
 <td><p>4</p></td>
 <td><p>checksum</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">0x000001)</span></code> high 2 bytes not yet enabled, low 2 bytes crc cumulative check</p></td>
-<td></td>
-<td></td>
-<td></td>
 </tr>
 </tbody>
 </table>
