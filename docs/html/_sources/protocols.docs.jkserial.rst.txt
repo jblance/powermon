@@ -25,23 +25,24 @@ dormant, the control terminal will send the activation information, activate the
 Frame Structure
 ---------------
 
-Example: 'NW\x00\x13\x00\x00\x00\x00\x06\x03\x00\x00\x00\x00\x00\x00h\x00\x00\x01)'
+Example: ``'NW\x00\x13\x00\x00\x00\x00\x06\x03\x00\x00\x00\x00\x00\x00h\x00\x00\x01)'``
 
-=======  ======  ================  =================================================================================================================
-no       length  byte description  value - description
-=======  ======  ================  =================================================================================================================
-1        2       start bytes       - ``0x4E57`` or ``NW``
-2        2       length            - ``0x0013`` all data bytes except the first two characters including the checksum and the length field itself
-3        4       bms terminal no   - ``0x00000000``
-4        1       command word      - ``0x06`` read all the data - see Command Word section5
-5        1       frame source      - ``0x03`` 0: BMS, 1: Bluetooth, 2: GPS, 3: PC
-6        1       transport type    - ``0x00`` 0: request frame, 1: reply frame, 2: BMS active reporting
-7        n       data              - ``0x00`` not used for 'read all data' command
-8        4       record number     - ``0x00000000`` The high 1 byte is the random code meaningless (reserved for encryption), 
-                                                    the low 3 bytes is the record sequence number
-9        1       end byte          - ``0x68`` or ``h``
-10       4       checksum          - ``0x000001)`` high 2 bytes not yet enabled, low 2 bytes crc cumulative check
-=======  ======  ================  =================================================================================================================
+.. csv-table:: Frame Structure
+   :header: no, length, byte description, description
+   :widths: auto
+   :align: left
+
+    1, 2, start bytes, ``0x4E57`` or ``NW``
+    2, 2, length, ``0x0013`` all data bytes except the first two characters including the checksum and the length field itself
+    3, 4, bms terminal no, ``0x00000000``
+    4, 1, command word, ``0x06`` read all the data - see Command Word section5
+    5, 1, frame source, ``0x03`` "0: BMS, 1: Bluetooth, 2: GPS, 3: PC"
+    6, 1, transport type, "``0x00`` 0: request frame, 1: reply frame, 2: BMS active reporting"
+    7, n, data, ``0x00`` not used for 'read all data' command
+    8, 4, record number, "``0x00000000`` The high 1 byte is the random code meaningless (reserved for encryption), the low 3 bytes is the record sequence number"
+    9, 1, end byte, ``0x68`` or ``h``
+    10, 4, checksum, "``0x000001)`` high 2 bytes not yet enabled, low 2 bytes crc cumulative check"
+
 
 Command Word
 ------------
@@ -75,8 +76,10 @@ sum all data
 
 BMS Data
 ========
-.. csv-table:: Frozen Delights!
+.. csv-table:: BMS Data Definitions
    :header: Use, Code, Name, "Byte Count", Type, Description
    :widths: auto
+   :align: left
 
    R, 0x79, Single Battery Voltage, 3*n, hex, "the first byte is the battery number, the second is data length, then each 3 bytes is battery number, and 2 bytes of voltage in mV"
+
