@@ -28,6 +28,6 @@ Documentation
    usage
    config_file
    docker
-   protocols.docs
+   protocols
    modules
    

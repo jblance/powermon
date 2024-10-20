@@ -1,10 +1,6 @@
-#########
-Protocols
-#########
-
-******
-JK BMS
-******
+###############
+JKBMS Protocols
+###############
 
 .. toctree::
     :maxdepth: 2
