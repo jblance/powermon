@@ -1,13 +1,13 @@
-***************************************************
-JKSERIAL - JK TTL Communications v2.5 - 0x4E57 | NW
-***************************************************
+***********************************************************
+JKSERIAL - JK TTL Communications v2.5 - ``0x4E57`` | ``NW``
+***********************************************************
 
 Document Details
 ----------------
 
 Source: http://www.jk-bms.com/en/Upload/2023-12-05/1702131628.pdf
 
-Implemented in protocol: JKSERIAL
+Implemented in protocol: ``JKSERIAL``
 
 Physical Interface
 -------------------
@@ -86,4 +86,4 @@ BMS Data
    R, ``0x83``, Total battery voltage, 2, "0.01V, eg 3500 * 0.01 = 35.00v The minimum unit is 10 mV"
    
 
-   ...#TODO: finish ...
+...#TODO: finish ...
