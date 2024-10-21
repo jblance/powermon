@@ -62,10 +62,8 @@ As long as 5-Bluetooth,2-GPS,3-PC PC and 4-BMS are initiated first, the reply wi
 crc calc
 -------------
 
-sum all data
-
 .. code-block:: python
-    :caption: crc calc 
+    :caption: crc calc - sum all data
 
     crc = 0
     for b in byte_data:
@@ -77,9 +75,15 @@ sum all data
 BMS Data
 ========
 .. csv-table:: BMS Data Definitions
-   :header: Use, Code, Name, "Byte Count", Type, Description
+   :header: Use, Code, Name, "Byte Count", Description
    :widths: auto
    :align: left
 
-   R, 0x79, Single Battery Voltage, 3*n, hex, "the first byte is the battery number, the second is data length, then each 3 bytes is battery number, and 2 bytes of voltage in mV"
+   R, ``0x79``, Single Battery Voltage, 3*n, "the first byte is the battery number, the second is data length, then each 3 bytes is battery number, and 2 bytes of voltage in mV"
+   R, ``0x80``, Power tube temperature, 2, "0 -- 140 (-40 to 100 °C) parts over 100 are negative temperatures, such as 10, 1 is negative 1 °C (100 Benchmark)"
+   R, ``0x81``, Battery box temperature, 2, "0 -- 140 (-40 to 100 °C) parts over 100 are negative temperatures, such as 10, 1 is negative 1 °C (100 Benchmark)"
+   R, ``0x82``, Battery temperature, 2, "0 -- 140 (-40 to 100 °C) parts over 100 are negative temperatures, such as 10, 1 is negative 1 °C (100 Benchmark)"
+   R, ``0x83``, Total battery voltage, 2, "0.01V, eg 3500 * 0.01 = 35.00v The minimum unit is 10 mV"
+   
 
+   ...#TODO: finish ...

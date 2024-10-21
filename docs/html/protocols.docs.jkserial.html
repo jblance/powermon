@@ -262,9 +262,8 @@ As long as 5-Bluetooth,2-GPS,3-PC PC and 4-BMS are initiated first, the reply wi
 </section>
 <section id="crc-calc">
 <h2>crc calc<a class="headerlink" href="#crc-calc" title="Link to this heading">¶</a></h2>
-<p>sum all data</p>
 <div class="literal-block-wrapper docutils container" id="id2">
-<div class="code-block-caption"><span class="caption-text">crc calc</span><a class="headerlink" href="#id2" title="Link to this code">¶</a></div>
+<div class="code-block-caption"><span class="caption-text">crc calc - sum all data</span><a class="headerlink" href="#id2" title="Link to this code">¶</a></div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">crc</span> <span class="o">=</span> <span class="mi">0</span>
 <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="n">byte_data</span><span class="p">:</span>
     <span class="n">crc</span> <span class="o">+=</span> <span class="n">b</span>
@@ -282,17 +281,57 @@ As long as 5-Bluetooth,2-GPS,3-PC PC and 4-BMS are initiated first, the reply wi
 <th class="head"><p>Code</p></th>
 <th class="head"><p>Name</p></th>
 <th class="head"><p>Byte Count</p></th>
-<th class="head"><p>Type</p></th>
 <th class="head"><p>Description</p></th>
 </tr>
 </thead>
 <tbody>
 <tr class="row-even"><td><p>R</p></td>
-<td><p>0x79</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0x79</span></code></p></td>
 <td><p>Single Battery Voltage</p></td>
 <td><p>3*n</p></td>
-<td><p>hex</p></td>
 <td><p>the first byte is the battery number, the second is data length, then each 3 bytes is battery number, and 2 bytes of voltage in mV</p></td>
+</tr>
+<tr class="row-odd"><td><p>R</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0x80</span></code></p></td>
+<td><p>Power tube temperature</p></td>
+<td><p>2</p></td>
+<td><p>0 – 140 (-40 to 100 °C) parts over 100 are negative temperatures, such as 10, 1 is negative 1 °C (100 Benchmark)</p></td>
+</tr>
+<tr class="row-even"><td><p>R</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0x81</span></code></p></td>
+<td><p>Battery box temperature</p></td>
+<td><p>2</p></td>
+<td><p>0 – 140 (-40 to 100 °C) parts over 100 are negative temperatures, such as 10, 1 is negative 1 °C (100 Benchmark)</p></td>
+</tr>
+<tr class="row-odd"><td><p>R</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0x82</span></code></p></td>
+<td><p>Battery temperature</p></td>
+<td><p>2</p></td>
+<td><p>0 – 140 (-40 to 100 °C) parts over 100 are negative temperatures, such as 10, 1 is negative 1 °C (100 Benchmark)</p></td>
+</tr>
+<tr class="row-even"><td><p>R</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0x83</span></code></p></td>
+<td><p>Total battery voltage</p></td>
+<td><p>2</p></td>
+<td><p>0.01V, eg 3500 * 0.01 = 35.00v The minimum unit is 10 mV</p></td>
+</tr>
+<tr class="row-odd"><td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-even"><td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>…#TODO: finish …</p></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
 </tr>
 </tbody>
 </table>
