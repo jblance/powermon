@@ -21,8 +21,8 @@
     
   <link rel="index" title="Index" href="genindex.html" />
   <link rel="search" title="Search" href="search.html" />
-  <link rel="next" title="powermon" href="modules.html" />
-  <link rel="prev" title="JKBMS Protocols" href="protocols.jkbms.html" /> 
+  <link rel="next" title="MPPsolar Protocols" href="protocols.mppsolar.html" />
+  <link rel="prev" title="JKSERIAL - JK TTL Communications v2.5 - 0x4E57 | NW" href="protocols.docs.jkserial.html" /> 
   </head>
 
   <body>
@@ -149,12 +149,12 @@
 
   <ul class="page-nav">
   <li class="prev">
-    <a href="protocols.jkbms.html"
-       title="previous chapter">← JKBMS Protocols</a>
+    <a href="protocols.docs.jkserial.html"
+       title="previous chapter">← JKSERIAL - JK TTL Communications v2.5 - <code class="docutils literal notranslate"><span class="pre">0x4E57</span></code> | <code class="docutils literal notranslate"><span class="pre">NW</span></code></a>
   </li>
   <li class="next">
-    <a href="modules.html"
-       title="next chapter">powermon →</a>
+    <a href="protocols.mppsolar.html"
+       title="next chapter">MPPsolar Protocols →</a>
   </li>
 </ul>
   
@@ -175,7 +175,8 @@
 </section>
 <section id="frame-structure">
 <h2>Frame Structure<a class="headerlink" href="#frame-structure" title="Link to this heading">¶</a></h2>
-<table class="docutils align-default">
+<table class="docutils align-left" id="id1">
+<caption><span class="caption-text">Frame Structure</span><a class="headerlink" href="#id1" title="Link to this table">¶</a></caption>
 <thead>
 <tr class="row-odd"><th class="head"><p>byte no</p></th>
 <th class="head"><p>example</p></th>
@@ -187,17 +188,13 @@
 <tr class="row-even"><td><p>0</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">0xDD</span></code></p></td>
 <td><p>start byte</p></td>
-<td><ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">0xDD</span></code></p></li>
-</ul>
-</td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0xDD</span></code></p></td>
 </tr>
 <tr class="row-odd"><td><p>1</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">0xA5</span></code></p></td>
 <td><p>state</p></td>
 <td><ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">0xA5</span></code> - read</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">0x5A</span></code> - write</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">0xA5</span></code> - readn- <code class="docutils literal notranslate"><span class="pre">0x5A</span></code> - write</p></li>
 </ul>
 </td>
 </tr>
@@ -205,9 +202,14 @@
 <td><p><code class="docutils literal notranslate"><span class="pre">0x03</span></code></p></td>
 <td><p>command</p></td>
 <td><ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">0x03</span></code> - basic information and status</p></li>
+<li><dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">0x03</span></code> - basic information and status</dt><dd><ul>
 <li><p><code class="docutils literal notranslate"><span class="pre">0x04</span></code> battery cell voltage</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">0x05</span></code> BMS version</p></li>
+</ul>
+</dd>
+</dl>
+</li>
 </ul>
 </td>
 </tr>
@@ -229,10 +231,7 @@
 <tr class="row-even"><td><p>-1</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">0x77</span></code></p></td>
 <td><p>end byte</p></td>
-<td><ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">0x77</span></code></p></li>
-</ul>
-</td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0x77</span></code></p></td>
 </tr>
 </tbody>
 </table>
@@ -240,8 +239,8 @@
 <section id="crc-calc">
 <h2>crc calc<a class="headerlink" href="#crc-calc" title="Link to this heading">¶</a></h2>
 <p>sum of command code, length, data bytes, inverted + 1</p>
-<div class="literal-block-wrapper docutils container" id="id1">
-<div class="code-block-caption"><span class="caption-text">crc calc example</span><a class="headerlink" href="#id1" title="Link to this code">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id2">
+<div class="code-block-caption"><span class="caption-text">crc calc example</span><a class="headerlink" href="#id2" title="Link to this code">¶</a></div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># dd a5 03 00 ff fd 77</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">hex</span><span class="p">((</span><span class="mh">0xffff</span> <span class="o">^</span> <span class="nb">sum</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;</span><span class="se">\x03\x00</span><span class="s1">&#39;</span><span class="p">))</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="s1">&#39;0xfffd&#39;</span>
@@ -253,8 +252,8 @@
 <h2>Command Details - <code class="docutils literal notranslate"><span class="pre">0x03</span></code> Read Basic Information and Status<a class="headerlink" href="#command-details-0x03-read-basic-information-and-status" title="Link to this heading">¶</a></h2>
 <p>Command: <code class="docutils literal notranslate"><span class="pre">DD</span> <span class="pre">A5</span> <span class="pre">03</span> <span class="pre">00</span> <span class="pre">FF</span> <span class="pre">FD</span> <span class="pre">77</span></code></p>
 <p>Response: <code class="docutils literal notranslate"><span class="pre">DD</span> <span class="pre">03</span> <span class="pre">00</span> <span class="pre">1B</span> <span class="pre">17</span> <span class="pre">00</span> <span class="pre">00</span> <span class="pre">00</span> <span class="pre">02</span> <span class="pre">D0</span> <span class="pre">03</span> <span class="pre">E8</span> <span class="pre">00</span> <span class="pre">00</span> <span class="pre">20</span> <span class="pre">78</span> <span class="pre">00</span> <span class="pre">00</span> <span class="pre">00</span> <span class="pre">00</span> <span class="pre">00</span> <span class="pre">00</span> <span class="pre">10</span> <span class="pre">48</span> <span class="pre">03</span> <span class="pre">0F</span> <span class="pre">02</span> <span class="pre">0B</span> <span class="pre">76</span> <span class="pre">0B</span> <span class="pre">82</span> <span class="pre">FB</span> <span class="pre">FF</span> <span class="pre">77</span></code></p>
-<div class="literal-block-wrapper docutils container" id="id2">
-<div class="code-block-caption"><span class="caption-text">response decode</span><a class="headerlink" href="#id2" title="Link to this code">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id3">
+<div class="code-block-caption"><span class="caption-text">response decode</span><a class="headerlink" href="#id3" title="Link to this code">¶</a></div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mh">0xDD</span>    <span class="n">start</span> <span class="n">byte</span>
 <span class="mh">0x03</span>    <span class="n">command</span>
 <span class="mh">0x00</span>    <span class="n">status</span> <span class="p">(</span><span class="mi">00</span> <span class="ow">is</span> <span class="n">correct</span><span class="p">)</span>
@@ -288,12 +287,12 @@
           <div class="page-nav">
             <div class="inner"><ul class="page-nav">
   <li class="prev">
-    <a href="protocols.jkbms.html"
-       title="previous chapter">← JKBMS Protocols</a>
+    <a href="protocols.docs.jkserial.html"
+       title="previous chapter">← JKSERIAL - JK TTL Communications v2.5 - <code class="docutils literal notranslate"><span class="pre">0x4E57</span></code> | <code class="docutils literal notranslate"><span class="pre">NW</span></code></a>
   </li>
   <li class="next">
-    <a href="modules.html"
-       title="next chapter">powermon →</a>
+    <a href="protocols.mppsolar.html"
+       title="next chapter">MPPsolar Protocols →</a>
   </li>
 </ul><div class="footer" role="contentinfo">
       &#169; Copyright 2024, jblance.
