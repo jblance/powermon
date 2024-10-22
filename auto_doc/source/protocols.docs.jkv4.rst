@@ -22,17 +22,16 @@ Frame Structure
    :widths: auto
    :align: left
 
-    0, ``0xDD``, start byte, ``0xDD``
-    1, ``0xA5``, state, "
-    -  ``0xA5``: read 
-    -  ``0x5A``: write"
-    2, ``0x03``, command, "- ``0x03`` - basic information and status
-    - ``0x04`` battery cell voltage
-    - ``0x05`` BMS version"
-    3, ``0x00``, data length
-    4-?, , data
-    -3:-2, ``0xfffd``, crc
-    -1,    ``0x77``, end byte, ``0x77``
+   0, ``0xDD``, start byte, ``0xDD``
+   1, ``0xA5``, state, "-  ``0xA5`` read 
+   -  ``0x5A`` write"
+   2, ``0x03``, command, "- ``0x03`` basic information and status
+   - ``0x04`` battery cell voltage
+   - ``0x05`` BMS version"
+   3, ``0x00``, data length
+   4-?, , data
+   -3:-2, ``0xfffd``, crc
+   -1,    ``0x77``, end byte, ``0x77``
 
 
 crc calc
