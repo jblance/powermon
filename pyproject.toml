@@ -51,6 +51,7 @@ sphinx-press-theme = {version = "^0.9.1", optional = true}
 # modbus dependencies
 pymodbus = { version = "^3.6.4", optional = true }
 dateparser = "^1.2.0"
+tenacity = "^9.0.0"
 
 [tool.poetry.extras]
 api = ["fastapi", "fastapi-mqtt", "jinja2", "requests", "sqlalchemy", "uvicorn"]
