@@ -191,6 +191,7 @@ class SerialPort(AbstractPort):
             # maybe port has failed
             await self.disconnect()
             await self.connect()
+            log.info("response was empty")
             raise InvalidResponse("Response was empty")
         return response_line
         
