@@ -25,8 +25,8 @@ commands:
 mqttbroker:
   name: localhost
   port: 1883
-  username: null
-  password: null
+  username: test
+  password: test_password
   adhoc_topic: powermon/adhoc_commands
   adhoc_result_topic: powermon/adhoc_results
 

@@ -12,7 +12,7 @@ class BlePortConfig(NoExtraBaseModel):
     type: Literal["ble"]
     mac: str
     protocol: None | str
-    victron_key: None | str = Field(default=None)
+    victron_key: None | str = Field(default=None, repr=False)
 
 
 class SerialPortConfig(NoExtraBaseModel):

@@ -22,7 +22,7 @@ class MQTTConfig(NoExtraBaseModel):
     name: str
     port: None | int = Field(default=None)
     username: None | str = Field(default=None)
-    password: None | str = Field(default=None)
+    password: None | str = Field(default=None, repr=False)
     adhoc_topic: None | str = Field(default=None)
     adhoc_result_topic: None | str = Field(default=None)
 
