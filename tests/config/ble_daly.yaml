@@ -7,10 +7,10 @@ device:
   port:
     type: test
     protocol: DALY
-    response_number: 3
+    response_number: 2
 
 commands:
-- command: cell_voltages
+- command: state of charge
   outputs:
   - type: screen
     format: 

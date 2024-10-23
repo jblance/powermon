@@ -94,6 +94,7 @@ status_construct = cs.Struct(
 COMMANDS = {
     "SOC": {
         "name": "SOC",
+        "aliases": ["soc", "state of charge"],
         "description": "State of Charge",
         "help": " -- display the battery state of charge",
         # "type": "DALY",
