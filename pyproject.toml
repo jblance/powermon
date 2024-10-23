@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "powermon"
-version = "1.0.13"
+version = "1.0.14"
 description = "Package to communicate with Solar inverters and BMSs"
 authors = ["John Blance"]
 readme = "README.md"
