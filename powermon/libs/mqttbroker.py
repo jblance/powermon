@@ -4,6 +4,8 @@ from time import sleep
 
 import paho.mqtt.client as mqtt_client
 
+from powermon.libs.config import safe_config
+
 # Set-up logger
 log = logging.getLogger("mqttbroker")
 
@@ -19,7 +21,7 @@ class MqttBroker:
     @classmethod
     def from_config(cls, config=None) -> 'MqttBroker':
         """ build the mqtt broker object from a config dict """
-        log.debug("mqttbroker config: %s", config)
+        log.debug("mqttbroker config: %s", safe_config(config))
 
         if config:
             name = config.get("name")

@@ -5,7 +5,6 @@ import json
 import logging
 import time
 from argparse import ArgumentParser
-from copy import deepcopy
 from platform import python_version
 
 import yaml
@@ -13,9 +12,10 @@ from pyaml_env import parse_config
 from pydantic import ValidationError
 
 from powermon.commands.command import Command
+from powermon.configmodel.config_model import ConfigModel
 from powermon.device import Device
 from powermon.libs.apicoordinator import ApiCoordinator
-from powermon.configmodel.config_model import ConfigModel
+from powermon.libs.config import safe_config
 from powermon.libs.daemon import Daemon
 from powermon.libs.mqttbroker import MqttBroker
 from powermon.libs.version import __version__  # noqa: F401
@@ -63,18 +63,6 @@ def _process_command_line_overrides(args):
     if args.debug:
         _config["debuglevel"] = logging.DEBUG
     return _config
-
-def _safe_config(config):
-    """return a config dict that hides passwords etc"""
-    keys_to_hide = ['password', 'victron_key']
-    _config = deepcopy(config)
-    for key in _config.keys():
-        if isinstance(_config[key], dict):
-            _config[key] = _safe_config(_config[key])
-        if key in keys_to_hide:
-            _config[key] = "******"
-    return _config
-
 
 
 def main():
@@ -157,7 +145,7 @@ def main():
     log.setLevel(config.get("debuglevel", logging.WARNING))
 
     # debug config
-    log.info("config: %s", _safe_config(config))  # TODO: fix dumping of password and victron_key
+    log.info("config: %s", safe_config(config))
 
     # build mqtt broker object (optional)
     mqtt_broker = MqttBroker.from_config(config=config.get("mqttbroker"))

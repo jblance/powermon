@@ -41,11 +41,11 @@ class Daemon:
     def from_config(cls, config=None):
         """ build the object from a config dict """
         log.debug("daemon config: %s", config)
+        enabled = False
 
         if config is None:
             _type = DaemonType.DISABLED
             keepalive = 0
-            enabled = False
             log.debug("daemon not configured, disabling")
         if config is not None:
             enabled = True
@@ -60,7 +60,7 @@ class Daemon:
         self.enabled = enabled
         self.type = _type
         self.keepalive = keepalive
-        log.debug(f"got daemon type: {self.type}, keepalive: {self.keepalive}")
+        log.debug("got daemon type: %s, keepalive: %s", self.type, self.keepalive)
 
         match self.type:
             case DaemonType.SYSTEMD:
