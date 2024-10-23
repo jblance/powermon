@@ -16,9 +16,9 @@ from powermon.protocols.abstractprotocol import AbstractProtocol
 log = logging.getLogger("daly")
 
 soc_construct = cs.Struct(
-    "start_flag" / cs.Bytes(1),
+    "start_flag" / cs.Const(b"\xa5"),
     "module_address" / cs.Bytes(1),
-    "command_id" / cs.Bytes(1),
+    "command_id" / cs.Const(b"\x90"),
     "data_length" / cs.Byte,
     "battery_voltage" / cs.Int16ub,
     "acquistion_voltage" / cs.Int16ub,
@@ -28,9 +28,9 @@ soc_construct = cs.Struct(
 )
 
 cvr_construct = cs.Struct(
-    "start_flag" / cs.Bytes(1),
+    "start_flag" / cs.Const(b"\xa5"),
     "module_address" / cs.Bytes(1),
-    "command_id" / cs.Bytes(1),
+    "command_id" / cs.Const(b"\x91"),
     "data_length" / cs.Byte,
     "highest_voltage" / cs.Int16ub,
     "highest_cell" / cs.Byte,
@@ -41,9 +41,9 @@ cvr_construct = cs.Struct(
 )
 
 temps_construct = cs.Struct(
-    "start_flag" / cs.Bytes(1),
+    "start_flag" / cs.Const(b"\xa5"),
     "module_address" / cs.Bytes(1),
-    "command_id" / cs.Bytes(1),
+    "command_id" / cs.Const(b"\x92"),
     "data_length" / cs.Byte,
     "highest_temperature" / cs.Byte,
     "highest_sensor" / cs.Byte,
@@ -54,9 +54,9 @@ temps_construct = cs.Struct(
 )
 
 mos_construct = cs.Struct(
-    "start_flag" / cs.Bytes(1),
+    "start_flag" / cs.Const(b"\xa5"),
     "module_address" / cs.Bytes(1),
-    "command_id" / cs.Bytes(1),
+    "command_id" / cs.Const(b"\x93"),
     "data_length" / cs.Byte,
     "mode" / cs.Enum(cs.Int8sb, stationary=0, charging=1, discharging=2),
     "charging_mosfet" / cs.Byte,
@@ -67,9 +67,9 @@ mos_construct = cs.Struct(
 )
 
 status_construct = cs.Struct(
-    "start_flag" / cs.Bytes(1),
+    "start_flag" / cs.Const(b"\xa5"),
     "module_address" / cs.Bytes(1),
-    "command_id" / cs.Bytes(1),
+    "command_id" / cs.Const(b"\x94"),
     "data_length" / cs.Byte,
     "number_of_cells" / cs.Int8sb,
     "number_of_temperature_sensors" / cs.Int8sb,
