@@ -27,3 +27,4 @@ Submodules
 
    powermon.cli
    powermon.device
+   powermon.runner

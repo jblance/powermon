@@ -13,6 +13,7 @@ Submodules
    :maxdepth: 4
 
    powermon.libs.apicoordinator
+   powermon.libs.config
    powermon.libs.daemon
    powermon.libs.errors
    powermon.libs.mqttbroker

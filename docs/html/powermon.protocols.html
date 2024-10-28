@@ -164,12 +164,14 @@
             
   <section id="module-powermon.protocols">
 <span id="powermon-protocols-package"></span><h1>powermon.protocols package<a class="headerlink" href="#module-powermon.protocols" title="Link to this heading">¶</a></h1>
-<p>protocol __init__.py</p>
+<p>Package of the implemented protocols.
+Includes an Enumeration of available protocols, some helper functions
+as well as a Abstract Base Protocol and the protocol classes</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="powermon.protocols.Protocol">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">powermon.protocols.</span></span><span class="sig-name descname"><span class="pre">Protocol</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">names</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">module</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qualname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">boundary</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#powermon.protocols.Protocol" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">StrEnum</span></code></p>
-<p>enumerate available protocols</p>
+<p>Enumeration of currently implemented Protocols</p>
 </dd></dl>
 
 <dl class="py function">
@@ -242,6 +244,10 @@
 <li class="toctree-l2"><a class="reference internal" href="powermon.protocols.helpers.html#powermon.protocols.helpers.crc_jk232"><code class="docutils literal notranslate"><span class="pre">crc_jk232()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="powermon.protocols.helpers.html#powermon.protocols.helpers.crc_pi30"><code class="docutils literal notranslate"><span class="pre">crc_pi30()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="powermon.protocols.helpers.html#powermon.protocols.helpers.victron_checksum"><code class="docutils literal notranslate"><span class="pre">victron_checksum()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="powermon.protocols.heltec.html">powermon.protocols.heltec module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="powermon.protocols.heltec.html#powermon.protocols.heltec.Heltec"><code class="docutils literal notranslate"><span class="pre">Heltec</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="powermon.protocols.jkserial.html">powermon.protocols.jkserial module</a><ul>
