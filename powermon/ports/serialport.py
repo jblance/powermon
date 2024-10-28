@@ -5,7 +5,7 @@ import time
 from glob import glob
 
 import serial
-from tenacity import retry, stop_after_attempt, wait_fixed
+from tenacity import retry, stop_after_attempt, wait_fixed  # https://tenacity.readthedocs.io/en/latest/
 
 from powermon.commands.command import Command, CommandType
 from powermon.commands.result import Result

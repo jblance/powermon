@@ -13,6 +13,3 @@ def safe_config(config):
         if key in keys_to_hide:
             _config[key] = "******"
     return _config
-
-class Config():
-    pass

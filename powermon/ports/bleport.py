@@ -19,6 +19,7 @@ except ImportError:
 
 from powermon.commands.command import Command
 from powermon.commands.result import Result
+from powermon.libs.config import safe_config
 from powermon.libs.errors import (BLEResponseError, ConfigError,
                                   PowermonProtocolError, PowermonWIP)
 from powermon.ports import PortType
@@ -49,7 +50,7 @@ class BlePort(AbstractPort):
         Returns:
             BlePort: the instantiated class object
         """
-        log.debug("building ble port. config:%s", config)
+        log.debug("building ble port. config:%s", safe_config(config))
         if config is None:
             raise ConfigError("BLE port config missing")
         mac = config.get("mac")
