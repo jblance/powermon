@@ -59,7 +59,7 @@ def get_protocol_definition(protocol):
 
 
 def list_protocols():
-    """ helper function to display a list of supported protocols """
+    """ helper function to display the list of supported protocols """
     print("Supported protocols")
     for name in Protocol:
         try:
@@ -75,19 +75,22 @@ def list_protocols():
         # print(f"{name}: {_module()}")
 
 
-def list_commands(command=None):
+def list_commands(protocol: str=None):
+    """ helper function to display the commands available for a specified protocol
+
+    Args:
+        protocol (str, optional): Name of protocol to list commands from. Defaults to None.
+    """
     try:
-        _proto = get_protocol_definition(command)
+        _proto = get_protocol_definition(protocol)
         command_definitions = _proto.list_commands()
         # print(command_definitions)
+        print(f"Commands in protocol: {Color.WARNING}{protocol.upper()}{Color.ENDC}")
         for item in command_definitions:
             # if command_definitions[item].aliases is None:
             #     print(f"{Color.OKGREEN}{item}{Color.ENDC}: {command_definitions[item].description} {command_definitions[item].help_text}")
             # else:
             print(f"{Color.OKGREEN}{item}{Color.ENDC} {Color.OKCYAN}{command_definitions[item].aliases}{Color.ENDC} - {command_definitions[item].description} {command_definitions[item].help_text}")
     except ConfigError:
-        print("Protocol {command} not found")
-        return
-    if _proto is None:
-        print("Protocol {command} not found")
-        return
+        print(f"{Color.FAIL}Protocol {protocol} not found{Color.ENDC}")
+    return

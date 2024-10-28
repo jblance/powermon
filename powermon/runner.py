@@ -119,7 +119,7 @@ def main():
         return None
 
     if args.listCommands:
-        list_commands(command=args.listCommands)
+        list_commands(protocol=args.listCommands)
         return None
 
     # Build configuration from config file and command line overrides
