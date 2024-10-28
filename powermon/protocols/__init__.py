@@ -1,4 +1,7 @@
-""" protocol __init__.py """
+""" Package of the implemented protocols. 
+Includes an Enumeration of available protocols, some helper functions 
+as well as a Abstract Base Protocol and the protocol classes
+"""
 import importlib
 import logging
 from enum import StrEnum, auto
@@ -12,12 +15,13 @@ log = logging.getLogger("protocols")
 
 
 class Protocol(StrEnum):
-    """ enumerate available protocols """
+    """Enumeration of currently implemented Protocols"""
     PI18 = auto()  # WIP
     PI30 = auto()
     PI30MAX = auto()
     DALY = auto()
     NEEY = auto()
+    HELTEC = auto()
     VED = auto()
     JKSERIAL = auto()
 
@@ -38,6 +42,9 @@ def get_protocol_definition(protocol):
         case Protocol.NEEY:
             from powermon.protocols.neey import Neey
             return Neey()
+        case Protocol.HELTEC:
+            from powermon.protocols.heltec import Heltec
+            return Heltec()
         case Protocol.PI18:
             from powermon.protocols.pi18 import PI18
             return PI18()
@@ -65,14 +72,13 @@ def list_protocols():
         try:
             _proto = get_protocol_definition(name)
             if _proto is not None:
-                print(f"{name}: {_proto}")
+                print(f"{Color.OKGREEN}{name.upper()}{Color.ENDC}: {_proto}")
         except ModuleNotFoundError as exc:
             log.info("Error in module %s: %s", name, exc)
             continue
         except AttributeError as exc:
             log.info("Error in module %s: %s", name, exc)
             continue
-        # print(f"{name}: {_module()}")
 
 
 def list_commands(protocol: str=None):

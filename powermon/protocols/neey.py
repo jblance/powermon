@@ -370,11 +370,11 @@ SETTER_COMMANDS = {
 
 class Neey(AbstractProtocol):
     """
-    Neey Active Balancer rotocol handler
+    Neey Active Balancer protocol handler
     """
 
     def __str__(self):
-        return "NEEY protocol handler for NEEY balanceer"
+        return "NEEY Active Balancer protocol handler"
 
     def __init__(self) -> None:
         super().__init__()
