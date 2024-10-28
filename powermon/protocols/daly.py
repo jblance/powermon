@@ -341,7 +341,7 @@ class Daly(AbstractProtocol):
         return True
 
     def check_crc(self, response: str, command_definition: CommandDefinition = None) -> bool:
-        """ crc check, needs override in protocol """
+        """ crc check """
         log.debug("checking crc for %s", response)
         if response.count(b'\xa5') > 1:
             # multiframe response - crc calc incorrect
