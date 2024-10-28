@@ -131,11 +131,10 @@ defaults_construct = cs.Struct(
 )
 
 COMMANDS = {
-    "device_info": {
-        "name": "device_info",
-        "description": "balancer device information",
-        "help": " -- display the balancer info",
-        # "type": "DALY",
+    "info": {
+        "name": "info",
+        "aliases": ["device_info"],
+        "description": "get the balancer information",
         "command_type": CommandType.SERIAL_READ_UNTIL_DONE,
         "command_code": "01",
         "result_type": ResultType.CONSTRUCT,
@@ -165,9 +164,7 @@ COMMANDS = {
     },
     "cell_info": {
         "name": "cell_info",
-        "description": "information about the cells",
-        "help": " -- display the cell info",
-        # "type": "DALY",
+        "description": "get the cell voltage, resistance information as well as battery voltage and balancing current",
         "command_type": CommandType.SERIAL_READ_UNTIL_DONE,
         "command_code": "02",
         "result_type": ResultType.CONSTRUCT,
@@ -245,11 +242,10 @@ COMMANDS = {
             b'U\xaa\x11\x01\x02\x00,\x01\xed\xb2\x15S@4zT@\xe5}T@JuT@o{T@\xd0\x82T@ \x7fT@o{T@\xaflT@\x9aqT@\xf9xT@4zT@ \x7fT@_pT@[\x80T@\xb3\\T@\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\xee\x971>b9;>m\x852>\xb5\xf00>\x14R0>\xd1s3>\x86d5>\xdb\xaf7>f\xf7:>,\xa8@>\xb3)@>\x86\xcd=>\xf2W8>\xd3~3>\x19c1>^\xfe.>\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x9faTB\x9faT@\x00\x8f\xb6<\x05\x00\x0f\x05\xc4?\x81\xc0\xaeG\xf5A\xaeG\xf5A\x00\x00\xff\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x8a\x8a\x04\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\xbe\xff'
         ],
     },
-    "factory_defaults": {
-        "name": "factory_defaults",
-        "description": "information about the factory_defaults",
-        "help": " -- display the factory_defaults",
-        # "type": "DALY",
+    "defaults": {
+        "name": "defaults",
+        "aliases": ["factory_defaults"],
+        "description": "get the factory default settings",
         "command_type": CommandType.SERIAL_READ_UNTIL_DONE,
         "command_code": "03",
         "result_type": ResultType.CONSTRUCT,
@@ -278,11 +274,10 @@ COMMANDS = {
             b'U\xaa\x11\x01\x03\x00\x14\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00(\xffU\xaa\x11\x01\x03\x00d\x00`\x1b\xbf?@(\xbf?\n\x9eK@33s@"p\xd5?0\xe7\xd4?\x7f\xf2\x00@\x00\x00\x00\x00\x00\x00\x80?33\xd3?\\\x8f\xd2?H\xe1\xba?\x00\x00\xaaB\x00\x00\x82B\x04\x00\x00\x00~\x11E\x0020220916\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x97\xff'
         ],
     },
-    "get_settings": {
-        "name": "get_settings",
-        "description": "information about the get_settings",
-        "help": " -- display the get_settings",
-        # "type": "DALY",
+    "settings": {
+        "name": "settings",
+        "aliases": ["get_settings"],
+        "description": "get the bms settings",
         "command_type": CommandType.SERIAL_READ_UNTIL_DONE,
         "command_code": "04",
         "result_type": ResultType.CONSTRUCT,
@@ -305,20 +300,20 @@ COMMANDS = {
     },
 }
 SETTER_COMMANDS = {
-    "balancer_on": {
-        "name": "balancer_on",
+    "on": {
+        "name": "on",
+        "aliases": ["balancer_on"],
         "description": "turn balancer on",
-        "help": " -- display the balancer info",
         "command_type": CommandType.SERIAL_READ_UNTIL_DONE,
         "command_code": 0x0d05,
         "command_data": 0x01,
         # "reading_definitions": []
         # "regex": "F([56]0)$",
     },
-    "balancer_off": {
-        "name": "balancer_off",
+    "off": {
+        "name": "off",
+        "aliases": ["balancer_off"],
         "description": "turn balancer off",
-        "help": " -- display the balancer info",
         "command_type": CommandType.SERIAL_READ_UNTIL_DONE,
         "command_code": 0x0d05,
         #"command_data": 0x01,

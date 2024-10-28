@@ -6,6 +6,7 @@ from enum import StrEnum, auto
 # from strenum import LowercaseStrEnum
 
 from powermon.libs.errors import ConfigError
+from powermon.libs.config import Color
 
 log = logging.getLogger("protocols")
 
@@ -72,3 +73,21 @@ def list_protocols():
             log.info("Error in module %s: %s", name, exc)
             continue
         # print(f"{name}: {_module()}")
+
+
+def list_commands(command=None):
+    try:
+        _proto = get_protocol_definition(command)
+        command_definitions = _proto.list_commands()
+        # print(command_definitions)
+        for item in command_definitions:
+            # if command_definitions[item].aliases is None:
+            #     print(f"{Color.OKGREEN}{item}{Color.ENDC}: {command_definitions[item].description} {command_definitions[item].help_text}")
+            # else:
+            print(f"{Color.OKGREEN}{item}{Color.ENDC} {Color.OKCYAN}{command_definitions[item].aliases}{Color.ENDC} - {command_definitions[item].description} {command_definitions[item].help_text}")
+    except ConfigError:
+        print("Protocol {command} not found")
+        return
+    if _proto is None:
+        print("Protocol {command} not found")
+        return

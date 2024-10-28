@@ -19,7 +19,7 @@ from powermon.libs.config import safe_config
 from powermon.libs.daemon import Daemon
 from powermon.libs.mqttbroker import MqttBroker
 from powermon.libs.version import __version__  # noqa: F401
-from powermon.protocols import list_protocols
+from powermon.protocols import list_protocols, list_commands
 
 # Set-up logger
 log = logging.getLogger("")
@@ -89,10 +89,11 @@ def main():
     parser.add_argument("-V", "--validate", action="store_true", help="Validate the configuration")
     parser.add_argument("-v", "--version", action="store_true", help="Display the version")
     parser.add_argument("--listProtocols", action="store_true", help="Display the currently supported protocols")
+    parser.add_argument("--listCommands", type=str, metavar='PROTOCOL', default=None, help="Display available commands for PROTOCOL")
     parser.add_argument("-1", "--once", action="store_true", help="Only loop through config once")
     parser.add_argument("--force", action="store_true", help="Force commands to run even if wouldnt be triggered (should only be used with --once)")
-    parser.add_argument("-D", "--debug", action="store_true", help="Enable Debug and above (i.e. all) messages")
     parser.add_argument("-I", "--info", action="store_true", help="Enable Info and above level messages")
+    parser.add_argument("-D", "--debug", action="store_true", help="Enable Debug and above (i.e. all) messages")
     parser.add_argument("--adhoc", type=str, default=None, help="Send adhoc command to mqtt adhoc command queue - needs config file specified and populated")
 
     args = parser.parse_args()
@@ -115,6 +116,10 @@ def main():
     # - List Protocols
     if args.listProtocols:
         list_protocols()
+        return None
+
+    if args.listCommands:
+        list_commands(command=args.listCommands)
         return None
 
     # Build configuration from config file and command line overrides

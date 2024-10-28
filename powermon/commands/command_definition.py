@@ -77,6 +77,25 @@ class CommandDefinition:
             regex=self.regex
         )
 
+    @property
+    def help_text(self):
+        if self._help_text is None:
+            return ""
+        return self._help_text
+
+    @help_text.setter
+    def help_text(self, value):
+        self._help_text = value
+
+    @property
+    def aliases(self):
+        if self._aliases is None:
+            return ""
+        return self._aliases
+
+    @aliases.setter
+    def aliases(self, value):
+        self._aliases = value
 
     @classmethod
     def from_config(cls, protocol_dictionary : dict) -> "CommandDefinition":
@@ -84,7 +103,7 @@ class CommandDefinition:
         # log.debug("command definition: %s", protocol_dictionary)
         code = protocol_dictionary.get("name")
         description = protocol_dictionary.get("description")
-        help_text = protocol_dictionary.get("help_text")
+        help_text = protocol_dictionary.get("help")
         test_responses = protocol_dictionary.get("test_responses")
         regex = protocol_dictionary.get("regex", None)
         result_type = protocol_dictionary.get("result_type")
