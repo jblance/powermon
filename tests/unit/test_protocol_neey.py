@@ -103,6 +103,24 @@ class TestProtocolNeey(unittest.TestCase):
         # print(_result)
         self.assertEqual(_result, expected)
 
+    def test_full_command_cell_count_one(self):
+        """ test a for correct full command for cell count 1 """
+        _result = proto.get_full_command(command="cell_count=1")
+        expected = bytes.fromhex('aa551100 0501 1400 01000000000000000000 ffff')
+        # print()
+        # print(expected)
+        # print(_result)
+        self.assertEqual(_result, expected)
+
+    def test_full_command_cell_count_24(self):
+        """ test a for correct full command for cell count 24 """
+        _result = proto.get_full_command(command="cell_count=24")
+        expected = bytes.fromhex('aa551100 0501 1400 18000000000000000000 e6ff')
+        # print()
+        # print(expected)
+        # print(_result)
+        self.assertEqual(_result, expected)
+
     def test_trim(self):
         """ test protocol does a correct trim operation """
         _result = proto.trim_response(response=device_info_response, command_definition=proto.get_command_definition('device_info'))

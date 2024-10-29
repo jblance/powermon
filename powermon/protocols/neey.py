@@ -320,7 +320,21 @@ SETTER_COMMANDS = {
         # "reading_definitions": []
         # "regex": "F([56]0)$",
     },
+    "cell_count": {
+        "name": "cell_count",
+        #"aliases": ["balancer_off"],
+        "description": "set the number of cells in the battery",
+        "help": "  -- eg cell_count=4 (set cell count to 4)",
+        "command_type": CommandType.SERIAL_READ_UNTIL_DONE,
+        "command_code": 0x0105,
+        #"command_data": 0x01,
+        # "reading_definitions": []
+        "regex": "cell_count=(\\d+)$",
+    },
 }
+
+# TODO: test on / off commands
+# TODO: implement other setter commands
 
 # static const uint8_t FUNCTION_WRITE = 0x00;
 # static const uint8_t FUNCTION_READ = 0x01;
@@ -410,6 +424,10 @@ class Neey(AbstractProtocol):
         command_data = bytearray(10)
         if command_definition.command_data is not None:
             command_data = cs.Int16ul.build(int(command_definition.command_data))
+        if command_definition.match is not None:
+            # got a regex matched command
+            # group 1 is 'data'
+            command_data = cs.Int16ul.build(int(command_definition.match.group(1)))
         # print(command_definition)
 
         full_command = bytearray(20)
