@@ -166,35 +166,34 @@
             
   <section id="usage">
 <h1>Usage<a class="headerlink" href="#usage" title="Link to this heading">¶</a></h1>
-<p>powermon usage …</p>
+<p>Standard usage is <code class="docutils literal notranslate"><span class="pre">powermon</span> <span class="pre">-C</span> <span class="pre">/path/to/configfile.yaml</span></code></p>
+<p>Config file syntax is described in <a class="reference internal" href="config_file.html"><span class="doc">Config File Syntax</span></a></p>
 <div class="literal-block-wrapper docutils container" id="id1">
 <div class="code-block-caption"><span class="caption-text">powermon command options</span><a class="headerlink" href="#id1" title="Link to this code">¶</a></div>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>powermon<span class="w"> </span>-h
-<span class="go">usage: powermon [-h] [-C [CONFIGFILE]] [--config CONFIG] [-V] [-v] [--listProtocols] [-1] [--force] [-D] [-I] [--adhoc ADHOC]</span>
+<span class="go">usage: powermon [-h] [-C [CONFIGFILE]] [--config CONFIG] [-V] [-v] [--listProtocols] [--listCommands PROTOCOL] [-1] [--force] [-I] [-D] [-a COMMAND]</span>
 
-<span class="go">Power Device Monitoring Utility, version: 1.0.10-dev, python version: 3.11.7</span>
+<span class="go">Power Device Monitoring Utility, version: 1.0.14-dev, python version: 3.11.7</span>
 
 <span class="go">options:</span>
-<span class="go">-h, --help            show this help message and exit</span>
-<span class="go">-C [CONFIGFILE], --configFile [CONFIGFILE]</span>
+<span class="go">  -h, --help            show this help message and exit</span>
+<span class="go">  -C [CONFIGFILE], --configFile [CONFIGFILE]</span>
 <span class="go">                        Full location of config file</span>
-<span class="go">--config CONFIG       Supply config items on the commandline in json format,</span>
-<span class="go">                        eg &#39;{&quot;device&quot;: {&quot;port&quot;:{&quot;type&quot;:&quot;test&quot;}}, &quot;commands&quot;: [{&quot;command&quot;:&quot;QPI&quot;}]}&#39;</span>
-<span class="go">-V, --validate        Validate the configuration</span>
-<span class="go">-v, --version         Display the version</span>
-<span class="go">--listProtocols       Display the currently supported protocols</span>
-<span class="go">-1, --once            Only loop through config once</span>
-<span class="go">--force               Force commands to run even if wouldnt be triggered</span>
-<span class="go">                        (should only be used with --once)</span>
-<span class="go">-D, --debug           Enable Debug and above (i.e. all) messages</span>
-<span class="go">-I, --info            Enable Info and above level messages</span>
-<span class="go">--adhoc ADHOC         Send adhoc command to mqtt adhoc command queue</span>
-<span class="go">                         - needs config file specified and populated</span>
+<span class="go">  --config CONFIG       Supply config items on the commandline in json format, eg &#39;{&quot;device&quot;: {&quot;port&quot;:{&quot;type&quot;:&quot;test&quot;}}, &quot;commands&quot;: [{&quot;command&quot;:&quot;QPI&quot;}]}&#39;</span>
+<span class="go">  -V, --validate        Validate the configuration</span>
+<span class="go">  -v, --version         Display the version</span>
+<span class="go">  --listProtocols       Display the currently supported protocols</span>
+<span class="go">  --listCommands PROTOCOL</span>
+<span class="go">                        Display available commands for PROTOCOL</span>
+<span class="go">  -1, --once            Only loop through config once</span>
+<span class="go">  --force               Force commands to run even if wouldnt be triggered (should only be used with --once)</span>
+<span class="go">  -I, --info            Enable Info and above level messages</span>
+<span class="go">  -D, --debug           Enable Debug and above (i.e. all) messages</span>
+<span class="go">  -a COMMAND, --adhoc COMMAND</span>
+<span class="go">                        Send adhoc command to mqtt adhoc command queue - needs config file specified and populated</span>
 </pre></div>
 </div>
 </div>
-<p>Standard usage is <code class="docutils literal notranslate"><span class="pre">powermon</span> <span class="pre">-C</span> <span class="pre">/path/to/configfile.yaml</span></code></p>
-<p>Config file syntax is described in <a class="reference internal" href="config_file.html"><span class="doc">Config File Syntax</span></a></p>
 </section>
 
 
