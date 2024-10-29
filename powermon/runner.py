@@ -94,7 +94,7 @@ def main():
     parser.add_argument("--force", action="store_true", help="Force commands to run even if wouldnt be triggered (should only be used with --once)")
     parser.add_argument("-I", "--info", action="store_true", help="Enable Info and above level messages")
     parser.add_argument("-D", "--debug", action="store_true", help="Enable Debug and above (i.e. all) messages")
-    parser.add_argument("--adhoc", type=str, default=None, help="Send adhoc command to mqtt adhoc command queue - needs config file specified and populated")
+    parser.add_argument("-a", "--adhoc", type=str, metavar='COMMAND', default=None, help="Send adhoc command to mqtt adhoc command queue - needs config file specified and populated")
 
     args = parser.parse_args()
     # prog_name = parser.prog
