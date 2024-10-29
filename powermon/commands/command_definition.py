@@ -58,6 +58,7 @@ class CommandDefinition:
         self.command_data: str = None
         self.construct: cs.Construct = None
         self.construct_min_response: int = 0
+        self.match = None
 
     def to_dto(self) -> CommandDefinitionDTO:
         """ convert command definition object to data transfer object """
@@ -136,6 +137,7 @@ class CommandDefinition:
         _command_definition.command_data = protocol_dictionary.get("command_data")
         _command_definition.construct = protocol_dictionary.get("construct")
         _command_definition.construct_min_response = protocol_dictionary.get("construct_min_response", 8)
+        _command_definition.match = None
         return _command_definition
 
     def is_command_code_valid(self, command_code : str) -> bool:

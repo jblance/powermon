@@ -110,6 +110,7 @@ class AbstractProtocol(metaclass=abc.ABCMeta):
                 if match:
                     log.debug("Matched: %s to: %s value: %s", command, command_definition.code, match.group(1))
                     # log.debug(command_definition)
+                    command_definition.match = match
                     return command_definition
         log.info("No command_defn found for %s", command)
         raise CommandDefinitionMissing(f"No command definition found for command: {command}")
