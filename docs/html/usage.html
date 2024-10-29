@@ -90,7 +90,13 @@
             
               <ul>
                 
-                  <li class="toctree-l2"><a href="#usage" class="reference internal">Usage</a></li>
+                  <li class="toctree-l2"><a href="#standard-usage" class="reference internal">Standard usage</a></li>
+                
+                  <li class="toctree-l2"><a href="#command-options" class="reference internal">Command Options</a></li>
+                
+                  <li class="toctree-l2"><a href="#list-available-protocols" class="reference internal">List Available Protocols</a></li>
+                
+                  <li class="toctree-l2"><a href="#list-available-commands-for-a-protocol" class="reference internal">List Available Commands for a Protocol</a></li>
                 
               </ul>
             
@@ -166,8 +172,13 @@
             
   <section id="usage">
 <h1>Usage<a class="headerlink" href="#usage" title="Link to this heading">¶</a></h1>
-<p>Standard usage is <code class="docutils literal notranslate"><span class="pre">powermon</span> <span class="pre">-C</span> <span class="pre">/path/to/configfile.yaml</span></code></p>
-<p>Config file syntax is described in <a class="reference internal" href="config_file.html"><span class="doc">Config File Syntax</span></a></p>
+<section id="standard-usage">
+<h2>Standard usage<a class="headerlink" href="#standard-usage" title="Link to this heading">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">powermon</span> <span class="pre">-C</span> <span class="pre">/path/to/configfile.yaml</span></code></p>
+<p>Note: Config file syntax is described in <a class="reference internal" href="config_file.html"><span class="doc">Config File Syntax</span></a></p>
+</section>
+<section id="command-options">
+<h2>Command Options<a class="headerlink" href="#command-options" title="Link to this heading">¶</a></h2>
 <div class="literal-block-wrapper docutils container" id="id1">
 <div class="code-block-caption"><span class="caption-text">powermon command options</span><a class="headerlink" href="#id1" title="Link to this code">¶</a></div>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>powermon<span class="w"> </span>-h
@@ -194,6 +205,44 @@
 </pre></div>
 </div>
 </div>
+</section>
+<section id="list-available-protocols">
+<h2>List Available Protocols<a class="headerlink" href="#list-available-protocols" title="Link to this heading">¶</a></h2>
+<div class="literal-block-wrapper docutils container" id="id2">
+<div class="code-block-caption"><span class="caption-text">list protocols</span><a class="headerlink" href="#id2" title="Link to this code">¶</a></div>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>powermon<span class="w"> </span>--listProtocols
+<span class="go">Power Device Monitoring Utility, version: 1.0.14-dev, python version: 3.11.7</span>
+<span class="go">Supported protocols</span>
+<span class="go">PI18: PI18 protocol handler</span>
+<span class="go">PI30: PI30 protocol handler</span>
+<span class="go">PI30MAX: PI30 protocol handler for LV6048MAX and similar inverters</span>
+<span class="go">DALY: DALY protocol handler for DALY BMS</span>
+<span class="go">NEEY: NEEY Active Balancer protocol handler</span>
+<span class="go">HELTEC: Heltec Active Balancer protocol handler</span>
+<span class="go">VED: VED protocol handler for Victron direct SmartShunts</span>
+<span class="go">JKSERIAL: JKBMS TTL serial communication protocol handler</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="list-available-commands-for-a-protocol">
+<h2>List Available Commands for a Protocol<a class="headerlink" href="#list-available-commands-for-a-protocol" title="Link to this heading">¶</a></h2>
+<div class="literal-block-wrapper docutils container" id="id3">
+<div class="code-block-caption"><span class="caption-text">available commands for NEEY protocol</span><a class="headerlink" href="#id3" title="Link to this code">¶</a></div>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>powermon<span class="w"> </span>--listCommands<span class="w"> </span>neey
+<span class="go">Power Device Monitoring Utility, version: 1.0.14-dev, python version: 3.11.7</span>
+<span class="go">Commands in protocol: NEEY</span>
+<span class="go">info [&#39;device_info&#39;] - get the balancer information</span>
+<span class="go">cell_info  - get the cell voltage, resistance information as well as battery voltage and balancing current</span>
+<span class="go">defaults [&#39;factory_defaults&#39;] - get the factory default settings</span>
+<span class="go">settings [&#39;get_settings&#39;] - get the bms settings</span>
+<span class="go">on [&#39;balancer_on&#39;] - turn balancer on</span>
+<span class="go">off [&#39;balancer_off&#39;] - turn balancer off</span>
+<span class="go">cell_count  - set the number of cells in the battery   -- eg cell_count=4 (set cell count to 4)</span>
+</pre></div>
+</div>
+</div>
+</section>
 </section>
 
 

@@ -115,10 +115,12 @@ def main():
     # Do enquiry commands
     # - List Protocols
     if args.listProtocols:
+        print(description)
         list_protocols()
         return None
 
     if args.listCommands:
+        print(description)
         list_commands(protocol=args.listCommands)
         return None
 
