@@ -13,8 +13,8 @@ from powermon.configmodel.trigger_config_model import LoopsTriggerConfig, AtTrig
 
 class DaemonConfig(NoExtraBaseModel):
     """ model/allowed elements for daemon section of config """
-    type: None | str
-    keepalive: None | int
+    type: None | Literal['systemd'] | Literal['initd']
+    keepalive: None | int = Field(default=None)
 
 
 class MQTTConfig(NoExtraBaseModel):
