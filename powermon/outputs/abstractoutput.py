@@ -23,7 +23,7 @@ class AbstractOutput(ABC):
         self.name = name
         # self.command_code : str = "not_set"
         # self.device_id : str = "not_set"
-        self.topic = None
+        self.topic = None  # TODO: check why topic is needed here
 
     def to_dto(self) -> AbstractOutputDTO:
         """ convert output object to a data transfer object """
