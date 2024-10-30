@@ -6,6 +6,7 @@ from enum import StrEnum, auto
 
 from powermon.outputformats import DEFAULT_FORMAT
 from powermon.outputformats import from_config as format_from_config
+from powermon.libs.config import Color
 
 # Set-up logger
 log = logging.getLogger("outputs")
@@ -18,6 +19,22 @@ class OutputType(StrEnum):
     SCREEN = auto()
     MQTT = auto()
     API_MQTT = auto()
+
+
+def list_outputs():
+    """ helper function to display the list of outputs """
+    print("Supported outputs")
+    for name in OutputType:
+        try:
+            output = get_output_class(name, DEFAULT_FORMAT, {})
+            if output is not None:
+                print(f"{Color.OKGREEN}{name.upper()}{Color.ENDC}: {output}")
+        except ModuleNotFoundError as exc:
+            log.info("Error in module %s: %s", name, exc)
+            continue
+        except AttributeError as exc:
+            log.info("Error in module %s: %s", name, exc)
+            continue
 
 
 def get_output_class(output_type, formatter, output_config=None):
