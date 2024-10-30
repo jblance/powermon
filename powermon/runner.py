@@ -75,7 +75,7 @@ def main():
         "--configFile",
         nargs="?",
         type=str,
-        help="Full location of config file",
+        help="Full location of config file (defaults to ./powermon.yaml)",
         const="./powermon.yaml",
         default=None,
     )
