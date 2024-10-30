@@ -229,6 +229,7 @@ COMMANDS = {
     },
     "battery_voltage": {
         "name": "battery_voltage",
+        "aliases": ["default"],
         "description": "Get the battery voltage",
         "help": " -- Get the battery voltage",
         # "construct": balancer_data_response,

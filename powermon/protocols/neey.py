@@ -133,7 +133,7 @@ defaults_construct = cs.Struct(
 COMMANDS = {
     "info": {
         "name": "info",
-        "aliases": ["device_info"],
+        "aliases": ["device_info", "default"],
         "description": "get the balancer information",
         "command_type": CommandType.SERIAL_READ_UNTIL_DONE,
         "command_code": "01",

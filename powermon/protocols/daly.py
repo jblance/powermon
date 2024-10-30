@@ -94,7 +94,7 @@ status_construct = cs.Struct(
 COMMANDS = {
     "SOC": {
         "name": "SOC",
-        "aliases": ["soc", "state of charge"],
+        "aliases": ["soc", "state of charge", "default"],
         "description": "get the battery state of charge",
         "command_type": CommandType.SERIAL_READ_UNTIL_DONE,
         "command_code": "90",

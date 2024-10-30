@@ -543,7 +543,7 @@ QUERY_COMMANDS = {
     },
     "QID": {
         "name": "QID",
-        "aliases": ["get_id"],
+        "aliases": ["get_id", "default"],
         "description": "Device Serial Number inquiry",
         "help": " -- queries the device serial number",
         "result_type": ResultType.SINGLE,
@@ -674,7 +674,7 @@ class PI30(AbstractProtocol):
         self.add_command_definitions(SETTER_COMMANDS, result_type=ResultType.ACK)
         self.check_definitions_count(expected=45)
         self.add_supported_ports([PortType.SERIAL, PortType.USB])
-        self.id_command = "QID"
+        # self.id_command = "QID"
 
     def check_valid(self, response: str, command_definition: CommandDefinition = None) -> bool:
         """ check response is valid """

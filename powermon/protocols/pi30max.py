@@ -29,8 +29,17 @@ BATTERY_TYPE_LIST = ["AGM",
                      "3rd party Lithium"]
 
 QUERY_COMMANDS = {
+    "QID": {
+        "name": "QID",
+        "description": "Device Serial Number inquiry",
+        "help": " -- queries the device serial number",
+        "result_type": ResultType.SINGLE,
+        "reading_definitions": [{"description": "Serial Number", "reading_type": ReadingType.MESSAGE, "response_type": ResponseType.STRING}],
+        "test_responses": [b"(9293333010501\xbb\x07\r"],
+    },
     "QSID": {
         "name": "QSID",
+        "aliases": ["default", "get_id"],
         "description": "Device Serial Number inquiry",
         "help": " -- queries the device serial number (length greater than 14)",
         "result_type": ResultType.SINGLE,
@@ -868,7 +877,7 @@ class PI30MAX(PI30):
         self.add_command_definitions(SETTER_COMMANDS, result_type=ResultType.ACK)
         self.remove_command_definitions(COMMANDS_TO_REMOVE)
         self.check_definitions_count(expected=67)
-        self.id_command = "QSID"
+        # self.id_command = "QSID"
 
         self.STATUS_COMMANDS = ["QPIGS", "QPIGS2"]
         self.SETTINGS_COMMANDS = ["QPIRI", "QFLAG"]

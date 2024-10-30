@@ -108,6 +108,21 @@ QUERY_COMMANDS = {
             b"^D00518m\xae\r"
         ]
     },
+    "ID": {
+        "name": "ID",
+        "aliases": ["default", "get_id"],
+        "command_type": CommandType.PI18_QUERY,
+        "description": "Device Serial Number inquiry",
+        "help": " -- queries the device serial number",
+        "result_type": ResultType.SINGLE,
+        "reading_definitions": [
+            {"description": "Serial Number"},
+        ],
+
+        "test_responses": [
+            b"^D02514012345678901234567\r",
+        ],
+    },
     "ET": {
         "name": "ET",
         "command_type": CommandType.PI18_QUERY,
@@ -610,7 +625,7 @@ class PI18(AbstractProtocol):
         self.add_command_definitions(QUERY_COMMANDS)
         self.add_command_definitions(SETTER_COMMANDS, result_type=ResultType.PI18_ACK)
         self.remove_command_definitions(COMMANDS_TO_REMOVE)
-        self.check_definitions_count(expected=21) # Count of all Commands
+        self.check_definitions_count(expected=22) # Count of all Commands
         self.add_supported_ports([PortType.SERIAL, PortType.USB])
 
     def check_crc(self, response: str, command_definition: CommandDefinition = None):

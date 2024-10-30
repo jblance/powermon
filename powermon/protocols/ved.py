@@ -174,6 +174,7 @@ COMMANDS = {
     },
     "serial_number": {
         "name": "serial_number",
+        "aliases": ["default", "get_id"],
         "description": "Serial Number",
         "help": " -- display the Serial Number",
         "command_type": CommandType.VICTRON_GET,
@@ -215,7 +216,7 @@ class VictronEnergyDirect(AbstractProtocol):
         self.add_command_definitions(COMMANDS)
         self.add_supported_ports([PortType.SERIAL, PortType.USB])
         self.check_definitions_count(expected=3)
-        self.id_command = "serial_number"
+        # self.id_command = "serial_number"
 
     def get_full_command(self, command) -> bytes:
         """
