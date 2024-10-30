@@ -1,4 +1,4 @@
-""" errors.py - collection of powermon specific exceptions """
+""" a collection of powermon specific exceptions """
 
 
 class BLEResponseError(Exception):

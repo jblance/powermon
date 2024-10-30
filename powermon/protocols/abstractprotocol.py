@@ -92,6 +92,8 @@ class AbstractProtocol(metaclass=abc.ABCMeta):
 
     def get_command_definition(self, command: str) -> CommandDefinition:
         """ Get the command definition for a given command string """
+        if command is None:
+            raise CommandDefinitionMissing(f"Cannot find a command definition found for command: {command}")
         # Handle the commands that don't have a regex
         if command in self.command_definitions and self.command_definitions[command].regex is None:
             log.debug("Found command %s in protocol %s", command, self._protocol_id)
@@ -243,13 +245,15 @@ class AbstractProtocol(metaclass=abc.ABCMeta):
 
     def get_id_command(self) -> Command:
         """ return the command that generates a unique id for this type of device """
-        if self.id_command is None:
-            raise PowermonProtocolError(f"self.id_command must be defined in protocol {self.protocol_id}")
-        cd = self.get_command_definition(self.id_command)
+        # if self.id_command is None:
+        #     raise PowermonProtocolError(f"self.id_command must be defined in protocol {self.protocol_id}")
+        cd = self.get_command_definition('get_id')
+        if cd is None:
+            raise PowermonProtocolError(f"get_id command must be defined in protocol {self.protocol_id}")
         outputs = multiple_from_config({"type": "screen", "format": "raw"})
         trigger = Trigger.from_config(None)
-        command = Command(code=self.id_command, commandtype=cd.command_type, outputs=outputs, trigger=trigger)
+        command = Command(code=cd.code, commandtype=cd.command_type, outputs=outputs, trigger=trigger)
         command.command_definition = cd
-        command.full_command = self.get_full_command(self.id_command)
+        command.full_command = self.get_full_command(cd.code)
         log.debug(command)
         return command
