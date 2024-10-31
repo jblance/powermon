@@ -13,3 +13,11 @@ powermon is packaged on pypi. There are a number of optional dependancies based 
     user@host:~ $ pip install powermon[ble,dev]  # include bluetooth and development dependencies
 
     user@host:~ $ pip install powermon[dev]      # include all development dependancies
+
+USB permissions on Linux
+========================
+
+.. toctree::
+    :maxdepth: 2
+    
+    installation.usbpermissions
