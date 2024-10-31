@@ -526,6 +526,8 @@ class Neey(AbstractProtocol):
         log.debug("daly splitting %s, result_type %s", response, result_type)
         # build a list of (index, value) tuples, after parsing with a construct
         responses = []
+        if command_definition.result_type == ResultType.ACK:
+            responses.append(("result", response))
         # check for construct
         if command_definition.construct is None:
             raise CommandDefinitionIncorrect("No construct found in command_definition")
