@@ -528,6 +528,7 @@ class Neey(AbstractProtocol):
         responses = []
         if command_definition.result_type == ResultType.ACK:
             responses.append(("result", response))
+            return responses
         # check for construct
         if command_definition.construct is None:
             raise CommandDefinitionIncorrect("No construct found in command_definition")
