@@ -1,23 +1,28 @@
 """cli.py - hold classes for the powermon cli"""
 from argparse import ArgumentParser
+from pathlib import Path
 from platform import python_version
 from sys import stdout
-from pathlib import Path
 
 #import yaml
 from ruamel.yaml import YAML
-# import click
 
-from powermon.libs.version import __version__  # noqa: F401
-from powermon.protocols import list_protocols, list_commands, Protocol
-from powermon.outputs import list_outputs, OutputType
 from powermon.libs.config import Color
+from powermon.libs.errors import CommandDefinitionMissing
+from powermon.libs.version import __version__  # noqa: F401
+from powermon.outputs import OutputType, list_outputs
+from powermon.outputformats import get_formatter, list_formats, FormatterType
+from powermon.protocols import (Protocol, get_protocol_definition,
+                                list_commands, list_protocols)
+
 
 def ble_scan(args):
+    """ scan for BLE devices """
     import asyncio
+
     from bleak import BleakClient, BleakScanner, BLEDevice
 
-    async def print_bledevice(bledevice, advertisementdata=None, address=None, getChars=False):
+    async def print_bledevice(bledevice, advertisementdata=None, address=None, get_chars=False):
         yaml = YAML()
         if (address is not None and bledevice.address != address.upper()):
             return
@@ -27,8 +32,8 @@ def ble_scan(args):
         print("Name:", bledevice.name)
         print("Address:", bledevice.address)
         print("Metadata:", end="")
-        yaml.dump(bledevice._metadata, stdout)
-        print("RSSI:", bledevice._rssi)
+        yaml.dump(bledevice._metadata, stdout)  # pylint: disable=W0212
+        print("RSSI:", bledevice._rssi)  # pylint: disable=W0212
         print("Details:")
         yaml.dump(bledevice.details, stdout)
         if advertisementdata:
@@ -40,7 +45,7 @@ def ble_scan(args):
             print("\tservice_uuids:", advertisementdata.service_uuids)
             print("\trssi:", advertisementdata.rssi)
             print("\ttx_power:", advertisementdata.tx_power)
-        if getChars:
+        if get_chars:
             client=BleakClient(bledevice)
             print('connecting to BLE client')
             await client.connect()
@@ -60,17 +65,18 @@ def ble_scan(args):
         for d in devices:
             if isinstance(d, BLEDevice):
                 # d is a BLEDevice
-                await print_bledevice(bledevice=d, address=args.get('address'), getChars=args.get('getChars'))
+                await print_bledevice(bledevice=d, address=args.get('address'), get_chars=args.get('getChars'))
             elif isinstance(d, str):
                 # d is key to BLEDevice, Advertisement tuple
                 _bledevice, _advertisementdata = devices[d]
-                await print_bledevice(bledevice=_bledevice, advertisementdata=_advertisementdata, address=args.get('address'), getChars=args.get('getChars'))
+                await print_bledevice(bledevice=_bledevice, advertisementdata=_advertisementdata, address=args.get('address'), get_chars=args.get('getChars'))
             else:
                 print("unknown d")
 
     asyncio.run(scan_function(args.get('advData')))
 
 def generate_config_file():
+    """ generate a config file from the answer to questions """
     print(f"{Color.WARNING}Generating config file...{Color.ENDC}")
     print("Please provide answers to the below questions [content of the square brackets are the default answer]")
 
@@ -135,22 +141,30 @@ def generate_config_file():
 
     # commands section
     commands = []
-    while command := input(f"{Color.ENDC}Enter {Color.OKGREEN}COMMAND{Color.ENDC} (or '?' to list available commands) or press enter to end: {Color.OKBLUE}"):
+    while command := input(f"{Color.ENDC}Enter {Color.OKGREEN}COMMAND ({len(commands)+1}){Color.ENDC} (or '?' to list available commands) or press enter to end: {Color.OKBLUE}"):
         if command == '?':
             print(f"{Color.ENDC}", end='')
             list_commands(protocol=config['device']['port']['protocol'])
             continue
         if command == '':
             break
-        # TODO: possible enhancement - check that command is valid for this protocol
-        command_type = input(f"{Color.ENDC}Choose the command type:\n  {Color.OKGREEN}b{Color.ENDC}: 'basic'\n  {Color.OKGREEN}t{Color.ENDC}: 'templated'\n  [b]: {Color.OKBLUE}")
-        if command_type.lower().startswith('t'):
-            command_type = 'templated'
-        else:
-            command_type = 'basic'
+        # check that command is valid for this protocol
+        proto = get_protocol_definition(protocol=protocol_name)
+        try:
+            proto.get_command_definition(command=command)
+        except CommandDefinitionMissing:
+            print(f'{Color.FAIL}Invalid command: {command} for protocol: {protocol_name}{Color.ENDC}')
+            continue
+        # Currently disabled - templated commands need to be manually edited
+        # command_type = input(f"{Color.ENDC}Choose the command type for {command}:\n  {Color.OKGREEN}b{Color.ENDC}: 'basic'\n  {Color.OKGREEN}t{Color.ENDC}: 'templated'\n  [b]: {Color.OKBLUE}")
+        # if command_type.lower().startswith('t'):
+        #     command_type = 'templated'
+        # else:
+        #     command_type = 'basic'
+        command_type = 'basic'
         # add outputs
         outputs = []
-        while output := input(f"  {Color.ENDC}Enter {Color.OKGREEN}OUTPUT{Color.ENDC} to use (or '?' to list available outputs) or press enter to end: {Color.OKBLUE}"):
+        while output := input(f"{Color.ENDC}Enter {Color.OKGREEN}OUTPUT ({len(outputs)+1}){Color.ENDC} to use for {command} (or '?' to list available outputs) or press enter to end: {Color.OKBLUE}"):
             if output == '?':
                 print(f"{Color.ENDC}", end='')
                 list_outputs()
@@ -159,8 +173,25 @@ def generate_config_file():
                 break
             try:
                 output_name = OutputType(output.lower()).value
-                # TODO: get formatter
-                outputs.append({'type': output_name, 'format': 'simple'})
+                # add formatter
+                while formatter := input(f"{Color.ENDC}Enter {Color.OKGREEN}FORMATTER{Color.ENDC} (or '?' to list available formatter) [simple]: {Color.OKBLUE}") or 'simple':
+                    if formatter == '?':
+                        print(f"{Color.ENDC}", end='')
+                        list_formats()
+                        continue
+                    try:
+                        format_name = FormatterType(formatter.lower()).value
+                        # add all format options with defaults
+                        fmt = get_formatter(format_name)
+                        fmt_options = {'type': format_name}
+                        fmt_options.update(fmt({}).get_options())
+                        output_dict = {'type': output_name, 'format': fmt_options}
+                        #output_dict.update(fmt_options)
+                        outputs.append(output_dict)
+                        print(f"{Color.OKCYAN}Added formatter: {format_name}{Color.ENDC}")
+                        break
+                    except ValueError:
+                        print(f'{Color.FAIL}Invalid formatter: {formatter}{Color.ENDC}')
             except ValueError:
                 print(f"{Color.FAIL}{output} is not a valid output type{Color.ENDC}")
         if not outputs:
@@ -245,8 +276,6 @@ def generate_config_file():
     print(f"\n{Color.WARNING}Dumping config yaml....{Color.ENDC}")
     yaml.dump(config, output)
 
-
-
 def main():
     """main entry point for the powermon cli
     """
@@ -255,6 +284,10 @@ def main():
 
     parser.add_argument("-v", "--version", action="store_true", help="Display the version")
     parser.add_argument("-g", "--generateConfigFile", action="store_true", help="Generate Config File")
+    parser.add_argument("--listProtocols", action="store_true", help="List available protocols")
+    parser.add_argument("--listCommands",type=str, metavar='PROTOCOL', help="List available commands for PROTOCOL")
+    parser.add_argument("--listFormats", action="store_true", help="List available output formats")
+    parser.add_argument("--listOutputs", action="store_true", help="List available output modules")
     parser.add_argument("--bleScan", action="store_true", help="Scan for BLE devices")
     parser.add_argument("--details", action="store_true", help="Show extra BLE device data")
     parser.add_argument("--advData", action="store_true", help="Include advertisement data in BLE Scan")
@@ -266,6 +299,22 @@ def main():
     # Display version if asked
     if args.version:
         print(description)
+        return None
+
+    if args.listProtocols:
+        list_protocols()
+        return None
+
+    if args.listCommands:
+        list_commands(args.listCommands)
+        return None
+
+    if args.listFormats:
+        list_formats()
+        return None
+
+    if args.listOutputs:
+        list_outputs()
         return None
 
     if args.bleScan:
