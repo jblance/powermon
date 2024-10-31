@@ -67,7 +67,7 @@ def get_protocol_definition(protocol):
 
 def list_protocols():
     """ helper function to display the list of supported protocols """
-    print("Supported protocols")
+    print(f"{Color.WARNING}Supported protocols{Color.ENDC}")
     for name in Protocol:
         try:
             _proto = get_protocol_definition(name)
