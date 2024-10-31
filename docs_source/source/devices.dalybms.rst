@@ -23,7 +23,7 @@ too, but we haven’t tested it.
 
 -  A device with a USB port that can run Linux.
 
-For example a laptop or Raspberry Pi. For continous monitoring your device
+For example a laptop or Raspberry Pi. For continuous monitoring your device
 needs to be constantly powered and close to your BMS.
 
 ============
@@ -33,8 +33,8 @@ Instructions
 1. Connect the UART part of the connection cable to the UART port on the
    BMS. Connect the USB part of the connection cable to the USB port of
    your device.
-2. Install Powermon on your device.
-3. (optional) Enable non-root access to your USB device.
+2. :doc:`Install Powermon on your device.<installation>`
+3. (optional) :doc:`Enable non-root access to your USB device.<installation.usbpermissions>`
 4. Configure your Powermon connection (see the examples below) and save
    it to a file ``daly-conf.yaml`` .
 5. Test the connection: ``powermon -C daly-conf.yaml`` .
