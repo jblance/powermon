@@ -14,7 +14,7 @@ class Table(AbstractFormat):
     """ table formatter - formats results in a table suitable for std out """
 
     def __str__(self):
-        return "outputs the results to standard out in a table (optionally formatted with line art boxes)"
+        return f"{self.name}: generates a table of the results (optionally formatted with line art boxes)"
 
     def __init__(self, config):
         super().__init__(config)

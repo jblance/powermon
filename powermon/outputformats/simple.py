@@ -15,6 +15,8 @@ class SimpleFormat(AbstractFormat):
 
     # def set_command_description(self, command_description):
     #     pass
+    def __str__(self):
+        return f"{self.name}: generates a simple representation of the results, eg 'soc=89%'"
 
     def format(self, command, result: Result, device_info) -> list:
 

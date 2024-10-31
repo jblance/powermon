@@ -29,6 +29,9 @@ class BMSResponse(AbstractFormat):
         # todos
         self.data['battery_connected'] = True
 
+    def __str__(self):
+        return f"{self.name}: generates the BMSResponse for a PI30 inverter"
+
     def format(self, command, result: Result, device_info) -> list:
 
         _result = []

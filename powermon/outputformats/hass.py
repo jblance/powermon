@@ -19,6 +19,9 @@ class Hass(AbstractFormat):
         self.discovery_prefix = config.get("discovery_prefix", "homeassistant")
         self.entity_id_prefix = config.get("entity_id_prefix", None)
 
+    def __str__(self):
+        return f"{self.name}: generates Home Assistant auto config and update mqtt messages"
+
     def format(self, command: Command, result: Result, device_info) -> list:
         log.info("Using output formatter: %s", self.name)
 

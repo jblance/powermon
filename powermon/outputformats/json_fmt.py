@@ -18,6 +18,8 @@ class Json(AbstractFormat):
 
     # def set_command_description(self, command_description):
     #     pass
+    def __str__(self):
+        return f"{self.name}: generates json representation of the results"
 
     def format(self, command, result: Result, device_info) -> list:
 

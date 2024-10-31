@@ -12,6 +12,9 @@ class Raw(AbstractFormat):
         super().__init__(config)
         self.name = "raw"
 
+    def __str__(self):
+        return f"{self.name}: outputs the response as received from the device"
+
     def format(self, command, result: Result, device_info):
         log.info("Using output formatter: %s", self.name)
 
