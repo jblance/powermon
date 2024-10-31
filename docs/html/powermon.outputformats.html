@@ -93,6 +93,15 @@
         
           <li class="toctree-l1 ">
             
+              <a href="devices.html" class="reference internal ">Devices</a>
+            
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 ">
+            
               <a href="config_file.html" class="reference internal ">Config File Syntax</a>
             
 
@@ -167,7 +176,7 @@
 <p>outputformats / __init__.py</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="powermon.outputformats.FormatterType">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">powermon.outputformats.</span></span><span class="sig-name descname"><span class="pre">FormatterType</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">names=&lt;not</span> <span class="pre">given&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">*values</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">module=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qualname=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start=1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">boundary=None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#powermon.outputformats.FormatterType" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">powermon.outputformats.</span></span><span class="sig-name descname"><span class="pre">FormatterType</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">names</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">module</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qualname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">boundary</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#powermon.outputformats.FormatterType" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">StrEnum</span></code></p>
 <p>enumeration of valid formatter types</p>
 </dd></dl>
@@ -187,6 +196,7 @@
 <li class="toctree-l3"><a class="reference internal" href="powermon.outputformats.abstractformat.html#powermon.outputformats.abstractformat.AbstractFormat.format"><code class="docutils literal notranslate"><span class="pre">AbstractFormat.format()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="powermon.outputformats.abstractformat.html#powermon.outputformats.abstractformat.AbstractFormat.format_and_filter_data"><code class="docutils literal notranslate"><span class="pre">AbstractFormat.format_and_filter_data()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="powermon.outputformats.abstractformat.html#powermon.outputformats.abstractformat.AbstractFormat.format_key"><code class="docutils literal notranslate"><span class="pre">AbstractFormat.format_key()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="powermon.outputformats.abstractformat.html#powermon.outputformats.abstractformat.AbstractFormat.get_options"><code class="docutils literal notranslate"><span class="pre">AbstractFormat.get_options()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="powermon.outputformats.abstractformat.html#powermon.outputformats.abstractformat.AbstractFormat.is_key_wanted"><code class="docutils literal notranslate"><span class="pre">AbstractFormat.is_key_wanted()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="powermon.outputformats.abstractformat.html#powermon.outputformats.abstractformat.AbstractFormat.key_exclusion_filter"><code class="docutils literal notranslate"><span class="pre">AbstractFormat.key_exclusion_filter</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="powermon.outputformats.abstractformat.html#powermon.outputformats.abstractformat.AbstractFormat.key_filter"><code class="docutils literal notranslate"><span class="pre">AbstractFormat.key_filter</span></code></a></li>
@@ -212,6 +222,7 @@
 <li class="toctree-l1"><a class="reference internal" href="powermon.outputformats.hass.html">powermon.outputformats.hass module</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="powermon.outputformats.hass.html#powermon.outputformats.hass.Hass"><code class="docutils literal notranslate"><span class="pre">Hass</span></code></a><ul>
 <li class="toctree-l3"><a class="reference internal" href="powermon.outputformats.hass.html#powermon.outputformats.hass.Hass.format"><code class="docutils literal notranslate"><span class="pre">Hass.format()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="powermon.outputformats.hass.html#powermon.outputformats.hass.Hass.get_options"><code class="docutils literal notranslate"><span class="pre">Hass.get_options()</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -227,6 +238,7 @@
 <li class="toctree-l2"><a class="reference internal" href="powermon.outputformats.json_fmt.html#powermon.outputformats.json_fmt.Json"><code class="docutils literal notranslate"><span class="pre">Json</span></code></a><ul>
 <li class="toctree-l3"><a class="reference internal" href="powermon.outputformats.json_fmt.html#powermon.outputformats.json_fmt.Json.format"><code class="docutils literal notranslate"><span class="pre">Json.format()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="powermon.outputformats.json_fmt.html#powermon.outputformats.json_fmt.Json.from_dto"><code class="docutils literal notranslate"><span class="pre">Json.from_dto()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="powermon.outputformats.json_fmt.html#powermon.outputformats.json_fmt.Json.get_options"><code class="docutils literal notranslate"><span class="pre">Json.get_options()</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -234,6 +246,7 @@
 <li class="toctree-l1"><a class="reference internal" href="powermon.outputformats.raw.html">powermon.outputformats.raw module</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="powermon.outputformats.raw.html#powermon.outputformats.raw.Raw"><code class="docutils literal notranslate"><span class="pre">Raw</span></code></a><ul>
 <li class="toctree-l3"><a class="reference internal" href="powermon.outputformats.raw.html#powermon.outputformats.raw.Raw.format"><code class="docutils literal notranslate"><span class="pre">Raw.format()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="powermon.outputformats.raw.html#powermon.outputformats.raw.Raw.get_options"><code class="docutils literal notranslate"><span class="pre">Raw.get_options()</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -249,6 +262,7 @@
 <li class="toctree-l1"><a class="reference internal" href="powermon.outputformats.table.html">powermon.outputformats.table module</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="powermon.outputformats.table.html#powermon.outputformats.table.Table"><code class="docutils literal notranslate"><span class="pre">Table</span></code></a><ul>
 <li class="toctree-l3"><a class="reference internal" href="powermon.outputformats.table.html#powermon.outputformats.table.Table.format"><code class="docutils literal notranslate"><span class="pre">Table.format()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="powermon.outputformats.table.html#powermon.outputformats.table.Table.get_options"><code class="docutils literal notranslate"><span class="pre">Table.get_options()</span></code></a></li>
 </ul>
 </li>
 </ul>

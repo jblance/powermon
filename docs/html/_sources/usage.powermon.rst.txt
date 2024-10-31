@@ -36,6 +36,32 @@ Command Options
       -a COMMAND, --adhoc COMMAND
                             Send adhoc command to mqtt adhoc command queue - needs config file specified and populated
 
+Run Adhoc Command
+-----------------
+
+There are 2 scenarios to running an adhoc command:
+1. The device is not currently connected to a powermon process/service
+This still requires a config file to provide the details, but the `-a` flag will ignore all commands in the config file an only run the supplied command
+
+.. code-block:: console
+
+    :caption: adhoc
+
+    $ powermon -C powermon.yaml -a device_info
+    Received an adhoc command
+    Running adhoc command to non-connected device
+    model=GW-24S4EB
+    hw_version=HW-2.8.0
+    sw_version=ZH-1.2.3
+    protocol_version=V1.0.0
+    production_date=20220916
+    power_on_count=4
+    total_runtime=10967862sec
+
+
+2. The device is actively being monitored by (for example) a powermon service instance
+   - this will attempt to send the command via mqtt, so will not work if there is no accessible mqtt broker
+
 List Available Protocols
 ------------------------
 
