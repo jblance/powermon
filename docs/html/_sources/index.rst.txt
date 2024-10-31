@@ -26,6 +26,7 @@ Documentation
 
    installation
    usage
+   devices
    config_file
    docker
    protocols
