@@ -33,6 +33,10 @@ class AbstractFormat(ABC):
         self.key_exclusion_filter = config.get("excl_filter", None)
         self.extra_info = config.get("extra_info", False)
 
+    def get_options(self):
+        """ return a dict of all options and defaults """
+        return {"remove_spaces": True, "keep_case": False, "filter": None, "excl_filter": None, "extra_info": False}
+
     def to_dto(self) -> AbstractFormatDTO:
         """ return the format data transfer object """
         return AbstractFormatDTO(format_type=self.name, remove_spaces=self.remove_spaces, keep_case=self.keep_case, key_filter=self.key_filter, key_exclusion_filter=self.key_exclusion_filter, extra_info=self.extra_info)

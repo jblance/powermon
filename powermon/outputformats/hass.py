@@ -22,6 +22,13 @@ class Hass(AbstractFormat):
     def __str__(self):
         return f"{self.name}: generates Home Assistant auto config and update mqtt messages"
 
+    def get_options(self):
+        """ return a dict of all options and defaults """
+        extra_options = {"discovery_prefix": "homeassistant", "entity_id_prefix": None}
+        options = super().get_options()
+        options.update(extra_options)
+        return options
+
     def format(self, command: Command, result: Result, device_info) -> list:
         log.info("Using output formatter: %s", self.name)
 

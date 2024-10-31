@@ -12,10 +12,6 @@ log = logging.getLogger("Table")
 
 class Table(AbstractFormat):
     """ table formatter - formats results in a table suitable for std out """
-
-    def __str__(self):
-        return f"{self.name}: generates a table of the results (optionally formatted with line art boxes)"
-
     def __init__(self, config):
         super().__init__(config)
         self.name = "table"
@@ -24,6 +20,16 @@ class Table(AbstractFormat):
 
     # def set_command_description(self, command_description):
     #     self.command_description = command_description
+
+    def __str__(self):
+        return f"{self.name}: generates a table of the results (optionally formatted with line art boxes)"
+
+    def get_options(self):
+        """ return a dict of all options and defaults """
+        extra_options = {"draw_lines": False}
+        options = super().get_options()
+        options.update(extra_options)
+        return options
 
     def format(self, command, result: Result, device_info) -> list[str]:
         log.info("Using output formatter: %s", self.name)

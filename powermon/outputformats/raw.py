@@ -15,6 +15,10 @@ class Raw(AbstractFormat):
     def __str__(self):
         return f"{self.name}: outputs the response as received from the device"
 
+    def get_options(self):
+        """ return a dict of all options and defaults """
+        return {}
+
     def format(self, command, result: Result, device_info):
         log.info("Using output formatter: %s", self.name)
 

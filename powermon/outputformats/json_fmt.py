@@ -21,6 +21,13 @@ class Json(AbstractFormat):
     def __str__(self):
         return f"{self.name}: generates json representation of the results"
 
+    def get_options(self):
+        """ return a dict of all options and defaults """
+        extra_options = {"format": "basic", "include_missing": False}
+        options = super().get_options()
+        options.update(extra_options)
+        return options
+
     def format(self, command, result: Result, device_info) -> list:
 
         _result = []
