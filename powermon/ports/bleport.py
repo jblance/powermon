@@ -4,6 +4,7 @@
 import asyncio
 import logging
 import subprocess
+from time import sleep
 
 try:
     from bleak import BleakClient, BleakScanner
@@ -32,16 +33,22 @@ log = logging.getLogger("BlePort")
 
 def ble_reset():
     try:
-        open_blue = subprocess.Popen(["bluetoothctl"], shell=True, stdout=subprocess.PIPE,
-                                    stderr=subprocess.STDOUT, stdin=subprocess.PIPE)
-        outs, errs = open_blue.communicate(b"power off\n", timeout=15)
-        log.info("bluetoothctl off - outs: %s, errs: %s", outs, errs)
-        outs, errs = open_blue.communicate(b"power on\n", timeout=15)
-        log.info("bluetoothctl on - outs: %s, errs: %s", outs, errs)
+        sp_result = subprocess.run(["bluetoothctl", "power", "off"], capture_output=True, timeout=15, check=True)
+        print(sp_result)
+        # open_blue = subprocess.Popen(["bluetoothctl"], shell=True, stdout=subprocess.PIPE,
+        #                             stderr=subprocess.STDOUT, stdin=subprocess.PIPE)
+        # outs, errs = open_blue.communicate(b"power off\n", timeout=15)
+        # log.info("bluetoothctl off - outs: %s, errs: %s", outs, errs)
+        sleep(1)
+        sp_result = subprocess.run(["bluetoothctl", "power", "on"], capture_output=True, timeout=15, check=True)
+        print(sp_result)
+        # outs, errs = open_blue.communicate(b"power on\n", timeout=15)
+        # log.info("bluetoothctl on - outs: %s, errs: %s", outs, errs)
     except subprocess.TimeoutExpired:
-        outs, errs = open_blue.communicate()
-        log.info("TimeoutExpired - outs: %s, errs: %s", outs, errs)
-    open_blue.kill()
+        print("command timedout")
+    #     outs, errs = open_blue.communicate()
+    #     log.info("TimeoutExpired - outs: %s, errs: %s", outs, errs)
+    # open_blue.kill()
 
 
 class BlePort(AbstractPort):
