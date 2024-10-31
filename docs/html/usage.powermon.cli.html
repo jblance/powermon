@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1"><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-      <title>Usage</title>
+      <title>Powermon-cli Usage</title>
     
           <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
           <link rel="stylesheet" href="_static/theme.css " type="text/css" />
@@ -21,8 +21,8 @@
     
   <link rel="index" title="Index" href="genindex.html" />
   <link rel="search" title="Search" href="search.html" />
-  <link rel="next" title="Usage" href="usage.powermon.html" />
-  <link rel="prev" title="Installation" href="installation.html" /> 
+  <link rel="next" title="Config File Syntax" href="config_file.html" />
+  <link rel="prev" title="Usage" href="usage.powermon.html" /> 
   </head>
 
   <body>
@@ -71,7 +71,7 @@
       <p class="caption">
         <span class="caption-text"><a href="index.html#documentation">documentation</a></span>
       </p>
-      <ul class="current">
+      <ul class="">
         
           <li class="toctree-l1 ">
             
@@ -82,19 +82,11 @@
           </li>
 
         
-          <li class="toctree-l1 current">
+          <li class="toctree-l1 ">
             
-              <a href="#" class="reference internal current">Usage</a>
+              <a href="usage.html" class="reference internal ">Usage</a>
             
 
-            
-              <ul>
-                
-                  <li class="toctree-l2"><a href="#powermon-usage" class="reference internal">Powermon Usage</a></li>
-                
-                  <li class="toctree-l2"><a href="#powermon-cli-usage" class="reference internal">Powermon CLI Usage</a></li>
-                
-              </ul>
             
           </li>
 
@@ -147,18 +139,20 @@
   <ul class="breadcrumbs">
     <li><a href="index.html">Docs</a> &raquo;</li>
     
-    <li>Usage</li>
+      <li><a href="usage.html">Usage</a> &raquo;</li>
+    
+    <li>Powermon-cli Usage</li>
   </ul>
   
 
   <ul class="page-nav">
   <li class="prev">
-    <a href="installation.html"
-       title="previous chapter">← Installation</a>
+    <a href="usage.powermon.html"
+       title="previous chapter">← Usage</a>
   </li>
   <li class="next">
-    <a href="usage.powermon.html"
-       title="next chapter">Usage →</a>
+    <a href="config_file.html"
+       title="next chapter">Config File Syntax →</a>
   </li>
 </ul>
   
@@ -166,31 +160,29 @@
 <hr>
           <div class="content" role="main" v-pre>
             
-  <section id="usage">
-<h1>Usage<a class="headerlink" href="#usage" title="Link to this heading">¶</a></h1>
-<section id="powermon-usage">
-<h2>Powermon Usage<a class="headerlink" href="#powermon-usage" title="Link to this heading">¶</a></h2>
-<div class="toctree-wrapper compound">
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="usage.powermon.html">Usage</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="usage.powermon.html#standard-usage">Standard usage</a></li>
-<li class="toctree-l2"><a class="reference internal" href="usage.powermon.html#command-options">Command Options</a></li>
-<li class="toctree-l2"><a class="reference internal" href="usage.powermon.html#list-available-protocols">List Available Protocols</a></li>
-<li class="toctree-l2"><a class="reference internal" href="usage.powermon.html#list-available-commands-for-a-protocol">List Available Commands for a Protocol</a></li>
-</ul>
-</li>
-</ul>
+  <section id="powermon-cli-usage">
+<h1>Powermon-cli Usage<a class="headerlink" href="#powermon-cli-usage" title="Link to this heading">¶</a></h1>
+<section id="command-options">
+<h2>Command Options<a class="headerlink" href="#command-options" title="Link to this heading">¶</a></h2>
+<div class="literal-block-wrapper docutils container" id="id1">
+<div class="code-block-caption"><span class="caption-text">powermon command options</span><a class="headerlink" href="#id1" title="Link to this code">¶</a></div>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>powermon-cli<span class="w"> </span>-h
+<span class="go">usage: powermon-cli [-h] [-v] [-g] [--bleScan] [--details] [--advData] [--getChars] [--address ADDRESS]</span>
+
+<span class="go">Power Device Monitoring Utility CLI, version: 1.0.15-dev, python version: 3.11.7</span>
+
+<span class="go">options:</span>
+<span class="go">-h, --help            show this help message and exit</span>
+<span class="go">-v, --version         Display the version</span>
+<span class="go">-g, --generateConfigFile</span>
+<span class="go">                        Generate Config File</span>
+<span class="go">--bleScan             Scan for BLE devices</span>
+<span class="go">--details             Show extra BLE device data</span>
+<span class="go">--advData             Include advertisement data in BLE Scan</span>
+<span class="go">--getChars            Connect to BLE device(s) and list characteristics</span>
+<span class="go">--address ADDRESS     Only scan for supplied mac address</span>
+</pre></div>
 </div>
-</section>
-<section id="powermon-cli-usage">
-<h2>Powermon CLI Usage<a class="headerlink" href="#powermon-cli-usage" title="Link to this heading">¶</a></h2>
-<div class="toctree-wrapper compound">
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="usage.powermon.cli.html">Powermon-cli Usage</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="usage.powermon.cli.html#command-options">Command Options</a></li>
-</ul>
-</li>
-</ul>
 </div>
 </section>
 </section>
@@ -200,12 +192,12 @@
           <div class="page-nav">
             <div class="inner"><ul class="page-nav">
   <li class="prev">
-    <a href="installation.html"
-       title="previous chapter">← Installation</a>
+    <a href="usage.powermon.html"
+       title="previous chapter">← Usage</a>
   </li>
   <li class="next">
-    <a href="usage.powermon.html"
-       title="next chapter">Usage →</a>
+    <a href="config_file.html"
+       title="next chapter">Config File Syntax →</a>
   </li>
 </ul><div class="footer" role="contentinfo">
       &#169; Copyright 2024, jblance.
