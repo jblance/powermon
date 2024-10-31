@@ -30,6 +30,20 @@ from powermon.protocols.abstractprotocol import AbstractProtocol
 log = logging.getLogger("BlePort")
 
 
+def ble_reset():
+    try:
+        open_blue = subprocess.Popen(["bluetoothctl"], shell=True, stdout=subprocess.PIPE,
+                                    stderr=subprocess.STDOUT, stdin=subprocess.PIPE)
+        outs, errs = open_blue.communicate(b"off\n", timeout=15)
+        log.info("bluetoothctl off - outs: %s, errs: %s", outs, errs)
+        outs, errs = open_blue.communicate(b"on\n", timeout=15)
+        log.info("bluetoothctl on - outs: %s, errs: %s", outs, errs)
+    except subprocess.TimeoutExpired:
+        outs, errs = open_blue.communicate()
+        log.info("TimeoutExpired - outs: %s, errs: %s", outs, errs)
+    open_blue.kill()
+
+
 class BlePort(AbstractPort):
     """ BlePort class - represents a BLE port - extends AbstractPort
     """

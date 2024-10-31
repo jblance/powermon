@@ -14,6 +14,7 @@ from powermon.outputs import OutputType, list_outputs
 from powermon.outputformats import get_formatter, list_formats, FormatterType
 from powermon.protocols import (Protocol, get_protocol_definition,
                                 list_commands, list_protocols)
+from powermon.ports.bleport import ble_reset
 
 
 def ble_scan(args):
@@ -288,6 +289,7 @@ def main():
     parser.add_argument("--listCommands",type=str, metavar='PROTOCOL', help="List available commands for PROTOCOL")
     parser.add_argument("--listFormats", action="store_true", help="List available output formats")
     parser.add_argument("--listOutputs", action="store_true", help="List available output modules")
+    parser.add_argument("--bleReset", action="store_true", help="Reset the bluetooth subsystem (power off / on bluetoothctl)")
     parser.add_argument("--bleScan", action="store_true", help="Scan for BLE devices")
     parser.add_argument("--details", action="store_true", help="Show extra BLE device data")
     parser.add_argument("--advData", action="store_true", help="Include advertisement data in BLE Scan")
@@ -316,6 +318,10 @@ def main():
     if args.listOutputs:
         list_outputs()
         return None
+
+    if args.bleReset:
+        ble_reset()
+        return
 
     if args.bleScan:
         ble_scan(args)
