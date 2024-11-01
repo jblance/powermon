@@ -33,10 +33,10 @@ log = logging.getLogger("BlePort")
 
 def ble_reset():
     try:
-        sp_result = subprocess.run(["bluetoothctl", "power", "off"], capture_output=True, timeout=15, check=True)
+        subprocess.run(["bluetoothctl", "power", "off"], capture_output=True, timeout=15, check=True)
         log.info("bluetoothctl power off succeeded")
         sleep(1)
-        sp_result = subprocess.run(["bluetoothctl", "power", "on"], capture_output=True, timeout=15, check=True)
+        subprocess.run(["bluetoothctl", "power", "on"], capture_output=True, timeout=15, check=True)
         log.info("bluetoothctl power on succeeded")
     except subprocess.TimeoutExpired:
         print("command timed out")
