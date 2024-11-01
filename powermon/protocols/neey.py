@@ -336,6 +336,9 @@ SETTER_COMMANDS = {
         "reading_definitions": [
             {"description": "result", "reading_type": ReadingType.MESSAGE, "response_type": ResponseType.HEX_CHAR},
         ],
+        "test_responses": [
+            b'U\xaa\x11\x00\x05\r\x14\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x006\xff',
+        ],
     },
     "cell_count": {
         "name": "cell_count",
@@ -436,7 +439,7 @@ class Neey(AbstractProtocol):
 
         command_bytes = cs.Int16ul.build(int(command_definition.command_code))
         function = 0x01
-        if command_definition.result_type == ResultType.ACK:
+        if command_definition.result_type == ResultType.SINGLE:
             function = 0x00
         # _data = bytearray()
         command_data = bytearray(10)

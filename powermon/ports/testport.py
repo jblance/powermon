@@ -58,8 +58,10 @@ class TestPort(AbstractPort):
         self.connected = False
 
     async def send_and_receive(self, command: Command) -> Result:
-        command_defn : CommandDefinition = command.command_definition
+        full_command = command.full_command
+        log.info("Executing command via testport: %s", full_command)
 
+        command_defn : CommandDefinition = command.command_definition
         if command_defn is not None:
             # Have test data defined, so use that
             number_of_test_responses = len(command_defn.test_responses)
@@ -72,6 +74,7 @@ class TestPort(AbstractPort):
         else:
             # No test responses defined
             raise ValueError(f"Testing a command '{command.code}' with no test responses defined")
+        
         # Get raw response
         response_line = self._test_data
         log.debug("Raw response: %s", response_line)
