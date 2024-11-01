@@ -182,7 +182,7 @@ class BlePort(AbstractPort):
         if not self.is_connected():
             raise RuntimeError("Ble port not open")
         # try:
-        log.debug("Executing command via ble...")
+        log.info("Executing command via ble: %s", full_command)
         await self.client.write_gatt_char(self.command_handle, full_command)
         # sleep until response is long enough
         required_response_length = command.command_definition.construct_min_response
