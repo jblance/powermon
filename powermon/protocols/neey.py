@@ -358,13 +358,17 @@ SETTER_COMMANDS = {
     },
     "cell_count": {
         "name": "cell_count",
-        #"aliases": ["balancer_off"],
         "description": "set the number of cells in the battery",
+        "result_type": ResultType.SINGLE,
         "help": "  -- eg cell_count=4 (set cell count to 4)",
         "command_type": CommandType.SERIAL_READ_UNTIL_DONE,
         "command_code": 0x0105,
-        #"command_data": 0x01,
-        # "reading_definitions": []
+        "reading_definitions": [
+            {"description": "result", "reading_type": ReadingType.MESSAGE, "response_type": ResponseType.HEX_CHAR},
+        ],
+        "test_responses": [
+            b'U\xaa\x11\x00\x05\r\x14\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x006\xff',
+        ],
         "regex": "cell_count=(\\d+)$",
     },
 }
