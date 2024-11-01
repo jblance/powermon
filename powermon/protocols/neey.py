@@ -340,6 +340,22 @@ SETTER_COMMANDS = {
             b'U\xaa\x11\x00\x05\r\x14\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x006\xff',
         ],
     },
+    "buzzer_mode": {
+        "name": "buzzer_mode",
+        # "aliases": ["alarm_mode"],
+        "description": "turn balancer off",
+        "result_type": ResultType.SINGLE,
+        "command_type": CommandType.SERIAL_READ_UNTIL_DONE,
+        "command_code": 0x1405,
+        #"command_data": 0x01,
+        "reading_definitions": [
+            {"description": "result", "reading_type": ReadingType.MESSAGE, "response_type": ResponseType.HEX_CHAR},
+        ],
+        "test_responses": [
+            b'U\xaa\x11\x00\x05\r\x14\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x006\xff',
+        ],
+        "regex": "buzzer_mode=([1234])$",
+    },
     "cell_count": {
         "name": "cell_count",
         #"aliases": ["balancer_off"],
