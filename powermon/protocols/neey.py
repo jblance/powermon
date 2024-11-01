@@ -102,6 +102,16 @@ settings_construct = cs.Struct(
     "end_flag" / cs.Bytes(1),
 )
 
+ack_construct = cs.Struct(
+    "start_flag" / cs.Const(b'U\xaa'),
+    "module_address" / cs.Bytes(1),
+    "function" / cs.Bytes(1),  # 01 read
+    "command" / cs.Int16ul,
+    "length" / cs.Int16ul,
+    "crc" / cs.Bytes(1),
+    "end_flag" / cs.Const(b'\xff'),
+)
+
 defaults_construct = cs.Struct(
     "start_flag" / cs.Bytes(2),
     "module_address" / cs.Bytes(1),
@@ -304,11 +314,17 @@ SETTER_COMMANDS = {
         "name": "on",
         "aliases": ["balancer_on"],
         "description": "turn balancer on",
+        "result_type": ResultType.SINGLE,
         "command_type": CommandType.SERIAL_READ_UNTIL_DONE,
         "command_code": 0x0d05,
         "command_data": 0x01,
-        # "reading_definitions": []
+        "reading_definitions": [
+            {"description": "result", "reading_type": ReadingType.MESSAGE, "response_type": ResponseType.HEX_CHAR},
+        ],
         # "regex": "F([56]0)$",
+        "test_responses": [ 
+            b'U\xaa\x11\x00\x05\r\x14\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x006\xff',
+        ],
     },
     "off": {
         "name": "off",
@@ -394,7 +410,8 @@ class Neey(AbstractProtocol):
         super().__init__()
         self.protocol_id = b"NEEY"
         self.add_command_definitions(COMMANDS)
-        self.add_command_definitions(SETTER_COMMANDS, result_type=ResultType.ACK)
+        # self.add_command_definitions(SETTER_COMMANDS, result_type=ResultType.ACK)
+        self.add_command_definitions(SETTER_COMMANDS)
         self.add_supported_ports([PortType.BLE])
         self.notifier_handle = 9
         self.intializing_handle = 0
@@ -526,7 +543,7 @@ class Neey(AbstractProtocol):
         log.debug("daly splitting %s, result_type %s", response, result_type)
         # build a list of (index, value) tuples, after parsing with a construct
         responses = []
-        if command_definition.result_type == ResultType.ACK:
+        if command_definition.result_type == ResultType.SINGLE:
             responses.append(("result", response))
             return responses
         # check for construct
