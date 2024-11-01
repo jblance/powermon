@@ -321,7 +321,6 @@ SETTER_COMMANDS = {
         "reading_definitions": [
             {"description": "result", "reading_type": ReadingType.MESSAGE, "response_type": ResponseType.HEX_CHAR},
         ],
-        # "regex": "F([56]0)$",
         "test_responses": [ 
             b'U\xaa\x11\x00\x05\r\x14\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x006\xff',
         ],
@@ -330,11 +329,13 @@ SETTER_COMMANDS = {
         "name": "off",
         "aliases": ["balancer_off"],
         "description": "turn balancer off",
+        "result_type": ResultType.SINGLE,
         "command_type": CommandType.SERIAL_READ_UNTIL_DONE,
         "command_code": 0x0d05,
         #"command_data": 0x01,
-        # "reading_definitions": []
-        # "regex": "F([56]0)$",
+        "reading_definitions": [
+            {"description": "result", "reading_type": ReadingType.MESSAGE, "response_type": ResponseType.HEX_CHAR},
+        ],
     },
     "cell_count": {
         "name": "cell_count",
