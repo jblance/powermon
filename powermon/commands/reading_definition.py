@@ -19,6 +19,7 @@ class ResponseType(StrEnum):
     ACK = auto()
     BOOL = auto()      # 0 is false, 1 is true
     INV_BOOL = auto()      # 1 is false, 0 is true
+    ENABLED_BOOL = auto()  # 0 or "0" is disabled, 1 or "1" is enabled
     INT = auto()
     HEX_CHAR = auto()
     HEX_CHARS = auto()  # multiple hex characters
@@ -172,6 +173,19 @@ class ReadingDefinition():
                 except ValueError:
                     try:
                         return bool(literal_eval(raw_value))
+                    except ValueError as e:
+                        raise ValueError(f"For Reading Defininition '{self.description}', expected an BOOL, got {raw_value}") from e
+            case ResponseType.ENABLED_BOOL:
+                # print(raw_value)
+                if isinstance(raw_value, bool):
+                    return 'enabled' if raw_value else 'disabled'
+                if isinstance(raw_value, bytes):
+                    raw_value = raw_value.decode('utf-8')
+                try:
+                    return 'enabled' if bool(int(raw_value)) else 'disabled'
+                except ValueError:
+                    try:
+                        return 'enabled' if bool(literal_eval(raw_value)) else 'disabled'
                     except ValueError as e:
                         raise ValueError(f"For Reading Defininition '{self.description}', expected an BOOL, got {raw_value}") from e
             case ResponseType.INV_BOOL:
