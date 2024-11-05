@@ -72,10 +72,10 @@ class TestProtocolPI18(unittest.TestCase):
 
     def test_build_result_pop2(self):
         """ test result build for POP2 - invalid command """
-        expected = ['set_device_output_source_priority=Failed']
-        simple_formatter = SimpleFormat({"extra_info": False})
-        device_info = DeviceInfo(name="name", serial_number="serial_number", model="model", manufacturer="manufacturer")
-        command = Command.from_config({"command": "POP2"})
+        # expected = ['set_device_output_source_priority=Failed']
+        # simple_formatter = SimpleFormat({"extra_info": False})
+        # device_info = DeviceInfo(name="name", serial_number="serial_number", model="model", manufacturer="manufacturer")
+        # command = Command.from_config({"command": "POP2"})
         self.assertRaises(CommandDefinitionMissing, proto.get_command_definition, 'POP2')
 
     def test_build_result_mchgc(self):
