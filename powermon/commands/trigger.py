@@ -49,9 +49,9 @@ class Trigger:
     def from_config(cls, config=None):
         """ build trigger object from config dict """
         if not config:
-            # no trigger defined, default to every 60 seconds
-            trigger_type = TriggerType.EVERY
-            value = 60
+            # no trigger defined, default to every loop
+            trigger_type = TriggerType.LOOPS
+            value = 1
         elif TriggerType.EVERY in config:
             trigger_type = TriggerType.EVERY
             value = config.get(TriggerType.EVERY, 61)
