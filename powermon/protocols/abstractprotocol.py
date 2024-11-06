@@ -100,6 +100,12 @@ class AbstractProtocol(metaclass=abc.ABCMeta):
             command_definition = self.command_definitions[command]
             # log.debug(command_definition)
             return command_definition
+        # Also check for upper case version of supplied command is available
+        if command.upper() in self.command_definitions and self.command_definitions[command.upper()].regex is None:
+            log.debug("Found command %s in protocol %s", command.upper(), self._protocol_id)
+            command_definition = self.command_definitions[command.upper()]
+            # log.debug(command_definition)
+            return command_definition
 
         # Try the aliases and regex commands
         for _, command_definition in self.command_definitions.items():
