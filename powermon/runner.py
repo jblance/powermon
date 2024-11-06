@@ -30,8 +30,10 @@ logging.basicConfig(format=FORMAT)
 def _run_async(coroutine):
     try:
         async_loop = asyncio.get_running_loop()
+        log.info("found async loop: %s", async_loop)
     except RuntimeError:
         async_loop = asyncio.new_event_loop()
+        log.info("created new event loop: %s", async_loop)
     asyncio.set_event_loop(async_loop)
     return async_loop.run_until_complete(coroutine)
 
