@@ -68,6 +68,9 @@ def _process_command_line_overrides(args):
 
 
 def main():
+    asyncio.run(runner())
+
+async def runner():
     """main entry point for powermon command"""
     description = f"Power Device Monitoring Utility, version: {__version__}, python version: {python_version()}"  # pylint: disable=C0301
     parser = ArgumentParser(description=description)
@@ -173,9 +176,12 @@ def main():
             print("Running adhoc command to non-connected device")
             adhoc_command_config = {"command": args.adhoc}
             device.add_command(Command.from_config(adhoc_command_config))
-            _run_async(device.initialize())
-            _run_async(device.run(True))
-            _run_async(device.finalize())
+            # _run_async(device.initialize())
+            await device.initialize()
+            # _run_async(device.run(True))
+            await device.run(True)
+            # _run_async(device.finalize())
+            await device.finalize()
             return
         # post adhoc command to mqtt
         device.mqtt_broker.post_adhoc_command(command_code=args.adhoc)
@@ -207,7 +213,8 @@ def main():
     api_coordinator.announce(daemon)
 
     # initialize device
-    _run_async(device.initialize())
+    # _run_async(device.initialize())
+    await device.initialize()
     api_coordinator.announce(device)
 
     # loop config
@@ -225,7 +232,8 @@ def main():
             daemon.watchdog()
 
             # run device loop (ie run any needed commands)
-            _run_async(device.run(args.force))
+            # _run_async(device.run(args.force))
+            await device.run(args.force)
 
             # run api coordinator ...
             api_coordinator.run()
@@ -241,7 +249,8 @@ def main():
         print("KeyboardInterrupt - stopping")
     finally:
         # disconnect device
-        _run_async(device.finalize())
+        # _run_async(device.finalize())
+        await device.finalize()
 
         # disconnect mqtt
         mqtt_broker.stop()
