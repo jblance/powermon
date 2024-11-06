@@ -94,19 +94,9 @@ def generate_config_file():
         config['device']['manufacturer'] = manufacturer
 
     ## port subsection
-    while True:
-        protocol = input(f"{Color.ENDC}Enter the protocol that your device uses (or '?' to list available protocols) [PI30]: {Color.OKBLUE}") or 'PI30'
-        if protocol == '?':
-            list_protocols()
-            continue
-        try:
-            protocol_name = Protocol(protocol.lower()).name
-            port_dict = {'protocol': protocol_name}
-            break
-        except ValueError:
-            print(f"{Color.FAIL}{protocol} is not a valid protocol{Color.ENDC}")
-
-    print(f"{Color.ENDC}please select the type of port to configure:")
+    port_dict = {}
+    # port type
+    print(f"{Color.ENDC}please select the {Color.OKGREEN}PORT TYPE{Color.ENDC} to configure:")
     print(f"  {Color.OKGREEN}1{Color.ENDC}: test port (doesnt actually connect to any, returns test responses)")
     print(f"  {Color.OKGREEN}2{Color.ENDC}: serial port (rs232 connection, normally uses a usb<->serial adapter)")
     print(f"  {Color.OKGREEN}3{Color.ENDC}: USB port (direct USB connection to the device)")
@@ -138,6 +128,18 @@ def generate_config_file():
             print(f"{Color.OKCYAN}Test Port selected{Color.ENDC}")
             port_dict['type'] = 'test'
             port_dict['response_number'] = 0
+    # protocol
+    while True:
+        protocol = input(f"{Color.ENDC}Enter the {Color.OKGREEN}PROTOCOL{Color.ENDC} that your device uses (or '?' to list available protocols) [PI30]: {Color.OKBLUE}") or 'PI30'
+        if protocol == '?':
+            list_protocols()
+            continue
+        try:
+            protocol_name = Protocol(protocol.lower()).name
+            port_dict['protocol'] = protocol_name
+            break
+        except ValueError:
+            print(f"{Color.FAIL}{protocol} is not a valid protocol{Color.ENDC}")
     config['device']['port'] = port_dict
 
     # commands section
@@ -163,6 +165,25 @@ def generate_config_file():
         # else:
         #     command_type = 'basic'
         command_type = 'basic'
+        # add trigger
+        trigger_dict = {}
+        while trigger := input(f"{Color.ENDC}Select {Color.OKGREEN}TRIGGER{Color.ENDC} for {command}\n{Color.OKGREEN}1{Color.ENDC}: EVERY (trigger every XX seconds)\n{Color.OKGREEN}2{Color.ENDC}: LOOPS (trigger every X loops)\n{Color.OKGREEN}3{Color.ENDC}: AT (trigger at specified time HH:MM)\nEnter option number [1]: {Color.OKBLUE}") or 1:
+            match trigger:
+                case None | "" | 1 | "1":
+                    value = int(input(f"{Color.ENDC}Enter number of seconds between command runs (may be overridden by overall loop delay) [5]: {Color.OKBLUE}") or 5)
+                    trigger_dict['every'] = value
+                    break
+                case 2 | "2":
+                    value = int(input(f"{Color.ENDC}Enter number loops between each command run [1]: {Color.OKBLUE}") or 1)
+                    trigger_dict['loops'] = value
+                    break
+                case 3 | "3":
+                    value = input(f"{Color.ENDC}Enter time (as HH:MM 24hour format) for command to run: {Color.OKBLUE}")
+                    trigger_dict['at'] = value
+                    break
+                case _:
+                    print(f"Invalid option {trigger}")
+                    continue
         # add outputs
         outputs = []
         while output := input(f"{Color.ENDC}Enter {Color.OKGREEN}OUTPUT ({len(outputs)+1}){Color.ENDC} to use for {command} (or '?' to list available outputs) or press enter to end: {Color.OKBLUE}"):
@@ -199,10 +220,10 @@ def generate_config_file():
             print(f'{Color.OKCYAN}No outputs added, adding default{Color.ENDC}')
             outputs.append({'type': 'screen', 'format': 'table'})
         print(f'{Color.OKCYAN}Adding command: {command}{Color.ENDC}')
-        commands.append({'command': command, 'type': command_type, 'outputs': outputs})
+        commands.append({'command': command, 'type': command_type, 'trigger': trigger_dict, 'outputs': outputs})
     if not commands:
         print(f"{Color.OKCYAN}No commands selected - adding default command{Color.ENDC}")
-        commands.append({'command': 'default', 'type': 'basic', 'outputs': [{'type': 'screen', 'format': 'table'}]})
+        commands.append({'command': 'default', 'type': 'basic', 'trigger': {'loops': 1}, 'outputs': [{'type': 'screen', 'format': 'table'}]})
     config['commands'] = commands
 
     # mqttbroker section
