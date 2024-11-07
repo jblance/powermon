@@ -369,7 +369,24 @@ SETTER_COMMANDS = {
         "test_responses": [
             b'U\xaa\x11\x01\x04\x00d\x00\x10\n\xd7\xa3;\x00\x00\x80@\x00\x00 @\x00\x01\x02,\x01\x00\x00ff&@\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\xca\xff',
         ],
-        "regex": "cell_count=(\\d+)$",
+        "regex": r"cell_count=(\d+)$",
+    },
+    "balance_current": {
+        # max_cur        Max balancing current [1.0f, 4.0f]: Set 1.0f          aa551100 0503 1400 0000803f000000000000 43ff
+        "name": "balance_current",
+        "description": "set the maximum balance current",
+        "result_type": ResultType.SINGLE,
+        "help": "  -- eg balance_current=4.0 (set max balance current to 4.0A)",
+        "command_type": CommandType.SERIAL_READ_UNTIL_DONE,
+        "command_code": 0x0305,
+        "reading_definitions": [
+            {"description": "result", "reading_type": ReadingType.MESSAGE, "response_type": ResponseType.HEX_CHAR},
+        ],
+        "test_responses": [
+            b'U\xaa\x11\x00\x05\r\x14\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x006\xff',
+        ],
+        #"regex": "balance_current=(\\d+)$",
+        "regex": r"(?:balance_current|mbc|max_balance_current)=(\d+(?:\.\d+)?)",
     },
 }
 
@@ -443,8 +460,6 @@ class Neey(AbstractProtocol):
         self.check_definitions_count(expected=None)
 
     def get_full_command(self, command: bytes|str) -> bytes:
-        # test_command = bytes.fromhex('aa5511010100140000000000000000000000faff')
-        # test_command = bytes.fromhex('aa5511010200001400000000000000000000f9ff')
         log.info("Using protocol %s with %i commands", self.protocol_id, len(self.command_definitions))
 
         command_definition : CommandDefinition = self.get_command_definition(command)
@@ -468,7 +483,13 @@ class Neey(AbstractProtocol):
         if command_definition.match is not None:
             # got a regex matched command
             # group 1 is 'data'
-            command_data = cs.Int16ul.build(int(command_definition.match.group(1)))
+            # Some commands use Int16ul encoding (ie int 4 -> 04)
+            if command_definition.command_code in [0x0105, 0x1405]:
+                command_data = cs.Int16ul.build(int(command_definition.match.group(1)))
+            # Others have float encoding (ie 1.0 -> 0000803f)
+            elif command_definition.command_code in [0x0305,]:
+                command_data = cs.Float32l.build(float(command_definition.match.group(1)))
+
         # print(command_definition)
 
         full_command = bytearray(20)

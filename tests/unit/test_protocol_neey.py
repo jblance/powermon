@@ -121,6 +121,51 @@ class TestProtocolNeey(unittest.TestCase):
         # print(_result)
         self.assertEqual(_result, expected)
 
+    def test_full_command_balance_current_1_0(self):
+        """ test a for correct full command for balance_current=1.0 """
+        _result = proto.get_full_command(command="balance_current=1.0")
+        expected = bytes.fromhex('aa551100 0503 1400 0000803f000000000000 43ff')
+        # print()
+        # print(expected)
+        # print(_result)
+        self.assertEqual(_result, expected)
+
+    def test_full_command_balance_current_1(self):
+        """ test a for correct full command for balance_current=1 """
+        _result = proto.get_full_command(command="balance_current=1")
+        expected = bytes.fromhex('aa551100 0503 1400 0000803f000000000000 43ff')
+        # print()
+        # print(expected)
+        # print(_result)
+        self.assertEqual(_result, expected)
+
+    def test_full_command_mbc_1_0(self):
+        """ test a for correct full command for mbc=1.0 """
+        _result = proto.get_full_command(command="mbc=1.0")
+        expected = bytes.fromhex('aa551100 0503 1400 0000803f000000000000 43ff')
+        # print()
+        # print(expected)
+        # print(_result)
+        self.assertEqual(_result, expected)
+
+    def test_full_command_max_balance_current_1_0(self):
+        """ test a for correct full command for max_balance_current=1.0 """
+        _result = proto.get_full_command(command="max_balance_current=1.0")
+        expected = bytes.fromhex('aa551100 0503 1400 0000803f000000000000 43ff')
+        # print()
+        # print(expected)
+        # print(_result)
+        self.assertEqual(_result, expected)
+
+    def test_full_command_balance_current_4_0(self):
+        """ test a for correct full command for balance_current=4.0 """
+        _result = proto.get_full_command(command="balance_current=4.0")
+        expected = b'\xaaU\x11\x00\x05\x03\x14\x00\x00\x00\x80@\x00\x00\x00\x00\x00\x00<\xff'
+        # print()
+        # print(expected)
+        # print(_result)
+        self.assertEqual(_result, expected)
+
     def test_trim(self):
         """ test protocol does a correct trim operation """
         _result = proto.trim_response(response=device_info_response, command_definition=proto.get_command_definition('device_info'))
