@@ -300,7 +300,7 @@ COMMANDS = {
             {"index": "balance_start_voltage", "description": "balance_start_voltage", "reading_type": ReadingType.VOLTS, "response_type": ResponseType.FLOAT},
             {"index": "max_balance_current", "description": "max_balance_current", "reading_type": ReadingType.CURRENT, "response_type": ResponseType.FLOAT},
             {"index": "nominal_battery_capacity", "description": "nominal_battery_capacity", "reading_type": ReadingType.ENERGY},
-            {"index": "balancing_enabled", "description": "balancing_enabled", "reading_type": ReadingType.ENABLED},
+            {"index": "balancing", "description": "balancing_enabled", "reading_type": ReadingType.ENABLED},
             {"index": "buzzer_mode", "description": "buzzer_mode", "reading_type": ReadingType.MESSAGE, "response_type": ResponseType.STRING},
             {"index": "battery_type", "description": "battery_type", "reading_type": ReadingType.MESSAGE, "response_type": ResponseType.STRING},
         ],
@@ -332,7 +332,6 @@ SETTER_COMMANDS = {
         "result_type": ResultType.SINGLE,
         "command_type": CommandType.SERIAL_READ_UNTIL_DONE,
         "command_code": 0x0d05,
-        #"command_data": 0x01,
         "reading_definitions": [
             {"description": "result", "reading_type": ReadingType.MESSAGE, "response_type": ResponseType.HEX_CHAR},
         ],
@@ -342,19 +341,18 @@ SETTER_COMMANDS = {
     },
     "buzzer_mode": {
         "name": "buzzer_mode",
-        # "aliases": ["alarm_mode"],
-        "description": "turn balancer off",
+        "description": "set the buzzer mode",
+        "help": "  -- eg buzzer_mode=1 (set buzzer off) off=1, beep_once=2, beep_regular=3",
         "result_type": ResultType.SINGLE,
         "command_type": CommandType.SERIAL_READ_UNTIL_DONE,
         "command_code": 0x1405,
-        #"command_data": 0x01,
         "reading_definitions": [
             {"description": "result", "reading_type": ReadingType.MESSAGE, "response_type": ResponseType.HEX_CHAR},
         ],
         "test_responses": [
             b'U\xaa\x11\x00\x05\r\x14\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x006\xff',
         ],
-        "regex": "buzzer_mode=([1234])$",
+        "regex": "buzzer_mode=([123])$",
     },
     "cell_count": {
         "name": "cell_count",
@@ -372,7 +370,6 @@ SETTER_COMMANDS = {
         "regex": r"cell_count=(\d+)$",
     },
     "balance_current": {
-        # max_cur        Max balancing current [1.0f, 4.0f]: Set 1.0f          aa551100 0503 1400 0000803f000000000000 43ff
         "name": "balance_current",
         "description": "set the maximum balance current",
         "result_type": ResultType.SINGLE,
@@ -383,10 +380,26 @@ SETTER_COMMANDS = {
             {"description": "result", "reading_type": ReadingType.MESSAGE, "response_type": ResponseType.HEX_CHAR},
         ],
         "test_responses": [
-            b'U\xaa\x11\x00\x05\r\x14\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x006\xff',
+            b'U\xaa\x11\x00\x05\x03\x14\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00,\xff',
+            b'U\xaa\x11\x00\x05\x03\x14\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00,\xff',
         ],
-        #"regex": "balance_current=(\\d+)$",
         "regex": r"(?:balance_current|mbc|max_balance_current)=(\d+(?:\.\d+)?)",
+    },
+    "device_name": {
+        "name": "device_name",
+        "description": "set the device name",
+        "result_type": ResultType.SINGLE,
+        "help": "  -- eg device_name=test",
+        "command_type": CommandType.SERIAL_READ_UNTIL_DONE,
+        "command_code": 0x1305,
+        "reading_definitions": [
+            {"description": "result", "reading_type": ReadingType.MESSAGE, "response_type": ResponseType.HEX_CHAR},
+        ],
+        "test_responses": [
+            b'U\xaa\x11\x00\x05\x03\x14\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00,\xff',
+            b'U\xaa\x11\x00\x05\x03\x14\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00,\xff',
+        ],
+        "regex": r"device_name=(.+)$",
     },
 }
 
@@ -415,8 +428,8 @@ SETTER_COMMANDS = {
 # auto_close     Balancing stop voltage [1.0f, 4.5f]: Set 1.0f         aa551100 0504 1400 0000803f000000000000 44ff
 # auto_open      Balancing start voltage [1.0f, 4.5f]: Set 1.0f        aa551100 0517 1400 0000803f000000000000 57ff
 # volume         Capacity [1.0f, 2000.0f]: Set 1                       aa551100 0516 1400 01000000000000000000 e8ff
-# alarm_mode     Buzzer mode {1, 2, 3, 4}: Set 1                       aa551100 0514 1400 01000000000000000000 eaff
-# bat_mode       Battery type {1, 2, 3}: Set 2                         aa551100 0515 1400 02000000000000000000 e8ff
+# alarm_mode     Buzzer mode {1, 2, 3}: Set 1                          aa551100 0514 1400 01000000000000000000 eaff
+# bat_mode       Battery type {1, 2, 3, 4}: Set 2                      aa551100 0515 1400 02000000000000000000 e8ff
 #                Change device name: Set "test"                        aa551100 0513 1400 74657374000000000000 faff
 #
 # Factory defaults
@@ -489,6 +502,11 @@ class Neey(AbstractProtocol):
             # Others have float encoding (ie 1.0 -> 0000803f)
             elif command_definition.command_code in [0x0305,]:
                 command_data = cs.Float32l.build(float(command_definition.match.group(1)))
+            # Other have text encoded
+            elif command_definition.command_code in [0x1305,]:
+                for i, _chr in enumerate(command_definition.match.group(1)):
+                    command_data[i] = ord(_chr)
+
 
         # print(command_definition)
 

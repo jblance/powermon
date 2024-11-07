@@ -166,6 +166,15 @@ class TestProtocolNeey(unittest.TestCase):
         # print(_result)
         self.assertEqual(_result, expected)
 
+    def test_full_command_device_name_test(self):
+        """ test a for correct full command for device_name=test """
+        _result = proto.get_full_command(command="device_name=test")
+        expected = bytes.fromhex('aa551100 0513 1400 74657374000000000000 faff')
+        print()
+        print(expected)
+        print(_result)
+        self.assertEqual(_result, expected)
+
     def test_trim(self):
         """ test protocol does a correct trim operation """
         _result = proto.trim_response(response=device_info_response, command_definition=proto.get_command_definition('device_info'))
