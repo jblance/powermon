@@ -387,7 +387,7 @@ SETTER_COMMANDS = {
     },
     "device_name": {
         "name": "device_name",
-        "description": "set the device name",
+        "description": "set the BLE device name",
         "result_type": ResultType.SINGLE,
         "help": "  -- eg device_name=test",
         "command_type": CommandType.SERIAL_READ_UNTIL_DONE,
@@ -396,8 +396,7 @@ SETTER_COMMANDS = {
             {"description": "result", "reading_type": ReadingType.MESSAGE, "response_type": ResponseType.HEX_CHAR},
         ],
         "test_responses": [
-            b'U\xaa\x11\x00\x05\x03\x14\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00,\xff',
-            b'U\xaa\x11\x00\x05\x03\x14\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00,\xff',
+            b'U\xaa\x11\x00\x05\x13\x14\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00<\xff',
         ],
         "regex": r"device_name=(.+)$",
     },
@@ -422,15 +421,15 @@ SETTER_COMMANDS = {
 # enable balancer                                                      aa551100 050d 1400 01000000000000000000 f3ff
 # disable balancer                                                     aa551100 050d 1400 00000000000000000000 f2ff
 
-# single_num     Cell count [1,24]: Set 1                              aa551100 0501 1400 01000000000000000000 ffff
+## single_num     Cell count [1,24]: Set 1                              aa551100 0501 1400 01000000000000000000 ffff
 # triger_mpa     Balancing Trigger Delta [0.001d, 1.0d]: Set 1.0f      aa551100 0502 1400 0000803f000000000000 42ff
-# max_cur        Max balancing current [1.0f, 4.0f]: Set 1.0f          aa551100 0503 1400 0000803f000000000000 43ff
+## max_cur        Max balancing current [1.0f, 4.0f]: Set 1.0f          aa551100 0503 1400 0000803f000000000000 43ff
 # auto_close     Balancing stop voltage [1.0f, 4.5f]: Set 1.0f         aa551100 0504 1400 0000803f000000000000 44ff
 # auto_open      Balancing start voltage [1.0f, 4.5f]: Set 1.0f        aa551100 0517 1400 0000803f000000000000 57ff
 # volume         Capacity [1.0f, 2000.0f]: Set 1                       aa551100 0516 1400 01000000000000000000 e8ff
-# alarm_mode     Buzzer mode {1, 2, 3}: Set 1                          aa551100 0514 1400 01000000000000000000 eaff
+## alarm_mode     Buzzer mode {1, 2, 3}: Set 1                          aa551100 0514 1400 01000000000000000000 eaff
 # bat_mode       Battery type {1, 2, 3, 4}: Set 2                      aa551100 0515 1400 02000000000000000000 e8ff
-#                Change device name: Set "test"                        aa551100 0513 1400 74657374000000000000 faff
+##                Change device name: Set "test"                        aa551100 0513 1400 74657374000000000000 faff
 #
 # Factory defaults
 #
@@ -447,9 +446,6 @@ SETTER_COMMANDS = {
 # ntc_min        NtcMin [-19.9f, 120.0f]: Set 1.0f                     aa551100 0512 1400 0000803f000000000000 52ff
 # total_time     Working time []: Set 1                                aa551100 050a 1400 01000000000000000000 f4ff
 # cycle          Production date: Set 20220802                         aa551100 0510 1400 32303232303830320000 e7ff
-
-# >>> cs.Float32l.parse(b'\x00\x00\x80\x3f')
-# 1.0
 
 
 class Neey(AbstractProtocol):

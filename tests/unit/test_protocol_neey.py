@@ -170,9 +170,9 @@ class TestProtocolNeey(unittest.TestCase):
         """ test a for correct full command for device_name=test """
         _result = proto.get_full_command(command="device_name=test")
         expected = bytes.fromhex('aa551100 0513 1400 74657374000000000000 faff')
-        print()
-        print(expected)
-        print(_result)
+        # print()
+        # print(expected)
+        # print(_result)
         self.assertEqual(_result, expected)
 
     def test_trim(self):
