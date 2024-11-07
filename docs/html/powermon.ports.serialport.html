@@ -178,7 +178,7 @@
 <p>powermon / ports / serialport.py</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="powermon.ports.serialport.SerialPort">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">powermon.ports.serialport.</span></span><span class="sig-name descname"><span class="pre">SerialPort</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">baud</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">protocol</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">serial_number</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#powermon.ports.serialport.SerialPort" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">powermon.ports.serialport.</span></span><span class="sig-name descname"><span class="pre">SerialPort</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">baud</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">protocol</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#powermon.ports.serialport.SerialPort" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="powermon.ports.abstractport.html#powermon.ports.abstractport.AbstractPort" title="powermon.ports.abstractport.AbstractPort"><code class="xref py py-class docutils literal notranslate"><span class="pre">AbstractPort</span></code></a></p>
 <p>serial port object - normally a usb to serial adapter</p>
 <dl class="py method">
@@ -195,7 +195,7 @@
 
 <dl class="py method">
 <dt class="sig sig-object py" id="powermon.ports.serialport.SerialPort.from_config">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_config</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#powermon.ports.serialport.SerialPort.from_config" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">async</span><span class="w"> </span><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_config</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#powermon.ports.serialport.SerialPort.from_config" title="Link to this definition">¶</a></dt>
 <dd><p>build port object from config dict</p>
 </dd></dl>
 
@@ -203,6 +203,12 @@
 <dt class="sig sig-object py" id="powermon.ports.serialport.SerialPort.is_connected">
 <span class="sig-name descname"><span class="pre">is_connected</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#powermon.ports.serialport.SerialPort.is_connected" title="Link to this definition">¶</a></dt>
 <dd><p>default is_connected function</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="powermon.ports.serialport.SerialPort.resolve_path">
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">resolve_path</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">serial_number</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#powermon.ports.serialport.SerialPort.resolve_path" title="Link to this definition">¶</a></dt>
+<dd><p>Async method to resolve a valid path by testing each one.</p>
 </dd></dl>
 
 <dl class="py method">
