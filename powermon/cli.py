@@ -66,15 +66,15 @@ def ble_scan(args):
         for d in devices:
             if isinstance(d, BLEDevice):
                 # d is a BLEDevice
-                await print_bledevice(bledevice=d, address=args.get('address'), get_chars=args.get('getChars'))
+                await print_bledevice(bledevice=d, address=args.address, get_chars=args.getChars)
             elif isinstance(d, str):
                 # d is key to BLEDevice, Advertisement tuple
                 _bledevice, _advertisementdata = devices[d]
-                await print_bledevice(bledevice=_bledevice, advertisementdata=_advertisementdata, address=args.get('address'), get_chars=args.get('getChars'))
+                await print_bledevice(bledevice=_bledevice, advertisementdata=_advertisementdata, address=args.address, get_chars=args.getChars)
             else:
                 print("unknown d")
 
-    asyncio.run(scan_function(args.get('advData')))
+    asyncio.run(scan_function(args.advData))
 
 def generate_config_file():
     """ generate a config file from the answer to questions """
