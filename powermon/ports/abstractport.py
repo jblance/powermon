@@ -28,9 +28,10 @@ class AbstractPort(ABC):
 
     @classmethod
     @abstractmethod
-    def from_config(cls, config: dict) -> "AbstractPort":
+    async def from_config(cls, config: dict) -> "AbstractPort":
         """ build port object from config dict """
         raise NotImplementedError
+
 
     def is_protocol_supported(self):
         """ function to check if the protocol is supported by this port """

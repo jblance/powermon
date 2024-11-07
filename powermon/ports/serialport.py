@@ -9,7 +9,7 @@ from tenacity import retry, stop_after_attempt, wait_fixed  # https://tenacity.r
 
 from powermon.commands.command import Command, CommandType
 from powermon.commands.result import Result
-from powermon.libs.errors import ConfigError, InvalidResponse
+from powermon.libs.errors import ConfigError, InvalidResponse, PowermonProtocolError
 from powermon.ports import PortType
 from powermon.ports.abstractport import AbstractPort, _AbstractPortDTO
 from powermon.protocols import get_protocol_definition
@@ -33,61 +33,69 @@ class SerialPort(AbstractPort):
         return f"SerialPort: {self.path=}, {self.baud=}, protocol:{self.protocol}, {self.serial_port=}, {self.error_message=}"
 
     @classmethod
-    def from_config(cls, config=None):
+    async def from_config(cls, config=None):
         log.debug("building serial port. config:%s", config)
         path = config.get("path", "/dev/ttyUSB0")
         baud = config.get("baud", 2400)
         serial_number = config.get("serial_number")
         # get protocol handler, default to PI30 if not supplied
         protocol = get_protocol_definition(protocol=config.get("protocol", "PI30"))
-        return cls(path=path, baud=baud, protocol=protocol, serial_number=serial_number)
+        # instantiate class
+        _class = cls(path=path, baud=baud, protocol=protocol)
+        # deal with wildcard path resolution
+        _class.path = await _class.resolve_path(path, serial_number)
 
-    def __init__(self, path, baud, protocol, serial_number) -> None:
+
+    def __init__(self, path, baud, protocol) -> None:
         self.port_type = PortType.SERIAL
         super().__init__(protocol=protocol)
 
-        self.path = None
+        self.path = path
         self.baud = baud
         self.serial_port = None
-        # self.serial_number = serial_number
-        # using glob to determine path(s)
+
+    async def resolve_path(self, path, serial_number):
+        """Async method to resolve a valid path by testing each one."""
+        
+        # expand 'wildcard'
         paths = glob(path)
-        path_count = len(paths)
-        match path_count:
-            case 0:
-                log.error("no matching paths found on this system for: %s", path)
-                raise ConfigError(f"no matching paths found on this system for {path}")
-            case 1:
-                # only one valid result on this system
-                self.path = paths[0]
-            case _:
-                # more than one valid path - so we need to determine which to use
-                if serial_number is None:
-                    raise ConfigError("To use wildcard paths an serial_number must be specified in the config file for the port")
-                # need to build a command
-                command = self.protocol.get_id_command()
-                for _path in paths:
-                    log.debug("Multiple paths - checking path: %s to see if it matches %s", _path, serial_number)
-                    self.path = _path
-                    asyncio.run(self.connect())
-                    res = asyncio.run(self.send_and_receive(command=command))
-                    asyncio.run(self.disconnect())
-                    if not res.is_valid:
-                        log.debug("path: %s does not match for serial_number: %s", _path, serial_number)
-                        # asyncio.run(self.disconnect())
-                        continue
-                    if res.readings[0].data_value == serial_number:
-                        log.info("SUCCESS: path: %s matches for serial_number: %s", _path, serial_number)
-                        return
-                raise ConfigError(f"Multiple paths - none of {paths} match {serial_number}")
-        # end of multi-path logic
+        if not paths:
+            raise ConfigError(f"No matching paths found on this system for {path}")
+
+        if len(paths) == 1:
+            return paths[0]  # only one valid result
+
+        # More than one valid path
+        # check we have something to look for
+        if serial_number is None:
+            raise ConfigError("Wildcard paths require a serial_number in config.")
+        # Get the protocol's ID command
+        try:
+            command = self.protocol.get_id_command()
+        except PowermonProtocolError as ex:
+            raise ConfigError(f"No get_id in protocol: {self.protocol.protocol_id}") from ex
+
+        for _path in paths:
+            log.debug("Checking path: %s for serial_number: %s", _path, serial_number)
+            self.path = _path
+            await self.connect()
+            res = await self.send_and_receive(command=command)
+            await self.disconnect()
+
+            if res.is_valid and res.readings[0].data_value == serial_number:
+                log.info("SUCCESS: path: %s matches serial_number: %s", _path, serial_number)
+                return _path  # return the matching path
+        raise ConfigError(f"None of the paths match serial_number: {serial_number}")
+
 
     def to_dto(self) -> _AbstractPortDTO:
         dto = SerialPortDTO(port_type="serial", path=self.path, baud=self.baud, protocol=self.protocol.to_dto())
         return dto
 
+
     def is_connected(self):
         return self.serial_port is not None and self.serial_port.is_open
+
 
     async def connect(self) -> int:
         log.debug("SerialPort port connecting. path:%s, baud:%s", self.path, self.baud)
@@ -104,11 +112,13 @@ class SerialPort(AbstractPort):
             self.serial_port = None
         return self.is_connected()
 
+
     async def disconnect(self) -> None:
         log.debug("SerialPort disconnecting")
         if self.serial_port is not None:
             self.serial_port.close()
         self.serial_port = None
+
 
     async def send_and_receive(self, command: Command) -> Result:
         full_command = command.full_command
@@ -164,6 +174,7 @@ class SerialPort(AbstractPort):
             result.error_messages.append(f"Serial read error {e}")
             self.disconnect()
             return result
+
 
     @retry(stop=stop_after_attempt(3), wait=wait_fixed(2), reraise=True)
     async def _serial_read_until_done(self, full_command):

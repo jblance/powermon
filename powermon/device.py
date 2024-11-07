@@ -71,7 +71,7 @@ class Device:
         return DeviceDTO(device_info=self.device_info.to_dto(), port=self.port.to_dto(), commands=commands)
 
     @classmethod
-    def from_config(cls, config=None):
+    async def from_config(cls, config=None):
         """build the object from a config dict"""
         if not config:
             log.warning("No device definition in config. Check configFile argument?")
@@ -85,7 +85,7 @@ class Device:
             raise ConfigNeedsUpdatingError("Breaking Change: Please rename 'id' device config item to 'serial_number'")
 
         serial_number = config.get("serial_number")   
-        port = port_from_config(config.get("port"), serial_number=serial_number)
+        port = await port_from_config(config.get("port"), serial_number=serial_number)
 
         # raise error if unable to configure port
         if not port:

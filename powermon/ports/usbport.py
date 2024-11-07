@@ -1,5 +1,5 @@
 """ powermon / ports / usbport.py """
-import asyncio
+# import asyncio
 import logging
 import os
 import time
@@ -7,7 +7,7 @@ from glob import glob
 
 from powermon.commands.command import Command
 from powermon.commands.result import Result, ResultType
-from powermon.libs.errors import ConfigError
+from powermon.libs.errors import ConfigError, PowermonProtocolError
 from powermon.ports import PortType
 from powermon.ports.abstractport import AbstractPort, _AbstractPortDTO
 from powermon.protocols import get_protocol_definition
@@ -24,51 +24,58 @@ class UsbPortDTO(_AbstractPortDTO):
 class USBPort(AbstractPort):
     """ usb port object """
     @classmethod
-    def from_config(cls, config=None):
+    async def from_config(cls, config=None):
         log.debug("building usb port. config:%s", config)
         path = config.get("path", "/dev/hidraw0")
         serial_number = config.get("serial_number")
         # get protocol handler, default to PI30 if not supplied
         protocol = get_protocol_definition(protocol=config.get("protocol", "PI30"))
-        return cls(path=path, protocol=protocol, serial_number=serial_number)
+        # instantiate class
+        _class = cls(path=path, protocol=protocol)
+        # deal with wildcard path resolution
+        _class.path = await _class.resolve_path(path, serial_number)
+        return _class
 
-    def __init__(self, path, protocol, serial_number) -> None:
+    def __init__(self, path, protocol) -> None:
         self.port_type = PortType.USB
         super().__init__(protocol=protocol)
 
         self.path = None
         self.port = None
 
-        # using glob to determine path(s)
+
+    async def resolve_path(self, path, serial_number):
+        """Async method to resolve a valid path by testing each one."""
+        # expand 'wildcard'
         paths = glob(path)
-        path_count = len(paths)
-        match path_count:
-            case 0:
-                log.error("no matching paths found on this system for: %s", path)
-                raise ConfigError(f"no matching paths found on this system for {path}")
-            case 1:
-                # only one valid result on this system
-                self.path = paths[0]
-            case _:
-                # more than one valid path - so we need to determine which to use
-                if serial_number is None:
-                    raise ConfigError("To use wildcard paths an serial_number must be specified in the config file for the port")
-                # need to build a command
-                command = self.protocol.get_id_command()
-                for _path in paths:
-                    log.debug("Multiple paths - checking path: %s to see if it matches %s", _path, serial_number)
-                    self.path = _path
-                    asyncio.run(self.connect())
-                    res = asyncio.run(self.send_and_receive(command=command))
-                    if not res.is_valid:
-                        log.info("path: %s does not match for serial_number: %s", _path, serial_number)
-                        asyncio.run(self.disconnect())
-                        continue
-                    if res.readings[0].data_value == str(serial_number):
-                        log.info("SUCCESS: path: %s matches for serial_number: %s", _path, serial_number)
-                        return
-                raise ConfigError(f"Multiple paths - none of {paths} match {serial_number}")
-        # end of multi-path logic
+        if not paths:
+            raise ConfigError(f"No matching paths found on this system for {path}")
+
+        if len(paths) == 1:
+            return paths[0]  # only one valid result
+
+        # More than one valid path
+        # check we have something to look for
+        if serial_number is None:
+            raise ConfigError("Wildcard paths require a serial_number in config.")
+        # check we have get_id in this protocol
+        try:
+            command = self.protocol.get_id_command()
+        except PowermonProtocolError as ex:
+            raise ConfigError(f"No get_id in protocol: {self.protocol.protocol_id}") from ex
+
+        for _path in paths:
+            log.debug("Checking path: %s for serial_number: %s", _path, serial_number)
+            self.path = _path
+            await self.connect()
+            res = await self.send_and_receive(command=command)
+            await self.disconnect()
+
+            if res.is_valid and res.readings[0].data_value == serial_number:
+                log.info("SUCCESS: path: %s matches serial_number: %s", _path, serial_number)
+                return _path  # return the matching path
+        raise ConfigError(f"None of the paths match serial_number: {serial_number}")
+
 
     def to_dto(self):
         dto = UsbPortDTO(port_type="usb", path=self.path, protocol=self.protocol.to_dto())

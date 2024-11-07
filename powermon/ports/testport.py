@@ -36,7 +36,7 @@ class TestPort(AbstractPort):
         return "Test port"
 
     @classmethod
-    def from_config(cls, config=None):
+    async def from_config(cls, config=None):
         log.debug("building test port. config:%s", config)
         # allows specification of which of the test responses to use (mainly to allow test cases to be repeatable)
         response_number = config.get("response_number", None)

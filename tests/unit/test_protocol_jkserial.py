@@ -45,12 +45,12 @@ class TestProtocolJKSerial(unittest.TestCase):
 
     def test_port_supported_serial(self):
         """ test that jkserial protocol is supported on SerialPort"""
-        _port = SerialPort("/dev/tty0", 9600, proto, "id")
+        _port = SerialPort("/dev/tty0", 9600, proto)
         self.assertIsInstance(_port, AbstractPort)
 
     def test_port_notsupported_usb(self):
         """ test that jkserial protocol is not supported on UsbPort"""
-        self.assertRaises(PowermonProtocolError, USBPort, "path", proto, "id")
+        self.assertRaises(PowermonProtocolError, USBPort, "path", proto)
         # self.assertIsInstance(sp, AbstractPort)
 
     def test_port_supported_test(self):

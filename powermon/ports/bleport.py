@@ -56,7 +56,7 @@ class BlePort(AbstractPort):
         return f"BlePort: {self.mac=}, protocol:{self.protocol}, {self.client=}, {self.error_message=}"
 
     @classmethod
-    def from_config(cls, config: dict) -> 'BlePort':
+    async def from_config(cls, config: dict) -> 'BlePort':
         """build the BlePort object from a config dict
 
         Args:

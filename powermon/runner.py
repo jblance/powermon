@@ -164,7 +164,7 @@ async def runner():
     log.info(mqtt_broker)
 
     # build device object (required)
-    device = Device.from_config(config=config.get("device"))
+    device = await Device.from_config(config=config.get("device"))
     device.mqtt_broker = mqtt_broker
     log.debug(device)
 
@@ -176,11 +176,8 @@ async def runner():
             print("Running adhoc command to non-connected device")
             adhoc_command_config = {"command": args.adhoc}
             device.add_command(Command.from_config(adhoc_command_config))
-            # _run_async(device.initialize())
             await device.initialize()
-            # _run_async(device.run(True))
             await device.run(True)
-            # _run_async(device.finalize())
             await device.finalize()
             return
         # post adhoc command to mqtt
@@ -213,7 +210,6 @@ async def runner():
     api_coordinator.announce(daemon)
 
     # initialize device
-    # _run_async(device.initialize())
     await device.initialize()
     api_coordinator.announce(device)
 
@@ -232,7 +228,6 @@ async def runner():
             daemon.watchdog()
 
             # run device loop (ie run any needed commands)
-            # _run_async(device.run(args.force))
             await device.run(args.force)
 
             # run api coordinator ...
@@ -249,7 +244,6 @@ async def runner():
         print("KeyboardInterrupt - stopping")
     finally:
         # disconnect device
-        # _run_async(device.finalize())
         await device.finalize()
 
         # disconnect mqtt
