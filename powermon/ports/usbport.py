@@ -71,7 +71,7 @@ class USBPort(AbstractPort):
             res = await self.send_and_receive(command=command)
             await self.disconnect()
 
-            if res.is_valid and res.readings[0].data_value == serial_number:
+            if res.is_valid and str(res.readings[0].data_value) == str(serial_number):
                 log.info("SUCCESS: path: %s matches serial_number: %s", _path, serial_number)
                 return _path  # return the matching path
         raise ConfigError(f"None of the paths match serial_number: {serial_number}")
