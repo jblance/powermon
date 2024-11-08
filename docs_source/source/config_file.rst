@@ -10,12 +10,14 @@ There are 7 sections in the config file:
 * :ref:`api` [optional]
 * :ref:`debuglevel` [optional]
 
+Note: the ``powermon-cli`` has an option to generate a config file based on the answers to questions see :doc:`usage.powermon.cli`
+
 
 .. _device:
 
 ``device``
 ==========
-The device section has some optional details about the device (though these details are used by some of the output formats)
+The device section has details about the device (some are optional, some may be required by certain output formats)
 
 The port section is required, with at least the ``type`` defined
 
