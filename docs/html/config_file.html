@@ -114,6 +114,16 @@
                 
                   <li class="toctree-l2"><a href="#commands" class="reference internal">commands</a></li>
                 
+                  <li class="toctree-l2"><a href="#loop" class="reference internal">loop</a></li>
+                
+                  <li class="toctree-l2"><a href="#mqttbroker" class="reference internal">mqttbroker</a></li>
+                
+                  <li class="toctree-l2"><a href="#daemon" class="reference internal">daemon</a></li>
+                
+                  <li class="toctree-l2"><a href="#api" class="reference internal">api</a></li>
+                
+                  <li class="toctree-l2"><a href="#debuglevel" class="reference internal">debuglevel</a></li>
+                
               </ul>
             
           </li>
@@ -181,21 +191,21 @@
 <h1>Config File Syntax<a class="headerlink" href="#config-file-syntax" title="Link to this heading">¶</a></h1>
 <p>There are 7 sections in the config file:</p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">device</span></code> [required] <a class="reference internal" href="#device"><span class="std std-ref">device</span></a></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">commands</span></code> [required] <a class="reference internal" href="#commands"><span class="std std-ref">commands</span></a></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">mqttbroker</span></code> [optional]</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">api</span></code> [optional]</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">daemon</span></code> [optional]</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">debuglevel</span></code> [optional]</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">loop</span></code> [optional]</p></li>
+<li><p><a class="reference internal" href="#device"><span class="std std-ref">device</span></a> [required]</p></li>
+<li><p><a class="reference internal" href="#commands"><span class="std std-ref">commands</span></a> [required]</p></li>
+<li><p><a class="reference internal" href="#loop"><span class="std std-ref">loop</span></a> [optional]</p></li>
+<li><p><a class="reference internal" href="#mqttbroker"><span class="std std-ref">mqttbroker</span></a> [optional]</p></li>
+<li><p><a class="reference internal" href="#daemon"><span class="std std-ref">daemon</span></a> [optional]</p></li>
+<li><p><a class="reference internal" href="#api"><span class="std std-ref">api</span></a> [optional]</p></li>
+<li><p><a class="reference internal" href="#debuglevel"><span class="std std-ref">debuglevel</span></a> [optional]</p></li>
 </ul>
 </section>
 <section id="device">
 <span id="id1"></span><h1><code class="docutils literal notranslate"><span class="pre">device</span></code><a class="headerlink" href="#device" title="Link to this heading">¶</a></h1>
 <p>The device section has some optional details about the device (though these details are used by some of the output formats)</p>
 <p>The port section is required, with at least the <code class="docutils literal notranslate"><span class="pre">type</span></code> defined</p>
-<div class="literal-block-wrapper docutils container" id="id3">
-<div class="code-block-caption"><span class="caption-text">device section example</span><a class="headerlink" href="#id3" title="Link to this code">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id8">
+<div class="code-block-caption"><span class="caption-text">device section example</span><a class="headerlink" href="#id8" title="Link to this code">¶</a></div>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">device</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">My Inverter</span><span class="w">       </span><span class="c1"># [optional] user name for physical device</span>
 <span class="w">    </span><span class="nt">serial_number</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1234589</span><span class="w">  </span><span class="c1"># [optional] serial number of physical device</span>
@@ -212,8 +222,8 @@
 </div>
 </div>
 <p>The port section is required and must be one of <code class="docutils literal notranslate"><span class="pre">test</span></code>, <code class="docutils literal notranslate"><span class="pre">usb</span></code>, <code class="docutils literal notranslate"><span class="pre">serial</span></code>, <code class="docutils literal notranslate"><span class="pre">ble</span></code>, each of which has different config items/requirements</p>
-<div class="literal-block-wrapper docutils container" id="id4">
-<div class="code-block-caption"><span class="caption-text">port - test</span><a class="headerlink" href="#id4" title="Link to this code">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id9">
+<div class="code-block-caption"><span class="caption-text">port - test</span><a class="headerlink" href="#id9" title="Link to this code">¶</a></div>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">port</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">test</span><span class="w">          </span><span class="c1"># test port - returns one of the defined test_responses</span>
 <span class="w">                        </span><span class="c1">#  in the protocol definition - used for testing protocols</span>
@@ -223,8 +233,8 @@
 </pre></div>
 </div>
 </div>
-<div class="literal-block-wrapper docutils container" id="id5">
-<div class="code-block-caption"><span class="caption-text">port - usb</span><a class="headerlink" href="#id5" title="Link to this code">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id10">
+<div class="code-block-caption"><span class="caption-text">port - usb</span><a class="headerlink" href="#id10" title="Link to this code">¶</a></div>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">port</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">usb</span><span class="w">           </span><span class="c1"># usb port - uses direct usb access to device</span>
 <span class="w">                        </span><span class="c1">#  (as opposed to serial which needs a usb to serial converter)</span>
@@ -234,8 +244,8 @@
 </pre></div>
 </div>
 </div>
-<div class="literal-block-wrapper docutils container" id="id6">
-<div class="code-block-caption"><span class="caption-text">port - serial</span><a class="headerlink" href="#id6" title="Link to this code">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id11">
+<div class="code-block-caption"><span class="caption-text">port - serial</span><a class="headerlink" href="#id11" title="Link to this code">¶</a></div>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">port</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">serial</span><span class="w">        </span><span class="c1"># serial port - typically uses a usb to serial converter to connect to the device</span>
 <span class="w">    </span><span class="nt">protocol</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">PI30</span>
@@ -245,8 +255,8 @@
 </pre></div>
 </div>
 </div>
-<div class="literal-block-wrapper docutils container" id="id7">
-<div class="code-block-caption"><span class="caption-text">port - ble</span><a class="headerlink" href="#id7" title="Link to this code">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id12">
+<div class="code-block-caption"><span class="caption-text">port - ble</span><a class="headerlink" href="#id12" title="Link to this code">¶</a></div>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">port</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ble</span><span class="w">            </span><span class="c1"># ble port - uses Bluetooth Low Energy to connect</span>
 <span class="w">                         </span><span class="c1">#  to device and get info via BLE characteristics</span>
@@ -260,8 +270,8 @@
 <section id="commands">
 <span id="id2"></span><h1><code class="docutils literal notranslate"><span class="pre">commands</span></code><a class="headerlink" href="#commands" title="Link to this heading">¶</a></h1>
 <p>This section details the commands to be run against the device</p>
-<div class="literal-block-wrapper docutils container" id="id8">
-<div class="code-block-caption"><span class="caption-text">commands section example</span><a class="headerlink" href="#id8" title="Link to this code">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id13">
+<div class="code-block-caption"><span class="caption-text">commands section example</span><a class="headerlink" href="#id13" title="Link to this code">¶</a></div>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">commands</span><span class="p">:</span>
 <span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">QPIGS</span>
 <span class="w">  </span><span class="nt">outputs</span><span class="p">:</span>
@@ -273,6 +283,21 @@
 </pre></div>
 </div>
 </div>
+</section>
+<section id="loop">
+<span id="id3"></span><h1><code class="docutils literal notranslate"><span class="pre">loop</span></code><a class="headerlink" href="#loop" title="Link to this heading">¶</a></h1>
+</section>
+<section id="mqttbroker">
+<span id="id4"></span><h1><code class="docutils literal notranslate"><span class="pre">mqttbroker</span></code><a class="headerlink" href="#mqttbroker" title="Link to this heading">¶</a></h1>
+</section>
+<section id="daemon">
+<span id="id5"></span><h1><code class="docutils literal notranslate"><span class="pre">daemon</span></code><a class="headerlink" href="#daemon" title="Link to this heading">¶</a></h1>
+</section>
+<section id="api">
+<span id="id6"></span><h1><code class="docutils literal notranslate"><span class="pre">api</span></code><a class="headerlink" href="#api" title="Link to this heading">¶</a></h1>
+</section>
+<section id="debuglevel">
+<span id="id7"></span><h1><code class="docutils literal notranslate"><span class="pre">debuglevel</span></code><a class="headerlink" href="#debuglevel" title="Link to this heading">¶</a></h1>
 </section>
 
 

@@ -2,13 +2,14 @@ Config File Syntax
 ==================
 There are 7 sections in the config file:
 
-* ``device`` [required] :ref:`device`
-* ``commands`` [required] :ref:`commands`
-* ``mqttbroker`` [optional]
-* ``api`` [optional]
-* ``daemon`` [optional]
-* ``debuglevel`` [optional]
-* ``loop`` [optional]
+* :ref:`device` [required]
+* :ref:`commands` [required]
+* :ref:`loop` [optional]
+* :ref:`mqttbroker` [optional]
+* :ref:`daemon` [optional]
+* :ref:`api` [optional]
+* :ref:`debuglevel` [optional]
+
 
 .. _device:
 
@@ -97,4 +98,34 @@ This section details the commands to be run against the device
       - type: screen
         format:
           type: table
+
+
+.. _loop:
+
+``loop``
+==========
+
+
+.. _mqttbroker:
+
+``mqttbroker``
+==============
+
+
+.. _daemon:
+
+``daemon``
+==========
+
+
+.. _api:
+
+``api``
+==========
+
+
+.. _debuglevel:
+
+``debuglevel``
+==============
 
