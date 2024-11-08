@@ -2,7 +2,7 @@ Config File Syntax
 ==================
 There are 7 sections in the config file:
 
-* ``device`` [required]
+* ``device`` [required] :ref:`device`
 * ``commands`` [required]
 * ``mqttbroker`` [optional]
 * ``api`` [optional]
@@ -10,8 +10,10 @@ There are 7 sections in the config file:
 * ``debuglevel`` [optional]
 * ``loop`` [optional]
 
-Config Section - device
-=======================
+.. _device:
+
+device
+======
 The device section has some optional details about the device (though these details are used by some of the output formats)
 
 The port section is required, with at least the ``type`` defined
@@ -77,8 +79,11 @@ The port section is required and must be one of ``test``, ``usb``, ``serial``, `
         mac: 00:00:00:00:00  # mac address of ble device
         victron_key: !ENV ${VICTRON_KEY}  # [optional] required for victron devices - see XXXX document
 
-Config Section - commands
-=========================
+.. _commands:
+
+commands
+========
+
 This section details the commands to be run against the device
 
 .. code-block:: yaml
@@ -92,3 +97,6 @@ This section details the commands to be run against the device
       - type: screen
         format:
           type: table
+
+
+:ref:`config_section`
