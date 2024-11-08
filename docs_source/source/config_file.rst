@@ -3,7 +3,7 @@ Config File Syntax
 There are 7 sections in the config file:
 
 * ``device`` [required] :ref:`device`
-* ``commands`` [required]
+* ``commands`` [required] :ref:`commands`
 * ``mqttbroker`` [optional]
 * ``api`` [optional]
 * ``daemon`` [optional]
@@ -12,8 +12,8 @@ There are 7 sections in the config file:
 
 .. _device:
 
-device
-======
+``device``
+==========
 The device section has some optional details about the device (though these details are used by some of the output formats)
 
 The port section is required, with at least the ``type`` defined
@@ -81,8 +81,8 @@ The port section is required and must be one of ``test``, ``usb``, ``serial``, `
 
 .. _commands:
 
-commands
-========
+``commands``
+============
 
 This section details the commands to be run against the device
 
@@ -98,5 +98,3 @@ This section details the commands to be run against the device
         format:
           type: table
 
-
-:ref:`config_section`
