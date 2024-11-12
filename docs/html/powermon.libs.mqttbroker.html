@@ -93,6 +93,24 @@
         
           <li class="toctree-l1 ">
             
+              <a href="devices.html" class="reference internal ">Devices</a>
+            
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 ">
+            
+              <a href="tutorials.html" class="reference internal ">Tutorials</a>
+            
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 ">
+            
               <a href="config_file.html" class="reference internal ">Config File Syntax</a>
             
 
@@ -173,6 +191,12 @@
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Wrapper for mqtt broker connectivity and message proccessing</p>
 <dl class="py property">
+<dt class="sig sig-object py" id="powermon.libs.mqttbroker.MqttBroker.adhoc_result_topic">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">adhoc_result_topic</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#powermon.libs.mqttbroker.MqttBroker.adhoc_result_topic" title="Link to this definition">¶</a></dt>
+<dd><p>return the adhoc result topic</p>
+</dd></dl>
+
+<dl class="py property">
 <dt class="sig sig-object py" id="powermon.libs.mqttbroker.MqttBroker.adhoc_topic">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">adhoc_topic</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#powermon.libs.mqttbroker.MqttBroker.adhoc_topic" title="Link to this definition">¶</a></dt>
 <dd><p>return the adhoc command topic</p>
@@ -206,6 +230,12 @@
 <dt class="sig sig-object py" id="powermon.libs.mqttbroker.MqttBroker.post_adhoc_command">
 <span class="sig-name descname"><span class="pre">post_adhoc_command</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">command_code</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#powermon.libs.mqttbroker.MqttBroker.post_adhoc_command" title="Link to this definition">¶</a></dt>
 <dd><p>shortcut function to publish an adhoc command</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="powermon.libs.mqttbroker.MqttBroker.post_adhoc_result">
+<span class="sig-name descname"><span class="pre">post_adhoc_result</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">payload</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#powermon.libs.mqttbroker.MqttBroker.post_adhoc_result" title="Link to this definition">¶</a></dt>
+<dd><p>shortcut function to publish the results of an adhoc command</p>
 </dd></dl>
 
 <dl class="py method">

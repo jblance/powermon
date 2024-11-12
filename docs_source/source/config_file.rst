@@ -113,6 +113,19 @@ This section details the commands to be run against the device
 ``mqttbroker``
 ==============
 
+This section details the mqttbroker connection information
+
+.. code-block:: yaml
+    :caption: commands section example
+
+    mqttbroker:
+      name: 192.168.86.222
+      port: 1833
+      username:
+      password:
+      adhoc_topic: powermon/adhoc_commands
+      adhoc_result_topic: powermon/adhoc_results
+
 
 .. _daemon:
 

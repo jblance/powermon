@@ -22,7 +22,7 @@
   <link rel="index" title="Index" href="genindex.html" />
   <link rel="search" title="Search" href="search.html" />
   <link rel="next" title="Docker" href="docker.html" />
-  <link rel="prev" title="Daly BMS" href="devices.dalybms.html" /> 
+  <link rel="prev" title="Daly BMS" href="tutorials.dalybms.html" /> 
   </head>
 
   <body>
@@ -94,6 +94,15 @@
           <li class="toctree-l1 ">
             
               <a href="devices.html" class="reference internal ">Devices</a>
+            
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 ">
+            
+              <a href="tutorials.html" class="reference internal ">Tutorials</a>
             
 
             
@@ -174,7 +183,7 @@
 
   <ul class="page-nav">
   <li class="prev">
-    <a href="devices.dalybms.html"
+    <a href="tutorials.dalybms.html"
        title="previous chapter">← Daly BMS</a>
   </li>
   <li class="next">
@@ -290,6 +299,19 @@
 </section>
 <section id="mqttbroker">
 <span id="id4"></span><h1><code class="docutils literal notranslate"><span class="pre">mqttbroker</span></code><a class="headerlink" href="#mqttbroker" title="Link to this heading">¶</a></h1>
+<p>This section details the mqttbroker connection information</p>
+<div class="literal-block-wrapper docutils container" id="id14">
+<div class="code-block-caption"><span class="caption-text">commands section example</span><a class="headerlink" href="#id14" title="Link to this code">¶</a></div>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">mqttbroker</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">192.168.86.222</span>
+<span class="w">  </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1833</span>
+<span class="w">  </span><span class="nt">username</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">password</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">adhoc_topic</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">powermon/adhoc_commands</span>
+<span class="w">  </span><span class="nt">adhoc_result_topic</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">powermon/adhoc_results</span>
+</pre></div>
+</div>
+</div>
 </section>
 <section id="daemon">
 <span id="id5"></span><h1><code class="docutils literal notranslate"><span class="pre">daemon</span></code><a class="headerlink" href="#daemon" title="Link to this heading">¶</a></h1>
@@ -306,7 +328,7 @@
           <div class="page-nav">
             <div class="inner"><ul class="page-nav">
   <li class="prev">
-    <a href="devices.dalybms.html"
+    <a href="tutorials.dalybms.html"
        title="previous chapter">← Daly BMS</a>
   </li>
   <li class="next">
