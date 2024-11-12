@@ -68,10 +68,11 @@ def _process_command_line_overrides(args):
 
 
 def main():
+    """entry point for powermon command"""
     asyncio.run(runner())
 
 async def runner():
-    """main entry point for powermon command"""
+    """powermon command function"""
     description = f"Power Device Monitoring Utility, version: {__version__}, python version: {python_version()}"  # pylint: disable=C0301
     parser = ArgumentParser(description=description)
 
