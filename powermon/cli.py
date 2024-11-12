@@ -240,9 +240,9 @@ def generate_config_file():
         else:
             mqtt_pass = input(f"{Color.ENDC}Enter mqtt broker user password [None]: {Color.OKBLUE}") or None
         mqtt_dict['password'] = mqtt_pass
-        adhoc_topic = input(f"{Color.ENDC}Enter mqtt broker adhoc command listening topic [powermon/adhoc_commands]: {Color.OKBLUE}") or 'powermon/adhoc_commands'
+        adhoc_topic = input(f"{Color.ENDC}Enter mqtt broker adhoc command {Color.OKGREEN}listening{Color.ENDC} topic [powermon/adhoc_commands]: {Color.OKBLUE}") or 'powermon/adhoc_commands'
         mqtt_dict['adhoc_topic'] = adhoc_topic
-        adhoc_result_topic = input(f"{Color.ENDC}Enter mqtt broker adhoc command listening topic [powermon/adhoc_commands]: {Color.OKBLUE}") or 'powermon/adhoc_results'
+        adhoc_result_topic = input(f"{Color.ENDC}Enter mqtt broker adhoc command {Color.OKGREEN}results{Color.ENDC} topic [powermon/adhoc_commands]: {Color.OKBLUE}") or 'powermon/adhoc_results'
         mqtt_dict['adhoc_result_topic'] = adhoc_result_topic
     if mqtt_dict:
         config['mqttbroker'] = mqtt_dict
