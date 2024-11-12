@@ -1,5 +1,6 @@
+*******
 Devices
-=======
+*******
 
 #########
 Inverters
@@ -16,10 +17,8 @@ Inverters
 Battery Management Systems (BMS)
 ################################
 
-.. toctree::
-   :maxdepth: 1
-
-   devices.dalybms
+* Daly
+* JKBMS
 
 #########
 Balancers

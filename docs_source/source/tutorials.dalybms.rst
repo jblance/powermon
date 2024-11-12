@@ -48,7 +48,7 @@ Configuration
 Example configuration
 ---------------------
 
-::
+.. code-block:: yaml
 
    device:
      name: Daly BMS
@@ -82,7 +82,7 @@ voltage data in threes. You can use regex filtering to discard data for
 cells 17 and 18 (which show duplicate values for cells 14 and 15) and
 keep only first 16:
 
-::
+.. code-block:: yaml
 
    - command: cell_voltages
      outputs:
@@ -101,7 +101,7 @@ the output into a single device and formats the sensor output.
 Specify the output and formatting for each command:
 
 
-::
+.. code-block:: yaml
 
    commands:
    - command: SOC
@@ -116,7 +116,7 @@ Specify the output and formatting for each command:
 
 Configure your MQTT broker (assuming the default port `1883`; change if yours is different):
 
-::
+.. code-block:: yaml
 
   mqttbroker:
     name: <IP address of your MQTT broker>
@@ -130,7 +130,7 @@ Daemon
 
 For continuous monitoring, enable the daemon:
 
-::
+.. code-block:: yaml
 
    daemon:
     type: systemd
@@ -140,7 +140,7 @@ For continuous monitoring, enable the daemon:
 Full config
 -----------
 
-::
+.. code-block:: yaml
 
    device:
      name: Daly BMS
