@@ -178,13 +178,12 @@ class Device:
                 log.error("Error decoding result: %s", exception)
                 raise exception
             # process result
-            # QUESTION: what format do we use for publishing the result
-            payload = str(result)  # FIXME: finish this
+            # Currently using JSON format, one message per parameter
+            #   eg:  powermon/adhoc_commands QPI
+            #        powermon/adhoc_results {"data_name": "protocol_id", "data_value": "PI30", "data_unit": ""}
             _formatter = get_formatter(FormatterType.JSON)({})
             # publish result
-            # print(payload)
             payload = _formatter.format(command=None, result=result, device_info=None)
-            # print(payload)
             log.debug("Payload: %s", payload)
             for item in payload:
                 self.mqtt_broker.post_adhoc_result(item)
