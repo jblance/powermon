@@ -30,6 +30,7 @@ class MqttBroker:
             password = config.get("password")
             mqtt_broker = cls(name=name, port=port, username=username, password=password)
             mqtt_broker.adhoc_topic = config.get("adhoc_topic")
+            mqtt_broker.adhoc_result_topic = config.get("adhoc_result_topic")
             return mqtt_broker
         else:
             return cls(name=None)
@@ -46,6 +47,26 @@ class MqttBroker:
         else:
             self.disabled = False
             self.mqttc = mqtt_client.Client()
+
+    @property
+    def adhoc_topic(self) -> str:
+        """ return the adhoc command topic """
+        return getattr(self, "_adhoc_topic", None)
+
+    @adhoc_topic.setter
+    def adhoc_topic(self, value):
+        log.debug("setting adhoc topic to: %s", value)
+        self._adhoc_topic = value
+
+    @property
+    def adhoc_result_topic(self) -> str:
+        """ return the adhoc result topic """
+        return getattr(self, "_adhoc_result_topic", None)
+
+    @adhoc_result_topic.setter
+    def adhoc_result_topic(self, value):
+        log.debug("setting adhoc result topic to: %s", value)
+        self._adhoc_result_topic = value
 
     def on_connect(self, client, userdata, flags, rc):
         """ callback for connect """
@@ -152,6 +173,11 @@ class MqttBroker:
         """ shortcut function to publish an adhoc command """
         self.publish(topic=self.adhoc_topic, payload=command_code)
 
+    def post_adhoc_result(self, payload):
+        """ shortcut function to publish the results of an adhoc command """
+        self.publish(topic=self.adhoc_result_topic, payload=payload)
+
+
     def publish(self, topic: str = None, payload: str = None):
         """ function to publish messages to mqtt broker """
         if self.disabled:
@@ -178,16 +204,6 @@ class MqttBroker:
             infot.wait_for_publish(5)
         except Exception as e:
             log.warning(str(e))
-
-    @property
-    def adhoc_topic(self) -> str:
-        """ return the adhoc command topic """
-        return getattr(self, "_adhoc_topic", None)
-
-    @adhoc_topic.setter
-    def adhoc_topic(self, value):
-        log.debug("setting adhoc topic to: %s", value)
-        self._adhoc_topic = value
 
     # def setAdhocCommands(self, config={}, callback=None):
     #     if not config:

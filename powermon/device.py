@@ -9,6 +9,7 @@ from powermon.commands.result import Result
 from powermon.libs.errors import (CommandDefinitionMissing, ConfigError,
                                   ConfigNeedsUpdatingError)
 from powermon.libs.mqttbroker import MqttBroker
+from powermon.outputformats import get_formatter, FormatterType
 from powermon.outputs.abstractoutput import AbstractOutput
 from powermon.ports import from_config as port_from_config
 from powermon.ports.abstractport import AbstractPort, _AbstractPortDTO
@@ -126,6 +127,7 @@ class Device:
         adhoc_command = Command.from_code(command_code)
         adhoc_command.command_definition = self.port.protocol.get_command_definition(command_code)
         # add to adhoc queue
+        log.info("adding adhoc command: %s", adhoc_command)
         self.adhoc_commands.append(adhoc_command)
 
     def add_command(self, command: Command) -> None:
@@ -176,10 +178,15 @@ class Device:
                 log.error("Error decoding result: %s", exception)
                 raise exception
             # process result
+            # QUESTION: what format do we use for publishing the result
             payload = str(result)  # FIXME: finish this
+            _formatter = get_formatter(FormatterType.JSON)
             # publish result
             print(payload)
-            self.mqtt_broker.publish("powermon2/adhoc_commands_results", payload)  # FIXME: finish this
+            payload = _formatter.format(command=None, Result=result)
+            print(payload)
+            log.debug("Payload: %s", payload)
+            self.mqtt_broker.post_adhoc_result(payload)
 
     async def run(self, force=False):
         """checks for commands to run and runs them"""
