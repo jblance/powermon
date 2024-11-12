@@ -182,11 +182,12 @@ class Device:
             payload = str(result)  # FIXME: finish this
             _formatter = get_formatter(FormatterType.JSON)({})
             # publish result
-            print(payload)
+            # print(payload)
             payload = _formatter.format(command=None, result=result, device_info=None)
-            print(payload)
+            # print(payload)
             log.debug("Payload: %s", payload)
-            self.mqtt_broker.post_adhoc_result(payload)
+            for item in payload:
+                self.mqtt_broker.post_adhoc_result(item)
 
     async def run(self, force=False):
         """checks for commands to run and runs them"""
