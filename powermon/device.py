@@ -180,7 +180,7 @@ class Device:
             # process result
             # QUESTION: what format do we use for publishing the result
             payload = str(result)  # FIXME: finish this
-            _formatter = get_formatter(FormatterType.JSON)
+            _formatter = get_formatter(FormatterType.JSON)({})
             # publish result
             print(payload)
             payload = _formatter.format(command=None, result=result, device_info=None)
