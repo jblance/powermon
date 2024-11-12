@@ -26,6 +26,7 @@ Documentation
 
    installation
    usage
+   devices
    tutorials
    config_file
    docker
