@@ -28,9 +28,12 @@ class Json(AbstractFormat):
         options.update(extra_options)
         return options
 
-    def format(self, command, result: Result, device_info) -> list:
+    def format(self, command=None, result: Result=None, device_info=None) -> list:
 
         _result = []
+
+        if result is None:
+            return _result
         # if jsonpickle is None:
         #     return _result
 

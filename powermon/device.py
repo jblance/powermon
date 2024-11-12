@@ -183,7 +183,7 @@ class Device:
             _formatter = get_formatter(FormatterType.JSON)
             # publish result
             print(payload)
-            payload = _formatter.format(command=None, Result=result)
+            payload = _formatter.format(command=None, result=result, device_info=None)
             print(payload)
             log.debug("Payload: %s", payload)
             self.mqtt_broker.post_adhoc_result(payload)
