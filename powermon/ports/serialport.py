@@ -54,9 +54,10 @@ class SerialPort(AbstractPort):
         self.baud = baud
         self.serial_port = None
 
+
     async def resolve_path(self, path, serial_number):
         """Async method to resolve a valid path by testing each one."""
-        
+
         # expand 'wildcard'
         paths = glob(path)
         if not paths:

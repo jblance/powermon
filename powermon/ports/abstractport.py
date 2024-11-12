@@ -26,6 +26,7 @@ class AbstractPort(ABC):
         # self.port_type = None
         self.is_protocol_supported()
 
+
     @classmethod
     @abstractmethod
     async def from_config(cls, config: dict) -> "AbstractPort":
@@ -41,39 +42,47 @@ class AbstractPort(ABC):
         if port_type not in self.protocol.supported_ports:
             raise PowermonProtocolError(f"Protocol {self.protocol.protocol_id.decode()} not supported by port type {port_type}")
 
+
     async def connect(self) -> bool:
         """ default port connect function """
         log.debug("Port connect not implemented")
         return False
 
+
     async def disconnect(self) -> None:
         """ default port disconnect function """
         log.debug("Port disconnect not implemented")
+
 
     @abstractmethod
     def is_connected(self) -> bool:
         """ default is_connected function """
         raise NotImplementedError
 
+
     @abstractmethod
     async def send_and_receive(self, command: Command) -> Result:
         """ main worker function for port objects, specific to each port type """
         raise NotImplementedError
+
 
     @abstractmethod
     def to_dto(self) -> _AbstractPortDTO:
         """ convert port object to data transfer object """
         raise NotImplementedError
 
+
     @property
     def protocol(self) -> AbstractProtocol:
         """ return the protocol associated with this port """
         return self._protocol
 
+
     @protocol.setter
     def protocol(self, value):
         log.debug("Setting protocol to: %s", value)
         self._protocol = value
+
 
     async def run_command(self, command: Command) -> Result:
         """ run_command takes a command object, runs the command and returns a result object (replaces process_command) """
