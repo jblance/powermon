@@ -39,12 +39,9 @@ def get_protocol_definition(protocol):
         case Protocol.DALY:
             from powermon.protocols.daly import Daly
             return Daly()
-        case Protocol.NEEY:
+        case Protocol.NEEY | Protocol.HELTEC:
             from powermon.protocols.neey import Neey
             return Neey()
-        case Protocol.HELTEC:
-            from powermon.protocols.heltec import Heltec
-            return Heltec()
         case Protocol.PI18:
             from powermon.protocols.pi18 import PI18
             return PI18()
