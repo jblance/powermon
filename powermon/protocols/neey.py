@@ -309,6 +309,7 @@ COMMANDS = {
         ],
     },
 }
+
 SETTER_COMMANDS = {
     "on": {
         "name": "on",
@@ -354,6 +355,21 @@ SETTER_COMMANDS = {
         ],
         "regex": "buzzer_mode=([123])$",
     },
+    "battery_type": {
+        "name": "battery_type",
+        "description": "set the battery type",
+        "help": "  -- eg battery_type=2 (set battery type to LFP) NCM=1, LFP=2, LTO=3, PbAc=4",
+        "result_type": ResultType.SINGLE,
+        "command_type": CommandType.SERIAL_READ_UNTIL_DONE,
+        "command_code": 0x1505,
+        "reading_definitions": [
+            {"description": "result", "reading_type": ReadingType.MESSAGE, "response_type": ResponseType.HEX_CHAR},
+        ],
+        "test_responses": [
+            b'U\xaa\x11\x00\x05\r\x14\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x006\xff',
+        ],
+        "regex": "battery_type=([1234])$",
+    },
     "cell_count": {
         "name": "cell_count",
         "description": "set the number of cells in the battery",
@@ -369,11 +385,12 @@ SETTER_COMMANDS = {
         ],
         "regex": r"cell_count=(\d+)$",
     },
-    "balance_current": {
-        "name": "balance_current",
+    "max_balance_current": {
+        "name": "max_balance_current",
+        "aliases": ["mbc", "balance_current"],
         "description": "set the maximum balance current",
         "result_type": ResultType.SINGLE,
-        "help": "  -- eg balance_current=4.0 (set max balance current to 4.0A)",
+        "help": "  -- eg max_balance_current=4.0 (set max balance current to 4.0A)",
         "command_type": CommandType.SERIAL_READ_UNTIL_DONE,
         "command_code": 0x0305,
         "reading_definitions": [
@@ -400,37 +417,75 @@ SETTER_COMMANDS = {
         ],
         "regex": r"device_name=(.+)$",
     },
+    "nominal_battery_capacity": {
+        "name": "nominal_battery_capacity",
+        "aliases": ["battery_capacity", "capacity"],
+        "description": "set the nominal battery capacity",
+        "result_type": ResultType.SINGLE,
+        "help": "  -- eg nominal_battery_capacity=300 (set capacity to 300Ah)",
+        "command_type": CommandType.SERIAL_READ_UNTIL_DONE,
+        "command_code": 0x1605,
+        "reading_definitions": [
+            {"description": "result", "reading_type": ReadingType.MESSAGE, "response_type": ResponseType.HEX_CHAR},
+        ],
+        "test_responses": [
+            b'U\xaa\x11\x00\x05\x03\x14\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00,\xff',
+        ],
+        "regex": r"(?:nominal_battery_capacity|battery_capacity|capacity)=(\d+)$",
+    },
+    "balance_trigger_voltage": {
+        "name": "balance_trigger_voltage",
+        "aliases": ["trigger_voltage", ],
+        "description": "set the voltage difference above which balancing will start",
+        "result_type": ResultType.SINGLE,
+        "help": "  -- eg balance_trigger_voltage=0.4 (start balancing when cell voltage difference is greater than 0.4V)",
+        "command_type": CommandType.SERIAL_READ_UNTIL_DONE,
+        "command_code": 0x0205,
+        "reading_definitions": [
+            {"description": "result", "reading_type": ReadingType.MESSAGE, "response_type": ResponseType.HEX_CHAR},
+        ],
+        "test_responses": [
+            b'U\xaa\x11\x00\x05\x03\x14\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00,\xff',
+        ],
+        "regex": r"(?:balance_trigger_voltage|trigger_voltage)=(\d+(?:\.\d+)?)",
+    },
+    "balance_stop_voltage": {
+        "name": "balance_stop_voltage",
+        "aliases": ["stop_voltage", ],
+        "description": "set the voltage below which balancing will stop",
+        "result_type": ResultType.SINGLE,
+        "help": "  -- eg balance_stop_voltage=2.5 (stop balancing when voltage drops below 2.5V)",
+        "command_type": CommandType.SERIAL_READ_UNTIL_DONE,
+        "command_code": 0x0405,
+        "reading_definitions": [
+            {"description": "result", "reading_type": ReadingType.MESSAGE, "response_type": ResponseType.HEX_CHAR},
+        ],
+        "test_responses": [
+            b'U\xaa\x11\x00\x05\x03\x14\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00,\xff',
+        ],
+        "regex": r"(?:balance_stop_voltage|stop_voltage)=(\d+(?:\.\d+)?)",
+    },
+    "balance_start_voltage": {
+        "name": "balance_start_voltage",
+        "aliases": ["start_voltage", ],
+        "description": "set the voltage above which balancing will start",
+        "result_type": ResultType.SINGLE,
+        "help": "  -- eg balance_start_voltage=2.2 (start balancing when voltage rises above 2.2V)",
+        "command_type": CommandType.SERIAL_READ_UNTIL_DONE,
+        "command_code": 0x1705,
+        "reading_definitions": [
+            {"description": "result", "reading_type": ReadingType.MESSAGE, "response_type": ResponseType.HEX_CHAR},
+        ],
+        "test_responses": [
+            b'U\xaa\x11\x00\x05\x03\x14\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00,\xff',
+        ],
+        "regex": r"(?:balance_start_voltage|start_voltage)=(\d+(?:\.\d+)?)",
+    },
 }
 
 # TODO: test on / off commands
 # TODO: implement other setter commands
 
-# static const uint8_t FUNCTION_WRITE = 0x00;
-# static const uint8_t FUNCTION_READ = 0x01;
-
-# static const uint8_t COMMAND_NONE = 0x00;
-
-# static const uint8_t COMMAND_FACTORY_DEFAULTS = 0x03;
-# static const uint8_t COMMAND_SETTINGS = 0x04;
-# static const uint8_t COMMAND_WRITE_REGISTER = 0x05;
-
-# device_info                                                          aa551101 0100 1400 00000000000000000000 faff
-# cell_info **                                                         aa551101 0200 0014 00000000000000000000 f9ff
-# device_info                                                          aa551101 0300 1400 00000000000000000000 f8ff
-
-# enable balancer                                                      aa551100 050d 1400 01000000000000000000 f3ff
-# disable balancer                                                     aa551100 050d 1400 00000000000000000000 f2ff
-
-## single_num     Cell count [1,24]: Set 1                              aa551100 0501 1400 01000000000000000000 ffff
-# triger_mpa     Balancing Trigger Delta [0.001d, 1.0d]: Set 1.0f      aa551100 0502 1400 0000803f000000000000 42ff
-## max_cur        Max balancing current [1.0f, 4.0f]: Set 1.0f          aa551100 0503 1400 0000803f000000000000 43ff
-# auto_close     Balancing stop voltage [1.0f, 4.5f]: Set 1.0f         aa551100 0504 1400 0000803f000000000000 44ff
-# auto_open      Balancing start voltage [1.0f, 4.5f]: Set 1.0f        aa551100 0517 1400 0000803f000000000000 57ff
-# volume         Capacity [1.0f, 2000.0f]: Set 1                       aa551100 0516 1400 01000000000000000000 e8ff
-## alarm_mode     Buzzer mode {1, 2, 3}: Set 1                          aa551100 0514 1400 01000000000000000000 eaff
-# bat_mode       Battery type {1, 2, 3, 4}: Set 2                      aa551100 0515 1400 02000000000000000000 e8ff
-##                Change device name: Set "test"                        aa551100 0513 1400 74657374000000000000 faff
-#
 # Factory defaults
 #
 # standardVol2   ReferenceVoltage [0.001f, 5.0f]: Set 1.0f             aa551100 0505 1400 0000803f000000000000 45ff
@@ -492,16 +547,17 @@ class Neey(AbstractProtocol):
         if command_definition.match is not None:
             # got a regex matched command
             # group 1 is 'data'
-            # Some commands use Int16ul encoding (ie int 4 -> 04)
-            if command_definition.command_code in [0x0105, 0x1405]:
-                command_data = cs.Int16ul.build(int(command_definition.match.group(1)))
-            # Others have float encoding (ie 1.0 -> 0000803f)
-            elif command_definition.command_code in [0x0305,]:
+            # TODO: fix this - maybe a SETTER type and checking etc?
+            # Some commands have FLOAT encoding (ie 1.0 -> 0000803f)
+            if command_definition.command_code in [0x1705, 0x0405, 0x0305, 0x0205]:
                 command_data = cs.Float32l.build(float(command_definition.match.group(1)))
-            # Other have text encoded
+            # Other have TEXT encoded
             elif command_definition.command_code in [0x1305,]:
                 for i, _chr in enumerate(command_definition.match.group(1)):
                     command_data[i] = ord(_chr)
+            # Otherwise default to INT/Int16ul encoding (ie int 4 -> 04)
+            else:
+                command_data = cs.Int64ul.build(int(command_definition.match.group(1)))
 
 
         # print(command_definition)

@@ -175,6 +175,78 @@ class TestProtocolNeey(unittest.TestCase):
         # print(_result)
         self.assertEqual(_result, expected)
 
+    def test_full_command_capacity(self):
+        """ test a for correct full command for capacity=1 """
+        _result = proto.get_full_command(command="capacity=1")
+        expected = bytes.fromhex('aa551100 0516 1400 01000000000000000000 e8ff')
+        # print()
+        # print(expected)
+        # print(_result)
+        self.assertEqual(_result, expected)
+
+    def test_full_command_capacity_300(self):
+        """ test a for correct full command for capacity=300 """
+        _result = proto.get_full_command(command="capacity=300")
+        expected = bytes.fromhex('aa551100 0516 1400 2c010000000000000000 c4ff')
+        # print()
+        # print(expected)
+        # print(_result)
+        self.assertEqual(_result, expected)
+
+    def test_full_command_nominal_battery_capacity_300(self):
+        """ test a for correct full command for nominal_battery_capacity=300 """
+        _result = proto.get_full_command(command="nominal_battery_capacity=300")
+        expected = bytes.fromhex('aa551100 0516 1400 2c010000000000000000 c4ff')
+        # print()
+        # print(expected)
+        # print(_result)
+        self.assertEqual(_result, expected)
+
+    def test_full_command_balance_trigger_voltage(self):
+        """ test a for correct full command for balance_trigger_voltage=1 """
+        _result = proto.get_full_command(command="balance_trigger_voltage=1.0")
+        expected = bytes.fromhex('aa551100 0502 1400 0000803f000000000000 42ff')
+        # print()
+        # print(expected)
+        # print(_result)
+        self.assertEqual(_result, expected)
+
+    def test_full_command_balance_stop_voltage(self):
+        """ test a for correct full command for balance_stop_voltage=1 """
+        _result = proto.get_full_command(command="balance_stop_voltage=1.0")
+        expected = bytes.fromhex('aa551100 0504 1400 0000803f000000000000 44ff')
+        # print()
+        # print(expected)
+        # print(_result)
+        self.assertEqual(_result, expected)
+
+    def test_full_command_balance_start_voltage(self):
+        """ test a for correct full command for balance_start_voltage=1 """
+        _result = proto.get_full_command(command="balance_start_voltage=1.0")
+        expected = bytes.fromhex('aa551100 0517 1400 0000803f000000000000 57ff')
+        # print()
+        # print(expected)
+        # print(_result)
+        self.assertEqual(_result, expected)
+
+    def test_full_command_buzzer_mode(self):
+        """ test a for correct full command for buzzer_mode=1 """
+        _result = proto.get_full_command(command="buzzer_mode=1")
+        expected = bytes.fromhex('aa551100 0514 1400 01000000000000000000 eaff')
+        # print()
+        # print(expected)
+        # print(_result)
+        self.assertEqual(_result, expected)
+
+    def test_full_command_battery_type(self):
+        """ test a for correct full command for battery_type=2 """
+        _result = proto.get_full_command(command="battery_type=2")
+        expected = bytes.fromhex('aa551100 0515 1400 02000000000000000000 e8ff')
+        # print()
+        # print(expected)
+        # print(_result)
+        self.assertEqual(_result, expected)
+
     def test_trim(self):
         """ test protocol does a correct trim operation """
         _result = proto.trim_response(response=device_info_response, command_definition=proto.get_command_definition('device_info'))
