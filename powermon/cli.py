@@ -6,9 +6,10 @@ from sys import stdout
 
 #import yaml
 from ruamel.yaml import YAML
+from deepdiff import DeepDiff
 
 from powermon.libs.config import Color
-from powermon.libs.errors import CommandDefinitionMissing
+from powermon.libs.errors import CommandDefinitionMissing, ConfigError
 from powermon.libs.version import __version__  # noqa: F401
 from powermon.outputs import OutputType, list_outputs
 from powermon.outputformats import get_formatter, list_formats, FormatterType
@@ -298,6 +299,123 @@ def generate_config_file():
     print(f"\n{Color.WARNING}Dumping config yaml....{Color.ENDC}")
     yaml.dump(config, output)
 
+def show_command_definition_differences(p1, p2):
+    """ function to compare a single command in 2 different protocols """
+    p1_color = Color.OKBLUE
+    p2_color = Color.OKCYAN
+    fields = ['description', 'help_text', 'result_type', 'regex', 'aliases', 'command_type', 'command_code', 'command_data', 'construct', 'construct_min_response', ]
+    field_width = 35
+    data_width = 60
+
+    for field in fields:
+        p1_field = getattr(p1, field, "")
+        p2_field = getattr(p2, field, "")
+        p1_field = "" if p1_field is None else str(p1_field)
+        p2_field = "" if p2_field is None else str(p2_field)
+
+        if p1_field == p2_field:
+            #print(f"|{field:>{field_width}}|{p1_field:^{data_width*2+1}}|")
+            print(f"|{field:>{field_width}}|{p1_field:>{data_width}}|{p2_field:<{data_width}}|")
+            # print(f"{field} matches in both protocols")
+        elif not p1_field and p2_field:
+            print(f"|{Color.FAIL}{field:>{field_width}}{Color.ENDC}|{p1_color}{'Not Present':>{data_width}}{Color.ENDC}|{p2_color}{str(p2_field):<{data_width}}{Color.ENDC}|")
+        elif not p2_field and p1_field:
+            print(f"|{Color.FAIL}{field:>{field_width}}{Color.ENDC}|{p1_color}{str(p1_field):>{data_width}}{Color.ENDC}|{p2_color}{'Not Present':<{data_width}}{Color.ENDC}|")
+        else:
+            print(f"|{Color.FAIL}{field:>{field_width}}{Color.ENDC}|{p1_color}{p1_field:>{data_width}}{Color.ENDC}|{p2_color}{p2_field:<{data_width}}{Color.ENDC}|")
+
+    p1_tests = getattr(p1, 'test_responses', "")
+    p2_tests = getattr(p2, 'test_responses', "")
+    if len(p1_tests) == len(p2_tests):
+        print(f"|{'test_responses (count)':>{field_width}}|{len(p1_tests):>{data_width}}|{len(p2_tests):<{data_width}}|")
+    else:
+        print(f"|{Color.FAIL}{'test_responses (count)':>{field_width}}{Color.ENDC}|{len(p1_tests):>{data_width}}|{len(p2_tests):<{data_width}}|")
+
+    # 'reading_definitions',
+    if p1.reading_definition_count() == p2.reading_definition_count():
+        print(f"|{'reading_definitions (count)':>{field_width}}|{p1.reading_definition_count():>{data_width}}|{p2.reading_definition_count():<{data_width}}|")
+    else:
+        print(f"|{Color.FAIL}{'reading_definitions (count)':>{field_width}}{Color.ENDC}|{p1.reading_definition_count():>{data_width}}|{p2.reading_definition_count():<{data_width}}|")
+    for i in range(min(p1.reading_definition_count(), p2.reading_definition_count())):
+        p1_rd = p1.reading_definitions[i]
+        # print(p1_rd)
+        # return
+        p2_rd = p2.reading_definitions[i]
+        field_name = f"rd[{i}]: {getattr(p1_rd, 'description')}"[:field_width]
+        if p1_rd == p2_rd:
+            print(f"|{field_name:>{field_width}}|{'Matches':>{data_width}}|{'':<{data_width}}|")
+        else:
+            for item in ['description', 'response_type', 'unit', 'default', 'format_template', 'icon', 'device_class']:
+                #'options'
+                if getattr(p1_rd, item) == getattr(p2_rd, item):
+                    pass
+                else:
+                    message = f"{Color.WARNING}{item}{Color.ENDC}: {getattr(p1_rd, item)}"
+                    print(f"|{Color.FAIL}{field_name:>{field_width}}{Color.ENDC}|{message:>{data_width+9}}|{getattr(p2_rd, item)}")
+            if getattr(p1_rd, 'options') != getattr(p2_rd, 'options'):
+                print(f"|{Color.FAIL}{field_name:>{field_width}}{Color.ENDC}|{'options differ':>{data_width}}|{' ':<{data_width}}|")
+    if p1.reading_definition_count() > p2.reading_definition_count():
+        for i in range(p2.reading_definition_count(), p1.reading_definition_count()):
+            field_name = f"reading_definition[{i}]"
+            print(f"|{Color.FAIL}{field_name:>{field_width}}{Color.ENDC}|{p1_color}{'Added':>{data_width}}{Color.ENDC}|{' ':<{data_width}}|")
+    if p1.reading_definition_count() < p2.reading_definition_count():
+        for i in range(p1.reading_definition_count(), p2.reading_definition_count()):
+            field_name = f"reading_definition[{i}]"
+            print(f"|{Color.FAIL}{field_name:>{field_width}}{Color.ENDC}|{'':>{data_width}}|{p1_color}{'Added':<{data_width}}{Color.ENDC}|")
+    # self.reading_definitions: dict[int | str, ReadingDefinition] = reading_definitions
+
+
+def compare_protocols(protocols):
+    """ function to compare 2 protocols """
+    p1_color = Color.OKBLUE
+    p2_color = Color.OKCYAN
+    if protocols.find(',') <= 0:
+        print('need to supply 2 comma separated protocols, eg: "pi30,pi30max" ')
+        return
+    _proto_1, _proto_2 = protocols.split(',')
+    limit_to_single_command = False
+    _cmd = None
+    if _proto_2.find(':') > 0:
+        _proto_2, _cmd = _proto_2.split(':')
+        limit_to_single_command = True
+    try:
+        proto_1 = get_protocol_definition(_proto_1)
+        proto_2 = get_protocol_definition(_proto_2)
+    except ConfigError as ex:
+        print(f'ERROR: {ex}')
+        return
+    print(f"\n{Color.BOLD}=====================\n PROTOCOL COMPARISON\n====================={Color.ENDC}")
+    if limit_to_single_command:
+        print(f"Checking command: {Color.HEADER}{_cmd}{Color.ENDC}")
+        print(f"{p1_color}Defined in {_proto_1}{Color.ENDC}: {_cmd in proto_1.command_definitions}")
+        print(f"{p2_color}Defined in {_proto_2}{Color.ENDC}: {_cmd in proto_2.command_definitions}")
+        if _cmd in proto_1.command_definitions and _cmd in proto_2.command_definitions:
+            p1 = proto_1.command_definitions[_cmd]
+            p2 = proto_2.command_definitions[_cmd]
+            show_command_definition_differences(p1, p2)
+
+        return
+    same_commands = []
+    diff_commands = []
+    for _command in (proto_2.command_definitions.keys() & proto_1.command_definitions.keys()):
+        _diff = DeepDiff(proto_1.command_definitions[_command], proto_2.command_definitions[_command], ignore_order=True, ignore_encoding_errors=True)
+        if not _diff:
+            same_commands.append(_command)
+            # print(f"P1 and P2 are the same for {_command}")
+        else:
+            diff_commands.append(_command)
+
+    print(f"{p1_color}{_proto_1} has {len(proto_1.command_definitions)} commands{Color.ENDC}\n{p2_color}{_proto_2} has {len(proto_2.command_definitions)} commands{Color.ENDC}")
+    print(f"Commands with the same definition in both protocols ({len(same_commands)})\n\t{same_commands}")
+    print(f"Commands in {_proto_2} but not {_proto_1} ({len(proto_2.command_definitions.keys() - proto_1.command_definitions.keys())})\n\t{p2_color}{proto_2.command_definitions.keys() - proto_1.command_definitions.keys()}{Color.ENDC}")
+    print(f"Commands in {_proto_1} but not {_proto_2} ({len(proto_1.command_definitions.keys() - proto_2.command_definitions.keys())})\n\t{p1_color}{proto_1.command_definitions.keys() - proto_2.command_definitions.keys()}{Color.ENDC}")
+    print(f"Commands in both protocols with different config ({len(diff_commands)})\n\t{diff_commands}")
+    for _command in diff_commands:
+        p1 = proto_1.command_definitions[_command]
+        p2 = proto_2.command_definitions[_command]
+        print(f"\n{Color.HEADER}{_command}{Color.ENDC}")
+        show_command_definition_differences(p1, p2)
+
 def main():
     """main entry point for the powermon cli
     """
@@ -310,6 +428,7 @@ def main():
     parser.add_argument("--listCommands",type=str, metavar='PROTOCOL', help="List available commands for PROTOCOL")
     parser.add_argument("--listFormats", action="store_true", help="List available output formats")
     parser.add_argument("--listOutputs", action="store_true", help="List available output modules")
+    parser.add_argument("--compareProtocols", type=str, default=None, metavar='PROTO1,PROTO2', help="Compare 2 protocol definitions (comma separated)")
     parser.add_argument("--bleReset", action="store_true", help="Reset the bluetooth subsystem (power off / on bluetoothctl)")
     parser.add_argument("--bleScan", action="store_true", help="Scan for BLE devices")
     parser.add_argument("--details", action="store_true", help="Show extra BLE device data")
@@ -346,6 +465,10 @@ def main():
 
     if args.bleScan:
         ble_scan(args)
+        return
+
+    if args.compareProtocols:
+        compare_protocols(args.compareProtocols)
         return
 
     if args.generateConfigFile:

@@ -53,6 +53,7 @@ pymodbus = { version = "^3.6.4", optional = true }
 dateparser = "^1.2.0"
 tenacity = "^9.0.0"
 ruamel-yaml = "^0.18.6"
+deepdiff = "^8.0.1"
 
 [tool.poetry.extras]
 api = ["fastapi", "fastapi-mqtt", "jinja2", "requests", "sqlalchemy", "uvicorn"]
