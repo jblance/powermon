@@ -364,7 +364,6 @@ def show_command_definition_differences(p1, p2):
             print(f"|{Color.FAIL}{field_name:>{field_width}}{Color.ENDC}|{'':>{data_width}}|{p1_color}{'Added':<{data_width}}{Color.ENDC}|")
     # self.reading_definitions: dict[int | str, ReadingDefinition] = reading_definitions
 
-
 def compare_protocols(protocols):
     """ function to compare 2 protocols """
     p1_color = Color.OKBLUE
@@ -428,13 +427,13 @@ def main():
     parser.add_argument("--listCommands",type=str, metavar='PROTOCOL', help="List available commands for PROTOCOL")
     parser.add_argument("--listFormats", action="store_true", help="List available output formats")
     parser.add_argument("--listOutputs", action="store_true", help="List available output modules")
-    parser.add_argument("--compareProtocols", type=str, default=None, metavar='PROTO1,PROTO2', help="Compare 2 protocol definitions (comma separated)")
+    parser.add_argument("--compareProtocols", type=str, default=None, metavar='PROTO1,PROTO2[:CMD]', help="Compare 2 protocol definitions (comma separated) with optional CMD to only compare that command")
     parser.add_argument("--bleReset", action="store_true", help="Reset the bluetooth subsystem (power off / on bluetoothctl)")
     parser.add_argument("--bleScan", action="store_true", help="Scan for BLE devices")
     parser.add_argument("--details", action="store_true", help="Show extra BLE device data")
     parser.add_argument("--advData", action="store_true", help="Include advertisement data in BLE Scan")
     parser.add_argument("--getChars", action="store_true", help="Connect to BLE device(s) and list characteristics")
-    parser.add_argument("--address", type=str, default=None, help="Only scan for supplied mac address")
+    parser.add_argument("--address", type=str, metavar='MAC', default=None, help="Only scan for supplied mac address")
 
     args = parser.parse_args()
 
