@@ -15,7 +15,6 @@ Submodules
    powermon.protocols.abstractprotocol
    powermon.protocols.daly
    powermon.protocols.helpers
-   powermon.protocols.heltec
    powermon.protocols.jkserial
    powermon.protocols.neey
    powermon.protocols.pi18

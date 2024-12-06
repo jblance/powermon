@@ -20,7 +20,7 @@ help:
 
 api: export SPHINX_APIDOC_OPTIONS = members,no-undoc-members,show-inheritance
 api:
-	$(SPHINXAPIDOC) -o $(SOURCEDIR) $(MODULEDIR) -f -M --separate
+	@$(SPHINXAPIDOC) -o $(SOURCEDIR) $(MODULEDIR) -f -M --separate
 
 # Catch-all target: route all unknown targets to Sphinx using the new
 # "make mode" option.  $(O) is meant as a shortcut for $(SPHINXOPTS).

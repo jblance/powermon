@@ -217,17 +217,17 @@
 <div class="literal-block-wrapper docutils container" id="id8">
 <div class="code-block-caption"><span class="caption-text">device section example</span><a class="headerlink" href="#id8" title="Link to this code">¶</a></div>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">device</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">My Inverter</span><span class="w">       </span><span class="c1"># [optional] user name for physical device</span>
-<span class="w">    </span><span class="nt">serial_number</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1234589</span><span class="w">  </span><span class="c1"># [optional] serial number of physical device</span>
-<span class="w">                            </span><span class="c1"># must be what is returned by get_id command</span>
-<span class="w">                            </span><span class="c1"># if port path is a wildcard</span>
-<span class="w">    </span><span class="nt">model</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1012LV-MK</span><span class="w">        </span><span class="c1"># [optional]</span>
-<span class="w">    </span><span class="nt">manufacturer</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">MPP-Solar</span><span class="w"> </span><span class="c1"># [optional]</span>
-<span class="w">    </span><span class="nt">port</span><span class="p">:</span>
-<span class="w">        </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">test</span><span class="w">          </span><span class="c1"># must be one of test, usb, serial, ble</span>
-<span class="w">        </span><span class="nt">protocol</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">PI30</span><span class="w">      </span><span class="c1"># [defaults to PI30] the protocol must be defined for any type of port</span>
-<span class="w">                            </span><span class="c1">#  - valid protocols are listed in the protocols document</span>
-<span class="w">                            </span><span class="c1"># the options for each port type are shown in separate sections below</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">My Inverter</span><span class="w">       </span><span class="c1"># [optional] user name for physical device</span>
+<span class="w">  </span><span class="nt">serial_number</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1234589</span><span class="w">  </span><span class="c1"># [optional] serial number of physical device</span>
+<span class="w">                          </span><span class="c1"># must be what is returned by get_id command</span>
+<span class="w">                          </span><span class="c1"># if port path is a wildcard</span>
+<span class="w">  </span><span class="nt">model</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1012LV-MK</span><span class="w">        </span><span class="c1"># [optional]</span>
+<span class="w">  </span><span class="nt">manufacturer</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">MPP-Solar</span><span class="w"> </span><span class="c1"># [optional]</span>
+<span class="w">  </span><span class="nt">port</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">test</span><span class="w">          </span><span class="c1"># must be one of test, usb, serial, ble</span>
+<span class="w">    </span><span class="nt">protocol</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">PI30</span><span class="w">      </span><span class="c1"># [defaults to PI30] the protocol must be defined for any type of port</span>
+<span class="w">                        </span><span class="c1">#  - valid protocols are listed in the protocols document</span>
+<span class="w">                        </span><span class="c1"># the options for each port type are shown in separate sections below</span>
 </pre></div>
 </div>
 </div>
@@ -235,44 +235,44 @@
 <div class="literal-block-wrapper docutils container" id="id9">
 <div class="code-block-caption"><span class="caption-text">port - test</span><a class="headerlink" href="#id9" title="Link to this code">¶</a></div>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">port</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">test</span><span class="w">          </span><span class="c1"># test port - returns one of the defined test_responses</span>
-<span class="w">                        </span><span class="c1">#  in the protocol definition - used for testing protocols</span>
-<span class="w">    </span><span class="nt">protocol</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">PI30</span>
-<span class="w">    </span><span class="nt">response_number</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span><span class="w">  </span><span class="c1"># [optional] - if defined uses the number test_response</span>
-<span class="w">                        </span><span class="c1">#  from the protocol command definition (0 is first test_response)</span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">test</span><span class="w">          </span><span class="c1"># test port - returns one of the defined test_responses</span>
+<span class="w">                      </span><span class="c1">#  in the protocol definition - used for testing protocols</span>
+<span class="w">  </span><span class="nt">protocol</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">PI30</span>
+<span class="w">  </span><span class="nt">response_number</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span><span class="w">  </span><span class="c1"># [optional] - if defined uses the number test_response</span>
+<span class="w">                      </span><span class="c1">#  from the protocol command definition (0 is first test_response)</span>
 </pre></div>
 </div>
 </div>
 <div class="literal-block-wrapper docutils container" id="id10">
 <div class="code-block-caption"><span class="caption-text">port - usb</span><a class="headerlink" href="#id10" title="Link to this code">¶</a></div>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">port</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">usb</span><span class="w">           </span><span class="c1"># usb port - uses direct usb access to device</span>
-<span class="w">                        </span><span class="c1">#  (as opposed to serial which needs a usb to serial converter)</span>
-<span class="w">    </span><span class="nt">protocol</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">PI30</span>
-<span class="w">    </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/dev/hidrawX</span><span class="w">  </span><span class="c1"># X can be a number to specify a particular path</span>
-<span class="w">                        </span><span class="c1">#   or a wildcard (eg ?) to check a range of paths</span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">usb</span><span class="w">           </span><span class="c1"># usb port - uses direct usb access to device</span>
+<span class="w">                      </span><span class="c1">#  (as opposed to serial which needs a usb to serial converter)</span>
+<span class="w">  </span><span class="nt">protocol</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">PI30</span>
+<span class="w">  </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/dev/hidrawX</span><span class="w">  </span><span class="c1"># X can be a number to specify a particular path</span>
+<span class="w">                      </span><span class="c1">#   or a wildcard (eg ?) to check a range of paths</span>
 </pre></div>
 </div>
 </div>
 <div class="literal-block-wrapper docutils container" id="id11">
 <div class="code-block-caption"><span class="caption-text">port - serial</span><a class="headerlink" href="#id11" title="Link to this code">¶</a></div>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">port</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">serial</span><span class="w">        </span><span class="c1"># serial port - typically uses a usb to serial converter to connect to the device</span>
-<span class="w">    </span><span class="nt">protocol</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">PI30</span>
-<span class="w">    </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/dev/ttyUSBX</span><span class="w">  </span><span class="c1"># X can be a number to specify a particular path</span>
-<span class="w">                        </span><span class="c1">#   or a wildcard to check a range of paths</span>
-<span class="w">    </span><span class="nt">baud</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2400</span><span class="w">          </span><span class="c1"># [optional, defaults to 2400] baud rate of connection</span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">serial</span><span class="w">        </span><span class="c1"># serial port - typically uses a usb to serial converter to connect to the device</span>
+<span class="w">  </span><span class="nt">protocol</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">PI30</span>
+<span class="w">  </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/dev/ttyUSBX</span><span class="w">  </span><span class="c1"># X can be a number to specify a particular path</span>
+<span class="w">                      </span><span class="c1">#   or a wildcard to check a range of paths</span>
+<span class="w">  </span><span class="nt">baud</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2400</span><span class="w">          </span><span class="c1"># [optional, defaults to 2400] baud rate of connection</span>
 </pre></div>
 </div>
 </div>
 <div class="literal-block-wrapper docutils container" id="id12">
 <div class="code-block-caption"><span class="caption-text">port - ble</span><a class="headerlink" href="#id12" title="Link to this code">¶</a></div>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">port</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ble</span><span class="w">            </span><span class="c1"># ble port - uses Bluetooth Low Energy to connect</span>
-<span class="w">                         </span><span class="c1">#  to device and get info via BLE characteristics</span>
-<span class="w">    </span><span class="nt">protocol</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">PI30</span>
-<span class="w">    </span><span class="nt">mac</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">00:00:00:00:00</span><span class="w">  </span><span class="c1"># mac address of ble device</span>
-<span class="w">    </span><span class="nt">victron_key</span><span class="p">:</span><span class="w"> </span><span class="kt">!ENV</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${VICTRON_KEY}</span><span class="w">  </span><span class="c1"># [optional] required for victron devices - see XXXX document</span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ble</span><span class="w">            </span><span class="c1"># ble port - uses Bluetooth Low Energy to connect</span>
+<span class="w">                       </span><span class="c1">#  to device and get info via BLE characteristics</span>
+<span class="w">  </span><span class="nt">protocol</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">PI30</span>
+<span class="w">  </span><span class="nt">mac</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">00:00:00:00:00</span><span class="w">  </span><span class="c1"># mac address of ble device</span>
+<span class="w">  </span><span class="nt">victron_key</span><span class="p">:</span><span class="w"> </span><span class="kt">!ENV</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${VICTRON_KEY}</span><span class="w">  </span><span class="c1"># [optional] required for victron devices - see XXXX document</span>
 </pre></div>
 </div>
 </div>
