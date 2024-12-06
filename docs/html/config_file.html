@@ -296,12 +296,25 @@
 </section>
 <section id="loop">
 <span id="id3"></span><h1><code class="docutils literal notranslate"><span class="pre">loop</span></code><a class="headerlink" href="#loop" title="Link to this heading">¶</a></h1>
+<p>The loop directive can either be <code class="docutils literal notranslate"><span class="pre">once</span></code> or an integer. once is mostly for testing and will run through the commands once and then exit, an integer will define the number of seconds to pause at the end of each loop -</p>
+<div class="literal-block-wrapper docutils container" id="id14">
+<div class="code-block-caption"><span class="caption-text">loop section example</span><a class="headerlink" href="#id14" title="Link to this code">¶</a></div>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">loop</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">once</span>
+</pre></div>
+</div>
+</div>
+<div class="literal-block-wrapper docutils container" id="id15">
+<div class="code-block-caption"><span class="caption-text">loop section example</span><a class="headerlink" href="#id15" title="Link to this code">¶</a></div>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">loop</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5</span>
+</pre></div>
+</div>
+</div>
 </section>
 <section id="mqttbroker">
 <span id="id4"></span><h1><code class="docutils literal notranslate"><span class="pre">mqttbroker</span></code><a class="headerlink" href="#mqttbroker" title="Link to this heading">¶</a></h1>
 <p>This section details the mqttbroker connection information</p>
-<div class="literal-block-wrapper docutils container" id="id14">
-<div class="code-block-caption"><span class="caption-text">commands section example</span><a class="headerlink" href="#id14" title="Link to this code">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id16">
+<div class="code-block-caption"><span class="caption-text">mqttbroker section example</span><a class="headerlink" href="#id16" title="Link to this code">¶</a></div>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">mqttbroker</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">192.168.86.222</span>
 <span class="w">  </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1833</span>

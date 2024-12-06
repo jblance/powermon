@@ -27,7 +27,7 @@ git-tag-release:
 	@git push origin --tags
 	@echo "Now go to github and create a release for the latest tag" `awk '/^version/ {print substr($$3, 2, length($$3)-2)}' pyproject.toml`
 	@echo Bumping version..
-	@poetry version patch
+	@poetry version patch   # major, minor, patch
 	@echo Adding '-dev' to version in git
 	@./make_version_dev.sh
 	@echo Pushing version changes to git
