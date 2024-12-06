@@ -99,6 +99,10 @@ class ReadingDefinition():
         self.state_class = state_class
         self.icon = icon
 
+    def __eq__(self, other):
+        return (self.description, self.response_type, self.options, self.default, self.format_template, self.unit, self.device_class, self.state_class, self.icon) == \
+        (other.description, other.response_type, other.options, other.default, other.format_template, other.unit, other.device_class, other.state_class, other.icon)
+
     @property
     def description(self) -> str:
         """ text description of this reading """
