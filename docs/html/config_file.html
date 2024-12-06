@@ -298,10 +298,11 @@
 <span id="id3"></span><h1><code class="docutils literal notranslate"><span class="pre">loop</span></code><a class="headerlink" href="#loop" title="Link to this heading">¶</a></h1>
 <p>The loop directive can either be <code class="docutils literal notranslate"><span class="pre">once</span></code> or a number.
 <code class="docutils literal notranslate"><span class="pre">once</span></code> is mostly for testing and will run through the commands once and then exit,
-an number will define the number of seconds to pause at the end of each loop.
+a number will define the number of seconds to pause at the end of each loop.
 If the entry cannot be interpreted as a number then it will default to <code class="docutils literal notranslate"><span class="pre">once</span></code></p>
+<p>Note: the effect of <code class="docutils literal notranslate"><span class="pre">once</span></code> can be forced on the command line by adding <code class="docutils literal notranslate"><span class="pre">-1</span></code> or <code class="docutils literal notranslate"><span class="pre">--once</span></code> to the <code class="docutils literal notranslate"><span class="pre">powermon</span></code> command</p>
 <div class="literal-block-wrapper docutils container" id="id14">
-<div class="code-block-caption"><span class="caption-text">loop section example</span><a class="headerlink" href="#id14" title="Link to this code">¶</a></div>
+<div class="code-block-caption"><span class="caption-text">loop section example - will run through the commands once and then exit</span><a class="headerlink" href="#id14" title="Link to this code">¶</a></div>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">loop</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">once</span>
 </pre></div>
 </div>

@@ -109,11 +109,13 @@ This section details the commands to be run against the device
 
 The loop directive can either be ``once`` or a number. 
 ``once`` is mostly for testing and will run through the commands once and then exit, 
-an number will define the number of seconds to pause at the end of each loop.
+a number will define the number of seconds to pause at the end of each loop.
 If the entry cannot be interpreted as a number then it will default to ``once``
 
+Note: the effect of ``once`` can be forced on the command line by adding ``-1`` or ``--once`` to the ``powermon`` command
+
 .. code-block:: yaml
-    :caption: loop section example
+    :caption: loop section example - will run through the commands once and then exit
 
     loop: once
 
