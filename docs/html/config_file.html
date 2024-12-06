@@ -296,7 +296,10 @@
 </section>
 <section id="loop">
 <span id="id3"></span><h1><code class="docutils literal notranslate"><span class="pre">loop</span></code><a class="headerlink" href="#loop" title="Link to this heading">¶</a></h1>
-<p>The loop directive can either be <code class="docutils literal notranslate"><span class="pre">once</span></code> or an integer. once is mostly for testing and will run through the commands once and then exit, an integer will define the number of seconds to pause at the end of each loop -</p>
+<p>The loop directive can either be <code class="docutils literal notranslate"><span class="pre">once</span></code> or a number.
+<code class="docutils literal notranslate"><span class="pre">once</span></code> is mostly for testing and will run through the commands once and then exit,
+an number will define the number of seconds to pause at the end of each loop.
+If the entry cannot be interpreted as a number then it will default to <code class="docutils literal notranslate"><span class="pre">once</span></code></p>
 <div class="literal-block-wrapper docutils container" id="id14">
 <div class="code-block-caption"><span class="caption-text">loop section example</span><a class="headerlink" href="#id14" title="Link to this code">¶</a></div>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">loop</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">once</span>
@@ -304,7 +307,7 @@
 </div>
 </div>
 <div class="literal-block-wrapper docutils container" id="id15">
-<div class="code-block-caption"><span class="caption-text">loop section example</span><a class="headerlink" href="#id15" title="Link to this code">¶</a></div>
+<div class="code-block-caption"><span class="caption-text">loop section example - will add 5 sec delay to end of each loop</span><a class="headerlink" href="#id15" title="Link to this code">¶</a></div>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">loop</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5</span>
 </pre></div>
 </div>

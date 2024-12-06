@@ -107,7 +107,10 @@ This section details the commands to be run against the device
 ``loop``
 ==========
 
-The loop directive can either be ``once`` or an integer. once is mostly for testing and will run through the commands once and then exit, an integer will define the number of seconds to pause at the end of each loop - 
+The loop directive can either be ``once`` or a number. 
+``once`` is mostly for testing and will run through the commands once and then exit, 
+an number will define the number of seconds to pause at the end of each loop.
+If the entry cannot be interpreted as a number then it will default to ``once``
 
 .. code-block:: yaml
     :caption: loop section example
@@ -115,7 +118,7 @@ The loop directive can either be ``once`` or an integer. once is mostly for test
     loop: once
 
 .. code-block:: yaml
-    :caption: loop section example
+    :caption: loop section example - will add 5 sec delay to end of each loop
 
     loop: 5
 
