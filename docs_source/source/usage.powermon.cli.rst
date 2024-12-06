@@ -1,10 +1,15 @@
 Powermon-cli Usage
 ==================
 
-So far there are 2 uses for the ``powermon-cli``` command
+So far there are 2 uses for the ``powermon-cli`` command
 
-- generating a config file starter from the answers of a series of questions ``powermon-cli -g``
-- scan for details of BLE devices (with options to show additional details) ``powermon-cli --bleScan --details --advData --getChars``
+- generating a config file starter from the answers of a series of questions
+
+    - ``powermon-cli -g``
+
+- scan for details of BLE devices (with options to show additional details) 
+
+    - ``powermon-cli --bleScan --details --advData --getChars``
 
 Command Options
 ---------------
