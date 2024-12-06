@@ -205,10 +205,13 @@ async def runner():
 
     # loop config
     loop = config.get("loop", "once")
-    if loop == "once":
+    try:
+        if loop == "once":
+            loop = False
+        loop = float(loop) + 0.01  # adding a little bit so is delay is 0, loop != False
+    except ValueError:
+        log.warning("loop unable to cast %s to float - defaulting to 'False'", loop)
         loop = False
-    else:
-        loop = int(loop)
     log.debug("loop set to: %s", loop)
 
     # Main working loop
