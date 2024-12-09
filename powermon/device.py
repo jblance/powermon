@@ -34,6 +34,9 @@ class DeviceInfo:
         self.model = model
         self.manufacturer = manufacturer
 
+    def __str__(self):
+        return f"DeviceInfo: {self.name=}, {self.serial_number=}, {self.model=}, {self.manufacturer=}"
+
     def to_dto(self):
         """convert the DeviceInfo to a Data Transfer Object"""
         return DeviceInfoDTO(name=self.name, serial_number=self.serial_number, model=self.model, manufacturer=self.manufacturer)
