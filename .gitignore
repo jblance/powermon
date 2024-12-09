@@ -130,3 +130,6 @@ dmypy.json
 
 # nano swap file
 *.swp
+
+
+/powermon.yaml
