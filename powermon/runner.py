@@ -208,7 +208,8 @@ async def runner():
     try:
         if loop == "once":
             loop = False
-        loop = float(loop) + 0.01  # adding a little bit so is delay is 0, loop != False
+        else:
+            loop = float(loop) + 0.01  # adding a little bit so is delay is 0, loop != False
     except ValueError:
         log.warning("loop unable to cast %s to float - defaulting to 'False'", loop)
         loop = False
