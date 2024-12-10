@@ -1,6 +1,7 @@
 """ commands / command_definition.py """
 import logging
 import re
+from enum import StrEnum, auto
 
 import construct as cs
 from pydantic import BaseModel
@@ -9,6 +10,15 @@ from powermon.commands.reading_definition import ReadingDefinition, ReadingType
 from powermon.commands.result import ResponseType, ResultType
 
 log = logging.getLogger("CommandDefinition")
+
+
+class CommandCategory(StrEnum):
+    """ enum of command categories """
+    CONFIG = auto()
+    INFO = auto()
+    SETTINGS = auto()
+    DEFAULTS = auto()
+    DATA = auto()
 
 
 class CommandDefinitionDTO(BaseModel):
@@ -38,7 +48,7 @@ class CommandDefinition:
     - test responses
     """
     def __str__(self):
-        return f"CommandDefinition: {self.code=}, {self.description=}, {self.result_type=}, reading_definition count: {self.reading_definition_count()}, {self.command_code=}, {self.command_type=}, {self.command_data=}"
+        return f"CommandDefinition: {self.code=}, {self.description=}, {self.result_type=}, reading_definition count: {self.reading_definition_count()}, {self.command_code=}, {self.command_type=}, {self.command_data=}, {self.category=}"
 
     def __init__(self, code, description, help_text: str, result_type : ResultType, reading_definitions, test_responses: list = None, regex: str = None):
         """ init CommandDefinition class """
@@ -53,6 +63,7 @@ class CommandDefinition:
         self.test_responses: list[bytes] = test_responses
         self.regex: str | None = regex
         self.aliases: str = None
+        self.category = None
         self.command_type = None
         self.command_code: str = None
         self.command_data: str = None
@@ -132,6 +143,7 @@ class CommandDefinition:
             regex=regex
         )
         _command_definition.aliases = protocol_dictionary.get("aliases")
+        _command_definition.category = protocol_dictionary.get("category", CommandCategory.DATA)
         _command_definition.command_type = protocol_dictionary.get("command_type")
         _command_definition.command_code = protocol_dictionary.get("command_code")
         _command_definition.command_data = protocol_dictionary.get("command_data")
