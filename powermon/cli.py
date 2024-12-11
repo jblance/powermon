@@ -303,7 +303,7 @@ def show_command_definition_differences(p1, p2):
     """ function to compare a single command in 2 different protocols """
     p1_color = Color.OKBLUE
     p2_color = Color.OKCYAN
-    fields = ['description', 'help_text', 'result_type', 'regex', 'aliases', 'command_type', 'command_code', 'command_data', 'construct', 'construct_min_response', ]
+    fields = ['description', 'help_text', 'category', 'result_type', 'regex', 'aliases', 'command_type', 'command_code', 'command_data', 'construct', 'construct_min_response', ]
     field_width = 35
     data_width = 60
 

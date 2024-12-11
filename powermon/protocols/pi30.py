@@ -1,7 +1,7 @@
 """ pi30.py """
 import logging
 
-from powermon.commands.command_definition import CommandDefinition
+from powermon.commands.command_definition import CommandCategory, CommandDefinition
 from powermon.commands.reading_definition import ReadingType, ResponseType
 from powermon.commands.result import ResultType
 from powermon.libs.errors import InvalidCRC, InvalidResponse
@@ -191,7 +191,7 @@ QUERY_COMMANDS = {
     "QBMS": {
         "name": "QBMS",
         "description": "Read lithium battery information",
-        "help": " -- queries the value of various metrics from the battery",
+        "category": CommandCategory.DATA,
         "result_type": ResultType.ORDERED,
         "reading_definitions": [
             {"description": "Battery is connected", "response_type": ResponseType.INV_BOOL},
@@ -210,8 +210,8 @@ QUERY_COMMANDS = {
     },
     "QDI": {
         "name": "QDI",
-        "description": "Default Settings inquiry",
-        "help": " -- queries the default settings from the Inverter",
+        "description": "Get the Inverters Default Settings",
+        "category": CommandCategory.DEFAULTS,
         "result_type": ResultType.ORDERED,
         "reading_definitions": [
             {"description": "AC Output Voltage", "reading_type": ReadingType.VOLTS, "response_type": ResponseType.FLOAT},
@@ -262,44 +262,47 @@ QUERY_COMMANDS = {
     "QBOOT": {
         "name": "QBOOT",
         "description": "DSP Has Bootstrap inquiry",
+        "category": CommandCategory.DATA,
         "result_type": ResultType.SINGLE,
         "reading_definitions": [{"description": "DSP Has Bootstrap", "reading_type": ReadingType.MESSAGE, "response_type": ResponseType.BOOL}],
         "test_responses": [b"(0\xb9\x1c\r"],
     },
     "QMCHGCR": {
         "name": "QMCHGCR",
-        "description": "Max Charging Current Options inquiry",
-        "help": " -- queries the maximum charging current setting of the Inverter",
+        "description": "Get the viable options for Max Charging Current",
+        "category": CommandCategory.INFO,
         "result_type": ResultType.MULTIVALUED,
         "reading_definitions": [{"reading_type": ReadingType.MESSAGE_AMPS, "description": "Max Charging Current Options", "response_type": ResponseType.STRING}],
         "test_responses": [b"(010 020 030 040 050 060 070 080 090 100 110 120\x0c\xcb\r"],
     },
     "QMN": {
         "name": "QMN",
-        "description": "Model Name Inquiry",
+        "description": "Get the Model Name",
+        "category": CommandCategory.INFO,
         "result_type": ResultType.SINGLE,
         "reading_definitions": [{"reading_type": ReadingType.MESSAGE, "description": "Model Name", "response_type": ResponseType.BYTES}],
         "test_responses": [b"(MKS2-8000\xb2\x8d\r",],
     },
     "QGMN": {
         "name": "QGMN",
-        "description": "General Model Name Inquiry",
+        "description": "Get the General Model Number",
+        "category": CommandCategory.INFO,
         "result_type": ResultType.SINGLE,
         "reading_definitions": [{"reading_type": ReadingType.MESSAGE, "description": "General Model Number", "response_type": ResponseType.BYTES}],
         "test_responses": [b"(044\xc8\xae\r",],
     },
     "QMUCHGCR": {
         "name": "QMUCHGCR",
-        "description": "Max Utility Charging Current Options inquiry",
-        "help": " -- queries the maximum utility charging current setting of the Inverter",
+        "description": "Get the viable options for Max Utility Charging Current",
+        "category": CommandCategory.INFO,
         "result_type": ResultType.MULTIVALUED,
         "reading_definitions": [{"reading_type": ReadingType.MESSAGE_AMPS, "description": "Max Utility Charging Current", "response_type": ResponseType.STRING}],
         "test_responses": [b"(002 010 020 030 040 050 060 070 080 090 100 110 120\xca#\r"],
     },
     "QOPM": {
         "name": "QOPM",
-        "description": "Output Mode inquiry",
-        "help": " -- queries the output mode of the Inverter (e.g. single, parallel, phase 1 of 3 etc)",
+        "description": "Get the Inverter Output Mode",
+        "category": CommandCategory.INFO,
         "result_type": ResultType.SINGLE,
         "reading_definitions": [
             {"description": "Output mode",
@@ -311,16 +314,16 @@ QUERY_COMMANDS = {
     },
     "QPI": {
         "name": "QPI",
-        "description": "Protocol ID inquiry",
-        "help": " -- queries the device protocol ID. e.g. PI30 for HS series",
+        "description": "Get the Inverter supported Protocol ID",
+        "category": CommandCategory.INFO,
         "result_type": ResultType.SINGLE,
         "reading_definitions": [{"description": "Protocol Id", "reading_type": ReadingType.MESSAGE, "response_type": ResponseType.BYTES}],
         "test_responses": [b"(PI30\x9a\x0b\r"],
     },
     "QPIGS": {
         "name": "QPIGS",
-        "description": "General Status Parameters inquiry",
-        "help": " -- queries the value of various metrics from the Inverter",
+        "description": "Get the current values of various General Status parameters",
+        "category": CommandCategory.DATA,
         "result_type": ResultType.ORDERED,
         "reading_definitions": [
             {"description": "AC Input Voltage",
@@ -367,8 +370,8 @@ QUERY_COMMANDS = {
     },
     "QPIRI": {
         "name": "QPIRI",
-        "description": "Current Settings inquiry",
-        "help": " -- queries the current settings from the Inverter",
+        "description": "Get the current Settings of the Inverter",
+        "category": CommandCategory.SETTINGS,
         "result_type": ResultType.ORDERED,
         "reading_definitions": [
             {"description": "AC Input Voltage", "reading_type": ReadingType.VOLTS, "response_type": ResponseType.FLOAT},
@@ -422,8 +425,9 @@ QUERY_COMMANDS = {
     },
     "QPGS": {
         "name": "QPGS",
-        "description": "Parallel Information inquiry",
+        "description": "Get the current values of various Parallel Status parameters",
         "help": " -- example: QPGS1 queries the values of various metrics from instance 1 of parallel setup Inverters (numbers from 0)",
+        "category": CommandCategory.DATA,
         "result_type": ResultType.ORDERED,
         "reading_definitions": [
             {"description": "Parallel instance number", "reading_type": ReadingType.MESSAGE, "response_type": ResponseType.LIST, "options": ["Not valid", "valid"]},
@@ -527,16 +531,16 @@ QUERY_COMMANDS = {
     },
     "QVFW": {
         "name": "QVFW",
-        "description": "Main CPU firmware version inquiry",
-        "help": " -- queries the main CPU firmware version",
+        "description": "Get the Main CPU firmware version",
+        "category": CommandCategory.INFO,
         "result_type": ResultType.SINGLE,
         "reading_definitions": [{"reading_type": ReadingType.MESSAGE, "description": "Main CPU firmware version", "response_type": ResponseType.TEMPLATE_BYTES, "format_template" : "r.removeprefix('VERFW:')"}],
         "test_responses": [b"(VERFW:00072.70\x53\xA7\r"],
     },
     "QVFW2": {
         "name": "QVFW2",
-        "description": "Secondary CPU firmware version inquiry",
-        "help": " -- queries the secondary CPU firmware version",
+        "description": "Get the Secondary CPU firmware version",
+        "category": CommandCategory.INFO,
         "result_type": ResultType.SINGLE,
         "reading_definitions": [{"reading_type": ReadingType.MESSAGE, "description": "Secondary CPU firmware version", "response_type": ResponseType.TEMPLATE_BYTES, "format_template" : "r.removeprefix('VERFW:')"}],
         "test_responses": [b"(VERFW:00072.70\x53\xA7\r"],
@@ -544,8 +548,8 @@ QUERY_COMMANDS = {
     "QID": {
         "name": "QID",
         "aliases": ["get_id", "default"],
-        "description": "Device Serial Number inquiry",
-        "help": " -- queries the device serial number",
+        "description": "Get the Serial Number of the Inverter",
+        "category": CommandCategory.INFO,
         "result_type": ResultType.SINGLE,
         "reading_definitions": [{"description": "Serial Number", "reading_type": ReadingType.MESSAGE, "response_type": ResponseType.STRING}],
         "test_responses": [b"(9293333010501\xbb\x07\r"],
@@ -582,8 +586,8 @@ QUERY_COMMANDS = {
     },
     "QFLAG": {
         "name": "QFLAG",
-        "description": "Flag Status inquiry",
-        "help": " -- queries the enabled / disabled state of various Inverter settings (e.g. buzzer, overload, interrupt alarm)",
+        "description": "Get the Status of various Inverter settings",
+        "category": CommandCategory.SETTINGS,
         "result_type": ResultType.SINGLE,
         "reading_definitions": [
             {"description": "Device Status", "reading_type": ReadingType.MULTI_ENABLE_DISABLE,
@@ -604,8 +608,8 @@ QUERY_COMMANDS = {
     },
     "QMOD": {
         "name": "QMOD",
-        "description": "Mode inquiry",
-        "help": " -- queries the Inverter mode",
+        "description": "Get the Inverter Mode",
+        "category": CommandCategory.DATA,
         "result_type": ResultType.SINGLE,
         "reading_definitions": [
             {"description": "Device Mode", "reading_type": ReadingType.MESSAGE,
@@ -616,8 +620,8 @@ QUERY_COMMANDS = {
     },
     "QPIWS": {
         "name": "QPIWS",
-        "description": "Warning status inquiry",
-        "help": " -- queries any active warnings flags from the Inverter",
+        "description": "Get any active Warning Status flags",
+        "category": CommandCategory.DATA,
         "result_type": ResultType.SINGLE,
         "reading_definitions": [
             {"description": "Warning", "reading_type": ReadingType.FLAGS,
