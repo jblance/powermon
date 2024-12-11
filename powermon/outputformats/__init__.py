@@ -19,6 +19,7 @@ class FormatterType(StrEnum):
     TABLE = auto()
     # TOPICS = auto()
     BMSRESPONSE = auto()
+    CACHE = auto()
 
 
 DEFAULT_FORMAT = FormatterType.SIMPLE
@@ -46,6 +47,8 @@ def get_formatter(format_type):
             from powermon.outputformats.table import Table as fmt
         case FormatterType.RAW:
             from powermon.outputformats.raw import Raw as fmt
+        case FormatterType.CACHE:
+            from powermon.outputformats.cache import Cache as fmt
         case FormatterType.BMSRESPONSE:
             from powermon.outputformats.bmsresponse import BMSResponse as fmt
         case _:
