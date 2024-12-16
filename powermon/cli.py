@@ -1,21 +1,27 @@
 """cli.py - hold classes for the powermon cli"""
+import gettext
 from argparse import ArgumentParser
 from pathlib import Path
 from platform import python_version
 from sys import stdout
 
+from deepdiff import DeepDiff
 #import yaml
 from ruamel.yaml import YAML
-from deepdiff import DeepDiff
 
 from powermon.libs.config import Color
 from powermon.libs.errors import CommandDefinitionMissing, ConfigError
 from powermon.libs.version import __version__  # noqa: F401
+from powermon.outputformats import FormatterType, get_formatter, list_formats
 from powermon.outputs import OutputType, list_outputs
-from powermon.outputformats import get_formatter, list_formats, FormatterType
+from powermon.ports.bleport import ble_reset
 from powermon.protocols import (Protocol, get_protocol_definition,
                                 list_commands, list_protocols)
-from powermon.ports.bleport import ble_reset
+
+# Configure gettext
+lang = gettext.translation('powermon', localedir='locales', languages=['en'])
+lang.install()
+_ = lang.gettext
 
 
 def ble_scan(args):
@@ -418,7 +424,8 @@ def compare_protocols(protocols):
 def main():
     """main entry point for the powermon cli
     """
-    description = f"Power Device Monitoring Utility CLI, version: {__version__}, python version: {python_version()}"  # pylint: disable=C0301
+    transl_name = _('Power Device Monitoring Utility CLI')
+    description = f"{transl_name}, version: {__version__}, python version: {python_version()}"  # pylint: disable=C0301
     parser = ArgumentParser(description=description)
 
     parser.add_argument("-v", "--version", action="store_true", help="Display the version")

@@ -1,6 +1,7 @@
 # !/usr/bin/python3
 """main powermon code"""
 import asyncio
+import gettext
 import json
 import logging
 import time
@@ -19,7 +20,12 @@ from powermon.libs.config import safe_config
 from powermon.libs.daemon import Daemon
 from powermon.libs.mqttbroker import MqttBroker
 from powermon.libs.version import __version__  # noqa: F401
-from powermon.protocols import list_protocols, list_commands
+from powermon.protocols import list_commands, list_protocols
+
+# Configure gettext
+lang = gettext.translation('powermon', localedir='locales', languages=['en'])
+lang.install()
+_ = lang.gettext
 
 # Set-up logger
 log = logging.getLogger("")
@@ -62,7 +68,8 @@ def main():
 
 async def runner():
     """powermon command function"""
-    description = f"Power Device Monitoring Utility, version: {__version__}, python version: {python_version()}"  # pylint: disable=C0301
+    transl_name = _("Power Device Monitoring Utility")
+    description = f"{transl_name}, version: {__version__}, python version: {python_version()}"  # pylint: disable=C0301
     parser = ArgumentParser(description=description)
 
     parser.add_argument(
@@ -104,7 +111,7 @@ async def runner():
     # Display version if asked
     log.info(description)
     if args.version:
-        print(description)
+        print(_(description))
         return None
 
     # Do enquiry commands

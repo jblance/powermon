@@ -1,4 +1,5 @@
 """ device.py """
+import gettext
 import logging
 from typing import Optional
 
@@ -9,10 +10,15 @@ from powermon.commands.result import Result
 from powermon.libs.errors import (CommandDefinitionMissing, ConfigError,
                                   ConfigNeedsUpdatingError)
 from powermon.libs.mqttbroker import MqttBroker
-from powermon.outputformats import get_formatter, FormatterType
+from powermon.outputformats import FormatterType, get_formatter
 from powermon.outputs.abstractoutput import AbstractOutput
 from powermon.ports import from_config as port_from_config
 from powermon.ports.abstractport import AbstractPort, _AbstractPortDTO
+
+# Configure gettext
+lang = gettext.translation('powermon', localedir='locales', languages=['en'])
+lang.install()
+_ = lang.gettext
 
 # Set-up logger
 log = logging.getLogger("Device")
@@ -78,7 +84,7 @@ class Device:
     async def from_config(cls, config=None):
         """build the object from a config dict"""
         if not config:
-            log.warning("No device definition in config. Check configFile argument?")
+            log.warning(_("No device definition in config. Check configFile argument?"))
             return cls(name="unnamed")
         name = config.get("name", "unnamed_device")
         model = config.get("model")
@@ -86,7 +92,7 @@ class Device:
 
         # check if old config still in use
         if "id" in config:
-            raise ConfigNeedsUpdatingError("Breaking Change: Please rename 'id' device config item to 'serial_number'")
+            raise ConfigNeedsUpdatingError(_("Breaking Change: Please rename 'id' device config item to 'serial_number'"))
 
         serial_number = config.get("serial_number")   
         port = await port_from_config(config.get("port"), serial_number=serial_number)

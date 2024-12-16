@@ -37,3 +37,14 @@ git-tag-release:
 
 mqtt-docker-start:
 	docker run --rm  --network=host -v ./docker/mosquitto/config:/mosquitto/config eclipse-mosquitto
+
+transl-extract:
+	xgettext -d powermon -o locales/powermon.pot -L python -f files_to_translate.txt
+
+transl-gen-en:
+	msginit -l en_US.UTF8 -o locales/en/LC_MESSAGES/powermon.po -i locales/powermon.pot --no-translator
+
+transl-compile:
+	msgfmt -o locales/en/LC_MESSAGES/powermon.mo locales/en/LC_MESSAGES/powermon.po
+
+transl: transl-extract transl-gen-en transl-compile
