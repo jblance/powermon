@@ -13,7 +13,6 @@ from pyaml_env import parse_config
 from pydantic import ValidationError
 
 from powermon import _
-
 from powermon.commands.command import Command
 from powermon.configmodel.config_model import ConfigModel
 from powermon.device import Device

@@ -6,7 +6,6 @@ from typing import Optional
 from pydantic import BaseModel
 
 from powermon import _
-
 from powermon.commands.command import Command, CommandDTO
 from powermon.commands.result import Result
 from powermon.libs.errors import (CommandDefinitionMissing, ConfigError,
@@ -16,7 +15,6 @@ from powermon.outputformats import FormatterType, get_formatter
 from powermon.outputs.abstractoutput import AbstractOutput
 from powermon.ports import from_config as port_from_config
 from powermon.ports.abstractport import AbstractPort, _AbstractPortDTO
-
 
 # Set-up logger
 log = logging.getLogger("Device")
