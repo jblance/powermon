@@ -1,7 +1,7 @@
 # !/usr/bin/python3
 """main powermon code"""
 import asyncio
-import gettext
+# import gettext
 import json
 import logging
 import time
@@ -12,6 +12,8 @@ import yaml
 from pyaml_env import parse_config
 from pydantic import ValidationError
 
+from powermon import _
+
 from powermon.commands.command import Command
 from powermon.configmodel.config_model import ConfigModel
 from powermon.device import Device
@@ -21,11 +23,6 @@ from powermon.libs.daemon import Daemon
 from powermon.libs.mqttbroker import MqttBroker
 from powermon.libs.version import __version__  # noqa: F401
 from powermon.protocols import list_commands, list_protocols
-
-# Configure gettext
-lang = gettext.translation('powermon', localedir='locales', languages=['en'])
-lang.install()
-_ = lang.gettext
 
 # Set-up logger
 log = logging.getLogger("")

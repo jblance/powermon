@@ -9,6 +9,8 @@ from deepdiff import DeepDiff
 #import yaml
 from ruamel.yaml import YAML
 
+from powermon import _
+
 from powermon.libs.config import Color
 from powermon.libs.errors import CommandDefinitionMissing, ConfigError
 from powermon.libs.version import __version__  # noqa: F401
@@ -18,10 +20,6 @@ from powermon.ports.bleport import ble_reset
 from powermon.protocols import (Protocol, get_protocol_definition,
                                 list_commands, list_protocols)
 
-# Configure gettext
-lang = gettext.translation('powermon', localedir='locales', languages=['en'])
-lang.install()
-_ = lang.gettext
 
 
 def ble_scan(args):

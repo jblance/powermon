@@ -1,9 +1,11 @@
 """ device.py """
-import gettext
+# import gettext
 import logging
 from typing import Optional
 
 from pydantic import BaseModel
+
+from powermon import _
 
 from powermon.commands.command import Command, CommandDTO
 from powermon.commands.result import Result
@@ -15,10 +17,6 @@ from powermon.outputs.abstractoutput import AbstractOutput
 from powermon.ports import from_config as port_from_config
 from powermon.ports.abstractport import AbstractPort, _AbstractPortDTO
 
-# Configure gettext
-lang = gettext.translation('powermon', localedir='locales', languages=['en'])
-lang.install()
-_ = lang.gettext
 
 # Set-up logger
 log = logging.getLogger("Device")
