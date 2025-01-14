@@ -10,6 +10,7 @@ class ReadingDTO(BaseModel):
     icon: str | None = Field(default=None)
     device_class: str | None = Field(default=None)
     state_class: str | None = Field(default=None)
+    component: str | None = None
 
 
 class Reading:
@@ -82,3 +83,7 @@ class Reading:
     @property
     def state_class(self) -> str | None:
         return self.definition.state_class
+
+    @property
+    def component(self) -> str | None:
+        return self.definition.component

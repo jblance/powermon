@@ -152,6 +152,15 @@ class ReadingDefinition():
         self._default = value
 
     @property
+    def component(self):
+        """ component value """
+        return getattr(self, "_component", None)
+
+    @component.setter
+    def component(self, value):
+        self._component = value
+
+    @property
     def format_template(self):
         """ a template that allows re-formating of value """
         return self._format_template
@@ -505,6 +514,8 @@ class ReadingDefinition():
         reading.format_template = reading_definition_config.get("format_template")
         # check for a slice value
         reading.slice_array = reading_definition_config.get("slice")
+        # check for a defined component setting
+        reading.component = reading_definition_config.get("component")
         return reading
 
 

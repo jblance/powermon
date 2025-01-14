@@ -213,7 +213,7 @@ QUERY_COMMANDS = {
                 "reading_type": ReadingType.CURRENT, "icon": "mdi:battery-negative", "device_class": "current",
                 "response_type": ResponseType.INT},
             {"description": "Device Status",
-                "reading_type": ReadingType.FLAGS,
+                "reading_type": ReadingType.FLAGS, 'component': 'binary_sensor',
                 "response_type": ResponseType.FLAGS,
                 "flags": [
                     "Is SBU Priority Version Added",
@@ -231,7 +231,7 @@ QUERY_COMMANDS = {
                 "reading_type": ReadingType.WATTS, "icon": "mdi:solar-power", "device_class": "power", "state_class": "measurement",
                 "response_type": ResponseType.INT},
             {"description": "Device Status2",
-                "reading_type": ReadingType.FLAGS,
+                "reading_type": ReadingType.FLAGS, 'component': 'binary_sensor',
                 "response_type": ResponseType.FLAGS, "flags": ["Is Charging to Float", "Is Switched On", "Is Dustproof Installed"]},
             {"description": "Solar Feed to Grid", "reading_type": ReadingType.MESSAGE, "response_type": ResponseType.LIST, "options": ["Disabled", "Enabled"]},
             {"description": "Country",
@@ -257,10 +257,10 @@ QUERY_COMMANDS = {
         "result_type": ResultType.ORDERED,
         "reading_definitions": [
             {"description": "PV2 Input Current",
-                "reading_type": ReadingType.CURRENT, "icon": "mdi:solar-power", "device_class": "current",
+                "reading_type": ReadingType.CURRENT, "icon": "mdi:solar-power", "device_class": "current", "state_class": "measurement",
                 "response_type": ResponseType.FLOAT},
             {"description": "PV2 Input Voltage",
-                "reading_type": ReadingType.VOLTS, "icon": "mdi:solar-power", "device_class": "voltage",
+                "reading_type": ReadingType.VOLTS, "icon": "mdi:solar-power", "device_class": "voltage", "state_class": "measurement",
                 "response_type": ResponseType.FLOAT},
             {"description": "PV2 Charging Power",
                 "reading_type": ReadingType.WATTS, "icon": "mdi:solar-power", "device_class": "power", "state_class": "measurement",
@@ -374,7 +374,7 @@ QUERY_COMMANDS = {
                 "reading_type": ReadingType.PERCENTAGE, "icon": "mdi:brightness-percent",
                 "response_type": ResponseType.INT},
             {"description": "Inverter Status",
-                "reading_type": ReadingType.FLAGS,
+                "reading_type": ReadingType.FLAGS, 'component': 'binary_sensor',
                 "response_type": ResponseType.FLAGS,
                 "flags": [
                     "Is SCC OK",
@@ -562,7 +562,7 @@ QUERY_COMMANDS = {
         "result_type": ResultType.SINGLE,
         "reading_definitions": [
             {"description": "Total PV Generated Energy",
-                "reading_type": ReadingType.WATT_HOURS, "icon": "mdi:solar-power", "device_class": "energy", "state_class": "total",
+                "reading_type": ReadingType.WATT_HOURS, "icon": "mdi:solar-power", "device_class": "energy", "state_class": "total_increasing",
                 "response_type": ResponseType.INT}
         ],
         "test_responses": [
@@ -575,7 +575,7 @@ QUERY_COMMANDS = {
         "result_type": ResultType.ORDERED,
         "reading_definitions": [
             {"description": "PV Generated Energy for Year",
-                "reading_type": ReadingType.WATT_HOURS, "icon": "mdi:counter", "device_class": "energy", "state_class": "total",
+                "reading_type": ReadingType.WATT_HOURS, "icon": "mdi:counter", "device_class": "energy", "state_class": "total_increasing",
                 "response_type": ResponseType.INT},
             {"description": "Year",
                 "reading_type": ReadingType.YEAR,
@@ -592,7 +592,7 @@ QUERY_COMMANDS = {
         "result_type": ResultType.ORDERED,
         "reading_definitions": [
             {"description": "PV Generated Energy for Month",
-                "reading_type": ReadingType.WATT_HOURS, "icon": "mdi:solar-power", "device_class": "energy", "state_class": "total",
+                "reading_type": ReadingType.WATT_HOURS, "icon": "mdi:solar-power", "device_class": "energy", "state_class": "total_increasing",
                 "response_type": ResponseType.INT},
             {"description": "Year",
                 "reading_type": ReadingType.YEAR,
@@ -613,7 +613,7 @@ QUERY_COMMANDS = {
         "result_type": ResultType.ORDERED,
         "reading_definitions": [
             {"description": "PV Generated Energy for Day",
-                "reading_type": ReadingType.WATT_HOURS, "icon": "mdi:solar-power", "device_class": "energy", "state_class": "total",
+                "reading_type": ReadingType.WATT_HOURS, "icon": "mdi:solar-power", "device_class": "energy", "state_class": "total_increasing",
                 "response_type": ResponseType.INT},
             {"description": "Year",
                 "reading_type": ReadingType.YEAR,
