@@ -11,8 +11,8 @@ commands:
   outputs:
   - type: screen
     format: 
-      type: hass
+      type: hass_autodiscovery
       entity_id_prefix: inverter42
       discovery_prefix: homeassistant
-      filter: ^serial|^work|^charger|^fault
+      filter: ^work
 

@@ -12,6 +12,8 @@ log = logging.getLogger("formats")
 class FormatterType(StrEnum):
     """ enumeration of valid formatter types """
     HASS = auto()
+    HASS_AUTODISCOVERY = auto()
+    HASS_STATE = auto()
     HTMLTABLE = auto()
     JSON = auto()
     RAW = auto()
@@ -37,6 +39,10 @@ def get_formatter(format_type):
             from powermon.outputformats.htmltable import HtmlTable as fmt
         case FormatterType.HASS:
             from powermon.outputformats.hass import Hass as fmt
+        case FormatterType.HASS_AUTODISCOVERY:
+            from powermon.outputformats.hass import HassAutoDiscovery as fmt
+        case FormatterType.HASS_STATE:
+            from powermon.outputformats.hass import HassState as fmt
         case FormatterType.JSON:
             from powermon.outputformats.json_fmt import Json as fmt
         # case FormatterType.TOPICS:

@@ -50,12 +50,14 @@ class Hass(AbstractFormat):
             icon = response.icon
             device_class = response.device_class
             state_class = response.state_class
+            component = response.component or 'sensor'
 
             # Set component type
             if unit == "bool" or value == "enabled" or value == "disabled":
+                print(f'updating sensor to binary sensor for {data_name}')
                 component = "binary_sensor"
-            else:
-                component = "sensor"
+            # else:
+            #     component = "sensor"
 
             # Make value adjustments
             if component == "binary_sensor":
@@ -86,8 +88,8 @@ class Hass(AbstractFormat):
                 "name": f"{name}",
                 "state_topic": f"{state_topic}",
                 "unique_id": f"{object_id}_{device_info.serial_number}",
-                "force_update": "true",
-                "last_reset": str(datetime.now()),
+                # "force_update": "true",
+                # "last_reset": str(datetime.now()),
             }
 
             # Add device info
@@ -115,6 +117,10 @@ class Hass(AbstractFormat):
             if state_class:
                 payload["state_class"] = state_class
 
+            # Add options
+            if response.definition.options is not None:
+                payload["options"] = list(response.definition.options.values())
+
             payloads = js.dumps(payload)
             # print(payloads)
             msg = {"topic": topic, "payload": payloads}
@@ -126,3 +132,23 @@ class Hass(AbstractFormat):
 
         # order value msgs after config to allow HA time to build entity before state data arrives
         return config_msgs + value_msgs
+
+
+class HassAutoDiscovery(Hass):
+    """ formatter to generate home assistant auto config mqtt messages """
+    def __init__(self, config):
+        super().__init__(config)
+        self.name = "hass_autodiscovery"
+
+    def __str__(self):
+        return f"{self.name}: generates Home Assistant auto config (only) mqtt messages"
+
+
+class HassState(Hass):
+    """ formatter to generate home assistant state update mqtt messages """
+    def __init__(self, config):
+        super().__init__(config)
+        self.name = "hass_state"
+
+    def __str__(self):
+        return f"{self.name}: generates Home Assistant state update mqtt messages (requires entities to exist or HassAutoDiscovery to have been run first)"
