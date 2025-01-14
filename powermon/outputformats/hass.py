@@ -118,7 +118,7 @@ class Hass(AbstractFormat):
                 payload["state_class"] = state_class
 
             # Add options
-            if response.definition.options is not None:
+            if response.definition.options is not None and device_class == "enum":
                 payload["options"] = list(response.definition.options.values())
 
             payloads = js.dumps(payload)

@@ -281,7 +281,7 @@ QUERY_COMMANDS = {
                 "reading_type": ReadingType.MESSAGE, "icon": "mdi:identifier",
                 "response_type": ResponseType.BYTES},
             {"description": "Work mode",
-                "reading_type": ReadingType.MESSAGE,
+                "reading_type": ReadingType.MESSAGE, "device_class": "enum",
                 "response_type": ResponseType.OPTION,
                 "options": {
                     "P": "Power On Mode",
