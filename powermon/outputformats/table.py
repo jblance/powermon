@@ -131,6 +131,7 @@ class Table(AbstractFormat):
                     icon = reading.icon
                     state_class = reading.state_class
                     device_class = reading.device_class
+                    component = reading.definition.component
                     extra_info = ''
                     if icon:
                         extra_info += f"icon:{icon}, "
@@ -138,6 +139,8 @@ class Table(AbstractFormat):
                         extra_info += f"state_class:{state_class}, "
                     if device_class:
                         extra_info += f"device_class:{device_class}"
+                    if component:
+                        extra_info += f"component:{component}"
                     _result.append(f"{name: <{max_data_name_length}} {value: <{max_data_value_length}} {unit: <{max_data_unit_length}} {extra_info}")
 
         return _result
