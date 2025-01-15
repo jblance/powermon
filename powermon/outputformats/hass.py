@@ -79,6 +79,8 @@ class Hass(AbstractFormat):
             # Topic
             # <discovery_prefix>/<component>/[<node_id>/]<object_id>/config, eg homeassistant/binary_sensor/garden/config
             topic_base = f"{self.discovery_prefix}/{component}/{object_id}".replace(" ", "_")
+            # remove illegal topic characters
+            topic_base = topic_base.translate({ord(i): '-' for i in '(){}[]'})
             topic = f"{topic_base}/config"
             state_topic = f"{topic_base}/state"
 
@@ -119,7 +121,10 @@ class Hass(AbstractFormat):
 
             # Add options
             if response.definition.options is not None and device_class == "enum":
-                payload["options"] = list(response.definition.options.values())
+                if isinstance(response.definition.options, dict):
+                    payload["options"] = list(response.definition.options.values())
+                else:
+                    payload["options"] = response.definition.options
 
             payloads = js.dumps(payload)
             # print(payloads)

@@ -33,7 +33,7 @@ class TestFormatHass(unittest.TestCase):
         self.assertListEqual(list(fd[0]), ['topic', 'payload'])
         self.assertEqual(fd[0]['topic'], "homeassistant/sensor/energy_today/config")
         config_payload = json.loads(fd[0]["payload"])
-        self.assertListEqual(list(config_payload), ['name', 'state_topic', 'unique_id', 'force_update', 'last_reset', 'device', 'unit_of_measurement', 'icon', 'state_class'])
+        self.assertListEqual(list(config_payload), ['name', 'state_topic', 'unique_id', 'device', 'unit_of_measurement', 'icon', 'state_class'])
         self.assertEqual(config_payload['name'], "energy_today")
         self.assertEqual(config_payload['state_topic'], "homeassistant/sensor/energy_today/state")
         self.assertEqual(config_payload['unique_id'], "energy_today_serial_number")
