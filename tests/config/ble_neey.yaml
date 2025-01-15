@@ -7,9 +7,10 @@ device:
   port:
     type: test
     protocol: NEEY
+    response_number: 1
 
 commands:
-- command: factory_defaults
+- command: settings
   outputs:
   - type: screen
     format: 
