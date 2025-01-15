@@ -79,7 +79,7 @@ class BlePort(AbstractPort):
         # intializing_handle = config.get("intializing_handle", 48)
         # command_handle = config.get("command_handle", 15)
         # get protocol handler, default to PI30 if not supplied
-        protocol = get_protocol_definition(protocol=config.get("protocol", "PI30"))
+        protocol = get_protocol_definition(protocol=config.get("protocol", "PI30"), model=config.get("model"))
         return cls(mac=mac, protocol=protocol)
 
     def __init__(self, mac, protocol: AbstractProtocol) -> None:

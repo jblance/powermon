@@ -30,7 +30,7 @@ class PortTypeDTO(BaseModel):
     """ data transfer model for PortType class """
     port_type: PortType
 
-def from_config(port_config, serial_number=None):
+def from_config(port_config):
     """ get a port object from config data """
     log.debug("port_config: %s", port_config)
 
@@ -45,9 +45,6 @@ def from_config(port_config, serial_number=None):
     # return None if port type is not defined
     if port_type is None:
         return None
-
-    # add serial_number to config
-    port_config['serial_number'] = serial_number
 
     # build port object
     match port_type:

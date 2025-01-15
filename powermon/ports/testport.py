@@ -41,7 +41,7 @@ class TestPort(AbstractPort):
         # allows specification of which of the test responses to use (mainly to allow test cases to be repeatable)
         response_number = config.get("response_number", None)
         # get protocol handler, default to PI30 if not supplied
-        protocol = get_protocol_definition(protocol=config.get("protocol", "PI30"))
+        protocol = get_protocol_definition(protocol=config.get("protocol", "PI30"), model=config.get("model"))
         return cls(response_number=response_number, protocol=protocol)
 
     def is_connected(self):

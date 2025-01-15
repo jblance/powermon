@@ -29,7 +29,7 @@ class USBPort(AbstractPort):
         path = config.get("path", "/dev/hidraw0")
         serial_number = config.get("serial_number")
         # get protocol handler, default to PI30 if not supplied
-        protocol = get_protocol_definition(protocol=config.get("protocol", "PI30"))
+        protocol = get_protocol_definition(protocol=config.get("protocol", "PI30"), model=config.get("model"))
         # instantiate class
         _class = cls(path=path, protocol=protocol)
         # deal with wildcard path resolution

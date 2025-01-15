@@ -671,7 +671,7 @@ class PI30(AbstractProtocol):
     def __str__(self):
         return "PI30 protocol handler"
 
-    def __init__(self) -> None:
+    def __init__(self, model=None) -> None:
         super().__init__()
         self.protocol_id = b"PI30"
         self.add_command_definitions(QUERY_COMMANDS)

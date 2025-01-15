@@ -39,7 +39,7 @@ class AbstractProtocol(metaclass=abc.ABCMeta):
     - check validity / crc / trim / split response
     """
 
-    def __init__(self) -> None:
+    def __init__(self, model=None) -> None:
         self.command_definitions: dict[str, CommandDefinition] = {}
         self.supported_ports = [PortType.TEST,]
         self.id_command = None
@@ -82,6 +82,12 @@ class AbstractProtocol(metaclass=abc.ABCMeta):
             except ValueError as value_error:
                 log.info("couldnt add command definition for code: %s", command_definition_key)
                 log.info("error was: %s", value_error)
+
+    def replace_command_definition(self, command_definition_key, new_config):
+        """ Replace a command definition with a new one """
+        command_definition = CommandDefinition.from_config(new_config)
+        self.command_definitions[command_definition_key] = command_definition
+
 
     def remove_command_definitions(self, commands_to_remove: list):
         """ Remove specified command definitions """
