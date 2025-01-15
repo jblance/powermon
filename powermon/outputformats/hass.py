@@ -2,6 +2,8 @@
 import json as js
 import logging
 from datetime import datetime
+import construct as cs
+from enum import Enum
 
 from powermon.commands.command import Command
 from powermon.commands.reading import Reading
@@ -132,6 +134,9 @@ class Hass(AbstractFormat):
             config_msgs.append(msg)
 
             # VALUE SETTING
+            # convert construct EnumIntegerStrings to a str
+            if isinstance(value, cs.EnumIntegerString):
+                value = str(value)
             msg = {"topic": state_topic, "payload": value}
             value_msgs.append(msg)
 

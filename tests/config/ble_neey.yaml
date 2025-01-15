@@ -14,8 +14,9 @@ commands:
   outputs:
   - type: screen
     format: 
-      type: table
-      draw_lines: True
+      type: hass
+      # draw_lines: True
+      filter: buzzer
 
 mqttbroker:
   name: localhost
