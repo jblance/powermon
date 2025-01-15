@@ -3,6 +3,7 @@ import logging
 
 from powermon.commands.result import ResultType
 from powermon.protocols.pi30 import PI30
+# from powermon.libs.errors import PowermonProtocolError
 from powermon.commands.reading_definition import ResponseType
 from powermon.commands.reading_definition import ReadingType
 
@@ -147,7 +148,7 @@ QUERY_COMMANDS = {
                 "reading_type": ReadingType.MESSAGE,
                 "response_type": ResponseType.OPTION, "options": {"00": "Grid tie", "01": "Off Grid", "10": "Hybrid"}},
             {"description": "Topology", "reading_type": ReadingType.MESSAGE, "response_type": ResponseType.LIST, "options": ["transformerless", "transformer"]},
-            {"description": "Output Mode", "reading_type": ReadingType.MESSAGE, "response_type": ResponseType.LIST, "options": OUTPUT_MODE_LIST},
+            {"description": "Output Mode", "reading_type": ReadingType.MESSAGE, "device_class": "enum", "response_type": ResponseType.LIST, "options": OUTPUT_MODE_LIST},
             {"description": "Battery Redischarge Voltage", "reading_type": ReadingType.VOLTS, "response_type": ResponseType.FLOAT},
             {"description": "PV OK Condition",
                 "reading_type": ReadingType.MESSAGE,
@@ -386,7 +387,7 @@ QUERY_COMMANDS = {
                     "Is Load On",
                     "Is Configuration Changed"]},
             {"description": "Output mode",
-                "reading_type": ReadingType.MESSAGE,
+                "reading_type": ReadingType.MESSAGE, "device_class": "enum",
                 "response_type": ResponseType.LIST,
                 "options": OUTPUT_MODE_LIST},
             {"description": "Charger source priority",
@@ -862,22 +863,78 @@ SETTER_COMMANDS = {
     },
 }
 
+MST_QPIGS2 = {
+        "name": "QPIGS2",
+        "description": "General Status Parameters inquiry 2",
+        "result_type": ResultType.ORDERED,
+        "reading_definitions": [
+            {"description": "PV2 Input Current",
+                "reading_type": ReadingType.CURRENT, "icon": "mdi:solar-power", "device_class": "current", "state_class": "measurement",
+                "response_type": ResponseType.FLOAT},
+            {"description": "PV2 Input Voltage",
+                "reading_type": ReadingType.VOLTS, "icon": "mdi:solar-power", "device_class": "voltage", "state_class": "measurement",
+                "response_type": ResponseType.FLOAT},
+            {"description": "Battery voltage from SCC 2",
+                "reading_type": ReadingType.VOLTS, "icon": "mdi:solar-power", "device_class": "voltage", "state_class": "measurement",
+                "response_type": ResponseType.FLOAT},
+            {"description": "PV2 Charging Power",
+                "reading_type": ReadingType.WATTS, "icon": "mdi:solar-power", "device_class": "power", "state_class": "measurement",
+                "response_type": ResponseType.INT},
+            {"description": "Device status", "reading_type": ReadingType.MESSAGE,},
+            {"description": "AC charging current",
+                "reading_type": ReadingType.CURRENT, "icon": "mdi:transmission-tower-export", "device_class": "current", "state_class": "measurement",
+                "response_type": ResponseType.FLOAT},
+            {"description": "AC charging power",
+                "reading_type": ReadingType.WATTS, "icon": "mdi:transmission-tower-export", "device_class": "power", "state_class": "measurement",
+                "response_type": ResponseType.INT},
+            {"description": "PV3 Input Current",
+                "reading_type": ReadingType.CURRENT, "icon": "mdi:solar-power", "device_class": "current", "state_class": "measurement",
+                "response_type": ResponseType.FLOAT},
+            {"description": "PV3 Input Voltage",
+                "reading_type": ReadingType.VOLTS, "icon": "mdi:solar-power", "device_class": "voltage", "state_class": "measurement",
+                "response_type": ResponseType.FLOAT},
+            {"description": "Battery voltage from SCC 3",
+                "reading_type": ReadingType.VOLTS, "icon": "mdi:solar-power", "device_class": "voltage", "state_class": "measurement",
+                "response_type": ResponseType.FLOAT},
+            {"description": "PV3 Charging Power",
+                "reading_type": ReadingType.WATTS, "icon": "mdi:solar-power", "device_class": "power", "state_class": "measurement",
+                "response_type": ResponseType.INT},
+            {"description": "PV total charging power",
+                "reading_type": ReadingType.WATTS, "icon": "mdi:solar-power", "device_class": "power", "state_class": "measurement",
+                "response_type": ResponseType.INT},
+        ],
+        "test_responses": [
+            b"(03.1 327.3 52.3 123 1 1234 122 327.1 52.4 234 567 \x23\xc7\r",
+        ],
+    }
 COMMANDS_TO_REMOVE = ["QVFW2"]
 
 
 class PI30MAX(PI30):
     """ PI30 protocol handler for LV6048MAX and similar inverters """
     def __str__(self):
-        return "PI30 protocol handler for LV6048MAX and similar inverters"
+        match self.model:
+            case 'PIP4048MST':
+                return "PI30 protocol handler for PIP4048MST and similar inverters"
+            case _:
+                return "PI30 protocol handler for LV6048MAX and similar inverters"
 
-    def __init__(self) -> None:
+    def __init__(self, model=None) -> None:
         super().__init__()
         self.protocol_id = b"PI30MAX"
+        self.model = model
         self.add_command_definitions(QUERY_COMMANDS)
         self.add_command_definitions(SETTER_COMMANDS, result_type=ResultType.ACK)
         self.remove_command_definitions(COMMANDS_TO_REMOVE)
         self.check_definitions_count(expected=67)
-        # self.id_command = "QSID"
+
+        if model:
+            log.info("%s got model specifier: %s", self.protocol_id, model)
+            if model == 'PIP4048MST':
+                self.replace_command_definition("QPIGS2", MST_QPIGS2)
+                self.check_definitions_count(expected=67)
+            # else:
+            #     raise PowermonProtocolError(f"unknown model {model}")
 
         self.STATUS_COMMANDS = ["QPIGS", "QPIGS2"]
         self.SETTINGS_COMMANDS = ["QPIRI", "QFLAG"]

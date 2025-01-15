@@ -19,6 +19,7 @@ class Protocol(StrEnum):
     PI18 = auto()  # WIP
     PI30 = auto()
     PI30MAX = auto()
+    PI30MST = auto()
     DALY = auto()
     NEEY = auto()
     HELTEC = auto()
@@ -26,9 +27,9 @@ class Protocol(StrEnum):
     JKSERIAL = auto()
 
 
-def get_protocol_definition(protocol):
+def get_protocol_definition(protocol, model=None):
     """
-    Get the protocol based on the protocol name
+    Get the protocol based on the protocol name and optionally model number
     """
 
     log.debug("Protocol: %s", protocol)
@@ -50,7 +51,10 @@ def get_protocol_definition(protocol):
             return PI30()
         case Protocol.PI30MAX:
             from powermon.protocols.pi30max import PI30MAX
-            return PI30MAX()
+            return PI30MAX(model=model)
+        case Protocol.PI30MST:
+            from powermon.protocols.pi30max import PI30MAX
+            return PI30MAX(model='PIP4048MST')
         case Protocol.VED:
             from powermon.protocols.ved import VictronEnergyDirect
             return VictronEnergyDirect()
