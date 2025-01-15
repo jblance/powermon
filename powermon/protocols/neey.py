@@ -294,14 +294,14 @@ COMMANDS = {
         "construct": settings_construct,
         "construct_min_response": 100,
         "reading_definitions": [
-            {"index": "cell_count", "description": "cell_count", "reading_type": ReadingType.NUMBER, "response_type": ResponseType.HEX_CHAR},
+            {"index": "cell_count", "description": "Cell Count", "reading_type": ReadingType.NUMBER, "response_type": ResponseType.HEX_CHAR},
             {"index": "balance_trigger_voltage", "description": "balance_trigger_voltage", "reading_type": ReadingType.VOLTS, "response_type": ResponseType.FLOAT},
             {"index": "balance_stop_voltage", "description": "balance_stop_voltage", "reading_type": ReadingType.VOLTS, "response_type": ResponseType.FLOAT},
             {"index": "balance_start_voltage", "description": "balance_start_voltage", "reading_type": ReadingType.VOLTS, "response_type": ResponseType.FLOAT},
             {"index": "max_balance_current", "description": "max_balance_current", "reading_type": ReadingType.CURRENT, "response_type": ResponseType.FLOAT},
             {"index": "nominal_battery_capacity", "description": "nominal_battery_capacity", "reading_type": ReadingType.ENERGY},
             {"index": "balancing", "description": "balancing_enabled", "reading_type": ReadingType.ENABLED},
-            {"index": "buzzer_mode", "description": "buzzer_mode", "reading_type": ReadingType.MESSAGE, "response_type": ResponseType.STRING},
+            {"index": "buzzer_mode", "description": "Buzzer Mode", "reading_type": ReadingType.MESSAGE, "response_type": ResponseType.STRING},
             {"index": "battery_type", "description": "battery_type", "reading_type": ReadingType.MESSAGE, "response_type": ResponseType.STRING},
         ],
         "test_responses": [

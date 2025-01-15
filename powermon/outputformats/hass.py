@@ -71,10 +71,11 @@ class Hass(AbstractFormat):
             # Object ID
             if self.entity_id_prefix is None:
                 object_id = f"{data_name}".lower().replace(" ", "_")
-                name = f"{data_name}"
+                
             else:
                 object_id = f"{self.entity_id_prefix}_{data_name}".lower().replace(" ", "_")
-                name = f"{self.entity_id_prefix} {data_name}"
+                #name = f"{self.entity_id_prefix} {data_name}"
+            name = f"{response.data_name}"
 
             # Home Assistant MQTT Auto Discovery Message
             #
