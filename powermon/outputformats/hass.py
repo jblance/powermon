@@ -2,12 +2,14 @@
 import json as js
 import logging
 from datetime import datetime
-import construct as cs
 from enum import Enum
+
+import construct as cs
 
 from powermon.commands.command import Command
 from powermon.commands.reading import Reading
 from powermon.commands.result import Result
+from powermon.libs.version import __version__  # noqa: F401
 from powermon.outputformats.abstractformat import AbstractFormat
 
 log = logging.getLogger("hass")
@@ -104,6 +106,13 @@ class Hass(AbstractFormat):
                 "identifiers": [device_info.serial_number],
                 "model": device_info.model,
                 "manufacturer": device_info.manufacturer,
+            }
+
+            # Add origin info
+            payload["origin"] = {
+                "name": "powermon",
+                "sw_version": __version__,
+                "support_url": "https://github.com/jblance/powermon"
             }
 
             # Add unit of measurement
