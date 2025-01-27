@@ -10,6 +10,7 @@ from powermon.commands.reading_definition import ReadingType
 log = logging.getLogger("pi30max")
 
 SOURCE_PRIORITY_LIST = ["Utility", "Solar first", "Solar + Utility", "Only Solar"]
+_SOURCE = ["Utility Solar Battery", "Solar Utility Battery", "Solar Battery Utility"]
 OUTPUT_MODE_LIST = ["single machine",
                     "parallel",
                     "Phase 1 of 3 phase",
@@ -925,8 +926,7 @@ class PI30MAX(PI30):
         self.model = model
         self.add_command_definitions(QUERY_COMMANDS)
         self.add_command_definitions(SETTER_COMMANDS, result_type=ResultType.ACK)
-        self.remove_command_definitions(COMMANDS_TO_REMOVE)
-        self.check_definitions_count(expected=67)
+        self.remove_command_definitions(COMMANDS_TO_REMOVE)        
 
         if model:
             log.info("%s got model specifier: %s", self.protocol_id, model)
@@ -935,6 +935,8 @@ class PI30MAX(PI30):
                 self.check_definitions_count(expected=67)
             # else:
             #     raise PowermonProtocolError(f"unknown model {model}")
+        else:
+            self.check_definitions_count(expected=67)
 
         self.STATUS_COMMANDS = ["QPIGS", "QPIGS2"]
         self.SETTINGS_COMMANDS = ["QPIRI", "QFLAG"]

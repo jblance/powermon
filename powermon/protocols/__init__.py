@@ -19,6 +19,7 @@ class Protocol(StrEnum):
     PI18 = auto()  # WIP
     PI30 = auto()
     PI30MAX = auto()
+    PI30MAXA = auto()
     PI30MST = auto()
     DALY = auto()
     NEEY = auto()
@@ -52,6 +53,9 @@ def get_protocol_definition(protocol, model=None):
         case Protocol.PI30MAX:
             from powermon.protocols.pi30max import PI30MAX
             return PI30MAX(model=model)
+        case Protocol.PI30MAXA:
+            from powermon.protocols.pi30 import PI30
+            return PI30(model="MAX")
         case Protocol.PI30MST:
             from powermon.protocols.pi30max import PI30MAX
             return PI30MAX(model='PIP4048MST')

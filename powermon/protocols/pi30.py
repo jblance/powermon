@@ -11,6 +11,8 @@ from powermon.protocols.helpers import crc_pi30 as crc
 
 log = logging.getLogger("pi30")
 
+SOURCE_PRIORITY_LIST = ["Utility > Solar > Battery", "Solar > Utility > Battery", "Solar > Battery > Utility"]
+
 OUTPUT_MODE_LIST = ["single machine output",
                     "parallel output",
                     "Phase 1 of 3 Phase output",
@@ -29,6 +31,51 @@ BATTERY_TYPE_LIST = ["AGM",
                      "TBD",
                      "LIb-protocol compatible",
                      "3rd party Lithium"]
+
+MST_QPIGS2 = {
+        "name": "QPIGS2",
+        "description": "General Status Parameters inquiry 2",
+        "result_type": ResultType.ORDERED,
+        "reading_definitions": [
+            {"description": "PV2 Input Current",
+                "reading_type": ReadingType.CURRENT, "icon": "mdi:solar-power", "device_class": "current", "state_class": "measurement",
+                "response_type": ResponseType.FLOAT},
+            {"description": "PV2 Input Voltage",
+                "reading_type": ReadingType.VOLTS, "icon": "mdi:solar-power", "device_class": "voltage", "state_class": "measurement",
+                "response_type": ResponseType.FLOAT},
+            {"description": "Battery voltage from SCC 2",
+                "reading_type": ReadingType.VOLTS, "icon": "mdi:solar-power", "device_class": "voltage", "state_class": "measurement",
+                "response_type": ResponseType.FLOAT},
+            {"description": "PV2 Charging Power",
+                "reading_type": ReadingType.WATTS, "icon": "mdi:solar-power", "device_class": "power", "state_class": "measurement",
+                "response_type": ResponseType.INT},
+            {"description": "Device status", "reading_type": ReadingType.MESSAGE,},
+            {"description": "AC charging current",
+                "reading_type": ReadingType.CURRENT, "icon": "mdi:transmission-tower-export", "device_class": "current", "state_class": "measurement",
+                "response_type": ResponseType.FLOAT},
+            {"description": "AC charging power",
+                "reading_type": ReadingType.WATTS, "icon": "mdi:transmission-tower-export", "device_class": "power", "state_class": "measurement",
+                "response_type": ResponseType.INT},
+            {"description": "PV3 Input Current",
+                "reading_type": ReadingType.CURRENT, "icon": "mdi:solar-power", "device_class": "current", "state_class": "measurement",
+                "response_type": ResponseType.FLOAT},
+            {"description": "PV3 Input Voltage",
+                "reading_type": ReadingType.VOLTS, "icon": "mdi:solar-power", "device_class": "voltage", "state_class": "measurement",
+                "response_type": ResponseType.FLOAT},
+            {"description": "Battery voltage from SCC 3",
+                "reading_type": ReadingType.VOLTS, "icon": "mdi:solar-power", "device_class": "voltage", "state_class": "measurement",
+                "response_type": ResponseType.FLOAT},
+            {"description": "PV3 Charging Power",
+                "reading_type": ReadingType.WATTS, "icon": "mdi:solar-power", "device_class": "power", "state_class": "measurement",
+                "response_type": ResponseType.INT},
+            {"description": "PV total charging power",
+                "reading_type": ReadingType.WATTS, "icon": "mdi:solar-power", "device_class": "power", "state_class": "measurement",
+                "response_type": ResponseType.INT},
+        ],
+        "test_responses": [
+            b"(03.1 327.3 52.3 123 1 1234 122 327.1 52.4 234 567 \x23\xc7\r",
+        ],
+    }
 
 SETTER_COMMANDS = {
     "F": {
@@ -117,7 +164,7 @@ SETTER_COMMANDS = {
     "POP": {
         "name": "POP",
         "description": "Set Device Output Source Priority",
-        "help": " -- examples: POP00 (set utility first), POP01 (set solar first), POP02 (set SBU priority)",
+        "help": " -- examples: POP00 (set Utility > Solar > Battery), POP01 (set Solar > Utility > Battery), POP02 (set Solar > Battery > Utility)",
         "regex": "POP(0[012])$",
     },
     "POPLG": {
@@ -223,11 +270,11 @@ QUERY_COMMANDS = {
             {"description": "Battery Recharge Voltage", "reading_type": ReadingType.VOLTS, "response_type": ResponseType.FLOAT},
             {"description": "Max Charging Current", "reading_type": ReadingType.CURRENT, "response_type": ResponseType.INT},
             {"description": "Input Voltage Range", "reading_type": ReadingType.MESSAGE, "response_type": ResponseType.LIST, "options": ["Appliance", "UPS"]},
-            {"description": "Output Source Priority", "reading_type": ReadingType.MESSAGE, "response_type": ResponseType.LIST, "options": ["Utility first", "Solar first", "SBU first"]},
+            {"description": "Output Source Priority", "reading_type": ReadingType.MESSAGE, "response_type": ResponseType.LIST, "options": SOURCE_PRIORITY_LIST},
             {"description": "Charger Source Priority",
                 "reading_type": ReadingType.MESSAGE,
                 "response_type": ResponseType.LIST,
-                "options": ["Utility first", "Solar first", "Solar + Utility", "Only solar charging permitted"]},
+                "options": ["Utility first", "Solar first", "Solar + Utility", "Solar only"]},
             {"description": "Battery Type", "reading_type": ReadingType.MESSAGE, "response_type": ResponseType.LIST, "options": BATTERY_TYPE_LIST},
             {"description": "Buzzer", "reading_type": ReadingType.MESSAGE, "response_type": ResponseType.LIST, "options": ["enabled", "disabled"]},
             {"description": "Power saving", "reading_type": ReadingType.MESSAGE, "response_type": ResponseType.LIST, "options": ["disabled", "enabled"]},
@@ -386,15 +433,12 @@ QUERY_COMMANDS = {
             {"description": "Battery Under Voltage", "reading_type": ReadingType.VOLTS, "response_type": ResponseType.FLOAT},
             {"description": "Battery Bulk Charge Voltage", "reading_type": ReadingType.VOLTS, "response_type": ResponseType.FLOAT},
             {"description": "Battery Float Charge Voltage", "reading_type": ReadingType.VOLTS, "response_type": ResponseType.FLOAT},
-            {"description": "Battery Type",
-                "reading_type": ReadingType.MESSAGE,
-                "response_type": ResponseType.LIST,
-                "options": BATTERY_TYPE_LIST},
+            {"description": "Battery Type", "reading_type": ReadingType.MESSAGE, "response_type": ResponseType.LIST, "options": BATTERY_TYPE_LIST},
             {"description": "Max AC Charging Current", "reading_type": ReadingType.CURRENT, "response_type": ResponseType.INT},
             {"description": "Max Charging Current", "reading_type": ReadingType.CURRENT, "response_type": ResponseType.INT},
             {"description": "Input Voltage Range", "reading_type": ReadingType.MESSAGE, "response_type": ResponseType.LIST, "options": ["Appliance", "UPS"]},
-            {"description": "Output Source Priority", "reading_type": ReadingType.MESSAGE, "response_type": ResponseType.LIST, "options": ["Utility first", "Solar first", "SBU first"]},
-            {"description": "Charger Source Priority", "reading_type": ReadingType.MESSAGE, "response_type": ResponseType.LIST, "options": ["Utility first", "Solar first", "Solar + Utility", "Only solar charging permitted"]},
+            {"description": "Output Source Priority", "reading_type": ReadingType.MESSAGE, "response_type": ResponseType.LIST, "options": SOURCE_PRIORITY_LIST},
+            {"description": "Charger Source Priority", "reading_type": ReadingType.MESSAGE, "response_type": ResponseType.LIST, "options": ["Utility first", "Solar first", "Solar + Utility", "Solar only"]},
             {"description": "Max Parallel Units", "reading_type": ReadingType.MESSAGE, "response_type": ResponseType.INT, "default": "not set"},
             {"description": "Machine Type", "reading_type": ReadingType.MESSAGE, "response_type": ResponseType.OPTION, "options": {"00": "Grid tie", "01": "Off Grid", "10": "Hybrid"}},
             {"description": "Topology", "reading_type": ReadingType.MESSAGE, "response_type": ResponseType.LIST, "options": ["transformerless", "transformer"]},
@@ -665,20 +709,66 @@ QUERY_COMMANDS = {
     },
 }
 
+QPIGS2 = {
+        "name": "QPIGS2",
+        "description": "General Status Parameters inquiry 2",
+        "result_type": ResultType.ORDERED,
+        "reading_definitions": [
+            {"description": "PV2 Input Current",
+                "reading_type": ReadingType.CURRENT, "icon": "mdi:solar-power", "device_class": "current", "state_class": "measurement",
+                "response_type": ResponseType.FLOAT},
+            {"description": "PV2 Input Voltage",
+                "reading_type": ReadingType.VOLTS, "icon": "mdi:solar-power", "device_class": "voltage", "state_class": "measurement",
+                "response_type": ResponseType.FLOAT},
+            {"description": "PV2 Charging Power",
+                "reading_type": ReadingType.WATTS, "icon": "mdi:solar-power", "device_class": "power", "state_class": "measurement",
+                "response_type": ResponseType.INT},
+        ],
+        "test_responses": [
+            b"(03.1 327.3 01026 \xc9\x8b\r",
+        ],
+    }
+
+QSID = {
+        "name": "QSID",
+        "aliases": ["default", "get_id"],
+        "description": "Device Serial Number inquiry",
+        "help": " -- queries the device serial number (length greater than 14)",
+        "result_type": ResultType.SINGLE,
+        "reading_definitions": [
+            {"description": "Serial Number",
+                "reading_type": ReadingType.MESSAGE, "icon": "mdi:identifier",
+                "response_type": ResponseType.TEMPLATE_BYTES, "format_template" : "r[2:int(r[0:2])+2]"}],
+        "test_responses": [b"(1492932105105335005535\x94\x0e\r", ],
+    }
 
 class PI30(AbstractProtocol):
     """ pi30 protocol handler """
     def __str__(self):
-        return "PI30 protocol handler"
+        return self.description
 
     def __init__(self, model=None) -> None:
         super().__init__()
         self.protocol_id = b"PI30"
+        self.model = model
         self.add_command_definitions(QUERY_COMMANDS)
         self.add_command_definitions(SETTER_COMMANDS, result_type=ResultType.ACK)
-        self.check_definitions_count(expected=45)
         self.add_supported_ports([PortType.SERIAL, PortType.USB])
-        # self.id_command = "QID"
+        match model:
+            case 'MAX':
+                self.description = "PI30 protocol handler for LV6048MAX and similar inverters"
+                # Add new commands
+                self.add_command_definition(QPIGS2)
+                self.add_command_definition(QSID)
+                # Remove QID ID aliases
+                self.command_definitions["QID"].aliases = None
+            case "MST" | 'PIP4048MST':
+                self.description = "PI30 protocol handler for PIP4048MST and similar inverters"
+                self.replace_command_definition("QPIGS2", MST_QPIGS2)
+                self.check_definitions_count(expected=67)
+            case _:
+                self.description = "PI30 protocol handler"
+                self.check_definitions_count(expected=45)
 
     def check_valid(self, response: str, command_definition: CommandDefinition = None) -> bool:
         """ check response is valid """
