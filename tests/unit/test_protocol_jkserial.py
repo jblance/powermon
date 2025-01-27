@@ -8,9 +8,8 @@ from powermon.ports.abstractport import AbstractPort
 from powermon.ports.serialport import SerialPort
 from powermon.ports.testport import TestPort
 from powermon.ports.usbport import USBPort
-from powermon.protocols.jkserial import JkSerial as Proto
-
-proto = Proto()
+from powermon.protocols import get_protocol_definition
+proto = get_protocol_definition('JKSERIAL')
 
 
 class TestProtocolJKSerial(unittest.TestCase):

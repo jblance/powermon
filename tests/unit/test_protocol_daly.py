@@ -6,9 +6,8 @@ from powermon.device import DeviceInfo
 from powermon.libs.errors import InvalidCRC, InvalidResponse
 from powermon.outputformats.simple import SimpleFormat
 from powermon.ports import PortType
-from powermon.protocols.daly import Daly as Proto
-
-proto = Proto()
+from powermon.protocols import get_protocol_definition
+proto = get_protocol_definition('DALY')
 
 
 class TestProtocolDaly(unittest.TestCase):

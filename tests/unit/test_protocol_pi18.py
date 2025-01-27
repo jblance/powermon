@@ -1,13 +1,11 @@
 """ tests / pmon / unit / test_protocol_pi18.py """
 import unittest
 from powermon.commands.command import Command
-from powermon.protocols.pi18 import PI18 as Proto
 from powermon.device import DeviceInfo
 from powermon.libs.errors import InvalidCRC, InvalidResponse, CommandDefinitionMissing
 from powermon.outputformats.simple import SimpleFormat
-# from powermon.outputformats.table import Table
-
-proto = Proto()
+from powermon.protocols import get_protocol_definition
+proto = get_protocol_definition('PI18')
 
 
 class TestProtocolPI18(unittest.TestCase):

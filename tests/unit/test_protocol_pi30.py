@@ -5,10 +5,8 @@ from powermon.commands.command import Command
 from powermon.device import DeviceInfo
 from powermon.libs.errors import InvalidCRC, InvalidResponse
 from powermon.outputformats.simple import SimpleFormat
-from powermon.protocols.pi30 import PI30 as Proto
-
-# import construct as cs
-proto = Proto()
+from powermon.protocols import get_protocol_definition
+proto = get_protocol_definition('PI30')
 
 
 class TestProtocolPi30(unittest.TestCase):
