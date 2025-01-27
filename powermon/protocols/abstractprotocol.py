@@ -83,11 +83,16 @@ class AbstractProtocol(metaclass=abc.ABCMeta):
                 log.info("couldnt add command definition for code: %s", command_definition_key)
                 log.info("error was: %s", value_error)
 
+    def add_command_definition(self, new_config):
+        """ Add a command definition """
+        command_definition_key = new_config.get("name")
+        command_definition = CommandDefinition.from_config(new_config)
+        self.command_definitions[command_definition_key] = command_definition
+
     def replace_command_definition(self, command_definition_key, new_config):
         """ Replace a command definition with a new one """
         command_definition = CommandDefinition.from_config(new_config)
         self.command_definitions[command_definition_key] = command_definition
-
 
     def remove_command_definitions(self, commands_to_remove: list):
         """ Remove specified command definitions """
