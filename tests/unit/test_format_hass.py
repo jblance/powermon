@@ -10,6 +10,7 @@ from powermon.commands.reading_definition import (ReadingDefinition,
 from powermon.commands.result import Result, ResultType
 from powermon.device import DeviceInfo
 from powermon.outputformats.hass import Hass
+from powermon.libs.version import __version__
 
 
 class TestFormatHass(unittest.TestCase):
@@ -33,14 +34,15 @@ class TestFormatHass(unittest.TestCase):
         self.assertListEqual(list(fd[0]), ['topic', 'payload'])
         self.assertEqual(fd[0]['topic'], "homeassistant/sensor/energy_today/config")
         config_payload = json.loads(fd[0]["payload"])
-        self.assertListEqual(list(config_payload), ['name', 'state_topic', 'unique_id', 'device', 'unit_of_measurement', 'icon', 'state_class'])
-        self.assertEqual(config_payload['name'], "energy_today")
+        self.assertListEqual(list(config_payload), ['name', 'state_topic', 'unique_id', 'device', 'origin', 'unit_of_measurement', 'icon', 'state_class'])
+        self.assertEqual(config_payload['name'], "Energy Today")
         self.assertEqual(config_payload['state_topic'], "homeassistant/sensor/energy_today/state")
         self.assertEqual(config_payload['unique_id'], "energy_today_serial_number")
         self.assertEqual(config_payload['unit_of_measurement'], "Wh")
         self.assertEqual(config_payload['icon'], "mdi:solar-power")
         self.assertEqual(config_payload['state_class'], "total")
         self.assertDictEqual(config_payload['device'], {'name': 'device_name', 'identifiers': ['serial_number'], 'model': 'device_model', 'manufacturer': 'device_manufacturer'})
+        self.assertDictEqual(config_payload['origin'], {'name': 'powermon', 'sw_version': __version__, 'support_url': 'https://github.com/jblance/powermon'})
 
         # second list item is state message (a dict with only topic and payload keys)
         self.assertIsInstance(fd[1], dict)
