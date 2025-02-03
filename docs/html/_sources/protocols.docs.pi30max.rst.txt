@@ -1,5 +1,5 @@
 ***************************************************
-PI30(MAX) - Model MAX | PIP4048MAX
+PI30MAX - Model MAX | PIP4048MAX
 ***************************************************
 
 Document Details
@@ -111,13 +111,13 @@ Inquiry Command
 2.1 QPI<cr>: Device Protocol ID Inquiry
 ---------------------------------------
 
+Function: To request the device Protocol ID.
+
 Computer: ``QPI<CRC><cr>``
 
 Device: ``(PI<NN> <CRC><cr>``
 
 N is an integer number ranging from 0 to 9.
-
-Function: To request the device Protocol ID.
 
 Protocol ID distribution: 30 for Axpert KS series
 
@@ -125,33 +125,36 @@ Protocol ID distribution: 30 for Axpert KS series
 2.2 QID<cr>: The device serial number inquiry
 ---------------------------------------------
 
+Computer: ``QID <CRC><cr>``
 
-```
-Computer: QID <CRC><cr>
-Device: (XXXXXXXXXXXXXX <CRC><cr>
-```
-### 2.3 QSID<cr>: The device serial number inquiry (the length is more than 14)
+Device: ``(XXXXXXXXXXXXXX <CRC><cr>``
 
-```
-Computer: QSID<CRC><cr>
-Device: (NNXXXXXXXXXXXXXXXXXXXX <CRC><cr>
+
+2.3 QSID<cr>: The device serial number inquiry (the length is more than 14)
+---------------------------------------------------------------------------
+
+Computer: ``QSID<CRC><cr>``
+
+Device: ``(NNXXXXXXXXXXXXXXXXXXXX <CRC><cr>``
+
 NN: Serial number valid length, X: Serial number, invalid part is filled as ‘0’, total X is 20.
-```
-### 2.4 QVFW<cr>: Main CPU Firmware version inquiry
 
-```
-Computer: QVFW<CRC><cr>
-```
+2.4 QVFW<cr>: Main CPU Firmware version inquiry
+-----------------------------------------------
 
-```
-Device: (VERFW:<NNNNN.NN><CRC><cr>
+Computer: ``QVFW<CRC><cr>``
+
+Device: ``(VERFW:<NNNNN.NN><CRC><cr>``
+
 <N> is a HEX number from 0...9 or A...F.
+
 Example:
-Computer: QVFW<CRC><cr>
-Device: (VERFW:00 0 23.01<CRC><cr>
-00123: firmware series number； 01 ：version
-```
-### 2.5 QVFW3<cr>: Another CPU (remote panel) Firmware version inquiry
+|Computer: ``QVFW<CRC><cr>``
+|Device: ``(VERFW:00123.01<CRC><cr>``
+|00123: firmware series number； 01 ：version
+
+2.5 QVFW3<cr>: Another CPU (remote panel) Firmware version inquiry
+------------------------------------------------------------------
 
 ```
 Computer: QVFW3<CRC><cr>
