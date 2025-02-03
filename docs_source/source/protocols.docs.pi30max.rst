@@ -159,11 +159,11 @@ Inquiry Command
 2.7 QPIRI<cr>: Device Rating Information inquiry
 ------------------------------------------------
 
-| Computer: QPIRI<CRC><cr>
-| Device: (BBB.B CC.C DDD.D EE.E FF.F HHHH IIII JJ.J KK.K JJ.J KK.K LL.L O PP QQ 0 O P Q R SS T U VV.V W X YYY Z CCC <CRC><cr>
+| Computer: ``QPIRI<CRC><cr>``
+| Device: ``(BBB.B CC.C DDD.D EE.E FF.F HHHH IIII JJ.J KK.K JJ.J KK.K LL.L O PP QQ 0 O P Q R SS T U VV.V W X YYY Z CCC <CRC><cr>``
 
 .. csv-table:: Response Decode
-   :header: ,Date, Description, Units, Notes
+   :header: ,Component, Description, Units, Notes
    :widths: auto
    :align: left
 
@@ -171,44 +171,26 @@ Inquiry Command
    B, BBB.B, Grid rating voltage, V, B is an integer ranging from 0 to 9.
    C, CC.C, Grid rating current, A, C is an Integer ranging from 0 to 9.
    D, DDD.D, AC output rating voltage, V, D is an Integer ranging from 0 to 9.
-   E EE.E AC output rating frequency
-   E is an Integer ranging from 0 to 9.
-   The units is Hz.
-   F FF.F AC output rating current
-   F is an Integer ranging from 0 to 9.
-   The unit is A.
-   H HHHH
-   AC output rating apparent
-   power
-   H is an Integer ranging from 0 to 9.
-   The unit is VA.
-   I IIII
-   AC output rating active
-   power
-   I is an Integer ranging from 0 to 9.
-   The unit is W.
-   J JJ.J Battery rating voltage J is an Integer ranging from 0 to 9.
-   The units is V.
-   K KK.K Battery re-charge voltage
-   K is an Integer ranging from 0 to 9.
-   The units is V.
-   l JJ.J Battery under voltage
-   J is an Integer ranging from 0 to 9.
-   The units is V.
-   M KK.K Battery bulk voltage K is an Integer ranging from 0 to 9.
-   The units is V.
-   N LL.L Battery float voltage L is an Integer ranging from 0 to 9.
-   The units is V.
-   O O Battery type
+   E, EE.E, AC output rating frequency, Hz, E is an Integer ranging from 0 to 9.
+   F, FF.F, AC output rating current, A, F is an Integer ranging from 0 to 9.
+   H, HHHH, AC output rating apparent power, VA, H is an Integer ranging from 0 to 9.
+   I, IIII, AC output rating active power, W, I is an Integer ranging from 0 to 9.
+   J, JJ.J, Battery rating voltage, V, J is an Integer ranging from 0 to 9.
+   K, KK.K, Battery re-charge voltage, V, K is an Integer ranging from 0 to 9.
+   l, JJ.J, Battery under voltage, V, J is an Integer ranging from 0 to 9.
+   M, KK.K, Battery bulk voltage, V, K is an Integer ranging from 0 to 9.
+   N, LL.L, Battery float voltage, V, L is an Integer ranging from 0 to 9.
+   O, O, Battery type, ,
+   | 0: AGM
+   | 1: Flooded
+   | 2: User
+   | 3: Pylon
+   | 5: Weco
+   | 6: Soltaro
+   | 8: Lib
+   | 9: Lic
 
-0: AGM
-1: Flooded
-2: User
-3: Pylon
-5: Weco
-6: Soltaro
-8: Lib
-9: Lic
+   
 P PP Max AC charging current
 
 P is an Integer ranging from 0 to 9

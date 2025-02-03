@@ -370,14 +370,14 @@
 <section id="qpiri-cr-device-rating-information-inquiry">
 <h3>2.7 QPIRI&lt;cr&gt;: Device Rating Information inquiry<a class="headerlink" href="#qpiri-cr-device-rating-information-inquiry" title="Link to this heading">¶</a></h3>
 <div class="line-block">
-<div class="line">Computer: QPIRI&lt;CRC&gt;&lt;cr&gt;</div>
-<div class="line">Device: (BBB.B CC.C DDD.D EE.E FF.F HHHH IIII JJ.J KK.K JJ.J KK.K LL.L O PP QQ 0 O P Q R SS T U VV.V W X YYY Z CCC &lt;CRC&gt;&lt;cr&gt;</div>
+<div class="line">Computer: <code class="docutils literal notranslate"><span class="pre">QPIRI&lt;CRC&gt;&lt;cr&gt;</span></code></div>
+<div class="line">Device: <code class="docutils literal notranslate"><span class="pre">(BBB.B</span> <span class="pre">CC.C</span> <span class="pre">DDD.D</span> <span class="pre">EE.E</span> <span class="pre">FF.F</span> <span class="pre">HHHH</span> <span class="pre">IIII</span> <span class="pre">JJ.J</span> <span class="pre">KK.K</span> <span class="pre">JJ.J</span> <span class="pre">KK.K</span> <span class="pre">LL.L</span> <span class="pre">O</span> <span class="pre">PP</span> <span class="pre">QQ</span> <span class="pre">0</span> <span class="pre">O</span> <span class="pre">P</span> <span class="pre">Q</span> <span class="pre">R</span> <span class="pre">SS</span> <span class="pre">T</span> <span class="pre">U</span> <span class="pre">VV.V</span> <span class="pre">W</span> <span class="pre">X</span> <span class="pre">YYY</span> <span class="pre">Z</span> <span class="pre">CCC</span> <span class="pre">&lt;CRC&gt;&lt;cr&gt;</span></code></div>
 </div>
 <table class="docutils align-left" id="id2">
 <caption><span class="caption-text">Response Decode</span><a class="headerlink" href="#id2" title="Link to this table">¶</a></caption>
 <thead>
 <tr class="row-odd"><th class="head"></th>
-<th class="head"><p>Date</p></th>
+<th class="head"><p>Component</p></th>
 <th class="head"><p>Description</p></th>
 <th class="head"><p>Units</p></th>
 <th class="head"><p>Notes</p></th>
@@ -408,175 +408,133 @@
 <td><p>V</p></td>
 <td><p>D is an Integer ranging from 0 to 9.</p></td>
 </tr>
-<tr class="row-even"><td><p>E EE.E AC output rating frequency</p></td>
+<tr class="row-even"><td><p>E</p></td>
+<td><p>EE.E</p></td>
+<td><p>AC output rating frequency</p></td>
+<td><p>Hz</p></td>
+<td><p>E is an Integer ranging from 0 to 9.</p></td>
+</tr>
+<tr class="row-odd"><td><p>F</p></td>
+<td><p>FF.F</p></td>
+<td><p>AC output rating current</p></td>
+<td><p>A</p></td>
+<td><p>F is an Integer ranging from 0 to 9.</p></td>
+</tr>
+<tr class="row-even"><td><p>H</p></td>
+<td><p>HHHH</p></td>
+<td><p>AC output rating apparent power</p></td>
+<td><p>VA</p></td>
+<td><p>H is an Integer ranging from 0 to 9.</p></td>
+</tr>
+<tr class="row-odd"><td><p>I</p></td>
+<td><p>IIII</p></td>
+<td><p>AC output rating active power</p></td>
+<td><p>W</p></td>
+<td><p>I is an Integer ranging from 0 to 9.</p></td>
+</tr>
+<tr class="row-even"><td><p>J</p></td>
+<td><p>JJ.J</p></td>
+<td><p>Battery rating voltage</p></td>
+<td><p>V</p></td>
+<td><p>J is an Integer ranging from 0 to 9.</p></td>
+</tr>
+<tr class="row-odd"><td><p>K</p></td>
+<td><p>KK.K</p></td>
+<td><p>Battery re-charge voltage</p></td>
+<td><p>V</p></td>
+<td><p>K is an Integer ranging from 0 to 9.</p></td>
+</tr>
+<tr class="row-even"><td><p>l</p></td>
+<td><p>JJ.J</p></td>
+<td><p>Battery under voltage</p></td>
+<td><p>V</p></td>
+<td><p>J is an Integer ranging from 0 to 9.</p></td>
+</tr>
+<tr class="row-odd"><td><p>M</p></td>
+<td><p>KK.K</p></td>
+<td><p>Battery bulk voltage</p></td>
+<td><p>V</p></td>
+<td><p>K is an Integer ranging from 0 to 9.</p></td>
+</tr>
+<tr class="row-even"><td><p>N</p></td>
+<td><p>LL.L</p></td>
+<td><p>Battery float voltage</p></td>
+<td><p>V</p></td>
+<td><p>L is an Integer ranging from 0 to 9.</p></td>
+</tr>
+<tr class="row-odd"><td><p>O</p></td>
+<td><p>O</p></td>
+<td><p>Battery type</p></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><div class="line-block">
+<div class="line">0: AGM</div>
+</div>
+</td>
 <td></td>
 <td></td>
 <td></td>
 <td></td>
 </tr>
-<tr class="row-odd"><td><p>E is an Integer ranging from 0 to 9.</p></td>
+<tr class="row-odd"><td><div class="line-block">
+<div class="line">1: Flooded</div>
+</div>
+</td>
 <td></td>
 <td></td>
 <td></td>
 <td></td>
 </tr>
-<tr class="row-even"><td><p>The units is Hz.</p></td>
+<tr class="row-even"><td><div class="line-block">
+<div class="line">2: User</div>
+</div>
+</td>
 <td></td>
 <td></td>
 <td></td>
 <td></td>
 </tr>
-<tr class="row-odd"><td><p>F FF.F AC output rating current</p></td>
+<tr class="row-odd"><td><div class="line-block">
+<div class="line">3: Pylon</div>
+</div>
+</td>
 <td></td>
 <td></td>
 <td></td>
 <td></td>
 </tr>
-<tr class="row-even"><td><p>F is an Integer ranging from 0 to 9.</p></td>
+<tr class="row-even"><td><div class="line-block">
+<div class="line">5: Weco</div>
+</div>
+</td>
 <td></td>
 <td></td>
 <td></td>
 <td></td>
 </tr>
-<tr class="row-odd"><td><p>The unit is A.</p></td>
+<tr class="row-odd"><td><div class="line-block">
+<div class="line">6: Soltaro</div>
+</div>
+</td>
 <td></td>
 <td></td>
 <td></td>
 <td></td>
 </tr>
-<tr class="row-even"><td><p>H HHHH</p></td>
+<tr class="row-even"><td><div class="line-block">
+<div class="line">8: Lib</div>
+</div>
+</td>
 <td></td>
 <td></td>
 <td></td>
 <td></td>
 </tr>
-<tr class="row-odd"><td><p>AC output rating apparent</p></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="row-even"><td><p>power</p></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="row-odd"><td><p>H is an Integer ranging from 0 to 9.</p></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="row-even"><td><p>The unit is VA.</p></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="row-odd"><td><p>I IIII</p></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="row-even"><td><p>AC output rating active</p></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="row-odd"><td><p>power</p></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="row-even"><td><p>I is an Integer ranging from 0 to 9.</p></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="row-odd"><td><p>The unit is W.</p></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="row-even"><td><p>J JJ.J Battery rating voltage J is an Integer ranging from 0 to 9.</p></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="row-odd"><td><p>The units is V.</p></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="row-even"><td><p>K KK.K Battery re-charge voltage</p></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="row-odd"><td><p>K is an Integer ranging from 0 to 9.</p></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="row-even"><td><p>The units is V.</p></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="row-odd"><td><p>l JJ.J Battery under voltage</p></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="row-even"><td><p>J is an Integer ranging from 0 to 9.</p></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="row-odd"><td><p>The units is V.</p></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="row-even"><td><p>M KK.K Battery bulk voltage K is an Integer ranging from 0 to 9.</p></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="row-odd"><td><p>The units is V.</p></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="row-even"><td><p>N LL.L Battery float voltage L is an Integer ranging from 0 to 9.</p></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="row-odd"><td><p>The units is V.</p></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="row-even"><td><p>O O Battery type</p></td>
+<tr class="row-odd"><td><div class="line-block">
+<div class="line">9: Lic</div>
+</div>
+</td>
 <td></td>
 <td></td>
 <td></td>
@@ -584,15 +542,7 @@
 </tr>
 </tbody>
 </table>
-<p>0: AGM
-1: Flooded
-2: User
-3: Pylon
-5: Weco
-6: Soltaro
-8: Lib
-9: Lic
-P PP Max AC charging current</p>
+<p>P PP Max AC charging current</p>
 <p>P is an Integer ranging from 0 to 9
 The units is A.
 If the max AC charging current is
