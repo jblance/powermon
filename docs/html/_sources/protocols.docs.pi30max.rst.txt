@@ -90,7 +90,9 @@ Implemented in protocol: PI30MAX | PI30 with model: MAX
 
 
 RJ45 to RS232 cable between computer and device
-.. image:: iamges/rj45-rs232cable.png
+
+.. image:: images/rj45-rs232cable.png
+
 
 Communication format
 ====================
