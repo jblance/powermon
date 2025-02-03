@@ -180,17 +180,16 @@ Inquiry Command
    l, JJ.J, Battery under voltage, V, J is an Integer ranging from 0 to 9.
    M, KK.K, Battery bulk voltage, V, K is an Integer ranging from 0 to 9.
    N, LL.L, Battery float voltage, V, L is an Integer ranging from 0 to 9.
-   O, O, Battery type, ,
-   | 0: AGM
-   | 1: Flooded
-   | 2: User
-   | 3: Pylon
-   | 5: Weco
-   | 6: Soltaro
-   | 8: Lib
-   | 9: Lic
+   O, O, Battery type, , 0: AGM
+      1: Flooded
+      2: User
+      3: Pylon
+      5: Weco
+      6: Soltaro
+      8: Lib
+      9: Lic
 
-   
+
 P PP Max AC charging current
 
 P is an Integer ranging from 0 to 9
