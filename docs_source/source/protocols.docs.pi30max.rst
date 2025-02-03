@@ -1,5 +1,5 @@
 ***************************************************
-PI30MAX - Model MAX | PIP4048MAX
+PI30MAX - MAX Communication Protocol
 ***************************************************
 
 Document Details
@@ -7,9 +7,9 @@ Document Details
 
 Source: 
 
-Implemented in protocol: PI30MAX | PI30 with model: MAX
+Implemented in protocol: ``PI30MAX | PI30 with model: MAX``
 
-# MAX Communication Protocol
+
 
 - 1 Communication format
    - 1.1 RS232
@@ -111,119 +111,97 @@ Inquiry Command
 2.1 QPI<cr>: Device Protocol ID Inquiry
 ---------------------------------------
 
-Function: To request the device Protocol ID.
-
-Computer: ``QPI<CRC><cr>``
-
-Device: ``(PI<NN> <CRC><cr>``
-
-N is an integer number ranging from 0 to 9.
-
-Protocol ID distribution: 30 for Axpert KS series
-
+| Function: To request the device Protocol ID.
+| Computer: ``QPI<CRC><cr>``
+| Device: ``(PI<NN> <CRC><cr>``
+| N is an integer number ranging from 0 to 9.
+| Protocol ID distribution: 30 for Axpert KS series
 
 2.2 QID<cr>: The device serial number inquiry
 ---------------------------------------------
 
-Computer: ``QID <CRC><cr>``
-
-Device: ``(XXXXXXXXXXXXXX <CRC><cr>``
-
+| Computer: ``QID <CRC><cr>``
+| Device: ``(XXXXXXXXXXXXXX <CRC><cr>``
 
 2.3 QSID<cr>: The device serial number inquiry (the length is more than 14)
 ---------------------------------------------------------------------------
 
-Computer: ``QSID<CRC><cr>``
-
-Device: ``(NNXXXXXXXXXXXXXXXXXXXX <CRC><cr>``
-
-NN: Serial number valid length, X: Serial number, invalid part is filled as ‘0’, total X is 20.
+| Computer: ``QSID<CRC><cr>``
+| Device: ``(NNXXXXXXXXXXXXXXXXXXXX <CRC><cr>``
+| NN: Serial number valid length, X: Serial number, invalid part is filled as ‘0’, total X is 20.
 
 2.4 QVFW<cr>: Main CPU Firmware version inquiry
 -----------------------------------------------
 
-Computer: ``QVFW<CRC><cr>``
-
-Device: ``(VERFW:<NNNNN.NN><CRC><cr>``
-
-<N> is a HEX number from 0...9 or A...F.
-
-Example:
-|Computer: ``QVFW<CRC><cr>``
-|Device: ``(VERFW:00123.01<CRC><cr>``
-|00123: firmware series number； 01 ：version
+| Computer: ``QVFW<CRC><cr>``
+| Device: ``(VERFW:<NNNNN.NN><CRC><cr>``
+| <N> is a HEX number from 0...9 or A...F.
+| 
+| Example:
+|   Computer: ``QVFW<CRC><cr>``
+|   Device: ``(VERFW:00123.01<CRC><cr>``
+|   00123: firmware series number； 01 ：version
 
 2.5 QVFW3<cr>: Another CPU (remote panel) Firmware version inquiry
 ------------------------------------------------------------------
 
-```
-Computer: QVFW3<CRC><cr>
-Device: (VERFW: <NNNNN.NN><CRC><cr>
-<N> is a HEX number from 0...9 or A...F.
-```
-### 2.6 VERFW:<cr>: Bluetooth version inquiry
+| Computer: QVFW3<CRC><cr>
+| Device: (VERFW: <NNNNN.NN><CRC><cr>
+| <N> is a HEX number from 0...9 or A...F.
 
-```
-Computer: VERFW:<CRC><cr>
-Device: (VERFW: <NNNNN.NN><cr>
-<N> is a HEX number from 0...9 or A...F.
-```
-### 2.7 QPIRI<cr>: Device Rating Information inquiry
+2.6 VERFW:<cr>: Bluetooth version inquiry
+-----------------------------------------
 
-```
-Computer: QPIRI<CRC><cr>
-Device: (BBB.B CC.C DDD.D EE.E FF.F HHHH IIII JJ.J KK.K JJ.J KK.K LL.L O PP QQ 0
-O P Q R SS T U VV.V W X YYY Z CCC <CRC><cr>
-Date Description Notes
-A ( Start byte
-B BBB.B Grid rating voltage B is an integer ranging from 0 to 9.
-The units is V.
-C CC.C Grid rating current
-C is an Integer ranging from 0 to 9.
-The units is A.
-D DDD.D AC output rating voltage
-D is an Integer ranging from 0 to 9.
-The units is V.
-E EE.E AC output rating frequency
-E is an Integer ranging from 0 to 9.
-The units is Hz.
-F FF.F AC output rating current
-F is an Integer ranging from 0 to 9.
-The unit is A.
-H HHHH
-AC output rating apparent
-power
-```
-```
-H is an Integer ranging from 0 to 9.
-The unit is VA.
-I IIII
-AC output rating active
-power
-```
-```
-I is an Integer ranging from 0 to 9.
-The unit is W.
-J JJ.J Battery rating voltage J is an Integer ranging from 0 to 9.
-The units is V.
-K KK.K Battery re-charge voltage
-K is an Integer ranging from 0 to 9.
-The units is V.
-l JJ.J Battery under voltage
-J is an Integer ranging from 0 to 9.
-The units is V.
-M KK.K Battery bulk voltage K is an Integer ranging from 0 to 9.
-The units is V.
-```
+| Computer: ``VERFW:<CRC><cr>``
+| Device: ``(VERFW: <NNNNN.NN><cr>``
+| <N> is a HEX number from 0...9 or A...F.
 
-N LL.L Battery float voltage L is an Integer ranging from 0 to 9.
-The units is V.
+2.7 QPIRI<cr>: Device Rating Information inquiry
+------------------------------------------------
 
-O O Battery type
+| Computer: QPIRI<CRC><cr>
+| Device: (BBB.B CC.C DDD.D EE.E FF.F HHHH IIII JJ.J KK.K JJ.J KK.K LL.L O PP QQ 0 O P Q R SS T U VV.V W X YYY Z CCC <CRC><cr>
 
-#### 0: AGM
+.. csv-table:: Response Decode
+   :header: ,Date, Description, Units, Notes
+   :widths: auto
+   :align: left
 
-```
+   A, (, Start byte,
+   B, BBB.B, Grid rating voltage, V, B is an integer ranging from 0 to 9.
+   C, CC.C, Grid rating current, A, C is an Integer ranging from 0 to 9.
+   D, DDD.D, AC output rating voltage, V, D is an Integer ranging from 0 to 9.
+   E EE.E AC output rating frequency
+   E is an Integer ranging from 0 to 9.
+   The units is Hz.
+   F FF.F AC output rating current
+   F is an Integer ranging from 0 to 9.
+   The unit is A.
+   H HHHH
+   AC output rating apparent
+   power
+   H is an Integer ranging from 0 to 9.
+   The unit is VA.
+   I IIII
+   AC output rating active
+   power
+   I is an Integer ranging from 0 to 9.
+   The unit is W.
+   J JJ.J Battery rating voltage J is an Integer ranging from 0 to 9.
+   The units is V.
+   K KK.K Battery re-charge voltage
+   K is an Integer ranging from 0 to 9.
+   The units is V.
+   l JJ.J Battery under voltage
+   J is an Integer ranging from 0 to 9.
+   The units is V.
+   M KK.K Battery bulk voltage K is an Integer ranging from 0 to 9.
+   The units is V.
+   N LL.L Battery float voltage L is an Integer ranging from 0 to 9.
+   The units is V.
+   O O Battery type
+
+0: AGM
 1: Flooded
 2: User
 3: Pylon
@@ -231,15 +209,12 @@ O O Battery type
 6: Soltaro
 8: Lib
 9: Lic
-```
 P PP Max AC charging current
 
-```
 P is an Integer ranging from 0 to 9
 The units is A.
 If the max AC charging current is
 greater than 99A, then return to PPP
-```
 Q QQ 0 Max charging current Q^ is an Integer ranging from 0 to 9.
 The units is A.
 

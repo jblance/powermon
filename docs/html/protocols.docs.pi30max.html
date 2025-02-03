@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1"><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-      <title>PI30MAX - Model MAX | PIP4048MAX</title>
+      <title>PI30MAX - MAX Communication Protocol</title>
     
           <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
           <link rel="stylesheet" href="_static/theme.css " type="text/css" />
@@ -161,7 +161,7 @@
     
       <li><a href="protocols.mppsolar.html">MPPsolar Protocols</a> &raquo;</li>
     
-    <li>PI30MAX - Model MAX | PIP4048MAX</li>
+    <li>PI30MAX - MAX Communication Protocol</li>
   </ul>
   
 
@@ -180,13 +180,12 @@
 <hr>
           <div class="content" role="main" v-pre>
             
-  <section id="pi30max-model-max-pip4048max">
-<h1>PI30MAX - Model MAX | PIP4048MAX<a class="headerlink" href="#pi30max-model-max-pip4048max" title="Link to this heading">¶</a></h1>
+  <section id="pi30max-max-communication-protocol">
+<h1>PI30MAX - MAX Communication Protocol<a class="headerlink" href="#pi30max-max-communication-protocol" title="Link to this heading">¶</a></h1>
 <section id="document-details">
 <h2>Document Details<a class="headerlink" href="#document-details" title="Link to this heading">¶</a></h2>
 <p>Source:</p>
-<p>Implemented in protocol: PI30MAX | PI30 with model: MAX</p>
-<p># MAX Communication Protocol</p>
+<p>Implemented in protocol: <code class="docutils literal notranslate"><span class="pre">PI30MAX</span> <span class="pre">|</span> <span class="pre">PI30</span> <span class="pre">with</span> <span class="pre">model:</span> <span class="pre">MAX</span></code></p>
 <ul class="simple">
 <li><dl class="simple">
 <dt>1 Communication format</dt><dd><ul>
@@ -290,8 +289,8 @@
 </section>
 <section id="communication-format">
 <h2>Communication format<a class="headerlink" href="#communication-format" title="Link to this heading">¶</a></h2>
-<table class="docutils align-left" id="id7">
-<caption><span class="caption-text">RS232</span><a class="headerlink" href="#id7" title="Link to this table">¶</a></caption>
+<table class="docutils align-left" id="id1">
+<caption><span class="caption-text">RS232</span><a class="headerlink" href="#id1" title="Link to this table">¶</a></caption>
 <thead>
 <tr class="row-odd"><th class="head"><p>Baud rate</p></th>
 <th class="head"><p>Start bit</p></th>
@@ -314,112 +313,290 @@
 <h2>Inquiry Command<a class="headerlink" href="#inquiry-command" title="Link to this heading">¶</a></h2>
 <section id="qpi-cr-device-protocol-id-inquiry">
 <h3>2.1 QPI&lt;cr&gt;: Device Protocol ID Inquiry<a class="headerlink" href="#qpi-cr-device-protocol-id-inquiry" title="Link to this heading">¶</a></h3>
-<p>Function: To request the device Protocol ID.</p>
-<p>Computer: <code class="docutils literal notranslate"><span class="pre">QPI&lt;CRC&gt;&lt;cr&gt;</span></code></p>
-<p>Device: <code class="docutils literal notranslate"><span class="pre">(PI&lt;NN&gt;</span> <span class="pre">&lt;CRC&gt;&lt;cr&gt;</span></code></p>
-<p>N is an integer number ranging from 0 to 9.</p>
-<p>Protocol ID distribution: 30 for Axpert KS series</p>
+<div class="line-block">
+<div class="line">Function: To request the device Protocol ID.</div>
+<div class="line">Computer: <code class="docutils literal notranslate"><span class="pre">QPI&lt;CRC&gt;&lt;cr&gt;</span></code></div>
+<div class="line">Device: <code class="docutils literal notranslate"><span class="pre">(PI&lt;NN&gt;</span> <span class="pre">&lt;CRC&gt;&lt;cr&gt;</span></code></div>
+<div class="line">N is an integer number ranging from 0 to 9.</div>
+<div class="line">Protocol ID distribution: 30 for Axpert KS series</div>
+</div>
 </section>
 <section id="qid-cr-the-device-serial-number-inquiry">
 <h3>2.2 QID&lt;cr&gt;: The device serial number inquiry<a class="headerlink" href="#qid-cr-the-device-serial-number-inquiry" title="Link to this heading">¶</a></h3>
-<p>Computer: <code class="docutils literal notranslate"><span class="pre">QID</span> <span class="pre">&lt;CRC&gt;&lt;cr&gt;</span></code></p>
-<p>Device: <code class="docutils literal notranslate"><span class="pre">(XXXXXXXXXXXXXX</span> <span class="pre">&lt;CRC&gt;&lt;cr&gt;</span></code></p>
+<div class="line-block">
+<div class="line">Computer: <code class="docutils literal notranslate"><span class="pre">QID</span> <span class="pre">&lt;CRC&gt;&lt;cr&gt;</span></code></div>
+<div class="line">Device: <code class="docutils literal notranslate"><span class="pre">(XXXXXXXXXXXXXX</span> <span class="pre">&lt;CRC&gt;&lt;cr&gt;</span></code></div>
+</div>
 </section>
 <section id="qsid-cr-the-device-serial-number-inquiry-the-length-is-more-than-14">
 <h3>2.3 QSID&lt;cr&gt;: The device serial number inquiry (the length is more than 14)<a class="headerlink" href="#qsid-cr-the-device-serial-number-inquiry-the-length-is-more-than-14" title="Link to this heading">¶</a></h3>
-<p>Computer: <code class="docutils literal notranslate"><span class="pre">QSID&lt;CRC&gt;&lt;cr&gt;</span></code></p>
-<p>Device: <code class="docutils literal notranslate"><span class="pre">(NNXXXXXXXXXXXXXXXXXXXX</span> <span class="pre">&lt;CRC&gt;&lt;cr&gt;</span></code></p>
-<p>NN: Serial number valid length, X: Serial number, invalid part is filled as ‘0’, total X is 20.</p>
+<div class="line-block">
+<div class="line">Computer: <code class="docutils literal notranslate"><span class="pre">QSID&lt;CRC&gt;&lt;cr&gt;</span></code></div>
+<div class="line">Device: <code class="docutils literal notranslate"><span class="pre">(NNXXXXXXXXXXXXXXXXXXXX</span> <span class="pre">&lt;CRC&gt;&lt;cr&gt;</span></code></div>
+<div class="line">NN: Serial number valid length, X: Serial number, invalid part is filled as ‘0’, total X is 20.</div>
+</div>
 </section>
 <section id="qvfw-cr-main-cpu-firmware-version-inquiry">
 <h3>2.4 QVFW&lt;cr&gt;: Main CPU Firmware version inquiry<a class="headerlink" href="#qvfw-cr-main-cpu-firmware-version-inquiry" title="Link to this heading">¶</a></h3>
-<p>Computer: <code class="docutils literal notranslate"><span class="pre">QVFW&lt;CRC&gt;&lt;cr&gt;</span></code></p>
-<p>Device: <code class="docutils literal notranslate"><span class="pre">(VERFW:&lt;NNNNN.NN&gt;&lt;CRC&gt;&lt;cr&gt;</span></code></p>
-<p>&lt;N&gt; is a HEX number from 0…9 or A…F.</p>
-<p>Example:
-<a href="#id1"><span class="problematic" id="id2">|</span></a>Computer: <code class="docutils literal notranslate"><span class="pre">QVFW&lt;CRC&gt;&lt;cr&gt;</span></code>
-<a href="#id3"><span class="problematic" id="id4">|</span></a>Device: <code class="docutils literal notranslate"><span class="pre">(VERFW:00123.01&lt;CRC&gt;&lt;cr&gt;</span></code>
-<a href="#id5"><span class="problematic" id="id6">|</span></a>00123: firmware series number； 01 ：version</p>
+<div class="line-block">
+<div class="line">Computer: <code class="docutils literal notranslate"><span class="pre">QVFW&lt;CRC&gt;&lt;cr&gt;</span></code></div>
+<div class="line">Device: <code class="docutils literal notranslate"><span class="pre">(VERFW:&lt;NNNNN.NN&gt;&lt;CRC&gt;&lt;cr&gt;</span></code></div>
+<div class="line">&lt;N&gt; is a HEX number from 0…9 or A…F.</div>
+<div class="line"><br /></div>
+<div class="line">Example:</div>
+<div class="line-block">
+<div class="line">Computer: <code class="docutils literal notranslate"><span class="pre">QVFW&lt;CRC&gt;&lt;cr&gt;</span></code></div>
+<div class="line">Device: <code class="docutils literal notranslate"><span class="pre">(VERFW:00123.01&lt;CRC&gt;&lt;cr&gt;</span></code></div>
+<div class="line">00123: firmware series number； 01 ：version</div>
+</div>
+</div>
 </section>
 <section id="qvfw3-cr-another-cpu-remote-panel-firmware-version-inquiry">
 <h3>2.5 QVFW3&lt;cr&gt;: Another CPU (remote panel) Firmware version inquiry<a class="headerlink" href="#qvfw3-cr-another-cpu-remote-panel-firmware-version-inquiry" title="Link to this heading">¶</a></h3>
-<p><code class="docutils literal notranslate"><span class="pre">`</span>
-<span class="pre">Computer:</span> <span class="pre">QVFW3&lt;CRC&gt;&lt;cr&gt;</span>
-<span class="pre">Device:</span> <span class="pre">(VERFW:</span> <span class="pre">&lt;NNNNN.NN&gt;&lt;CRC&gt;&lt;cr&gt;</span>
-<span class="pre">&lt;N&gt;</span> <span class="pre">is</span> <span class="pre">a</span> <span class="pre">HEX</span> <span class="pre">number</span> <span class="pre">from</span> <span class="pre">0...9</span> <span class="pre">or</span> <span class="pre">A...F.</span>
-<span class="pre">`</span></code>
-### 2.6 VERFW:&lt;cr&gt;: Bluetooth version inquiry</p>
-<p><code class="docutils literal notranslate"><span class="pre">`</span>
-<span class="pre">Computer:</span> <span class="pre">VERFW:&lt;CRC&gt;&lt;cr&gt;</span>
-<span class="pre">Device:</span> <span class="pre">(VERFW:</span> <span class="pre">&lt;NNNNN.NN&gt;&lt;cr&gt;</span>
-<span class="pre">&lt;N&gt;</span> <span class="pre">is</span> <span class="pre">a</span> <span class="pre">HEX</span> <span class="pre">number</span> <span class="pre">from</span> <span class="pre">0...9</span> <span class="pre">or</span> <span class="pre">A...F.</span>
-<span class="pre">`</span></code>
-### 2.7 QPIRI&lt;cr&gt;: Device Rating Information inquiry</p>
-<p><code class="docutils literal notranslate"><span class="pre">`</span>
-<span class="pre">Computer:</span> <span class="pre">QPIRI&lt;CRC&gt;&lt;cr&gt;</span>
-<span class="pre">Device:</span> <span class="pre">(BBB.B</span> <span class="pre">CC.C</span> <span class="pre">DDD.D</span> <span class="pre">EE.E</span> <span class="pre">FF.F</span> <span class="pre">HHHH</span> <span class="pre">IIII</span> <span class="pre">JJ.J</span> <span class="pre">KK.K</span> <span class="pre">JJ.J</span> <span class="pre">KK.K</span> <span class="pre">LL.L</span> <span class="pre">O</span> <span class="pre">PP</span> <span class="pre">QQ</span> <span class="pre">0</span>
-<span class="pre">O</span> <span class="pre">P</span> <span class="pre">Q</span> <span class="pre">R</span> <span class="pre">SS</span> <span class="pre">T</span> <span class="pre">U</span> <span class="pre">VV.V</span> <span class="pre">W</span> <span class="pre">X</span> <span class="pre">YYY</span> <span class="pre">Z</span> <span class="pre">CCC</span> <span class="pre">&lt;CRC&gt;&lt;cr&gt;</span>
-<span class="pre">Date</span> <span class="pre">Description</span> <span class="pre">Notes</span>
-<span class="pre">A</span> <span class="pre">(</span> <span class="pre">Start</span> <span class="pre">byte</span>
-<span class="pre">B</span> <span class="pre">BBB.B</span> <span class="pre">Grid</span> <span class="pre">rating</span> <span class="pre">voltage</span> <span class="pre">B</span> <span class="pre">is</span> <span class="pre">an</span> <span class="pre">integer</span> <span class="pre">ranging</span> <span class="pre">from</span> <span class="pre">0</span> <span class="pre">to</span> <span class="pre">9.</span>
-<span class="pre">The</span> <span class="pre">units</span> <span class="pre">is</span> <span class="pre">V.</span>
-<span class="pre">C</span> <span class="pre">CC.C</span> <span class="pre">Grid</span> <span class="pre">rating</span> <span class="pre">current</span>
-<span class="pre">C</span> <span class="pre">is</span> <span class="pre">an</span> <span class="pre">Integer</span> <span class="pre">ranging</span> <span class="pre">from</span> <span class="pre">0</span> <span class="pre">to</span> <span class="pre">9.</span>
-<span class="pre">The</span> <span class="pre">units</span> <span class="pre">is</span> <span class="pre">A.</span>
-<span class="pre">D</span> <span class="pre">DDD.D</span> <span class="pre">AC</span> <span class="pre">output</span> <span class="pre">rating</span> <span class="pre">voltage</span>
-<span class="pre">D</span> <span class="pre">is</span> <span class="pre">an</span> <span class="pre">Integer</span> <span class="pre">ranging</span> <span class="pre">from</span> <span class="pre">0</span> <span class="pre">to</span> <span class="pre">9.</span>
-<span class="pre">The</span> <span class="pre">units</span> <span class="pre">is</span> <span class="pre">V.</span>
-<span class="pre">E</span> <span class="pre">EE.E</span> <span class="pre">AC</span> <span class="pre">output</span> <span class="pre">rating</span> <span class="pre">frequency</span>
-<span class="pre">E</span> <span class="pre">is</span> <span class="pre">an</span> <span class="pre">Integer</span> <span class="pre">ranging</span> <span class="pre">from</span> <span class="pre">0</span> <span class="pre">to</span> <span class="pre">9.</span>
-<span class="pre">The</span> <span class="pre">units</span> <span class="pre">is</span> <span class="pre">Hz.</span>
-<span class="pre">F</span> <span class="pre">FF.F</span> <span class="pre">AC</span> <span class="pre">output</span> <span class="pre">rating</span> <span class="pre">current</span>
-<span class="pre">F</span> <span class="pre">is</span> <span class="pre">an</span> <span class="pre">Integer</span> <span class="pre">ranging</span> <span class="pre">from</span> <span class="pre">0</span> <span class="pre">to</span> <span class="pre">9.</span>
-<span class="pre">The</span> <span class="pre">unit</span> <span class="pre">is</span> <span class="pre">A.</span>
-<span class="pre">H</span> <span class="pre">HHHH</span>
-<span class="pre">AC</span> <span class="pre">output</span> <span class="pre">rating</span> <span class="pre">apparent</span>
-<span class="pre">power</span>
-<span class="pre">`</span></code>
-<code class="docutils literal notranslate"><span class="pre">`</span>
-<span class="pre">H</span> <span class="pre">is</span> <span class="pre">an</span> <span class="pre">Integer</span> <span class="pre">ranging</span> <span class="pre">from</span> <span class="pre">0</span> <span class="pre">to</span> <span class="pre">9.</span>
-<span class="pre">The</span> <span class="pre">unit</span> <span class="pre">is</span> <span class="pre">VA.</span>
-<span class="pre">I</span> <span class="pre">IIII</span>
-<span class="pre">AC</span> <span class="pre">output</span> <span class="pre">rating</span> <span class="pre">active</span>
-<span class="pre">power</span>
-<span class="pre">`</span></code>
-<code class="docutils literal notranslate"><span class="pre">`</span>
-<span class="pre">I</span> <span class="pre">is</span> <span class="pre">an</span> <span class="pre">Integer</span> <span class="pre">ranging</span> <span class="pre">from</span> <span class="pre">0</span> <span class="pre">to</span> <span class="pre">9.</span>
-<span class="pre">The</span> <span class="pre">unit</span> <span class="pre">is</span> <span class="pre">W.</span>
-<span class="pre">J</span> <span class="pre">JJ.J</span> <span class="pre">Battery</span> <span class="pre">rating</span> <span class="pre">voltage</span> <span class="pre">J</span> <span class="pre">is</span> <span class="pre">an</span> <span class="pre">Integer</span> <span class="pre">ranging</span> <span class="pre">from</span> <span class="pre">0</span> <span class="pre">to</span> <span class="pre">9.</span>
-<span class="pre">The</span> <span class="pre">units</span> <span class="pre">is</span> <span class="pre">V.</span>
-<span class="pre">K</span> <span class="pre">KK.K</span> <span class="pre">Battery</span> <span class="pre">re-charge</span> <span class="pre">voltage</span>
-<span class="pre">K</span> <span class="pre">is</span> <span class="pre">an</span> <span class="pre">Integer</span> <span class="pre">ranging</span> <span class="pre">from</span> <span class="pre">0</span> <span class="pre">to</span> <span class="pre">9.</span>
-<span class="pre">The</span> <span class="pre">units</span> <span class="pre">is</span> <span class="pre">V.</span>
-<span class="pre">l</span> <span class="pre">JJ.J</span> <span class="pre">Battery</span> <span class="pre">under</span> <span class="pre">voltage</span>
-<span class="pre">J</span> <span class="pre">is</span> <span class="pre">an</span> <span class="pre">Integer</span> <span class="pre">ranging</span> <span class="pre">from</span> <span class="pre">0</span> <span class="pre">to</span> <span class="pre">9.</span>
-<span class="pre">The</span> <span class="pre">units</span> <span class="pre">is</span> <span class="pre">V.</span>
-<span class="pre">M</span> <span class="pre">KK.K</span> <span class="pre">Battery</span> <span class="pre">bulk</span> <span class="pre">voltage</span> <span class="pre">K</span> <span class="pre">is</span> <span class="pre">an</span> <span class="pre">Integer</span> <span class="pre">ranging</span> <span class="pre">from</span> <span class="pre">0</span> <span class="pre">to</span> <span class="pre">9.</span>
-<span class="pre">The</span> <span class="pre">units</span> <span class="pre">is</span> <span class="pre">V.</span>
-<span class="pre">`</span></code></p>
-<p>N LL.L Battery float voltage L is an Integer ranging from 0 to 9.
-The units is V.</p>
-<p>O O Battery type</p>
-<p>#### 0: AGM</p>
-<p><code class="docutils literal notranslate"><span class="pre">`</span>
-<span class="pre">1:</span> <span class="pre">Flooded</span>
-<span class="pre">2:</span> <span class="pre">User</span>
-<span class="pre">3:</span> <span class="pre">Pylon</span>
-<span class="pre">5:</span> <span class="pre">Weco</span>
-<span class="pre">6:</span> <span class="pre">Soltaro</span>
-<span class="pre">8:</span> <span class="pre">Lib</span>
-<span class="pre">9:</span> <span class="pre">Lic</span>
-<span class="pre">`</span></code>
+<div class="line-block">
+<div class="line">Computer: QVFW3&lt;CRC&gt;&lt;cr&gt;</div>
+<div class="line">Device: (VERFW: &lt;NNNNN.NN&gt;&lt;CRC&gt;&lt;cr&gt;</div>
+<div class="line">&lt;N&gt; is a HEX number from 0…9 or A…F.</div>
+</div>
+</section>
+<section id="verfw-cr-bluetooth-version-inquiry">
+<h3>2.6 VERFW:&lt;cr&gt;: Bluetooth version inquiry<a class="headerlink" href="#verfw-cr-bluetooth-version-inquiry" title="Link to this heading">¶</a></h3>
+<div class="line-block">
+<div class="line">Computer: <code class="docutils literal notranslate"><span class="pre">VERFW:&lt;CRC&gt;&lt;cr&gt;</span></code></div>
+<div class="line">Device: <code class="docutils literal notranslate"><span class="pre">(VERFW:</span> <span class="pre">&lt;NNNNN.NN&gt;&lt;cr&gt;</span></code></div>
+<div class="line">&lt;N&gt; is a HEX number from 0…9 or A…F.</div>
+</div>
+</section>
+<section id="qpiri-cr-device-rating-information-inquiry">
+<h3>2.7 QPIRI&lt;cr&gt;: Device Rating Information inquiry<a class="headerlink" href="#qpiri-cr-device-rating-information-inquiry" title="Link to this heading">¶</a></h3>
+<div class="line-block">
+<div class="line">Computer: QPIRI&lt;CRC&gt;&lt;cr&gt;</div>
+<div class="line">Device: (BBB.B CC.C DDD.D EE.E FF.F HHHH IIII JJ.J KK.K JJ.J KK.K LL.L O PP QQ 0 O P Q R SS T U VV.V W X YYY Z CCC &lt;CRC&gt;&lt;cr&gt;</div>
+</div>
+<table class="docutils align-left" id="id2">
+<caption><span class="caption-text">Response Decode</span><a class="headerlink" href="#id2" title="Link to this table">¶</a></caption>
+<thead>
+<tr class="row-odd"><th class="head"></th>
+<th class="head"><p>Date</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Units</p></th>
+<th class="head"><p>Notes</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>A</p></td>
+<td><p>(</p></td>
+<td><p>Start byte</p></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>B</p></td>
+<td><p>BBB.B</p></td>
+<td><p>Grid rating voltage</p></td>
+<td><p>V</p></td>
+<td><p>B is an integer ranging from 0 to 9.</p></td>
+</tr>
+<tr class="row-even"><td><p>C</p></td>
+<td><p>CC.C</p></td>
+<td><p>Grid rating current</p></td>
+<td><p>A</p></td>
+<td><p>C is an Integer ranging from 0 to 9.</p></td>
+</tr>
+<tr class="row-odd"><td><p>D</p></td>
+<td><p>DDD.D</p></td>
+<td><p>AC output rating voltage</p></td>
+<td><p>V</p></td>
+<td><p>D is an Integer ranging from 0 to 9.</p></td>
+</tr>
+<tr class="row-even"><td><p>E EE.E AC output rating frequency</p></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>E is an Integer ranging from 0 to 9.</p></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>The units is Hz.</p></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>F FF.F AC output rating current</p></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>F is an Integer ranging from 0 to 9.</p></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>The unit is A.</p></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>H HHHH</p></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>AC output rating apparent</p></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>power</p></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>H is an Integer ranging from 0 to 9.</p></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>The unit is VA.</p></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>I IIII</p></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>AC output rating active</p></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>power</p></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>I is an Integer ranging from 0 to 9.</p></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>The unit is W.</p></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>J JJ.J Battery rating voltage J is an Integer ranging from 0 to 9.</p></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>The units is V.</p></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>K KK.K Battery re-charge voltage</p></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>K is an Integer ranging from 0 to 9.</p></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>The units is V.</p></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>l JJ.J Battery under voltage</p></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>J is an Integer ranging from 0 to 9.</p></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>The units is V.</p></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>M KK.K Battery bulk voltage K is an Integer ranging from 0 to 9.</p></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>The units is V.</p></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>N LL.L Battery float voltage L is an Integer ranging from 0 to 9.</p></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>The units is V.</p></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>O O Battery type</p></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>0: AGM
+1: Flooded
+2: User
+3: Pylon
+5: Weco
+6: Soltaro
+8: Lib
+9: Lic
 P PP Max AC charging current</p>
-<p><code class="docutils literal notranslate"><span class="pre">`</span>
-<span class="pre">P</span> <span class="pre">is</span> <span class="pre">an</span> <span class="pre">Integer</span> <span class="pre">ranging</span> <span class="pre">from</span> <span class="pre">0</span> <span class="pre">to</span> <span class="pre">9</span>
-<span class="pre">The</span> <span class="pre">units</span> <span class="pre">is</span> <span class="pre">A.</span>
-<span class="pre">If</span> <span class="pre">the</span> <span class="pre">max</span> <span class="pre">AC</span> <span class="pre">charging</span> <span class="pre">current</span> <span class="pre">is</span>
-<span class="pre">greater</span> <span class="pre">than</span> <span class="pre">99A,</span> <span class="pre">then</span> <span class="pre">return</span> <span class="pre">to</span> <span class="pre">PPP</span>
-<span class="pre">`</span></code>
+<p>P is an Integer ranging from 0 to 9
+The units is A.
+If the max AC charging current is
+greater than 99A, then return to PPP
 Q QQ 0 Max charging current Q^ is an Integer ranging from 0 to 9.
 The units is A.</p>
 <p>O O Input voltage range
