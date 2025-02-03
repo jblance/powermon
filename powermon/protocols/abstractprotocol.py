@@ -67,21 +67,25 @@ class AbstractProtocol(metaclass=abc.ABCMeta):
         """ Remove all supported port types except the TEST port type """
         self.supported_ports = [PortType.TEST,]
 
-    def add_command_definitions(self, command_definitions_config: dict, result_type: ResultType = None):
+    def add_command_definitions(self, command_definitions_config: dict = None, command_definitions_list: list = None, result_type: ResultType = None):
         """ Add command definitions from the configuration """
-        for command_definition_key in command_definitions_config.keys():
-            try:
-                # log.debug("Attempting to add command_definition_key: %s", command_definition_key)
-                _config = command_definitions_config[command_definition_key]
-                if result_type is not None:
-                    # Adding command definition with supplied type, so override config
-                    # log.debug("result_type override to %s", result_type)
-                    _config["result_type"] = result_type
-                command_definition = CommandDefinition.from_config(_config)
-                self.command_definitions[command_definition_key] = command_definition
-            except ValueError as value_error:
-                log.info("couldnt add command definition for code: %s", command_definition_key)
-                log.info("error was: %s", value_error)
+        if command_definitions_config is not None:
+            for command_definition_key in command_definitions_config.keys():
+                try:
+                    # log.debug("Attempting to add command_definition_key: %s", command_definition_key)
+                    _config = command_definitions_config[command_definition_key]
+                    if result_type is not None:
+                        # Adding command definition with supplied type, so override config
+                        # log.debug("result_type override to %s", result_type)
+                        _config["result_type"] = result_type
+                    command_definition = CommandDefinition.from_config(_config)
+                    self.command_definitions[command_definition_key] = command_definition
+                except ValueError as value_error:
+                    log.info("couldnt add command definition for code: %s", command_definition_key)
+                    log.info("error was: %s", value_error)
+        if command_definitions_list is not None:
+            for command_definition in command_definitions_list:
+                self.add_command_definition(command_definition)
 
     def add_command_definition(self, new_config):
         """ Add a command definition """

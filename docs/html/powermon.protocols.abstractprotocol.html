@@ -187,7 +187,7 @@
 <p>protocols / abstractprotocol.py</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="powermon.protocols.abstractprotocol.AbstractProtocol">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">powermon.protocols.abstractprotocol.</span></span><span class="sig-name descname"><span class="pre">AbstractProtocol</span></span><a class="headerlink" href="#powermon.protocols.abstractprotocol.AbstractProtocol" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">powermon.protocols.abstractprotocol.</span></span><span class="sig-name descname"><span class="pre">AbstractProtocol</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#powermon.protocols.abstractprotocol.AbstractProtocol" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>base definition for all protocols
 protocol has:
@@ -197,8 +197,14 @@ and functions to:
 - add / remove / count / get command definitions
 - check validity / crc / trim / split response</p>
 <dl class="py method">
+<dt class="sig sig-object py" id="powermon.protocols.abstractprotocol.AbstractProtocol.add_command_definition">
+<span class="sig-name descname"><span class="pre">add_command_definition</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">new_config</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#powermon.protocols.abstractprotocol.AbstractProtocol.add_command_definition" title="Link to this definition">¶</a></dt>
+<dd><p>Add a command definition</p>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="powermon.protocols.abstractprotocol.AbstractProtocol.add_command_definitions">
-<span class="sig-name descname"><span class="pre">add_command_definitions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">command_definitions_config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">result_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ResultType</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#powermon.protocols.abstractprotocol.AbstractProtocol.add_command_definitions" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">add_command_definitions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">command_definitions_config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">command_definitions_list</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">result_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ResultType</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#powermon.protocols.abstractprotocol.AbstractProtocol.add_command_definitions" title="Link to this definition">¶</a></dt>
 <dd><p>Add command definitions from the configuration</p>
 </dd></dl>
 
@@ -273,6 +279,12 @@ as needed</p>
 <dt class="sig sig-object py" id="powermon.protocols.abstractprotocol.AbstractProtocol.remove_command_definitions">
 <span class="sig-name descname"><span class="pre">remove_command_definitions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">commands_to_remove</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#powermon.protocols.abstractprotocol.AbstractProtocol.remove_command_definitions" title="Link to this definition">¶</a></dt>
 <dd><p>Remove specified command definitions</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="powermon.protocols.abstractprotocol.AbstractProtocol.replace_command_definition">
+<span class="sig-name descname"><span class="pre">replace_command_definition</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">command_definition_key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">new_config</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#powermon.protocols.abstractprotocol.AbstractProtocol.replace_command_definition" title="Link to this definition">¶</a></dt>
+<dd><p>Replace a command definition with a new one</p>
 </dd></dl>
 
 <dl class="py method">

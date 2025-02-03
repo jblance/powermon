@@ -1,34 +1,23 @@
 """ powermon / protocols / pi30max.py """
 import logging
 
+from powermon.commands.reading_definition import ReadingType, ResponseType
 from powermon.commands.result import ResultType
+from powermon.protocols.constants import BATTERY_TYPES, OUTPUT_MODES
 from powermon.protocols.pi30 import PI30
-# from powermon.libs.errors import PowermonProtocolError
-from powermon.commands.reading_definition import ResponseType
-from powermon.commands.reading_definition import ReadingType
 
 log = logging.getLogger("pi30max")
 
 SOURCE_PRIORITY_LIST = ["Utility", "Solar first", "Solar + Utility", "Only Solar"]
 _SOURCE = ["Utility Solar Battery", "Solar Utility Battery", "Solar Battery Utility"]
-OUTPUT_MODE_LIST = ["single machine",
-                    "parallel",
-                    "Phase 1 of 3 phase",
-                    "Phase 2 of 3 phase",
-                    "Phase 3 of 3 phase",
-                    "Phase 1 of 2 phase",
-                    "Phase 2 of 2 phase (120°)",
-                    "Phase 2 of 2 phase (180°)"]
-BATTERY_TYPE_LIST = ["AGM",
-                     "Flooded",
-                     "User",
-                     "Pylontech",
-                     "Shinheung",
-                     "WECO",
-                     "Soltaro",
-                     "TBD",
-                     "LIb-protocol compatible",
-                     "3rd party Lithium"]
+
+
+# Update OUTPUT_MODE_LIST for PI30 MAX type inverters
+OUTPUT_MODES[6] = "Phase 2 of 2 phase (120°)"
+OUTPUT_MODES.append("Phase 2 of 2 phase (180°)")
+
+
+
 
 QUERY_COMMANDS = {
     "QID": {
@@ -125,7 +114,7 @@ QUERY_COMMANDS = {
                 "reading_type": ReadingType.VOLTS, "icon": "mdi:battery-outline", "device_class": "voltage"},
             {"description": "Battery Float Charge Voltage", "response_type": ResponseType.FLOAT,
                 "reading_type": ReadingType.VOLTS, "icon": "mdi:battery-outline", "device_class": "voltage"},
-            {"description": "Battery Type", "reading_type": ReadingType.MESSAGE, "response_type": ResponseType.LIST, "options": BATTERY_TYPE_LIST},
+            {"description": "Battery Type", "reading_type": ReadingType.MESSAGE, "response_type": ResponseType.LIST, "options": BATTERY_TYPES},
             {"description": "Max AC Charging Current", "reading_type": ReadingType.CURRENT, "response_type": ResponseType.INT, "icon": "mdi:current-ac", "device_class": "current"},
             {"description": "Max Charging Current", "reading_type": ReadingType.CURRENT, "response_type": ResponseType.INT, "icon": "mdi:current-ac", "device_class": "current"},
             {"description": "Input Voltage Range", "reading_type": ReadingType.MESSAGE, "response_type": ResponseType.LIST, "options": ["Appliance", "UPS"]},
@@ -149,7 +138,7 @@ QUERY_COMMANDS = {
                 "reading_type": ReadingType.MESSAGE,
                 "response_type": ResponseType.OPTION, "options": {"00": "Grid tie", "01": "Off Grid", "10": "Hybrid"}},
             {"description": "Topology", "reading_type": ReadingType.MESSAGE, "response_type": ResponseType.LIST, "options": ["transformerless", "transformer"]},
-            {"description": "Output Mode", "reading_type": ReadingType.MESSAGE, "device_class": "enum", "response_type": ResponseType.LIST, "options": OUTPUT_MODE_LIST},
+            {"description": "Output Mode", "reading_type": ReadingType.MESSAGE, "device_class": "enum", "response_type": ResponseType.LIST, "options": OUTPUT_MODES},
             {"description": "Battery Redischarge Voltage", "reading_type": ReadingType.VOLTS, "response_type": ResponseType.FLOAT},
             {"description": "PV OK Condition",
                 "reading_type": ReadingType.MESSAGE,
@@ -390,7 +379,7 @@ QUERY_COMMANDS = {
             {"description": "Output mode",
                 "reading_type": ReadingType.MESSAGE, "device_class": "enum",
                 "response_type": ResponseType.LIST,
-                "options": OUTPUT_MODE_LIST},
+                "options": OUTPUT_MODES},
             {"description": "Charger source priority",
                 "reading_type": ReadingType.MESSAGE,
                 "response_type": ResponseType.LIST, "options": ["Utility first", "Solar first", "Solar + Utility", "Solar only"]},
@@ -518,7 +507,7 @@ QUERY_COMMANDS = {
                     "Solar first",
                     "Solar + Utility",
                     "Only solar charging permitted"]},
-            {"description": "Battery Type", "reading_type": ReadingType.MESSAGE, "response_type": ResponseType.LIST, "options": BATTERY_TYPE_LIST},
+            {"description": "Battery Type", "reading_type": ReadingType.MESSAGE, "response_type": ResponseType.LIST, "options": BATTERY_TYPES},
             {"description": "Buzzer", "reading_type": ReadingType.MESSAGE, "response_type": ResponseType.LIST, "options": ["enabled", "disabled"]},
             {"description": "Power saving", "reading_type": ReadingType.MESSAGE, "response_type": ResponseType.LIST, "options": ["disabled", "enabled"]},
             {"description": "Overload restart", "reading_type": ReadingType.MESSAGE, "response_type": ResponseType.LIST, "options": ["disabled", "enabled"]},
@@ -528,7 +517,7 @@ QUERY_COMMANDS = {
             {"description": "Record fault code", "reading_type": ReadingType.MESSAGE, "response_type": ResponseType.LIST, "options": ["disabled", "enabled"]},
             {"description": "Overload bypass", "reading_type": ReadingType.MESSAGE, "response_type": ResponseType.LIST, "options": ["disabled", "enabled"]},
             {"description": "LCD reset to default", "reading_type": ReadingType.MESSAGE, "response_type": ResponseType.LIST, "options": ["disabled", "enabled"]},
-            {"description": "Output mode", "reading_type": ReadingType.MESSAGE, "response_type": ResponseType.LIST, "options": OUTPUT_MODE_LIST},
+            {"description": "Output mode", "reading_type": ReadingType.MESSAGE, "response_type": ResponseType.LIST, "options": OUTPUT_MODES},
             {"description": "Battery Redischarge Voltage", "reading_type": ReadingType.VOLTS, "response_type": ResponseType.FLOAT},
             {"description": "PV OK condition",
                 "reading_type": ReadingType.MESSAGE,
@@ -926,7 +915,7 @@ class PI30MAX(PI30):
         self.model = model
         self.add_command_definitions(QUERY_COMMANDS)
         self.add_command_definitions(SETTER_COMMANDS, result_type=ResultType.ACK)
-        self.remove_command_definitions(COMMANDS_TO_REMOVE)        
+        self.remove_command_definitions(COMMANDS_TO_REMOVE)
 
         if model:
             log.info("%s got model specifier: %s", self.protocol_id, model)

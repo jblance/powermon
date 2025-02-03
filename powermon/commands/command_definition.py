@@ -160,8 +160,16 @@ class CommandDefinition:
             return True
         return self.code == command_code
 
-    def get_reading_definition(self, lookup=None, position=0) -> ReadingDefinition:
-        """ return the reading definition that corresponds to lookup """
+    def get_reading_definition(self, lookup: str=None, position: int=0) -> ReadingDefinition:
+        """get the reading_definition
+
+        Args:
+            lookup (str, optional): find the definition based on a text lookup. Defaults to None.
+            position (int, optional): get the definition based on the position in the list. Defaults to 0.
+
+        Returns:
+            ReadingDefinition: the reading_definition that corresponds to the 'get' options
+        """
         log.debug("looking for reading definition with: %s, result_type is: %s", lookup, self.result_type)
         if self.reading_definitions is None:
             result = None
@@ -169,6 +177,14 @@ class CommandDefinition:
             case ResultType.ACK | ResultType.PI18_ACK | ResultType.SINGLE | ResultType.MULTIVALUED:
                 result = self.reading_definitions[0]
             case ResultType.ORDERED | ResultType.SLICED | ResultType.COMMA_DELIMITED:
+                if lookup is not None:
+                    log.debug("lookup (%s) requested for ORDERED | SLICED | COMMA_DELIMITED", lookup)
+                    for _reading_definition in self.reading_definitions:
+                        if self.reading_definitions[_reading_definition].description == lookup:
+                            result = self.reading_definitions[_reading_definition]
+                            log.debug("found reading definition: %s", result)
+                            return result
+                    # result = self.reading_definitions[position]
                 result = self.reading_definitions[position]
             case ResultType.VED_INDEXED | ResultType.CONSTRUCT | ResultType.BYTEARRAY:
                 try:

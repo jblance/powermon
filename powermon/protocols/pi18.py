@@ -9,7 +9,7 @@ from powermon.libs.errors import CommandDefinitionMissing, InvalidCRC, InvalidRe
 from powermon.ports import PortType
 from powermon.protocols.abstractprotocol import AbstractProtocol
 from powermon.protocols.helpers import crc_pi30 as crc
-from powermon.protocols.pi30 import BATTERY_TYPE_LIST, OUTPUT_MODE_LIST
+from powermon.protocols.constants import BATTERY_TYPES, OUTPUT_MODES
 
 log = logging.getLogger("pi18")
 
@@ -216,7 +216,7 @@ QUERY_COMMANDS = {
             {"description": "Battery Under Voltage", "reading_type": ReadingType.VOLTS, "response_type": ResponseType.TEMPLATE_INT, "format_template": "r/10"},
             {"description": "Battery Bulk Charge Voltage", "reading_type": ReadingType.VOLTS, "response_type": ResponseType.TEMPLATE_INT, "format_template": "r/10"},
             {"description": "Battery Float Charge Voltage", "reading_type": ReadingType.VOLTS, "response_type": ResponseType.TEMPLATE_INT, "format_template": "r/10"},
-            {"description": "Battery Type", "reading_type": ReadingType.MESSAGE, "response_type": ResponseType.LIST, "options": BATTERY_TYPE_LIST},
+            {"description": "Battery Type", "reading_type": ReadingType.MESSAGE, "response_type": ResponseType.LIST, "options": BATTERY_TYPES},
             {"description": "Max AC Charging Current", "reading_type": ReadingType.CURRENT},
             {"description": "Max Charging Current", "reading_type": ReadingType.CURRENT},
             {"description": "Input Voltage Range", "response_type": ResponseType.LIST, "options": ["Appliance", "UPS"]},
@@ -227,7 +227,7 @@ QUERY_COMMANDS = {
             {"description": "Max Parallel Units"},
             {"description": "Machine Type", "response_type": ResponseType.LIST, "options": ["Off Grid", "Grid Tie"]},
             {"description": "Topology", "response_type": ResponseType.LIST, "options": ["transformerless", "transformer"]},
-            {"description": "Output Mode", "reading_type": ReadingType.MESSAGE, "response_type": ResponseType.LIST, "options": OUTPUT_MODE_LIST},
+            {"description": "Output Mode", "reading_type": ReadingType.MESSAGE, "response_type": ResponseType.LIST, "options": OUTPUT_MODES},
             {"description": "Solar power priority", "response_type": ResponseType.LIST, "options": ["Battery-Load-Utiliy + AC Charger", "Load-Battery-Utiliy"]},
             {"description": "MPPT strings"},
             {"description": "Unknown flags?", "response_type": ResponseType.STRING},
@@ -328,7 +328,7 @@ QUERY_COMMANDS = {
                     "2": "DC-AC",
                 },
             },
-            {"description": "Line power direction", "reading_type": ReadingType.MESSAGE, 
+            {"description": "Line power direction", "reading_type": ReadingType.MESSAGE,
                 "response_type": ResponseType.OPTION,
                 "options": {
                     "0": "donothing",

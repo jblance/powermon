@@ -1,0 +1,1893 @@
+<!DOCTYPE html>
+<html  lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1"><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+      <title>PI30</title>
+    
+          <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+          <link rel="stylesheet" href="_static/theme.css " type="text/css" />
+      
+      <!-- sphinx script_files -->
+        <script src="_static/documentation_options.js?v=5929fcd5"></script>
+        <script src="_static/doctools.js?v=9bcbadda"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+
+      
+      <!-- bundled in js (rollup iife) -->
+      <!-- <script src="_static/theme-vendors.js"></script> -->
+      <script src="_static/theme.js" defer></script>
+    
+  <link rel="index" title="Index" href="genindex.html" />
+  <link rel="search" title="Search" href="search.html" />
+  <link rel="next" title="powermon" href="modules.html" />
+  <link rel="prev" title="PI30" href="protocols.docs.pi30.html" /> 
+  </head>
+
+  <body>
+    <div id="app">
+    <div class="theme-container" :class="pageClasses"><navbar @toggle-sidebar="toggleSidebar">
+  <router-link to="index.html" class="home-link">
+    
+      <span class="site-name">powermon</span>
+    
+  </router-link>
+
+  <div class="links">
+    <navlinks class="can-hide">
+
+
+
+    </navlinks>
+  </div>
+</navbar>
+
+      
+      <div class="sidebar-mask" @click="toggleSidebar(false)">
+      </div>
+        <sidebar @toggle-sidebar="toggleSidebar">
+          
+          <navlinks>
+            
+
+
+
+            
+          </navlinks><div id="searchbox" class="searchbox" role="search">
+  <div class="caption"><span class="caption-text">Quick search</span>
+    <div class="searchformwrapper">
+      <form class="search" action="search.html" method="get">
+        <input type="text" name="q" />
+        <input type="submit" value="Search" />
+        <input type="hidden" name="check_keywords" value="yes" />
+        <input type="hidden" name="area" value="default" />
+      </form>
+    </div>
+  </div>
+</div><div class="sidebar-links" role="navigation" aria-label="main navigation">
+  
+    <div class="sidebar-group">
+      <p class="caption">
+        <span class="caption-text"><a href="index.html#documentation">documentation</a></span>
+      </p>
+      <ul class="">
+        
+          <li class="toctree-l1 ">
+            
+              <a href="installation.html" class="reference internal ">Installation</a>
+            
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 ">
+            
+              <a href="usage.html" class="reference internal ">Usage</a>
+            
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 ">
+            
+              <a href="devices.html" class="reference internal ">Devices</a>
+            
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 ">
+            
+              <a href="tutorials.html" class="reference internal ">Tutorials</a>
+            
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 ">
+            
+              <a href="config_file.html" class="reference internal ">Config File Syntax</a>
+            
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 ">
+            
+              <a href="docker.html" class="reference internal ">Docker</a>
+            
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 ">
+            
+              <a href="protocols.html" class="reference internal ">Protocols</a>
+            
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 ">
+            
+              <a href="modules.html" class="reference internal ">powermon</a>
+            
+
+            
+          </li>
+
+        
+      </ul>
+    </div>
+  
+</div>
+        </sidebar>
+
+      <page>
+          <div class="body-header" role="navigation" aria-label="navigation">
+  
+  <ul class="breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+    
+      <li><a href="protocols.html">Protocols</a> &raquo;</li>
+    
+      <li><a href="protocols.mppsolar.html">MPPsolar Protocols</a> &raquo;</li>
+    
+    <li>PI30</li>
+  </ul>
+  
+
+  <ul class="page-nav">
+  <li class="prev">
+    <a href="protocols.docs.pi30.html"
+       title="previous chapter">← PI30</a>
+  </li>
+  <li class="next">
+    <a href="modules.html"
+       title="next chapter">powermon →</a>
+  </li>
+</ul>
+  
+</div>
+<hr>
+          <div class="content" role="main" v-pre>
+            
+  <section id="pi30">
+<h1>PI30<a class="headerlink" href="#pi30" title="Link to this heading">¶</a></h1>
+<section id="document-details">
+<h2>Document Details<a class="headerlink" href="#document-details" title="Link to this heading">¶</a></h2>
+<p>Source:</p>
+<p>Implemented in protocol: PI30MAX | PI30 with model: MAX</p>
+<p># MAX Communication Protocol</p>
+<ul class="simple">
+<li><dl class="simple">
+<dt>1 Communication format</dt><dd><ul>
+<li><p>1.1 RS232</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>2 Inquiry Command</dt><dd><ul>
+<li><p>2.1 QPI&lt;cr&gt;: Device Protocol ID Inquiry</p></li>
+<li><p>2.2 QID&lt;cr&gt;: The device serial number inquiry</p></li>
+<li><p>2.3 QSID&lt;cr&gt;: The device serial number inquiry (the length is more than 14)</p></li>
+<li><p>2.4 QVFW&lt;cr&gt;: Main CPU Firmware version inquiry</p></li>
+<li><p>2.5 QVFW3&lt;cr&gt;: Another CPU (remote panel) Firmware version inquiry</p></li>
+<li><p>2.6 VERFW:&lt;cr&gt;: Bluetooth version inquiry</p></li>
+<li><p>2.7 QPIRI&lt;cr&gt;: Device Rating Information inquiry</p></li>
+<li><p>2.8 QFLAG&lt;cr&gt;: Device flag status inquiry</p></li>
+<li><p>2.9 QPIGS&lt;cr&gt;: Device general status parameters inquiry…………………………………………………………………</p></li>
+<li><p>2.10 QPIGS2&lt;cr&gt;: Device general status parameters inquiry (Only 48V model)</p></li>
+<li><p>2.11 QPGSn&lt;cr&gt;: Parallel Information inquiry (Only 48V model)</p></li>
+<li><p>2.12 QMOD&lt;cr&gt;: Device Mode inquiry</p></li>
+<li><p>2.13 QPIWS&lt;cr&gt;: Device Warning Status inquiry</p></li>
+<li><p>2.14 QDI&lt;cr&gt;: The default setting value information</p></li>
+<li><p>2.15 QMCHGCR&lt;cr&gt;: Enquiry selectable value about max charging current</p></li>
+<li><p>2.16 QMUCHGCR&lt;cr&gt;: Enquiry selectable value about max utility charging current</p></li>
+<li><p>2.17 QOPPT&lt;cr&gt;: The device output source priority time order inquiry</p></li>
+<li><p>2.18 QCHPT&lt;cr&gt;: The device charger source priority time order inquiry</p></li>
+<li><p>2.19 QT&lt;cr&gt;: Time inquiry</p></li>
+<li><p>2.20 QBEQI&lt;cr&gt;: Battery equalization status parameters inquiry</p></li>
+<li><p>2.21 QMN&lt;cr&gt;: Query model name</p></li>
+<li><p>2.22 QGMN&lt;cr&gt;: Query general model name</p></li>
+<li><p>2.23 QET&lt;CRC&gt;&lt;cr&gt;: Query total PV generated energy</p></li>
+<li><p>2.24 QEYyyyy&lt;CRC&gt;&lt;cr&gt;: Query PV generated energy of year</p></li>
+<li><p>2.25 QEMyyyymm&lt;CRC&gt;&lt;cr&gt;: Query PV generated energy of month</p></li>
+<li><p>2 .26 QEDyyyymmdd&lt;CRC&gt;&lt;cr&gt;: Query PV generated energy of day</p></li>
+<li><p>2.27 QLT&lt;CRC&gt;&lt;cr&gt;: Query total output load energy</p></li>
+<li><p>2.28 QLYyyyy&lt;CRC&gt;&lt;cr&gt;: Query output load energy of year</p></li>
+<li><p>2.29 QLMyyyymm&lt;CRC&gt;&lt;cr&gt;: Query output load energy of month</p></li>
+<li><p>2.30 QLDyyyymmdd&lt;CRC&gt;&lt;cr&gt;: Query output load energy of day…………………………………………………..</p></li>
+<li><p>2.31 QBMS&lt;CRC&gt;&lt;cr&gt;: BMS message</p></li>
+<li><p>2.32 PBMS&lt;CRC&gt;&lt;cr&gt;: BMS message</p></li>
+<li><p>2.33 QLED&lt;cr&gt;: LED status parameters inquiry</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>3 Setting parameters Command</dt><dd><ul>
+<li><p>3.1 ATE1&lt;CRC&gt;&lt;cr&gt;: Start ATE test, remote panel stop polling</p></li>
+<li><p>3.2 ATE0: End ATE test, remote panel polling</p></li>
+<li><p>3.3 PE&lt;X&gt; / PD&lt;X&gt;&lt;cr&gt;: Setting some status enable/disable</p></li>
+<li><p>3.4 PF&lt;cr&gt;: Setting control parameter to default value</p></li>
+<li><p>3.5 MNCHGC&lt;mnnn&gt;&lt;cr&gt;: Setting max charging current</p></li>
+<li><p>3.6 MUCHGC&lt;mnn&gt;&lt;cr&gt;: Setting utility max charging current</p></li>
+<li><p>3.7 F&lt;nn&gt;&lt;cr&gt;: Setting Inverter output rating frequency</p></li>
+<li><p>3.8 V&lt;nnn&gt;&lt;cr&gt;: Setting device output rating voltage</p></li>
+<li><p>3.9 POP&lt;NN&gt;&lt;cr&gt;: Setting device output source priority</p></li>
+<li><p>3.10 PBCV&lt;nn.n&gt;&lt;cr&gt;: Set battery re-charge voltage</p></li>
+<li><p>3.11 PBDV&lt;nn.n&gt;&lt;cr&gt;: Set battery re-discharge voltage</p></li>
+<li><p>3.12 PCP&lt;NN&gt;&lt;cr&gt;: Setting device charger priority</p></li>
+<li><p>3.13 PGR&lt;NN&gt;&lt;cr&gt;: Setting device grid working range</p></li>
+<li><p>3.14 PBT&lt;NN&gt;&lt;cr&gt;: Setting battery type</p></li>
+<li><p>3.15 POPM&lt;nn &gt;&lt;cr&gt;: Set output mode</p></li>
+<li><p>3.16 PPCP&lt;MNN&gt;&lt;cr&gt;: Setting parallel device charger priority………………………………………………………..</p></li>
+<li><p>3.17 PSDV&lt;nn.n&gt;&lt;cr&gt;: Setting battery cut-off voltage (Battery under voltage)</p></li>
+<li><p>3.18 PCVV&lt;nn.n&gt;&lt;cr&gt;: Setting battery C.V. (constant voltage) charging voltage</p></li>
+<li><p>3.19 PBFT&lt;nn.n&gt;&lt;cr&gt;: Setting battery float charging voltage</p></li>
+<li><p>3.20 RTEY&lt;cr&gt;: Reset all stored data for PV/load energy</p></li>
+<li><p>3.21 RTDL&lt;cr&gt;: Erase all data log</p></li>
+<li><p>3.22 PBEQE&lt;n&gt;&lt;cr&gt;: Enable or disable battery equalization</p></li>
+<li><p>3.23 PBEQT&lt;nnn&gt;&lt;cr&gt;: Set battery equalization time</p></li>
+<li><p>3.24 PBEQP&lt;nnn&gt;&lt;cr&gt;: Set battery equalization period</p></li>
+<li><p>3.25 PBEQV&lt;nn.nn&gt;&lt;cr&gt;: Set battery equalization voltage</p></li>
+<li><p>3.26 PBEQOT&lt;nnn&gt;&lt;cr&gt;: Set battery equalization over time</p></li>
+<li><p>3.27 PBEQA&lt;n&gt;&lt;cr&gt;: Active or inactive battery equalization now</p></li>
+<li><p>3.28 PCVT&lt;nnn&gt;&lt;cr&gt;: Setting max charging time at C.V stage</p></li>
+<li><p>3.29 DAT&lt; YYMMDDHHMMSS&gt;&lt;cr&gt;: Date and time</p></li>
+<li><p>3.30 PBATCD&lt;abc&gt;&lt;cr&gt;: Battery charge/discharge controlling command</p></li>
+<li><p>3.31 PBATMAXDISC&lt;nnn&gt;&lt;cr&gt;: Setting max discharging current</p></li>
+<li><p>3.32 PLEDE&lt;n&gt;&lt;cr&gt;: Enable/disable LED function</p></li>
+<li><p>3.33 PLEDS&lt;n&gt;&lt;cr&gt;: set LED speed</p></li>
+<li><p>3.34 PLEDM&lt;n&gt;&lt;cr&gt;: set LED effect</p></li>
+<li><p>3.35 PLEDB&lt;n&gt;&lt;cr&gt;: set LED brightness</p></li>
+<li><p>3.36 PLEDT&lt;n&gt;&lt;cr&gt;: set LED total number of colors</p></li>
+<li><p>3.37 PLEDC&lt;n&gt;&lt;aaabbbccc&gt;&lt;cr&gt;: set LED color</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>4 Appendix</dt><dd><ul>
+<li><p>4.1 CRC calibration method</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+<p>RJ45 to RS232 cable between computer and device</p>
+<p>## 1 Communication format</p>
+<p>#### 1.1 RS</p>
+<p><code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">Baud</span> <span class="pre">rate</span> <span class="pre">Start</span> <span class="pre">bit</span> <span class="pre">Data</span> <span class="pre">bit</span> <span class="pre">Parity</span> <span class="pre">bit</span> <span class="pre">Stop</span> <span class="pre">bit</span>
+<span class="pre">2400</span> <span class="pre">1</span> <span class="pre">8</span> <span class="pre">N</span> <span class="pre">1</span>
+<span class="pre">`</span></code>
+## 2 Inquiry Command</p>
+<p>### 2.1 QPI&lt;cr&gt;: Device Protocol ID Inquiry</p>
+<p><code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">Computer:</span> <span class="pre">QPI&lt;CRC&gt;&lt;cr&gt;</span>
+<span class="pre">Device:</span> <span class="pre">(PI&lt;NN&gt;</span> <span class="pre">&lt;CRC&gt;&lt;cr&gt;</span>
+<span class="pre">N</span> <span class="pre">is</span> <span class="pre">an</span> <span class="pre">integer</span> <span class="pre">number</span> <span class="pre">ranging</span> <span class="pre">from</span> <span class="pre">0</span> <span class="pre">to</span> <span class="pre">9.</span>
+<span class="pre">Function:</span> <span class="pre">To</span> <span class="pre">request</span> <span class="pre">the</span> <span class="pre">device</span> <span class="pre">Protocol</span> <span class="pre">ID.</span>
+<span class="pre">Protocol</span> <span class="pre">ID</span> <span class="pre">distribution:</span> <span class="pre">30</span> <span class="pre">for</span> <span class="pre">Axpert</span> <span class="pre">KS</span> <span class="pre">series</span>
+<span class="pre">`</span></code>
+### 2.2 QID&lt;cr&gt;: The device serial number inquiry</p>
+<p><code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">Computer:</span> <span class="pre">QID</span> <span class="pre">&lt;CRC&gt;&lt;cr&gt;</span>
+<span class="pre">Device:</span> <span class="pre">(XXXXXXXXXXXXXX</span> <span class="pre">&lt;CRC&gt;&lt;cr&gt;</span>
+<span class="pre">`</span></code>
+### 2.3 QSID&lt;cr&gt;: The device serial number inquiry (the length is more than 14)</p>
+<p><code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">Computer:</span> <span class="pre">QSID&lt;CRC&gt;&lt;cr&gt;</span>
+<span class="pre">Device:</span> <span class="pre">(NNXXXXXXXXXXXXXXXXXXXX</span> <span class="pre">&lt;CRC&gt;&lt;cr&gt;</span>
+<span class="pre">NN:</span> <span class="pre">Serial</span> <span class="pre">number</span> <span class="pre">valid</span> <span class="pre">length,</span> <span class="pre">X:</span> <span class="pre">Serial</span> <span class="pre">number,</span> <span class="pre">invalid</span> <span class="pre">part</span> <span class="pre">is</span> <span class="pre">filled</span> <span class="pre">as</span> <span class="pre">‘0’,</span> <span class="pre">total</span> <span class="pre">X</span> <span class="pre">is</span> <span class="pre">20.</span>
+<span class="pre">`</span></code>
+### 2.4 QVFW&lt;cr&gt;: Main CPU Firmware version inquiry</p>
+<p><code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">Computer:</span> <span class="pre">QVFW&lt;CRC&gt;&lt;cr&gt;</span>
+<span class="pre">`</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">Device:</span> <span class="pre">(VERFW:&lt;NNNNN.NN&gt;&lt;CRC&gt;&lt;cr&gt;</span>
+<span class="pre">&lt;N&gt;</span> <span class="pre">is</span> <span class="pre">a</span> <span class="pre">HEX</span> <span class="pre">number</span> <span class="pre">from</span> <span class="pre">0...9</span> <span class="pre">or</span> <span class="pre">A...F.</span>
+<span class="pre">Example:</span>
+<span class="pre">Computer:</span> <span class="pre">QVFW&lt;CRC&gt;&lt;cr&gt;</span>
+<span class="pre">Device:</span> <span class="pre">(VERFW:00</span> <span class="pre">0</span> <span class="pre">23.01&lt;CRC&gt;&lt;cr&gt;</span>
+<span class="pre">00123:</span> <span class="pre">firmware</span> <span class="pre">series</span> <span class="pre">number；</span> <span class="pre">01</span> <span class="pre">：version</span>
+<span class="pre">`</span></code>
+### 2.5 QVFW3&lt;cr&gt;: Another CPU (remote panel) Firmware version inquiry</p>
+<p><code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">Computer:</span> <span class="pre">QVFW3&lt;CRC&gt;&lt;cr&gt;</span>
+<span class="pre">Device:</span> <span class="pre">(VERFW:</span> <span class="pre">&lt;NNNNN.NN&gt;&lt;CRC&gt;&lt;cr&gt;</span>
+<span class="pre">&lt;N&gt;</span> <span class="pre">is</span> <span class="pre">a</span> <span class="pre">HEX</span> <span class="pre">number</span> <span class="pre">from</span> <span class="pre">0...9</span> <span class="pre">or</span> <span class="pre">A...F.</span>
+<span class="pre">`</span></code>
+### 2.6 VERFW:&lt;cr&gt;: Bluetooth version inquiry</p>
+<p><code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">Computer:</span> <span class="pre">VERFW:&lt;CRC&gt;&lt;cr&gt;</span>
+<span class="pre">Device:</span> <span class="pre">(VERFW:</span> <span class="pre">&lt;NNNNN.NN&gt;&lt;cr&gt;</span>
+<span class="pre">&lt;N&gt;</span> <span class="pre">is</span> <span class="pre">a</span> <span class="pre">HEX</span> <span class="pre">number</span> <span class="pre">from</span> <span class="pre">0...9</span> <span class="pre">or</span> <span class="pre">A...F.</span>
+<span class="pre">`</span></code>
+### 2.7 QPIRI&lt;cr&gt;: Device Rating Information inquiry</p>
+<p><code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">Computer:</span> <span class="pre">QPIRI&lt;CRC&gt;&lt;cr&gt;</span>
+<span class="pre">Device:</span> <span class="pre">(BBB.B</span> <span class="pre">CC.C</span> <span class="pre">DDD.D</span> <span class="pre">EE.E</span> <span class="pre">FF.F</span> <span class="pre">HHHH</span> <span class="pre">IIII</span> <span class="pre">JJ.J</span> <span class="pre">KK.K</span> <span class="pre">JJ.J</span> <span class="pre">KK.K</span> <span class="pre">LL.L</span> <span class="pre">O</span> <span class="pre">PP</span> <span class="pre">QQ</span> <span class="pre">0</span>
+<span class="pre">O</span> <span class="pre">P</span> <span class="pre">Q</span> <span class="pre">R</span> <span class="pre">SS</span> <span class="pre">T</span> <span class="pre">U</span> <span class="pre">VV.V</span> <span class="pre">W</span> <span class="pre">X</span> <span class="pre">YYY</span> <span class="pre">Z</span> <span class="pre">CCC</span> <span class="pre">&lt;CRC&gt;&lt;cr&gt;</span>
+<span class="pre">Date</span> <span class="pre">Description</span> <span class="pre">Notes</span>
+<span class="pre">A</span> <span class="pre">(</span> <span class="pre">Start</span> <span class="pre">byte</span>
+<span class="pre">B</span> <span class="pre">BBB.B</span> <span class="pre">Grid</span> <span class="pre">rating</span> <span class="pre">voltage</span> <span class="pre">B</span> <span class="pre">is</span> <span class="pre">an</span> <span class="pre">integer</span> <span class="pre">ranging</span> <span class="pre">from</span> <span class="pre">0</span> <span class="pre">to</span> <span class="pre">9.</span>
+<span class="pre">The</span> <span class="pre">units</span> <span class="pre">is</span> <span class="pre">V.</span>
+<span class="pre">C</span> <span class="pre">CC.C</span> <span class="pre">Grid</span> <span class="pre">rating</span> <span class="pre">current</span>
+<span class="pre">C</span> <span class="pre">is</span> <span class="pre">an</span> <span class="pre">Integer</span> <span class="pre">ranging</span> <span class="pre">from</span> <span class="pre">0</span> <span class="pre">to</span> <span class="pre">9.</span>
+<span class="pre">The</span> <span class="pre">units</span> <span class="pre">is</span> <span class="pre">A.</span>
+<span class="pre">D</span> <span class="pre">DDD.D</span> <span class="pre">AC</span> <span class="pre">output</span> <span class="pre">rating</span> <span class="pre">voltage</span>
+<span class="pre">D</span> <span class="pre">is</span> <span class="pre">an</span> <span class="pre">Integer</span> <span class="pre">ranging</span> <span class="pre">from</span> <span class="pre">0</span> <span class="pre">to</span> <span class="pre">9.</span>
+<span class="pre">The</span> <span class="pre">units</span> <span class="pre">is</span> <span class="pre">V.</span>
+<span class="pre">E</span> <span class="pre">EE.E</span> <span class="pre">AC</span> <span class="pre">output</span> <span class="pre">rating</span> <span class="pre">frequency</span>
+<span class="pre">E</span> <span class="pre">is</span> <span class="pre">an</span> <span class="pre">Integer</span> <span class="pre">ranging</span> <span class="pre">from</span> <span class="pre">0</span> <span class="pre">to</span> <span class="pre">9.</span>
+<span class="pre">The</span> <span class="pre">units</span> <span class="pre">is</span> <span class="pre">Hz.</span>
+<span class="pre">F</span> <span class="pre">FF.F</span> <span class="pre">AC</span> <span class="pre">output</span> <span class="pre">rating</span> <span class="pre">current</span>
+<span class="pre">F</span> <span class="pre">is</span> <span class="pre">an</span> <span class="pre">Integer</span> <span class="pre">ranging</span> <span class="pre">from</span> <span class="pre">0</span> <span class="pre">to</span> <span class="pre">9.</span>
+<span class="pre">The</span> <span class="pre">unit</span> <span class="pre">is</span> <span class="pre">A.</span>
+<span class="pre">H</span> <span class="pre">HHHH</span>
+<span class="pre">AC</span> <span class="pre">output</span> <span class="pre">rating</span> <span class="pre">apparent</span>
+<span class="pre">power</span>
+<span class="pre">`</span></code>
+<code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">H</span> <span class="pre">is</span> <span class="pre">an</span> <span class="pre">Integer</span> <span class="pre">ranging</span> <span class="pre">from</span> <span class="pre">0</span> <span class="pre">to</span> <span class="pre">9.</span>
+<span class="pre">The</span> <span class="pre">unit</span> <span class="pre">is</span> <span class="pre">VA.</span>
+<span class="pre">I</span> <span class="pre">IIII</span>
+<span class="pre">AC</span> <span class="pre">output</span> <span class="pre">rating</span> <span class="pre">active</span>
+<span class="pre">power</span>
+<span class="pre">`</span></code>
+<code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">I</span> <span class="pre">is</span> <span class="pre">an</span> <span class="pre">Integer</span> <span class="pre">ranging</span> <span class="pre">from</span> <span class="pre">0</span> <span class="pre">to</span> <span class="pre">9.</span>
+<span class="pre">The</span> <span class="pre">unit</span> <span class="pre">is</span> <span class="pre">W.</span>
+<span class="pre">J</span> <span class="pre">JJ.J</span> <span class="pre">Battery</span> <span class="pre">rating</span> <span class="pre">voltage</span> <span class="pre">J</span> <span class="pre">is</span> <span class="pre">an</span> <span class="pre">Integer</span> <span class="pre">ranging</span> <span class="pre">from</span> <span class="pre">0</span> <span class="pre">to</span> <span class="pre">9.</span>
+<span class="pre">The</span> <span class="pre">units</span> <span class="pre">is</span> <span class="pre">V.</span>
+<span class="pre">K</span> <span class="pre">KK.K</span> <span class="pre">Battery</span> <span class="pre">re-charge</span> <span class="pre">voltage</span>
+<span class="pre">K</span> <span class="pre">is</span> <span class="pre">an</span> <span class="pre">Integer</span> <span class="pre">ranging</span> <span class="pre">from</span> <span class="pre">0</span> <span class="pre">to</span> <span class="pre">9.</span>
+<span class="pre">The</span> <span class="pre">units</span> <span class="pre">is</span> <span class="pre">V.</span>
+<span class="pre">l</span> <span class="pre">JJ.J</span> <span class="pre">Battery</span> <span class="pre">under</span> <span class="pre">voltage</span>
+<span class="pre">J</span> <span class="pre">is</span> <span class="pre">an</span> <span class="pre">Integer</span> <span class="pre">ranging</span> <span class="pre">from</span> <span class="pre">0</span> <span class="pre">to</span> <span class="pre">9.</span>
+<span class="pre">The</span> <span class="pre">units</span> <span class="pre">is</span> <span class="pre">V.</span>
+<span class="pre">M</span> <span class="pre">KK.K</span> <span class="pre">Battery</span> <span class="pre">bulk</span> <span class="pre">voltage</span> <span class="pre">K</span> <span class="pre">is</span> <span class="pre">an</span> <span class="pre">Integer</span> <span class="pre">ranging</span> <span class="pre">from</span> <span class="pre">0</span> <span class="pre">to</span> <span class="pre">9.</span>
+<span class="pre">The</span> <span class="pre">units</span> <span class="pre">is</span> <span class="pre">V.</span>
+<span class="pre">`</span></code></p>
+<p>N LL.L Battery float voltage L is an Integer ranging from 0 to 9.
+The units is V.</p>
+<p>O O Battery type</p>
+<p>#### 0: AGM</p>
+<p><code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">1:</span> <span class="pre">Flooded</span>
+<span class="pre">2:</span> <span class="pre">User</span>
+<span class="pre">3:</span> <span class="pre">Pylon</span>
+<span class="pre">5:</span> <span class="pre">Weco</span>
+<span class="pre">6:</span> <span class="pre">Soltaro</span>
+<span class="pre">8:</span> <span class="pre">Lib</span>
+<span class="pre">9:</span> <span class="pre">Lic</span>
+<span class="pre">`</span></code>
+P PP Max AC charging current</p>
+<p><code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">P</span> <span class="pre">is</span> <span class="pre">an</span> <span class="pre">Integer</span> <span class="pre">ranging</span> <span class="pre">from</span> <span class="pre">0</span> <span class="pre">to</span> <span class="pre">9</span>
+<span class="pre">The</span> <span class="pre">units</span> <span class="pre">is</span> <span class="pre">A.</span>
+<span class="pre">If</span> <span class="pre">the</span> <span class="pre">max</span> <span class="pre">AC</span> <span class="pre">charging</span> <span class="pre">current</span> <span class="pre">is</span>
+<span class="pre">greater</span> <span class="pre">than</span> <span class="pre">99A,</span> <span class="pre">then</span> <span class="pre">return</span> <span class="pre">to</span> <span class="pre">PPP</span>
+<span class="pre">`</span></code>
+Q QQ 0 Max charging current Q^ is an Integer ranging from 0 to 9.
+The units is A.</p>
+<p>O O Input voltage range
+0: Appliance
+1: UPS</p>
+<p>P P Output source priority</p>
+<p><code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">0:</span> <span class="pre">UtilitySolarBat</span>
+<span class="pre">1:</span> <span class="pre">SolarUtilityBat</span>
+<span class="pre">2:</span> <span class="pre">SolarBatUtility</span>
+<span class="pre">`</span></code>
+Q Q Charger source priority</p>
+<p>1: Solar first
+2: Solar + Utility
+3: Only solar charging permitted
+R R Parallel max num R is an Integer ranging from 0 to 9.</p>
+<p>S SS Machine type</p>
+<p><code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">00:</span> <span class="pre">Grid</span> <span class="pre">tie;</span>
+<span class="pre">01:</span> <span class="pre">Off</span> <span class="pre">Grid;</span>
+<span class="pre">10:</span> <span class="pre">Hybrid.</span>
+<span class="pre">`</span></code>
+T T Topology
+0: transformerless
+1: transformer</p>
+<p>U U Output mode</p>
+<p><code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">00:</span> <span class="pre">single</span> <span class="pre">machine</span> <span class="pre">output</span>
+<span class="pre">01:</span> <span class="pre">parallel</span> <span class="pre">output</span>
+<span class="pre">02:</span> <span class="pre">Phase</span> <span class="pre">1</span> <span class="pre">of</span> <span class="pre">3</span> <span class="pre">Phase</span> <span class="pre">output</span>
+<span class="pre">03:</span> <span class="pre">Phase</span> <span class="pre">2</span> <span class="pre">of</span> <span class="pre">3</span> <span class="pre">Phase</span> <span class="pre">output</span>
+<span class="pre">04:</span> <span class="pre">Phase</span> <span class="pre">3</span> <span class="pre">of</span> <span class="pre">3</span> <span class="pre">Phase</span> <span class="pre">output</span>
+<span class="pre">05:</span> <span class="pre">Phase</span> <span class="pre">1</span> <span class="pre">of</span> <span class="pre">2</span> <span class="pre">Phase</span> <span class="pre">output</span>
+<span class="pre">06:</span> <span class="pre">Phase</span> <span class="pre">2</span> <span class="pre">of</span> <span class="pre">2</span> <span class="pre">Phase</span> <span class="pre">output</span> <span class="pre">(120°)</span>
+<span class="pre">07:</span> <span class="pre">Phase</span> <span class="pre">2</span> <span class="pre">of</span> <span class="pre">2</span> <span class="pre">Phase</span> <span class="pre">output</span> <span class="pre">(180°)</span>
+<span class="pre">`</span></code>
+V VV.V Battery re-discharge voltage</p>
+<p><code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">V</span> <span class="pre">is</span> <span class="pre">an</span> <span class="pre">Integer</span> <span class="pre">ranging</span> <span class="pre">from</span> <span class="pre">0</span> <span class="pre">to</span> <span class="pre">9.</span>
+<span class="pre">The</span> <span class="pre">unit</span> <span class="pre">is</span> <span class="pre">V.</span>
+<span class="pre">`</span></code>
+W W PV OK condition for parallel 0: As long as one unit of inverters
+has connect PV, parallel system will</p>
+<p><code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">consider</span> <span class="pre">PV</span> <span class="pre">OK;</span>
+<span class="pre">1:</span> <span class="pre">Only</span> <span class="pre">All</span> <span class="pre">of</span> <span class="pre">inverters</span> <span class="pre">have</span> <span class="pre">connect</span>
+<span class="pre">PV,</span> <span class="pre">parallel</span> <span class="pre">system</span> <span class="pre">will</span> <span class="pre">consider</span> <span class="pre">PV</span>
+<span class="pre">OK</span>
+<span class="pre">`</span></code>
+<code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">X</span> <span class="pre">X</span> <span class="pre">PV</span> <span class="pre">power</span> <span class="pre">balance</span>
+<span class="pre">`</span></code>
+<code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">0:</span> <span class="pre">PV</span> <span class="pre">input</span> <span class="pre">max</span> <span class="pre">current</span> <span class="pre">will</span> <span class="pre">be</span> <span class="pre">the</span>
+<span class="pre">max</span> <span class="pre">charged</span> <span class="pre">current;</span>
+<span class="pre">1:</span> <span class="pre">PV</span> <span class="pre">input</span> <span class="pre">max</span> <span class="pre">power</span> <span class="pre">will</span> <span class="pre">be</span> <span class="pre">the</span>
+<span class="pre">sum</span> <span class="pre">of</span> <span class="pre">the</span> <span class="pre">max</span> <span class="pre">charged</span> <span class="pre">power</span> <span class="pre">and</span>
+<span class="pre">loads</span> <span class="pre">power.</span>
+<span class="pre">`</span></code>
+<code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">Y</span> <span class="pre">YYY</span>
+<span class="pre">Max.</span> <span class="pre">charging</span> <span class="pre">time</span> <span class="pre">at</span> <span class="pre">C.V</span>
+<span class="pre">stage</span> <span class="pre">(only</span> <span class="pre">48</span> <span class="pre">V</span> <span class="pre">model)</span>
+<span class="pre">`</span></code>
+<code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">Y</span> <span class="pre">is</span> <span class="pre">an</span> <span class="pre">Integer</span> <span class="pre">ranging</span> <span class="pre">from</span> <span class="pre">0</span> <span class="pre">to</span> <span class="pre">9.</span>
+<span class="pre">The</span> <span class="pre">unit</span> <span class="pre">is</span> <span class="pre">minute.</span>
+<span class="pre">`</span></code>
+#### Z Z</p>
+<p><code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">Operation</span> <span class="pre">Logic</span> <span class="pre">(only</span> <span class="pre">48V</span>
+<span class="pre">model)</span>
+<span class="pre">`</span></code>
+<code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">0:</span> <span class="pre">Automatically</span>
+<span class="pre">1:</span> <span class="pre">On-line</span> <span class="pre">mode</span>
+<span class="pre">2:</span> <span class="pre">ECO</span> <span class="pre">mode</span>
+<span class="pre">`</span></code>
+<code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">A1</span> <span class="pre">CCC</span>
+<span class="pre">Max</span> <span class="pre">discharging</span> <span class="pre">current</span>
+<span class="pre">(only</span> <span class="pre">48V</span> <span class="pre">model)</span>
+<span class="pre">`</span></code>
+<code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">C</span> <span class="pre">is</span> <span class="pre">an</span> <span class="pre">integer</span> <span class="pre">ranging</span> <span class="pre">from</span> <span class="pre">0</span> <span class="pre">to</span> <span class="pre">9.</span>
+<span class="pre">The</span> <span class="pre">units</span> <span class="pre">is</span> <span class="pre">A.</span>
+<span class="pre">`</span></code>
+### 2.8 QFLAG&lt;cr&gt;: Device flag status inquiry</p>
+<p><code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">ExxxDxxx</span> <span class="pre">is</span> <span class="pre">the</span> <span class="pre">flag</span> <span class="pre">status.</span> <span class="pre">E</span> <span class="pre">means</span> <span class="pre">enable,</span> <span class="pre">D</span> <span class="pre">means</span> <span class="pre">disable</span>
+<span class="pre">x</span> <span class="pre">Control</span> <span class="pre">setting</span>
+<span class="pre">a</span> <span class="pre">Enable/disable</span> <span class="pre">silence</span> <span class="pre">buzzer</span> <span class="pre">or</span> <span class="pre">open</span> <span class="pre">buzzer^</span>
+<span class="pre">b</span> <span class="pre">Enable/Disable</span> <span class="pre">overload</span> <span class="pre">bypass</span> <span class="pre">function</span>
+<span class="pre">d</span> <span class="pre">Enable/Disable</span> <span class="pre">solar</span> <span class="pre">feed</span> <span class="pre">to</span> <span class="pre">grid</span> <span class="pre">(reserved</span> <span class="pre">feature)</span>
+<span class="pre">`</span></code>
+<code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">k</span>
+<span class="pre">Enable/Disable</span> <span class="pre">LCD</span> <span class="pre">display</span> <span class="pre">escape</span> <span class="pre">to</span> <span class="pre">default</span> <span class="pre">page</span> <span class="pre">after</span>
+<span class="pre">1min</span> <span class="pre">timeout</span>
+<span class="pre">u</span> <span class="pre">Enable/Disable</span> <span class="pre">overload</span> <span class="pre">restart</span>
+<span class="pre">v</span> <span class="pre">Enable/Disable</span> <span class="pre">over</span> <span class="pre">temperature</span> <span class="pre">restart</span>
+<span class="pre">x</span> <span class="pre">Enable/Disable</span> <span class="pre">backlight</span> <span class="pre">on</span>
+<span class="pre">y</span> <span class="pre">Enable/Disable</span> <span class="pre">alarm</span> <span class="pre">on</span> <span class="pre">when</span> <span class="pre">primary</span> <span class="pre">source</span> <span class="pre">interrupt^</span>
+<span class="pre">z</span> <span class="pre">Enable/Disable</span> <span class="pre">fault</span> <span class="pre">code</span> <span class="pre">record</span>
+<span class="pre">`</span></code>
+<code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">Computer:</span> <span class="pre">QFLAG</span> <span class="pre">&lt;CRC&gt;&lt;cr&gt;</span>
+<span class="pre">Device:</span> <span class="pre">(ExxxDxxx</span> <span class="pre">&lt;CRC&gt;&lt;cr&gt;</span>
+<span class="pre">`</span></code>
+### 2.9 QPIGS&lt;cr&gt;: Device general status parameters inquiry…………………………………………………………………</p>
+<p><code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">Computer:</span> <span class="pre">QPIGS</span> <span class="pre">&lt;CRC&gt;&lt;cr&gt;</span>
+<span class="pre">Device:</span> <span class="pre">(BBB.B</span> <span class="pre">CC.C</span> <span class="pre">DDD.D</span> <span class="pre">EE.E</span> <span class="pre">FFFF</span> <span class="pre">GGGG</span> <span class="pre">HHH</span> <span class="pre">III</span> <span class="pre">JJ.JJ</span> <span class="pre">KKK</span> <span class="pre">OOO</span> <span class="pre">TTTT</span> <span class="pre">EE.E</span>
+<span class="pre">UUU.U</span> <span class="pre">WW.WW</span> <span class="pre">PPPPP</span> <span class="pre">b7b6b5b4b3b2b1b0</span> <span class="pre">QQ</span> <span class="pre">VV</span> <span class="pre">MMMMM</span> <span class="pre">b10b9b8</span> <span class="pre">Y</span> <span class="pre">ZZ</span> <span class="pre">AAAA</span>
+<span class="pre">&lt;CRC&gt;&lt;cr&gt;</span>
+<span class="pre">Data</span> <span class="pre">Description</span> <span class="pre">Notes</span> <span class="pre">Axpert</span>
+<span class="pre">`</span></code>
+a ( Start byte</p>
+<p>b BBB.B Grid voltage B is an Integer number 0 to 9. The units is V.</p>
+<p><code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">C</span> <span class="pre">CC.C</span> <span class="pre">Grid</span> <span class="pre">frequency</span> <span class="pre">C</span> <span class="pre">s</span> <span class="pre">an</span> <span class="pre">Integer</span> <span class="pre">number</span> <span class="pre">0</span> <span class="pre">to</span> <span class="pre">9.</span> <span class="pre">The</span> <span class="pre">units</span> <span class="pre">is</span> <span class="pre">Hz.</span>
+<span class="pre">`</span></code>
+D DDD.D AC output voltage D is an Integer number 0 to 9. The units is V.</p>
+<p><code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">E</span> <span class="pre">EE.E</span> <span class="pre">AC</span> <span class="pre">output</span> <span class="pre">frequency</span> <span class="pre">E</span> <span class="pre">is</span> <span class="pre">an</span> <span class="pre">Integer</span> <span class="pre">number</span> <span class="pre">from</span> <span class="pre">0</span> <span class="pre">to</span> <span class="pre">9.</span> <span class="pre">The</span> <span class="pre">units</span>
+<span class="pre">is</span> <span class="pre">Hz.</span>
+<span class="pre">F</span> <span class="pre">FFFF</span> <span class="pre">AC</span> <span class="pre">output</span> <span class="pre">apparent</span>
+<span class="pre">power</span>
+<span class="pre">`</span></code>
+<code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">F</span> <span class="pre">is</span> <span class="pre">an</span> <span class="pre">Integer</span> <span class="pre">number</span> <span class="pre">from</span> <span class="pre">0</span> <span class="pre">to</span> <span class="pre">9.</span> <span class="pre">The</span> <span class="pre">units</span>
+<span class="pre">is</span> <span class="pre">VA</span>
+<span class="pre">`</span></code>
+G GGGG
+AC output active power</p>
+<p><code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">G</span> <span class="pre">is</span> <span class="pre">an</span> <span class="pre">Integer</span> <span class="pre">ranging</span> <span class="pre">from</span> <span class="pre">0</span> <span class="pre">to</span> <span class="pre">9.</span> <span class="pre">The</span> <span class="pre">units</span>
+<span class="pre">is</span> <span class="pre">W.</span>
+<span class="pre">`</span></code>
+H HHH Output load percent DEVICE: HHH is Maximum of W% or VA%.
+VA% is a percent of apparent power.
+W% is a percent of active power.
+The units is %.
+I III BUS voltage I is an Integer ranging from 0 to 9. The units is
+V.
+j JJ.JJ Battery voltage J is an Integer ranging from 0 to 9. The units
+is V.
+k KKK Battery charging
+current</p>
+<p><code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">K</span> <span class="pre">is</span> <span class="pre">an</span> <span class="pre">Integer</span> <span class="pre">ranging</span> <span class="pre">from</span> <span class="pre">0</span> <span class="pre">to</span> <span class="pre">9.</span> <span class="pre">The</span> <span class="pre">units</span>
+<span class="pre">is</span> <span class="pre">A.</span>
+<span class="pre">o</span> <span class="pre">OOO</span> <span class="pre">Battery</span> <span class="pre">capacity</span> <span class="pre">X</span> <span class="pre">is</span> <span class="pre">an</span> <span class="pre">Integer</span> <span class="pre">ranging</span> <span class="pre">from</span> <span class="pre">0</span> <span class="pre">to</span> <span class="pre">9.</span> <span class="pre">The</span> <span class="pre">units</span>
+<span class="pre">is</span> <span class="pre">%.</span>
+<span class="pre">P</span> <span class="pre">TTTT</span> <span class="pre">Inverter</span> <span class="pre">heat</span> <span class="pre">sink</span>
+<span class="pre">temperature</span>
+<span class="pre">`</span></code>
+<code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">T</span> <span class="pre">is</span> <span class="pre">an</span> <span class="pre">integer</span> <span class="pre">ranging</span> <span class="pre">from</span> <span class="pre">0</span> <span class="pre">to</span> <span class="pre">9.</span> <span class="pre">The</span> <span class="pre">units</span>
+<span class="pre">is</span> <span class="pre">°C（NTC</span> <span class="pre">A/D</span> <span class="pre">value</span> <span class="pre">for</span> <span class="pre">Axpert</span> <span class="pre">1~3K）</span>
+<span class="pre">r</span> <span class="pre">EE.E</span> <span class="pre">PV</span> <span class="pre">1</span> <span class="pre">Input</span> <span class="pre">current</span> <span class="pre">E</span> <span class="pre">is</span> <span class="pre">an</span> <span class="pre">Integer</span> <span class="pre">ranging</span> <span class="pre">from</span> <span class="pre">0</span> <span class="pre">to</span> <span class="pre">9.</span> <span class="pre">The</span> <span class="pre">units</span>
+<span class="pre">is</span> <span class="pre">A.</span>
+<span class="pre">t</span> <span class="pre">UUU.U</span> <span class="pre">PV</span> <span class="pre">1</span> <span class="pre">Input</span> <span class="pre">voltage</span> <span class="pre">U</span> <span class="pre">is</span> <span class="pre">an</span> <span class="pre">Integer</span> <span class="pre">ranging</span> <span class="pre">from</span> <span class="pre">0</span> <span class="pre">to</span> <span class="pre">9.</span> <span class="pre">The</span> <span class="pre">units</span>
+<span class="pre">is</span> <span class="pre">V.</span>
+<span class="pre">u</span> <span class="pre">WW.WW</span> <span class="pre">Battery</span> <span class="pre">voltage</span> <span class="pre">from</span>
+<span class="pre">SCC</span>
+<span class="pre">`</span></code>
+W is an Integer ranging from 0 to 9. The units
+is V.
+w PPPPP Battery discharge
+current</p>
+<p><code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">P</span> <span class="pre">is</span> <span class="pre">an</span> <span class="pre">Integer</span> <span class="pre">ranging</span> <span class="pre">from</span> <span class="pre">0</span> <span class="pre">to</span> <span class="pre">9.</span> <span class="pre">The</span> <span class="pre">units</span>
+<span class="pre">is</span> <span class="pre">A.</span>
+<span class="pre">x</span> <span class="pre">b7b6b5b</span>
+<span class="pre">b3b2b1b</span>
+<span class="pre">`</span></code>
+<code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">Device</span> <span class="pre">status</span> <span class="pre">b7:</span> <span class="pre">add</span> <span class="pre">SBU</span> <span class="pre">priority</span> <span class="pre">version,</span> <span class="pre">1:</span> <span class="pre">yes,0:</span> <span class="pre">no</span>
+<span class="pre">b6:</span> <span class="pre">configuration</span> <span class="pre">status:</span> <span class="pre">1:</span> <span class="pre">Change</span> <span class="pre">0:</span>
+<span class="pre">unchanged</span>
+<span class="pre">b5:</span> <span class="pre">SCC</span> <span class="pre">firmware</span> <span class="pre">version</span> <span class="pre">1:</span> <span class="pre">Updated</span> <span class="pre">0:</span>
+<span class="pre">unchanged</span>
+<span class="pre">b4:</span> <span class="pre">Load</span> <span class="pre">status:</span> <span class="pre">0:</span> <span class="pre">Load</span> <span class="pre">off</span> <span class="pre">1:Load</span> <span class="pre">on</span>
+<span class="pre">b3:</span> <span class="pre">battery</span> <span class="pre">voltage</span> <span class="pre">to</span> <span class="pre">steady</span> <span class="pre">while</span> <span class="pre">charging</span>
+<span class="pre">b2:</span> <span class="pre">Charging</span> <span class="pre">status</span>
+<span class="pre">b1:</span> <span class="pre">Charging</span> <span class="pre">status(SCC</span> <span class="pre">charging</span> <span class="pre">on/off)</span>
+<span class="pre">b0:</span> <span class="pre">Charging</span> <span class="pre">status(AC</span> <span class="pre">charging</span> <span class="pre">on/off)</span>
+<span class="pre">b2b1b0:</span>
+<span class="pre">`</span></code>
+<code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">Keep</span>
+<span class="pre">b6~b4,</span>
+<span class="pre">b2</span> <span class="pre">~</span> <span class="pre">b0,</span>
+<span class="pre">reserve</span>
+<span class="pre">other</span>
+<span class="pre">`</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">000:</span> <span class="pre">Do</span> <span class="pre">nothing</span>
+<span class="pre">110:</span> <span class="pre">Charging</span> <span class="pre">on</span> <span class="pre">with</span> <span class="pre">SCC</span> <span class="pre">charge</span> <span class="pre">on</span>
+<span class="pre">101:</span> <span class="pre">Charging</span> <span class="pre">on</span> <span class="pre">with</span> <span class="pre">AC</span> <span class="pre">charge</span> <span class="pre">on</span>
+<span class="pre">111:</span> <span class="pre">Charging</span> <span class="pre">on</span> <span class="pre">with</span> <span class="pre">SCC</span> <span class="pre">and</span> <span class="pre">AC</span> <span class="pre">charge</span> <span class="pre">on</span>
+<span class="pre">`</span></code>
+y QQ Battery voltage offset
+for fans on</p>
+<p><code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">Q</span> <span class="pre">is</span> <span class="pre">an</span> <span class="pre">Integer</span> <span class="pre">ranging</span> <span class="pre">from</span> <span class="pre">0</span> <span class="pre">to</span> <span class="pre">9.</span> <span class="pre">The</span> <span class="pre">unit</span> <span class="pre">is</span>
+<span class="pre">10mV.</span>
+<span class="pre">`</span></code>
+z VV EEPROM version V is an Integer ranging from 0 to 9.</p>
+<p><code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">MMMM</span>
+<span class="pre">M</span>
+<span class="pre">`</span></code>
+<code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">PV</span> <span class="pre">1</span> <span class="pre">Charging</span> <span class="pre">power</span> <span class="pre">M</span> <span class="pre">is</span> <span class="pre">an</span> <span class="pre">Integer</span> <span class="pre">ranging</span> <span class="pre">from</span> <span class="pre">0</span> <span class="pre">to</span> <span class="pre">9.</span> <span class="pre">The</span> <span class="pre">unit</span>
+<span class="pre">is</span> <span class="pre">watt.</span>
+<span class="pre">b10b9b8</span> <span class="pre">Device</span> <span class="pre">status</span> <span class="pre">b10:</span> <span class="pre">flag</span> <span class="pre">for</span> <span class="pre">charging</span> <span class="pre">to</span> <span class="pre">floating</span> <span class="pre">mode</span>
+<span class="pre">b9:</span> <span class="pre">Switch</span> <span class="pre">On</span>
+<span class="pre">b8:</span> <span class="pre">flag</span> <span class="pre">for</span> <span class="pre">dustproof</span> <span class="pre">installed(1-dustproof</span>
+<span class="pre">installed,0-no</span> <span class="pre">dustproof,</span> <span class="pre">only</span> <span class="pre">available</span> <span class="pre">for</span>
+<span class="pre">Axpert</span> <span class="pre">V</span> <span class="pre">series)</span>
+<span class="pre">Y</span> <span class="pre">Solar</span> <span class="pre">feed</span> <span class="pre">to</span> <span class="pre">grid</span> <span class="pre">status</span>
+<span class="pre">(reserved</span> <span class="pre">feature)</span>
+<span class="pre">`</span></code>
+<code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">0:</span> <span class="pre">normal</span>
+<span class="pre">1:</span> <span class="pre">solar</span> <span class="pre">feed</span> <span class="pre">to</span> <span class="pre">grid</span>
+<span class="pre">ZZ</span> <span class="pre">Set</span> <span class="pre">country</span> <span class="pre">customized</span>
+<span class="pre">regulation</span> <span class="pre">(reserved</span>
+<span class="pre">feature)</span>
+<span class="pre">`</span></code>
+<code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">00:</span> <span class="pre">India</span>
+<span class="pre">01:</span> <span class="pre">Germany</span>
+<span class="pre">02:</span> <span class="pre">South</span> <span class="pre">America</span>
+<span class="pre">AAAA</span> <span class="pre">Solar</span> <span class="pre">feed</span> <span class="pre">to</span> <span class="pre">grid</span>
+<span class="pre">power</span> <span class="pre">(reserved</span>
+<span class="pre">feature)</span>
+<span class="pre">`</span></code>
+<code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">A</span> <span class="pre">is</span> <span class="pre">an</span> <span class="pre">Integer</span> <span class="pre">ranging</span> <span class="pre">from</span> <span class="pre">0</span> <span class="pre">to</span> <span class="pre">9.</span> <span class="pre">The</span> <span class="pre">units</span>
+<span class="pre">is</span> <span class="pre">W.</span>
+<span class="pre">`</span></code>
+### 2.10 QPIGS2&lt;cr&gt;: Device general status parameters inquiry (Only 48V model)</p>
+<p><code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">Computer:</span> <span class="pre">QPIGS2</span> <span class="pre">&lt;CRC&gt;&lt;cr&gt;</span>
+<span class="pre">Device:</span> <span class="pre">(BB.B</span> <span class="pre">CCC.C</span> <span class="pre">DDDDD</span> <span class="pre">&lt;CRC&gt;&lt;cr&gt;</span>
+<span class="pre">Data</span> <span class="pre">Description</span> <span class="pre">Notes</span> <span class="pre">Axpert</span>
+<span class="pre">`</span></code>
+a ( Start byte</p>
+<p>b BB.B PV2 Input current E is an Integer ranging from 0 to 9. The units
+is A.
+c CCC.C PV2 Input voltage U is an Integer ranging from 0 to 9. The units
+is V.
+d DDDDD PV2 Charging power M is an Integer ranging from 0 to 9. The unit
+is watt.</p>
+<p>### 2.11 QPGSn&lt;cr&gt;: Parallel Information inquiry (Only 48V model)</p>
+<p><code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">Computer:</span> <span class="pre">QPGSn&lt;CRC&gt;&lt;cr&gt;;</span> <span class="pre">n</span> <span class="pre">is</span> <span class="pre">parallel</span> <span class="pre">machine</span> <span class="pre">number.</span>
+<span class="pre">Device:</span> <span class="pre">(A</span> <span class="pre">BBBBBBBBBBBBBB</span> <span class="pre">C</span> <span class="pre">DD</span> <span class="pre">EEE.E</span> <span class="pre">FF.FF</span> <span class="pre">GGG.G</span> <span class="pre">HH.HH</span> <span class="pre">IIII</span> <span class="pre">JJJJ</span> <span class="pre">KKK</span> <span class="pre">LL.L</span>
+<span class="pre">MMM</span> <span class="pre">NNN</span> <span class="pre">OOO.O</span> <span class="pre">PPP</span> <span class="pre">QQQQQ</span> <span class="pre">RRRRR</span> <span class="pre">SSS</span> <span class="pre">b7b6b5b4b3b2b1b0</span> <span class="pre">T</span> <span class="pre">U</span> <span class="pre">VVV</span> <span class="pre">WWW</span> <span class="pre">ZZ</span> <span class="pre">XX</span>
+<span class="pre">YYY</span> <span class="pre">OOO.O</span> <span class="pre">XX&lt;CRC&gt;&lt;cr&gt;</span>
+<span class="pre">Date</span> <span class="pre">Description</span> <span class="pre">Notes</span>
+<span class="pre">A</span> <span class="pre">(</span> <span class="pre">Start</span> <span class="pre">byte</span>
+<span class="pre">B</span> <span class="pre">A</span> <span class="pre">The</span> <span class="pre">parallel</span> <span class="pre">num</span> <span class="pre">whether</span> <span class="pre">0</span> <span class="pre">：No</span> <span class="pre">exist.</span>
+<span class="pre">`</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">exist</span> <span class="pre">1</span> <span class="pre">：Exist.</span>
+<span class="pre">`</span></code>
+C BBBBBBBB^
+BBBBBB
+Serial number B is an Integer ranging from 0 to
+9.
+D C Work mode C is an character, refer to QMOD</p>
+<p>E DD Fault code D is an Integer ranging from 0 to
+9.</p>
+<p>F EEE.E Grid voltage^
+E is an Integer ranging from 0 to</p>
+<ol class="arabic simple" start="9">
+<li><p>The units is V.</p></li>
+</ol>
+<p>G FF.FF Grid frequency
+F is an Integer ranging from 0 to</p>
+<ol class="arabic simple" start="9">
+<li><p>The unit is Hz.</p></li>
+</ol>
+<p>H GGG.G AC output voltage G is an Integer ranging from^ 0 to</p>
+<ol class="arabic simple" start="9">
+<li><p>The units is V.</p></li>
+</ol>
+<p>I HH.HH AC output frequency
+H is an Integer ranging from 0 to</p>
+<ol class="arabic simple" start="9">
+<li><p>The unit is Hz.</p></li>
+</ol>
+<p>J IIII AC output apparent power I is an Integer number from 0 to</p>
+<ol class="arabic simple" start="9">
+<li><p>The units is VA</p></li>
+</ol>
+<p>K JJJJ (^) AC output active power
+J is an Integer ranging from 0 to</p>
+<ol class="arabic simple" start="9">
+<li><p>The units is W.</p></li>
+</ol>
+<p>L KKK Load percentage
+K is an Integer ranging from 0 to</p>
+<ol class="arabic simple" start="9">
+<li><p>The units is %.</p></li>
+</ol>
+<p>M LL.L Battery voltage
+L is an Integer ranging from 0 to</p>
+<ol class="arabic simple" start="9">
+<li><p>The unit is V.</p></li>
+</ol>
+<p>N MMM Battery charging current
+M is an Integer ranging from 0 to</p>
+<ol class="arabic simple" start="9">
+<li><p>The units is A.</p></li>
+</ol>
+<p>O NNN (^) Battery capacity N is an Integer ranging from 0 to</p>
+<ol class="arabic simple" start="9">
+<li><p>The units is %.</p></li>
+</ol>
+<p>P OOO. O PV 1 Input Voltage
+O is an Integer ranging from 0 to</p>
+<ol class="arabic simple" start="9">
+<li><p>The units is V.</p></li>
+</ol>
+<p>Q PPP Total charging current
+P is an Integer ranging from 0 to</p>
+<ol class="arabic simple" start="9">
+<li><p>The units is A.</p></li>
+</ol>
+<p>R QQQQQ Total^ AC output apparent
+power</p>
+<p><code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">Q</span> <span class="pre">is</span> <span class="pre">an</span> <span class="pre">Integer</span> <span class="pre">ranging</span> <span class="pre">from</span> <span class="pre">0</span> <span class="pre">to</span>
+<span class="pre">`</span></code>
+9. The units is VA.</p>
+<p>S RRRRR Total output active power
+R is an Integer ranging from 0 to</p>
+<ol class="arabic simple" start="9">
+<li><p>The units is W.</p></li>
+</ol>
+<p>T SSS Total AC output percentage
+S is an Integer ranging from 0 to</p>
+<ol class="arabic simple" start="9">
+<li><p>The units is %.</p></li>
+</ol>
+<p>U b7b6b5b4b3b2b1b0 Inverter Status</p>
+<p><code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">b7:</span> <span class="pre">1</span> <span class="pre">SCC</span> <span class="pre">OK,</span> <span class="pre">0</span> <span class="pre">SCC</span> <span class="pre">LOSS</span>
+<span class="pre">b6:</span> <span class="pre">1</span> <span class="pre">AC</span> <span class="pre">Charging</span>
+<span class="pre">0</span> <span class="pre">AC</span> <span class="pre">no</span> <span class="pre">charging</span>
+<span class="pre">b5:</span> <span class="pre">1</span> <span class="pre">SCC</span> <span class="pre">Charging</span>
+<span class="pre">0</span> <span class="pre">SCC</span> <span class="pre">no</span> <span class="pre">charging</span>
+<span class="pre">b4b3:</span> <span class="pre">2</span> <span class="pre">battery</span> <span class="pre">open,</span>
+<span class="pre">1</span> <span class="pre">battery</span> <span class="pre">under,</span> <span class="pre">0</span> <span class="pre">battery</span>
+<span class="pre">`</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">normal</span>
+<span class="pre">b2:</span> <span class="pre">1</span> <span class="pre">Line</span> <span class="pre">loss</span>
+<span class="pre">0</span> <span class="pre">Line</span> <span class="pre">ok</span>
+<span class="pre">b1:</span> <span class="pre">1</span> <span class="pre">load</span> <span class="pre">on,</span> <span class="pre">0</span> <span class="pre">load</span> <span class="pre">off</span>
+<span class="pre">b0:</span> <span class="pre">configuration</span> <span class="pre">status:</span>
+<span class="pre">1:</span> <span class="pre">Change</span> <span class="pre">0:</span> <span class="pre">unchanged</span>
+<span class="pre">`</span></code>
+V T Output mode</p>
+<p><code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">0:</span> <span class="pre">single</span> <span class="pre">machine</span>
+<span class="pre">1:</span> <span class="pre">parallel</span> <span class="pre">output</span>
+<span class="pre">2:</span> <span class="pre">Phase</span> <span class="pre">1</span> <span class="pre">of</span> <span class="pre">3</span> <span class="pre">phase</span> <span class="pre">output</span>
+<span class="pre">3:</span> <span class="pre">Phase</span> <span class="pre">2</span> <span class="pre">of</span> <span class="pre">3</span> <span class="pre">phase</span> <span class="pre">output</span>
+<span class="pre">4:</span> <span class="pre">Phase</span> <span class="pre">3</span> <span class="pre">of</span> <span class="pre">3</span> <span class="pre">phase</span> <span class="pre">output</span>
+<span class="pre">5:</span> <span class="pre">Phase</span> <span class="pre">1</span> <span class="pre">of</span> <span class="pre">2</span> <span class="pre">Phase</span> <span class="pre">output</span>
+<span class="pre">6:</span> <span class="pre">Phase</span> <span class="pre">2</span> <span class="pre">of</span> <span class="pre">2</span> <span class="pre">Phase</span> <span class="pre">output</span>
+<span class="pre">(120°)</span>
+<span class="pre">7:</span> <span class="pre">Phase</span> <span class="pre">2</span> <span class="pre">of</span> <span class="pre">2</span> <span class="pre">Phase</span> <span class="pre">output</span>
+<span class="pre">(180°)</span>
+<span class="pre">`</span></code>
+W U Charger source priority</p>
+<p><code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">0:</span> <span class="pre">Utility</span> <span class="pre">first</span>
+<span class="pre">1:</span> <span class="pre">Solar</span> <span class="pre">first</span>
+<span class="pre">2:</span> <span class="pre">Solar</span> <span class="pre">+</span> <span class="pre">Utility</span>
+<span class="pre">3:</span> <span class="pre">Solar</span> <span class="pre">only</span>
+<span class="pre">`</span></code>
+X VVV Max charger current
+V is an Integer ranging from 0 to</p>
+<ol class="arabic simple" start="9">
+<li><p>The units is A.</p></li>
+</ol>
+<p>Y WWW Max charger range
+W is an Integer ranging from 0 to</p>
+<ol class="arabic simple" start="9">
+<li><p>The units is A.</p></li>
+</ol>
+<p>Z ZZ Max AC charger current</p>
+<p><code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">Z</span> <span class="pre">is</span> <span class="pre">an</span> <span class="pre">Integer</span> <span class="pre">ranging</span> <span class="pre">from</span> <span class="pre">0</span> <span class="pre">to</span>
+<span class="pre">`</span></code>
+9. The units is A.
+If the max AC charging current is
+greater than 99A, then return to
+ZZZ</p>
+<p>a XX PV 1 input current
+X is an Integer ranging from 0 to</p>
+<ol class="arabic simple" start="9">
+<li><p>The units is A.</p></li>
+</ol>
+<p>b YYY Battery discharge current
+Y is an Integer ranging from 0 to</p>
+<ol class="arabic simple" start="9">
+<li><p>The units is A.</p></li>
+</ol>
+<p>c OOO. O PV 2 input voltage
+O is an Integer ranging from 0 to</p>
+<ol class="arabic simple" start="9">
+<li><p>The units is V.</p></li>
+</ol>
+<p>d XX PV2 input current
+X is an Integer ranging from 0 to</p>
+<ol class="arabic simple" start="9">
+<li><p>The units is A.</p></li>
+</ol>
+<p><code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">Fault</span> <span class="pre">Code</span> <span class="pre">Fault</span> <span class="pre">Event</span>
+<span class="pre">01</span> <span class="pre">Fan^</span> <span class="pre">is^</span> <span class="pre">locked^</span> <span class="pre">when</span> <span class="pre">inverter</span> <span class="pre">is</span> <span class="pre">off.^</span>
+<span class="pre">02</span> <span class="pre">Over</span> <span class="pre">temperature^</span>
+<span class="pre">03</span> <span class="pre">Battery</span> <span class="pre">voltage</span> <span class="pre">is</span> <span class="pre">too</span> <span class="pre">high^</span>
+<span class="pre">04</span> <span class="pre">Battery</span> <span class="pre">voltage</span> <span class="pre">is</span> <span class="pre">too</span> <span class="pre">low</span>
+<span class="pre">`</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">05</span> <span class="pre">Output</span> <span class="pre">short</span> <span class="pre">circuited.^</span>
+<span class="pre">06</span> <span class="pre">Output</span> <span class="pre">voltage</span> <span class="pre">is</span> <span class="pre">too</span> <span class="pre">high.</span>
+<span class="pre">07</span> <span class="pre">Overload</span> <span class="pre">time^</span> <span class="pre">out^</span>
+<span class="pre">08</span> <span class="pre">Bus</span> <span class="pre">voltage</span> <span class="pre">is</span> <span class="pre">too</span> <span class="pre">high</span>
+<span class="pre">09</span> <span class="pre">Bus^</span> <span class="pre">soft</span> <span class="pre">start</span> <span class="pre">failed^</span>
+<span class="pre">10</span> <span class="pre">PV</span> <span class="pre">over</span> <span class="pre">current^</span>
+<span class="pre">11</span> <span class="pre">PV</span> <span class="pre">over</span> <span class="pre">voltage</span>
+<span class="pre">12</span> <span class="pre">DCDC</span> <span class="pre">over</span> <span class="pre">current^</span>
+<span class="pre">13</span> <span class="pre">Battery</span> <span class="pre">discharge</span> <span class="pre">over</span> <span class="pre">current</span>
+<span class="pre">51</span> <span class="pre">Over</span> <span class="pre">current^</span>
+<span class="pre">52</span> <span class="pre">Bus</span> <span class="pre">voltage</span> <span class="pre">is</span> <span class="pre">too</span> <span class="pre">low^</span>
+<span class="pre">53</span> <span class="pre">Inverter</span> <span class="pre">soft</span> <span class="pre">start</span> <span class="pre">failed</span>
+<span class="pre">55</span> <span class="pre">Over</span> <span class="pre">DC</span> <span class="pre">voltage</span> <span class="pre">in</span> <span class="pre">AC</span> <span class="pre">output^</span>
+<span class="pre">57</span> <span class="pre">Current</span> <span class="pre">sensor</span> <span class="pre">failed</span>
+<span class="pre">58</span> <span class="pre">Output</span> <span class="pre">voltage</span> <span class="pre">is</span> <span class="pre">too</span> <span class="pre">low^</span>
+<span class="pre">60</span> <span class="pre">Power</span> <span class="pre">feedback</span> <span class="pre">protection^</span>
+<span class="pre">71</span> <span class="pre">Firmware</span> <span class="pre">version</span> <span class="pre">inconsistent</span>
+<span class="pre">72</span> <span class="pre">Current</span> <span class="pre">sharing</span> <span class="pre">fault^</span>
+<span class="pre">80</span> <span class="pre">CAN</span> <span class="pre">fault</span>
+<span class="pre">81</span> <span class="pre">Host</span> <span class="pre">loss^</span>
+<span class="pre">82</span> <span class="pre">Synchronization</span> <span class="pre">loss^</span>
+<span class="pre">83</span> <span class="pre">Battery</span> <span class="pre">voltage</span> <span class="pre">detected</span> <span class="pre">different</span>
+<span class="pre">84</span> <span class="pre">AC</span> <span class="pre">input</span> <span class="pre">voltage</span> <span class="pre">and</span> <span class="pre">frequency</span> <span class="pre">detected</span> <span class="pre">different^</span>
+<span class="pre">85</span> <span class="pre">AC</span> <span class="pre">output</span> <span class="pre">current</span> <span class="pre">unbalance</span>
+<span class="pre">86</span> <span class="pre">AC</span> <span class="pre">output</span> <span class="pre">mode</span> <span class="pre">setting</span> <span class="pre">is</span> <span class="pre">different^</span>
+<span class="pre">`</span></code>
+### 2.12 QMOD&lt;cr&gt;: Device Mode inquiry</p>
+<p><code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">Computer:</span> <span class="pre">QMOD&lt;CRC&gt;&lt;cr&gt;</span>
+<span class="pre">Device:</span> <span class="pre">(M&lt;CRC&gt;&lt;cr&gt;</span>
+<span class="pre">MODE</span> <span class="pre">CODE(M)</span> <span class="pre">Notes</span>
+<span class="pre">Power</span> <span class="pre">on</span> <span class="pre">mode</span> <span class="pre">P</span> <span class="pre">Power</span> <span class="pre">on</span> <span class="pre">mode</span>
+<span class="pre">Standby</span> <span class="pre">mode</span> <span class="pre">S</span> <span class="pre">Standby</span> <span class="pre">mode</span>
+<span class="pre">Line</span> <span class="pre">mode</span> <span class="pre">L</span> <span class="pre">Line</span> <span class="pre">mode</span>
+<span class="pre">Battery</span> <span class="pre">mode</span> <span class="pre">B</span> <span class="pre">Battery</span> <span class="pre">mode</span>
+<span class="pre">Fault</span> <span class="pre">mode</span> <span class="pre">F</span> <span class="pre">Fault</span> <span class="pre">mode</span>
+<span class="pre">Shutdown</span> <span class="pre">mode</span> <span class="pre">D</span> <span class="pre">Shutdown</span> <span class="pre">mode</span>
+<span class="pre">`</span></code>
+<code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">Example:</span>
+<span class="pre">Computer:</span> <span class="pre">QMOD&lt;CRC&gt;&lt;cr&gt;</span>
+<span class="pre">`</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">DEVICE:</span> <span class="pre">(L&lt;CRC&gt;&lt;cr&gt;</span>
+<span class="pre">Means:</span> <span class="pre">the</span> <span class="pre">current</span> <span class="pre">DEVICE</span> <span class="pre">mode</span> <span class="pre">is</span> <span class="pre">Grid</span> <span class="pre">mode.</span>
+<span class="pre">`</span></code>
+### 2.13 QPIWS&lt;cr&gt;: Device Warning Status inquiry</p>
+<p><code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">Computer:</span> <span class="pre">QPIWS&lt;CRC&gt;</span> <span class="pre">&lt;cr&gt;</span>
+<span class="pre">Device:</span> <span class="pre">(a0a1.....a</span> <span class="pre">30</span> <span class="pre">a</span> <span class="pre">31</span> <span class="pre">&lt;CRC&gt;&lt;cr&gt;</span>
+<span class="pre">a0...</span> <span class="pre">a35</span> <span class="pre">is</span> <span class="pre">the</span> <span class="pre">warning</span> <span class="pre">status.</span> <span class="pre">If</span> <span class="pre">the</span> <span class="pre">warning</span> <span class="pre">is</span> <span class="pre">happened,</span> <span class="pre">the</span> <span class="pre">relevant</span> <span class="pre">bit</span> <span class="pre">will</span> <span class="pre">set</span> <span class="pre">1,</span> <span class="pre">else</span> <span class="pre">the</span>
+<span class="pre">relevant</span> <span class="pre">bit</span> <span class="pre">will</span> <span class="pre">set</span> <span class="pre">0.</span> <span class="pre">The</span> <span class="pre">following</span> <span class="pre">table</span> <span class="pre">is</span> <span class="pre">the</span> <span class="pre">warning</span> <span class="pre">code.</span>
+<span class="pre">`</span></code>
+bit (^) Warning Description
+a0 PV loss Warning
+a1 Inverter fault Fault
+a2 Bus Over Fault
+a3 Bus Under Fault^
+a4 Bus Soft Fail Fault^
+a5 LINE_FAIL Warning
+a6 OPVShort Fault
+a7 Inverter voltage too low Fault
+a8 Inverter voltage too high Fault^
+a9 Over temperature
+Compile with a1, if a1=1,fault,
+otherwise warning
+a10 Fan locked
+Compile with a1, if a1=1,fault,
+otherwise warning
+a11 Battery voltage high
+Compile with a1, if a1=1,fault,
+otherwise warning
+a12 Battery low alarm Warning
+a13 Reserved
+a14 Battery under shutdown Warning
+a15 Battery derating Warning^
+a16 Over load
+Compile with a1, if a1=1,fault,
+otherwise warning
+a17 Eeprom fault Warning
+a18 Inverter Over Current^ Fault
+a19 Inverter^ Soft Fail^ Fault
+a20 Self Test Fail^ Fault
+a21 OP DC Voltage Over^ Fault
+a22 Bat Open
+a23 Current Sensor Fail^ Fault
+a24 Reserved^
+a25 Reserved
+a26 Reserved^</p>
+<p><code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">a27</span> <span class="pre">Reserved^</span>
+<span class="pre">a2</span> <span class="pre">8</span> <span class="pre">Reserved</span>
+<span class="pre">a2</span> <span class="pre">9</span> <span class="pre">Reserved^</span>
+<span class="pre">a30</span> <span class="pre">Reserved^</span>
+<span class="pre">a31</span> <span class="pre">Battery</span> <span class="pre">weak</span> <span class="pre">(only</span> <span class="pre">48V</span> <span class="pre">model)^</span>
+<span class="pre">24V</span> <span class="pre">model:</span> <span class="pre">a31,</span> <span class="pre">a32</span> <span class="pre">is</span> <span class="pre">fault</span> <span class="pre">code</span>
+<span class="pre">48V</span> <span class="pre">model:</span> <span class="pre">a32,</span> <span class="pre">a33</span> <span class="pre">is</span> <span class="pre">fault</span> <span class="pre">code</span>
+<span class="pre">a32</span> <span class="pre">Reserved^</span>
+<span class="pre">a33</span> <span class="pre">Reserved</span>
+<span class="pre">a34</span> <span class="pre">Reserved^</span>
+<span class="pre">a35</span> <span class="pre">Battery</span> <span class="pre">equalization^</span> <span class="pre">Warning</span>
+<span class="pre">`</span></code>
+### 2.14 QDI&lt;cr&gt;: The default setting value information</p>
+<p><code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">Computer:</span> <span class="pre">QDI&lt;CRC&gt;&lt;cr&gt;</span>
+<span class="pre">Device:</span> <span class="pre">(BBB.B</span> <span class="pre">CC.C</span> <span class="pre">00</span> <span class="pre">DD</span> <span class="pre">EE.E</span> <span class="pre">FF.F</span> <span class="pre">GG.G</span> <span class="pre">HH.H</span> <span class="pre">II</span> <span class="pre">J</span> <span class="pre">K</span> <span class="pre">L</span> <span class="pre">M</span> <span class="pre">N</span> <span class="pre">O</span> <span class="pre">P</span> <span class="pre">Q</span> <span class="pre">R</span> <span class="pre">S</span> <span class="pre">T</span> <span class="pre">U</span> <span class="pre">V</span> <span class="pre">W</span> <span class="pre">YY.Y</span> <span class="pre">X</span>
+<span class="pre">Z</span> <span class="pre">aaa</span> <span class="pre">bbb&lt;CRC&gt;&lt;cr&gt;</span>
+<span class="pre">Data</span> <span class="pre">Description</span> <span class="pre">Notes</span> <span class="pre">AXPERT</span>
+<span class="pre">A</span> <span class="pre">(</span> <span class="pre">Start</span> <span class="pre">byte</span>
+<span class="pre">`</span></code>
+<code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">B</span> <span class="pre">BBB.B^</span> <span class="pre">AC</span> <span class="pre">output</span> <span class="pre">voltage</span>
+<span class="pre">`</span></code>
+<code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">B</span> <span class="pre">is</span> <span class="pre">an</span> <span class="pre">Integer</span>
+<span class="pre">ranging</span> <span class="pre">from</span> <span class="pre">0</span> <span class="pre">to</span> <span class="pre">9.</span>
+<span class="pre">The</span> <span class="pre">units</span> <span class="pre">is</span> <span class="pre">V.</span>
+<span class="pre">`</span></code>
+<code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">Default</span> <span class="pre">230.0</span> <span class="pre">for</span> <span class="pre">HV</span> <span class="pre">models</span>
+<span class="pre">120.0</span> <span class="pre">for</span> <span class="pre">LV</span> <span class="pre">models</span>
+<span class="pre">`</span></code>
+<code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">C</span> <span class="pre">CC.C^</span> <span class="pre">AC</span> <span class="pre">output</span> <span class="pre">frequency</span>
+<span class="pre">`</span></code>
+<code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">C</span> <span class="pre">is</span> <span class="pre">an</span> <span class="pre">Integer</span>
+<span class="pre">ranging</span> <span class="pre">from</span> <span class="pre">0</span> <span class="pre">to</span> <span class="pre">9.</span>
+<span class="pre">The</span> <span class="pre">units</span> <span class="pre">is</span> <span class="pre">Hz.</span>
+<span class="pre">`</span></code>
+<code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">Default</span> <span class="pre">50.0</span> <span class="pre">for</span> <span class="pre">HV</span> <span class="pre">models</span>
+<span class="pre">60.0</span> <span class="pre">for</span> <span class="pre">LV</span> <span class="pre">models</span>
+<span class="pre">`</span></code>
+#### D 00 DD^</p>
+<p><code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">Max</span> <span class="pre">AC</span> <span class="pre">charging</span>
+<span class="pre">current</span>
+<span class="pre">`</span></code>
+<code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">D</span> <span class="pre">is</span> <span class="pre">an</span> <span class="pre">Integer</span>
+<span class="pre">ranging</span> <span class="pre">from</span> <span class="pre">0</span> <span class="pre">to</span> <span class="pre">9.</span>
+<span class="pre">The</span> <span class="pre">unit</span> <span class="pre">is</span> <span class="pre">A.</span>
+<span class="pre">`</span></code>
+<code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">Default</span> <span class="pre">0030</span>
+<span class="pre">`</span></code>
+<code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">E</span> <span class="pre">EE.E^</span> <span class="pre">Battery</span> <span class="pre">Under</span> <span class="pre">voltage</span>
+<span class="pre">`</span></code>
+<code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">E</span> <span class="pre">is</span> <span class="pre">an</span> <span class="pre">Integer</span>
+<span class="pre">ranging</span> <span class="pre">from</span> <span class="pre">0</span> <span class="pre">to</span> <span class="pre">9.</span>
+<span class="pre">The</span> <span class="pre">unit</span> <span class="pre">is</span> <span class="pre">V.</span>
+<span class="pre">`</span></code>
+<code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">Default</span> <span class="pre">44.</span>
+<span class="pre">`</span></code>
+#### F FF.F^</p>
+<p><code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">Charging</span> <span class="pre">float</span>
+<span class="pre">voltage</span>
+<span class="pre">`</span></code>
+<code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">F</span> <span class="pre">is</span> <span class="pre">an</span> <span class="pre">Integer</span>
+<span class="pre">ranging</span> <span class="pre">from</span> <span class="pre">0</span> <span class="pre">to</span> <span class="pre">9.</span>
+<span class="pre">The</span> <span class="pre">unit</span> <span class="pre">is</span> <span class="pre">V.</span>
+<span class="pre">`</span></code>
+<code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">Default</span> <span class="pre">54.</span>
+<span class="pre">`</span></code>
+<code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">G</span> <span class="pre">GG.G^</span> <span class="pre">Charging</span> <span class="pre">bulk</span> <span class="pre">voltage</span>
+<span class="pre">`</span></code>
+<code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">G</span> <span class="pre">is</span> <span class="pre">an</span> <span class="pre">Integer</span>
+<span class="pre">ranging</span> <span class="pre">from</span> <span class="pre">0</span> <span class="pre">to</span> <span class="pre">9.</span>
+<span class="pre">The</span> <span class="pre">unit</span> <span class="pre">is</span> <span class="pre">V.</span>
+<span class="pre">`</span></code>
+<code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">Default</span> <span class="pre">56.</span>
+<span class="pre">`</span></code>
+#### H HH.H^</p>
+<p><code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">Battery</span> <span class="pre">default</span>
+<span class="pre">re-charge</span> <span class="pre">voltage</span>
+<span class="pre">`</span></code>
+<code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">H</span> <span class="pre">is</span> <span class="pre">an</span> <span class="pre">Integer</span>
+<span class="pre">ranging</span> <span class="pre">from</span> <span class="pre">0</span> <span class="pre">to</span> <span class="pre">9.</span>
+<span class="pre">The</span> <span class="pre">units</span> <span class="pre">is</span> <span class="pre">V.</span>
+<span class="pre">`</span></code>
+<code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">Default</span> <span class="pre">46.0</span> <span class="pre">for</span> <span class="pre">HV</span> <span class="pre">model</span>
+<span class="pre">`</span></code>
+<code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">I</span> <span class="pre">II^</span> <span class="pre">Max</span> <span class="pre">charging</span> <span class="pre">current</span>
+<span class="pre">`</span></code>
+<code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">I</span> <span class="pre">is</span> <span class="pre">an</span> <span class="pre">Integer</span> <span class="pre">ranging</span>
+<span class="pre">from</span> <span class="pre">0</span> <span class="pre">to</span> <span class="pre">9.</span>
+<span class="pre">The</span> <span class="pre">units</span> <span class="pre">is</span> <span class="pre">A.</span>
+<span class="pre">`</span></code>
+<code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">Default</span> <span class="pre">60</span> <span class="pre">for</span> <span class="pre">HV</span> <span class="pre">model</span>
+<span class="pre">`</span></code>
+#### J J^</p>
+<p><code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">AC</span> <span class="pre">input</span> <span class="pre">voltage</span>
+<span class="pre">range</span>
+<span class="pre">`</span></code>
+<code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">J</span> <span class="pre">is</span> <span class="pre">an</span> <span class="pre">Integer</span> <span class="pre">ranging</span>
+<span class="pre">from</span> <span class="pre">0</span> <span class="pre">to</span> <span class="pre">1.</span> <span class="pre">No</span> <span class="pre">unit</span>
+<span class="pre">Default</span> <span class="pre">0</span> <span class="pre">for</span> <span class="pre">Appliances</span> <span class="pre">range</span>
+<span class="pre">`</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">K</span> <span class="pre">K^</span> <span class="pre">Output</span> <span class="pre">source</span> <span class="pre">priority</span>
+<span class="pre">`</span></code>
+<code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">K</span> <span class="pre">is</span> <span class="pre">an</span> <span class="pre">Integer</span>
+<span class="pre">ranging</span> <span class="pre">from</span> <span class="pre">0</span> <span class="pre">to</span> <span class="pre">1.</span> <span class="pre">No</span>
+<span class="pre">unit</span>
+<span class="pre">`</span></code>
+<code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">Default</span> <span class="pre">0</span> <span class="pre">for</span> <span class="pre">utility</span> <span class="pre">first</span>
+<span class="pre">`</span></code>
+#### L L^</p>
+<p><code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">Charger</span> <span class="pre">source</span>
+<span class="pre">priority</span>
+<span class="pre">`</span></code>
+<code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">L</span> <span class="pre">is</span> <span class="pre">an</span> <span class="pre">Integer</span>
+<span class="pre">ranging</span> <span class="pre">from</span> <span class="pre">1</span> <span class="pre">to</span> <span class="pre">3.</span> <span class="pre">No</span>
+<span class="pre">unit</span>
+<span class="pre">`</span></code>
+<code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">Default</span> <span class="pre">2</span> <span class="pre">for</span> <span class="pre">solar</span> <span class="pre">and</span> <span class="pre">utility</span>
+<span class="pre">`</span></code>
+M M^ Battery type</p>
+<p><code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">M</span> <span class="pre">is</span> <span class="pre">an</span> <span class="pre">Integer</span>
+<span class="pre">ranging</span> <span class="pre">from</span> <span class="pre">0</span> <span class="pre">to</span> <span class="pre">1.</span> <span class="pre">No</span>
+<span class="pre">unit</span>
+<span class="pre">`</span></code>
+<code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">Default</span> <span class="pre">0</span> <span class="pre">for</span> <span class="pre">AGM</span>
+<span class="pre">`</span></code>
+<code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">N</span> <span class="pre">N</span> <span class="pre">Enable/disable</span> <span class="pre">silence</span>
+<span class="pre">buzzer</span> <span class="pre">or</span> <span class="pre">open</span> <span class="pre">buzzer</span>
+<span class="pre">`</span></code>
+<code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">N</span> <span class="pre">is</span> <span class="pre">an</span> <span class="pre">Integer</span>
+<span class="pre">ranging</span> <span class="pre">from</span> <span class="pre">0</span> <span class="pre">to</span> <span class="pre">1.</span> <span class="pre">No</span>
+<span class="pre">unit</span>
+<span class="pre">`</span></code>
+<code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">Default</span> <span class="pre">0</span> <span class="pre">for</span> <span class="pre">enable</span> <span class="pre">buzzer</span>
+<span class="pre">`</span></code>
+#### O O^</p>
+<p><code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">Enable/Disable</span> <span class="pre">power</span>
+<span class="pre">saving</span>
+<span class="pre">`</span></code>
+<code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">O</span> <span class="pre">is</span> <span class="pre">an</span> <span class="pre">Integer</span>
+<span class="pre">ranging</span> <span class="pre">from</span> <span class="pre">0</span> <span class="pre">to</span> <span class="pre">1.</span> <span class="pre">No</span>
+<span class="pre">unit</span>
+<span class="pre">`</span></code>
+<code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">Default</span> <span class="pre">0</span> <span class="pre">for</span> <span class="pre">disable</span> <span class="pre">power</span>
+<span class="pre">saving</span>
+<span class="pre">`</span></code>
+#### P P^</p>
+<p><code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">Enable/Disable</span>
+<span class="pre">overload</span> <span class="pre">restart</span>
+<span class="pre">`</span></code>
+<code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">P</span> <span class="pre">is</span> <span class="pre">an</span> <span class="pre">Integer</span>
+<span class="pre">ranging</span> <span class="pre">from</span> <span class="pre">0</span> <span class="pre">to</span> <span class="pre">1.</span> <span class="pre">No</span>
+<span class="pre">unit</span>
+<span class="pre">`</span></code>
+<code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">Default</span> <span class="pre">0</span> <span class="pre">for</span> <span class="pre">disable</span> <span class="pre">overload</span>
+<span class="pre">restart</span>
+<span class="pre">`</span></code>
+#### Q Q^</p>
+<p><code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">Enable/Disable</span> <span class="pre">over</span>
+<span class="pre">temperature</span> <span class="pre">restart</span>
+<span class="pre">`</span></code>
+<code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">Q</span> <span class="pre">is</span> <span class="pre">an</span> <span class="pre">Integer</span>
+<span class="pre">ranging</span> <span class="pre">from</span> <span class="pre">0</span> <span class="pre">to</span> <span class="pre">1.</span> <span class="pre">No</span>
+<span class="pre">unit</span>
+<span class="pre">`</span></code>
+<code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">Default</span> <span class="pre">0</span> <span class="pre">for</span> <span class="pre">disable</span> <span class="pre">over</span>
+<span class="pre">temperature</span> <span class="pre">restart</span>
+<span class="pre">`</span></code>
+#### R R^</p>
+<p><code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">Enable/Disable</span> <span class="pre">LCD</span>
+<span class="pre">backlight</span> <span class="pre">on</span>
+<span class="pre">`</span></code>
+<code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">R</span> <span class="pre">is</span> <span class="pre">an</span> <span class="pre">Integer</span>
+<span class="pre">ranging</span> <span class="pre">from</span> <span class="pre">0</span> <span class="pre">to</span> <span class="pre">1.</span> <span class="pre">No</span>
+<span class="pre">unit</span>
+<span class="pre">`</span></code>
+<code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">Default</span> <span class="pre">1</span> <span class="pre">for</span> <span class="pre">enable</span> <span class="pre">LCD</span>
+<span class="pre">backlight</span> <span class="pre">on</span>
+<span class="pre">`</span></code>
+#### S S^</p>
+<p><code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">Enable/Disable</span> <span class="pre">alarm</span>
+<span class="pre">on</span> <span class="pre">when</span> <span class="pre">primary</span>
+<span class="pre">source</span> <span class="pre">interrupt</span>
+<span class="pre">`</span></code>
+<code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">S</span> <span class="pre">is</span> <span class="pre">an</span> <span class="pre">Integer</span>
+<span class="pre">ranging</span> <span class="pre">from</span> <span class="pre">0</span> <span class="pre">to</span> <span class="pre">1.</span> <span class="pre">No</span>
+<span class="pre">unit</span>
+<span class="pre">`</span></code>
+<code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">Default</span> <span class="pre">1</span> <span class="pre">for</span> <span class="pre">enable</span> <span class="pre">alarm</span> <span class="pre">on</span>
+<span class="pre">when</span> <span class="pre">primary</span> <span class="pre">source</span> <span class="pre">interrupt</span>
+<span class="pre">`</span></code>
+#### T T^</p>
+<p><code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">Enable/Disable</span> <span class="pre">fault</span>
+<span class="pre">code</span> <span class="pre">record</span>
+<span class="pre">`</span></code>
+<code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">T</span> <span class="pre">is</span> <span class="pre">an</span> <span class="pre">Integer</span>
+<span class="pre">ranging</span> <span class="pre">from</span> <span class="pre">0</span> <span class="pre">to</span> <span class="pre">1.</span> <span class="pre">No</span>
+<span class="pre">unit</span>
+<span class="pre">`</span></code>
+<code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">Default</span> <span class="pre">1</span> <span class="pre">for</span> <span class="pre">disable</span> <span class="pre">fault</span> <span class="pre">code</span>
+<span class="pre">record</span>
+<span class="pre">`</span></code>
+<code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">U</span> <span class="pre">U^</span> <span class="pre">Overload</span> <span class="pre">bypass</span>
+<span class="pre">`</span></code>
+<code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">U</span> <span class="pre">is</span> <span class="pre">an</span> <span class="pre">Integer</span>
+<span class="pre">ranging</span> <span class="pre">from</span> <span class="pre">0</span> <span class="pre">to</span> <span class="pre">1.</span> <span class="pre">No</span>
+<span class="pre">unit</span>
+<span class="pre">`</span></code>
+<code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">Default</span> <span class="pre">0</span> <span class="pre">for</span> <span class="pre">disable</span> <span class="pre">overload</span>
+<span class="pre">bypass</span> <span class="pre">function</span>
+<span class="pre">`</span></code>
+#### V V^</p>
+<p><code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">Enable/Disable</span> <span class="pre">LCD</span>
+<span class="pre">display</span> <span class="pre">escape</span> <span class="pre">to</span>
+<span class="pre">default</span> <span class="pre">page</span> <span class="pre">after</span> <span class="pre">1min</span>
+<span class="pre">timeout</span>
+<span class="pre">`</span></code>
+<code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">V</span> <span class="pre">is</span> <span class="pre">an</span> <span class="pre">Integer</span>
+<span class="pre">ranging</span> <span class="pre">from</span> <span class="pre">0</span> <span class="pre">to</span> <span class="pre">1.</span> <span class="pre">No</span>
+<span class="pre">unit</span>
+<span class="pre">`</span></code>
+<code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">Default</span> <span class="pre">1</span> <span class="pre">for</span> <span class="pre">LCD</span> <span class="pre">display</span>
+<span class="pre">escape</span> <span class="pre">to</span> <span class="pre">default</span> <span class="pre">page</span>
+<span class="pre">`</span></code>
+#### W W</p>
+<p><code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">Output</span> <span class="pre">mode</span> <span class="pre">W</span> <span class="pre">is</span> <span class="pre">an</span> <span class="pre">Integer</span>
+<span class="pre">ranging</span> <span class="pre">from</span> <span class="pre">0</span> <span class="pre">to</span> <span class="pre">4.</span> <span class="pre">No</span>
+<span class="pre">unit</span>
+<span class="pre">`</span></code>
+<code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">Default</span> <span class="pre">0</span> <span class="pre">for</span> <span class="pre">single</span> <span class="pre">output</span>
+<span class="pre">`</span></code>
+#### Y YY.Y^</p>
+<p><code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">Battery</span> <span class="pre">re-discharge</span>
+<span class="pre">voltage</span>
+<span class="pre">`</span></code>
+<code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">W</span> <span class="pre">is</span> <span class="pre">an</span> <span class="pre">Integer</span>
+<span class="pre">ranging</span> <span class="pre">from</span> <span class="pre">0</span> <span class="pre">to</span> <span class="pre">9.</span>
+<span class="pre">The</span> <span class="pre">unit</span> <span class="pre">is</span> <span class="pre">V</span>
+<span class="pre">`</span></code>
+<code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">Default</span> <span class="pre">54.0</span> <span class="pre">for</span> <span class="pre">HV</span> <span class="pre">model</span>
+<span class="pre">`</span></code></p>
+<p>#### X X^</p>
+<p><code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">PV</span> <span class="pre">OK</span> <span class="pre">condition</span> <span class="pre">for</span>
+<span class="pre">parallel</span>
+<span class="pre">`</span></code>
+<code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">X</span> <span class="pre">is</span> <span class="pre">an</span> <span class="pre">Integer</span> <span class="pre">ranging</span>
+<span class="pre">from</span> <span class="pre">0</span> <span class="pre">to</span> <span class="pre">1</span>
+<span class="pre">`</span></code>
+<code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">0:</span> <span class="pre">As</span> <span class="pre">long</span> <span class="pre">as</span> <span class="pre">one</span> <span class="pre">unit</span> <span class="pre">of</span> <span class="pre">inverters</span>
+<span class="pre">has</span> <span class="pre">connect</span> <span class="pre">PV,</span> <span class="pre">parallel</span> <span class="pre">system</span>
+<span class="pre">will</span> <span class="pre">consider</span> <span class="pre">PV</span> <span class="pre">OK;</span>
+<span class="pre">`</span></code>
+<code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">Z</span> <span class="pre">Z^</span> <span class="pre">PV</span> <span class="pre">power</span> <span class="pre">balance^</span> <span class="pre">X</span> <span class="pre">is</span> <span class="pre">an</span> <span class="pre">Integer</span> <span class="pre">ranging</span>
+<span class="pre">from</span> <span class="pre">0</span> <span class="pre">to</span> <span class="pre">1</span>
+<span class="pre">`</span></code>
+<code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">0:</span> <span class="pre">PV</span> <span class="pre">input</span> <span class="pre">max</span> <span class="pre">current</span> <span class="pre">will</span> <span class="pre">be</span> <span class="pre">the</span>
+<span class="pre">max</span> <span class="pre">charged</span> <span class="pre">current;</span>
+<span class="pre">`</span></code>
+<code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">a</span> <span class="pre">aaa^</span>
+<span class="pre">`</span></code>
+<code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">Max.</span> <span class="pre">charging</span> <span class="pre">time</span> <span class="pre">at</span>
+<span class="pre">C.V</span> <span class="pre">stage(only</span> <span class="pre">48V</span>
+<span class="pre">model)</span>
+<span class="pre">`</span></code>
+<code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">a</span> <span class="pre">is</span> <span class="pre">an</span> <span class="pre">Integer</span> <span class="pre">ranging</span>
+<span class="pre">from</span> <span class="pre">0</span> <span class="pre">to</span> <span class="pre">9</span>
+<span class="pre">`</span></code>
+<code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">b</span> <span class="pre">bbb</span>
+<span class="pre">`</span></code>
+<code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">Max</span> <span class="pre">discharging</span>
+<span class="pre">current</span> <span class="pre">(only</span> <span class="pre">48V</span>
+<span class="pre">model)</span>
+<span class="pre">`</span></code>
+<code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">b</span> <span class="pre">is</span> <span class="pre">an</span> <span class="pre">integer</span> <span class="pre">ranging</span>
+<span class="pre">from</span> <span class="pre">0</span> <span class="pre">to</span> <span class="pre">9.</span> <span class="pre">The</span> <span class="pre">units</span>
+<span class="pre">is</span> <span class="pre">A.</span>
+<span class="pre">`</span></code>
+### 2.15 QMCHGCR&lt;cr&gt;: Enquiry selectable value about max charging current</p>
+<p><code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">Computer:</span> <span class="pre">QMCHGCR&lt;CRC&gt;&lt;cr&gt;</span>
+<span class="pre">Device:</span> <span class="pre">(AAA</span> <span class="pre">BBB</span> <span class="pre">CCC</span> <span class="pre">DDD......&lt;CRC&gt;&lt;cr&gt;</span>
+<span class="pre">More</span> <span class="pre">value</span> <span class="pre">can</span> <span class="pre">be</span> <span class="pre">added,</span> <span class="pre">make</span> <span class="pre">sure</span> <span class="pre">there</span> <span class="pre">is</span> <span class="pre">a</span> <span class="pre">space</span> <span class="pre">character</span> <span class="pre">between</span> <span class="pre">every</span> <span class="pre">value.</span>
+<span class="pre">`</span></code>
+### 2.16 QMUCHGCR&lt;cr&gt;: Enquiry selectable value about max utility charging current</p>
+<p><code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">Computer:</span> <span class="pre">QMUCHGCR&lt;CRC&gt;&lt;cr&gt;</span>
+<span class="pre">Device:</span> <span class="pre">(AAA</span> <span class="pre">BBB</span> <span class="pre">CCC</span> <span class="pre">DDD......&lt;CRC&gt;&lt;cr&gt;</span>
+<span class="pre">More</span> <span class="pre">value</span> <span class="pre">can</span> <span class="pre">be</span> <span class="pre">added,</span> <span class="pre">make</span> <span class="pre">sure</span> <span class="pre">there</span> <span class="pre">is</span> <span class="pre">a</span> <span class="pre">space</span> <span class="pre">character</span> <span class="pre">between</span> <span class="pre">every</span> <span class="pre">value.</span>
+<span class="pre">`</span></code>
+### 2.17 QOPPT&lt;cr&gt;: The device output source priority time order inquiry</p>
+<p>Computer: QOPPT&lt;CRC&gt;&lt;cr&gt;
+Device: (M M M M M M M M M M M M M M M M M M M M M M M M N O O
+O&lt;CRC&gt;&lt;cr&gt;
+M: 24 hour correspond to the output source priority (0: Utility first, 1: Solar first, 2: SBU)
+N: device output source priority
+O: selection of output source priority order
+Example:
+Computer: QOPPT&lt;CRC&gt;&lt;cr&gt;
+Device: (0 0 0 0 0 2 2 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 2&lt;CRC&gt;&lt;cr&gt;
+Means: the device output source priority time order is SBU from 5 to 6, and output source priority
+is Utility first.</p>
+<p>### 2.18 QCHPT&lt;cr&gt;: The device charger source priority time order inquiry</p>
+<p>Computer: QCHPT&lt;CRC&gt;&lt;cr&gt;
+Device: (M M M M M M M M M M M M M M M M M M M M M M M M N O O
+O&lt;CRC&gt;&lt;cr&gt;
+M: 24 hour correspond to the charger source priority (1: Solar first, 2: Solar + Utility, 3: Only solar
+charging permitted)</p>
+<p><code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">N:</span> <span class="pre">device</span> <span class="pre">charger</span> <span class="pre">source</span> <span class="pre">priority</span>
+<span class="pre">O:</span> <span class="pre">selection</span> <span class="pre">of</span> <span class="pre">o</span> <span class="pre">charger</span> <span class="pre">source</span> <span class="pre">priority</span> <span class="pre">order</span>
+<span class="pre">Example:</span>
+<span class="pre">`</span></code></p>
+<p>Computer: QCHPT&lt;CRC&gt;&lt;cr&gt;
+Device: (1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 2 2 2 2 2 2 1 0&lt;CRC&gt;&lt;cr&gt;
+Means: the device charger source priority time order is solar + utility from 20 to 23, and charger
+source priority is Solar first.</p>
+<p>### 2.19 QT&lt;cr&gt;: Time inquiry</p>
+<p><code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">Computer:</span> <span class="pre">QT&lt;cr&gt;</span>
+<span class="pre">Device:</span> <span class="pre">(YYYYMMDDHHMMSS&lt;cr&gt;</span>
+<span class="pre">Example:</span>
+<span class="pre">Computer:</span> <span class="pre">QT&lt;cr&gt;</span>
+<span class="pre">Device:</span> <span class="pre">(20180101111120&lt;cr&gt;</span>
+<span class="pre">Means:</span> <span class="pre">The</span> <span class="pre">time</span> <span class="pre">is</span> <span class="pre">2018/01/01</span> <span class="pre">11:11:20.</span>
+<span class="pre">Data</span> <span class="pre">Description</span> <span class="pre">Notes</span>
+<span class="pre">(</span> <span class="pre">Start</span> <span class="pre">byte</span>
+<span class="pre">YYYYMMDD</span> <span class="pre">Date</span> <span class="pre">Y,</span> <span class="pre">M</span> <span class="pre">and</span> <span class="pre">D</span> <span class="pre">are</span> <span class="pre">an</span> <span class="pre">Integer</span> <span class="pre">number</span> <span class="pre">0</span> <span class="pre">to</span> <span class="pre">9.</span>
+<span class="pre">HHMMSS</span> <span class="pre">Time</span> <span class="pre">H,</span> <span class="pre">M</span> <span class="pre">and</span> <span class="pre">S</span> <span class="pre">are</span> <span class="pre">an</span> <span class="pre">Integer</span> <span class="pre">number</span> <span class="pre">0</span> <span class="pre">to</span> <span class="pre">9.</span>
+<span class="pre">`</span></code>
+### 2.20 QBEQI&lt;cr&gt;: Battery equalization status parameters inquiry</p>
+<p><code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">Computer:</span> <span class="pre">QBEQI&lt;CRC&gt;&lt;cr&gt;</span>
+<span class="pre">Device:</span> <span class="pre">(B</span> <span class="pre">CCC</span> <span class="pre">DDD</span> <span class="pre">EEE</span> <span class="pre">FFF</span> <span class="pre">GG.GG</span> <span class="pre">HHH</span> <span class="pre">III</span> <span class="pre">J</span> <span class="pre">KKKK&lt;CRC&gt;&lt;cr&gt;</span>
+<span class="pre">Data</span> <span class="pre">Description</span> <span class="pre">Notes</span>
+<span class="pre">a</span> <span class="pre">(</span> <span class="pre">Start</span> <span class="pre">byte</span>
+<span class="pre">b</span> <span class="pre">B</span> <span class="pre">Enable</span> <span class="pre">or</span> <span class="pre">Disable</span>
+<span class="pre">equalization</span>
+<span class="pre">`</span></code>
+<code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">B</span> <span class="pre">is</span> <span class="pre">an</span> <span class="pre">Integer</span> <span class="pre">number</span> <span class="pre">0</span> <span class="pre">to</span> <span class="pre">1.</span>
+<span class="pre">`</span></code>
+<code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">C</span> <span class="pre">CCC</span> <span class="pre">equalization</span> <span class="pre">time</span> <span class="pre">C</span> <span class="pre">s</span> <span class="pre">an</span> <span class="pre">Integer</span> <span class="pre">number</span> <span class="pre">0</span> <span class="pre">to</span> <span class="pre">9.</span> <span class="pre">The</span> <span class="pre">unit</span> <span class="pre">is</span>
+<span class="pre">Minute.</span>
+<span class="pre">D</span> <span class="pre">DDD</span> <span class="pre">equalization</span> <span class="pre">period</span> <span class="pre">D</span> <span class="pre">is</span> <span class="pre">an</span> <span class="pre">Integer</span> <span class="pre">number</span> <span class="pre">0</span> <span class="pre">to</span> <span class="pre">9.</span> <span class="pre">The</span> <span class="pre">unit</span> <span class="pre">is</span> <span class="pre">day.</span>
+<span class="pre">E</span> <span class="pre">EEE</span> <span class="pre">equalization</span> <span class="pre">max</span>
+<span class="pre">current</span>
+<span class="pre">`</span></code>
+<code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">E</span> <span class="pre">is</span> <span class="pre">an</span> <span class="pre">Integer</span> <span class="pre">number</span> <span class="pre">from</span> <span class="pre">0</span> <span class="pre">to</span> <span class="pre">9.</span> <span class="pre">The</span> <span class="pre">unit</span> <span class="pre">is</span>
+<span class="pre">A.</span>
+<span class="pre">F</span> <span class="pre">FFF</span> <span class="pre">reserved</span> <span class="pre">reserved</span>
+<span class="pre">G</span> <span class="pre">GG.GG</span> <span class="pre">equalization</span> <span class="pre">voltage</span> <span class="pre">G</span> <span class="pre">is</span> <span class="pre">an</span> <span class="pre">Integer</span> <span class="pre">ranging</span> <span class="pre">from</span> <span class="pre">0</span> <span class="pre">to</span> <span class="pre">9.</span> <span class="pre">The</span> <span class="pre">units</span>
+<span class="pre">is</span> <span class="pre">V.</span>
+<span class="pre">H</span> <span class="pre">HHH</span> <span class="pre">reserved</span> <span class="pre">reserved</span>
+<span class="pre">I</span> <span class="pre">III</span> <span class="pre">equalization</span> <span class="pre">over</span> <span class="pre">time</span> <span class="pre">I</span> <span class="pre">is</span> <span class="pre">an</span> <span class="pre">Integer</span> <span class="pre">ranging</span> <span class="pre">from</span> <span class="pre">0</span> <span class="pre">to</span> <span class="pre">9.</span> <span class="pre">The</span> <span class="pre">unit</span> <span class="pre">is</span>
+<span class="pre">Minute.</span>
+<span class="pre">j</span> <span class="pre">J</span> <span class="pre">equalization</span> <span class="pre">active</span>
+<span class="pre">status</span>
+<span class="pre">`</span></code>
+<code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">J</span> <span class="pre">is</span> <span class="pre">an</span> <span class="pre">Integer</span> <span class="pre">ranging</span> <span class="pre">from</span> <span class="pre">0</span> <span class="pre">to</span> <span class="pre">1.</span>
+<span class="pre">`</span></code>
+<code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">k</span> <span class="pre">KKKK</span> <span class="pre">equalization</span> <span class="pre">elapse</span> <span class="pre">time</span> <span class="pre">K</span> <span class="pre">is</span> <span class="pre">an</span> <span class="pre">Integer</span> <span class="pre">ranging</span> <span class="pre">from</span> <span class="pre">0</span> <span class="pre">to</span> <span class="pre">9.</span> <span class="pre">The</span> <span class="pre">units</span>
+<span class="pre">is</span> <span class="pre">Hour.</span>
+<span class="pre">`</span></code>
+### 2.21 QMN&lt;cr&gt;: Query model name</p>
+<p><code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">Computer:</span> <span class="pre">QMN&lt;CRC&gt;&lt;cr&gt;</span>
+<span class="pre">`</span></code></p>
+<p>Device: (MMMMM-NNNN&lt;CRC&gt;&lt;cr&gt; if device accepts this command, otherwise, responds
+(NAK&lt;cr&gt;
+MMMMM: model name, NNNN: Rated output VA</p>
+<p>### 2.22 QGMN&lt;cr&gt;: Query general model name</p>
+<p><code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">Computer:</span> <span class="pre">QGMN&lt;CRC&gt;&lt;cr&gt;</span>
+<span class="pre">Device:</span> <span class="pre">(NNN&lt;CRC&gt;&lt;cr&gt;</span> <span class="pre">if</span> <span class="pre">Inverter</span> <span class="pre">accepts</span> <span class="pre">this</span> <span class="pre">command,</span> <span class="pre">otherwise,</span> <span class="pre">responds</span> <span class="pre">(NAK&lt;cr&gt;</span>
+<span class="pre">`</span></code>
+### 2.23 QET&lt;CRC&gt;&lt;cr&gt;: Query total PV generated energy</p>
+<p><code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">Computer:</span> <span class="pre">QET&lt;CRC&gt;&lt;cr&gt;</span>
+<span class="pre">Device:</span> <span class="pre">(NNNNNNNN&lt;CRC&gt;&lt;cr&gt;</span>
+<span class="pre">NNNNNNNN:</span> <span class="pre">Generated</span> <span class="pre">energy,</span> <span class="pre">N:</span> <span class="pre">0~9,</span> <span class="pre">unit:</span> <span class="pre">Wh</span>
+<span class="pre">`</span></code>
+### 2.24 QEYyyyy&lt;CRC&gt;&lt;cr&gt;: Query PV generated energy of year</p>
+<p><code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">Computer:</span> <span class="pre">QEYyyyy&lt;cr&gt;</span>
+<span class="pre">Device:</span> <span class="pre">(NNNNNNNN&lt;CRC&gt;&lt;cr&gt;</span>
+<span class="pre">yyyy:</span> <span class="pre">Year,</span> <span class="pre">y:</span> <span class="pre">0~</span>
+<span class="pre">NNNNNNNN:</span> <span class="pre">Generated</span> <span class="pre">energy,</span> <span class="pre">N:</span> <span class="pre">0~9,</span> <span class="pre">unit:</span> <span class="pre">Wh</span>
+<span class="pre">`</span></code>
+### 2.25 QEMyyyymm&lt;CRC&gt;&lt;cr&gt;: Query PV generated energy of month</p>
+<p><code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">Computer:</span> <span class="pre">QEMyyyymm</span> <span class="pre">&lt;CRC&gt;&lt;cr&gt;</span>
+<span class="pre">Device:</span> <span class="pre">(NNNNNNNN&lt;CRC&gt;&lt;cr&gt;</span>
+<span class="pre">yyyy:</span> <span class="pre">Year,</span> <span class="pre">y:</span> <span class="pre">0~</span>
+<span class="pre">mm:</span> <span class="pre">Month,</span> <span class="pre">m:</span> <span class="pre">0~</span>
+<span class="pre">NNNNNNNN:</span> <span class="pre">Generated</span> <span class="pre">energy,</span> <span class="pre">N:</span> <span class="pre">0~9,</span> <span class="pre">unit:</span> <span class="pre">Wh</span>
+<span class="pre">`</span></code>
+### 2 .26 QEDyyyymmdd&lt;CRC&gt;&lt;cr&gt;: Query PV generated energy of day</p>
+<p><code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">Computer:</span> <span class="pre">QEDyyyymmdd&lt;CRC&gt;&lt;cr&gt;</span>
+<span class="pre">Device:</span> <span class="pre">(NNNNNNNN&lt;CRC&gt;&lt;cr&gt;</span>
+<span class="pre">yyyy:</span> <span class="pre">Year,</span> <span class="pre">y:</span> <span class="pre">0~</span>
+<span class="pre">mm:</span> <span class="pre">Month,</span> <span class="pre">m:</span> <span class="pre">0~</span>
+<span class="pre">dd:</span> <span class="pre">Day,</span> <span class="pre">d:</span> <span class="pre">0~</span>
+<span class="pre">NNNNNNNN:</span> <span class="pre">Generated</span> <span class="pre">energy,</span> <span class="pre">N:</span> <span class="pre">0~9,</span> <span class="pre">unit:</span> <span class="pre">Wh</span>
+<span class="pre">`</span></code>
+### 2.27 QLT&lt;CRC&gt;&lt;cr&gt;: Query total output load energy</p>
+<p><code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">Computer:</span> <span class="pre">QLT&lt;CRC&gt;&lt;cr&gt;</span>
+<span class="pre">Device:</span> <span class="pre">(NNNNNNNN&lt;CRC&gt;&lt;cr&gt;</span>
+<span class="pre">NNNNNNNN:</span> <span class="pre">Output</span> <span class="pre">load</span> <span class="pre">energy,</span> <span class="pre">N:</span> <span class="pre">0~9,</span> <span class="pre">unit:</span> <span class="pre">Wh</span>
+<span class="pre">`</span></code>
+### 2.28 QLYyyyy&lt;CRC&gt;&lt;cr&gt;: Query output load energy of year</p>
+<p><code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">Computer:</span> <span class="pre">QLYyyyy&lt;CRC&gt;&lt;cr&gt;</span>
+<span class="pre">Device:</span> <span class="pre">(NNNNNNNN&lt;CRC&gt;&lt;cr&gt;</span>
+<span class="pre">yyyy:</span> <span class="pre">Year,</span> <span class="pre">y:</span> <span class="pre">0~</span>
+<span class="pre">NNNNNNNN:</span> <span class="pre">Output</span> <span class="pre">load</span> <span class="pre">energy,</span> <span class="pre">N:</span> <span class="pre">0~9,</span> <span class="pre">unit:</span> <span class="pre">Wh</span>
+<span class="pre">`</span></code>
+### 2.29 QLMyyyymm&lt;CRC&gt;&lt;cr&gt;: Query output load energy of month</p>
+<p><code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">Computer:</span> <span class="pre">QLMyyyymm&lt;CRC&gt;&lt;cr&gt;</span>
+<span class="pre">Device:</span> <span class="pre">(NNNNNNNN&lt;CRC&gt;&lt;cr&gt;</span>
+<span class="pre">yyyy:</span> <span class="pre">Year,</span> <span class="pre">y:</span> <span class="pre">0~</span>
+<span class="pre">mm:</span> <span class="pre">Month,</span> <span class="pre">m:</span> <span class="pre">0~</span>
+<span class="pre">NNNNNNNN:</span> <span class="pre">Output</span> <span class="pre">load</span> <span class="pre">energy,</span> <span class="pre">N:</span> <span class="pre">0~9,</span> <span class="pre">unit:</span> <span class="pre">Wh</span>
+<span class="pre">`</span></code></p>
+<p>### 2.30 QLDyyyymmdd&lt;CRC&gt;&lt;cr&gt;: Query output load energy of day…………………………………………………..</p>
+<p><code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">Computer:</span> <span class="pre">QLDyyyymmdd&lt;CRC&gt;&lt;cr&gt;</span>
+<span class="pre">Device:</span> <span class="pre">(NNNNNNNN&lt;CRC&gt;&lt;cr&gt;</span>
+<span class="pre">yyyy:</span> <span class="pre">Year,</span> <span class="pre">y:</span> <span class="pre">0~</span>
+<span class="pre">mm:</span> <span class="pre">Month,</span> <span class="pre">m:</span> <span class="pre">0~</span>
+<span class="pre">dd:</span> <span class="pre">Day,</span> <span class="pre">d:</span> <span class="pre">0~</span>
+<span class="pre">NNNNNNNN:</span> <span class="pre">Output</span> <span class="pre">load</span> <span class="pre">energy,</span> <span class="pre">N:</span> <span class="pre">0~9,</span> <span class="pre">unit:</span> <span class="pre">Wh</span>
+<span class="pre">`</span></code>
+### 2.31 QBMS&lt;CRC&gt;&lt;cr&gt;: BMS message</p>
+<p><code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">Computer:</span> <span class="pre">QBMS&lt;CRC&gt;&lt;cr&gt;</span>
+<span class="pre">Device:</span> <span class="pre">(ACK</span> <span class="pre">&lt;CRC&gt;&lt;cr&gt;</span>
+<span class="pre">`</span></code>
+### 2.32 PBMS&lt;CRC&gt;&lt;cr&gt;: BMS message</p>
+<p><code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">Remote</span> <span class="pre">box:</span> <span class="pre">PBMSa</span> <span class="pre">bbb</span> <span class="pre">c</span> <span class="pre">d</span> <span class="pre">e</span> <span class="pre">fff</span> <span class="pre">ggg</span> <span class="pre">hhh</span> <span class="pre">iiii</span> <span class="pre">jjjj&lt;CRC&gt;&lt;cr&gt;</span>
+<span class="pre">Device:</span> <span class="pre">(ACK&lt;CRC&gt;&lt;cr&gt;</span>
+<span class="pre">Data</span> <span class="pre">Description</span> <span class="pre">Notes</span>
+<span class="pre">(</span> <span class="pre">Start</span> <span class="pre">byte</span>
+<span class="pre">a</span> <span class="pre">Battery</span> <span class="pre">connect</span> <span class="pre">status</span> <span class="pre">0:</span> <span class="pre">connect,</span> <span class="pre">1:</span> <span class="pre">disconnect.</span>
+<span class="pre">`</span></code>
+<code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">bbb</span> <span class="pre">Battery</span> <span class="pre">percentage</span> <span class="pre">b</span> <span class="pre">is</span> <span class="pre">an</span> <span class="pre">Integer</span> <span class="pre">ranging</span> <span class="pre">from</span> <span class="pre">0</span> <span class="pre">to</span> <span class="pre">9.</span> <span class="pre">The</span> <span class="pre">units</span>
+<span class="pre">is</span> <span class="pre">%.</span>
+<span class="pre">`</span></code>
+<code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">c</span>
+<span class="pre">Force</span> <span class="pre">AC</span> <span class="pre">charge</span> <span class="pre">battery</span> <span class="pre">in</span>
+<span class="pre">any</span> <span class="pre">case</span>
+<span class="pre">0:</span> <span class="pre">Do</span> <span class="pre">not</span> <span class="pre">force,</span> <span class="pre">1:</span> <span class="pre">Force.</span>
+<span class="pre">`</span></code>
+<code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">d</span> <span class="pre">Battery</span> <span class="pre">stop</span> <span class="pre">discharge</span> <span class="pre">flag</span> <span class="pre">0:</span> <span class="pre">Enable</span> <span class="pre">discharge,</span> <span class="pre">1:</span> <span class="pre">disable</span> <span class="pre">discharging</span>
+<span class="pre">e</span> <span class="pre">Battery</span> <span class="pre">stop</span> <span class="pre">charge</span> <span class="pre">flag</span> <span class="pre">0:</span> <span class="pre">Enable</span> <span class="pre">charge,</span> <span class="pre">1:</span> <span class="pre">disable</span> <span class="pre">charging</span>
+<span class="pre">`</span></code>
+<code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">fff</span> <span class="pre">Battery</span> <span class="pre">C.V.</span> <span class="pre">charging</span> <span class="pre">voltage</span>
+<span class="pre">f</span> <span class="pre">is</span> <span class="pre">an</span> <span class="pre">Integer</span> <span class="pre">ranging</span> <span class="pre">from</span> <span class="pre">0</span> <span class="pre">to</span> <span class="pre">9.</span> <span class="pre">The</span> <span class="pre">units</span>
+<span class="pre">is</span> <span class="pre">V.</span>
+<span class="pre">`</span></code>
+<code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">ggg</span>
+<span class="pre">Battery</span> <span class="pre">floating</span> <span class="pre">charging</span>
+<span class="pre">voltage</span>
+<span class="pre">`</span></code>
+<code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">g</span> <span class="pre">is</span> <span class="pre">an</span> <span class="pre">Integer</span> <span class="pre">ranging</span> <span class="pre">from</span> <span class="pre">0</span> <span class="pre">to</span> <span class="pre">9.</span> <span class="pre">The</span> <span class="pre">units</span>
+<span class="pre">is</span> <span class="pre">V.</span>
+<span class="pre">`</span></code>
+<code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">hhh</span> <span class="pre">Battery</span> <span class="pre">cut-off</span> <span class="pre">voltage</span>
+<span class="pre">h</span> <span class="pre">is</span> <span class="pre">an</span> <span class="pre">Integer</span> <span class="pre">ranging</span> <span class="pre">from</span> <span class="pre">0</span> <span class="pre">to</span> <span class="pre">9.</span> <span class="pre">The</span> <span class="pre">units</span>
+<span class="pre">is</span> <span class="pre">V.</span>
+<span class="pre">`</span></code>
+<code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">iiii</span>
+<span class="pre">Battery</span> <span class="pre">max.</span> <span class="pre">charging</span>
+<span class="pre">current</span>
+<span class="pre">`</span></code>
+<code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">i</span> <span class="pre">is</span> <span class="pre">an</span> <span class="pre">Integer</span> <span class="pre">ranging</span> <span class="pre">from</span> <span class="pre">0</span> <span class="pre">to</span> <span class="pre">9.</span> <span class="pre">The</span> <span class="pre">units</span>
+<span class="pre">is</span> <span class="pre">A.</span>
+<span class="pre">`</span></code>
+<code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">jjjj</span>
+<span class="pre">Battery</span> <span class="pre">max.</span> <span class="pre">discharging</span>
+<span class="pre">current</span>
+<span class="pre">`</span></code>
+<code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">j</span> <span class="pre">is</span> <span class="pre">an</span> <span class="pre">Integer</span> <span class="pre">ranging</span> <span class="pre">from</span> <span class="pre">0</span> <span class="pre">to</span> <span class="pre">9.</span> <span class="pre">The</span> <span class="pre">units</span>
+<span class="pre">is</span> <span class="pre">A.</span>
+<span class="pre">`</span></code>
+### 2.33 QLED&lt;cr&gt;: LED status parameters inquiry</p>
+<p><code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">Computer:</span> <span class="pre">QLED&lt;cr&gt;</span>
+<span class="pre">UPS:</span> <span class="pre">(A</span> <span class="pre">B</span> <span class="pre">C</span> <span class="pre">D</span> <span class="pre">E</span> <span class="pre">aaa1bbb1ccc1</span> <span class="pre">aaa</span> <span class="pre">2</span> <span class="pre">bbb</span> <span class="pre">2</span> <span class="pre">ccc</span> <span class="pre">2</span> <span class="pre">(aaa</span> <span class="pre">3</span> <span class="pre">bbb</span> <span class="pre">3</span> <span class="pre">ccc3)&lt;cr&gt;</span>
+<span class="pre">Item</span> <span class="pre">Data</span> <span class="pre">description</span> <span class="pre">Notes</span>
+<span class="pre">a</span> <span class="pre">(</span> <span class="pre">Start</span> <span class="pre">code</span>
+<span class="pre">b</span> <span class="pre">A</span> <span class="pre">Enable</span> <span class="pre">or</span> <span class="pre">Disable</span> <span class="pre">A</span> <span class="pre">is</span> <span class="pre">an</span> <span class="pre">Integer</span> <span class="pre">number</span> <span class="pre">0</span> <span class="pre">to</span> <span class="pre">1.</span>
+<span class="pre">`</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">c</span> <span class="pre">B</span> <span class="pre">LED</span> <span class="pre">speed</span> <span class="pre">B</span> <span class="pre">is</span> <span class="pre">an</span> <span class="pre">Integer</span> <span class="pre">ranging</span> <span class="pre">from</span> <span class="pre">0</span> <span class="pre">to</span> <span class="pre">2.</span> <span class="pre">0</span>
+<span class="pre">means</span> <span class="pre">low;</span> <span class="pre">1</span> <span class="pre">means</span> <span class="pre">medium;</span> <span class="pre">2</span> <span class="pre">means</span>
+<span class="pre">fast</span>
+<span class="pre">d</span> <span class="pre">C</span> <span class="pre">LED</span> <span class="pre">effect</span> <span class="pre">C</span> <span class="pre">is</span> <span class="pre">an</span> <span class="pre">Integer</span> <span class="pre">ranging</span> <span class="pre">from</span> <span class="pre">0</span> <span class="pre">to</span> <span class="pre">3.</span> <span class="pre">0</span>
+<span class="pre">means</span> <span class="pre">breathing;</span> <span class="pre">2</span> <span class="pre">means</span> <span class="pre">solid;</span> <span class="pre">3</span>
+<span class="pre">means</span> <span class="pre">right</span> <span class="pre">scrolling</span>
+<span class="pre">e</span> <span class="pre">D</span> <span class="pre">LED</span> <span class="pre">brightness</span> <span class="pre">D</span> <span class="pre">is</span> <span class="pre">an</span> <span class="pre">Integer</span> <span class="pre">ranging</span> <span class="pre">from</span> <span class="pre">1</span> <span class="pre">to</span> <span class="pre">9.</span> <span class="pre">1</span>
+<span class="pre">means</span> <span class="pre">low;</span> <span class="pre">5</span> <span class="pre">means</span> <span class="pre">normal;</span> <span class="pre">9</span> <span class="pre">means</span>
+<span class="pre">high</span>
+<span class="pre">f</span> <span class="pre">E</span> <span class="pre">LED</span> <span class="pre">total</span> <span class="pre">number</span> <span class="pre">of</span>
+<span class="pre">colors</span>
+<span class="pre">`</span></code>
+<code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">E</span> <span class="pre">is</span> <span class="pre">an</span> <span class="pre">Integer</span> <span class="pre">ranging</span> <span class="pre">from</span> <span class="pre">2</span> <span class="pre">to</span> <span class="pre">3.</span>
+<span class="pre">`</span></code>
+<code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">g</span> <span class="pre">aaa1bbb1ccc1</span>
+<span class="pre">aaa</span> <span class="pre">2</span> <span class="pre">bbb</span> <span class="pre">2</span> <span class="pre">ccc</span> <span class="pre">2</span>
+<span class="pre">(aaa</span> <span class="pre">3</span> <span class="pre">bbb</span> <span class="pre">3</span> <span class="pre">ccc3)</span>
+<span class="pre">`</span></code>
+<code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">aaa</span> <span class="pre">means</span> <span class="pre">red,</span> <span class="pre">bbb</span>
+<span class="pre">means</span> <span class="pre">green,</span> <span class="pre">ccc</span>
+<span class="pre">means</span> <span class="pre">blue</span>
+<span class="pre">`</span></code>
+<code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">aaa1,</span> <span class="pre">bbb1,</span> <span class="pre">ccc1,</span> <span class="pre">aaa</span> <span class="pre">2</span> <span class="pre">,</span> <span class="pre">bbb</span> <span class="pre">2</span> <span class="pre">,</span> <span class="pre">ccc</span> <span class="pre">2</span> <span class="pre">,</span>
+<span class="pre">aaa</span> <span class="pre">3</span> <span class="pre">,</span> <span class="pre">bbb</span> <span class="pre">3</span> <span class="pre">,</span> <span class="pre">ccc</span> <span class="pre">3</span> <span class="pre">is</span> <span class="pre">an</span> <span class="pre">Integer</span> <span class="pre">ranging</span>
+<span class="pre">from</span> <span class="pre">0</span> <span class="pre">to</span> <span class="pre">255.</span>
+<span class="pre">`</span></code>
+## 3 Setting parameters Command</p>
+<p>### 3.1 ATE1&lt;CRC&gt;&lt;cr&gt;: Start ATE test, remote panel stop polling</p>
+<p>### 3.2 ATE0: End ATE test, remote panel polling</p>
+<p>### 3.3 PE&lt;X&gt; / PD&lt;X&gt;&lt;cr&gt;: Setting some status enable/disable</p>
+<p><code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">Computer:</span> <span class="pre">PE&lt;X&gt;</span> <span class="pre">/</span> <span class="pre">PD&lt;X&gt;&lt;CRC&gt;&lt;cr&gt;</span>
+<span class="pre">Device:</span> <span class="pre">(ACK&lt;CRC&gt;&lt;cr&gt;</span> <span class="pre">if</span> <span class="pre">DEVICE</span> <span class="pre">accepts</span> <span class="pre">this</span> <span class="pre">command,</span> <span class="pre">otherwise,</span> <span class="pre">responds</span> <span class="pre">(NAK&lt;cr&gt;</span>
+<span class="pre">PEx</span> <span class="pre">/</span> <span class="pre">PDx</span> <span class="pre">set</span> <span class="pre">flag</span> <span class="pre">status.</span> <span class="pre">PE</span> <span class="pre">means</span> <span class="pre">enable,</span> <span class="pre">PD</span> <span class="pre">means</span> <span class="pre">disable</span>
+<span class="pre">x</span> <span class="pre">Control</span> <span class="pre">setting</span>
+<span class="pre">a</span> <span class="pre">Enable/disable</span> <span class="pre">silence</span> <span class="pre">buzzer</span> <span class="pre">or</span> <span class="pre">open</span> <span class="pre">buzzer</span>
+<span class="pre">b</span> <span class="pre">Enable/disable</span> <span class="pre">overload</span> <span class="pre">bypass</span>
+<span class="pre">d</span> <span class="pre">Enable/Disable</span> <span class="pre">solar</span> <span class="pre">feed</span> <span class="pre">to</span> <span class="pre">grid</span> <span class="pre">(reserved</span> <span class="pre">feature)</span>
+<span class="pre">`</span></code>
+<code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">k</span>
+<span class="pre">Enable/Disable</span> <span class="pre">LCD</span> <span class="pre">display</span> <span class="pre">escape</span> <span class="pre">to</span> <span class="pre">default</span> <span class="pre">page</span> <span class="pre">after</span> <span class="pre">1min</span>
+<span class="pre">timeout</span>
+<span class="pre">u</span> <span class="pre">Enable/Disable</span> <span class="pre">overload</span> <span class="pre">restart</span> <span class="pre">and</span> <span class="pre">battery</span> <span class="pre">over</span> <span class="pre">discharge</span> <span class="pre">restart</span>
+<span class="pre">v</span> <span class="pre">Enable/Disable</span> <span class="pre">over</span> <span class="pre">temperature</span> <span class="pre">restart</span>
+<span class="pre">x</span> <span class="pre">Enable/Disable</span> <span class="pre">backlight</span> <span class="pre">on</span>
+<span class="pre">y</span> <span class="pre">Enable/Disable</span> <span class="pre">alarm</span> <span class="pre">on</span> <span class="pre">when</span> <span class="pre">primary</span> <span class="pre">source</span> <span class="pre">interrupt</span>
+<span class="pre">z</span> <span class="pre">Enable/Disable</span> <span class="pre">fault</span> <span class="pre">code</span> <span class="pre">record</span>
+<span class="pre">`</span></code>
+### 3.4 PF&lt;cr&gt;: Setting control parameter to default value</p>
+<p>Computer: PF&lt;CRC&gt;&lt;cr&gt;
+Device: (ACK&lt;CRC&gt;&lt;cr&gt; if device accepts this command, otherwise, responds
+(NAK&lt;CRC&gt;&lt;cr&gt;
+Note: The correct default value can be gain by QDI command.</p>
+<p>### 3.5 MNCHGC&lt;mnnn&gt;&lt;cr&gt;: Setting max charging current</p>
+<p><code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">Computer:</span> <span class="pre">MNCHGC&lt;mnnn&gt;&lt;CRC&gt;&lt;cr&gt;</span>
+<span class="pre">Device:</span> <span class="pre">(ACK&lt;CRC&gt;&lt;cr&gt;</span> <span class="pre">if</span> <span class="pre">device</span> <span class="pre">accepts</span> <span class="pre">this</span> <span class="pre">command,</span> <span class="pre">otherwise,</span> <span class="pre">responds</span>
+<span class="pre">(NAK&lt;CRC&gt;&lt;cr&gt;</span>
+<span class="pre">Setting</span> <span class="pre">value</span> <span class="pre">can</span> <span class="pre">be</span> <span class="pre">gain</span> <span class="pre">by</span> <span class="pre">QMCHGCR</span> <span class="pre">command.</span>
+<span class="pre">nnn</span> <span class="pre">is</span> <span class="pre">max</span> <span class="pre">charging</span> <span class="pre">current,</span> <span class="pre">m</span> <span class="pre">is</span> <span class="pre">parallel</span> <span class="pre">machine</span> <span class="pre">number.</span>
+<span class="pre">`</span></code>
+### 3.6 MUCHGC&lt;mnn&gt;&lt;cr&gt;: Setting utility max charging current</p>
+<p><code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">Computer:</span> <span class="pre">MUCHGC&lt;mnn&gt;&lt;CRC&gt;&lt;cr&gt;</span>
+<span class="pre">Device:</span> <span class="pre">(ACK&lt;CRC&gt;&lt;cr&gt;</span> <span class="pre">if</span> <span class="pre">device</span> <span class="pre">accepts</span> <span class="pre">this</span> <span class="pre">command,</span> <span class="pre">otherwise,</span> <span class="pre">responds</span>
+<span class="pre">(NAK&lt;CRC&gt;&lt;cr&gt;</span>
+<span class="pre">Setting</span> <span class="pre">value</span> <span class="pre">can</span> <span class="pre">be</span> <span class="pre">gain</span> <span class="pre">by</span> <span class="pre">QMUCHGCR</span> <span class="pre">command.</span>
+<span class="pre">nn</span> <span class="pre">is</span> <span class="pre">max</span> <span class="pre">charging</span> <span class="pre">current,</span> <span class="pre">m</span> <span class="pre">is</span> <span class="pre">parallel</span> <span class="pre">machine</span> <span class="pre">number.</span>
+<span class="pre">If</span> <span class="pre">the</span> <span class="pre">max</span> <span class="pre">AC</span> <span class="pre">charging</span> <span class="pre">current</span> <span class="pre">is</span> <span class="pre">greater</span> <span class="pre">than</span> <span class="pre">99A,</span> <span class="pre">modify</span> <span class="pre">it</span> <span class="pre">to</span> <span class="pre">nnn</span>
+<span class="pre">`</span></code>
+### 3.7 F&lt;nn&gt;&lt;cr&gt;: Setting Inverter output rating frequency</p>
+<p><code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">Computer:</span> <span class="pre">F&lt;nn&gt;&lt;CRC&gt;&lt;cr&gt;</span>
+<span class="pre">Device:</span> <span class="pre">(ACK&lt;CRC&gt;&lt;cr&gt;</span> <span class="pre">if</span> <span class="pre">Inverter</span> <span class="pre">accepts</span> <span class="pre">this</span> <span class="pre">command,</span> <span class="pre">otherwise,</span> <span class="pre">responds</span>
+<span class="pre">(NAK&lt;CRC&gt;&lt;cr&gt;</span>
+<span class="pre">Set</span> <span class="pre">UPS</span> <span class="pre">output</span> <span class="pre">rating</span> <span class="pre">frequency</span> <span class="pre">to</span> <span class="pre">50Hz.or</span> <span class="pre">60Hz</span>
+<span class="pre">`</span></code>
+### 3.8 V&lt;nnn&gt;&lt;cr&gt;: Setting device output rating voltage</p>
+<p><code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">Computer:</span> <span class="pre">V&lt;nnn&gt;&lt;CRC&gt;&lt;cr&gt;</span>
+<span class="pre">Device:</span> <span class="pre">(ACK&lt;CRC&gt;&lt;cr&gt;</span> <span class="pre">if</span> <span class="pre">device</span> <span class="pre">accepts</span> <span class="pre">this</span> <span class="pre">command,</span> <span class="pre">otherwise,</span> <span class="pre">responds</span>
+<span class="pre">(NAK&lt;CRC&gt;&lt;cr&gt;</span>
+<span class="pre">Set</span> <span class="pre">inverter</span> <span class="pre">output</span> <span class="pre">rating</span> <span class="pre">voltage</span> <span class="pre">to</span> <span class="pre">220V/230V/240V</span> <span class="pre">for</span> <span class="pre">HV</span> <span class="pre">models.</span>
+<span class="pre">Set</span> <span class="pre">inverter</span> <span class="pre">output</span> <span class="pre">rating</span> <span class="pre">voltage</span> <span class="pre">to</span> <span class="pre">127V/120V/110V</span> <span class="pre">for</span> <span class="pre">LV</span> <span class="pre">models.</span>
+<span class="pre">`</span></code>
+### 3.9 POP&lt;NN&gt;&lt;cr&gt;: Setting device output source priority</p>
+<p><code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">Computer:</span> <span class="pre">POP&lt;NN&gt;&lt;CRC&gt;&lt;cr&gt;</span>
+<span class="pre">Device:</span> <span class="pre">(ACK&lt;CRC&gt;&lt;cr&gt;</span> <span class="pre">if</span> <span class="pre">device</span> <span class="pre">accepts</span> <span class="pre">this</span> <span class="pre">command,</span> <span class="pre">otherwise,</span> <span class="pre">responds</span>
+<span class="pre">(NAK&lt;CRC&gt;&lt;cr&gt;</span>
+<span class="pre">Set</span> <span class="pre">output</span> <span class="pre">source</span> <span class="pre">priority,</span> <span class="pre">00</span> <span class="pre">for</span> <span class="pre">UtilitySolarBat,</span> <span class="pre">01</span> <span class="pre">for</span> <span class="pre">SolarUtilityBat,</span> <span class="pre">02</span> <span class="pre">for</span> <span class="pre">SolarBatUtility</span>
+<span class="pre">`</span></code>
+### 3.10 PBCV&lt;nn.n&gt;&lt;cr&gt;: Set battery re-charge voltage</p>
+<p><code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">Computer:</span> <span class="pre">PBCV&lt;nn.n&gt;&lt;CRC&gt;&lt;cr&gt;</span>
+<span class="pre">Device:</span> <span class="pre">(ACK&lt;CRC&gt;&lt;cr&gt;</span> <span class="pre">if</span> <span class="pre">device</span> <span class="pre">accepts</span> <span class="pre">this</span> <span class="pre">command,</span> <span class="pre">otherwise,</span> <span class="pre">responds</span>
+<span class="pre">(NAK&lt;CRC&gt;&lt;cr&gt;</span>
+<span class="pre">`</span></code>
+### 3.11 PBDV&lt;nn.n&gt;&lt;cr&gt;: Set battery re-discharge voltage</p>
+<p><code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">Computer:</span> <span class="pre">PBDV&lt;nn.n&gt;&lt;CRC&gt;&lt;cr&gt;</span>
+<span class="pre">Device:</span> <span class="pre">(ACK&lt;CRC&gt;&lt;cr&gt;</span> <span class="pre">if</span> <span class="pre">device</span> <span class="pre">accepts</span> <span class="pre">this</span> <span class="pre">command,</span> <span class="pre">otherwise,</span> <span class="pre">responds</span>
+<span class="pre">(NAK&lt;CRC&gt;&lt;cr&gt;</span>
+<span class="pre">00.0V</span> <span class="pre">means</span> <span class="pre">battery</span> <span class="pre">is</span> <span class="pre">full</span> <span class="pre">(charging</span> <span class="pre">in</span> <span class="pre">float</span> <span class="pre">mode).</span>
+<span class="pre">`</span></code>
+### 3.12 PCP&lt;NN&gt;&lt;cr&gt;: Setting device charger priority</p>
+<p><code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">Computer:</span> <span class="pre">PCP&lt;NN&gt;&lt;CRC&gt;&lt;cr&gt;</span>
+<span class="pre">Device:</span> <span class="pre">(ACK&lt;CRC&gt;&lt;cr&gt;</span> <span class="pre">if</span> <span class="pre">device</span> <span class="pre">accepts</span> <span class="pre">this</span> <span class="pre">command,</span> <span class="pre">otherwise,</span> <span class="pre">responds</span>
+<span class="pre">`</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">(NAK&lt;CRC&gt;&lt;cr&gt;</span>
+<span class="pre">Set</span> <span class="pre">output</span> <span class="pre">source</span> <span class="pre">priority,</span>
+<span class="pre">01</span> <span class="pre">for</span> <span class="pre">solar</span> <span class="pre">first,</span> <span class="pre">0</span> <span class="pre">2</span> <span class="pre">for</span> <span class="pre">solar</span> <span class="pre">and</span> <span class="pre">utility,</span> <span class="pre">0</span> <span class="pre">3</span> <span class="pre">for</span> <span class="pre">only</span> <span class="pre">solar</span> <span class="pre">charging</span>
+<span class="pre">`</span></code>
+### 3.13 PGR&lt;NN&gt;&lt;cr&gt;: Setting device grid working range</p>
+<p><code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">Computer:</span> <span class="pre">PGR&lt;NN&gt;&lt;CRC&gt;&lt;cr&gt;</span>
+<span class="pre">Device:</span> <span class="pre">(ACK&lt;CRC&gt;&lt;cr&gt;</span> <span class="pre">if</span> <span class="pre">device</span> <span class="pre">accepts</span> <span class="pre">this</span> <span class="pre">command,</span> <span class="pre">otherwise,</span> <span class="pre">responds</span> <span class="pre">(NAK&lt;cr&gt;</span>
+<span class="pre">Set</span> <span class="pre">device</span> <span class="pre">grid</span> <span class="pre">working</span> <span class="pre">range,</span> <span class="pre">00</span> <span class="pre">for</span> <span class="pre">appliance,</span> <span class="pre">01</span> <span class="pre">for</span> <span class="pre">UPS</span>
+<span class="pre">`</span></code>
+### 3.14 PBT&lt;NN&gt;&lt;cr&gt;: Setting battery type</p>
+<p><code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">Computer:</span> <span class="pre">PBT&lt;NN&gt;&lt;CRC&gt;&lt;cr&gt;</span>
+<span class="pre">Device:</span> <span class="pre">(ACK&lt;CRC&gt;&lt;cr&gt;</span> <span class="pre">if</span> <span class="pre">device</span> <span class="pre">accepts</span> <span class="pre">this</span> <span class="pre">command,</span> <span class="pre">otherwise,</span> <span class="pre">responds</span>
+<span class="pre">(NAK&lt;CRC&gt;&lt;cr&gt;</span>
+<span class="pre">Setting</span> <span class="pre">battery</span> <span class="pre">type,</span> <span class="pre">00</span> <span class="pre">for</span> <span class="pre">AGM,</span> <span class="pre">01</span> <span class="pre">for</span> <span class="pre">Flooded</span> <span class="pre">battery,</span> <span class="pre">02</span> <span class="pre">for</span> <span class="pre">user</span> <span class="pre">define,</span> <span class="pre">03</span> <span class="pre">for</span> <span class="pre">Pylontech,</span> <span class="pre">04</span>
+<span class="pre">for</span> <span class="pre">Shinheung,</span> <span class="pre">05</span> <span class="pre">for</span> <span class="pre">Weco,</span> <span class="pre">06</span> <span class="pre">for</span> <span class="pre">Soltaro,</span> <span class="pre">07</span> <span class="pre">for</span> <span class="pre">BAK,</span> <span class="pre">08</span> <span class="pre">for</span> <span class="pre">Lib,</span> <span class="pre">09</span> <span class="pre">for</span> <span class="pre">Lic</span>
+<span class="pre">`</span></code>
+### 3.15 POPM&lt;nn &gt;&lt;cr&gt;: Set output mode</p>
+<p><code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">Computer:</span> <span class="pre">POPM</span> <span class="pre">&lt;nn</span> <span class="pre">&gt;&lt;CRC&gt;&lt;cr&gt;</span>
+<span class="pre">Device:</span> <span class="pre">(ACK&lt;CRC&gt;&lt;cr&gt;</span> <span class="pre">if</span> <span class="pre">device</span> <span class="pre">accepts</span> <span class="pre">this</span> <span class="pre">command,</span> <span class="pre">otherwise,</span> <span class="pre">responds</span> <span class="pre">(NAK&lt;CRC&gt;&lt;cr&gt;</span>
+<span class="pre">Set</span> <span class="pre">output</span> <span class="pre">mode</span> <span class="pre">to</span> <span class="pre">00/01/02/03/04</span> <span class="pre">for</span> <span class="pre">HV</span> <span class="pre">models.</span>
+<span class="pre">Set</span> <span class="pre">output</span> <span class="pre">mode</span> <span class="pre">to</span> <span class="pre">00/01/02/03/04/05/06/07</span> <span class="pre">for</span> <span class="pre">LV</span> <span class="pre">models.</span>
+<span class="pre">`</span></code>
+nn:
+00: single machine output</p>
+<p>01: parallel output</p>
+<p>02: Phase 1 of 3 Phase output
+03: Phase 2 of 3 Phase output</p>
+<p>04: Phase 3 of 3 Phase output</p>
+<p><code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">05:</span> <span class="pre">Phase</span> <span class="pre">1</span> <span class="pre">of</span> <span class="pre">2</span> <span class="pre">Phase</span> <span class="pre">output</span>
+<span class="pre">06:</span> <span class="pre">Phase</span> <span class="pre">2</span> <span class="pre">of</span> <span class="pre">2</span> <span class="pre">Phase</span> <span class="pre">output</span> <span class="pre">(120°)</span>
+<span class="pre">07</span> <span class="pre">:</span> <span class="pre">Phase</span> <span class="pre">2</span> <span class="pre">of</span> <span class="pre">2</span> <span class="pre">Phase</span> <span class="pre">output</span> <span class="pre">(180°)</span>
+<span class="pre">`</span></code>
+### 3.16 PPCP&lt;MNN&gt;&lt;cr&gt;: Setting parallel device charger priority………………………………………………………..</p>
+<p><code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">Computer:</span> <span class="pre">PCP&lt;MNN&gt;&lt;CRC&gt;&lt;cr&gt;</span>
+<span class="pre">Device:</span> <span class="pre">(ACK&lt;CRC&gt;&lt;cr&gt;</span> <span class="pre">if</span> <span class="pre">device</span> <span class="pre">accepts</span> <span class="pre">this</span> <span class="pre">command,</span> <span class="pre">otherwise,</span> <span class="pre">responds</span> <span class="pre">(NAK&lt;CRC&gt;&lt;cr&gt;</span>
+<span class="pre">01</span> <span class="pre">for</span> <span class="pre">solar</span> <span class="pre">first,</span> <span class="pre">02</span> <span class="pre">for</span> <span class="pre">solar</span> <span class="pre">and</span> <span class="pre">utility,</span> <span class="pre">03</span> <span class="pre">for</span> <span class="pre">only</span> <span class="pre">solar</span> <span class="pre">charging</span>
+<span class="pre">M</span> <span class="pre">is</span> <span class="pre">parallel</span> <span class="pre">machine</span> <span class="pre">number.</span>
+<span class="pre">`</span></code>
+### 3.17 PSDV&lt;nn.n&gt;&lt;cr&gt;: Setting battery cut-off voltage (Battery under voltage)</p>
+<p><code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">Computer:</span> <span class="pre">PSDV</span> <span class="pre">&lt;nn.n&gt;&lt;CRC&gt;&lt;cr&gt;</span>
+<span class="pre">Device:</span> <span class="pre">(ACK&lt;CRC&gt;&lt;cr&gt;</span> <span class="pre">if</span> <span class="pre">device</span> <span class="pre">accepts</span> <span class="pre">this</span> <span class="pre">command,</span> <span class="pre">otherwise,</span> <span class="pre">responds</span> <span class="pre">(NAK&lt;CRC&gt;&lt;cr&gt;</span>
+<span class="pre">`</span></code>
+### 3.18 PCVV&lt;nn.n&gt;&lt;cr&gt;: Setting battery C.V. (constant voltage) charging voltage</p>
+<p><code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">Computer:</span> <span class="pre">PCVV</span> <span class="pre">&lt;nn.n&gt;&lt;CRC&gt;&lt;cr&gt;</span>
+<span class="pre">Device:</span> <span class="pre">(ACK&lt;CRC&gt;&lt;cr&gt;</span> <span class="pre">if</span> <span class="pre">device</span> <span class="pre">accepts</span> <span class="pre">this</span> <span class="pre">command,</span> <span class="pre">otherwise,</span> <span class="pre">responds</span> <span class="pre">(NAK&lt;CRC&gt;&lt;cr&gt;</span>
+<span class="pre">`</span></code>
+### 3.19 PBFT&lt;nn.n&gt;&lt;cr&gt;: Setting battery float charging voltage</p>
+<p><code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">Computer:</span> <span class="pre">PBFT</span> <span class="pre">&lt;nn.n&gt;&lt;CRC&gt;&lt;cr&gt;</span>
+<span class="pre">`</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">Device:</span> <span class="pre">(ACK&lt;CRC&gt;&lt;cr&gt;</span> <span class="pre">if</span> <span class="pre">device</span> <span class="pre">accepts</span> <span class="pre">this</span> <span class="pre">command,</span> <span class="pre">otherwise,</span> <span class="pre">responds</span> <span class="pre">(NAK&lt;CRC&gt;&lt;cr&gt;</span>
+<span class="pre">`</span></code>
+### 3.20 RTEY&lt;cr&gt;: Reset all stored data for PV/load energy</p>
+<p><code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">Computer:</span> <span class="pre">RTEY</span> <span class="pre">&lt;CRC&gt;&lt;cr&gt;</span>
+<span class="pre">Device:</span> <span class="pre">(ACK</span> <span class="pre">&lt;CRC&gt;&lt;cr&gt;</span> <span class="pre">if</span> <span class="pre">device</span> <span class="pre">accepts</span> <span class="pre">this</span> <span class="pre">command,</span> <span class="pre">otherwise,</span> <span class="pre">responds</span> <span class="pre">(NAK&lt;cr&gt;</span>
+<span class="pre">`</span></code>
+### 3.21 RTDL&lt;cr&gt;: Erase all data log</p>
+<p><code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">Computer:</span> <span class="pre">RTDL</span> <span class="pre">&lt;CRC&gt;&lt;cr&gt;</span>
+<span class="pre">Device:</span> <span class="pre">(ACK</span> <span class="pre">&lt;CRC&gt;&lt;cr&gt;</span> <span class="pre">if</span> <span class="pre">device</span> <span class="pre">accepts</span> <span class="pre">this</span> <span class="pre">command,</span> <span class="pre">otherwise,</span> <span class="pre">responds</span> <span class="pre">(NAK&lt;cr&gt;</span>
+<span class="pre">`</span></code>
+### 3.22 PBEQE&lt;n&gt;&lt;cr&gt;: Enable or disable battery equalization</p>
+<p><code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">Computer:</span> <span class="pre">PBEQE&lt;n&gt;&lt;CRC&gt;&lt;cr&gt;</span>
+<span class="pre">Device:</span> <span class="pre">(ACK&lt;CRC&gt;&lt;cr&gt;</span> <span class="pre">if</span> <span class="pre">device</span> <span class="pre">accepts</span> <span class="pre">this</span> <span class="pre">command,</span> <span class="pre">otherwise,</span> <span class="pre">responds</span> <span class="pre">(NAK&lt;cr&gt;</span>
+<span class="pre">Enable</span> <span class="pre">or</span> <span class="pre">Disable</span> <span class="pre">battery</span> <span class="pre">equalization,</span> <span class="pre">n=1</span> <span class="pre">means</span> <span class="pre">enable;</span> <span class="pre">n=0</span> <span class="pre">means</span> <span class="pre">disable.</span>
+<span class="pre">`</span></code>
+### 3.23 PBEQT&lt;nnn&gt;&lt;cr&gt;: Set battery equalization time</p>
+<p><code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">Computer:</span> <span class="pre">PBEQT&lt;nnn&gt;&lt;CRC&gt;&lt;cr&gt;</span>
+<span class="pre">Device:</span> <span class="pre">(ACK&lt;CRC&gt;&lt;cr&gt;</span> <span class="pre">if</span> <span class="pre">device</span> <span class="pre">accepts</span> <span class="pre">this</span> <span class="pre">command,</span> <span class="pre">otherwise,</span> <span class="pre">responds</span> <span class="pre">(NAK&lt;cr&gt;</span>
+<span class="pre">Set</span> <span class="pre">equalization</span> <span class="pre">time,</span> <span class="pre">nnn</span> <span class="pre">is</span> <span class="pre">in</span> <span class="pre">the</span> <span class="pre">range</span> <span class="pre">of</span> <span class="pre">5</span> <span class="pre">to</span> <span class="pre">900minute,</span> <span class="pre">every</span> <span class="pre">click</span> <span class="pre">increase</span> <span class="pre">or</span> <span class="pre">decrease</span>
+<span class="pre">5minute.</span>
+<span class="pre">`</span></code>
+### 3.24 PBEQP&lt;nnn&gt;&lt;cr&gt;: Set battery equalization period</p>
+<p><code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">Computer:</span> <span class="pre">PBEQP&lt;nnn&gt;&lt;CRC&gt;&lt;cr&gt;</span>
+<span class="pre">Device:</span> <span class="pre">(ACK&lt;CRC&gt;&lt;cr&gt;</span> <span class="pre">if</span> <span class="pre">device</span> <span class="pre">accepts</span> <span class="pre">this</span> <span class="pre">command,</span> <span class="pre">otherwise,</span> <span class="pre">responds</span> <span class="pre">(NAK&lt;cr&gt;</span>
+<span class="pre">Set</span> <span class="pre">equalization</span> <span class="pre">period,</span> <span class="pre">nnn</span> <span class="pre">is</span> <span class="pre">in</span> <span class="pre">the</span> <span class="pre">range</span> <span class="pre">of</span> <span class="pre">0</span> <span class="pre">to</span> <span class="pre">90day,</span> <span class="pre">every</span> <span class="pre">click</span> <span class="pre">increase</span> <span class="pre">or</span> <span class="pre">decrease</span> <span class="pre">1day.</span>
+<span class="pre">`</span></code>
+### 3.25 PBEQV&lt;nn.nn&gt;&lt;cr&gt;: Set battery equalization voltage</p>
+<p><code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">Computer:</span> <span class="pre">PBEQV&lt;nn.nn&gt;&lt;CRC&gt;&lt;cr&gt;</span>
+<span class="pre">Device:</span> <span class="pre">(ACK&lt;CRC&gt;&lt;cr&gt;</span> <span class="pre">if</span> <span class="pre">device</span> <span class="pre">accepts</span> <span class="pre">this</span> <span class="pre">command,</span> <span class="pre">otherwise,</span> <span class="pre">responds</span> <span class="pre">(NAK&lt;cr&gt;</span>
+<span class="pre">Set</span> <span class="pre">equalization</span> <span class="pre">time,</span> <span class="pre">nn.nn</span> <span class="pre">is</span> <span class="pre">in</span> <span class="pre">the</span> <span class="pre">range</span> <span class="pre">as</span> <span class="pre">below.</span>
+<span class="pre">`</span></code>
+### 3.26 PBEQOT&lt;nnn&gt;&lt;cr&gt;: Set battery equalization over time</p>
+<p><code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">Computer:</span> <span class="pre">PBEQOT&lt;nnn&gt;&lt;CRC&gt;&lt;cr&gt;</span>
+<span class="pre">Device:</span> <span class="pre">(ACK&lt;CRC&gt;&lt;cr&gt;</span> <span class="pre">if</span> <span class="pre">device</span> <span class="pre">accepts</span> <span class="pre">this</span> <span class="pre">command,</span> <span class="pre">otherwise,</span> <span class="pre">responds</span> <span class="pre">(NAK&lt;cr&gt;</span>
+<span class="pre">Set</span> <span class="pre">equalization</span> <span class="pre">time,</span> <span class="pre">nnn</span> <span class="pre">is</span> <span class="pre">in</span> <span class="pre">the</span> <span class="pre">range</span> <span class="pre">of</span> <span class="pre">5</span> <span class="pre">to</span> <span class="pre">900minute,</span> <span class="pre">every</span> <span class="pre">click</span> <span class="pre">increase</span> <span class="pre">or</span> <span class="pre">decrease</span>
+<span class="pre">5minute.</span>
+<span class="pre">`</span></code>
+### 3.27 PBEQA&lt;n&gt;&lt;cr&gt;: Active or inactive battery equalization now</p>
+<p><code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">Computer:</span> <span class="pre">PBEQA&lt;n&gt;&lt;CRC&gt;&lt;cr&gt;</span>
+<span class="pre">Device:</span> <span class="pre">(ACK&lt;CRC&gt;&lt;cr&gt;</span> <span class="pre">if</span> <span class="pre">device</span> <span class="pre">accepts</span> <span class="pre">this</span> <span class="pre">command,</span> <span class="pre">otherwise,</span> <span class="pre">responds</span> <span class="pre">(NAK&lt;cr&gt;</span>
+<span class="pre">Active</span> <span class="pre">or</span> <span class="pre">inactive</span> <span class="pre">battery</span> <span class="pre">equalization</span> <span class="pre">now,</span> <span class="pre">n=1</span> <span class="pre">means</span> <span class="pre">active;</span> <span class="pre">n=0</span> <span class="pre">means</span> <span class="pre">inactive.</span>
+<span class="pre">`</span></code>
+### 3.28 PCVT&lt;nnn&gt;&lt;cr&gt;: Setting max charging time at C.V stage</p>
+<p><code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">Computer:</span> <span class="pre">PCVT&lt;nnn&gt;&lt;CRC&gt;&lt;cr&gt;</span>
+<span class="pre">Device:</span> <span class="pre">(ACK&lt;CRC&gt;&lt;cr&gt;</span> <span class="pre">if</span> <span class="pre">device</span> <span class="pre">accepts</span> <span class="pre">this</span> <span class="pre">command,</span> <span class="pre">otherwise,</span> <span class="pre">responds</span> <span class="pre">(NAK&lt;CRC&gt;&lt;cr&gt;</span>
+<span class="pre">Setting</span> <span class="pre">value</span> <span class="pre">can</span> <span class="pre">be</span> <span class="pre">gain</span> <span class="pre">by</span> <span class="pre">QMCHGCR</span> <span class="pre">command.</span>
+<span class="pre">nnn</span> <span class="pre">is</span> <span class="pre">max</span> <span class="pre">charging</span> <span class="pre">time</span> <span class="pre">at</span> <span class="pre">C.V</span> <span class="pre">stage,</span> <span class="pre">the</span> <span class="pre">range</span> <span class="pre">is</span> <span class="pre">from</span> <span class="pre">000</span> <span class="pre">to</span> <span class="pre">900</span> <span class="pre">but</span> <span class="pre">in</span> <span class="pre">multiples</span> <span class="pre">of</span> <span class="pre">5.</span> <span class="pre">000</span>
+<span class="pre">means</span> <span class="pre">automatically.</span>
+<span class="pre">`</span></code>
+### 3.29 DAT&lt; YYMMDDHHMMSS&gt;&lt;cr&gt;: Date and time</p>
+<p><code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">Computer:</span> <span class="pre">DAT&lt;</span> <span class="pre">YYMMDDHHMMSS&gt;&lt;CRC&gt;&lt;cr&gt;</span>
+<span class="pre">`</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">&lt;Y,</span> <span class="pre">M,</span> <span class="pre">D,</span> <span class="pre">H,</span> <span class="pre">S&gt;</span> <span class="pre">is</span> <span class="pre">an</span> <span class="pre">integer</span> <span class="pre">number</span> <span class="pre">0</span> <span class="pre">to</span> <span class="pre">9</span>
+<span class="pre">Device:</span> <span class="pre">(ACK&lt;CRC&gt;&lt;cr&gt;</span> <span class="pre">if</span> <span class="pre">device</span> <span class="pre">accepts</span> <span class="pre">this</span> <span class="pre">command,</span> <span class="pre">otherwise,</span> <span class="pre">responds</span> <span class="pre">(NAK&lt;CRC&gt;&lt;cr&gt;</span>
+<span class="pre">`</span></code>
+### 3.30 PBATCD&lt;abc&gt;&lt;cr&gt;: Battery charge/discharge controlling command</p>
+<p><code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">Computer:</span> <span class="pre">PBATCD&lt;abc&gt;&lt;CRC&gt;&lt;cr&gt;</span>
+<span class="pre">Device:</span> <span class="pre">(ACK&lt;CRC&gt;&lt;cr&gt;</span> <span class="pre">if</span> <span class="pre">device</span> <span class="pre">accepts</span> <span class="pre">this</span> <span class="pre">command,</span> <span class="pre">otherwise,</span> <span class="pre">responds</span> <span class="pre">(NAK&lt;CRC&gt;&lt;cr&gt;</span>
+<span class="pre">a</span> <span class="pre">=</span> <span class="pre">Discharge</span> <span class="pre">completely</span> <span class="pre">on/off</span>
+<span class="pre">b</span> <span class="pre">=</span> <span class="pre">Discharge</span> <span class="pre">on/off,</span> <span class="pre">but</span> <span class="pre">standby</span> <span class="pre">allowed</span> <span class="pre">(so</span> <span class="pre">small</span> <span class="pre">discharge</span> <span class="pre">allowed)</span>
+<span class="pre">c</span> <span class="pre">=</span> <span class="pre">Charge</span> <span class="pre">completely</span> <span class="pre">on/off</span>
+<span class="pre">`</span></code>
+<code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">Detail:</span>
+<span class="pre">abc:</span>
+<span class="pre">`</span></code>
+Charger Discharger
+1 1 1 Enabled charger Enabled discharger</p>
+<p>#### 0 1 1</p>
+<p><code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">Enabled</span> <span class="pre">charger,</span> <span class="pre">depends</span> <span class="pre">on</span> <span class="pre">Prog16</span> <span class="pre">setting</span> <span class="pre">if</span>
+<span class="pre">AC</span> <span class="pre">source</span> <span class="pre">valid,</span> <span class="pre">charge</span> <span class="pre">2A</span> <span class="pre">from</span> <span class="pre">AC,</span> <span class="pre">even</span> <span class="pre">if</span>
+<span class="pre">prog.</span> <span class="pre">16</span> <span class="pre">is</span> <span class="pre">“only</span> <span class="pre">solar”.</span> <span class="pre">If</span> <span class="pre">prog.</span> <span class="pre">16</span> <span class="pre">is</span> <span class="pre">any</span> <span class="pre">other</span>
+<span class="pre">setting,</span> <span class="pre">ignore</span> <span class="pre">and</span> <span class="pre">let</span> <span class="pre">charging</span> <span class="pre">from</span> <span class="pre">AC</span> <span class="pre">source</span>
+<span class="pre">continue</span> <span class="pre">normally.</span>
+<span class="pre">`</span></code>
+<code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">Disabled</span> <span class="pre">discharger</span> <span class="pre">and</span> <span class="pre">shut</span> <span class="pre">down</span> <span class="pre">unit</span>
+<span class="pre">completely</span> <span class="pre">when</span> <span class="pre">insufficient</span> <span class="pre">PV</span> <span class="pre">or</span> <span class="pre">Grid</span> <span class="pre">is</span>
+<span class="pre">present.</span>
+<span class="pre">`</span></code>
+#### 1 0 1</p>
+<p><code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">Enabled</span> <span class="pre">charger,</span> <span class="pre">depends</span> <span class="pre">on</span> <span class="pre">Prog16</span> <span class="pre">setting</span> <span class="pre">if</span>
+<span class="pre">AC</span> <span class="pre">source</span> <span class="pre">valid,</span> <span class="pre">charge</span> <span class="pre">2A</span> <span class="pre">from</span> <span class="pre">AC,</span> <span class="pre">even</span> <span class="pre">if</span>
+<span class="pre">prog.</span> <span class="pre">16</span> <span class="pre">is</span> <span class="pre">“only</span> <span class="pre">solar”.</span> <span class="pre">If</span> <span class="pre">prog.</span> <span class="pre">16</span> <span class="pre">is</span> <span class="pre">any</span> <span class="pre">other</span>
+<span class="pre">setting,</span> <span class="pre">ignore</span> <span class="pre">and</span> <span class="pre">let</span> <span class="pre">charging</span> <span class="pre">from</span> <span class="pre">AC</span> <span class="pre">source</span>
+<span class="pre">continue</span> <span class="pre">normally.</span>
+<span class="pre">`</span></code>
+<code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">Disabled</span> <span class="pre">discharger</span> <span class="pre">but</span> <span class="pre">keep</span> <span class="pre">unit</span> <span class="pre">stay</span> <span class="pre">at</span> <span class="pre">standby</span>
+<span class="pre">mode.</span>
+<span class="pre">`</span></code>
+<code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">1</span> <span class="pre">1</span> <span class="pre">0</span> <span class="pre">Disabled</span> <span class="pre">charger</span> <span class="pre">Enabled</span> <span class="pre">discharger</span>
+<span class="pre">0</span> <span class="pre">1</span> <span class="pre">0</span> <span class="pre">Disabled</span> <span class="pre">charger</span>
+<span class="pre">Disabled</span> <span class="pre">discharger</span> <span class="pre">and</span> <span class="pre">shut</span> <span class="pre">down</span> <span class="pre">unit</span>
+<span class="pre">completely</span> <span class="pre">when</span> <span class="pre">no</span> <span class="pre">PV</span> <span class="pre">or</span> <span class="pre">Grid</span> <span class="pre">is</span> <span class="pre">present.</span>
+<span class="pre">1</span> <span class="pre">0</span> <span class="pre">0</span> <span class="pre">Disabled</span> <span class="pre">charger</span>
+<span class="pre">Disabled</span> <span class="pre">discharger</span> <span class="pre">but</span> <span class="pre">keep</span> <span class="pre">unit</span> <span class="pre">stay</span> <span class="pre">at</span> <span class="pre">standby</span>
+<span class="pre">mode.</span>
+<span class="pre">0</span> <span class="pre">0</span> <span class="pre">1</span> <span class="pre">N/A</span> <span class="pre">N/A</span>
+<span class="pre">0</span> <span class="pre">0</span> <span class="pre">0</span> <span class="pre">Cleaned</span> <span class="pre">the</span> <span class="pre">enable/disable</span> <span class="pre">charger</span> <span class="pre">flags^</span> <span class="pre">and</span>
+<span class="pre">return</span> <span class="pre">to</span> <span class="pre">previous</span> <span class="pre">charger</span> <span class="pre">status.</span>
+<span class="pre">`</span></code>
+<code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">Cleaned</span> <span class="pre">the</span> <span class="pre">enable/disable</span> <span class="pre">discharger</span> <span class="pre">flags</span> <span class="pre">and</span>
+<span class="pre">return</span> <span class="pre">to</span> <span class="pre">previous</span> <span class="pre">discharger</span> <span class="pre">status.</span>
+<span class="pre">`</span></code>
+### 3.31 PBATMAXDISC&lt;nnn&gt;&lt;cr&gt;: Setting max discharging current</p>
+<p><code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">Computer:</span> <span class="pre">PBATMAXDISC&lt;nnn&gt;&lt;CRC&gt;&lt;cr&gt;</span>
+<span class="pre">Device:</span> <span class="pre">(ACK&lt;CRC&gt;&lt;cr&gt;</span> <span class="pre">if</span> <span class="pre">device</span> <span class="pre">accepts</span> <span class="pre">this</span> <span class="pre">command,</span> <span class="pre">otherwise,</span> <span class="pre">responds</span> <span class="pre">(NAK&lt;CRC&gt;&lt;cr&gt;</span>
+<span class="pre">nnn</span> <span class="pre">is</span> <span class="pre">max</span> <span class="pre">discharging</span> <span class="pre">current</span>
+<span class="pre">48V</span> <span class="pre">unit:</span> <span class="pre">000</span> <span class="pre">or</span> <span class="pre">30A~1</span> <span class="pre">5</span> <span class="pre">0A</span>
+<span class="pre">000</span> <span class="pre">means</span> <span class="pre">the</span> <span class="pre">function</span> <span class="pre">will</span> <span class="pre">be</span> <span class="pre">disable.</span>
+<span class="pre">`</span></code>
+### 3.32 PLEDE&lt;n&gt;&lt;cr&gt;: Enable/disable LED function</p>
+<p><code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">Computer:</span> <span class="pre">PLEDE&lt;n&gt;&lt;cr&gt;</span>
+<span class="pre">UPS:</span> <span class="pre">(ACK&lt;cr&gt;</span> <span class="pre">if</span> <span class="pre">UPS</span> <span class="pre">accepts</span> <span class="pre">this</span> <span class="pre">command,</span> <span class="pre">otherwise,</span> <span class="pre">responds</span> <span class="pre">(NAK&lt;cr&gt;</span>
+<span class="pre">n:</span> <span class="pre">0</span> <span class="pre">means</span> <span class="pre">disable;</span> <span class="pre">1</span> <span class="pre">means</span> <span class="pre">enable</span>
+<span class="pre">`</span></code></p>
+<p>### 3.33 PLEDS&lt;n&gt;&lt;cr&gt;: set LED speed</p>
+<p><code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">Computer:</span> <span class="pre">PLEDS&lt;n&gt;&lt;cr&gt;</span>
+<span class="pre">UPS:</span> <span class="pre">(ACK&lt;cr&gt;</span> <span class="pre">if</span> <span class="pre">UPS</span> <span class="pre">accepts</span> <span class="pre">this</span> <span class="pre">command,</span> <span class="pre">otherwise,</span> <span class="pre">responds</span> <span class="pre">(NAK&lt;cr&gt;</span>
+<span class="pre">n:</span> <span class="pre">0</span> <span class="pre">means</span> <span class="pre">low;</span> <span class="pre">1</span> <span class="pre">means</span> <span class="pre">medium;</span> <span class="pre">2</span> <span class="pre">means</span> <span class="pre">fast</span>
+<span class="pre">`</span></code>
+### 3.34 PLEDM&lt;n&gt;&lt;cr&gt;: set LED effect</p>
+<p><code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">Computer:</span> <span class="pre">PLEDM&lt;n&gt;&lt;cr&gt;</span>
+<span class="pre">UPS:</span> <span class="pre">(ACK&lt;cr&gt;</span> <span class="pre">if</span> <span class="pre">UPS</span> <span class="pre">accepts</span> <span class="pre">this</span> <span class="pre">command,</span> <span class="pre">otherwise,</span> <span class="pre">responds</span> <span class="pre">(NAK&lt;cr&gt;</span>
+<span class="pre">n:</span> <span class="pre">0</span> <span class="pre">means</span> <span class="pre">breathing;</span> <span class="pre">2</span> <span class="pre">means</span> <span class="pre">solid;</span> <span class="pre">3</span> <span class="pre">means</span> <span class="pre">right</span> <span class="pre">scrolling</span>
+<span class="pre">`</span></code>
+### 3.35 PLEDB&lt;n&gt;&lt;cr&gt;: set LED brightness</p>
+<p><code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">Computer:</span> <span class="pre">PLEDB&lt;n&gt;&lt;cr&gt;</span>
+<span class="pre">UPS:</span> <span class="pre">(ACK&lt;cr&gt;</span> <span class="pre">if</span> <span class="pre">UPS</span> <span class="pre">accepts</span> <span class="pre">this</span> <span class="pre">command,</span> <span class="pre">otherwise,</span> <span class="pre">responds</span> <span class="pre">(NAK&lt;cr&gt;</span>
+<span class="pre">n</span> <span class="pre">means</span> <span class="pre">LED</span> <span class="pre">brightness,</span> <span class="pre">1</span> <span class="pre">means</span> <span class="pre">low;</span> <span class="pre">5</span> <span class="pre">means</span> <span class="pre">normal;</span> <span class="pre">9</span> <span class="pre">means</span> <span class="pre">high</span>
+<span class="pre">`</span></code>
+### 3.36 PLEDT&lt;n&gt;&lt;cr&gt;: set LED total number of colors</p>
+<p><code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">Computer:</span> <span class="pre">PLEDT&lt;n&gt;&lt;cr&gt;</span>
+<span class="pre">UPS:</span> <span class="pre">(ACK&lt;cr&gt;</span> <span class="pre">if</span> <span class="pre">UPS</span> <span class="pre">accepts</span> <span class="pre">this</span> <span class="pre">command,</span> <span class="pre">otherwise,</span> <span class="pre">responds</span> <span class="pre">(NAK&lt;cr&gt;</span>
+<span class="pre">n</span> <span class="pre">means</span> <span class="pre">total</span> <span class="pre">number</span> <span class="pre">of</span> <span class="pre">colors,</span> <span class="pre">between</span> <span class="pre">2</span> <span class="pre">and</span> <span class="pre">3</span>
+<span class="pre">`</span></code>
+### 3.37 PLEDC&lt;n&gt;&lt;aaabbbccc&gt;&lt;cr&gt;: set LED color</p>
+<p><code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">Computer:</span> <span class="pre">PLEDC&lt;n&gt;&lt;aaabbbccc&gt;&lt;cr&gt;</span>
+<span class="pre">UPS:</span> <span class="pre">(ACK&lt;cr&gt;</span>
+<span class="pre">&lt;n&gt;</span> <span class="pre">must</span> <span class="pre">less</span> <span class="pre">than</span> <span class="pre">LED</span> <span class="pre">total</span> <span class="pre">number</span> <span class="pre">of</span> <span class="pre">colors,</span> <span class="pre">if</span> <span class="pre">UPS</span> <span class="pre">accepts</span> <span class="pre">this</span> <span class="pre">command,</span> <span class="pre">otherwise,</span> <span class="pre">responds</span>
+<span class="pre">(NAK&lt;cr&gt;</span>
+<span class="pre">&lt;n&gt;</span> <span class="pre">means</span> <span class="pre">LED</span> <span class="pre">order,</span> <span class="pre">between</span> <span class="pre">1</span> <span class="pre">and</span> <span class="pre">3;</span> <span class="pre">1</span> <span class="pre">indicate</span> <span class="pre">Line</span> <span class="pre">mode,</span> <span class="pre">2</span> <span class="pre">indicate</span> <span class="pre">AVR</span> <span class="pre">mode,</span> <span class="pre">3</span> <span class="pre">indicate</span>
+<span class="pre">Battery</span> <span class="pre">mode</span>
+<span class="pre">&lt;aaa,</span> <span class="pre">bbb,</span> <span class="pre">ccc&gt;</span> <span class="pre">means</span> <span class="pre">RGB,</span> <span class="pre">between</span> <span class="pre">0</span> <span class="pre">and</span> <span class="pre">255</span>
+<span class="pre">For</span> <span class="pre">example:</span>
+<span class="pre">Computer:</span> <span class="pre">PLEDC3160032240</span> <span class="pre">&lt;cr&gt;</span>
+<span class="pre">UPS:</span> <span class="pre">(ACK&lt;cr&gt;</span>
+<span class="pre">Means:</span> <span class="pre">set</span> <span class="pre">battery</span> <span class="pre">mode</span> <span class="pre">to</span> <span class="pre">purple.</span>
+<span class="pre">`</span></code>
+## 4 Appendix</p>
+<p>### 4.1 CRC calibration method</p>
+</section>
+</section>
+
+
+          </div>
+          <div class="page-nav">
+            <div class="inner"><ul class="page-nav">
+  <li class="prev">
+    <a href="protocols.docs.pi30.html"
+       title="previous chapter">← PI30</a>
+  </li>
+  <li class="next">
+    <a href="modules.html"
+       title="next chapter">powermon →</a>
+  </li>
+</ul><div class="footer" role="contentinfo">
+      &#169; Copyright 2024, jblance.
+    <br>
+    Created using <a href="http://sphinx-doc.org/">Sphinx</a> 8.1.3 with <a href="https://github.com/schettino72/sphinx_press_theme">Press Theme</a> 0.9.1.
+</div>
+            </div>
+          </div>
+      </page>
+    </div></div>
+    
+    
+  </body>
+</html>
