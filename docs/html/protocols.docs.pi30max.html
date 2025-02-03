@@ -290,23 +290,38 @@
 </section>
 <section id="communication-format">
 <h2>Communication format<a class="headerlink" href="#communication-format" title="Link to this heading">¶</a></h2>
-<p>#### 1.1 RS</p>
-<p><code class="docutils literal notranslate"><span class="pre">`</span>
-<span class="pre">Baud</span> <span class="pre">rate</span> <span class="pre">Start</span> <span class="pre">bit</span> <span class="pre">Data</span> <span class="pre">bit</span> <span class="pre">Parity</span> <span class="pre">bit</span> <span class="pre">Stop</span> <span class="pre">bit</span>
-<span class="pre">2400</span> <span class="pre">1</span> <span class="pre">8</span> <span class="pre">N</span> <span class="pre">1</span>
-<span class="pre">`</span></code></p>
+<table class="docutils align-left" id="id1">
+<caption><span class="caption-text">RS232</span><a class="headerlink" href="#id1" title="Link to this table">¶</a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p>Baud rate</p></th>
+<th class="head"><p>Start bit</p></th>
+<th class="head"><p>Data bit</p></th>
+<th class="head"><p>Parity</p></th>
+<th class="head"><p>Stop Bit</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>2400</p></td>
+<td><p>1</p></td>
+<td><p>8</p></td>
+<td><p>N</p></td>
+<td><p>1</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="inquiry-command">
 <h2>Inquiry Command<a class="headerlink" href="#inquiry-command" title="Link to this heading">¶</a></h2>
-<p>### 2.1 QPI&lt;cr&gt;: Device Protocol ID Inquiry</p>
-<p><code class="docutils literal notranslate"><span class="pre">`</span>
-<span class="pre">Computer:</span> <span class="pre">QPI&lt;CRC&gt;&lt;cr&gt;</span>
-<span class="pre">Device:</span> <span class="pre">(PI&lt;NN&gt;</span> <span class="pre">&lt;CRC&gt;&lt;cr&gt;</span>
-<span class="pre">N</span> <span class="pre">is</span> <span class="pre">an</span> <span class="pre">integer</span> <span class="pre">number</span> <span class="pre">ranging</span> <span class="pre">from</span> <span class="pre">0</span> <span class="pre">to</span> <span class="pre">9.</span>
-<span class="pre">Function:</span> <span class="pre">To</span> <span class="pre">request</span> <span class="pre">the</span> <span class="pre">device</span> <span class="pre">Protocol</span> <span class="pre">ID.</span>
-<span class="pre">Protocol</span> <span class="pre">ID</span> <span class="pre">distribution:</span> <span class="pre">30</span> <span class="pre">for</span> <span class="pre">Axpert</span> <span class="pre">KS</span> <span class="pre">series</span>
-<span class="pre">`</span></code>
-### 2.2 QID&lt;cr&gt;: The device serial number inquiry</p>
+<section id="qpi-cr-device-protocol-id-inquiry">
+<h3>2.1 QPI&lt;cr&gt;: Device Protocol ID Inquiry<a class="headerlink" href="#qpi-cr-device-protocol-id-inquiry" title="Link to this heading">¶</a></h3>
+<p>Computer: <code class="docutils literal notranslate"><span class="pre">QPI&lt;CRC&gt;&lt;cr&gt;</span></code></p>
+<p>Device: <code class="docutils literal notranslate"><span class="pre">(PI&lt;NN&gt;</span> <span class="pre">&lt;CRC&gt;&lt;cr&gt;</span></code></p>
+<p>N is an integer number ranging from 0 to 9.</p>
+<p>Function: To request the device Protocol ID.</p>
+<p>Protocol ID distribution: 30 for Axpert KS series</p>
+</section>
+<section id="qid-cr-the-device-serial-number-inquiry">
+<h3>2.2 QID&lt;cr&gt;: The device serial number inquiry<a class="headerlink" href="#qid-cr-the-device-serial-number-inquiry" title="Link to this heading">¶</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">`</span>
 <span class="pre">Computer:</span> <span class="pre">QID</span> <span class="pre">&lt;CRC&gt;&lt;cr&gt;</span>
 <span class="pre">Device:</span> <span class="pre">(XXXXXXXXXXXXXX</span> <span class="pre">&lt;CRC&gt;&lt;cr&gt;</span>
@@ -1868,6 +1883,7 @@ Charger Discharger
 <span class="pre">`</span></code>
 ## 4 Appendix</p>
 <p>### 4.1 CRC calibration method</p>
+</section>
 </section>
 </section>
 

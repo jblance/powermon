@@ -97,26 +97,34 @@ RJ45 to RS232 cable between computer and device
 Communication format
 ====================
 
-#### 1.1 RS
+.. csv-table:: RS232
+   :header: Baud rate, Start bit, Data bit, Parity, Stop Bit
+   :widths: auto
+   :align: left
 
-```
-Baud rate Start bit Data bit Parity bit Stop bit
-2400 1 8 N 1
-```
+   2400, 1, 8, N, 1
+
 
 Inquiry Command
 ====================
 
-### 2.1 QPI<cr>: Device Protocol ID Inquiry
+2.1 QPI<cr>: Device Protocol ID Inquiry
+---------------------------------------
 
-```
-Computer: QPI<CRC><cr>
-Device: (PI<NN> <CRC><cr>
+Computer: ``QPI<CRC><cr>``
+
+Device: ``(PI<NN> <CRC><cr>``
+
 N is an integer number ranging from 0 to 9.
+
 Function: To request the device Protocol ID.
+
 Protocol ID distribution: 30 for Axpert KS series
-```
-### 2.2 QID<cr>: The device serial number inquiry
+
+
+2.2 QID<cr>: The device serial number inquiry
+---------------------------------------------
+
 
 ```
 Computer: QID <CRC><cr>
