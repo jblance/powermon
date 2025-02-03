@@ -1,9 +1,9 @@
 ***************************************************
-PI30
+PI30(MAX) - Model MAX | PIP4048MAX
 ***************************************************
 
 Document Details
-----------------
+================
 
 Source: 
 
@@ -22,7 +22,7 @@ Implemented in protocol: PI30MAX | PI30 with model: MAX
    - 2.6 VERFW:<cr>: Bluetooth version inquiry
    - 2.7 QPIRI<cr>: Device Rating Information inquiry
    - 2.8 QFLAG<cr>: Device flag status inquiry
-   - 2.9 QPIGS<cr>: Device general status parameters inquiry...........................................................................
+   - 2.9 QPIGS<cr>: Device general status parameters inquiry
    - 2.10 QPIGS2<cr>: Device general status parameters inquiry (Only 48V model)
    - 2.11 QPGSn<cr>: Parallel Information inquiry (Only 48V model)
    - 2.12 QMOD<cr>: Device Mode inquiry
@@ -43,7 +43,7 @@ Implemented in protocol: PI30MAX | PI30 with model: MAX
    - 2.27 QLT<CRC><cr>: Query total output load energy
    - 2.28 QLYyyyy<CRC><cr>: Query output load energy of year
    - 2.29 QLMyyyymm<CRC><cr>: Query output load energy of month
-   - 2.30 QLDyyyymmdd<CRC><cr>: Query output load energy of day...........................................................
+   - 2.30 QLDyyyymmdd<CRC><cr>: Query output load energy of day
    - 2.31 QBMS<CRC><cr>: BMS message
    - 2.32 PBMS<CRC><cr>: BMS message
    - 2.33 QLED<cr>: LED status parameters inquiry
@@ -63,7 +63,7 @@ Implemented in protocol: PI30MAX | PI30 with model: MAX
    - 3.13 PGR<NN><cr>: Setting device grid working range
    - 3.14 PBT<NN><cr>: Setting battery type
    - 3.15 POPM<nn ><cr>: Set output mode
-   - 3.16 PPCP<MNN><cr>: Setting parallel device charger priority.................................................................
+   - 3.16 PPCP<MNN><cr>: Setting parallel device charger priority
    - 3.17 PSDV<nn.n><cr>: Setting battery cut-off voltage (Battery under voltage)
    - 3.18 PCVV<nn.n><cr>: Setting battery C.V. (constant voltage) charging voltage
    - 3.19 PBFT<nn.n><cr>: Setting battery float charging voltage
@@ -90,8 +90,10 @@ Implemented in protocol: PI30MAX | PI30 with model: MAX
 
 
 RJ45 to RS232 cable between computer and device
+.. image:: iamges/rj45-rs232cable.png
 
-## 1 Communication format
+Communication format
+====================
 
 #### 1.1 RS
 
@@ -99,7 +101,9 @@ RJ45 to RS232 cable between computer and device
 Baud rate Start bit Data bit Parity bit Stop bit
 2400 1 8 N 1
 ```
-## 2 Inquiry Command
+
+Inquiry Command
+====================
 
 ### 2.1 QPI<cr>: Device Protocol ID Inquiry
 
@@ -345,7 +349,7 @@ z Enable/Disable fault code record
 Computer: QFLAG <CRC><cr>
 Device: (ExxxDxxx <CRC><cr>
 ```
-### 2.9 QPIGS<cr>: Device general status parameters inquiry...........................................................................
+### 2.9 QPIGS<cr>: Device general status parameters inquiry
 
 ```
 Computer: QPIGS <CRC><cr>

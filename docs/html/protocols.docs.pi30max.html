@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1"><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-      <title>PI30</title>
+      <title>PI30(MAX) - Model MAX | PIP4048MAX</title>
     
           <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
           <link rel="stylesheet" href="_static/theme.css " type="text/css" />
@@ -161,7 +161,7 @@
     
       <li><a href="protocols.mppsolar.html">MPPsolar Protocols</a> &raquo;</li>
     
-    <li>PI30</li>
+    <li>PI30(MAX) - Model MAX | PIP4048MAX</li>
   </ul>
   
 
@@ -180,8 +180,8 @@
 <hr>
           <div class="content" role="main" v-pre>
             
-  <section id="pi30">
-<h1>PI30<a class="headerlink" href="#pi30" title="Link to this heading">¶</a></h1>
+  <section id="pi30-max-model-max-pip4048max">
+<h1>PI30(MAX) - Model MAX | PIP4048MAX<a class="headerlink" href="#pi30-max-model-max-pip4048max" title="Link to this heading">¶</a></h1>
 <section id="document-details">
 <h2>Document Details<a class="headerlink" href="#document-details" title="Link to this heading">¶</a></h2>
 <p>Source:</p>
@@ -205,7 +205,7 @@
 <li><p>2.6 VERFW:&lt;cr&gt;: Bluetooth version inquiry</p></li>
 <li><p>2.7 QPIRI&lt;cr&gt;: Device Rating Information inquiry</p></li>
 <li><p>2.8 QFLAG&lt;cr&gt;: Device flag status inquiry</p></li>
-<li><p>2.9 QPIGS&lt;cr&gt;: Device general status parameters inquiry…………………………………………………………………</p></li>
+<li><p>2.9 QPIGS&lt;cr&gt;: Device general status parameters inquiry</p></li>
 <li><p>2.10 QPIGS2&lt;cr&gt;: Device general status parameters inquiry (Only 48V model)</p></li>
 <li><p>2.11 QPGSn&lt;cr&gt;: Parallel Information inquiry (Only 48V model)</p></li>
 <li><p>2.12 QMOD&lt;cr&gt;: Device Mode inquiry</p></li>
@@ -226,7 +226,7 @@
 <li><p>2.27 QLT&lt;CRC&gt;&lt;cr&gt;: Query total output load energy</p></li>
 <li><p>2.28 QLYyyyy&lt;CRC&gt;&lt;cr&gt;: Query output load energy of year</p></li>
 <li><p>2.29 QLMyyyymm&lt;CRC&gt;&lt;cr&gt;: Query output load energy of month</p></li>
-<li><p>2.30 QLDyyyymmdd&lt;CRC&gt;&lt;cr&gt;: Query output load energy of day…………………………………………………..</p></li>
+<li><p>2.30 QLDyyyymmdd&lt;CRC&gt;&lt;cr&gt;: Query output load energy of day</p></li>
 <li><p>2.31 QBMS&lt;CRC&gt;&lt;cr&gt;: BMS message</p></li>
 <li><p>2.32 PBMS&lt;CRC&gt;&lt;cr&gt;: BMS message</p></li>
 <li><p>2.33 QLED&lt;cr&gt;: LED status parameters inquiry</p></li>
@@ -251,7 +251,7 @@
 <li><p>3.13 PGR&lt;NN&gt;&lt;cr&gt;: Setting device grid working range</p></li>
 <li><p>3.14 PBT&lt;NN&gt;&lt;cr&gt;: Setting battery type</p></li>
 <li><p>3.15 POPM&lt;nn &gt;&lt;cr&gt;: Set output mode</p></li>
-<li><p>3.16 PPCP&lt;MNN&gt;&lt;cr&gt;: Setting parallel device charger priority………………………………………………………..</p></li>
+<li><p>3.16 PPCP&lt;MNN&gt;&lt;cr&gt;: Setting parallel device charger priority</p></li>
 <li><p>3.17 PSDV&lt;nn.n&gt;&lt;cr&gt;: Setting battery cut-off voltage (Battery under voltage)</p></li>
 <li><p>3.18 PCVV&lt;nn.n&gt;&lt;cr&gt;: Setting battery C.V. (constant voltage) charging voltage</p></li>
 <li><p>3.19 PBFT&lt;nn.n&gt;&lt;cr&gt;: Setting battery float charging voltage</p></li>
@@ -285,14 +285,19 @@
 </dl>
 </li>
 </ul>
-<p>RJ45 to RS232 cable between computer and device</p>
-<p>## 1 Communication format</p>
+<p>RJ45 to RS232 cable between computer and device
+.. image:: iamges/rj45-rs232cable.png</p>
+</section>
+<section id="communication-format">
+<h2>Communication format<a class="headerlink" href="#communication-format" title="Link to this heading">¶</a></h2>
 <p>#### 1.1 RS</p>
 <p><code class="docutils literal notranslate"><span class="pre">`</span>
 <span class="pre">Baud</span> <span class="pre">rate</span> <span class="pre">Start</span> <span class="pre">bit</span> <span class="pre">Data</span> <span class="pre">bit</span> <span class="pre">Parity</span> <span class="pre">bit</span> <span class="pre">Stop</span> <span class="pre">bit</span>
 <span class="pre">2400</span> <span class="pre">1</span> <span class="pre">8</span> <span class="pre">N</span> <span class="pre">1</span>
-<span class="pre">`</span></code>
-## 2 Inquiry Command</p>
+<span class="pre">`</span></code></p>
+</section>
+<section id="inquiry-command">
+<h2>Inquiry Command<a class="headerlink" href="#inquiry-command" title="Link to this heading">¶</a></h2>
 <p>### 2.1 QPI&lt;cr&gt;: Device Protocol ID Inquiry</p>
 <p><code class="docutils literal notranslate"><span class="pre">`</span>
 <span class="pre">Computer:</span> <span class="pre">QPI&lt;CRC&gt;&lt;cr&gt;</span>
@@ -511,7 +516,7 @@ has connect PV, parallel system will</p>
 <span class="pre">Computer:</span> <span class="pre">QFLAG</span> <span class="pre">&lt;CRC&gt;&lt;cr&gt;</span>
 <span class="pre">Device:</span> <span class="pre">(ExxxDxxx</span> <span class="pre">&lt;CRC&gt;&lt;cr&gt;</span>
 <span class="pre">`</span></code>
-### 2.9 QPIGS&lt;cr&gt;: Device general status parameters inquiry…………………………………………………………………</p>
+### 2.9 QPIGS&lt;cr&gt;: Device general status parameters inquiry</p>
 <p><code class="docutils literal notranslate"><span class="pre">`</span>
 <span class="pre">Computer:</span> <span class="pre">QPIGS</span> <span class="pre">&lt;CRC&gt;&lt;cr&gt;</span>
 <span class="pre">Device:</span> <span class="pre">(BBB.B</span> <span class="pre">CC.C</span> <span class="pre">DDD.D</span> <span class="pre">EE.E</span> <span class="pre">FFFF</span> <span class="pre">GGGG</span> <span class="pre">HHH</span> <span class="pre">III</span> <span class="pre">JJ.JJ</span> <span class="pre">KKK</span> <span class="pre">OOO</span> <span class="pre">TTTT</span> <span class="pre">EE.E</span>
