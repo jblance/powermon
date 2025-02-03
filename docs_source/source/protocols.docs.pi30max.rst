@@ -160,7 +160,7 @@ Inquiry Command
 ------------------------------------------------
 
 | Computer: ``QPIRI<CRC><cr>``
-| Device: ``(BBB.B CC.C DDD.D EE.E FF.F HHHH IIII JJ.J KK.K JJ.J KK.K LL.L O PP QQ 0 O P Q R SS T U VV.V W X YYY Z CCC <CRC><cr>``
+| Device: ``(BBB.B CC.C DDD.D EE.E FF.F HHHH IIII JJ.J KK.K JJ.J KK.K LL.L O PP QQQ O P Q R SS T U VV.V W X YYY Z CCC <CRC><cr>``
 
 .. csv-table:: Response Decode
    :header: ,Component, Description, Units, Notes
@@ -181,121 +181,51 @@ Inquiry Command
    M, KK.K, Battery bulk voltage, V, K is an Integer ranging from 0 to 9.
    N, LL.L, Battery float voltage, V, L is an Integer ranging from 0 to 9.
    O, O, Battery type, ,  "| 0: AGM
-      | 1: Flooded
-      | 2: User
-      | 3: Pylon
-      | 5: Weco
-      | 6: Soltaro
-      | 8: Lib
-      | 9: Lic"
+   | 1: Flooded
+   | 2: User
+   | 3: Pylon
+   | 5: Weco
+   | 6: Soltaro
+   | 8: Lib
+   | 9: Lic"
+   P, PP, Max AC charging current, A, "P is an Integer ranging from 0 to 9. If the max AC charging current is greater than 99A, then return to PPP"
+   Q, QQQ, Max charging current, A, Q is an Integer ranging from 0 to 9.
+   O, O, Input voltage range, , "| 0: Appliance
+   | 1: UPS"
+   P, P, Output source priority, , "| 0: UtilitySolarBat
+   | 1: SolarUtilityBat
+   | 2: SolarBatUtility"
+   Q, Q, Charger source priority, , "| 1: Solar first
+   | 2: Solar + Utility
+   | 3: Only solar charging permitted"
+   R, R, Parallel max num, R is an Integer ranging from 0 to 9.
+   S, SS, Machine type, , "| 00: Grid tie
+   | 01: Off Grid
+   | 10: Hybrid"
+   T, T, Topology, , "| 0: transformerless
+   | 1: transformer"
+   U, U, Output mode, , "| 00: single machine output
+   | 01: parallel output
+   | 02: Phase 1 of 3 Phase output
+   | 03: Phase 2 of 3 Phase output
+   | 04: Phase 3 of 3 Phase output
+   | 05: Phase 1 of 2 Phase output
+   | 06: Phase 2 of 2 Phase output (120°)
+   | 07: Phase 2 of 2 Phase output (180°)"
+   V, VV.V, Battery re-discharge voltage, V, V is an Integer ranging from 0 to 9.
+   W, W, PV OK condition for parallel, , "| 0: As long as one unit of inverters has connect PV, parallel system will consider PV OK
+   | 1: Only All of inverters have connect PV, parallel system will consider PV OK"
+   X, X, PV power balance, , "| 0: PV input max current will be the max charged current
+   | 1: PV input max power will be the sum of the max charged power and loads power."
+   Y, YYY, Max. charging time at C.V stage (only 48 V model), min, Y is an Integer ranging from 0 to 9.
+   Z, Z, Operation Logic (only 48V model), , "| 0: Automatically
+   | 1: On-line mode
+   | 2: ECO mode"
+   A1, CCC, Max discharging current (only 48V model), A, C is an integer ranging from 0 to 9.
 
 
-P PP Max AC charging current
-
-P is an Integer ranging from 0 to 9
-The units is A.
-If the max AC charging current is
-greater than 99A, then return to PPP
-Q QQ 0 Max charging current Q^ is an Integer ranging from 0 to 9.
-The units is A.
-
-O O Input voltage range
-0: Appliance
-1: UPS
-
-P P Output source priority
-
-```
-0: UtilitySolarBat
-1: SolarUtilityBat
-2: SolarBatUtility
-```
-Q Q Charger source priority
-
-1: Solar first
-2: Solar + Utility
-3: Only solar charging permitted
-R R Parallel max num R is an Integer ranging from 0 to 9.
-
-S SS Machine type
-
-```
-00: Grid tie;
-01: Off Grid;
-10: Hybrid.
-```
-T T Topology
-0: transformerless
-1: transformer
-
-U U Output mode
-
-```
-00: single machine output
-01: parallel output
-02: Phase 1 of 3 Phase output
-03: Phase 2 of 3 Phase output
-04: Phase 3 of 3 Phase output
-05: Phase 1 of 2 Phase output
-06: Phase 2 of 2 Phase output (120°)
-07: Phase 2 of 2 Phase output (180°)
-```
-V VV.V Battery re-discharge voltage
-
-```
-V is an Integer ranging from 0 to 9.
-The unit is V.
-```
-W W PV OK condition for parallel 0: As long as one unit of inverters
-has connect PV, parallel system will
-
-
-```
-consider PV OK;
-1: Only All of inverters have connect
-PV, parallel system will consider PV
-OK
-```
-```
-X X PV power balance
-```
-```
-0: PV input max current will be the
-max charged current;
-1: PV input max power will be the
-sum of the max charged power and
-loads power.
-```
-```
-Y YYY
-Max. charging time at C.V
-stage (only 48 V model)
-```
-```
-Y is an Integer ranging from 0 to 9.
-The unit is minute.
-```
-#### Z Z
-
-```
-Operation Logic (only 48V
-model)
-```
-```
-0: Automatically
-1: On-line mode
-2: ECO mode
-```
-```
-A1 CCC
-Max discharging current
-(only 48V model)
-```
-```
-C is an integer ranging from 0 to 9.
-The units is A.
-```
-### 2.8 QFLAG<cr>: Device flag status inquiry
+2.8 QFLAG<cr>: Device flag status inquiry
+-----------------------------------------
 
 ```
 ExxxDxxx is the flag status. E means enable, D means disable

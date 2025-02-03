@@ -371,7 +371,7 @@
 <h3>2.7 QPIRI&lt;cr&gt;: Device Rating Information inquiry<a class="headerlink" href="#qpiri-cr-device-rating-information-inquiry" title="Link to this heading">¶</a></h3>
 <div class="line-block">
 <div class="line">Computer: <code class="docutils literal notranslate"><span class="pre">QPIRI&lt;CRC&gt;&lt;cr&gt;</span></code></div>
-<div class="line">Device: <code class="docutils literal notranslate"><span class="pre">(BBB.B</span> <span class="pre">CC.C</span> <span class="pre">DDD.D</span> <span class="pre">EE.E</span> <span class="pre">FF.F</span> <span class="pre">HHHH</span> <span class="pre">IIII</span> <span class="pre">JJ.J</span> <span class="pre">KK.K</span> <span class="pre">JJ.J</span> <span class="pre">KK.K</span> <span class="pre">LL.L</span> <span class="pre">O</span> <span class="pre">PP</span> <span class="pre">QQ</span> <span class="pre">0</span> <span class="pre">O</span> <span class="pre">P</span> <span class="pre">Q</span> <span class="pre">R</span> <span class="pre">SS</span> <span class="pre">T</span> <span class="pre">U</span> <span class="pre">VV.V</span> <span class="pre">W</span> <span class="pre">X</span> <span class="pre">YYY</span> <span class="pre">Z</span> <span class="pre">CCC</span> <span class="pre">&lt;CRC&gt;&lt;cr&gt;</span></code></div>
+<div class="line">Device: <code class="docutils literal notranslate"><span class="pre">(BBB.B</span> <span class="pre">CC.C</span> <span class="pre">DDD.D</span> <span class="pre">EE.E</span> <span class="pre">FF.F</span> <span class="pre">HHHH</span> <span class="pre">IIII</span> <span class="pre">JJ.J</span> <span class="pre">KK.K</span> <span class="pre">JJ.J</span> <span class="pre">KK.K</span> <span class="pre">LL.L</span> <span class="pre">O</span> <span class="pre">PP</span> <span class="pre">QQQ</span> <span class="pre">O</span> <span class="pre">P</span> <span class="pre">Q</span> <span class="pre">R</span> <span class="pre">SS</span> <span class="pre">T</span> <span class="pre">U</span> <span class="pre">VV.V</span> <span class="pre">W</span> <span class="pre">X</span> <span class="pre">YYY</span> <span class="pre">Z</span> <span class="pre">CCC</span> <span class="pre">&lt;CRC&gt;&lt;cr&gt;</span></code></div>
 </div>
 <table class="docutils align-left" id="id2">
 <caption><span class="caption-text">Response Decode</span><a class="headerlink" href="#id2" title="Link to this table">¶</a></caption>
@@ -467,112 +467,158 @@
 <td><p>Battery type</p></td>
 <td></td>
 <td><div class="line-block">
-<div class="line">0: AGM
-| 1: Flooded
-| 2: User
-| 3: Pylon
-| 5: Weco
-| 6: Soltaro
-| 8: Lib
-| 9: Lic</div>
+<div class="line">0: AGM</div>
+<div class="line">1: Flooded</div>
+<div class="line">2: User</div>
+<div class="line">3: Pylon</div>
+<div class="line">5: Weco</div>
+<div class="line">6: Soltaro</div>
+<div class="line">8: Lib</div>
+<div class="line">9: Lic</div>
 </div>
 </td>
 </tr>
+<tr class="row-even"><td><p>P</p></td>
+<td><p>PP</p></td>
+<td><p>Max AC charging current</p></td>
+<td><p>A</p></td>
+<td><p>P is an Integer ranging from 0 to 9. If the max AC charging current is greater than 99A, then return to PPP</p></td>
+</tr>
+<tr class="row-odd"><td><p>Q</p></td>
+<td><p>QQQ</p></td>
+<td><p>Max charging current</p></td>
+<td><p>A</p></td>
+<td><p>Q is an Integer ranging from 0 to 9.</p></td>
+</tr>
+<tr class="row-even"><td><p>O</p></td>
+<td><p>O</p></td>
+<td><p>Input voltage range</p></td>
+<td></td>
+<td><div class="line-block">
+<div class="line">0: Appliance</div>
+<div class="line">1: UPS</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p>P</p></td>
+<td><p>P</p></td>
+<td><p>Output source priority</p></td>
+<td></td>
+<td><div class="line-block">
+<div class="line">0: UtilitySolarBat</div>
+<div class="line">1: SolarUtilityBat</div>
+<div class="line">2: SolarBatUtility</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p>Q</p></td>
+<td><p>Q</p></td>
+<td><p>Charger source priority</p></td>
+<td></td>
+<td><div class="line-block">
+<div class="line">1: Solar first</div>
+<div class="line">2: Solar + Utility</div>
+<div class="line">3: Only solar charging permitted</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p>R</p></td>
+<td><p>R</p></td>
+<td><p>Parallel max num</p></td>
+<td><p>R is an Integer ranging from 0 to 9.</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>S</p></td>
+<td><p>SS</p></td>
+<td><p>Machine type</p></td>
+<td></td>
+<td><div class="line-block">
+<div class="line">00: Grid tie</div>
+<div class="line">01: Off Grid</div>
+<div class="line">10: Hybrid</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p>T</p></td>
+<td><p>T</p></td>
+<td><p>Topology</p></td>
+<td></td>
+<td><div class="line-block">
+<div class="line">0: transformerless</div>
+<div class="line">1: transformer</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p>U</p></td>
+<td><p>U</p></td>
+<td><p>Output mode</p></td>
+<td></td>
+<td><div class="line-block">
+<div class="line">00: single machine output</div>
+<div class="line">01: parallel output</div>
+<div class="line">02: Phase 1 of 3 Phase output</div>
+<div class="line">03: Phase 2 of 3 Phase output</div>
+<div class="line">04: Phase 3 of 3 Phase output</div>
+<div class="line">05: Phase 1 of 2 Phase output</div>
+<div class="line">06: Phase 2 of 2 Phase output (120°)</div>
+<div class="line">07: Phase 2 of 2 Phase output (180°)</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p>V</p></td>
+<td><p>VV.V</p></td>
+<td><p>Battery re-discharge voltage</p></td>
+<td><p>V</p></td>
+<td><p>V is an Integer ranging from 0 to 9.</p></td>
+</tr>
+<tr class="row-even"><td><p>W</p></td>
+<td><p>W</p></td>
+<td><p>PV OK condition for parallel</p></td>
+<td></td>
+<td><div class="line-block">
+<div class="line">0: As long as one unit of inverters has connect PV, parallel system will consider PV OK</div>
+<div class="line">1: Only All of inverters have connect PV, parallel system will consider PV OK</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p>X</p></td>
+<td><p>X</p></td>
+<td><p>PV power balance</p></td>
+<td></td>
+<td><div class="line-block">
+<div class="line">0: PV input max current will be the max charged current</div>
+<div class="line">1: PV input max power will be the sum of the max charged power and loads power.</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p>Y</p></td>
+<td><p>YYY</p></td>
+<td><p>Max. charging time at C.V stage (only 48 V model)</p></td>
+<td><p>min</p></td>
+<td><p>Y is an Integer ranging from 0 to 9.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Z</p></td>
+<td><p>Z</p></td>
+<td><p>Operation Logic (only 48V model)</p></td>
+<td></td>
+<td><div class="line-block">
+<div class="line">0: Automatically</div>
+<div class="line">1: On-line mode</div>
+<div class="line">2: ECO mode</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p>A1</p></td>
+<td><p>CCC</p></td>
+<td><p>Max discharging current (only 48V model)</p></td>
+<td><p>A</p></td>
+<td><p>C is an integer ranging from 0 to 9.</p></td>
+</tr>
 </tbody>
 </table>
-<p>P PP Max AC charging current</p>
-<p>P is an Integer ranging from 0 to 9
-The units is A.
-If the max AC charging current is
-greater than 99A, then return to PPP
-Q QQ 0 Max charging current Q^ is an Integer ranging from 0 to 9.
-The units is A.</p>
-<p>O O Input voltage range
-0: Appliance
-1: UPS</p>
-<p>P P Output source priority</p>
-<p><code class="docutils literal notranslate"><span class="pre">`</span>
-<span class="pre">0:</span> <span class="pre">UtilitySolarBat</span>
-<span class="pre">1:</span> <span class="pre">SolarUtilityBat</span>
-<span class="pre">2:</span> <span class="pre">SolarBatUtility</span>
-<span class="pre">`</span></code>
-Q Q Charger source priority</p>
-<p>1: Solar first
-2: Solar + Utility
-3: Only solar charging permitted
-R R Parallel max num R is an Integer ranging from 0 to 9.</p>
-<p>S SS Machine type</p>
-<p><code class="docutils literal notranslate"><span class="pre">`</span>
-<span class="pre">00:</span> <span class="pre">Grid</span> <span class="pre">tie;</span>
-<span class="pre">01:</span> <span class="pre">Off</span> <span class="pre">Grid;</span>
-<span class="pre">10:</span> <span class="pre">Hybrid.</span>
-<span class="pre">`</span></code>
-T T Topology
-0: transformerless
-1: transformer</p>
-<p>U U Output mode</p>
-<p><code class="docutils literal notranslate"><span class="pre">`</span>
-<span class="pre">00:</span> <span class="pre">single</span> <span class="pre">machine</span> <span class="pre">output</span>
-<span class="pre">01:</span> <span class="pre">parallel</span> <span class="pre">output</span>
-<span class="pre">02:</span> <span class="pre">Phase</span> <span class="pre">1</span> <span class="pre">of</span> <span class="pre">3</span> <span class="pre">Phase</span> <span class="pre">output</span>
-<span class="pre">03:</span> <span class="pre">Phase</span> <span class="pre">2</span> <span class="pre">of</span> <span class="pre">3</span> <span class="pre">Phase</span> <span class="pre">output</span>
-<span class="pre">04:</span> <span class="pre">Phase</span> <span class="pre">3</span> <span class="pre">of</span> <span class="pre">3</span> <span class="pre">Phase</span> <span class="pre">output</span>
-<span class="pre">05:</span> <span class="pre">Phase</span> <span class="pre">1</span> <span class="pre">of</span> <span class="pre">2</span> <span class="pre">Phase</span> <span class="pre">output</span>
-<span class="pre">06:</span> <span class="pre">Phase</span> <span class="pre">2</span> <span class="pre">of</span> <span class="pre">2</span> <span class="pre">Phase</span> <span class="pre">output</span> <span class="pre">(120°)</span>
-<span class="pre">07:</span> <span class="pre">Phase</span> <span class="pre">2</span> <span class="pre">of</span> <span class="pre">2</span> <span class="pre">Phase</span> <span class="pre">output</span> <span class="pre">(180°)</span>
-<span class="pre">`</span></code>
-V VV.V Battery re-discharge voltage</p>
-<p><code class="docutils literal notranslate"><span class="pre">`</span>
-<span class="pre">V</span> <span class="pre">is</span> <span class="pre">an</span> <span class="pre">Integer</span> <span class="pre">ranging</span> <span class="pre">from</span> <span class="pre">0</span> <span class="pre">to</span> <span class="pre">9.</span>
-<span class="pre">The</span> <span class="pre">unit</span> <span class="pre">is</span> <span class="pre">V.</span>
-<span class="pre">`</span></code>
-W W PV OK condition for parallel 0: As long as one unit of inverters
-has connect PV, parallel system will</p>
-<p><code class="docutils literal notranslate"><span class="pre">`</span>
-<span class="pre">consider</span> <span class="pre">PV</span> <span class="pre">OK;</span>
-<span class="pre">1:</span> <span class="pre">Only</span> <span class="pre">All</span> <span class="pre">of</span> <span class="pre">inverters</span> <span class="pre">have</span> <span class="pre">connect</span>
-<span class="pre">PV,</span> <span class="pre">parallel</span> <span class="pre">system</span> <span class="pre">will</span> <span class="pre">consider</span> <span class="pre">PV</span>
-<span class="pre">OK</span>
-<span class="pre">`</span></code>
-<code class="docutils literal notranslate"><span class="pre">`</span>
-<span class="pre">X</span> <span class="pre">X</span> <span class="pre">PV</span> <span class="pre">power</span> <span class="pre">balance</span>
-<span class="pre">`</span></code>
-<code class="docutils literal notranslate"><span class="pre">`</span>
-<span class="pre">0:</span> <span class="pre">PV</span> <span class="pre">input</span> <span class="pre">max</span> <span class="pre">current</span> <span class="pre">will</span> <span class="pre">be</span> <span class="pre">the</span>
-<span class="pre">max</span> <span class="pre">charged</span> <span class="pre">current;</span>
-<span class="pre">1:</span> <span class="pre">PV</span> <span class="pre">input</span> <span class="pre">max</span> <span class="pre">power</span> <span class="pre">will</span> <span class="pre">be</span> <span class="pre">the</span>
-<span class="pre">sum</span> <span class="pre">of</span> <span class="pre">the</span> <span class="pre">max</span> <span class="pre">charged</span> <span class="pre">power</span> <span class="pre">and</span>
-<span class="pre">loads</span> <span class="pre">power.</span>
-<span class="pre">`</span></code>
-<code class="docutils literal notranslate"><span class="pre">`</span>
-<span class="pre">Y</span> <span class="pre">YYY</span>
-<span class="pre">Max.</span> <span class="pre">charging</span> <span class="pre">time</span> <span class="pre">at</span> <span class="pre">C.V</span>
-<span class="pre">stage</span> <span class="pre">(only</span> <span class="pre">48</span> <span class="pre">V</span> <span class="pre">model)</span>
-<span class="pre">`</span></code>
-<code class="docutils literal notranslate"><span class="pre">`</span>
-<span class="pre">Y</span> <span class="pre">is</span> <span class="pre">an</span> <span class="pre">Integer</span> <span class="pre">ranging</span> <span class="pre">from</span> <span class="pre">0</span> <span class="pre">to</span> <span class="pre">9.</span>
-<span class="pre">The</span> <span class="pre">unit</span> <span class="pre">is</span> <span class="pre">minute.</span>
-<span class="pre">`</span></code>
-#### Z Z</p>
-<p><code class="docutils literal notranslate"><span class="pre">`</span>
-<span class="pre">Operation</span> <span class="pre">Logic</span> <span class="pre">(only</span> <span class="pre">48V</span>
-<span class="pre">model)</span>
-<span class="pre">`</span></code>
-<code class="docutils literal notranslate"><span class="pre">`</span>
-<span class="pre">0:</span> <span class="pre">Automatically</span>
-<span class="pre">1:</span> <span class="pre">On-line</span> <span class="pre">mode</span>
-<span class="pre">2:</span> <span class="pre">ECO</span> <span class="pre">mode</span>
-<span class="pre">`</span></code>
-<code class="docutils literal notranslate"><span class="pre">`</span>
-<span class="pre">A1</span> <span class="pre">CCC</span>
-<span class="pre">Max</span> <span class="pre">discharging</span> <span class="pre">current</span>
-<span class="pre">(only</span> <span class="pre">48V</span> <span class="pre">model)</span>
-<span class="pre">`</span></code>
-<code class="docutils literal notranslate"><span class="pre">`</span>
-<span class="pre">C</span> <span class="pre">is</span> <span class="pre">an</span> <span class="pre">integer</span> <span class="pre">ranging</span> <span class="pre">from</span> <span class="pre">0</span> <span class="pre">to</span> <span class="pre">9.</span>
-<span class="pre">The</span> <span class="pre">units</span> <span class="pre">is</span> <span class="pre">A.</span>
-<span class="pre">`</span></code>
-### 2.8 QFLAG&lt;cr&gt;: Device flag status inquiry</p>
+</section>
+<section id="qflag-cr-device-flag-status-inquiry">
+<h3>2.8 QFLAG&lt;cr&gt;: Device flag status inquiry<a class="headerlink" href="#qflag-cr-device-flag-status-inquiry" title="Link to this heading">¶</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">`</span>
 <span class="pre">ExxxDxxx</span> <span class="pre">is</span> <span class="pre">the</span> <span class="pre">flag</span> <span class="pre">status.</span> <span class="pre">E</span> <span class="pre">means</span> <span class="pre">enable,</span> <span class="pre">D</span> <span class="pre">means</span> <span class="pre">disable</span>
 <span class="pre">x</span> <span class="pre">Control</span> <span class="pre">setting</span>
