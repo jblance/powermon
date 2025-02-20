@@ -198,7 +198,7 @@ Inquiry Command
    Q, Q, Charger source priority, , "| 1: Solar first
    | 2: Solar + Utility
    | 3: Only solar charging permitted"
-   R, R, Parallel max num, R is an Integer ranging from 0 to 9.
+   R, R, Parallel max num, , R is an Integer ranging from 0 to 9.
    S, SS, Machine type, , "| 00: Grid tie
    | 01: Off Grid
    | 10: Hybrid"
@@ -227,174 +227,86 @@ Inquiry Command
 2.8 QFLAG<cr>: Device flag status inquiry
 -----------------------------------------
 
-```
-ExxxDxxx is the flag status. E means enable, D means disable
-x Control setting
-a Enable/disable silence buzzer or open buzzer^
-b Enable/Disable overload bypass function
-d Enable/Disable solar feed to grid (reserved feature)
-```
-```
-k
-Enable/Disable LCD display escape to default page after
-1min timeout
-u Enable/Disable overload restart
-v Enable/Disable over temperature restart
-x Enable/Disable backlight on
-y Enable/Disable alarm on when primary source interrupt^
-z Enable/Disable fault code record
-```
-```
-Computer: QFLAG <CRC><cr>
-Device: (ExxxDxxx <CRC><cr>
-```
-### 2.9 QPIGS<cr>: Device general status parameters inquiry
 
-```
-Computer: QPIGS <CRC><cr>
-Device: (BBB.B CC.C DDD.D EE.E FFFF GGGG HHH III JJ.JJ KKK OOO TTTT EE.E
-UUU.U WW.WW PPPPP b7b6b5b4b3b2b1b0 QQ VV MMMMM b10b9b8 Y ZZ AAAA
-<CRC><cr>
-Data Description Notes Axpert
-```
-a ( Start byte
+| Computer: ``QFLAG <CRC><cr>``
+| Device: ``(ExxxDxxx <CRC><cr>``
+|
+| ``ExxxDxxx`` is the flag status. E means enable, D means disable
 
-b BBB.B Grid voltage B is an Integer number 0 to 9. The units is V.
+.. csv-table:: Response Decode
+   :header: x, Control setting
+   :widths: auto
+   :align: left
+
+   a, Enable/disable silence buzzer or open buzzer
+   b, Enable/Disable overload bypass function
+   d, Enable/Disable solar feed to grid (reserved feature)
+   k, Enable/Disable LCD display escape to default page after 1min timeout
+   u, Enable/Disable overload restart
+   v, Enable/Disable over temperature restart
+   x, Enable/Disable backlight on
+   y, Enable/Disable alarm on when primary source interrupt
+   z, Enable/Disable fault code record
+
+2.9 QPIGS<cr>: Device general status parameters inquiry
+-------------------------------------------------------
+
+| Computer: QPIGS <CRC><cr>
+| Device: (BBB.B CC.C DDD.D EE.E FFFF GGGG HHH III JJ.JJ KKK OOO TTTT EE.E UUU.U WW.WW PPPPP b7b6b5b4b3b2b1b0 QQ VV MMMMM b10b9b8 Y ZZ AAAA <CRC><cr>
+
+.. csv-table:: Response Decode
+   :header: i, Component, Description, Units, Notes, Axpert
+   :widths: auto
+   :align: left
+
+   a, (, Start byte
+   b, BBB.B, Grid voltage, V, B is an Integer number 0 to 9.
+   C, CC.C, Grid frequency, Hz, C is an Integer number 0 to 9.
+   D, DDD.D, AC output voltage, V, D is an Integer number 0 to 9.
+   E, EE.E, AC output frequency, Hz, E is an Integer number from 0 to 9.
+   F, FFFF, AC output apparent power, VA, F is an Integer number from 0 to 9.
+   G, GGGG, AC output active power, W, G is an Integer ranging from 0 to 9.
+   H, HHH Output load percent, %, "| DEVICE: HHH is Maximum of W% or VA%.
+   | VA% is a percent of apparent power.
+   | W% is a percent of active power."
+   I, III, BUS voltage, V, I is an Integer ranging from 0 to 9.
+   j, JJ.JJ, Battery voltage, V, J is an Integer ranging from 0 to 9. 
+   k, KK, K Battery charging current, A, K is an Integer ranging from 0 to 9. 
+   o, OOO, Battery capacity, %, O is an Integer ranging from 0 to 9.
+   P, TTTT, Inverter heat sink temperature, °C, T is an integer ranging from 0 to 9., NTC A/D value for Axpert 1~3K
+   r, EE.E, PV 1 Input current, A, E is an Integer ranging from 0 to 9.
+   t, UUU.U, PV 1 Input voltage, V, U is an Integer ranging from 0 to 9. 
+   u, WW.WW, Battery voltage from SCC, V, W is an Integer ranging from 0 to 9. 
+   w, PPPPP, Battery discharge current, A, P is an Integer ranging from 0 to 9.
+   x, b7b6b5b b3b2b1b, Device status,, "| b7: add SBU priority version, 1: yes,0: no
+   | b6: configuration status: 1: Change 0: unchanged
+   | b5: SCC firmware version 1: Updated 0: unchanged
+   | b4: Load status: 0: Load off 1:Load on
+   | b3: battery voltage to steady while charging
+   | b2: Charging status
+   | b1: Charging status(SCC charging on/off)
+   | b0: Charging status(AC charging on/off)
+   | b2b1b0: 
+   |    000: Do nothing
+   |    110: Charging on with SCC charge on
+   |    101: Charging on with AC charge on
+   |    111: Charging on with SCC and AC charge on"
+   y, QQ, Battery voltage offset for fans on, 10mV, Q is an Integer ranging from 0 to 9.
+   z, VV, EEPROM version,, V is an Integer ranging from 0 to 9.
+   , MMMM, PV 1 Charging power, W, M is an Integer ranging from 0 to 9.
+   , b10b9b8, Device status,, "|b10: flag for charging to floating mode
+   | b9: Switch On
+   | b8: flag for dustproof installed(1-dustproof installed,0-no dustproof, only available for Axpert V series)"
+   , Y, Solar feed to grid status (reserved feature),, "| 0: normal
+   | 1: solar feed to grid"
+   , ZZ, Set country customized regulation (reserved feature),, "| 00: India
+   | 01: Germany
+   | 02: South America"
+   , AAAA, Solar feed to grid power (reserved feature), W, A is an Integer ranging from 0 to 9. 
 
 
-```
-C CC.C Grid frequency C s an Integer number 0 to 9. The units is Hz.
-```
-D DDD.D AC output voltage D is an Integer number 0 to 9. The units is V.
-
-```
-E EE.E AC output frequency E is an Integer number from 0 to 9. The units
-is Hz.
-F FFFF AC output apparent
-power
-```
-```
-F is an Integer number from 0 to 9. The units
-is VA
-```
-G GGGG
-AC output active power
-
-```
-G is an Integer ranging from 0 to 9. The units
-is W.
-```
-H HHH Output load percent DEVICE: HHH is Maximum of W% or VA%.
-VA% is a percent of apparent power.
-W% is a percent of active power.
-The units is %.
-I III BUS voltage I is an Integer ranging from 0 to 9. The units is
-V.
-j JJ.JJ Battery voltage J is an Integer ranging from 0 to 9. The units
-is V.
-k KKK Battery charging
-current
-
-```
-K is an Integer ranging from 0 to 9. The units
-is A.
-o OOO Battery capacity X is an Integer ranging from 0 to 9. The units
-is %.
-P TTTT Inverter heat sink
-temperature
-```
-```
-T is an integer ranging from 0 to 9. The units
-is °C（NTC A/D value for Axpert 1~3K）
-r EE.E PV 1 Input current E is an Integer ranging from 0 to 9. The units
-is A.
-t UUU.U PV 1 Input voltage U is an Integer ranging from 0 to 9. The units
-is V.
-u WW.WW Battery voltage from
-SCC
-```
-W is an Integer ranging from 0 to 9. The units
-is V.
-w PPPPP Battery discharge
-current
-
-```
-P is an Integer ranging from 0 to 9. The units
-is A.
-x b7b6b5b
-b3b2b1b
-```
-```
-Device status b7: add SBU priority version, 1: yes,0: no
-b6: configuration status: 1: Change 0:
-unchanged
-b5: SCC firmware version 1: Updated 0:
-unchanged
-b4: Load status: 0: Load off 1:Load on
-b3: battery voltage to steady while charging
-b2: Charging status
-b1: Charging status(SCC charging on/off)
-b0: Charging status(AC charging on/off)
-b2b1b0:
-```
-```
-Keep
-b6~b4,
-b2 ~ b0,
-reserve
-other
-```
-
-```
-000: Do nothing
-110: Charging on with SCC charge on
-101: Charging on with AC charge on
-111: Charging on with SCC and AC charge on
-```
-y QQ Battery voltage offset
-for fans on
-
-```
-Q is an Integer ranging from 0 to 9. The unit is
-10mV.
-```
-z VV EEPROM version V is an Integer ranging from 0 to 9.
-
-```
-MMMM
-M
-```
-```
-PV 1 Charging power M is an Integer ranging from 0 to 9. The unit
-is watt.
-b10b9b8 Device status b10: flag for charging to floating mode
-b9: Switch On
-b8: flag for dustproof installed(1-dustproof
-installed,0-no dustproof, only available for
-Axpert V series)
-Y Solar feed to grid status
-(reserved feature)
-```
-```
-0: normal
-1: solar feed to grid
-ZZ Set country customized
-regulation (reserved
-feature)
-```
-```
-00: India
-01: Germany
-02: South America
-AAAA Solar feed to grid
-power (reserved
-feature)
-```
-```
-A is an Integer ranging from 0 to 9. The units
-is W.
-```
-### 2.10 QPIGS2<cr>: Device general status parameters inquiry (Only 48V model)
+2.10 QPIGS2<cr>: Device general status parameters inquiry (Only 48V model)
+--------------------------------------------------------------------------
 
 ```
 Computer: QPIGS2 <CRC><cr>

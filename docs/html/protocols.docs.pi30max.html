@@ -289,8 +289,8 @@
 </section>
 <section id="communication-format">
 <h2>Communication format<a class="headerlink" href="#communication-format" title="Link to this heading">¶</a></h2>
-<table class="docutils align-left" id="id1">
-<caption><span class="caption-text">RS232</span><a class="headerlink" href="#id1" title="Link to this table">¶</a></caption>
+<table class="docutils align-left" id="id3">
+<caption><span class="caption-text">RS232</span><a class="headerlink" href="#id3" title="Link to this table">¶</a></caption>
 <thead>
 <tr class="row-odd"><th class="head"><p>Baud rate</p></th>
 <th class="head"><p>Start bit</p></th>
@@ -373,8 +373,8 @@
 <div class="line">Computer: <code class="docutils literal notranslate"><span class="pre">QPIRI&lt;CRC&gt;&lt;cr&gt;</span></code></div>
 <div class="line">Device: <code class="docutils literal notranslate"><span class="pre">(BBB.B</span> <span class="pre">CC.C</span> <span class="pre">DDD.D</span> <span class="pre">EE.E</span> <span class="pre">FF.F</span> <span class="pre">HHHH</span> <span class="pre">IIII</span> <span class="pre">JJ.J</span> <span class="pre">KK.K</span> <span class="pre">JJ.J</span> <span class="pre">KK.K</span> <span class="pre">LL.L</span> <span class="pre">O</span> <span class="pre">PP</span> <span class="pre">QQQ</span> <span class="pre">O</span> <span class="pre">P</span> <span class="pre">Q</span> <span class="pre">R</span> <span class="pre">SS</span> <span class="pre">T</span> <span class="pre">U</span> <span class="pre">VV.V</span> <span class="pre">W</span> <span class="pre">X</span> <span class="pre">YYY</span> <span class="pre">Z</span> <span class="pre">CCC</span> <span class="pre">&lt;CRC&gt;&lt;cr&gt;</span></code></div>
 </div>
-<table class="docutils align-left" id="id2">
-<caption><span class="caption-text">Response Decode</span><a class="headerlink" href="#id2" title="Link to this table">¶</a></caption>
+<table class="docutils align-left" id="id4">
+<caption><span class="caption-text">Response Decode</span><a class="headerlink" href="#id4" title="Link to this table">¶</a></caption>
 <thead>
 <tr class="row-odd"><th class="head"></th>
 <th class="head"><p>Component</p></th>
@@ -525,8 +525,8 @@
 <tr class="row-odd"><td><p>R</p></td>
 <td><p>R</p></td>
 <td><p>Parallel max num</p></td>
-<td><p>R is an Integer ranging from 0 to 9.</p></td>
 <td></td>
+<td><p>R is an Integer ranging from 0 to 9.</p></td>
 </tr>
 <tr class="row-even"><td><p>S</p></td>
 <td><p>SS</p></td>
@@ -619,163 +619,281 @@
 </section>
 <section id="qflag-cr-device-flag-status-inquiry">
 <h3>2.8 QFLAG&lt;cr&gt;: Device flag status inquiry<a class="headerlink" href="#qflag-cr-device-flag-status-inquiry" title="Link to this heading">¶</a></h3>
-<p><code class="docutils literal notranslate"><span class="pre">`</span>
-<span class="pre">ExxxDxxx</span> <span class="pre">is</span> <span class="pre">the</span> <span class="pre">flag</span> <span class="pre">status.</span> <span class="pre">E</span> <span class="pre">means</span> <span class="pre">enable,</span> <span class="pre">D</span> <span class="pre">means</span> <span class="pre">disable</span>
-<span class="pre">x</span> <span class="pre">Control</span> <span class="pre">setting</span>
-<span class="pre">a</span> <span class="pre">Enable/disable</span> <span class="pre">silence</span> <span class="pre">buzzer</span> <span class="pre">or</span> <span class="pre">open</span> <span class="pre">buzzer^</span>
-<span class="pre">b</span> <span class="pre">Enable/Disable</span> <span class="pre">overload</span> <span class="pre">bypass</span> <span class="pre">function</span>
-<span class="pre">d</span> <span class="pre">Enable/Disable</span> <span class="pre">solar</span> <span class="pre">feed</span> <span class="pre">to</span> <span class="pre">grid</span> <span class="pre">(reserved</span> <span class="pre">feature)</span>
-<span class="pre">`</span></code>
-<code class="docutils literal notranslate"><span class="pre">`</span>
-<span class="pre">k</span>
-<span class="pre">Enable/Disable</span> <span class="pre">LCD</span> <span class="pre">display</span> <span class="pre">escape</span> <span class="pre">to</span> <span class="pre">default</span> <span class="pre">page</span> <span class="pre">after</span>
-<span class="pre">1min</span> <span class="pre">timeout</span>
-<span class="pre">u</span> <span class="pre">Enable/Disable</span> <span class="pre">overload</span> <span class="pre">restart</span>
-<span class="pre">v</span> <span class="pre">Enable/Disable</span> <span class="pre">over</span> <span class="pre">temperature</span> <span class="pre">restart</span>
-<span class="pre">x</span> <span class="pre">Enable/Disable</span> <span class="pre">backlight</span> <span class="pre">on</span>
-<span class="pre">y</span> <span class="pre">Enable/Disable</span> <span class="pre">alarm</span> <span class="pre">on</span> <span class="pre">when</span> <span class="pre">primary</span> <span class="pre">source</span> <span class="pre">interrupt^</span>
-<span class="pre">z</span> <span class="pre">Enable/Disable</span> <span class="pre">fault</span> <span class="pre">code</span> <span class="pre">record</span>
-<span class="pre">`</span></code>
-<code class="docutils literal notranslate"><span class="pre">`</span>
-<span class="pre">Computer:</span> <span class="pre">QFLAG</span> <span class="pre">&lt;CRC&gt;&lt;cr&gt;</span>
-<span class="pre">Device:</span> <span class="pre">(ExxxDxxx</span> <span class="pre">&lt;CRC&gt;&lt;cr&gt;</span>
-<span class="pre">`</span></code>
-### 2.9 QPIGS&lt;cr&gt;: Device general status parameters inquiry</p>
-<p><code class="docutils literal notranslate"><span class="pre">`</span>
-<span class="pre">Computer:</span> <span class="pre">QPIGS</span> <span class="pre">&lt;CRC&gt;&lt;cr&gt;</span>
-<span class="pre">Device:</span> <span class="pre">(BBB.B</span> <span class="pre">CC.C</span> <span class="pre">DDD.D</span> <span class="pre">EE.E</span> <span class="pre">FFFF</span> <span class="pre">GGGG</span> <span class="pre">HHH</span> <span class="pre">III</span> <span class="pre">JJ.JJ</span> <span class="pre">KKK</span> <span class="pre">OOO</span> <span class="pre">TTTT</span> <span class="pre">EE.E</span>
-<span class="pre">UUU.U</span> <span class="pre">WW.WW</span> <span class="pre">PPPPP</span> <span class="pre">b7b6b5b4b3b2b1b0</span> <span class="pre">QQ</span> <span class="pre">VV</span> <span class="pre">MMMMM</span> <span class="pre">b10b9b8</span> <span class="pre">Y</span> <span class="pre">ZZ</span> <span class="pre">AAAA</span>
-<span class="pre">&lt;CRC&gt;&lt;cr&gt;</span>
-<span class="pre">Data</span> <span class="pre">Description</span> <span class="pre">Notes</span> <span class="pre">Axpert</span>
-<span class="pre">`</span></code>
-a ( Start byte</p>
-<p>b BBB.B Grid voltage B is an Integer number 0 to 9. The units is V.</p>
-<p><code class="docutils literal notranslate"><span class="pre">`</span>
-<span class="pre">C</span> <span class="pre">CC.C</span> <span class="pre">Grid</span> <span class="pre">frequency</span> <span class="pre">C</span> <span class="pre">s</span> <span class="pre">an</span> <span class="pre">Integer</span> <span class="pre">number</span> <span class="pre">0</span> <span class="pre">to</span> <span class="pre">9.</span> <span class="pre">The</span> <span class="pre">units</span> <span class="pre">is</span> <span class="pre">Hz.</span>
-<span class="pre">`</span></code>
-D DDD.D AC output voltage D is an Integer number 0 to 9. The units is V.</p>
-<p><code class="docutils literal notranslate"><span class="pre">`</span>
-<span class="pre">E</span> <span class="pre">EE.E</span> <span class="pre">AC</span> <span class="pre">output</span> <span class="pre">frequency</span> <span class="pre">E</span> <span class="pre">is</span> <span class="pre">an</span> <span class="pre">Integer</span> <span class="pre">number</span> <span class="pre">from</span> <span class="pre">0</span> <span class="pre">to</span> <span class="pre">9.</span> <span class="pre">The</span> <span class="pre">units</span>
-<span class="pre">is</span> <span class="pre">Hz.</span>
-<span class="pre">F</span> <span class="pre">FFFF</span> <span class="pre">AC</span> <span class="pre">output</span> <span class="pre">apparent</span>
-<span class="pre">power</span>
-<span class="pre">`</span></code>
-<code class="docutils literal notranslate"><span class="pre">`</span>
-<span class="pre">F</span> <span class="pre">is</span> <span class="pre">an</span> <span class="pre">Integer</span> <span class="pre">number</span> <span class="pre">from</span> <span class="pre">0</span> <span class="pre">to</span> <span class="pre">9.</span> <span class="pre">The</span> <span class="pre">units</span>
-<span class="pre">is</span> <span class="pre">VA</span>
-<span class="pre">`</span></code>
-G GGGG
-AC output active power</p>
-<p><code class="docutils literal notranslate"><span class="pre">`</span>
-<span class="pre">G</span> <span class="pre">is</span> <span class="pre">an</span> <span class="pre">Integer</span> <span class="pre">ranging</span> <span class="pre">from</span> <span class="pre">0</span> <span class="pre">to</span> <span class="pre">9.</span> <span class="pre">The</span> <span class="pre">units</span>
-<span class="pre">is</span> <span class="pre">W.</span>
-<span class="pre">`</span></code>
-H HHH Output load percent DEVICE: HHH is Maximum of W% or VA%.
-VA% is a percent of apparent power.
-W% is a percent of active power.
-The units is %.
-I III BUS voltage I is an Integer ranging from 0 to 9. The units is
-V.
-j JJ.JJ Battery voltage J is an Integer ranging from 0 to 9. The units
-is V.
-k KKK Battery charging
-current</p>
-<p><code class="docutils literal notranslate"><span class="pre">`</span>
-<span class="pre">K</span> <span class="pre">is</span> <span class="pre">an</span> <span class="pre">Integer</span> <span class="pre">ranging</span> <span class="pre">from</span> <span class="pre">0</span> <span class="pre">to</span> <span class="pre">9.</span> <span class="pre">The</span> <span class="pre">units</span>
-<span class="pre">is</span> <span class="pre">A.</span>
-<span class="pre">o</span> <span class="pre">OOO</span> <span class="pre">Battery</span> <span class="pre">capacity</span> <span class="pre">X</span> <span class="pre">is</span> <span class="pre">an</span> <span class="pre">Integer</span> <span class="pre">ranging</span> <span class="pre">from</span> <span class="pre">0</span> <span class="pre">to</span> <span class="pre">9.</span> <span class="pre">The</span> <span class="pre">units</span>
-<span class="pre">is</span> <span class="pre">%.</span>
-<span class="pre">P</span> <span class="pre">TTTT</span> <span class="pre">Inverter</span> <span class="pre">heat</span> <span class="pre">sink</span>
-<span class="pre">temperature</span>
-<span class="pre">`</span></code>
-<code class="docutils literal notranslate"><span class="pre">`</span>
-<span class="pre">T</span> <span class="pre">is</span> <span class="pre">an</span> <span class="pre">integer</span> <span class="pre">ranging</span> <span class="pre">from</span> <span class="pre">0</span> <span class="pre">to</span> <span class="pre">9.</span> <span class="pre">The</span> <span class="pre">units</span>
-<span class="pre">is</span> <span class="pre">°C（NTC</span> <span class="pre">A/D</span> <span class="pre">value</span> <span class="pre">for</span> <span class="pre">Axpert</span> <span class="pre">1~3K）</span>
-<span class="pre">r</span> <span class="pre">EE.E</span> <span class="pre">PV</span> <span class="pre">1</span> <span class="pre">Input</span> <span class="pre">current</span> <span class="pre">E</span> <span class="pre">is</span> <span class="pre">an</span> <span class="pre">Integer</span> <span class="pre">ranging</span> <span class="pre">from</span> <span class="pre">0</span> <span class="pre">to</span> <span class="pre">9.</span> <span class="pre">The</span> <span class="pre">units</span>
-<span class="pre">is</span> <span class="pre">A.</span>
-<span class="pre">t</span> <span class="pre">UUU.U</span> <span class="pre">PV</span> <span class="pre">1</span> <span class="pre">Input</span> <span class="pre">voltage</span> <span class="pre">U</span> <span class="pre">is</span> <span class="pre">an</span> <span class="pre">Integer</span> <span class="pre">ranging</span> <span class="pre">from</span> <span class="pre">0</span> <span class="pre">to</span> <span class="pre">9.</span> <span class="pre">The</span> <span class="pre">units</span>
-<span class="pre">is</span> <span class="pre">V.</span>
-<span class="pre">u</span> <span class="pre">WW.WW</span> <span class="pre">Battery</span> <span class="pre">voltage</span> <span class="pre">from</span>
-<span class="pre">SCC</span>
-<span class="pre">`</span></code>
-W is an Integer ranging from 0 to 9. The units
-is V.
-w PPPPP Battery discharge
-current</p>
-<p><code class="docutils literal notranslate"><span class="pre">`</span>
-<span class="pre">P</span> <span class="pre">is</span> <span class="pre">an</span> <span class="pre">Integer</span> <span class="pre">ranging</span> <span class="pre">from</span> <span class="pre">0</span> <span class="pre">to</span> <span class="pre">9.</span> <span class="pre">The</span> <span class="pre">units</span>
-<span class="pre">is</span> <span class="pre">A.</span>
-<span class="pre">x</span> <span class="pre">b7b6b5b</span>
-<span class="pre">b3b2b1b</span>
-<span class="pre">`</span></code>
-<code class="docutils literal notranslate"><span class="pre">`</span>
-<span class="pre">Device</span> <span class="pre">status</span> <span class="pre">b7:</span> <span class="pre">add</span> <span class="pre">SBU</span> <span class="pre">priority</span> <span class="pre">version,</span> <span class="pre">1:</span> <span class="pre">yes,0:</span> <span class="pre">no</span>
-<span class="pre">b6:</span> <span class="pre">configuration</span> <span class="pre">status:</span> <span class="pre">1:</span> <span class="pre">Change</span> <span class="pre">0:</span>
-<span class="pre">unchanged</span>
-<span class="pre">b5:</span> <span class="pre">SCC</span> <span class="pre">firmware</span> <span class="pre">version</span> <span class="pre">1:</span> <span class="pre">Updated</span> <span class="pre">0:</span>
-<span class="pre">unchanged</span>
-<span class="pre">b4:</span> <span class="pre">Load</span> <span class="pre">status:</span> <span class="pre">0:</span> <span class="pre">Load</span> <span class="pre">off</span> <span class="pre">1:Load</span> <span class="pre">on</span>
-<span class="pre">b3:</span> <span class="pre">battery</span> <span class="pre">voltage</span> <span class="pre">to</span> <span class="pre">steady</span> <span class="pre">while</span> <span class="pre">charging</span>
-<span class="pre">b2:</span> <span class="pre">Charging</span> <span class="pre">status</span>
-<span class="pre">b1:</span> <span class="pre">Charging</span> <span class="pre">status(SCC</span> <span class="pre">charging</span> <span class="pre">on/off)</span>
-<span class="pre">b0:</span> <span class="pre">Charging</span> <span class="pre">status(AC</span> <span class="pre">charging</span> <span class="pre">on/off)</span>
-<span class="pre">b2b1b0:</span>
-<span class="pre">`</span></code>
-<code class="docutils literal notranslate"><span class="pre">`</span>
-<span class="pre">Keep</span>
-<span class="pre">b6~b4,</span>
-<span class="pre">b2</span> <span class="pre">~</span> <span class="pre">b0,</span>
-<span class="pre">reserve</span>
-<span class="pre">other</span>
-<span class="pre">`</span></code></p>
-<p><code class="docutils literal notranslate"><span class="pre">`</span>
-<span class="pre">000:</span> <span class="pre">Do</span> <span class="pre">nothing</span>
-<span class="pre">110:</span> <span class="pre">Charging</span> <span class="pre">on</span> <span class="pre">with</span> <span class="pre">SCC</span> <span class="pre">charge</span> <span class="pre">on</span>
-<span class="pre">101:</span> <span class="pre">Charging</span> <span class="pre">on</span> <span class="pre">with</span> <span class="pre">AC</span> <span class="pre">charge</span> <span class="pre">on</span>
-<span class="pre">111:</span> <span class="pre">Charging</span> <span class="pre">on</span> <span class="pre">with</span> <span class="pre">SCC</span> <span class="pre">and</span> <span class="pre">AC</span> <span class="pre">charge</span> <span class="pre">on</span>
-<span class="pre">`</span></code>
-y QQ Battery voltage offset
-for fans on</p>
-<p><code class="docutils literal notranslate"><span class="pre">`</span>
-<span class="pre">Q</span> <span class="pre">is</span> <span class="pre">an</span> <span class="pre">Integer</span> <span class="pre">ranging</span> <span class="pre">from</span> <span class="pre">0</span> <span class="pre">to</span> <span class="pre">9.</span> <span class="pre">The</span> <span class="pre">unit</span> <span class="pre">is</span>
-<span class="pre">10mV.</span>
-<span class="pre">`</span></code>
-z VV EEPROM version V is an Integer ranging from 0 to 9.</p>
-<p><code class="docutils literal notranslate"><span class="pre">`</span>
-<span class="pre">MMMM</span>
-<span class="pre">M</span>
-<span class="pre">`</span></code>
-<code class="docutils literal notranslate"><span class="pre">`</span>
-<span class="pre">PV</span> <span class="pre">1</span> <span class="pre">Charging</span> <span class="pre">power</span> <span class="pre">M</span> <span class="pre">is</span> <span class="pre">an</span> <span class="pre">Integer</span> <span class="pre">ranging</span> <span class="pre">from</span> <span class="pre">0</span> <span class="pre">to</span> <span class="pre">9.</span> <span class="pre">The</span> <span class="pre">unit</span>
-<span class="pre">is</span> <span class="pre">watt.</span>
-<span class="pre">b10b9b8</span> <span class="pre">Device</span> <span class="pre">status</span> <span class="pre">b10:</span> <span class="pre">flag</span> <span class="pre">for</span> <span class="pre">charging</span> <span class="pre">to</span> <span class="pre">floating</span> <span class="pre">mode</span>
-<span class="pre">b9:</span> <span class="pre">Switch</span> <span class="pre">On</span>
-<span class="pre">b8:</span> <span class="pre">flag</span> <span class="pre">for</span> <span class="pre">dustproof</span> <span class="pre">installed(1-dustproof</span>
-<span class="pre">installed,0-no</span> <span class="pre">dustproof,</span> <span class="pre">only</span> <span class="pre">available</span> <span class="pre">for</span>
-<span class="pre">Axpert</span> <span class="pre">V</span> <span class="pre">series)</span>
-<span class="pre">Y</span> <span class="pre">Solar</span> <span class="pre">feed</span> <span class="pre">to</span> <span class="pre">grid</span> <span class="pre">status</span>
-<span class="pre">(reserved</span> <span class="pre">feature)</span>
-<span class="pre">`</span></code>
-<code class="docutils literal notranslate"><span class="pre">`</span>
-<span class="pre">0:</span> <span class="pre">normal</span>
-<span class="pre">1:</span> <span class="pre">solar</span> <span class="pre">feed</span> <span class="pre">to</span> <span class="pre">grid</span>
-<span class="pre">ZZ</span> <span class="pre">Set</span> <span class="pre">country</span> <span class="pre">customized</span>
-<span class="pre">regulation</span> <span class="pre">(reserved</span>
-<span class="pre">feature)</span>
-<span class="pre">`</span></code>
-<code class="docutils literal notranslate"><span class="pre">`</span>
-<span class="pre">00:</span> <span class="pre">India</span>
-<span class="pre">01:</span> <span class="pre">Germany</span>
-<span class="pre">02:</span> <span class="pre">South</span> <span class="pre">America</span>
-<span class="pre">AAAA</span> <span class="pre">Solar</span> <span class="pre">feed</span> <span class="pre">to</span> <span class="pre">grid</span>
-<span class="pre">power</span> <span class="pre">(reserved</span>
-<span class="pre">feature)</span>
-<span class="pre">`</span></code>
-<code class="docutils literal notranslate"><span class="pre">`</span>
-<span class="pre">A</span> <span class="pre">is</span> <span class="pre">an</span> <span class="pre">Integer</span> <span class="pre">ranging</span> <span class="pre">from</span> <span class="pre">0</span> <span class="pre">to</span> <span class="pre">9.</span> <span class="pre">The</span> <span class="pre">units</span>
-<span class="pre">is</span> <span class="pre">W.</span>
-<span class="pre">`</span></code>
-### 2.10 QPIGS2&lt;cr&gt;: Device general status parameters inquiry (Only 48V model)</p>
+<div class="line-block">
+<div class="line">Computer: <code class="docutils literal notranslate"><span class="pre">QFLAG</span> <span class="pre">&lt;CRC&gt;&lt;cr&gt;</span></code></div>
+<div class="line">Device: <code class="docutils literal notranslate"><span class="pre">(ExxxDxxx</span> <span class="pre">&lt;CRC&gt;&lt;cr&gt;</span></code></div>
+<div class="line"><br /></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">ExxxDxxx</span></code> is the flag status. E means enable, D means disable</div>
+</div>
+<table class="docutils align-left" id="id5">
+<caption><span class="caption-text">Response Decode</span><a class="headerlink" href="#id5" title="Link to this table">¶</a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p>x</p></th>
+<th class="head"><p>Control setting</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>a</p></td>
+<td><p>Enable/disable silence buzzer or open buzzer</p></td>
+</tr>
+<tr class="row-odd"><td><p>b</p></td>
+<td><p>Enable/Disable overload bypass function</p></td>
+</tr>
+<tr class="row-even"><td><p>d</p></td>
+<td><p>Enable/Disable solar feed to grid (reserved feature)</p></td>
+</tr>
+<tr class="row-odd"><td><p>k</p></td>
+<td><p>Enable/Disable LCD display escape to default page after 1min timeout</p></td>
+</tr>
+<tr class="row-even"><td><p>u</p></td>
+<td><p>Enable/Disable overload restart</p></td>
+</tr>
+<tr class="row-odd"><td><p>v</p></td>
+<td><p>Enable/Disable over temperature restart</p></td>
+</tr>
+<tr class="row-even"><td><p>x</p></td>
+<td><p>Enable/Disable backlight on</p></td>
+</tr>
+<tr class="row-odd"><td><p>y</p></td>
+<td><p>Enable/Disable alarm on when primary source interrupt</p></td>
+</tr>
+<tr class="row-even"><td><p>z</p></td>
+<td><p>Enable/Disable fault code record</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="qpigs-cr-device-general-status-parameters-inquiry">
+<h3>2.9 QPIGS&lt;cr&gt;: Device general status parameters inquiry<a class="headerlink" href="#qpigs-cr-device-general-status-parameters-inquiry" title="Link to this heading">¶</a></h3>
+<div class="line-block">
+<div class="line">Computer: QPIGS &lt;CRC&gt;&lt;cr&gt;</div>
+<div class="line">Device: (BBB.B CC.C DDD.D EE.E FFFF GGGG HHH III JJ.JJ KKK OOO TTTT EE.E UUU.U WW.WW PPPPP b7b6b5b4b3b2b1b0 QQ VV MMMMM b10b9b8 Y ZZ AAAA &lt;CRC&gt;&lt;cr&gt;</div>
+</div>
+<table class="docutils align-left" id="id6">
+<caption><span class="caption-text">Response Decode</span><a class="headerlink" href="#id6" title="Link to this table">¶</a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p>i</p></th>
+<th class="head"><p>Component</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Units</p></th>
+<th class="head"><p>Notes</p></th>
+<th class="head"><p>Axpert</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>a</p></td>
+<td><p>(</p></td>
+<td><p>Start byte</p></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>b</p></td>
+<td><p>BBB.B</p></td>
+<td><p>Grid voltage</p></td>
+<td><p>V</p></td>
+<td><p>B is an Integer number 0 to 9.</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>C</p></td>
+<td><p>CC.C</p></td>
+<td><p>Grid frequency</p></td>
+<td><p>Hz</p></td>
+<td><p>C is an Integer number 0 to 9.</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>D</p></td>
+<td><p>DDD.D</p></td>
+<td><p>AC output voltage</p></td>
+<td><p>V</p></td>
+<td><p>D is an Integer number 0 to 9.</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>E</p></td>
+<td><p>EE.E</p></td>
+<td><p>AC output frequency</p></td>
+<td><p>Hz</p></td>
+<td><p>E is an Integer number from 0 to 9.</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>F</p></td>
+<td><p>FFFF</p></td>
+<td><p>AC output apparent power</p></td>
+<td><p>VA</p></td>
+<td><p>F is an Integer number from 0 to 9.</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>G</p></td>
+<td><p>GGGG</p></td>
+<td><p>AC output active power</p></td>
+<td><p>W</p></td>
+<td><p>G is an Integer ranging from 0 to 9.</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>H</p></td>
+<td><p>HHH Output load percent</p></td>
+<td><p>%</p></td>
+<td><div class="line-block">
+<div class="line">DEVICE: HHH is Maximum of W% or VA%.</div>
+<div class="line">VA% is a percent of apparent power.</div>
+<div class="line">W% is a percent of active power.</div>
+</div>
+</td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>I</p></td>
+<td><p>III</p></td>
+<td><p>BUS voltage</p></td>
+<td><p>V</p></td>
+<td><p>I is an Integer ranging from 0 to 9.</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>j</p></td>
+<td><p>JJ.JJ</p></td>
+<td><p>Battery voltage</p></td>
+<td><p>V</p></td>
+<td><p>J is an Integer ranging from 0 to 9.</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>k</p></td>
+<td><p>KK</p></td>
+<td><p>K Battery charging current</p></td>
+<td><p>A</p></td>
+<td><p>K is an Integer ranging from 0 to 9.</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>o</p></td>
+<td><p>OOO</p></td>
+<td><p>Battery capacity</p></td>
+<td><p>%</p></td>
+<td><p>O is an Integer ranging from 0 to 9.</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>P</p></td>
+<td><p>TTTT</p></td>
+<td><p>Inverter heat sink temperature</p></td>
+<td><p>°C</p></td>
+<td><p>T is an integer ranging from 0 to 9.</p></td>
+<td><p>NTC A/D value for Axpert 1~3K</p></td>
+</tr>
+<tr class="row-odd"><td><p>r</p></td>
+<td><p>EE.E</p></td>
+<td><p>PV 1 Input current</p></td>
+<td><p>A</p></td>
+<td><p>E is an Integer ranging from 0 to 9.</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>t</p></td>
+<td><p>UUU.U</p></td>
+<td><p>PV 1 Input voltage</p></td>
+<td><p>V</p></td>
+<td><p>U is an Integer ranging from 0 to 9.</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>u</p></td>
+<td><p>WW.WW</p></td>
+<td><p>Battery voltage from SCC</p></td>
+<td><p>V</p></td>
+<td><p>W is an Integer ranging from 0 to 9.</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>w</p></td>
+<td><p>PPPPP</p></td>
+<td><p>Battery discharge current</p></td>
+<td><p>A</p></td>
+<td><p>P is an Integer ranging from 0 to 9.</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>x</p></td>
+<td><p>b7b6b5b b3b2b1b</p></td>
+<td><p>Device status</p></td>
+<td></td>
+<td><div class="line-block">
+<div class="line">b7: add SBU priority version, 1: yes,0: no</div>
+<div class="line">b6: configuration status: 1: Change 0: unchanged</div>
+<div class="line">b5: SCC firmware version 1: Updated 0: unchanged</div>
+<div class="line">b4: Load status: 0: Load off 1:Load on</div>
+<div class="line">b3: battery voltage to steady while charging</div>
+<div class="line">b2: Charging status</div>
+<div class="line">b1: Charging status(SCC charging on/off)</div>
+<div class="line">b0: Charging status(AC charging on/off)</div>
+<div class="line">b2b1b0:</div>
+<div class="line-block">
+<div class="line">000: Do nothing</div>
+<div class="line">110: Charging on with SCC charge on</div>
+<div class="line">101: Charging on with AC charge on</div>
+<div class="line">111: Charging on with SCC and AC charge on</div>
+</div>
+</div>
+</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>y</p></td>
+<td><p>QQ</p></td>
+<td><p>Battery voltage offset for fans on</p></td>
+<td><p>10mV</p></td>
+<td><p>Q is an Integer ranging from 0 to 9.</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>z</p></td>
+<td><p>VV</p></td>
+<td><p>EEPROM version</p></td>
+<td></td>
+<td><p>V is an Integer ranging from 0 to 9.</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td></td>
+<td><p>MMMM</p></td>
+<td><p>PV 1 Charging power</p></td>
+<td><p>W</p></td>
+<td><p>M is an Integer ranging from 0 to 9.</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td></td>
+<td><p>b10b9b8</p></td>
+<td><p>Device status</p></td>
+<td></td>
+<td><p><a href="#id1"><span class="problematic" id="id2">|</span></a>b10: flag for charging to floating mode
+| b9: Switch On
+| b8: flag for dustproof installed(1-dustproof installed,0-no dustproof, only available for Axpert V series)</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td></td>
+<td><p>Y</p></td>
+<td><p>Solar feed to grid status (reserved feature)</p></td>
+<td></td>
+<td><div class="line-block">
+<div class="line">0: normal</div>
+<div class="line">1: solar feed to grid</div>
+</div>
+</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td></td>
+<td><p>ZZ</p></td>
+<td><p>Set country customized regulation (reserved feature)</p></td>
+<td></td>
+<td><div class="line-block">
+<div class="line">00: India</div>
+<div class="line">01: Germany</div>
+<div class="line">02: South America</div>
+</div>
+</td>
+<td></td>
+</tr>
+<tr class="row-even"><td></td>
+<td><p>AAAA</p></td>
+<td><p>Solar feed to grid power (reserved feature)</p></td>
+<td><p>W</p></td>
+<td><p>A is an Integer ranging from 0 to 9.</p></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="qpigs2-cr-device-general-status-parameters-inquiry-only-48v-model">
+<h3>2.10 QPIGS2&lt;cr&gt;: Device general status parameters inquiry (Only 48V model)<a class="headerlink" href="#qpigs2-cr-device-general-status-parameters-inquiry-only-48v-model" title="Link to this heading">¶</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">`</span>
 <span class="pre">Computer:</span> <span class="pre">QPIGS2</span> <span class="pre">&lt;CRC&gt;&lt;cr&gt;</span>
 <span class="pre">Device:</span> <span class="pre">(BB.B</span> <span class="pre">CCC.C</span> <span class="pre">DDDDD</span> <span class="pre">&lt;CRC&gt;&lt;cr&gt;</span>
