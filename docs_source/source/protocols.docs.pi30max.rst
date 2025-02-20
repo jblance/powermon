@@ -251,11 +251,11 @@ Inquiry Command
 2.9 QPIGS<cr>: Device general status parameters inquiry
 -------------------------------------------------------
 
-| Computer: QPIGS <CRC><cr>
-| Device: (BBB.B CC.C DDD.D EE.E FFFF GGGG HHH III JJ.JJ KKK OOO TTTT EE.E UUU.U WW.WW PPPPP b7b6b5b4b3b2b1b0 QQ VV MMMMM b10b9b8 Y ZZ AAAA <CRC><cr>
+| Computer: ``QPIGS <CRC><cr>``
+| Device: ``(BBB.B CC.C DDD.D EE.E FFFF GGGG HHH III JJ.JJ KKK OOO TTTT EE.E UUU.U WW.WW PPPPP b7b6b5b4b3b2b1b0 QQ VV MMMMM b10b9b8 Y ZZ AAAA <CRC><cr>``
 
 .. csv-table:: Response Decode
-   :header: i, Component, Description, Units, Notes, Axpert
+   :header: i, Component, Description, Units, Notes
    :widths: auto
    :align: left
 
@@ -266,14 +266,14 @@ Inquiry Command
    E, EE.E, AC output frequency, Hz, E is an Integer number from 0 to 9.
    F, FFFF, AC output apparent power, VA, F is an Integer number from 0 to 9.
    G, GGGG, AC output active power, W, G is an Integer ranging from 0 to 9.
-   H, HHH Output load percent, %, "| DEVICE: HHH is Maximum of W% or VA%.
+   H, HHH, Output load percent, %, "| DEVICE: HHH is Maximum of W% or VA%.
    | VA% is a percent of apparent power.
    | W% is a percent of active power."
    I, III, BUS voltage, V, I is an Integer ranging from 0 to 9.
    j, JJ.JJ, Battery voltage, V, J is an Integer ranging from 0 to 9. 
    k, KK, K Battery charging current, A, K is an Integer ranging from 0 to 9. 
    o, OOO, Battery capacity, %, O is an Integer ranging from 0 to 9.
-   P, TTTT, Inverter heat sink temperature, °C, T is an integer ranging from 0 to 9., NTC A/D value for Axpert 1~3K
+   P, TTTT, Inverter heat sink temperature, °C, T is an integer ranging from 0 to 9. NTC A/D value for Axpert 1~3K
    r, EE.E, PV 1 Input current, A, E is an Integer ranging from 0 to 9.
    t, UUU.U, PV 1 Input voltage, V, U is an Integer ranging from 0 to 9. 
    u, WW.WW, Battery voltage from SCC, V, W is an Integer ranging from 0 to 9. 
@@ -294,7 +294,7 @@ Inquiry Command
    y, QQ, Battery voltage offset for fans on, 10mV, Q is an Integer ranging from 0 to 9.
    z, VV, EEPROM version,, V is an Integer ranging from 0 to 9.
    , MMMM, PV 1 Charging power, W, M is an Integer ranging from 0 to 9.
-   , b10b9b8, Device status,, "|b10: flag for charging to floating mode
+   , b10b9b8, Device status,, "| b10: flag for charging to floating mode
    | b9: Switch On
    | b8: flag for dustproof installed(1-dustproof installed,0-no dustproof, only available for Axpert V series)"
    , Y, Solar feed to grid status (reserved feature),, "| 0: normal
