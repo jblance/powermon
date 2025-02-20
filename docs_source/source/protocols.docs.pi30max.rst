@@ -308,677 +308,234 @@ Inquiry Command
 2.10 QPIGS2<cr>: Device general status parameters inquiry (Only 48V model)
 --------------------------------------------------------------------------
 
-```
-Computer: QPIGS2 <CRC><cr>
-Device: (BB.B CCC.C DDDDD <CRC><cr>
-Data Description Notes Axpert
-```
-a ( Start byte
 
-b BB.B PV2 Input current E is an Integer ranging from 0 to 9. The units
-is A.
-c CCC.C PV2 Input voltage U is an Integer ranging from 0 to 9. The units
-is V.
-d DDDDD PV2 Charging power M is an Integer ranging from 0 to 9. The unit
-is watt.
+| Computer: ``QPIGS2 <CRC><cr>``
+| Device: ``(BB.B CCC.C DDDDD <CRC><cr>``
+
+.. csv-table:: Response Decode
+   :header: i, Component, Description, Units, Notes
+   :widths: auto
+   :align: left
+
+   a, (, Start byte
+   b, BB.B, PV2 Input current, A, E is an Integer ranging from 0 to 9.
+   c, CCC.C, PV2 Input voltage, V, U is an Integer ranging from 0 to 9.
+   d, DDDDD, PV2 Charging power, W, M is an Integer ranging from 0 to 9.
+
+
+2.11 QPGSn<cr>: Parallel Information inquiry (Only 48V model)
+-------------------------------------------------------------
+
+
+| Computer: ``QPGSn<CRC><cr>``; n is parallel machine number.
+| Device: ``(A BBBBBBBBBBBBBB C DD EEE.E FF.FF GGG.G HH.HH IIII JJJJ KKK LL.L MMM NNN OOO.O PPP QQQQQ RRRRR SSS b7b6b5b4b3b2b1b0 T U VVV WWW ZZ XX YYY OOO.O XX<CRC><cr>``
+
+.. csv-table:: Response Decode
+   :header: i, Component, Description, Units, Notes
+   :widths: auto
+   :align: left
+
+   A, (, Start byte
+   B, A, Whether the parallel num, , "| 0 ：No exist
+   | 1 ：Exist."
+   C, BBBBBBBBBBBBBB, Serial number,, B is an Integer ranging from 0 to 9.
+   D, C, Work mode,, C is an character, refer to QMOD
+   E, DD, Fault code,, D is an Integer ranging from 0 to 9.
+   F, EEE.E, Grid voltage, V, E is an Integer ranging from 0 to 9.
+   G, FF.FF, Grid frequency, Hz, F is an Integer ranging from 0 to 9.
+   H, GGG.G, AC output voltage, V, G is an Integer ranging from^ 0 to 9.
+   I, HH.HH, AC output frequency, Hz, H is an Integer ranging from 0 to 9.
+   J, IIII, AC output apparent power, VA, I is an Integer number from 0 to 9.
+   K, JJJJ, AC output active power, W, J is an Integer ranging from 0 to 9.
+   L, KKK, Load percentage, %, K is an Integer ranging from 0 to 9.
+   M, LL.L, Battery voltage, V, L is an Integer ranging from 0 to 9.
+   N, MMM, Battery charging current, A, M is an Integer ranging from 0 to 9.
+   O, NNN, Battery capacity, %, N is an Integer ranging from 0 to 9.
+   P, OOO.O, PV 1 Input Voltage, V, O is an Integer ranging from 0 to 9.
+   Q, PPP, Total charging current, A, P is an Integer ranging from 0 to 9.
+   R, QQQQQ, Total AC output apparent power, VA, Q is an Integer ranging from 0 to 9.
+   S, RRRRR, Total output active power, W, R is an Integer ranging from 0 to 9.
+   T, SSS, Total AC output percentage, %, S is an Integer ranging from 0 to 9.
+   U, b7b6b5b4b3b2b1b0, Inverter Status, , "| b7: 1 SCC OK, 0 SCC LOSS
+   | b6: 1 AC Charging, 0 AC no charging
+   | b5: 1 SCC Charging, 0 SCC no charging
+   | b4b3: 2 battery open, 1 battery under, 0 battery normal
+   | b2: 1 Line loss, 0 Line ok
+   | b1: 1 load on, 0 load off
+   | b0: configuration status: 1: Change 0: unchanged"
+   V, T, Output mode,, "| 0: single machine
+   | 1: parallel output
+   | 2: Phase 1 of 3 phase output
+   | 3: Phase 2 of 3 phase output
+   | 4: Phase 3 of 3 phase output
+   | 5: Phase 1 of 2 Phase output
+   | 6: Phase 2 of 2 Phase output (120°)
+   | 7: Phase 2 of 2 Phase output (180°)"
+   W, U, Charger source priority,, "| 0: Utility first
+   | 1: Solar first
+   | 2: Solar + Utility
+   | 3: Solar only"
+   X, VVV, Max charger current, A, V is an Integer ranging from 0 to 9.
+   Y, WWW, Max charger range, A , W is an Integer ranging from 0 to 9.
+   Z, ZZ, Max AC charger current, A, Z is an Integer ranging from 0 to 9. If the max AC charging current is greater than 99A, then return to ZZZ
+   a, XX, PV 1 input current, A, X is an Integer ranging from 0 to 9.
+   b, YYY, Battery discharge current, A, Y is an Integer ranging from 0 to 9.
+   c, OOO.O, PV 2 input voltage, V, O is an Integer ranging from 0 to 9.
+   d, XX, PV2 input current, A, X is an Integer ranging from 0 to 9.
+
+
+.. csv-table:: Fault Codes
+   :header: Fault Code, Fault Event
+   :widths: auto
+   :align: left
+
+   01, Fan is locked when inverter is off.
+   02, Over temperature
+   03, Battery voltage is too high
+   04, Battery voltage is too low
+   05, Output short circuited.
+   06, Output voltage is too high.
+   07, Overload time out
+   08, Bus voltage is too high
+   09, Bus soft start failed
+   10, PV over current
+   11, PV over voltage
+   12, DCDC over current
+   13, Battery discharge over current
+   51, Over current
+   52, Bus voltage is too low
+   53, Inverter soft start failed
+   55, Over DC voltage in AC output
+   57, Current sensor failed
+   58, Output voltage is too low
+   60, Power feedback protection
+   71, Firmware version inconsistent
+   72, Current sharing fault
+   80, CAN fault
+   81, Host loss
+   82, Synchronization loss
+   83, Battery voltage detected different
+   84, AC input voltage and frequency detected different
+   85, AC output current unbalance
+   86, AC output mode setting is different
+
+
+2.12 QMOD<cr>: Device Mode inquiry
+----------------------------------
+
+| Computer: ``QMOD<CRC><cr>``
+| Device: ``(M<CRC><cr>``
+
+.. csv-table:: Fault Codes
+   :header: Code(M), Notes
+   :widths: auto
+   :align: left
+
+   P, Power on mode
+   S, Standby mode
+   L, Line mode
+   B, Battery mode
+   F, Fault mode
+   D, Shutdown mode
+
+| Example:
+| Computer: ``QMOD<CRC><cr>``
+| DEVICE: ``(L<CRC><cr>``
+| Means: the current DEVICE mode is Line (Grid) mode. 
+
+
+2.13 QPIWS<cr>: Device Warning Status inquiry
+---------------------------------------------
+
+
+| Computer: ``QPIWS<CRC> <cr>``
+| Device: ``(a0a1.....a 30 a 31 <CRC><cr>``
+| a0... a35 is the warning status. If the warning is happened, the relevant bit will set 1, else the relevant bit will set 0. The following table is the warning code.
+
+.. csv-table:: Fault Codes
+   :header: bit, Warning, Notes
+   :widths: auto
+   :align: left
+
+   a0, PV loss, Warning
+   a1, Inverter fault, Fault
+   a2, Bus Over, Fault
+   a3, Bus Under, Fault
+   a4, Bus Soft Fail, Fault
+   a5, LINE_FAIL, Warning
+   a6, OPVShort, Fault
+   a7, Inverter voltage too low, Fault
+   a8, Inverter voltage too high, Fault
+   a9, Over temperature, "Compile with a1, if a1=1,fault, otherwise warning"
+   a10, Fan locked, "Compile with a1, if a1=1,fault, otherwise warning"
+   a11, Battery voltage high, "Compile with a1, if a1=1,fault, otherwise warning"
+   a12, Battery low alarm, Warning
+   a13, Reserved
+   a14, Battery under shutdown, Warning
+   a15, Battery derating, Warning
+   a16, Over load, "Compile with a1, if a1=1,fault, otherwise warning"
+   a17, Eeprom fault, Warning
+   a18, Inverter Over Current, Fault
+   a19, Inverter Soft Fail, Fault
+   a20, Self Test Fail, Fault
+   a21, OP DC Voltage Over, Fault
+   a22, Bat Open
+   a23, Current Sensor Fail, Fault
+   a24, Reserved
+   a25, Reserved
+   a26, Reserved
+   a27, Reserved
+   a28, Reserved
+   a29, Reserved
+   a30, Reserved
+   a31, Battery weak (only 48V model), "24V model: a31, a32 is fault code"
+   a32, Reserved, "48V model: a32, a33 is fault code"
+   a33, Reserved, 48V model: a32, a33 is fault code
+   a34, Reserved
+   a35, Battery equalization, Warning
+
+
+2.14 QDI<cr>: The default setting value information
+----------------------------------------------------
+
+| Computer: ``QDI<CRC><cr>``
+| Device: ``(BBB.B CC.C 00DD EE.E FF.F GG.G HH.H II J K L M N O P Q R S T U V W YY.Y X Z aaa bbb<CRC><cr>``
+
+.. csv-table:: Response Decode
+   :header: i, Component, Description, Units, Notes, Axpert
+   :widths: auto
+   :align: left
+
+   A, (, Start byte
+   B, BBB.B, AC output voltage, V, B is an Integer ranging from 0 to 9., "Default 230.0 for HV models, 120.0 for LV models"
+   C, CC.C, AC output frequency, Hz, C is an Integer ranging from 0 to 9., "Default 50.0 for HV models, 60.0 for LV models"
+   D, 00DD, Max AC charging current, A, D is an Integer ranging from 0 to 9., Default 0030
+   E, EE.E, Battery Under voltage, V, E is an Integer ranging from 0 to 9., Default 44.0
+   F, FF.F, Charging float voltage, V, F is an Integer ranging from 0 to 9., Default 54.0
+   G, GG.G, Charging bulk voltage, V, G is an Integer ranging from 0 to 9., Default 56.4
+   H, HH.H, Battery default re-charge voltage, V, H is an Integer ranging from 0 to 9., Default 46.0 for HV model
+   I, II, Max charging current, A, I is an Integer ranging from 0 to 9., Default 60 for HV model
+   J, J, AC input voltage range,, J is an Integer ranging from 0 to 1., Default 0 for Appliances range
+   K, K, Output source priority,, K is an Integer ranging from 0 to 1. Default 0 for utility first
+   L, L, Charger source priority,, L is an Integer ranging from 1 to 3., Default 2 for solar and utility
+   M, M, Battery type,, M is an Integer ranging from 0 to 1., Default 0 for AGM
+   N, N, Enable/disable silence buzzer or open buzzer,, N is an Integer ranging from 0 to 1., Default 0 for enable buzzer
+   O, O, Enable/Disable power saving,, O is an Integer ranging from 0 to 1., Default 0 for disable power saving
+   P, P, Enable/Disable overload restart,, P is an Integer ranging from 0 to 1., Default 0 for disable overload restart
+   Q, Q, Enable/Disable over temperature restart,, Q is an Integer ranging from 0 to 1., Default 0 for disable over temperature restart
+   R, R, Enable/Disable LCD backlight on,, R is an Integer ranging from 0 to 1., Default 1 for enable LCD backlight on
+   S, S, Enable/Disable alarm on when primary source interrupt,, S is an Integer ranging from 0 to 1., Default 1 for enable alarm on when primary source interrupt
+   T, T, Enable/Disable fault code record,, T is an Integer ranging from 0 to 1., Default 1 for disable fault code record
+   U, U, Overload bypass,, U is an Integer ranging from 0 to 1., Default 0 for disable overload bypass function
+   V, V, Enable/Disable LCD display escape to default page after 1min timeout,, V is an Integer ranging from 0 to 1., Default 1 for LCD display escape to default page
+   W, W, Output mode,, W is an Integer ranging from 0 to 4., Default 0 for single output
+   Y, YY.Y, Battery re-discharge voltage, V, W is an Integer ranging from 0 to 9., Default 54.0 for HV model
+   X, X, PV OK condition for parallel,, X is an Integer ranging from 0 to 1, "0: As long as one unit of inverters has connect PV, parallel system will consider PV OK"
+   Z, Z, PV power balance,, X is an Integer ranging from 0 to 1, "0: PV input max current will be the max charged current"
+   a, aaa, Max. charging time at C.V stage(only 48V model),, a is an Integer ranging from 0 to 9
+   b, bbb, Max discharging current (only 48V model), A, b is an integer ranging from 0 to 9. 
 
-### 2.11 QPGSn<cr>: Parallel Information inquiry (Only 48V model)
 
-```
-Computer: QPGSn<CRC><cr>; n is parallel machine number.
-Device: (A BBBBBBBBBBBBBB C DD EEE.E FF.FF GGG.G HH.HH IIII JJJJ KKK LL.L
-MMM NNN OOO.O PPP QQQQQ RRRRR SSS b7b6b5b4b3b2b1b0 T U VVV WWW ZZ XX
-YYY OOO.O XX<CRC><cr>
-Date Description Notes
-A ( Start byte
-B A The parallel num whether 0 ：No exist.
-```
-
-```
-exist 1 ：Exist.
-```
-C BBBBBBBB^
-BBBBBB
-Serial number B is an Integer ranging from 0 to
-9.
-D C Work mode C is an character, refer to QMOD
-
-E DD Fault code D is an Integer ranging from 0 to
-9.
-
-F EEE.E Grid voltage^
-E is an Integer ranging from 0 to
-
-9. The units is V.
-
-G FF.FF Grid frequency
-F is an Integer ranging from 0 to
-
-9. The unit is Hz.
-
-H GGG.G AC output voltage G is an Integer ranging from^ 0 to
-
-9. The units is V.
-
-I HH.HH AC output frequency
-H is an Integer ranging from 0 to
-
-9. The unit is Hz.
-
-J IIII AC output apparent power I is an Integer number from 0 to
-
-9. The units is VA
-
-K JJJJ (^) AC output active power
-J is an Integer ranging from 0 to
-
-9. The units is W.
-
-L KKK Load percentage
-K is an Integer ranging from 0 to
-
-9. The units is %.
-
-M LL.L Battery voltage
-L is an Integer ranging from 0 to
-
-9. The unit is V.
-
-N MMM Battery charging current
-M is an Integer ranging from 0 to
-
-9. The units is A.
-
-O NNN (^) Battery capacity N is an Integer ranging from 0 to
-
-9. The units is %.
-
-P OOO. O PV 1 Input Voltage
-O is an Integer ranging from 0 to
-
-9. The units is V.
-
-Q PPP Total charging current
-P is an Integer ranging from 0 to
-
-9. The units is A.
-
-R QQQQQ Total^ AC output apparent
-power
-
-```
-Q is an Integer ranging from 0 to
-```
-9. The units is VA.
-
-S RRRRR Total output active power
-R is an Integer ranging from 0 to
-
-9. The units is W.
-
-T SSS Total AC output percentage
-S is an Integer ranging from 0 to
-
-9. The units is %.
-
-U b7b6b5b4b3b2b1b0 Inverter Status
-
-```
-b7: 1 SCC OK, 0 SCC LOSS
-b6: 1 AC Charging
-0 AC no charging
-b5: 1 SCC Charging
-0 SCC no charging
-b4b3: 2 battery open,
-1 battery under, 0 battery
-```
-
-```
-normal
-b2: 1 Line loss
-0 Line ok
-b1: 1 load on, 0 load off
-b0: configuration status:
-1: Change 0: unchanged
-```
-V T Output mode
-
-```
-0: single machine
-1: parallel output
-2: Phase 1 of 3 phase output
-3: Phase 2 of 3 phase output
-4: Phase 3 of 3 phase output
-5: Phase 1 of 2 Phase output
-6: Phase 2 of 2 Phase output
-(120°)
-7: Phase 2 of 2 Phase output
-(180°)
-```
-W U Charger source priority
-
-```
-0: Utility first
-1: Solar first
-2: Solar + Utility
-3: Solar only
-```
-X VVV Max charger current
-V is an Integer ranging from 0 to
-
-9. The units is A.
-
-Y WWW Max charger range
-W is an Integer ranging from 0 to
-
-9. The units is A.
-
-Z ZZ Max AC charger current
-
-```
-Z is an Integer ranging from 0 to
-```
-9. The units is A.
-If the max AC charging current is
-greater than 99A, then return to
-ZZZ
-
-a XX PV 1 input current
-X is an Integer ranging from 0 to
-
-9. The units is A.
-
-b YYY Battery discharge current
-Y is an Integer ranging from 0 to
-
-9. The units is A.
-
-c OOO. O PV 2 input voltage
-O is an Integer ranging from 0 to
-
-9. The units is V.
-
-d XX PV2 input current
-X is an Integer ranging from 0 to
-
-9. The units is A.
-
-```
-Fault Code Fault Event
-01 Fan^ is^ locked^ when inverter is off.^
-02 Over temperature^
-03 Battery voltage is too high^
-04 Battery voltage is too low
-```
-
-```
-05 Output short circuited.^
-06 Output voltage is too high.
-07 Overload time^ out^
-08 Bus voltage is too high
-09 Bus^ soft start failed^
-10 PV over current^
-11 PV over voltage
-12 DCDC over current^
-13 Battery discharge over current
-51 Over current^
-52 Bus voltage is too low^
-53 Inverter soft start failed
-55 Over DC voltage in AC output^
-57 Current sensor failed
-58 Output voltage is too low^
-60 Power feedback protection^
-71 Firmware version inconsistent
-72 Current sharing fault^
-80 CAN fault
-81 Host loss^
-82 Synchronization loss^
-83 Battery voltage detected different
-84 AC input voltage and frequency detected different^
-85 AC output current unbalance
-86 AC output mode setting is different^
-```
-### 2.12 QMOD<cr>: Device Mode inquiry
-
-```
-Computer: QMOD<CRC><cr>
-Device: (M<CRC><cr>
-MODE CODE(M) Notes
-Power on mode P Power on mode
-Standby mode S Standby mode
-Line mode L Line mode
-Battery mode B Battery mode
-Fault mode F Fault mode
-Shutdown mode D Shutdown mode
-```
-```
-Example:
-Computer: QMOD<CRC><cr>
-```
-
-```
-DEVICE: (L<CRC><cr>
-Means: the current DEVICE mode is Grid mode.
-```
-### 2.13 QPIWS<cr>: Device Warning Status inquiry
-
-```
-Computer: QPIWS<CRC> <cr>
-Device: (a0a1.....a 30 a 31 <CRC><cr>
-a0... a35 is the warning status. If the warning is happened, the relevant bit will set 1, else the
-relevant bit will set 0. The following table is the warning code.
-```
-bit (^) Warning Description
-a0 PV loss Warning
-a1 Inverter fault Fault
-a2 Bus Over Fault
-a3 Bus Under Fault^
-a4 Bus Soft Fail Fault^
-a5 LINE_FAIL Warning
-a6 OPVShort Fault
-a7 Inverter voltage too low Fault
-a8 Inverter voltage too high Fault^
-a9 Over temperature
-Compile with a1, if a1=1,fault,
-otherwise warning
-a10 Fan locked
-Compile with a1, if a1=1,fault,
-otherwise warning
-a11 Battery voltage high
-Compile with a1, if a1=1,fault,
-otherwise warning
-a12 Battery low alarm Warning
-a13 Reserved
-a14 Battery under shutdown Warning
-a15 Battery derating Warning^
-a16 Over load
-Compile with a1, if a1=1,fault,
-otherwise warning
-a17 Eeprom fault Warning
-a18 Inverter Over Current^ Fault
-a19 Inverter^ Soft Fail^ Fault
-a20 Self Test Fail^ Fault
-a21 OP DC Voltage Over^ Fault
-a22 Bat Open
-a23 Current Sensor Fail^ Fault
-a24 Reserved^
-a25 Reserved
-a26 Reserved^
-
-
-```
-a27 Reserved^
-a2 8 Reserved
-a2 9 Reserved^
-a30 Reserved^
-a31 Battery weak (only 48V model)^
-24V model: a31, a32 is fault code
-48V model: a32, a33 is fault code
-a32 Reserved^
-a33 Reserved
-a34 Reserved^
-a35 Battery equalization^ Warning
-```
-### 2.14 QDI<cr>: The default setting value information
-
-```
-Computer: QDI<CRC><cr>
-Device: (BBB.B CC.C 00 DD EE.E FF.F GG.G HH.H II J K L M N O P Q R S T U V W YY.Y X
-Z aaa bbb<CRC><cr>
-Data Description Notes AXPERT
-A ( Start byte
-```
-```
-B BBB.B^ AC output voltage
-```
-```
-B is an Integer
-ranging from 0 to 9.
-The units is V.
-```
-```
-Default 230.0 for HV models
-120.0 for LV models
-```
-```
-C CC.C^ AC output frequency
-```
-```
-C is an Integer
-ranging from 0 to 9.
-The units is Hz.
-```
-```
-Default 50.0 for HV models
-60.0 for LV models
-```
-#### D 00 DD^
-
-```
-Max AC charging
-current
-```
-```
-D is an Integer
-ranging from 0 to 9.
-The unit is A.
-```
-```
-Default 0030
-```
-```
-E EE.E^ Battery Under voltage
-```
-```
-E is an Integer
-ranging from 0 to 9.
-The unit is V.
-```
-```
-Default 44.
-```
-#### F FF.F^
-
-```
-Charging float
-voltage
-```
-```
-F is an Integer
-ranging from 0 to 9.
-The unit is V.
-```
-```
-Default 54.
-```
-```
-G GG.G^ Charging bulk voltage
-```
-```
-G is an Integer
-ranging from 0 to 9.
-The unit is V.
-```
-```
-Default 56.
-```
-#### H HH.H^
-
-```
-Battery default
-re-charge voltage
-```
-```
-H is an Integer
-ranging from 0 to 9.
-The units is V.
-```
-```
-Default 46.0 for HV model
-```
-```
-I II^ Max charging current
-```
-```
-I is an Integer ranging
-from 0 to 9.
-The units is A.
-```
-```
-Default 60 for HV model
-```
-#### J J^
-
-```
-AC input voltage
-range
-```
-```
-J is an Integer ranging
-from 0 to 1. No unit
-Default 0 for Appliances range
-```
-
-```
-K K^ Output source priority
-```
-```
-K is an Integer
-ranging from 0 to 1. No
-unit
-```
-```
-Default 0 for utility first
-```
-#### L L^
-
-```
-Charger source
-priority
-```
-```
-L is an Integer
-ranging from 1 to 3. No
-unit
-```
-```
-Default 2 for solar and utility
-```
-M M^ Battery type
-
-```
-M is an Integer
-ranging from 0 to 1. No
-unit
-```
-```
-Default 0 for AGM
-```
-```
-N N Enable/disable silence
-buzzer or open buzzer
-```
-```
-N is an Integer
-ranging from 0 to 1. No
-unit
-```
-```
-Default 0 for enable buzzer
-```
-#### O O^
-
-```
-Enable/Disable power
-saving
-```
-```
-O is an Integer
-ranging from 0 to 1. No
-unit
-```
-```
-Default 0 for disable power
-saving
-```
-#### P P^
-
-```
-Enable/Disable
-overload restart
-```
-```
-P is an Integer
-ranging from 0 to 1. No
-unit
-```
-```
-Default 0 for disable overload
-restart
-```
-#### Q Q^
-
-```
-Enable/Disable over
-temperature restart
-```
-```
-Q is an Integer
-ranging from 0 to 1. No
-unit
-```
-```
-Default 0 for disable over
-temperature restart
-```
-#### R R^
-
-```
-Enable/Disable LCD
-backlight on
-```
-```
-R is an Integer
-ranging from 0 to 1. No
-unit
-```
-```
-Default 1 for enable LCD
-backlight on
-```
-#### S S^
-
-```
-Enable/Disable alarm
-on when primary
-source interrupt
-```
-```
-S is an Integer
-ranging from 0 to 1. No
-unit
-```
-```
-Default 1 for enable alarm on
-when primary source interrupt
-```
-#### T T^
-
-```
-Enable/Disable fault
-code record
-```
-```
-T is an Integer
-ranging from 0 to 1. No
-unit
-```
-```
-Default 1 for disable fault code
-record
-```
-```
-U U^ Overload bypass
-```
-```
-U is an Integer
-ranging from 0 to 1. No
-unit
-```
-```
-Default 0 for disable overload
-bypass function
-```
-#### V V^
-
-```
-Enable/Disable LCD
-display escape to
-default page after 1min
-timeout
-```
-```
-V is an Integer
-ranging from 0 to 1. No
-unit
-```
-```
-Default 1 for LCD display
-escape to default page
-```
-#### W W
-
-```
-Output mode W is an Integer
-ranging from 0 to 4. No
-unit
-```
-```
-Default 0 for single output
-```
-#### Y YY.Y^
-
-```
-Battery re-discharge
-voltage
-```
-```
-W is an Integer
-ranging from 0 to 9.
-The unit is V
-```
-```
-Default 54.0 for HV model
-```
-
-#### X X^
-
-```
-PV OK condition for
-parallel
-```
-```
-X is an Integer ranging
-from 0 to 1
-```
-```
-0: As long as one unit of inverters
-has connect PV, parallel system
-will consider PV OK;
-```
-```
-Z Z^ PV power balance^ X is an Integer ranging
-from 0 to 1
-```
-```
-0: PV input max current will be the
-max charged current;
-```
-```
-a aaa^
-```
-```
-Max. charging time at
-C.V stage(only 48V
-model)
-```
-```
-a is an Integer ranging
-from 0 to 9
-```
-```
-b bbb
-```
-```
-Max discharging
-current (only 48V
-model)
-```
-```
-b is an integer ranging
-from 0 to 9. The units
-is A.
-```
 ### 2.15 QMCHGCR<cr>: Enquiry selectable value about max charging current
 
 ```
