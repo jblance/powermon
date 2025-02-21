@@ -536,668 +536,573 @@ Inquiry Command
    b, bbb, Max discharging current (only 48V model), A, b is an integer ranging from 0 to 9. 
 
 
-### 2.15 QMCHGCR<cr>: Enquiry selectable value about max charging current
-
-```
-Computer: QMCHGCR<CRC><cr>
-Device: (AAA BBB CCC DDD......<CRC><cr>
-More value can be added, make sure there is a space character between every value.
-```
-### 2.16 QMUCHGCR<cr>: Enquiry selectable value about max utility charging current
-
-```
-Computer: QMUCHGCR<CRC><cr>
-Device: (AAA BBB CCC DDD......<CRC><cr>
-More value can be added, make sure there is a space character between every value.
-```
-### 2.17 QOPPT<cr>: The device output source priority time order inquiry
-
-Computer: QOPPT<CRC><cr>
-Device: (M M M M M M M M M M M M M M M M M M M M M M M M N O O
-O<CRC><cr>
-M: 24 hour correspond to the output source priority (0: Utility first, 1: Solar first, 2: SBU)
-N: device output source priority
-O: selection of output source priority order
-Example:
-Computer: QOPPT<CRC><cr>
-Device: (0 0 0 0 0 2 2 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 2<CRC><cr>
-Means: the device output source priority time order is SBU from 5 to 6, and output source priority
-is Utility first.
-
-### 2.18 QCHPT<cr>: The device charger source priority time order inquiry
-
-Computer: QCHPT<CRC><cr>
-Device: (M M M M M M M M M M M M M M M M M M M M M M M M N O O
-O<CRC><cr>
-M: 24 hour correspond to the charger source priority (1: Solar first, 2: Solar + Utility, 3: Only solar
-charging permitted)
-
-```
-N: device charger source priority
-O: selection of o charger source priority order
-Example:
-```
-
-Computer: QCHPT<CRC><cr>
-Device: (1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 2 2 2 2 2 2 1 0<CRC><cr>
-Means: the device charger source priority time order is solar + utility from 20 to 23, and charger
-source priority is Solar first.
-
-### 2.19 QT<cr>: Time inquiry
-
-```
-Computer: QT<cr>
-Device: (YYYYMMDDHHMMSS<cr>
-Example:
-Computer: QT<cr>
-Device: (20180101111120<cr>
-Means: The time is 2018/01/01 11:11:20.
-Data Description Notes
-( Start byte
-YYYYMMDD Date Y, M and D are an Integer number 0 to 9.
-HHMMSS Time H, M and S are an Integer number 0 to 9.
-```
-### 2.20 QBEQI<cr>: Battery equalization status parameters inquiry
-
-```
-Computer: QBEQI<CRC><cr>
-Device: (B CCC DDD EEE FFF GG.GG HHH III J KKKK<CRC><cr>
-Data Description Notes
-a ( Start byte
-b B Enable or Disable
-equalization
-```
-```
-B is an Integer number 0 to 1.
-```
-```
-C CCC equalization time C s an Integer number 0 to 9. The unit is
-Minute.
-D DDD equalization period D is an Integer number 0 to 9. The unit is day.
-E EEE equalization max
-current
-```
-```
-E is an Integer number from 0 to 9. The unit is
-A.
-F FFF reserved reserved
-G GG.GG equalization voltage G is an Integer ranging from 0 to 9. The units
-is V.
-H HHH reserved reserved
-I III equalization over time I is an Integer ranging from 0 to 9. The unit is
-Minute.
-j J equalization active
-status
-```
-```
-J is an Integer ranging from 0 to 1.
-```
-```
-k KKKK equalization elapse time K is an Integer ranging from 0 to 9. The units
-is Hour.
-```
-### 2.21 QMN<cr>: Query model name
-
-```
-Computer: QMN<CRC><cr>
-```
-
-Device: (MMMMM-NNNN<CRC><cr> if device accepts this command, otherwise, responds
-(NAK<cr>
-MMMMM: model name, NNNN: Rated output VA
-
-### 2.22 QGMN<cr>: Query general model name
-
-```
-Computer: QGMN<CRC><cr>
-Device: (NNN<CRC><cr> if Inverter accepts this command, otherwise, responds (NAK<cr>
-```
-### 2.23 QET<CRC><cr>: Query total PV generated energy
-
-```
-Computer: QET<CRC><cr>
-Device: (NNNNNNNN<CRC><cr>
-NNNNNNNN: Generated energy, N: 0~9, unit: Wh
-```
-### 2.24 QEYyyyy<CRC><cr>: Query PV generated energy of year
-
-```
-Computer: QEYyyyy<cr>
-Device: (NNNNNNNN<CRC><cr>
-yyyy: Year, y: 0~
-NNNNNNNN: Generated energy, N: 0~9, unit: Wh
-```
-### 2.25 QEMyyyymm<CRC><cr>: Query PV generated energy of month
-
-```
-Computer: QEMyyyymm <CRC><cr>
-Device: (NNNNNNNN<CRC><cr>
-yyyy: Year, y: 0~
-mm: Month, m: 0~
-NNNNNNNN: Generated energy, N: 0~9, unit: Wh
-```
-### 2 .26 QEDyyyymmdd<CRC><cr>: Query PV generated energy of day
-
-```
-Computer: QEDyyyymmdd<CRC><cr>
-Device: (NNNNNNNN<CRC><cr>
-yyyy: Year, y: 0~
-mm: Month, m: 0~
-dd: Day, d: 0~
-NNNNNNNN: Generated energy, N: 0~9, unit: Wh
-```
-### 2.27 QLT<CRC><cr>: Query total output load energy
-
-```
-Computer: QLT<CRC><cr>
-Device: (NNNNNNNN<CRC><cr>
-NNNNNNNN: Output load energy, N: 0~9, unit: Wh
-```
-### 2.28 QLYyyyy<CRC><cr>: Query output load energy of year
-
-```
-Computer: QLYyyyy<CRC><cr>
-Device: (NNNNNNNN<CRC><cr>
-yyyy: Year, y: 0~
-NNNNNNNN: Output load energy, N: 0~9, unit: Wh
-```
-### 2.29 QLMyyyymm<CRC><cr>: Query output load energy of month
-
-```
-Computer: QLMyyyymm<CRC><cr>
-Device: (NNNNNNNN<CRC><cr>
-yyyy: Year, y: 0~
-mm: Month, m: 0~
-NNNNNNNN: Output load energy, N: 0~9, unit: Wh
-```
-
-### 2.30 QLDyyyymmdd<CRC><cr>: Query output load energy of day...........................................................
-
-```
-Computer: QLDyyyymmdd<CRC><cr>
-Device: (NNNNNNNN<CRC><cr>
-yyyy: Year, y: 0~
-mm: Month, m: 0~
-dd: Day, d: 0~
-NNNNNNNN: Output load energy, N: 0~9, unit: Wh
-```
-### 2.31 QBMS<CRC><cr>: BMS message
-
-```
-Computer: QBMS<CRC><cr>
-Device: (ACK <CRC><cr>
-```
-### 2.32 PBMS<CRC><cr>: BMS message
-
-```
-Remote box: PBMSa bbb c d e fff ggg hhh iiii jjjj<CRC><cr>
-Device: (ACK<CRC><cr>
-Data Description Notes
-( Start byte
-a Battery connect status 0: connect, 1: disconnect.
-```
-```
-bbb Battery percentage b is an Integer ranging from 0 to 9. The units
-is %.
-```
-```
-c
-Force AC charge battery in
-any case
-0: Do not force, 1: Force.
-```
-```
-d Battery stop discharge flag 0: Enable discharge, 1: disable discharging
-e Battery stop charge flag 0: Enable charge, 1: disable charging
-```
-```
-fff Battery C.V. charging voltage
-f is an Integer ranging from 0 to 9. The units
-is V.
-```
-```
-ggg
-Battery floating charging
-voltage
-```
-```
-g is an Integer ranging from 0 to 9. The units
-is V.
-```
-```
-hhh Battery cut-off voltage
-h is an Integer ranging from 0 to 9. The units
-is V.
-```
-```
-iiii
-Battery max. charging
-current
-```
-```
-i is an Integer ranging from 0 to 9. The units
-is A.
-```
-```
-jjjj
-Battery max. discharging
-current
-```
-```
-j is an Integer ranging from 0 to 9. The units
-is A.
-```
-### 2.33 QLED<cr>: LED status parameters inquiry
-
-```
-Computer: QLED<cr>
-UPS: (A B C D E aaa1bbb1ccc1 aaa 2 bbb 2 ccc 2 (aaa 3 bbb 3 ccc3)<cr>
-Item Data description Notes
-a ( Start code
-b A Enable or Disable A is an Integer number 0 to 1.
-```
-
-```
-c B LED speed B is an Integer ranging from 0 to 2. 0
-means low; 1 means medium; 2 means
-fast
-d C LED effect C is an Integer ranging from 0 to 3. 0
-means breathing; 2 means solid; 3
-means right scrolling
-e D LED brightness D is an Integer ranging from 1 to 9. 1
-means low; 5 means normal; 9 means
-high
-f E LED total number of
-colors
-```
-```
-E is an Integer ranging from 2 to 3.
-```
-```
-g aaa1bbb1ccc1
-aaa 2 bbb 2 ccc 2
-(aaa 3 bbb 3 ccc3)
-```
-```
-aaa means red, bbb
-means green, ccc
-means blue
-```
-```
-aaa1, bbb1, ccc1, aaa 2 , bbb 2 , ccc 2 ,
-aaa 3 , bbb 3 , ccc 3 is an Integer ranging
-from 0 to 255.
-```
-## 3 Setting parameters Command
-
-### 3.1 ATE1<CRC><cr>: Start ATE test, remote panel stop polling
-
-### 3.2 ATE0: End ATE test, remote panel polling
-
-### 3.3 PE<X> / PD<X><cr>: Setting some status enable/disable
-
-```
-Computer: PE<X> / PD<X><CRC><cr>
-Device: (ACK<CRC><cr> if DEVICE accepts this command, otherwise, responds (NAK<cr>
-PEx / PDx set flag status. PE means enable, PD means disable
-x Control setting
-a Enable/disable silence buzzer or open buzzer
-b Enable/disable overload bypass
-d Enable/Disable solar feed to grid (reserved feature)
-```
-```
-k
-Enable/Disable LCD display escape to default page after 1min
-timeout
-u Enable/Disable overload restart and battery over discharge restart
-v Enable/Disable over temperature restart
-x Enable/Disable backlight on
-y Enable/Disable alarm on when primary source interrupt
-z Enable/Disable fault code record
-```
-### 3.4 PF<cr>: Setting control parameter to default value
-
-Computer: PF<CRC><cr>
-Device: (ACK<CRC><cr> if device accepts this command, otherwise, responds
-(NAK<CRC><cr>
-Note: The correct default value can be gain by QDI command.
-
-
-### 3.5 MNCHGC<mnnn><cr>: Setting max charging current
-
-```
-Computer: MNCHGC<mnnn><CRC><cr>
-Device: (ACK<CRC><cr> if device accepts this command, otherwise, responds
-(NAK<CRC><cr>
-Setting value can be gain by QMCHGCR command.
-nnn is max charging current, m is parallel machine number.
-```
-### 3.6 MUCHGC<mnn><cr>: Setting utility max charging current
-
-```
-Computer: MUCHGC<mnn><CRC><cr>
-Device: (ACK<CRC><cr> if device accepts this command, otherwise, responds
-(NAK<CRC><cr>
-Setting value can be gain by QMUCHGCR command.
-nn is max charging current, m is parallel machine number.
-If the max AC charging current is greater than 99A, modify it to nnn
-```
-### 3.7 F<nn><cr>: Setting Inverter output rating frequency
-
-```
-Computer: F<nn><CRC><cr>
-Device: (ACK<CRC><cr> if Inverter accepts this command, otherwise, responds
-(NAK<CRC><cr>
-Set UPS output rating frequency to 50Hz.or 60Hz
-```
-### 3.8 V<nnn><cr>: Setting device output rating voltage
-
-```
-Computer: V<nnn><CRC><cr>
-Device: (ACK<CRC><cr> if device accepts this command, otherwise, responds
-(NAK<CRC><cr>
-Set inverter output rating voltage to 220V/230V/240V for HV models.
-Set inverter output rating voltage to 127V/120V/110V for LV models.
-```
-### 3.9 POP<NN><cr>: Setting device output source priority
-
-```
-Computer: POP<NN><CRC><cr>
-Device: (ACK<CRC><cr> if device accepts this command, otherwise, responds
-(NAK<CRC><cr>
-Set output source priority, 00 for UtilitySolarBat, 01 for SolarUtilityBat, 02 for SolarBatUtility
-```
-### 3.10 PBCV<nn.n><cr>: Set battery re-charge voltage
-
-```
-Computer: PBCV<nn.n><CRC><cr>
-Device: (ACK<CRC><cr> if device accepts this command, otherwise, responds
-(NAK<CRC><cr>
-```
-### 3.11 PBDV<nn.n><cr>: Set battery re-discharge voltage
-
-```
-Computer: PBDV<nn.n><CRC><cr>
-Device: (ACK<CRC><cr> if device accepts this command, otherwise, responds
-(NAK<CRC><cr>
-00.0V means battery is full (charging in float mode).
-```
-### 3.12 PCP<NN><cr>: Setting device charger priority
-
-```
-Computer: PCP<NN><CRC><cr>
-Device: (ACK<CRC><cr> if device accepts this command, otherwise, responds
-```
-
-```
-(NAK<CRC><cr>
-Set output source priority,
-01 for solar first, 0 2 for solar and utility, 0 3 for only solar charging
-```
-### 3.13 PGR<NN><cr>: Setting device grid working range
-
-```
-Computer: PGR<NN><CRC><cr>
-Device: (ACK<CRC><cr> if device accepts this command, otherwise, responds (NAK<cr>
-Set device grid working range, 00 for appliance, 01 for UPS
-```
-### 3.14 PBT<NN><cr>: Setting battery type
-
-```
-Computer: PBT<NN><CRC><cr>
-Device: (ACK<CRC><cr> if device accepts this command, otherwise, responds
-(NAK<CRC><cr>
-Setting battery type, 00 for AGM, 01 for Flooded battery, 02 for user define, 03 for Pylontech, 04
-for Shinheung, 05 for Weco, 06 for Soltaro, 07 for BAK, 08 for Lib, 09 for Lic
-```
-### 3.15 POPM<nn ><cr>: Set output mode
-
-```
-Computer: POPM <nn ><CRC><cr>
-Device: (ACK<CRC><cr> if device accepts this command, otherwise, responds (NAK<CRC><cr>
-Set output mode to 00/01/02/03/04 for HV models.
-Set output mode to 00/01/02/03/04/05/06/07 for LV models.
-```
-nn:
-00: single machine output
-
-01: parallel output
-
-02: Phase 1 of 3 Phase output
-03: Phase 2 of 3 Phase output
-
-04: Phase 3 of 3 Phase output
-
-```
-05: Phase 1 of 2 Phase output
-06: Phase 2 of 2 Phase output (120°)
-07 : Phase 2 of 2 Phase output (180°)
-```
-### 3.16 PPCP<MNN><cr>: Setting parallel device charger priority.................................................................
-
-```
-Computer: PCP<MNN><CRC><cr>
-Device: (ACK<CRC><cr> if device accepts this command, otherwise, responds (NAK<CRC><cr>
-01 for solar first, 02 for solar and utility, 03 for only solar charging
-M is parallel machine number.
-```
-### 3.17 PSDV<nn.n><cr>: Setting battery cut-off voltage (Battery under voltage)
-
-```
-Computer: PSDV <nn.n><CRC><cr>
-Device: (ACK<CRC><cr> if device accepts this command, otherwise, responds (NAK<CRC><cr>
-```
-### 3.18 PCVV<nn.n><cr>: Setting battery C.V. (constant voltage) charging voltage
-
-```
-Computer: PCVV <nn.n><CRC><cr>
-Device: (ACK<CRC><cr> if device accepts this command, otherwise, responds (NAK<CRC><cr>
-```
-### 3.19 PBFT<nn.n><cr>: Setting battery float charging voltage
-
-```
-Computer: PBFT <nn.n><CRC><cr>
-```
-
-```
-Device: (ACK<CRC><cr> if device accepts this command, otherwise, responds (NAK<CRC><cr>
-```
-### 3.20 RTEY<cr>: Reset all stored data for PV/load energy
-
-```
-Computer: RTEY <CRC><cr>
-Device: (ACK <CRC><cr> if device accepts this command, otherwise, responds (NAK<cr>
-```
-### 3.21 RTDL<cr>: Erase all data log
-
-```
-Computer: RTDL <CRC><cr>
-Device: (ACK <CRC><cr> if device accepts this command, otherwise, responds (NAK<cr>
-```
-### 3.22 PBEQE<n><cr>: Enable or disable battery equalization
-
-```
-Computer: PBEQE<n><CRC><cr>
-Device: (ACK<CRC><cr> if device accepts this command, otherwise, responds (NAK<cr>
-Enable or Disable battery equalization, n=1 means enable; n=0 means disable.
-```
-### 3.23 PBEQT<nnn><cr>: Set battery equalization time
-
-```
-Computer: PBEQT<nnn><CRC><cr>
-Device: (ACK<CRC><cr> if device accepts this command, otherwise, responds (NAK<cr>
-Set equalization time, nnn is in the range of 5 to 900minute, every click increase or decrease
-5minute.
-```
-### 3.24 PBEQP<nnn><cr>: Set battery equalization period
-
-```
-Computer: PBEQP<nnn><CRC><cr>
-Device: (ACK<CRC><cr> if device accepts this command, otherwise, responds (NAK<cr>
-Set equalization period, nnn is in the range of 0 to 90day, every click increase or decrease 1day.
-```
-### 3.25 PBEQV<nn.nn><cr>: Set battery equalization voltage
-
-```
-Computer: PBEQV<nn.nn><CRC><cr>
-Device: (ACK<CRC><cr> if device accepts this command, otherwise, responds (NAK<cr>
-Set equalization time, nn.nn is in the range as below.
-```
-### 3.26 PBEQOT<nnn><cr>: Set battery equalization over time
-
-```
-Computer: PBEQOT<nnn><CRC><cr>
-Device: (ACK<CRC><cr> if device accepts this command, otherwise, responds (NAK<cr>
-Set equalization time, nnn is in the range of 5 to 900minute, every click increase or decrease
-5minute.
-```
-### 3.27 PBEQA<n><cr>: Active or inactive battery equalization now
-
-```
-Computer: PBEQA<n><CRC><cr>
-Device: (ACK<CRC><cr> if device accepts this command, otherwise, responds (NAK<cr>
-Active or inactive battery equalization now, n=1 means active; n=0 means inactive.
-```
-### 3.28 PCVT<nnn><cr>: Setting max charging time at C.V stage
-
-```
-Computer: PCVT<nnn><CRC><cr>
-Device: (ACK<CRC><cr> if device accepts this command, otherwise, responds (NAK<CRC><cr>
-Setting value can be gain by QMCHGCR command.
-nnn is max charging time at C.V stage, the range is from 000 to 900 but in multiples of 5. 000
-means automatically.
-```
-### 3.29 DAT< YYMMDDHHMMSS><cr>: Date and time
-
-```
-Computer: DAT< YYMMDDHHMMSS><CRC><cr>
-```
-
-```
-<Y, M, D, H, S> is an integer number 0 to 9
-Device: (ACK<CRC><cr> if device accepts this command, otherwise, responds (NAK<CRC><cr>
-```
-### 3.30 PBATCD<abc><cr>: Battery charge/discharge controlling command
-
-```
-Computer: PBATCD<abc><CRC><cr>
-Device: (ACK<CRC><cr> if device accepts this command, otherwise, responds (NAK<CRC><cr>
-a = Discharge completely on/off
-b = Discharge on/off, but standby allowed (so small discharge allowed)
-c = Charge completely on/off
-```
-```
-Detail:
-abc:
-```
-Charger Discharger
-1 1 1 Enabled charger Enabled discharger
-
-#### 0 1 1
-
-```
-Enabled charger, depends on Prog16 setting if
-AC source valid, charge 2A from AC, even if
-prog. 16 is “only solar”. If prog. 16 is any other
-setting, ignore and let charging from AC source
-continue normally.
-```
-```
-Disabled discharger and shut down unit
-completely when insufficient PV or Grid is
-present.
-```
-#### 1 0 1
-
-```
-Enabled charger, depends on Prog16 setting if
-AC source valid, charge 2A from AC, even if
-prog. 16 is “only solar”. If prog. 16 is any other
-setting, ignore and let charging from AC source
-continue normally.
-```
-```
-Disabled discharger but keep unit stay at standby
-mode.
-```
-```
-1 1 0 Disabled charger Enabled discharger
-0 1 0 Disabled charger
-Disabled discharger and shut down unit
-completely when no PV or Grid is present.
-1 0 0 Disabled charger
-Disabled discharger but keep unit stay at standby
-mode.
-0 0 1 N/A N/A
-0 0 0 Cleaned the enable/disable charger flags^ and
-return to previous charger status.
-```
-```
-Cleaned the enable/disable discharger flags and
-return to previous discharger status.
-```
-### 3.31 PBATMAXDISC<nnn><cr>: Setting max discharging current
-
-```
-Computer: PBATMAXDISC<nnn><CRC><cr>
-Device: (ACK<CRC><cr> if device accepts this command, otherwise, responds (NAK<CRC><cr>
-nnn is max discharging current
-48V unit: 000 or 30A~1 5 0A
-000 means the function will be disable.
-```
-### 3.32 PLEDE<n><cr>: Enable/disable LED function
-
-```
-Computer: PLEDE<n><cr>
-UPS: (ACK<cr> if UPS accepts this command, otherwise, responds (NAK<cr>
-n: 0 means disable; 1 means enable
-```
-
-### 3.33 PLEDS<n><cr>: set LED speed
-
-```
-Computer: PLEDS<n><cr>
-UPS: (ACK<cr> if UPS accepts this command, otherwise, responds (NAK<cr>
-n: 0 means low; 1 means medium; 2 means fast
-```
-### 3.34 PLEDM<n><cr>: set LED effect
-
-```
-Computer: PLEDM<n><cr>
-UPS: (ACK<cr> if UPS accepts this command, otherwise, responds (NAK<cr>
-n: 0 means breathing; 2 means solid; 3 means right scrolling
-```
-### 3.35 PLEDB<n><cr>: set LED brightness
-
-```
-Computer: PLEDB<n><cr>
-UPS: (ACK<cr> if UPS accepts this command, otherwise, responds (NAK<cr>
-n means LED brightness, 1 means low; 5 means normal; 9 means high
-```
-### 3.36 PLEDT<n><cr>: set LED total number of colors
-
-```
-Computer: PLEDT<n><cr>
-UPS: (ACK<cr> if UPS accepts this command, otherwise, responds (NAK<cr>
-n means total number of colors, between 2 and 3
-```
-### 3.37 PLEDC<n><aaabbbccc><cr>: set LED color
-
-```
-Computer: PLEDC<n><aaabbbccc><cr>
-UPS: (ACK<cr>
-<n> must less than LED total number of colors, if UPS accepts this command, otherwise, responds
-(NAK<cr>
-<n> means LED order, between 1 and 3; 1 indicate Line mode, 2 indicate AVR mode, 3 indicate
-Battery mode
-<aaa, bbb, ccc> means RGB, between 0 and 255
-For example:
-Computer: PLEDC3160032240 <cr>
-UPS: (ACK<cr>
-Means: set battery mode to purple.
-```
-## 4 Appendix
-
-### 4.1 CRC calibration method
+2.15 QMCHGCR<cr>: Enquiry selectable value about max charging current
+----------------------------------------------------------------------
+
+| Computer: ``QMCHGCR<CRC><cr>``
+| Device: ``(AAA BBB CCC DDD......<CRC><cr>``
+| More value can be added, make sure there is a space character between every value.
+
+
+2.16 QMUCHGCR<cr>: Enquiry selectable value about max utility charging current
+-------------------------------------------------------------------------------
+
+| Computer: ``QMUCHGCR<CRC><cr>``
+| Device: ``(AAA BBB CCC DDD......<CRC><cr>``
+| More value can be added, make sure there is a space character between every value.
+
+
+2.17 QOPPT<cr>: The device output source priority time order inquiry
+------------------------------------------------------------------------
+
+| Computer: ``QOPPT<CRC><cr>``
+| Device: ``(M M M M M M M M M M M M M M M M M M M M M M M M N O O O<CRC><cr>``
+| M: 24 hour correspond to the output source priority (0: Utility first, 1: Solar first, 2: SBU)
+| N: device output source priority
+| O: selection of output source priority order
+|
+| Example:
+| Computer: ``QOPPT<CRC><cr>``
+| Device: ``(0 0 0 0 0 2 2 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 2<CRC><cr>``
+| Means: the device output source priority time order is SBU from 5 to 6, and output source priority is Utility first.
+
+2.18 QCHPT<cr>: The device charger source priority time order inquiry
+
+| Computer: ``QCHPT<CRC><cr>``
+| Device: ``(M M M M M M M M M M M M M M M M M M M M M M M M N O O O<CRC><cr>``
+| M: 24 hour correspond to the charger source priority (1: Solar first, 2: Solar + Utility, 3: Only solar charging permitted)
+| N: device charger source priority
+| O: selection of o charger source priority order
+|
+| Example:
+| Computer: ``QCHPT<CRC><cr>``
+| Device: ``(1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 2 2 2 2 2 2 1 0<CRC><cr>``
+| Means: the device charger source priority time order is solar + utility from 20 to 23, and charger source priority is Solar first.
+
+
+2.19 QT<cr>: Time inquiry
+----------------------------
+
+| Computer: ``QT<cr>``
+| Device: ``(YYYYMMDDHHMMSS<cr>``
+|
+| Example:
+| Computer: ``QT<cr>``
+| Device: ``(20180101111120<cr>``
+| Means: The time is 2018/01/01 11:11:20.
+
+.. csv-table:: Response Decode
+   :header: Component, Description, Notes
+   :widths: auto
+   :align: left
+
+   (, Start byte
+   YYYYMMDD, Date, "Y, M and D are an Integer number 0 to 9."
+   HHMMSS, Time, "H, M and S are an Integer number 0 to 9."
+
+
+2.20 QBEQI<cr>: Battery equalization status parameters inquiry
+---------------------------------------------------------------
+
+| Computer: ``QBEQI<CRC><cr>``
+| Device: ``(B CCC DDD EEE FFF GG.GG HHH III J KKKK<CRC><cr>``
+
+.. csv-table:: Response Decode
+   :header: Pos, Component, Description, Unit, Notes
+   :widths: auto
+   :align: left
+
+   a, (, Start byte
+   b, B, Enable or Disable equalization,, B is an Integer number 0 to 1.
+   C, CCC, equalization time, min, C s an Integer number 0 to 9. 
+   D, DDD, equalization period, day, D is an Integer number 0 to 9.
+   E, EEE, equalization max current, A, E is an Integer number from 0 to 9.
+   F, FFF, reserved,, reserved
+   G, GG.GG, equalization voltage, V, G is an Integer ranging from 0 to 9.
+   H, HHH, reserved,, reserved
+   I, III, equalization over time, min, I is an Integer ranging from 0 to 9.
+   j, J, equalization active status,, J is an Integer ranging from 0 to 1.
+   k, KKKK, equalization elapse time, hour, K is an Integer ranging from 0 to 9.
+
+
+2.21 QMN<cr>: Query model name
+------------------------------
+
+| Computer: ``QMN<CRC><cr>``
+| Device: ``(MMMMM-NNNN<CRC><cr>`` if device accepts this command, otherwise, responds ``(NAK<cr>``
+| MMMMM: model name, NNNN: Rated output VA
+
+2.22 QGMN<cr>: Query general model name
+----------------------------------------
+
+| Computer: ``QGMN<CRC><cr>``
+| Device: ``(NNN<CRC><cr>`` if Inverter accepts this command, otherwise, responds ``(NAK<cr>``
+
+
+2.23 QET<CRC><cr>: Query total PV generated energy
+---------------------------------------------------
+
+| Computer: ``QET<CRC><cr>``
+| Device: ``(NNNNNNNN<CRC><cr>``
+| NNNNNNNN: Generated energy, N: 0~9, unit: Wh
+
+
+2.24 QEYyyyy<CRC><cr>: Query PV generated energy of year
+---------------------------------------------------------
+
+| Computer: ``QEYyyyy<cr>``
+| Device: ``(NNNNNNNN<CRC><cr>``
+| yyyy: Year, y: 0~9
+| NNNNNNNN: Generated energy, N: 0~9, unit: Wh
+
+
+2.25 QEMyyyymm<CRC><cr>: Query PV generated energy of month
+----------------------------------------------------------------
+
+| Computer: ``QEMyyyymm <CRC><cr>``
+| Device: ``(NNNNNNNN<CRC><cr>``
+| yyyy: Year, y: 0~9
+| mm: Month, m: 0~9
+| NNNNNNNN: Generated energy, N: 0~9, unit: Wh
+
+
+2.26 QEDyyyymmdd<CRC><cr>: Query PV generated energy of day
+-----------------------------------------------------------
+
+| Computer: ``QEDyyyymmdd<CRC><cr>``
+| Device: ``(NNNNNNNN<CRC><cr>``
+| yyyy: Year, y: 0~9
+| mm: Month, m: 0~9
+| dd: Day, d: 0~9
+| NNNNNNNN: Generated energy, N: 0~9, unit: Wh
+
+
+2.27 QLT<CRC><cr>: Query total output load energy
+--------------------------------------------------
+
+| Computer: ``QLT<CRC><cr>``
+| Device: ``(NNNNNNNN<CRC><cr>``
+| NNNNNNNN: Output load energy, N: 0~9, unit: Wh
+
+
+2.28 QLYyyyy<CRC><cr>: Query output load energy of year
+--------------------------------------------------------
+
+| Computer: ``QLYyyyy<CRC><cr>``
+| Device: ``(NNNNNNNN<CRC><cr>``
+| yyyy: Year, y: 0~9
+| NNNNNNNN: Output load energy, N: 0~9, unit: Wh
+
+
+2.29 QLMyyyymm<CRC><cr>: Query output load energy of month
+-----------------------------------------------------------
+
+| Computer: QLMyyyymm<CRC><cr>
+| Device: (NNNNNNNN<CRC><cr>
+| yyyy: Year, y: 0~9
+| mm: Month, m: 0~9
+| NNNNNNNN: Output load energy, N: 0~9, unit: Wh
+
+
+2.30 QLDyyyymmdd<CRC><cr>: Query output load energy of day
+-------------------------------------------------------------
+
+| Computer: ``QLDyyyymmdd<CRC><cr>``
+| Device: ``(NNNNNNNN<CRC><cr>``
+| yyyy: Year, y: 0~9
+| mm: Month, m: 0~9
+| dd: Day, d: 0~9
+| NNNNNNNN: Output load energy, N: 0~9, unit: Wh
+
+
+2.31 QBMS<CRC><cr>: BMS message
+--------------------------------
+
+| Computer: ``QBMS<CRC><cr>``
+| Device: ``(ACK <CRC><cr>``
+
+
+2.32 PBMS<CRC><cr>: BMS message
+--------------------------------
+
+| Remote box: ``PBMSa bbb c d e fff ggg hhh iiii jjjj<CRC><cr>``
+| Device: ``(ACK<CRC><cr>``
+
+.. csv-table:: Response Decode
+   :header: Component, Description, Unit, Notes
+   :widths: auto
+   :align: left
+
+   a, Battery connect status,, 0: connect, 1: disconnect.
+   bbb, Battery percentage, %, b is an Integer ranging from 0 to 9.
+   c, Force AC charge battery in any case,, 0: Do not force, 1: Force.
+   d, Battery stop discharge flag,, 0: Enable discharge, 1: disable discharging
+   e, Battery stop charge flag,, 0: Enable charge, 1: disable charging
+   fff, Battery C.V. charging voltage, V, f is an Integer ranging from 0 to 9.
+   ggg, Battery floating charging voltage, V, g is an Integer ranging from 0 to 9.
+   hhh, Battery cut-off voltage, V, h is an Integer ranging from 0 to 9.
+   iiii, Battery max. charging current, A, i is an Integer ranging from 0 to 9.
+   jjjj, Battery max. discharging current, j is an Integer ranging from 0 to 9.
+
+
+2.33 QLED<cr>: LED status parameters inquiry
+---------------------------------------------
+
+| Computer: ``QLED<cr>``
+| UPS: ``(A B C D E aaa1bbb1ccc1 aaa 2 bbb 2 ccc 2 (aaa 3 bbb 3 ccc3)<cr>``
+
+
+.. csv-table:: Response Decode
+   :header: Component, Description, Unit, Notes
+   :widths: auto
+   :align: left
+
+   Item Data description Notes
+   a, (, Start code
+   b, A, Enable or Disable, A is an Integer number 0 to 1.
+   c, B, LED speed, B is an Integer ranging from 0 to 2. 0 means low; 1 means medium; 2 means fast
+   d, C, LED effect, C is an Integer ranging from 0 to 3. 0 means breathing; 2 means solid; 3 means right scrolling
+   e, D, LED brightness, D is an Integer ranging from 1 to 9. 1 means low; 5 means normal; 9 means high
+   f, E, LED total number of colors, E is an Integer ranging from 2 to 3.
+   g, aaa1bbb1ccc1, aaa 2 bbb 2 ccc 2 (aaa 3 bbb 3 ccc3), "aaa means red, bbb means green, ccc means blue aaa1, bbb1, ccc1, aaa 2 , bbb 2 , ccc 2 , aaa 3 , bbb 3 , ccc 3 is an Integer ranging from 0 to 255."
+
+
+3 Setting parameters Command
+=============================
+
+3.1 ATE1<CRC><cr>: Start ATE test, remote panel stop polling
+------------------------------------------------------------
+
+3.2 ATE0: End ATE test, remote panel polling
+---------------------------------------------
+
+3.3 PE<X> / PD<X><cr>: Setting some status enable/disable
+----------------------------------------------------------
+
+| Computer: ``PE<X> / PD<X><CRC><cr>``
+| Device: ``(ACK<CRC><cr>`` if DEVICE accepts this command, otherwise, responds ``(NAK<cr>``
+| PEx / PDx set flag status. PE means enable, PD means disable
+| x Control setting
+| a Enable/disable silence buzzer or open buzzer
+| b Enable/disable overload bypass
+| d Enable/Disable solar feed to grid (reserved feature)
+| k Enable/Disable LCD display escape to default page after 1min timeout
+| u Enable/Disable overload restart and battery over discharge restart
+| v Enable/Disable over temperature restart
+| x Enable/Disable backlight on
+| y Enable/Disable alarm on when primary source interrupt
+| z Enable/Disable fault code record
+
+
+3.4 PF<cr>: Setting control parameter to default value
+-------------------------------------------------------
+
+| Computer: ``PF<CRC><cr>``
+| Device: ``(ACK<CRC><cr>`` if device accepts this command, otherwise, responds ``(NAK<CRC><cr>``
+| Note: The correct default value can be gain by ``QDI`` command.
+
+
+3.5 MNCHGC<mnnn><cr>: Setting max charging current
+-----------------------------------------------------
+
+| Computer: ``MNCHGC<mnnn><CRC><cr>``
+| Device: ``(ACK<CRC><cr>`` if device accepts this command, otherwise, responds ``(NAK<CRC><cr>``
+| Setting value can be gain by ``QMCHGCR`` command.
+| nnn is max charging current, m is parallel machine number.
+
+
+3.6 MUCHGC<mnn><cr>: Setting utility max charging current
+----------------------------------------------------------
+
+| Computer: ``MUCHGC<mnn><CRC><cr>``
+| Device: ``(ACK<CRC><cr>`` if device accepts this command, otherwise, responds ``(NAK<CRC><cr>``
+| Setting value can be gain by ``QMUCHGCR`` command.
+| nn is max charging current, m is parallel machine number.
+| If the max AC charging current is greater than 99A, modify it to nnn
+
+
+3.7 F<nn><cr>: Setting Inverter output rating frequency
+---------------------------------------------------------
+
+| Computer: ``F<nn><CRC><cr>``
+| Device: ``(ACK<CRC><cr>`` if Inverter accepts this command, otherwise, responds ``(NAK<CRC><cr>``
+| Set UPS output rating frequency to 50Hz.or 60Hz
+
+
+3.8 V<nnn><cr>: Setting device output rating voltage
+-----------------------------------------------------
+
+| Computer: ``V<nnn><CRC><cr>``
+| Device: ``(ACK<CRC><cr>`` if device accepts this command, otherwise, responds ``(NAK<CRC><cr>``
+| Set inverter output rating voltage to 220V/230V/240V for HV models.
+| Set inverter output rating voltage to 127V/120V/110V for LV models.
+
+
+3.9 POP<NN><cr>: Setting device output source priority
+------------------------------------------------------
+
+| Computer: ``POP<NN><CRC><cr>``
+| Device: ``(ACK<CRC><cr>`` if device accepts this command, otherwise, responds ``(NAK<CRC><cr>``
+| Set output source priority, 00 for UtilitySolarBat, 01 for SolarUtilityBat, 02 for SolarBatUtility
+
+
+3.10 PBCV<nn.n><cr>: Set battery re-charge voltage
+--------------------------------------------------
+
+| Computer: ``PBCV<nn.n><CRC><cr>``
+| Device: ``(ACK<CRC><cr>`` if device accepts this command, otherwise, responds ``(NAK<CRC><cr>``
+
+
+3.11 PBDV<nn.n><cr>: Set battery re-discharge voltage
+------------------------------------------------------
+
+| Computer: ``PBDV<nn.n><CRC><cr>``
+| Device: ``(ACK<CRC><cr>`` if device accepts this command, otherwise, responds ``(NAK<CRC><cr>``
+| 00.0V means battery is full (charging in float mode).
+
+
+3.12 PCP<NN><cr>: Setting device charger priority
+-------------------------------------------------
+
+| Computer: ``PCP<NN><CRC><cr>``
+| Device: ``(ACK<CRC><cr>`` if device accepts this command, otherwise, responds ``(NAK<CRC><cr>``
+| Set output source priority,
+| 01 for solar first, 0 2 for solar and utility, 0 3 for only solar charging
+
+
+3.13 PGR<NN><cr>: Setting device grid working range
+----------------------------------------------------
+
+| Computer: ``PGR<NN><CRC><cr>``
+| Device: ``(ACK<CRC><cr>`` if device accepts this command, otherwise, responds ``(NAK<cr>``
+| Set device grid working range, 00 for appliance, 01 for UPS
+
+
+3.14 PBT<NN><cr>: Setting battery type
+--------------------------------------
+
+| Computer: ``PBT<NN><CRC><cr>``
+| Device: ``(ACK<CRC><cr>`` if device accepts this command, otherwise, responds ``(NAK<CRC><cr>``
+| Setting battery type, 00 for AGM, 01 for Flooded battery, 02 for user define, 03 for Pylontech, 04 for Shinheung, 05 for Weco, 06 for Soltaro, 07 for BAK, 08 for Lib, 09 for Lic
+
+
+3.15 POPM<nn><cr>: Set output mode
+-----------------------------------
+
+| Computer: ``POPM<nn><CRC><cr>``
+| Device: ``(ACK<CRC><cr>`` if device accepts this command, otherwise, responds ``(NAK<CRC><cr>``
+| Set output mode to 00/01/02/03/04 for HV models.
+| Set output mode to 00/01/02/03/04/05/06/07 for LV models.
+
+| nn:
+| 00: single machine output
+| 01: parallel output
+| 02: Phase 1 of 3 Phase output
+| 03: Phase 2 of 3 Phase output
+| 04: Phase 3 of 3 Phase output
+| 05: Phase 1 of 2 Phase output
+| 06: Phase 2 of 2 Phase output (120°)
+| 07: Phase 2 of 2 Phase output (180°)
+
+
+3.16 PPCP<MNN><cr>: Setting parallel device charger priority
+-------------------------------------------------------------
+
+| Computer: ``PCP<MNN><CRC><cr>``
+| Device: ``(ACK<CRC><cr>`` if device accepts this command, otherwise, responds ``(NAK<CRC><cr>``
+| 01 for solar first, 02 for solar and utility, 03 for only solar charging
+| M is parallel machine number.
+
+
+3.17 PSDV<nn.n><cr>: Setting battery cut-off voltage (Battery under voltage)
+----------------------------------------------------------------------------
+
+| Computer: ``PSDV<nn.n><CRC><cr>``
+| Device: ``(ACK<CRC><cr>`` if device accepts this command, otherwise, responds ``(NAK<CRC><cr>``
+
+
+3.18 PCVV<nn.n><cr>: Setting battery C.V. (constant voltage) charging voltage
+------------------------------------------------------------------------------
+
+| Computer: ``PCVV<nn.n><CRC><cr>``
+| Device: ``(ACK<CRC><cr>`` if device accepts this command, otherwise, responds ``(NAK<CRC><cr>``
+
+
+3.19 PBFT<nn.n><cr>: Setting battery float charging voltage
+-------------------------------------------------------------
+
+| Computer: ``PBFT<nn.n><CRC><cr>``
+| Device: ``(ACK<CRC><cr>`` if device accepts this command, otherwise, responds ``(NAK<CRC><cr>``
+
+
+3.20 RTEY<cr>: Reset all stored data for PV/load energy
+--------------------------------------------------------
+
+| Computer: ``RTEY<CRC><cr>``
+| Device: ``(ACK<CRC><cr>`` if device accepts this command, otherwise, responds ``(NAK<cr>``
+
+
+3.21 RTDL<cr>: Erase all data log
+----------------------------------
+
+| Computer: ``RTDL<CRC><cr>``
+| Device: ``(ACK<CRC><cr>`` if device accepts this command, otherwise, responds ``(NAK<cr>``
+
+
+3.22 PBEQE<n><cr>: Enable or disable battery equalization
+---------------------------------------------------------
+
+| Computer: ``PBEQE<n><CRC><cr>``
+| Device: ``(ACK<CRC><cr>`` if device accepts this command, otherwise, responds ``(NAK<cr>``
+| Enable or Disable battery equalization, n=1 means enable; n=0 means disable.
+
+
+3.23 PBEQT<nnn><cr>: Set battery equalization time
+---------------------------------------------------
+
+| Computer: ``PBEQT<nnn><CRC><cr>``
+| Device: ``(ACK<CRC><cr>`` if device accepts this command, otherwise, responds ``(NAK<cr>``
+| Set equalization time, nnn is in the range of 5 to 900minute, every click increase or decrease 5minute.
+
+
+3.24 PBEQP<nnn><cr>: Set battery equalization period
+----------------------------------------------------
+
+| Computer: ``PBEQP<nnn><CRC><cr>``
+| Device: ``(ACK<CRC><cr>`` if device accepts this command, otherwise, responds ``(NAK<cr>``
+| Set equalization period, nnn is in the range of 0 to 90day, every click increase or decrease 1day.
+
+
+3.25 PBEQV<nn.nn><cr>: Set battery equalization voltage
+--------------------------------------------------------
+
+| Computer: ``PBEQV<nn.nn><CRC><cr>``
+| Device: ``(ACK<CRC><cr>`` if device accepts this command, otherwise, responds ``(NAK<cr>``
+| Set equalization time, nn.nn is in the range as below.
+
+
+3.26 PBEQOT<nnn><cr>: Set battery equalization over time
+--------------------------------------------------------
+
+| Computer: ``PBEQOT<nnn><CRC><cr>``
+| Device: ``(ACK<CRC><cr>`` if device accepts this command, otherwise, responds ``(NAK<cr>``
+| Set equalization time, nnn is in the range of 5 to 900minute, every click increase or decrease 5minute.
+
+
+3.27 PBEQA<n><cr>: Active or inactive battery equalization now
+--------------------------------------------------------------
+
+| Computer: ``PBEQA<n><CRC><cr>``
+| Device: ``(ACK<CRC><cr>`` if device accepts this command, otherwise, responds ``(NAK<cr>``
+| Active or inactive battery equalization now, n=1 means active; n=0 means inactive.
+
+
+3.28 PCVT<nnn><cr>: Setting max charging time at C.V stage
+-----------------------------------------------------------
+
+| Computer: ``PCVT<nnn><CRC><cr>``
+| Device: ``(ACK<CRC><cr>`` if device accepts this command, otherwise, responds ``(NAK<CRC><cr>``
+| Setting value can be gain by QMCHGCR command.
+| nnn is max charging time at C.V stage, the range is from 000 to 900 but in multiples of 5. 000 means automatically.
+
+
+3.29 DAT<YYMMDDHHMMSS><cr>: Date and time
+------------------------------------------
+
+| Computer: ``DAT<YYMMDDHHMMSS><CRC><cr>`` <Y, M, D, H, S> is an integer number 0 to 9
+| Device: ``(ACK<CRC><cr>`` if device accepts this command, otherwise, responds ``(NAK<CRC><cr>``
+
+
+3.30 PBATCD<abc><cr>: Battery charge/discharge controlling command
+---------------------------------------------------------------------
+
+| Computer: ``PBATCD<abc><CRC><cr>``
+| Device: ``(ACK<CRC><cr>`` if device accepts this command, otherwise, responds ``(NAK<CRC><cr>``
+| a = Discharge completely on/off
+| b = Discharge on/off, but standby allowed (so small discharge allowed)
+| c = Charge completely on/off
+
+.. csv-table:: Setting Detail
+   :header: abc, Charger, Discharger
+   :widths: auto
+   :align: left
+   
+   111, Enabled, Enabled
+   011, Enabled, "depends on Prog16 setting if AC source valid, charge 2A from AC, even if prog. 16 is “only solar”. If prog. 16 is any other setting, ignore and let charging from AC source continue normally. Disabled discharger and shut down unit completely when insufficient PV or Grid is present."
+   101, Enabled, "depends on Prog16 setting if AC source valid, charge 2A from AC, even if prog. 16 is “only solar”. If prog. 16 is any other setting, ignore and let charging from AC source continue normally. Disabled discharger but keep unit stay at standby mode."
+   110, Disabled, Enabled
+   010, Disabled, Disabled and shut down unit completely when no PV or Grid is present. 
+   100, Disabled, Disabled discharger but keep unit stay at standby mode.
+   001, N/A, N/A
+   000, Cleaned the enable/disable charger flags and return to previous charger status., Cleaned the enable/disable discharger flags and return to previous discharger status.
+
+
+3.31 PBATMAXDISC<nnn><cr>: Setting max discharging current
+----------------------------------------------------------
+
+| Computer: ``PBATMAXDISC<nnn><CRC><cr>``
+| Device: ``(ACK<CRC><cr>`` if device accepts this command, otherwise, responds ``(NAK<CRC><cr>``
+| nnn is max discharging current
+| 48V unit: 000 or 30A~1 5 0A 000 means the function will be disable.
+
+
+3.32 PLEDE<n><cr>: Enable/disable LED function
+----------------------------------------------
+
+| Computer: ``PLEDE<n><cr>``
+| Device: ``(ACK<cr>`` if device accepts this command, otherwise, responds ``(NAK<cr>``
+| n: 0 means disable; 1 means enable
+
+
+3.33 PLEDS<n><cr>: set LED speed
+--------------------------------
+
+| Computer: ``PLEDS<n><cr>``
+| Device: ``(ACK<cr>`` if device accepts this command, otherwise, responds ``(NAK<cr>``
+| n: 0 means low; 1 means medium; 2 means fast
+
+
+3.34 PLEDM<n><cr>: set LED effect
+-----------------------------------
+
+| Computer: ``PLEDM<n><cr>``
+| Device: ``(ACK<cr>`` if device accepts this command, otherwise, responds ``(NAK<cr>``
+| n: 0 means breathing; 2 means solid; 3 means right scrolling
+
+
+3.35 PLEDB<n><cr>: set LED brightness
+-------------------------------------
+
+| Computer: ``PLEDB<n><cr>``
+| Device: ``(ACK<cr>`` if device accepts this command, otherwise, responds ``(NAK<cr>``
+| n means LED brightness, 1 means low; 5 means normal; 9 means high
+
+
+3.36 PLEDT<n><cr>: set LED total number of colors
+--------------------------------------------------
+
+| Computer: ``PLEDT<n><cr>``
+| Device: ``(ACK<cr>`` if device accepts this command, otherwise, responds ``(NAK<cr>``
+| n means total number of colors, between 2 and 3
+
+
+3.37 PLEDC<n><aaabbbccc><cr>: set LED color
+-----------------------------------------------
+
+| Computer: ``PLEDC<n><aaabbbccc><cr>``
+| Device: ``(ACK<cr>``
+| <n> must less than LED total number of colors, if device accepts this command, otherwise, responds ``(NAK<cr>``
+| <n> means LED order, between 1 and 3; 1 indicate Line mode, 2 indicate AVR mode, 3 indicate Battery mode <aaa, bbb, ccc> means RGB, between 0 and 255
+| For example:
+| Computer: ``PLEDC3160032240<cr>``
+| Device: ``(ACK<cr>``
+| Means: set battery mode to purple.
+
+
+4 Appendix
+==============
+
+4.1 CRC calibration method
+--------------------------
 
 

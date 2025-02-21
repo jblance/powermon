@@ -1727,590 +1727,776 @@
 </tr>
 </tbody>
 </table>
-<p>### 2.15 QMCHGCR&lt;cr&gt;: Enquiry selectable value about max charging current</p>
-<p><code class="docutils literal notranslate"><span class="pre">`</span>
-<span class="pre">Computer:</span> <span class="pre">QMCHGCR&lt;CRC&gt;&lt;cr&gt;</span>
-<span class="pre">Device:</span> <span class="pre">(AAA</span> <span class="pre">BBB</span> <span class="pre">CCC</span> <span class="pre">DDD......&lt;CRC&gt;&lt;cr&gt;</span>
-<span class="pre">More</span> <span class="pre">value</span> <span class="pre">can</span> <span class="pre">be</span> <span class="pre">added,</span> <span class="pre">make</span> <span class="pre">sure</span> <span class="pre">there</span> <span class="pre">is</span> <span class="pre">a</span> <span class="pre">space</span> <span class="pre">character</span> <span class="pre">between</span> <span class="pre">every</span> <span class="pre">value.</span>
-<span class="pre">`</span></code>
-### 2.16 QMUCHGCR&lt;cr&gt;: Enquiry selectable value about max utility charging current</p>
-<p><code class="docutils literal notranslate"><span class="pre">`</span>
-<span class="pre">Computer:</span> <span class="pre">QMUCHGCR&lt;CRC&gt;&lt;cr&gt;</span>
-<span class="pre">Device:</span> <span class="pre">(AAA</span> <span class="pre">BBB</span> <span class="pre">CCC</span> <span class="pre">DDD......&lt;CRC&gt;&lt;cr&gt;</span>
-<span class="pre">More</span> <span class="pre">value</span> <span class="pre">can</span> <span class="pre">be</span> <span class="pre">added,</span> <span class="pre">make</span> <span class="pre">sure</span> <span class="pre">there</span> <span class="pre">is</span> <span class="pre">a</span> <span class="pre">space</span> <span class="pre">character</span> <span class="pre">between</span> <span class="pre">every</span> <span class="pre">value.</span>
-<span class="pre">`</span></code>
-### 2.17 QOPPT&lt;cr&gt;: The device output source priority time order inquiry</p>
-<p>Computer: QOPPT&lt;CRC&gt;&lt;cr&gt;
-Device: (M M M M M M M M M M M M M M M M M M M M M M M M N O O
-O&lt;CRC&gt;&lt;cr&gt;
-M: 24 hour correspond to the output source priority (0: Utility first, 1: Solar first, 2: SBU)
-N: device output source priority
-O: selection of output source priority order
-Example:
-Computer: QOPPT&lt;CRC&gt;&lt;cr&gt;
-Device: (0 0 0 0 0 2 2 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 2&lt;CRC&gt;&lt;cr&gt;
-Means: the device output source priority time order is SBU from 5 to 6, and output source priority
-is Utility first.</p>
-<p>### 2.18 QCHPT&lt;cr&gt;: The device charger source priority time order inquiry</p>
-<p>Computer: QCHPT&lt;CRC&gt;&lt;cr&gt;
-Device: (M M M M M M M M M M M M M M M M M M M M M M M M N O O
-O&lt;CRC&gt;&lt;cr&gt;
-M: 24 hour correspond to the charger source priority (1: Solar first, 2: Solar + Utility, 3: Only solar
-charging permitted)</p>
-<p><code class="docutils literal notranslate"><span class="pre">`</span>
-<span class="pre">N:</span> <span class="pre">device</span> <span class="pre">charger</span> <span class="pre">source</span> <span class="pre">priority</span>
-<span class="pre">O:</span> <span class="pre">selection</span> <span class="pre">of</span> <span class="pre">o</span> <span class="pre">charger</span> <span class="pre">source</span> <span class="pre">priority</span> <span class="pre">order</span>
-<span class="pre">Example:</span>
-<span class="pre">`</span></code></p>
-<p>Computer: QCHPT&lt;CRC&gt;&lt;cr&gt;
-Device: (1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 2 2 2 2 2 2 1 0&lt;CRC&gt;&lt;cr&gt;
-Means: the device charger source priority time order is solar + utility from 20 to 23, and charger
-source priority is Solar first.</p>
-<p>### 2.19 QT&lt;cr&gt;: Time inquiry</p>
-<p><code class="docutils literal notranslate"><span class="pre">`</span>
-<span class="pre">Computer:</span> <span class="pre">QT&lt;cr&gt;</span>
-<span class="pre">Device:</span> <span class="pre">(YYYYMMDDHHMMSS&lt;cr&gt;</span>
-<span class="pre">Example:</span>
-<span class="pre">Computer:</span> <span class="pre">QT&lt;cr&gt;</span>
-<span class="pre">Device:</span> <span class="pre">(20180101111120&lt;cr&gt;</span>
-<span class="pre">Means:</span> <span class="pre">The</span> <span class="pre">time</span> <span class="pre">is</span> <span class="pre">2018/01/01</span> <span class="pre">11:11:20.</span>
-<span class="pre">Data</span> <span class="pre">Description</span> <span class="pre">Notes</span>
-<span class="pre">(</span> <span class="pre">Start</span> <span class="pre">byte</span>
-<span class="pre">YYYYMMDD</span> <span class="pre">Date</span> <span class="pre">Y,</span> <span class="pre">M</span> <span class="pre">and</span> <span class="pre">D</span> <span class="pre">are</span> <span class="pre">an</span> <span class="pre">Integer</span> <span class="pre">number</span> <span class="pre">0</span> <span class="pre">to</span> <span class="pre">9.</span>
-<span class="pre">HHMMSS</span> <span class="pre">Time</span> <span class="pre">H,</span> <span class="pre">M</span> <span class="pre">and</span> <span class="pre">S</span> <span class="pre">are</span> <span class="pre">an</span> <span class="pre">Integer</span> <span class="pre">number</span> <span class="pre">0</span> <span class="pre">to</span> <span class="pre">9.</span>
-<span class="pre">`</span></code>
-### 2.20 QBEQI&lt;cr&gt;: Battery equalization status parameters inquiry</p>
-<p><code class="docutils literal notranslate"><span class="pre">`</span>
-<span class="pre">Computer:</span> <span class="pre">QBEQI&lt;CRC&gt;&lt;cr&gt;</span>
-<span class="pre">Device:</span> <span class="pre">(B</span> <span class="pre">CCC</span> <span class="pre">DDD</span> <span class="pre">EEE</span> <span class="pre">FFF</span> <span class="pre">GG.GG</span> <span class="pre">HHH</span> <span class="pre">III</span> <span class="pre">J</span> <span class="pre">KKKK&lt;CRC&gt;&lt;cr&gt;</span>
-<span class="pre">Data</span> <span class="pre">Description</span> <span class="pre">Notes</span>
-<span class="pre">a</span> <span class="pre">(</span> <span class="pre">Start</span> <span class="pre">byte</span>
-<span class="pre">b</span> <span class="pre">B</span> <span class="pre">Enable</span> <span class="pre">or</span> <span class="pre">Disable</span>
-<span class="pre">equalization</span>
-<span class="pre">`</span></code>
-<code class="docutils literal notranslate"><span class="pre">`</span>
-<span class="pre">B</span> <span class="pre">is</span> <span class="pre">an</span> <span class="pre">Integer</span> <span class="pre">number</span> <span class="pre">0</span> <span class="pre">to</span> <span class="pre">1.</span>
-<span class="pre">`</span></code>
-<code class="docutils literal notranslate"><span class="pre">`</span>
-<span class="pre">C</span> <span class="pre">CCC</span> <span class="pre">equalization</span> <span class="pre">time</span> <span class="pre">C</span> <span class="pre">s</span> <span class="pre">an</span> <span class="pre">Integer</span> <span class="pre">number</span> <span class="pre">0</span> <span class="pre">to</span> <span class="pre">9.</span> <span class="pre">The</span> <span class="pre">unit</span> <span class="pre">is</span>
-<span class="pre">Minute.</span>
-<span class="pre">D</span> <span class="pre">DDD</span> <span class="pre">equalization</span> <span class="pre">period</span> <span class="pre">D</span> <span class="pre">is</span> <span class="pre">an</span> <span class="pre">Integer</span> <span class="pre">number</span> <span class="pre">0</span> <span class="pre">to</span> <span class="pre">9.</span> <span class="pre">The</span> <span class="pre">unit</span> <span class="pre">is</span> <span class="pre">day.</span>
-<span class="pre">E</span> <span class="pre">EEE</span> <span class="pre">equalization</span> <span class="pre">max</span>
-<span class="pre">current</span>
-<span class="pre">`</span></code>
-<code class="docutils literal notranslate"><span class="pre">`</span>
-<span class="pre">E</span> <span class="pre">is</span> <span class="pre">an</span> <span class="pre">Integer</span> <span class="pre">number</span> <span class="pre">from</span> <span class="pre">0</span> <span class="pre">to</span> <span class="pre">9.</span> <span class="pre">The</span> <span class="pre">unit</span> <span class="pre">is</span>
-<span class="pre">A.</span>
-<span class="pre">F</span> <span class="pre">FFF</span> <span class="pre">reserved</span> <span class="pre">reserved</span>
-<span class="pre">G</span> <span class="pre">GG.GG</span> <span class="pre">equalization</span> <span class="pre">voltage</span> <span class="pre">G</span> <span class="pre">is</span> <span class="pre">an</span> <span class="pre">Integer</span> <span class="pre">ranging</span> <span class="pre">from</span> <span class="pre">0</span> <span class="pre">to</span> <span class="pre">9.</span> <span class="pre">The</span> <span class="pre">units</span>
-<span class="pre">is</span> <span class="pre">V.</span>
-<span class="pre">H</span> <span class="pre">HHH</span> <span class="pre">reserved</span> <span class="pre">reserved</span>
-<span class="pre">I</span> <span class="pre">III</span> <span class="pre">equalization</span> <span class="pre">over</span> <span class="pre">time</span> <span class="pre">I</span> <span class="pre">is</span> <span class="pre">an</span> <span class="pre">Integer</span> <span class="pre">ranging</span> <span class="pre">from</span> <span class="pre">0</span> <span class="pre">to</span> <span class="pre">9.</span> <span class="pre">The</span> <span class="pre">unit</span> <span class="pre">is</span>
-<span class="pre">Minute.</span>
-<span class="pre">j</span> <span class="pre">J</span> <span class="pre">equalization</span> <span class="pre">active</span>
-<span class="pre">status</span>
-<span class="pre">`</span></code>
-<code class="docutils literal notranslate"><span class="pre">`</span>
-<span class="pre">J</span> <span class="pre">is</span> <span class="pre">an</span> <span class="pre">Integer</span> <span class="pre">ranging</span> <span class="pre">from</span> <span class="pre">0</span> <span class="pre">to</span> <span class="pre">1.</span>
-<span class="pre">`</span></code>
-<code class="docutils literal notranslate"><span class="pre">`</span>
-<span class="pre">k</span> <span class="pre">KKKK</span> <span class="pre">equalization</span> <span class="pre">elapse</span> <span class="pre">time</span> <span class="pre">K</span> <span class="pre">is</span> <span class="pre">an</span> <span class="pre">Integer</span> <span class="pre">ranging</span> <span class="pre">from</span> <span class="pre">0</span> <span class="pre">to</span> <span class="pre">9.</span> <span class="pre">The</span> <span class="pre">units</span>
-<span class="pre">is</span> <span class="pre">Hour.</span>
-<span class="pre">`</span></code>
-### 2.21 QMN&lt;cr&gt;: Query model name</p>
-<p><code class="docutils literal notranslate"><span class="pre">`</span>
-<span class="pre">Computer:</span> <span class="pre">QMN&lt;CRC&gt;&lt;cr&gt;</span>
-<span class="pre">`</span></code></p>
-<p>Device: (MMMMM-NNNN&lt;CRC&gt;&lt;cr&gt; if device accepts this command, otherwise, responds
-(NAK&lt;cr&gt;
-MMMMM: model name, NNNN: Rated output VA</p>
-<p>### 2.22 QGMN&lt;cr&gt;: Query general model name</p>
-<p><code class="docutils literal notranslate"><span class="pre">`</span>
-<span class="pre">Computer:</span> <span class="pre">QGMN&lt;CRC&gt;&lt;cr&gt;</span>
-<span class="pre">Device:</span> <span class="pre">(NNN&lt;CRC&gt;&lt;cr&gt;</span> <span class="pre">if</span> <span class="pre">Inverter</span> <span class="pre">accepts</span> <span class="pre">this</span> <span class="pre">command,</span> <span class="pre">otherwise,</span> <span class="pre">responds</span> <span class="pre">(NAK&lt;cr&gt;</span>
-<span class="pre">`</span></code>
-### 2.23 QET&lt;CRC&gt;&lt;cr&gt;: Query total PV generated energy</p>
-<p><code class="docutils literal notranslate"><span class="pre">`</span>
-<span class="pre">Computer:</span> <span class="pre">QET&lt;CRC&gt;&lt;cr&gt;</span>
-<span class="pre">Device:</span> <span class="pre">(NNNNNNNN&lt;CRC&gt;&lt;cr&gt;</span>
-<span class="pre">NNNNNNNN:</span> <span class="pre">Generated</span> <span class="pre">energy,</span> <span class="pre">N:</span> <span class="pre">0~9,</span> <span class="pre">unit:</span> <span class="pre">Wh</span>
-<span class="pre">`</span></code>
-### 2.24 QEYyyyy&lt;CRC&gt;&lt;cr&gt;: Query PV generated energy of year</p>
-<p><code class="docutils literal notranslate"><span class="pre">`</span>
-<span class="pre">Computer:</span> <span class="pre">QEYyyyy&lt;cr&gt;</span>
-<span class="pre">Device:</span> <span class="pre">(NNNNNNNN&lt;CRC&gt;&lt;cr&gt;</span>
-<span class="pre">yyyy:</span> <span class="pre">Year,</span> <span class="pre">y:</span> <span class="pre">0~</span>
-<span class="pre">NNNNNNNN:</span> <span class="pre">Generated</span> <span class="pre">energy,</span> <span class="pre">N:</span> <span class="pre">0~9,</span> <span class="pre">unit:</span> <span class="pre">Wh</span>
-<span class="pre">`</span></code>
-### 2.25 QEMyyyymm&lt;CRC&gt;&lt;cr&gt;: Query PV generated energy of month</p>
-<p><code class="docutils literal notranslate"><span class="pre">`</span>
-<span class="pre">Computer:</span> <span class="pre">QEMyyyymm</span> <span class="pre">&lt;CRC&gt;&lt;cr&gt;</span>
-<span class="pre">Device:</span> <span class="pre">(NNNNNNNN&lt;CRC&gt;&lt;cr&gt;</span>
-<span class="pre">yyyy:</span> <span class="pre">Year,</span> <span class="pre">y:</span> <span class="pre">0~</span>
-<span class="pre">mm:</span> <span class="pre">Month,</span> <span class="pre">m:</span> <span class="pre">0~</span>
-<span class="pre">NNNNNNNN:</span> <span class="pre">Generated</span> <span class="pre">energy,</span> <span class="pre">N:</span> <span class="pre">0~9,</span> <span class="pre">unit:</span> <span class="pre">Wh</span>
-<span class="pre">`</span></code>
-### 2 .26 QEDyyyymmdd&lt;CRC&gt;&lt;cr&gt;: Query PV generated energy of day</p>
-<p><code class="docutils literal notranslate"><span class="pre">`</span>
-<span class="pre">Computer:</span> <span class="pre">QEDyyyymmdd&lt;CRC&gt;&lt;cr&gt;</span>
-<span class="pre">Device:</span> <span class="pre">(NNNNNNNN&lt;CRC&gt;&lt;cr&gt;</span>
-<span class="pre">yyyy:</span> <span class="pre">Year,</span> <span class="pre">y:</span> <span class="pre">0~</span>
-<span class="pre">mm:</span> <span class="pre">Month,</span> <span class="pre">m:</span> <span class="pre">0~</span>
-<span class="pre">dd:</span> <span class="pre">Day,</span> <span class="pre">d:</span> <span class="pre">0~</span>
-<span class="pre">NNNNNNNN:</span> <span class="pre">Generated</span> <span class="pre">energy,</span> <span class="pre">N:</span> <span class="pre">0~9,</span> <span class="pre">unit:</span> <span class="pre">Wh</span>
-<span class="pre">`</span></code>
-### 2.27 QLT&lt;CRC&gt;&lt;cr&gt;: Query total output load energy</p>
-<p><code class="docutils literal notranslate"><span class="pre">`</span>
-<span class="pre">Computer:</span> <span class="pre">QLT&lt;CRC&gt;&lt;cr&gt;</span>
-<span class="pre">Device:</span> <span class="pre">(NNNNNNNN&lt;CRC&gt;&lt;cr&gt;</span>
-<span class="pre">NNNNNNNN:</span> <span class="pre">Output</span> <span class="pre">load</span> <span class="pre">energy,</span> <span class="pre">N:</span> <span class="pre">0~9,</span> <span class="pre">unit:</span> <span class="pre">Wh</span>
-<span class="pre">`</span></code>
-### 2.28 QLYyyyy&lt;CRC&gt;&lt;cr&gt;: Query output load energy of year</p>
-<p><code class="docutils literal notranslate"><span class="pre">`</span>
-<span class="pre">Computer:</span> <span class="pre">QLYyyyy&lt;CRC&gt;&lt;cr&gt;</span>
-<span class="pre">Device:</span> <span class="pre">(NNNNNNNN&lt;CRC&gt;&lt;cr&gt;</span>
-<span class="pre">yyyy:</span> <span class="pre">Year,</span> <span class="pre">y:</span> <span class="pre">0~</span>
-<span class="pre">NNNNNNNN:</span> <span class="pre">Output</span> <span class="pre">load</span> <span class="pre">energy,</span> <span class="pre">N:</span> <span class="pre">0~9,</span> <span class="pre">unit:</span> <span class="pre">Wh</span>
-<span class="pre">`</span></code>
-### 2.29 QLMyyyymm&lt;CRC&gt;&lt;cr&gt;: Query output load energy of month</p>
-<p><code class="docutils literal notranslate"><span class="pre">`</span>
-<span class="pre">Computer:</span> <span class="pre">QLMyyyymm&lt;CRC&gt;&lt;cr&gt;</span>
-<span class="pre">Device:</span> <span class="pre">(NNNNNNNN&lt;CRC&gt;&lt;cr&gt;</span>
-<span class="pre">yyyy:</span> <span class="pre">Year,</span> <span class="pre">y:</span> <span class="pre">0~</span>
-<span class="pre">mm:</span> <span class="pre">Month,</span> <span class="pre">m:</span> <span class="pre">0~</span>
-<span class="pre">NNNNNNNN:</span> <span class="pre">Output</span> <span class="pre">load</span> <span class="pre">energy,</span> <span class="pre">N:</span> <span class="pre">0~9,</span> <span class="pre">unit:</span> <span class="pre">Wh</span>
-<span class="pre">`</span></code></p>
-<p>### 2.30 QLDyyyymmdd&lt;CRC&gt;&lt;cr&gt;: Query output load energy of day…………………………………………………..</p>
-<p><code class="docutils literal notranslate"><span class="pre">`</span>
-<span class="pre">Computer:</span> <span class="pre">QLDyyyymmdd&lt;CRC&gt;&lt;cr&gt;</span>
-<span class="pre">Device:</span> <span class="pre">(NNNNNNNN&lt;CRC&gt;&lt;cr&gt;</span>
-<span class="pre">yyyy:</span> <span class="pre">Year,</span> <span class="pre">y:</span> <span class="pre">0~</span>
-<span class="pre">mm:</span> <span class="pre">Month,</span> <span class="pre">m:</span> <span class="pre">0~</span>
-<span class="pre">dd:</span> <span class="pre">Day,</span> <span class="pre">d:</span> <span class="pre">0~</span>
-<span class="pre">NNNNNNNN:</span> <span class="pre">Output</span> <span class="pre">load</span> <span class="pre">energy,</span> <span class="pre">N:</span> <span class="pre">0~9,</span> <span class="pre">unit:</span> <span class="pre">Wh</span>
-<span class="pre">`</span></code>
-### 2.31 QBMS&lt;CRC&gt;&lt;cr&gt;: BMS message</p>
-<p><code class="docutils literal notranslate"><span class="pre">`</span>
-<span class="pre">Computer:</span> <span class="pre">QBMS&lt;CRC&gt;&lt;cr&gt;</span>
-<span class="pre">Device:</span> <span class="pre">(ACK</span> <span class="pre">&lt;CRC&gt;&lt;cr&gt;</span>
-<span class="pre">`</span></code>
-### 2.32 PBMS&lt;CRC&gt;&lt;cr&gt;: BMS message</p>
-<p><code class="docutils literal notranslate"><span class="pre">`</span>
-<span class="pre">Remote</span> <span class="pre">box:</span> <span class="pre">PBMSa</span> <span class="pre">bbb</span> <span class="pre">c</span> <span class="pre">d</span> <span class="pre">e</span> <span class="pre">fff</span> <span class="pre">ggg</span> <span class="pre">hhh</span> <span class="pre">iiii</span> <span class="pre">jjjj&lt;CRC&gt;&lt;cr&gt;</span>
-<span class="pre">Device:</span> <span class="pre">(ACK&lt;CRC&gt;&lt;cr&gt;</span>
-<span class="pre">Data</span> <span class="pre">Description</span> <span class="pre">Notes</span>
-<span class="pre">(</span> <span class="pre">Start</span> <span class="pre">byte</span>
-<span class="pre">a</span> <span class="pre">Battery</span> <span class="pre">connect</span> <span class="pre">status</span> <span class="pre">0:</span> <span class="pre">connect,</span> <span class="pre">1:</span> <span class="pre">disconnect.</span>
-<span class="pre">`</span></code>
-<code class="docutils literal notranslate"><span class="pre">`</span>
-<span class="pre">bbb</span> <span class="pre">Battery</span> <span class="pre">percentage</span> <span class="pre">b</span> <span class="pre">is</span> <span class="pre">an</span> <span class="pre">Integer</span> <span class="pre">ranging</span> <span class="pre">from</span> <span class="pre">0</span> <span class="pre">to</span> <span class="pre">9.</span> <span class="pre">The</span> <span class="pre">units</span>
-<span class="pre">is</span> <span class="pre">%.</span>
-<span class="pre">`</span></code>
-<code class="docutils literal notranslate"><span class="pre">`</span>
-<span class="pre">c</span>
-<span class="pre">Force</span> <span class="pre">AC</span> <span class="pre">charge</span> <span class="pre">battery</span> <span class="pre">in</span>
-<span class="pre">any</span> <span class="pre">case</span>
-<span class="pre">0:</span> <span class="pre">Do</span> <span class="pre">not</span> <span class="pre">force,</span> <span class="pre">1:</span> <span class="pre">Force.</span>
-<span class="pre">`</span></code>
-<code class="docutils literal notranslate"><span class="pre">`</span>
-<span class="pre">d</span> <span class="pre">Battery</span> <span class="pre">stop</span> <span class="pre">discharge</span> <span class="pre">flag</span> <span class="pre">0:</span> <span class="pre">Enable</span> <span class="pre">discharge,</span> <span class="pre">1:</span> <span class="pre">disable</span> <span class="pre">discharging</span>
-<span class="pre">e</span> <span class="pre">Battery</span> <span class="pre">stop</span> <span class="pre">charge</span> <span class="pre">flag</span> <span class="pre">0:</span> <span class="pre">Enable</span> <span class="pre">charge,</span> <span class="pre">1:</span> <span class="pre">disable</span> <span class="pre">charging</span>
-<span class="pre">`</span></code>
-<code class="docutils literal notranslate"><span class="pre">`</span>
-<span class="pre">fff</span> <span class="pre">Battery</span> <span class="pre">C.V.</span> <span class="pre">charging</span> <span class="pre">voltage</span>
-<span class="pre">f</span> <span class="pre">is</span> <span class="pre">an</span> <span class="pre">Integer</span> <span class="pre">ranging</span> <span class="pre">from</span> <span class="pre">0</span> <span class="pre">to</span> <span class="pre">9.</span> <span class="pre">The</span> <span class="pre">units</span>
-<span class="pre">is</span> <span class="pre">V.</span>
-<span class="pre">`</span></code>
-<code class="docutils literal notranslate"><span class="pre">`</span>
-<span class="pre">ggg</span>
-<span class="pre">Battery</span> <span class="pre">floating</span> <span class="pre">charging</span>
-<span class="pre">voltage</span>
-<span class="pre">`</span></code>
-<code class="docutils literal notranslate"><span class="pre">`</span>
-<span class="pre">g</span> <span class="pre">is</span> <span class="pre">an</span> <span class="pre">Integer</span> <span class="pre">ranging</span> <span class="pre">from</span> <span class="pre">0</span> <span class="pre">to</span> <span class="pre">9.</span> <span class="pre">The</span> <span class="pre">units</span>
-<span class="pre">is</span> <span class="pre">V.</span>
-<span class="pre">`</span></code>
-<code class="docutils literal notranslate"><span class="pre">`</span>
-<span class="pre">hhh</span> <span class="pre">Battery</span> <span class="pre">cut-off</span> <span class="pre">voltage</span>
-<span class="pre">h</span> <span class="pre">is</span> <span class="pre">an</span> <span class="pre">Integer</span> <span class="pre">ranging</span> <span class="pre">from</span> <span class="pre">0</span> <span class="pre">to</span> <span class="pre">9.</span> <span class="pre">The</span> <span class="pre">units</span>
-<span class="pre">is</span> <span class="pre">V.</span>
-<span class="pre">`</span></code>
-<code class="docutils literal notranslate"><span class="pre">`</span>
-<span class="pre">iiii</span>
-<span class="pre">Battery</span> <span class="pre">max.</span> <span class="pre">charging</span>
-<span class="pre">current</span>
-<span class="pre">`</span></code>
-<code class="docutils literal notranslate"><span class="pre">`</span>
-<span class="pre">i</span> <span class="pre">is</span> <span class="pre">an</span> <span class="pre">Integer</span> <span class="pre">ranging</span> <span class="pre">from</span> <span class="pre">0</span> <span class="pre">to</span> <span class="pre">9.</span> <span class="pre">The</span> <span class="pre">units</span>
-<span class="pre">is</span> <span class="pre">A.</span>
-<span class="pre">`</span></code>
-<code class="docutils literal notranslate"><span class="pre">`</span>
-<span class="pre">jjjj</span>
-<span class="pre">Battery</span> <span class="pre">max.</span> <span class="pre">discharging</span>
-<span class="pre">current</span>
-<span class="pre">`</span></code>
-<code class="docutils literal notranslate"><span class="pre">`</span>
-<span class="pre">j</span> <span class="pre">is</span> <span class="pre">an</span> <span class="pre">Integer</span> <span class="pre">ranging</span> <span class="pre">from</span> <span class="pre">0</span> <span class="pre">to</span> <span class="pre">9.</span> <span class="pre">The</span> <span class="pre">units</span>
-<span class="pre">is</span> <span class="pre">A.</span>
-<span class="pre">`</span></code>
-### 2.33 QLED&lt;cr&gt;: LED status parameters inquiry</p>
-<p><code class="docutils literal notranslate"><span class="pre">`</span>
-<span class="pre">Computer:</span> <span class="pre">QLED&lt;cr&gt;</span>
-<span class="pre">UPS:</span> <span class="pre">(A</span> <span class="pre">B</span> <span class="pre">C</span> <span class="pre">D</span> <span class="pre">E</span> <span class="pre">aaa1bbb1ccc1</span> <span class="pre">aaa</span> <span class="pre">2</span> <span class="pre">bbb</span> <span class="pre">2</span> <span class="pre">ccc</span> <span class="pre">2</span> <span class="pre">(aaa</span> <span class="pre">3</span> <span class="pre">bbb</span> <span class="pre">3</span> <span class="pre">ccc3)&lt;cr&gt;</span>
-<span class="pre">Item</span> <span class="pre">Data</span> <span class="pre">description</span> <span class="pre">Notes</span>
-<span class="pre">a</span> <span class="pre">(</span> <span class="pre">Start</span> <span class="pre">code</span>
-<span class="pre">b</span> <span class="pre">A</span> <span class="pre">Enable</span> <span class="pre">or</span> <span class="pre">Disable</span> <span class="pre">A</span> <span class="pre">is</span> <span class="pre">an</span> <span class="pre">Integer</span> <span class="pre">number</span> <span class="pre">0</span> <span class="pre">to</span> <span class="pre">1.</span>
-<span class="pre">`</span></code></p>
-<p><code class="docutils literal notranslate"><span class="pre">`</span>
-<span class="pre">c</span> <span class="pre">B</span> <span class="pre">LED</span> <span class="pre">speed</span> <span class="pre">B</span> <span class="pre">is</span> <span class="pre">an</span> <span class="pre">Integer</span> <span class="pre">ranging</span> <span class="pre">from</span> <span class="pre">0</span> <span class="pre">to</span> <span class="pre">2.</span> <span class="pre">0</span>
-<span class="pre">means</span> <span class="pre">low;</span> <span class="pre">1</span> <span class="pre">means</span> <span class="pre">medium;</span> <span class="pre">2</span> <span class="pre">means</span>
-<span class="pre">fast</span>
-<span class="pre">d</span> <span class="pre">C</span> <span class="pre">LED</span> <span class="pre">effect</span> <span class="pre">C</span> <span class="pre">is</span> <span class="pre">an</span> <span class="pre">Integer</span> <span class="pre">ranging</span> <span class="pre">from</span> <span class="pre">0</span> <span class="pre">to</span> <span class="pre">3.</span> <span class="pre">0</span>
-<span class="pre">means</span> <span class="pre">breathing;</span> <span class="pre">2</span> <span class="pre">means</span> <span class="pre">solid;</span> <span class="pre">3</span>
-<span class="pre">means</span> <span class="pre">right</span> <span class="pre">scrolling</span>
-<span class="pre">e</span> <span class="pre">D</span> <span class="pre">LED</span> <span class="pre">brightness</span> <span class="pre">D</span> <span class="pre">is</span> <span class="pre">an</span> <span class="pre">Integer</span> <span class="pre">ranging</span> <span class="pre">from</span> <span class="pre">1</span> <span class="pre">to</span> <span class="pre">9.</span> <span class="pre">1</span>
-<span class="pre">means</span> <span class="pre">low;</span> <span class="pre">5</span> <span class="pre">means</span> <span class="pre">normal;</span> <span class="pre">9</span> <span class="pre">means</span>
-<span class="pre">high</span>
-<span class="pre">f</span> <span class="pre">E</span> <span class="pre">LED</span> <span class="pre">total</span> <span class="pre">number</span> <span class="pre">of</span>
-<span class="pre">colors</span>
-<span class="pre">`</span></code>
-<code class="docutils literal notranslate"><span class="pre">`</span>
-<span class="pre">E</span> <span class="pre">is</span> <span class="pre">an</span> <span class="pre">Integer</span> <span class="pre">ranging</span> <span class="pre">from</span> <span class="pre">2</span> <span class="pre">to</span> <span class="pre">3.</span>
-<span class="pre">`</span></code>
-<code class="docutils literal notranslate"><span class="pre">`</span>
-<span class="pre">g</span> <span class="pre">aaa1bbb1ccc1</span>
-<span class="pre">aaa</span> <span class="pre">2</span> <span class="pre">bbb</span> <span class="pre">2</span> <span class="pre">ccc</span> <span class="pre">2</span>
-<span class="pre">(aaa</span> <span class="pre">3</span> <span class="pre">bbb</span> <span class="pre">3</span> <span class="pre">ccc3)</span>
-<span class="pre">`</span></code>
-<code class="docutils literal notranslate"><span class="pre">`</span>
-<span class="pre">aaa</span> <span class="pre">means</span> <span class="pre">red,</span> <span class="pre">bbb</span>
-<span class="pre">means</span> <span class="pre">green,</span> <span class="pre">ccc</span>
-<span class="pre">means</span> <span class="pre">blue</span>
-<span class="pre">`</span></code>
-<code class="docutils literal notranslate"><span class="pre">`</span>
-<span class="pre">aaa1,</span> <span class="pre">bbb1,</span> <span class="pre">ccc1,</span> <span class="pre">aaa</span> <span class="pre">2</span> <span class="pre">,</span> <span class="pre">bbb</span> <span class="pre">2</span> <span class="pre">,</span> <span class="pre">ccc</span> <span class="pre">2</span> <span class="pre">,</span>
-<span class="pre">aaa</span> <span class="pre">3</span> <span class="pre">,</span> <span class="pre">bbb</span> <span class="pre">3</span> <span class="pre">,</span> <span class="pre">ccc</span> <span class="pre">3</span> <span class="pre">is</span> <span class="pre">an</span> <span class="pre">Integer</span> <span class="pre">ranging</span>
-<span class="pre">from</span> <span class="pre">0</span> <span class="pre">to</span> <span class="pre">255.</span>
-<span class="pre">`</span></code>
-## 3 Setting parameters Command</p>
-<p>### 3.1 ATE1&lt;CRC&gt;&lt;cr&gt;: Start ATE test, remote panel stop polling</p>
-<p>### 3.2 ATE0: End ATE test, remote panel polling</p>
-<p>### 3.3 PE&lt;X&gt; / PD&lt;X&gt;&lt;cr&gt;: Setting some status enable/disable</p>
-<p><code class="docutils literal notranslate"><span class="pre">`</span>
-<span class="pre">Computer:</span> <span class="pre">PE&lt;X&gt;</span> <span class="pre">/</span> <span class="pre">PD&lt;X&gt;&lt;CRC&gt;&lt;cr&gt;</span>
-<span class="pre">Device:</span> <span class="pre">(ACK&lt;CRC&gt;&lt;cr&gt;</span> <span class="pre">if</span> <span class="pre">DEVICE</span> <span class="pre">accepts</span> <span class="pre">this</span> <span class="pre">command,</span> <span class="pre">otherwise,</span> <span class="pre">responds</span> <span class="pre">(NAK&lt;cr&gt;</span>
-<span class="pre">PEx</span> <span class="pre">/</span> <span class="pre">PDx</span> <span class="pre">set</span> <span class="pre">flag</span> <span class="pre">status.</span> <span class="pre">PE</span> <span class="pre">means</span> <span class="pre">enable,</span> <span class="pre">PD</span> <span class="pre">means</span> <span class="pre">disable</span>
-<span class="pre">x</span> <span class="pre">Control</span> <span class="pre">setting</span>
-<span class="pre">a</span> <span class="pre">Enable/disable</span> <span class="pre">silence</span> <span class="pre">buzzer</span> <span class="pre">or</span> <span class="pre">open</span> <span class="pre">buzzer</span>
-<span class="pre">b</span> <span class="pre">Enable/disable</span> <span class="pre">overload</span> <span class="pre">bypass</span>
-<span class="pre">d</span> <span class="pre">Enable/Disable</span> <span class="pre">solar</span> <span class="pre">feed</span> <span class="pre">to</span> <span class="pre">grid</span> <span class="pre">(reserved</span> <span class="pre">feature)</span>
-<span class="pre">`</span></code>
-<code class="docutils literal notranslate"><span class="pre">`</span>
-<span class="pre">k</span>
-<span class="pre">Enable/Disable</span> <span class="pre">LCD</span> <span class="pre">display</span> <span class="pre">escape</span> <span class="pre">to</span> <span class="pre">default</span> <span class="pre">page</span> <span class="pre">after</span> <span class="pre">1min</span>
-<span class="pre">timeout</span>
-<span class="pre">u</span> <span class="pre">Enable/Disable</span> <span class="pre">overload</span> <span class="pre">restart</span> <span class="pre">and</span> <span class="pre">battery</span> <span class="pre">over</span> <span class="pre">discharge</span> <span class="pre">restart</span>
-<span class="pre">v</span> <span class="pre">Enable/Disable</span> <span class="pre">over</span> <span class="pre">temperature</span> <span class="pre">restart</span>
-<span class="pre">x</span> <span class="pre">Enable/Disable</span> <span class="pre">backlight</span> <span class="pre">on</span>
-<span class="pre">y</span> <span class="pre">Enable/Disable</span> <span class="pre">alarm</span> <span class="pre">on</span> <span class="pre">when</span> <span class="pre">primary</span> <span class="pre">source</span> <span class="pre">interrupt</span>
-<span class="pre">z</span> <span class="pre">Enable/Disable</span> <span class="pre">fault</span> <span class="pre">code</span> <span class="pre">record</span>
-<span class="pre">`</span></code>
-### 3.4 PF&lt;cr&gt;: Setting control parameter to default value</p>
-<p>Computer: PF&lt;CRC&gt;&lt;cr&gt;
-Device: (ACK&lt;CRC&gt;&lt;cr&gt; if device accepts this command, otherwise, responds
-(NAK&lt;CRC&gt;&lt;cr&gt;
-Note: The correct default value can be gain by QDI command.</p>
-<p>### 3.5 MNCHGC&lt;mnnn&gt;&lt;cr&gt;: Setting max charging current</p>
-<p><code class="docutils literal notranslate"><span class="pre">`</span>
-<span class="pre">Computer:</span> <span class="pre">MNCHGC&lt;mnnn&gt;&lt;CRC&gt;&lt;cr&gt;</span>
-<span class="pre">Device:</span> <span class="pre">(ACK&lt;CRC&gt;&lt;cr&gt;</span> <span class="pre">if</span> <span class="pre">device</span> <span class="pre">accepts</span> <span class="pre">this</span> <span class="pre">command,</span> <span class="pre">otherwise,</span> <span class="pre">responds</span>
-<span class="pre">(NAK&lt;CRC&gt;&lt;cr&gt;</span>
-<span class="pre">Setting</span> <span class="pre">value</span> <span class="pre">can</span> <span class="pre">be</span> <span class="pre">gain</span> <span class="pre">by</span> <span class="pre">QMCHGCR</span> <span class="pre">command.</span>
-<span class="pre">nnn</span> <span class="pre">is</span> <span class="pre">max</span> <span class="pre">charging</span> <span class="pre">current,</span> <span class="pre">m</span> <span class="pre">is</span> <span class="pre">parallel</span> <span class="pre">machine</span> <span class="pre">number.</span>
-<span class="pre">`</span></code>
-### 3.6 MUCHGC&lt;mnn&gt;&lt;cr&gt;: Setting utility max charging current</p>
-<p><code class="docutils literal notranslate"><span class="pre">`</span>
-<span class="pre">Computer:</span> <span class="pre">MUCHGC&lt;mnn&gt;&lt;CRC&gt;&lt;cr&gt;</span>
-<span class="pre">Device:</span> <span class="pre">(ACK&lt;CRC&gt;&lt;cr&gt;</span> <span class="pre">if</span> <span class="pre">device</span> <span class="pre">accepts</span> <span class="pre">this</span> <span class="pre">command,</span> <span class="pre">otherwise,</span> <span class="pre">responds</span>
-<span class="pre">(NAK&lt;CRC&gt;&lt;cr&gt;</span>
-<span class="pre">Setting</span> <span class="pre">value</span> <span class="pre">can</span> <span class="pre">be</span> <span class="pre">gain</span> <span class="pre">by</span> <span class="pre">QMUCHGCR</span> <span class="pre">command.</span>
-<span class="pre">nn</span> <span class="pre">is</span> <span class="pre">max</span> <span class="pre">charging</span> <span class="pre">current,</span> <span class="pre">m</span> <span class="pre">is</span> <span class="pre">parallel</span> <span class="pre">machine</span> <span class="pre">number.</span>
-<span class="pre">If</span> <span class="pre">the</span> <span class="pre">max</span> <span class="pre">AC</span> <span class="pre">charging</span> <span class="pre">current</span> <span class="pre">is</span> <span class="pre">greater</span> <span class="pre">than</span> <span class="pre">99A,</span> <span class="pre">modify</span> <span class="pre">it</span> <span class="pre">to</span> <span class="pre">nnn</span>
-<span class="pre">`</span></code>
-### 3.7 F&lt;nn&gt;&lt;cr&gt;: Setting Inverter output rating frequency</p>
-<p><code class="docutils literal notranslate"><span class="pre">`</span>
-<span class="pre">Computer:</span> <span class="pre">F&lt;nn&gt;&lt;CRC&gt;&lt;cr&gt;</span>
-<span class="pre">Device:</span> <span class="pre">(ACK&lt;CRC&gt;&lt;cr&gt;</span> <span class="pre">if</span> <span class="pre">Inverter</span> <span class="pre">accepts</span> <span class="pre">this</span> <span class="pre">command,</span> <span class="pre">otherwise,</span> <span class="pre">responds</span>
-<span class="pre">(NAK&lt;CRC&gt;&lt;cr&gt;</span>
-<span class="pre">Set</span> <span class="pre">UPS</span> <span class="pre">output</span> <span class="pre">rating</span> <span class="pre">frequency</span> <span class="pre">to</span> <span class="pre">50Hz.or</span> <span class="pre">60Hz</span>
-<span class="pre">`</span></code>
-### 3.8 V&lt;nnn&gt;&lt;cr&gt;: Setting device output rating voltage</p>
-<p><code class="docutils literal notranslate"><span class="pre">`</span>
-<span class="pre">Computer:</span> <span class="pre">V&lt;nnn&gt;&lt;CRC&gt;&lt;cr&gt;</span>
-<span class="pre">Device:</span> <span class="pre">(ACK&lt;CRC&gt;&lt;cr&gt;</span> <span class="pre">if</span> <span class="pre">device</span> <span class="pre">accepts</span> <span class="pre">this</span> <span class="pre">command,</span> <span class="pre">otherwise,</span> <span class="pre">responds</span>
-<span class="pre">(NAK&lt;CRC&gt;&lt;cr&gt;</span>
-<span class="pre">Set</span> <span class="pre">inverter</span> <span class="pre">output</span> <span class="pre">rating</span> <span class="pre">voltage</span> <span class="pre">to</span> <span class="pre">220V/230V/240V</span> <span class="pre">for</span> <span class="pre">HV</span> <span class="pre">models.</span>
-<span class="pre">Set</span> <span class="pre">inverter</span> <span class="pre">output</span> <span class="pre">rating</span> <span class="pre">voltage</span> <span class="pre">to</span> <span class="pre">127V/120V/110V</span> <span class="pre">for</span> <span class="pre">LV</span> <span class="pre">models.</span>
-<span class="pre">`</span></code>
-### 3.9 POP&lt;NN&gt;&lt;cr&gt;: Setting device output source priority</p>
-<p><code class="docutils literal notranslate"><span class="pre">`</span>
-<span class="pre">Computer:</span> <span class="pre">POP&lt;NN&gt;&lt;CRC&gt;&lt;cr&gt;</span>
-<span class="pre">Device:</span> <span class="pre">(ACK&lt;CRC&gt;&lt;cr&gt;</span> <span class="pre">if</span> <span class="pre">device</span> <span class="pre">accepts</span> <span class="pre">this</span> <span class="pre">command,</span> <span class="pre">otherwise,</span> <span class="pre">responds</span>
-<span class="pre">(NAK&lt;CRC&gt;&lt;cr&gt;</span>
-<span class="pre">Set</span> <span class="pre">output</span> <span class="pre">source</span> <span class="pre">priority,</span> <span class="pre">00</span> <span class="pre">for</span> <span class="pre">UtilitySolarBat,</span> <span class="pre">01</span> <span class="pre">for</span> <span class="pre">SolarUtilityBat,</span> <span class="pre">02</span> <span class="pre">for</span> <span class="pre">SolarBatUtility</span>
-<span class="pre">`</span></code>
-### 3.10 PBCV&lt;nn.n&gt;&lt;cr&gt;: Set battery re-charge voltage</p>
-<p><code class="docutils literal notranslate"><span class="pre">`</span>
-<span class="pre">Computer:</span> <span class="pre">PBCV&lt;nn.n&gt;&lt;CRC&gt;&lt;cr&gt;</span>
-<span class="pre">Device:</span> <span class="pre">(ACK&lt;CRC&gt;&lt;cr&gt;</span> <span class="pre">if</span> <span class="pre">device</span> <span class="pre">accepts</span> <span class="pre">this</span> <span class="pre">command,</span> <span class="pre">otherwise,</span> <span class="pre">responds</span>
-<span class="pre">(NAK&lt;CRC&gt;&lt;cr&gt;</span>
-<span class="pre">`</span></code>
-### 3.11 PBDV&lt;nn.n&gt;&lt;cr&gt;: Set battery re-discharge voltage</p>
-<p><code class="docutils literal notranslate"><span class="pre">`</span>
-<span class="pre">Computer:</span> <span class="pre">PBDV&lt;nn.n&gt;&lt;CRC&gt;&lt;cr&gt;</span>
-<span class="pre">Device:</span> <span class="pre">(ACK&lt;CRC&gt;&lt;cr&gt;</span> <span class="pre">if</span> <span class="pre">device</span> <span class="pre">accepts</span> <span class="pre">this</span> <span class="pre">command,</span> <span class="pre">otherwise,</span> <span class="pre">responds</span>
-<span class="pre">(NAK&lt;CRC&gt;&lt;cr&gt;</span>
-<span class="pre">00.0V</span> <span class="pre">means</span> <span class="pre">battery</span> <span class="pre">is</span> <span class="pre">full</span> <span class="pre">(charging</span> <span class="pre">in</span> <span class="pre">float</span> <span class="pre">mode).</span>
-<span class="pre">`</span></code>
-### 3.12 PCP&lt;NN&gt;&lt;cr&gt;: Setting device charger priority</p>
-<p><code class="docutils literal notranslate"><span class="pre">`</span>
-<span class="pre">Computer:</span> <span class="pre">PCP&lt;NN&gt;&lt;CRC&gt;&lt;cr&gt;</span>
-<span class="pre">Device:</span> <span class="pre">(ACK&lt;CRC&gt;&lt;cr&gt;</span> <span class="pre">if</span> <span class="pre">device</span> <span class="pre">accepts</span> <span class="pre">this</span> <span class="pre">command,</span> <span class="pre">otherwise,</span> <span class="pre">responds</span>
-<span class="pre">`</span></code></p>
-<p><code class="docutils literal notranslate"><span class="pre">`</span>
-<span class="pre">(NAK&lt;CRC&gt;&lt;cr&gt;</span>
-<span class="pre">Set</span> <span class="pre">output</span> <span class="pre">source</span> <span class="pre">priority,</span>
-<span class="pre">01</span> <span class="pre">for</span> <span class="pre">solar</span> <span class="pre">first,</span> <span class="pre">0</span> <span class="pre">2</span> <span class="pre">for</span> <span class="pre">solar</span> <span class="pre">and</span> <span class="pre">utility,</span> <span class="pre">0</span> <span class="pre">3</span> <span class="pre">for</span> <span class="pre">only</span> <span class="pre">solar</span> <span class="pre">charging</span>
-<span class="pre">`</span></code>
-### 3.13 PGR&lt;NN&gt;&lt;cr&gt;: Setting device grid working range</p>
-<p><code class="docutils literal notranslate"><span class="pre">`</span>
-<span class="pre">Computer:</span> <span class="pre">PGR&lt;NN&gt;&lt;CRC&gt;&lt;cr&gt;</span>
-<span class="pre">Device:</span> <span class="pre">(ACK&lt;CRC&gt;&lt;cr&gt;</span> <span class="pre">if</span> <span class="pre">device</span> <span class="pre">accepts</span> <span class="pre">this</span> <span class="pre">command,</span> <span class="pre">otherwise,</span> <span class="pre">responds</span> <span class="pre">(NAK&lt;cr&gt;</span>
-<span class="pre">Set</span> <span class="pre">device</span> <span class="pre">grid</span> <span class="pre">working</span> <span class="pre">range,</span> <span class="pre">00</span> <span class="pre">for</span> <span class="pre">appliance,</span> <span class="pre">01</span> <span class="pre">for</span> <span class="pre">UPS</span>
-<span class="pre">`</span></code>
-### 3.14 PBT&lt;NN&gt;&lt;cr&gt;: Setting battery type</p>
-<p><code class="docutils literal notranslate"><span class="pre">`</span>
-<span class="pre">Computer:</span> <span class="pre">PBT&lt;NN&gt;&lt;CRC&gt;&lt;cr&gt;</span>
-<span class="pre">Device:</span> <span class="pre">(ACK&lt;CRC&gt;&lt;cr&gt;</span> <span class="pre">if</span> <span class="pre">device</span> <span class="pre">accepts</span> <span class="pre">this</span> <span class="pre">command,</span> <span class="pre">otherwise,</span> <span class="pre">responds</span>
-<span class="pre">(NAK&lt;CRC&gt;&lt;cr&gt;</span>
-<span class="pre">Setting</span> <span class="pre">battery</span> <span class="pre">type,</span> <span class="pre">00</span> <span class="pre">for</span> <span class="pre">AGM,</span> <span class="pre">01</span> <span class="pre">for</span> <span class="pre">Flooded</span> <span class="pre">battery,</span> <span class="pre">02</span> <span class="pre">for</span> <span class="pre">user</span> <span class="pre">define,</span> <span class="pre">03</span> <span class="pre">for</span> <span class="pre">Pylontech,</span> <span class="pre">04</span>
-<span class="pre">for</span> <span class="pre">Shinheung,</span> <span class="pre">05</span> <span class="pre">for</span> <span class="pre">Weco,</span> <span class="pre">06</span> <span class="pre">for</span> <span class="pre">Soltaro,</span> <span class="pre">07</span> <span class="pre">for</span> <span class="pre">BAK,</span> <span class="pre">08</span> <span class="pre">for</span> <span class="pre">Lib,</span> <span class="pre">09</span> <span class="pre">for</span> <span class="pre">Lic</span>
-<span class="pre">`</span></code>
-### 3.15 POPM&lt;nn &gt;&lt;cr&gt;: Set output mode</p>
-<p><code class="docutils literal notranslate"><span class="pre">`</span>
-<span class="pre">Computer:</span> <span class="pre">POPM</span> <span class="pre">&lt;nn</span> <span class="pre">&gt;&lt;CRC&gt;&lt;cr&gt;</span>
-<span class="pre">Device:</span> <span class="pre">(ACK&lt;CRC&gt;&lt;cr&gt;</span> <span class="pre">if</span> <span class="pre">device</span> <span class="pre">accepts</span> <span class="pre">this</span> <span class="pre">command,</span> <span class="pre">otherwise,</span> <span class="pre">responds</span> <span class="pre">(NAK&lt;CRC&gt;&lt;cr&gt;</span>
-<span class="pre">Set</span> <span class="pre">output</span> <span class="pre">mode</span> <span class="pre">to</span> <span class="pre">00/01/02/03/04</span> <span class="pre">for</span> <span class="pre">HV</span> <span class="pre">models.</span>
-<span class="pre">Set</span> <span class="pre">output</span> <span class="pre">mode</span> <span class="pre">to</span> <span class="pre">00/01/02/03/04/05/06/07</span> <span class="pre">for</span> <span class="pre">LV</span> <span class="pre">models.</span>
-<span class="pre">`</span></code>
-nn:
-00: single machine output</p>
-<p>01: parallel output</p>
-<p>02: Phase 1 of 3 Phase output
-03: Phase 2 of 3 Phase output</p>
-<p>04: Phase 3 of 3 Phase output</p>
-<p><code class="docutils literal notranslate"><span class="pre">`</span>
-<span class="pre">05:</span> <span class="pre">Phase</span> <span class="pre">1</span> <span class="pre">of</span> <span class="pre">2</span> <span class="pre">Phase</span> <span class="pre">output</span>
-<span class="pre">06:</span> <span class="pre">Phase</span> <span class="pre">2</span> <span class="pre">of</span> <span class="pre">2</span> <span class="pre">Phase</span> <span class="pre">output</span> <span class="pre">(120°)</span>
-<span class="pre">07</span> <span class="pre">:</span> <span class="pre">Phase</span> <span class="pre">2</span> <span class="pre">of</span> <span class="pre">2</span> <span class="pre">Phase</span> <span class="pre">output</span> <span class="pre">(180°)</span>
-<span class="pre">`</span></code>
-### 3.16 PPCP&lt;MNN&gt;&lt;cr&gt;: Setting parallel device charger priority………………………………………………………..</p>
-<p><code class="docutils literal notranslate"><span class="pre">`</span>
-<span class="pre">Computer:</span> <span class="pre">PCP&lt;MNN&gt;&lt;CRC&gt;&lt;cr&gt;</span>
-<span class="pre">Device:</span> <span class="pre">(ACK&lt;CRC&gt;&lt;cr&gt;</span> <span class="pre">if</span> <span class="pre">device</span> <span class="pre">accepts</span> <span class="pre">this</span> <span class="pre">command,</span> <span class="pre">otherwise,</span> <span class="pre">responds</span> <span class="pre">(NAK&lt;CRC&gt;&lt;cr&gt;</span>
-<span class="pre">01</span> <span class="pre">for</span> <span class="pre">solar</span> <span class="pre">first,</span> <span class="pre">02</span> <span class="pre">for</span> <span class="pre">solar</span> <span class="pre">and</span> <span class="pre">utility,</span> <span class="pre">03</span> <span class="pre">for</span> <span class="pre">only</span> <span class="pre">solar</span> <span class="pre">charging</span>
-<span class="pre">M</span> <span class="pre">is</span> <span class="pre">parallel</span> <span class="pre">machine</span> <span class="pre">number.</span>
-<span class="pre">`</span></code>
-### 3.17 PSDV&lt;nn.n&gt;&lt;cr&gt;: Setting battery cut-off voltage (Battery under voltage)</p>
-<p><code class="docutils literal notranslate"><span class="pre">`</span>
-<span class="pre">Computer:</span> <span class="pre">PSDV</span> <span class="pre">&lt;nn.n&gt;&lt;CRC&gt;&lt;cr&gt;</span>
-<span class="pre">Device:</span> <span class="pre">(ACK&lt;CRC&gt;&lt;cr&gt;</span> <span class="pre">if</span> <span class="pre">device</span> <span class="pre">accepts</span> <span class="pre">this</span> <span class="pre">command,</span> <span class="pre">otherwise,</span> <span class="pre">responds</span> <span class="pre">(NAK&lt;CRC&gt;&lt;cr&gt;</span>
-<span class="pre">`</span></code>
-### 3.18 PCVV&lt;nn.n&gt;&lt;cr&gt;: Setting battery C.V. (constant voltage) charging voltage</p>
-<p><code class="docutils literal notranslate"><span class="pre">`</span>
-<span class="pre">Computer:</span> <span class="pre">PCVV</span> <span class="pre">&lt;nn.n&gt;&lt;CRC&gt;&lt;cr&gt;</span>
-<span class="pre">Device:</span> <span class="pre">(ACK&lt;CRC&gt;&lt;cr&gt;</span> <span class="pre">if</span> <span class="pre">device</span> <span class="pre">accepts</span> <span class="pre">this</span> <span class="pre">command,</span> <span class="pre">otherwise,</span> <span class="pre">responds</span> <span class="pre">(NAK&lt;CRC&gt;&lt;cr&gt;</span>
-<span class="pre">`</span></code>
-### 3.19 PBFT&lt;nn.n&gt;&lt;cr&gt;: Setting battery float charging voltage</p>
-<p><code class="docutils literal notranslate"><span class="pre">`</span>
-<span class="pre">Computer:</span> <span class="pre">PBFT</span> <span class="pre">&lt;nn.n&gt;&lt;CRC&gt;&lt;cr&gt;</span>
-<span class="pre">`</span></code></p>
-<p><code class="docutils literal notranslate"><span class="pre">`</span>
-<span class="pre">Device:</span> <span class="pre">(ACK&lt;CRC&gt;&lt;cr&gt;</span> <span class="pre">if</span> <span class="pre">device</span> <span class="pre">accepts</span> <span class="pre">this</span> <span class="pre">command,</span> <span class="pre">otherwise,</span> <span class="pre">responds</span> <span class="pre">(NAK&lt;CRC&gt;&lt;cr&gt;</span>
-<span class="pre">`</span></code>
-### 3.20 RTEY&lt;cr&gt;: Reset all stored data for PV/load energy</p>
-<p><code class="docutils literal notranslate"><span class="pre">`</span>
-<span class="pre">Computer:</span> <span class="pre">RTEY</span> <span class="pre">&lt;CRC&gt;&lt;cr&gt;</span>
-<span class="pre">Device:</span> <span class="pre">(ACK</span> <span class="pre">&lt;CRC&gt;&lt;cr&gt;</span> <span class="pre">if</span> <span class="pre">device</span> <span class="pre">accepts</span> <span class="pre">this</span> <span class="pre">command,</span> <span class="pre">otherwise,</span> <span class="pre">responds</span> <span class="pre">(NAK&lt;cr&gt;</span>
-<span class="pre">`</span></code>
-### 3.21 RTDL&lt;cr&gt;: Erase all data log</p>
-<p><code class="docutils literal notranslate"><span class="pre">`</span>
-<span class="pre">Computer:</span> <span class="pre">RTDL</span> <span class="pre">&lt;CRC&gt;&lt;cr&gt;</span>
-<span class="pre">Device:</span> <span class="pre">(ACK</span> <span class="pre">&lt;CRC&gt;&lt;cr&gt;</span> <span class="pre">if</span> <span class="pre">device</span> <span class="pre">accepts</span> <span class="pre">this</span> <span class="pre">command,</span> <span class="pre">otherwise,</span> <span class="pre">responds</span> <span class="pre">(NAK&lt;cr&gt;</span>
-<span class="pre">`</span></code>
-### 3.22 PBEQE&lt;n&gt;&lt;cr&gt;: Enable or disable battery equalization</p>
-<p><code class="docutils literal notranslate"><span class="pre">`</span>
-<span class="pre">Computer:</span> <span class="pre">PBEQE&lt;n&gt;&lt;CRC&gt;&lt;cr&gt;</span>
-<span class="pre">Device:</span> <span class="pre">(ACK&lt;CRC&gt;&lt;cr&gt;</span> <span class="pre">if</span> <span class="pre">device</span> <span class="pre">accepts</span> <span class="pre">this</span> <span class="pre">command,</span> <span class="pre">otherwise,</span> <span class="pre">responds</span> <span class="pre">(NAK&lt;cr&gt;</span>
-<span class="pre">Enable</span> <span class="pre">or</span> <span class="pre">Disable</span> <span class="pre">battery</span> <span class="pre">equalization,</span> <span class="pre">n=1</span> <span class="pre">means</span> <span class="pre">enable;</span> <span class="pre">n=0</span> <span class="pre">means</span> <span class="pre">disable.</span>
-<span class="pre">`</span></code>
-### 3.23 PBEQT&lt;nnn&gt;&lt;cr&gt;: Set battery equalization time</p>
-<p><code class="docutils literal notranslate"><span class="pre">`</span>
-<span class="pre">Computer:</span> <span class="pre">PBEQT&lt;nnn&gt;&lt;CRC&gt;&lt;cr&gt;</span>
-<span class="pre">Device:</span> <span class="pre">(ACK&lt;CRC&gt;&lt;cr&gt;</span> <span class="pre">if</span> <span class="pre">device</span> <span class="pre">accepts</span> <span class="pre">this</span> <span class="pre">command,</span> <span class="pre">otherwise,</span> <span class="pre">responds</span> <span class="pre">(NAK&lt;cr&gt;</span>
-<span class="pre">Set</span> <span class="pre">equalization</span> <span class="pre">time,</span> <span class="pre">nnn</span> <span class="pre">is</span> <span class="pre">in</span> <span class="pre">the</span> <span class="pre">range</span> <span class="pre">of</span> <span class="pre">5</span> <span class="pre">to</span> <span class="pre">900minute,</span> <span class="pre">every</span> <span class="pre">click</span> <span class="pre">increase</span> <span class="pre">or</span> <span class="pre">decrease</span>
-<span class="pre">5minute.</span>
-<span class="pre">`</span></code>
-### 3.24 PBEQP&lt;nnn&gt;&lt;cr&gt;: Set battery equalization period</p>
-<p><code class="docutils literal notranslate"><span class="pre">`</span>
-<span class="pre">Computer:</span> <span class="pre">PBEQP&lt;nnn&gt;&lt;CRC&gt;&lt;cr&gt;</span>
-<span class="pre">Device:</span> <span class="pre">(ACK&lt;CRC&gt;&lt;cr&gt;</span> <span class="pre">if</span> <span class="pre">device</span> <span class="pre">accepts</span> <span class="pre">this</span> <span class="pre">command,</span> <span class="pre">otherwise,</span> <span class="pre">responds</span> <span class="pre">(NAK&lt;cr&gt;</span>
-<span class="pre">Set</span> <span class="pre">equalization</span> <span class="pre">period,</span> <span class="pre">nnn</span> <span class="pre">is</span> <span class="pre">in</span> <span class="pre">the</span> <span class="pre">range</span> <span class="pre">of</span> <span class="pre">0</span> <span class="pre">to</span> <span class="pre">90day,</span> <span class="pre">every</span> <span class="pre">click</span> <span class="pre">increase</span> <span class="pre">or</span> <span class="pre">decrease</span> <span class="pre">1day.</span>
-<span class="pre">`</span></code>
-### 3.25 PBEQV&lt;nn.nn&gt;&lt;cr&gt;: Set battery equalization voltage</p>
-<p><code class="docutils literal notranslate"><span class="pre">`</span>
-<span class="pre">Computer:</span> <span class="pre">PBEQV&lt;nn.nn&gt;&lt;CRC&gt;&lt;cr&gt;</span>
-<span class="pre">Device:</span> <span class="pre">(ACK&lt;CRC&gt;&lt;cr&gt;</span> <span class="pre">if</span> <span class="pre">device</span> <span class="pre">accepts</span> <span class="pre">this</span> <span class="pre">command,</span> <span class="pre">otherwise,</span> <span class="pre">responds</span> <span class="pre">(NAK&lt;cr&gt;</span>
-<span class="pre">Set</span> <span class="pre">equalization</span> <span class="pre">time,</span> <span class="pre">nn.nn</span> <span class="pre">is</span> <span class="pre">in</span> <span class="pre">the</span> <span class="pre">range</span> <span class="pre">as</span> <span class="pre">below.</span>
-<span class="pre">`</span></code>
-### 3.26 PBEQOT&lt;nnn&gt;&lt;cr&gt;: Set battery equalization over time</p>
-<p><code class="docutils literal notranslate"><span class="pre">`</span>
-<span class="pre">Computer:</span> <span class="pre">PBEQOT&lt;nnn&gt;&lt;CRC&gt;&lt;cr&gt;</span>
-<span class="pre">Device:</span> <span class="pre">(ACK&lt;CRC&gt;&lt;cr&gt;</span> <span class="pre">if</span> <span class="pre">device</span> <span class="pre">accepts</span> <span class="pre">this</span> <span class="pre">command,</span> <span class="pre">otherwise,</span> <span class="pre">responds</span> <span class="pre">(NAK&lt;cr&gt;</span>
-<span class="pre">Set</span> <span class="pre">equalization</span> <span class="pre">time,</span> <span class="pre">nnn</span> <span class="pre">is</span> <span class="pre">in</span> <span class="pre">the</span> <span class="pre">range</span> <span class="pre">of</span> <span class="pre">5</span> <span class="pre">to</span> <span class="pre">900minute,</span> <span class="pre">every</span> <span class="pre">click</span> <span class="pre">increase</span> <span class="pre">or</span> <span class="pre">decrease</span>
-<span class="pre">5minute.</span>
-<span class="pre">`</span></code>
-### 3.27 PBEQA&lt;n&gt;&lt;cr&gt;: Active or inactive battery equalization now</p>
-<p><code class="docutils literal notranslate"><span class="pre">`</span>
-<span class="pre">Computer:</span> <span class="pre">PBEQA&lt;n&gt;&lt;CRC&gt;&lt;cr&gt;</span>
-<span class="pre">Device:</span> <span class="pre">(ACK&lt;CRC&gt;&lt;cr&gt;</span> <span class="pre">if</span> <span class="pre">device</span> <span class="pre">accepts</span> <span class="pre">this</span> <span class="pre">command,</span> <span class="pre">otherwise,</span> <span class="pre">responds</span> <span class="pre">(NAK&lt;cr&gt;</span>
-<span class="pre">Active</span> <span class="pre">or</span> <span class="pre">inactive</span> <span class="pre">battery</span> <span class="pre">equalization</span> <span class="pre">now,</span> <span class="pre">n=1</span> <span class="pre">means</span> <span class="pre">active;</span> <span class="pre">n=0</span> <span class="pre">means</span> <span class="pre">inactive.</span>
-<span class="pre">`</span></code>
-### 3.28 PCVT&lt;nnn&gt;&lt;cr&gt;: Setting max charging time at C.V stage</p>
-<p><code class="docutils literal notranslate"><span class="pre">`</span>
-<span class="pre">Computer:</span> <span class="pre">PCVT&lt;nnn&gt;&lt;CRC&gt;&lt;cr&gt;</span>
-<span class="pre">Device:</span> <span class="pre">(ACK&lt;CRC&gt;&lt;cr&gt;</span> <span class="pre">if</span> <span class="pre">device</span> <span class="pre">accepts</span> <span class="pre">this</span> <span class="pre">command,</span> <span class="pre">otherwise,</span> <span class="pre">responds</span> <span class="pre">(NAK&lt;CRC&gt;&lt;cr&gt;</span>
-<span class="pre">Setting</span> <span class="pre">value</span> <span class="pre">can</span> <span class="pre">be</span> <span class="pre">gain</span> <span class="pre">by</span> <span class="pre">QMCHGCR</span> <span class="pre">command.</span>
-<span class="pre">nnn</span> <span class="pre">is</span> <span class="pre">max</span> <span class="pre">charging</span> <span class="pre">time</span> <span class="pre">at</span> <span class="pre">C.V</span> <span class="pre">stage,</span> <span class="pre">the</span> <span class="pre">range</span> <span class="pre">is</span> <span class="pre">from</span> <span class="pre">000</span> <span class="pre">to</span> <span class="pre">900</span> <span class="pre">but</span> <span class="pre">in</span> <span class="pre">multiples</span> <span class="pre">of</span> <span class="pre">5.</span> <span class="pre">000</span>
-<span class="pre">means</span> <span class="pre">automatically.</span>
-<span class="pre">`</span></code>
-### 3.29 DAT&lt; YYMMDDHHMMSS&gt;&lt;cr&gt;: Date and time</p>
-<p><code class="docutils literal notranslate"><span class="pre">`</span>
-<span class="pre">Computer:</span> <span class="pre">DAT&lt;</span> <span class="pre">YYMMDDHHMMSS&gt;&lt;CRC&gt;&lt;cr&gt;</span>
-<span class="pre">`</span></code></p>
-<p><code class="docutils literal notranslate"><span class="pre">`</span>
-<span class="pre">&lt;Y,</span> <span class="pre">M,</span> <span class="pre">D,</span> <span class="pre">H,</span> <span class="pre">S&gt;</span> <span class="pre">is</span> <span class="pre">an</span> <span class="pre">integer</span> <span class="pre">number</span> <span class="pre">0</span> <span class="pre">to</span> <span class="pre">9</span>
-<span class="pre">Device:</span> <span class="pre">(ACK&lt;CRC&gt;&lt;cr&gt;</span> <span class="pre">if</span> <span class="pre">device</span> <span class="pre">accepts</span> <span class="pre">this</span> <span class="pre">command,</span> <span class="pre">otherwise,</span> <span class="pre">responds</span> <span class="pre">(NAK&lt;CRC&gt;&lt;cr&gt;</span>
-<span class="pre">`</span></code>
-### 3.30 PBATCD&lt;abc&gt;&lt;cr&gt;: Battery charge/discharge controlling command</p>
-<p><code class="docutils literal notranslate"><span class="pre">`</span>
-<span class="pre">Computer:</span> <span class="pre">PBATCD&lt;abc&gt;&lt;CRC&gt;&lt;cr&gt;</span>
-<span class="pre">Device:</span> <span class="pre">(ACK&lt;CRC&gt;&lt;cr&gt;</span> <span class="pre">if</span> <span class="pre">device</span> <span class="pre">accepts</span> <span class="pre">this</span> <span class="pre">command,</span> <span class="pre">otherwise,</span> <span class="pre">responds</span> <span class="pre">(NAK&lt;CRC&gt;&lt;cr&gt;</span>
-<span class="pre">a</span> <span class="pre">=</span> <span class="pre">Discharge</span> <span class="pre">completely</span> <span class="pre">on/off</span>
-<span class="pre">b</span> <span class="pre">=</span> <span class="pre">Discharge</span> <span class="pre">on/off,</span> <span class="pre">but</span> <span class="pre">standby</span> <span class="pre">allowed</span> <span class="pre">(so</span> <span class="pre">small</span> <span class="pre">discharge</span> <span class="pre">allowed)</span>
-<span class="pre">c</span> <span class="pre">=</span> <span class="pre">Charge</span> <span class="pre">completely</span> <span class="pre">on/off</span>
-<span class="pre">`</span></code>
-<code class="docutils literal notranslate"><span class="pre">`</span>
-<span class="pre">Detail:</span>
-<span class="pre">abc:</span>
-<span class="pre">`</span></code>
-Charger Discharger
-1 1 1 Enabled charger Enabled discharger</p>
-<p>#### 0 1 1</p>
-<p><code class="docutils literal notranslate"><span class="pre">`</span>
-<span class="pre">Enabled</span> <span class="pre">charger,</span> <span class="pre">depends</span> <span class="pre">on</span> <span class="pre">Prog16</span> <span class="pre">setting</span> <span class="pre">if</span>
-<span class="pre">AC</span> <span class="pre">source</span> <span class="pre">valid,</span> <span class="pre">charge</span> <span class="pre">2A</span> <span class="pre">from</span> <span class="pre">AC,</span> <span class="pre">even</span> <span class="pre">if</span>
-<span class="pre">prog.</span> <span class="pre">16</span> <span class="pre">is</span> <span class="pre">“only</span> <span class="pre">solar”.</span> <span class="pre">If</span> <span class="pre">prog.</span> <span class="pre">16</span> <span class="pre">is</span> <span class="pre">any</span> <span class="pre">other</span>
-<span class="pre">setting,</span> <span class="pre">ignore</span> <span class="pre">and</span> <span class="pre">let</span> <span class="pre">charging</span> <span class="pre">from</span> <span class="pre">AC</span> <span class="pre">source</span>
-<span class="pre">continue</span> <span class="pre">normally.</span>
-<span class="pre">`</span></code>
-<code class="docutils literal notranslate"><span class="pre">`</span>
-<span class="pre">Disabled</span> <span class="pre">discharger</span> <span class="pre">and</span> <span class="pre">shut</span> <span class="pre">down</span> <span class="pre">unit</span>
-<span class="pre">completely</span> <span class="pre">when</span> <span class="pre">insufficient</span> <span class="pre">PV</span> <span class="pre">or</span> <span class="pre">Grid</span> <span class="pre">is</span>
-<span class="pre">present.</span>
-<span class="pre">`</span></code>
-#### 1 0 1</p>
-<p><code class="docutils literal notranslate"><span class="pre">`</span>
-<span class="pre">Enabled</span> <span class="pre">charger,</span> <span class="pre">depends</span> <span class="pre">on</span> <span class="pre">Prog16</span> <span class="pre">setting</span> <span class="pre">if</span>
-<span class="pre">AC</span> <span class="pre">source</span> <span class="pre">valid,</span> <span class="pre">charge</span> <span class="pre">2A</span> <span class="pre">from</span> <span class="pre">AC,</span> <span class="pre">even</span> <span class="pre">if</span>
-<span class="pre">prog.</span> <span class="pre">16</span> <span class="pre">is</span> <span class="pre">“only</span> <span class="pre">solar”.</span> <span class="pre">If</span> <span class="pre">prog.</span> <span class="pre">16</span> <span class="pre">is</span> <span class="pre">any</span> <span class="pre">other</span>
-<span class="pre">setting,</span> <span class="pre">ignore</span> <span class="pre">and</span> <span class="pre">let</span> <span class="pre">charging</span> <span class="pre">from</span> <span class="pre">AC</span> <span class="pre">source</span>
-<span class="pre">continue</span> <span class="pre">normally.</span>
-<span class="pre">`</span></code>
-<code class="docutils literal notranslate"><span class="pre">`</span>
-<span class="pre">Disabled</span> <span class="pre">discharger</span> <span class="pre">but</span> <span class="pre">keep</span> <span class="pre">unit</span> <span class="pre">stay</span> <span class="pre">at</span> <span class="pre">standby</span>
-<span class="pre">mode.</span>
-<span class="pre">`</span></code>
-<code class="docutils literal notranslate"><span class="pre">`</span>
-<span class="pre">1</span> <span class="pre">1</span> <span class="pre">0</span> <span class="pre">Disabled</span> <span class="pre">charger</span> <span class="pre">Enabled</span> <span class="pre">discharger</span>
-<span class="pre">0</span> <span class="pre">1</span> <span class="pre">0</span> <span class="pre">Disabled</span> <span class="pre">charger</span>
-<span class="pre">Disabled</span> <span class="pre">discharger</span> <span class="pre">and</span> <span class="pre">shut</span> <span class="pre">down</span> <span class="pre">unit</span>
-<span class="pre">completely</span> <span class="pre">when</span> <span class="pre">no</span> <span class="pre">PV</span> <span class="pre">or</span> <span class="pre">Grid</span> <span class="pre">is</span> <span class="pre">present.</span>
-<span class="pre">1</span> <span class="pre">0</span> <span class="pre">0</span> <span class="pre">Disabled</span> <span class="pre">charger</span>
-<span class="pre">Disabled</span> <span class="pre">discharger</span> <span class="pre">but</span> <span class="pre">keep</span> <span class="pre">unit</span> <span class="pre">stay</span> <span class="pre">at</span> <span class="pre">standby</span>
-<span class="pre">mode.</span>
-<span class="pre">0</span> <span class="pre">0</span> <span class="pre">1</span> <span class="pre">N/A</span> <span class="pre">N/A</span>
-<span class="pre">0</span> <span class="pre">0</span> <span class="pre">0</span> <span class="pre">Cleaned</span> <span class="pre">the</span> <span class="pre">enable/disable</span> <span class="pre">charger</span> <span class="pre">flags^</span> <span class="pre">and</span>
-<span class="pre">return</span> <span class="pre">to</span> <span class="pre">previous</span> <span class="pre">charger</span> <span class="pre">status.</span>
-<span class="pre">`</span></code>
-<code class="docutils literal notranslate"><span class="pre">`</span>
-<span class="pre">Cleaned</span> <span class="pre">the</span> <span class="pre">enable/disable</span> <span class="pre">discharger</span> <span class="pre">flags</span> <span class="pre">and</span>
-<span class="pre">return</span> <span class="pre">to</span> <span class="pre">previous</span> <span class="pre">discharger</span> <span class="pre">status.</span>
-<span class="pre">`</span></code>
-### 3.31 PBATMAXDISC&lt;nnn&gt;&lt;cr&gt;: Setting max discharging current</p>
-<p><code class="docutils literal notranslate"><span class="pre">`</span>
-<span class="pre">Computer:</span> <span class="pre">PBATMAXDISC&lt;nnn&gt;&lt;CRC&gt;&lt;cr&gt;</span>
-<span class="pre">Device:</span> <span class="pre">(ACK&lt;CRC&gt;&lt;cr&gt;</span> <span class="pre">if</span> <span class="pre">device</span> <span class="pre">accepts</span> <span class="pre">this</span> <span class="pre">command,</span> <span class="pre">otherwise,</span> <span class="pre">responds</span> <span class="pre">(NAK&lt;CRC&gt;&lt;cr&gt;</span>
-<span class="pre">nnn</span> <span class="pre">is</span> <span class="pre">max</span> <span class="pre">discharging</span> <span class="pre">current</span>
-<span class="pre">48V</span> <span class="pre">unit:</span> <span class="pre">000</span> <span class="pre">or</span> <span class="pre">30A~1</span> <span class="pre">5</span> <span class="pre">0A</span>
-<span class="pre">000</span> <span class="pre">means</span> <span class="pre">the</span> <span class="pre">function</span> <span class="pre">will</span> <span class="pre">be</span> <span class="pre">disable.</span>
-<span class="pre">`</span></code>
-### 3.32 PLEDE&lt;n&gt;&lt;cr&gt;: Enable/disable LED function</p>
-<p><code class="docutils literal notranslate"><span class="pre">`</span>
-<span class="pre">Computer:</span> <span class="pre">PLEDE&lt;n&gt;&lt;cr&gt;</span>
-<span class="pre">UPS:</span> <span class="pre">(ACK&lt;cr&gt;</span> <span class="pre">if</span> <span class="pre">UPS</span> <span class="pre">accepts</span> <span class="pre">this</span> <span class="pre">command,</span> <span class="pre">otherwise,</span> <span class="pre">responds</span> <span class="pre">(NAK&lt;cr&gt;</span>
-<span class="pre">n:</span> <span class="pre">0</span> <span class="pre">means</span> <span class="pre">disable;</span> <span class="pre">1</span> <span class="pre">means</span> <span class="pre">enable</span>
-<span class="pre">`</span></code></p>
-<p>### 3.33 PLEDS&lt;n&gt;&lt;cr&gt;: set LED speed</p>
-<p><code class="docutils literal notranslate"><span class="pre">`</span>
-<span class="pre">Computer:</span> <span class="pre">PLEDS&lt;n&gt;&lt;cr&gt;</span>
-<span class="pre">UPS:</span> <span class="pre">(ACK&lt;cr&gt;</span> <span class="pre">if</span> <span class="pre">UPS</span> <span class="pre">accepts</span> <span class="pre">this</span> <span class="pre">command,</span> <span class="pre">otherwise,</span> <span class="pre">responds</span> <span class="pre">(NAK&lt;cr&gt;</span>
-<span class="pre">n:</span> <span class="pre">0</span> <span class="pre">means</span> <span class="pre">low;</span> <span class="pre">1</span> <span class="pre">means</span> <span class="pre">medium;</span> <span class="pre">2</span> <span class="pre">means</span> <span class="pre">fast</span>
-<span class="pre">`</span></code>
-### 3.34 PLEDM&lt;n&gt;&lt;cr&gt;: set LED effect</p>
-<p><code class="docutils literal notranslate"><span class="pre">`</span>
-<span class="pre">Computer:</span> <span class="pre">PLEDM&lt;n&gt;&lt;cr&gt;</span>
-<span class="pre">UPS:</span> <span class="pre">(ACK&lt;cr&gt;</span> <span class="pre">if</span> <span class="pre">UPS</span> <span class="pre">accepts</span> <span class="pre">this</span> <span class="pre">command,</span> <span class="pre">otherwise,</span> <span class="pre">responds</span> <span class="pre">(NAK&lt;cr&gt;</span>
-<span class="pre">n:</span> <span class="pre">0</span> <span class="pre">means</span> <span class="pre">breathing;</span> <span class="pre">2</span> <span class="pre">means</span> <span class="pre">solid;</span> <span class="pre">3</span> <span class="pre">means</span> <span class="pre">right</span> <span class="pre">scrolling</span>
-<span class="pre">`</span></code>
-### 3.35 PLEDB&lt;n&gt;&lt;cr&gt;: set LED brightness</p>
-<p><code class="docutils literal notranslate"><span class="pre">`</span>
-<span class="pre">Computer:</span> <span class="pre">PLEDB&lt;n&gt;&lt;cr&gt;</span>
-<span class="pre">UPS:</span> <span class="pre">(ACK&lt;cr&gt;</span> <span class="pre">if</span> <span class="pre">UPS</span> <span class="pre">accepts</span> <span class="pre">this</span> <span class="pre">command,</span> <span class="pre">otherwise,</span> <span class="pre">responds</span> <span class="pre">(NAK&lt;cr&gt;</span>
-<span class="pre">n</span> <span class="pre">means</span> <span class="pre">LED</span> <span class="pre">brightness,</span> <span class="pre">1</span> <span class="pre">means</span> <span class="pre">low;</span> <span class="pre">5</span> <span class="pre">means</span> <span class="pre">normal;</span> <span class="pre">9</span> <span class="pre">means</span> <span class="pre">high</span>
-<span class="pre">`</span></code>
-### 3.36 PLEDT&lt;n&gt;&lt;cr&gt;: set LED total number of colors</p>
-<p><code class="docutils literal notranslate"><span class="pre">`</span>
-<span class="pre">Computer:</span> <span class="pre">PLEDT&lt;n&gt;&lt;cr&gt;</span>
-<span class="pre">UPS:</span> <span class="pre">(ACK&lt;cr&gt;</span> <span class="pre">if</span> <span class="pre">UPS</span> <span class="pre">accepts</span> <span class="pre">this</span> <span class="pre">command,</span> <span class="pre">otherwise,</span> <span class="pre">responds</span> <span class="pre">(NAK&lt;cr&gt;</span>
-<span class="pre">n</span> <span class="pre">means</span> <span class="pre">total</span> <span class="pre">number</span> <span class="pre">of</span> <span class="pre">colors,</span> <span class="pre">between</span> <span class="pre">2</span> <span class="pre">and</span> <span class="pre">3</span>
-<span class="pre">`</span></code>
-### 3.37 PLEDC&lt;n&gt;&lt;aaabbbccc&gt;&lt;cr&gt;: set LED color</p>
-<p><code class="docutils literal notranslate"><span class="pre">`</span>
-<span class="pre">Computer:</span> <span class="pre">PLEDC&lt;n&gt;&lt;aaabbbccc&gt;&lt;cr&gt;</span>
-<span class="pre">UPS:</span> <span class="pre">(ACK&lt;cr&gt;</span>
-<span class="pre">&lt;n&gt;</span> <span class="pre">must</span> <span class="pre">less</span> <span class="pre">than</span> <span class="pre">LED</span> <span class="pre">total</span> <span class="pre">number</span> <span class="pre">of</span> <span class="pre">colors,</span> <span class="pre">if</span> <span class="pre">UPS</span> <span class="pre">accepts</span> <span class="pre">this</span> <span class="pre">command,</span> <span class="pre">otherwise,</span> <span class="pre">responds</span>
-<span class="pre">(NAK&lt;cr&gt;</span>
-<span class="pre">&lt;n&gt;</span> <span class="pre">means</span> <span class="pre">LED</span> <span class="pre">order,</span> <span class="pre">between</span> <span class="pre">1</span> <span class="pre">and</span> <span class="pre">3;</span> <span class="pre">1</span> <span class="pre">indicate</span> <span class="pre">Line</span> <span class="pre">mode,</span> <span class="pre">2</span> <span class="pre">indicate</span> <span class="pre">AVR</span> <span class="pre">mode,</span> <span class="pre">3</span> <span class="pre">indicate</span>
-<span class="pre">Battery</span> <span class="pre">mode</span>
-<span class="pre">&lt;aaa,</span> <span class="pre">bbb,</span> <span class="pre">ccc&gt;</span> <span class="pre">means</span> <span class="pre">RGB,</span> <span class="pre">between</span> <span class="pre">0</span> <span class="pre">and</span> <span class="pre">255</span>
-<span class="pre">For</span> <span class="pre">example:</span>
-<span class="pre">Computer:</span> <span class="pre">PLEDC3160032240</span> <span class="pre">&lt;cr&gt;</span>
-<span class="pre">UPS:</span> <span class="pre">(ACK&lt;cr&gt;</span>
-<span class="pre">Means:</span> <span class="pre">set</span> <span class="pre">battery</span> <span class="pre">mode</span> <span class="pre">to</span> <span class="pre">purple.</span>
-<span class="pre">`</span></code>
-## 4 Appendix</p>
-<p>### 4.1 CRC calibration method</p>
+</section>
+<section id="qmchgcr-cr-enquiry-selectable-value-about-max-charging-current">
+<h3>2.15 QMCHGCR&lt;cr&gt;: Enquiry selectable value about max charging current<a class="headerlink" href="#qmchgcr-cr-enquiry-selectable-value-about-max-charging-current" title="Link to this heading">¶</a></h3>
+<div class="line-block">
+<div class="line">Computer: <code class="docutils literal notranslate"><span class="pre">QMCHGCR&lt;CRC&gt;&lt;cr&gt;</span></code></div>
+<div class="line">Device: <code class="docutils literal notranslate"><span class="pre">(AAA</span> <span class="pre">BBB</span> <span class="pre">CCC</span> <span class="pre">DDD......&lt;CRC&gt;&lt;cr&gt;</span></code></div>
+<div class="line">More value can be added, make sure there is a space character between every value.</div>
+</div>
+</section>
+<section id="qmuchgcr-cr-enquiry-selectable-value-about-max-utility-charging-current">
+<h3>2.16 QMUCHGCR&lt;cr&gt;: Enquiry selectable value about max utility charging current<a class="headerlink" href="#qmuchgcr-cr-enquiry-selectable-value-about-max-utility-charging-current" title="Link to this heading">¶</a></h3>
+<div class="line-block">
+<div class="line">Computer: <code class="docutils literal notranslate"><span class="pre">QMUCHGCR&lt;CRC&gt;&lt;cr&gt;</span></code></div>
+<div class="line">Device: <code class="docutils literal notranslate"><span class="pre">(AAA</span> <span class="pre">BBB</span> <span class="pre">CCC</span> <span class="pre">DDD......&lt;CRC&gt;&lt;cr&gt;</span></code></div>
+<div class="line">More value can be added, make sure there is a space character between every value.</div>
+</div>
+</section>
+<section id="qoppt-cr-the-device-output-source-priority-time-order-inquiry">
+<h3>2.17 QOPPT&lt;cr&gt;: The device output source priority time order inquiry<a class="headerlink" href="#qoppt-cr-the-device-output-source-priority-time-order-inquiry" title="Link to this heading">¶</a></h3>
+<div class="line-block">
+<div class="line">Computer: <code class="docutils literal notranslate"><span class="pre">QOPPT&lt;CRC&gt;&lt;cr&gt;</span></code></div>
+<div class="line">Device: <code class="docutils literal notranslate"><span class="pre">(M</span> <span class="pre">M</span> <span class="pre">M</span> <span class="pre">M</span> <span class="pre">M</span> <span class="pre">M</span> <span class="pre">M</span> <span class="pre">M</span> <span class="pre">M</span> <span class="pre">M</span> <span class="pre">M</span> <span class="pre">M</span> <span class="pre">M</span> <span class="pre">M</span> <span class="pre">M</span> <span class="pre">M</span> <span class="pre">M</span> <span class="pre">M</span> <span class="pre">M</span> <span class="pre">M</span> <span class="pre">M</span> <span class="pre">M</span> <span class="pre">M</span> <span class="pre">M</span> <span class="pre">N</span> <span class="pre">O</span> <span class="pre">O</span> <span class="pre">O&lt;CRC&gt;&lt;cr&gt;</span></code></div>
+<div class="line">M: 24 hour correspond to the output source priority (0: Utility first, 1: Solar first, 2: SBU)</div>
+<div class="line">N: device output source priority</div>
+<div class="line">O: selection of output source priority order</div>
+<div class="line"><br /></div>
+<div class="line">Example:</div>
+<div class="line">Computer: <code class="docutils literal notranslate"><span class="pre">QOPPT&lt;CRC&gt;&lt;cr&gt;</span></code></div>
+<div class="line">Device: <code class="docutils literal notranslate"><span class="pre">(0</span> <span class="pre">0</span> <span class="pre">0</span> <span class="pre">0</span> <span class="pre">0</span> <span class="pre">2</span> <span class="pre">2</span> <span class="pre">0</span> <span class="pre">0</span> <span class="pre">0</span> <span class="pre">0</span> <span class="pre">0</span> <span class="pre">0</span> <span class="pre">0</span> <span class="pre">0</span> <span class="pre">0</span> <span class="pre">0</span> <span class="pre">0</span> <span class="pre">0</span> <span class="pre">0</span> <span class="pre">0</span> <span class="pre">0</span> <span class="pre">0</span> <span class="pre">0</span> <span class="pre">0</span> <span class="pre">0</span> <span class="pre">1</span> <span class="pre">2&lt;CRC&gt;&lt;cr&gt;</span></code></div>
+<div class="line">Means: the device output source priority time order is SBU from 5 to 6, and output source priority is Utility first.</div>
+</div>
+<p>2.18 QCHPT&lt;cr&gt;: The device charger source priority time order inquiry</p>
+<div class="line-block">
+<div class="line">Computer: <code class="docutils literal notranslate"><span class="pre">QCHPT&lt;CRC&gt;&lt;cr&gt;</span></code></div>
+<div class="line">Device: <code class="docutils literal notranslate"><span class="pre">(M</span> <span class="pre">M</span> <span class="pre">M</span> <span class="pre">M</span> <span class="pre">M</span> <span class="pre">M</span> <span class="pre">M</span> <span class="pre">M</span> <span class="pre">M</span> <span class="pre">M</span> <span class="pre">M</span> <span class="pre">M</span> <span class="pre">M</span> <span class="pre">M</span> <span class="pre">M</span> <span class="pre">M</span> <span class="pre">M</span> <span class="pre">M</span> <span class="pre">M</span> <span class="pre">M</span> <span class="pre">M</span> <span class="pre">M</span> <span class="pre">M</span> <span class="pre">M</span> <span class="pre">N</span> <span class="pre">O</span> <span class="pre">O</span> <span class="pre">O&lt;CRC&gt;&lt;cr&gt;</span></code></div>
+<div class="line">M: 24 hour correspond to the charger source priority (1: Solar first, 2: Solar + Utility, 3: Only solar charging permitted)</div>
+<div class="line">N: device charger source priority</div>
+<div class="line">O: selection of o charger source priority order</div>
+<div class="line"><br /></div>
+<div class="line">Example:</div>
+<div class="line">Computer: <code class="docutils literal notranslate"><span class="pre">QCHPT&lt;CRC&gt;&lt;cr&gt;</span></code></div>
+<div class="line">Device: <code class="docutils literal notranslate"><span class="pre">(1</span> <span class="pre">1</span> <span class="pre">1</span> <span class="pre">1</span> <span class="pre">1</span> <span class="pre">1</span> <span class="pre">1</span> <span class="pre">1</span> <span class="pre">1</span> <span class="pre">1</span> <span class="pre">1</span> <span class="pre">1</span> <span class="pre">1</span> <span class="pre">1</span> <span class="pre">1</span> <span class="pre">1</span> <span class="pre">1</span> <span class="pre">1</span> <span class="pre">1</span> <span class="pre">1</span> <span class="pre">2</span> <span class="pre">2</span> <span class="pre">2</span> <span class="pre">2</span> <span class="pre">2</span> <span class="pre">2</span> <span class="pre">1</span> <span class="pre">0&lt;CRC&gt;&lt;cr&gt;</span></code></div>
+<div class="line">Means: the device charger source priority time order is solar + utility from 20 to 23, and charger source priority is Solar first.</div>
+</div>
+</section>
+<section id="qt-cr-time-inquiry">
+<h3>2.19 QT&lt;cr&gt;: Time inquiry<a class="headerlink" href="#qt-cr-time-inquiry" title="Link to this heading">¶</a></h3>
+<div class="line-block">
+<div class="line">Computer: <code class="docutils literal notranslate"><span class="pre">QT&lt;cr&gt;</span></code></div>
+<div class="line">Device: <code class="docutils literal notranslate"><span class="pre">(YYYYMMDDHHMMSS&lt;cr&gt;</span></code></div>
+<div class="line"><br /></div>
+<div class="line">Example:</div>
+<div class="line">Computer: <code class="docutils literal notranslate"><span class="pre">QT&lt;cr&gt;</span></code></div>
+<div class="line">Device: <code class="docutils literal notranslate"><span class="pre">(20180101111120&lt;cr&gt;</span></code></div>
+<div class="line">Means: The time is 2018/01/01 11:11:20.</div>
+</div>
+<table class="docutils align-left" id="id11">
+<caption><span class="caption-text">Response Decode</span><a class="headerlink" href="#id11" title="Link to this table">¶</a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p>Component</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Notes</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>(</p></td>
+<td><p>Start byte</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>YYYYMMDD</p></td>
+<td><p>Date</p></td>
+<td><p>Y, M and D are an Integer number 0 to 9.</p></td>
+</tr>
+<tr class="row-even"><td><p>HHMMSS</p></td>
+<td><p>Time</p></td>
+<td><p>H, M and S are an Integer number 0 to 9.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="qbeqi-cr-battery-equalization-status-parameters-inquiry">
+<h3>2.20 QBEQI&lt;cr&gt;: Battery equalization status parameters inquiry<a class="headerlink" href="#qbeqi-cr-battery-equalization-status-parameters-inquiry" title="Link to this heading">¶</a></h3>
+<div class="line-block">
+<div class="line">Computer: <code class="docutils literal notranslate"><span class="pre">QBEQI&lt;CRC&gt;&lt;cr&gt;</span></code></div>
+<div class="line">Device: <code class="docutils literal notranslate"><span class="pre">(B</span> <span class="pre">CCC</span> <span class="pre">DDD</span> <span class="pre">EEE</span> <span class="pre">FFF</span> <span class="pre">GG.GG</span> <span class="pre">HHH</span> <span class="pre">III</span> <span class="pre">J</span> <span class="pre">KKKK&lt;CRC&gt;&lt;cr&gt;</span></code></div>
+</div>
+<table class="docutils align-left" id="id12">
+<caption><span class="caption-text">Response Decode</span><a class="headerlink" href="#id12" title="Link to this table">¶</a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p>Pos</p></th>
+<th class="head"><p>Component</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Unit</p></th>
+<th class="head"><p>Notes</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>a</p></td>
+<td><p>(</p></td>
+<td><p>Start byte</p></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>b</p></td>
+<td><p>B</p></td>
+<td><p>Enable or Disable equalization</p></td>
+<td></td>
+<td><p>B is an Integer number 0 to 1.</p></td>
+</tr>
+<tr class="row-even"><td><p>C</p></td>
+<td><p>CCC</p></td>
+<td><p>equalization time</p></td>
+<td><p>min</p></td>
+<td><p>C s an Integer number 0 to 9.</p></td>
+</tr>
+<tr class="row-odd"><td><p>D</p></td>
+<td><p>DDD</p></td>
+<td><p>equalization period</p></td>
+<td><p>day</p></td>
+<td><p>D is an Integer number 0 to 9.</p></td>
+</tr>
+<tr class="row-even"><td><p>E</p></td>
+<td><p>EEE</p></td>
+<td><p>equalization max current</p></td>
+<td><p>A</p></td>
+<td><p>E is an Integer number from 0 to 9.</p></td>
+</tr>
+<tr class="row-odd"><td><p>F</p></td>
+<td><p>FFF</p></td>
+<td><p>reserved</p></td>
+<td></td>
+<td><p>reserved</p></td>
+</tr>
+<tr class="row-even"><td><p>G</p></td>
+<td><p>GG.GG</p></td>
+<td><p>equalization voltage</p></td>
+<td><p>V</p></td>
+<td><p>G is an Integer ranging from 0 to 9.</p></td>
+</tr>
+<tr class="row-odd"><td><p>H</p></td>
+<td><p>HHH</p></td>
+<td><p>reserved</p></td>
+<td></td>
+<td><p>reserved</p></td>
+</tr>
+<tr class="row-even"><td><p>I</p></td>
+<td><p>III</p></td>
+<td><p>equalization over time</p></td>
+<td><p>min</p></td>
+<td><p>I is an Integer ranging from 0 to 9.</p></td>
+</tr>
+<tr class="row-odd"><td><p>j</p></td>
+<td><p>J</p></td>
+<td><p>equalization active status</p></td>
+<td></td>
+<td><p>J is an Integer ranging from 0 to 1.</p></td>
+</tr>
+<tr class="row-even"><td><p>k</p></td>
+<td><p>KKKK</p></td>
+<td><p>equalization elapse time</p></td>
+<td><p>hour</p></td>
+<td><p>K is an Integer ranging from 0 to 9.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="qmn-cr-query-model-name">
+<h3>2.21 QMN&lt;cr&gt;: Query model name<a class="headerlink" href="#qmn-cr-query-model-name" title="Link to this heading">¶</a></h3>
+<div class="line-block">
+<div class="line">Computer: <code class="docutils literal notranslate"><span class="pre">QMN&lt;CRC&gt;&lt;cr&gt;</span></code></div>
+<div class="line">Device: <code class="docutils literal notranslate"><span class="pre">(MMMMM-NNNN&lt;CRC&gt;&lt;cr&gt;</span></code> if device accepts this command, otherwise, responds <code class="docutils literal notranslate"><span class="pre">(NAK&lt;cr&gt;</span></code></div>
+<div class="line">MMMMM: model name, NNNN: Rated output VA</div>
+</div>
+</section>
+<section id="qgmn-cr-query-general-model-name">
+<h3>2.22 QGMN&lt;cr&gt;: Query general model name<a class="headerlink" href="#qgmn-cr-query-general-model-name" title="Link to this heading">¶</a></h3>
+<div class="line-block">
+<div class="line">Computer: <code class="docutils literal notranslate"><span class="pre">QGMN&lt;CRC&gt;&lt;cr&gt;</span></code></div>
+<div class="line">Device: <code class="docutils literal notranslate"><span class="pre">(NNN&lt;CRC&gt;&lt;cr&gt;</span></code> if Inverter accepts this command, otherwise, responds <code class="docutils literal notranslate"><span class="pre">(NAK&lt;cr&gt;</span></code></div>
+</div>
+</section>
+<section id="qet-crc-cr-query-total-pv-generated-energy">
+<h3>2.23 QET&lt;CRC&gt;&lt;cr&gt;: Query total PV generated energy<a class="headerlink" href="#qet-crc-cr-query-total-pv-generated-energy" title="Link to this heading">¶</a></h3>
+<div class="line-block">
+<div class="line">Computer: <code class="docutils literal notranslate"><span class="pre">QET&lt;CRC&gt;&lt;cr&gt;</span></code></div>
+<div class="line">Device: <code class="docutils literal notranslate"><span class="pre">(NNNNNNNN&lt;CRC&gt;&lt;cr&gt;</span></code></div>
+<div class="line">NNNNNNNN: Generated energy, N: 0~9, unit: Wh</div>
+</div>
+</section>
+<section id="qeyyyyy-crc-cr-query-pv-generated-energy-of-year">
+<h3>2.24 QEYyyyy&lt;CRC&gt;&lt;cr&gt;: Query PV generated energy of year<a class="headerlink" href="#qeyyyyy-crc-cr-query-pv-generated-energy-of-year" title="Link to this heading">¶</a></h3>
+<div class="line-block">
+<div class="line">Computer: <code class="docutils literal notranslate"><span class="pre">QEYyyyy&lt;cr&gt;</span></code></div>
+<div class="line">Device: <code class="docutils literal notranslate"><span class="pre">(NNNNNNNN&lt;CRC&gt;&lt;cr&gt;</span></code></div>
+<div class="line">yyyy: Year, y: 0~9</div>
+<div class="line">NNNNNNNN: Generated energy, N: 0~9, unit: Wh</div>
+</div>
+</section>
+<section id="qemyyyymm-crc-cr-query-pv-generated-energy-of-month">
+<h3>2.25 QEMyyyymm&lt;CRC&gt;&lt;cr&gt;: Query PV generated energy of month<a class="headerlink" href="#qemyyyymm-crc-cr-query-pv-generated-energy-of-month" title="Link to this heading">¶</a></h3>
+<div class="line-block">
+<div class="line">Computer: <code class="docutils literal notranslate"><span class="pre">QEMyyyymm</span> <span class="pre">&lt;CRC&gt;&lt;cr&gt;</span></code></div>
+<div class="line">Device: <code class="docutils literal notranslate"><span class="pre">(NNNNNNNN&lt;CRC&gt;&lt;cr&gt;</span></code></div>
+<div class="line">yyyy: Year, y: 0~9</div>
+<div class="line">mm: Month, m: 0~9</div>
+<div class="line">NNNNNNNN: Generated energy, N: 0~9, unit: Wh</div>
+</div>
+</section>
+<section id="qedyyyymmdd-crc-cr-query-pv-generated-energy-of-day">
+<h3>2.26 QEDyyyymmdd&lt;CRC&gt;&lt;cr&gt;: Query PV generated energy of day<a class="headerlink" href="#qedyyyymmdd-crc-cr-query-pv-generated-energy-of-day" title="Link to this heading">¶</a></h3>
+<div class="line-block">
+<div class="line">Computer: <code class="docutils literal notranslate"><span class="pre">QEDyyyymmdd&lt;CRC&gt;&lt;cr&gt;</span></code></div>
+<div class="line">Device: <code class="docutils literal notranslate"><span class="pre">(NNNNNNNN&lt;CRC&gt;&lt;cr&gt;</span></code></div>
+<div class="line">yyyy: Year, y: 0~9</div>
+<div class="line">mm: Month, m: 0~9</div>
+<div class="line">dd: Day, d: 0~9</div>
+<div class="line">NNNNNNNN: Generated energy, N: 0~9, unit: Wh</div>
+</div>
+</section>
+<section id="qlt-crc-cr-query-total-output-load-energy">
+<h3>2.27 QLT&lt;CRC&gt;&lt;cr&gt;: Query total output load energy<a class="headerlink" href="#qlt-crc-cr-query-total-output-load-energy" title="Link to this heading">¶</a></h3>
+<div class="line-block">
+<div class="line">Computer: <code class="docutils literal notranslate"><span class="pre">QLT&lt;CRC&gt;&lt;cr&gt;</span></code></div>
+<div class="line">Device: <code class="docutils literal notranslate"><span class="pre">(NNNNNNNN&lt;CRC&gt;&lt;cr&gt;</span></code></div>
+<div class="line">NNNNNNNN: Output load energy, N: 0~9, unit: Wh</div>
+</div>
+</section>
+<section id="qlyyyyy-crc-cr-query-output-load-energy-of-year">
+<h3>2.28 QLYyyyy&lt;CRC&gt;&lt;cr&gt;: Query output load energy of year<a class="headerlink" href="#qlyyyyy-crc-cr-query-output-load-energy-of-year" title="Link to this heading">¶</a></h3>
+<div class="line-block">
+<div class="line">Computer: <code class="docutils literal notranslate"><span class="pre">QLYyyyy&lt;CRC&gt;&lt;cr&gt;</span></code></div>
+<div class="line">Device: <code class="docutils literal notranslate"><span class="pre">(NNNNNNNN&lt;CRC&gt;&lt;cr&gt;</span></code></div>
+<div class="line">yyyy: Year, y: 0~9</div>
+<div class="line">NNNNNNNN: Output load energy, N: 0~9, unit: Wh</div>
+</div>
+</section>
+<section id="qlmyyyymm-crc-cr-query-output-load-energy-of-month">
+<h3>2.29 QLMyyyymm&lt;CRC&gt;&lt;cr&gt;: Query output load energy of month<a class="headerlink" href="#qlmyyyymm-crc-cr-query-output-load-energy-of-month" title="Link to this heading">¶</a></h3>
+<div class="line-block">
+<div class="line">Computer: QLMyyyymm&lt;CRC&gt;&lt;cr&gt;</div>
+<div class="line">Device: (NNNNNNNN&lt;CRC&gt;&lt;cr&gt;</div>
+<div class="line">yyyy: Year, y: 0~9</div>
+<div class="line">mm: Month, m: 0~9</div>
+<div class="line">NNNNNNNN: Output load energy, N: 0~9, unit: Wh</div>
+</div>
+</section>
+<section id="qldyyyymmdd-crc-cr-query-output-load-energy-of-day">
+<h3>2.30 QLDyyyymmdd&lt;CRC&gt;&lt;cr&gt;: Query output load energy of day<a class="headerlink" href="#qldyyyymmdd-crc-cr-query-output-load-energy-of-day" title="Link to this heading">¶</a></h3>
+<div class="line-block">
+<div class="line">Computer: <code class="docutils literal notranslate"><span class="pre">QLDyyyymmdd&lt;CRC&gt;&lt;cr&gt;</span></code></div>
+<div class="line">Device: <code class="docutils literal notranslate"><span class="pre">(NNNNNNNN&lt;CRC&gt;&lt;cr&gt;</span></code></div>
+<div class="line">yyyy: Year, y: 0~9</div>
+<div class="line">mm: Month, m: 0~9</div>
+<div class="line">dd: Day, d: 0~9</div>
+<div class="line">NNNNNNNN: Output load energy, N: 0~9, unit: Wh</div>
+</div>
+</section>
+<section id="qbms-crc-cr-bms-message">
+<h3>2.31 QBMS&lt;CRC&gt;&lt;cr&gt;: BMS message<a class="headerlink" href="#qbms-crc-cr-bms-message" title="Link to this heading">¶</a></h3>
+<div class="line-block">
+<div class="line">Computer: <code class="docutils literal notranslate"><span class="pre">QBMS&lt;CRC&gt;&lt;cr&gt;</span></code></div>
+<div class="line">Device: <code class="docutils literal notranslate"><span class="pre">(ACK</span> <span class="pre">&lt;CRC&gt;&lt;cr&gt;</span></code></div>
+</div>
+</section>
+<section id="pbms-crc-cr-bms-message">
+<h3>2.32 PBMS&lt;CRC&gt;&lt;cr&gt;: BMS message<a class="headerlink" href="#pbms-crc-cr-bms-message" title="Link to this heading">¶</a></h3>
+<div class="line-block">
+<div class="line">Remote box: <code class="docutils literal notranslate"><span class="pre">PBMSa</span> <span class="pre">bbb</span> <span class="pre">c</span> <span class="pre">d</span> <span class="pre">e</span> <span class="pre">fff</span> <span class="pre">ggg</span> <span class="pre">hhh</span> <span class="pre">iiii</span> <span class="pre">jjjj&lt;CRC&gt;&lt;cr&gt;</span></code></div>
+<div class="line">Device: <code class="docutils literal notranslate"><span class="pre">(ACK&lt;CRC&gt;&lt;cr&gt;</span></code></div>
+</div>
+<table class="docutils align-left" id="id13">
+<caption><span class="caption-text">Response Decode</span><a class="headerlink" href="#id13" title="Link to this table">¶</a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p>Component</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Unit</p></th>
+<th class="head"><p>Notes</p></th>
+<th class="head"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>a</p></td>
+<td><p>Battery connect status</p></td>
+<td></td>
+<td><p>0: connect</p></td>
+<td><p>1: disconnect.</p></td>
+</tr>
+<tr class="row-odd"><td><p>bbb</p></td>
+<td><p>Battery percentage</p></td>
+<td><p>%</p></td>
+<td><p>b is an Integer ranging from 0 to 9.</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>c</p></td>
+<td><p>Force AC charge battery in any case</p></td>
+<td></td>
+<td><p>0: Do not force</p></td>
+<td><p>1: Force.</p></td>
+</tr>
+<tr class="row-odd"><td><p>d</p></td>
+<td><p>Battery stop discharge flag</p></td>
+<td></td>
+<td><p>0: Enable discharge</p></td>
+<td><p>1: disable discharging</p></td>
+</tr>
+<tr class="row-even"><td><p>e</p></td>
+<td><p>Battery stop charge flag</p></td>
+<td></td>
+<td><p>0: Enable charge</p></td>
+<td><p>1: disable charging</p></td>
+</tr>
+<tr class="row-odd"><td><p>fff</p></td>
+<td><p>Battery C.V. charging voltage</p></td>
+<td><p>V</p></td>
+<td><p>f is an Integer ranging from 0 to 9.</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>ggg</p></td>
+<td><p>Battery floating charging voltage</p></td>
+<td><p>V</p></td>
+<td><p>g is an Integer ranging from 0 to 9.</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>hhh</p></td>
+<td><p>Battery cut-off voltage</p></td>
+<td><p>V</p></td>
+<td><p>h is an Integer ranging from 0 to 9.</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>iiii</p></td>
+<td><p>Battery max. charging current</p></td>
+<td><p>A</p></td>
+<td><p>i is an Integer ranging from 0 to 9.</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>jjjj</p></td>
+<td><p>Battery max. discharging current</p></td>
+<td><p>j is an Integer ranging from 0 to 9.</p></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="qled-cr-led-status-parameters-inquiry">
+<h3>2.33 QLED&lt;cr&gt;: LED status parameters inquiry<a class="headerlink" href="#qled-cr-led-status-parameters-inquiry" title="Link to this heading">¶</a></h3>
+<div class="line-block">
+<div class="line">Computer: <code class="docutils literal notranslate"><span class="pre">QLED&lt;cr&gt;</span></code></div>
+<div class="line">UPS: <code class="docutils literal notranslate"><span class="pre">(A</span> <span class="pre">B</span> <span class="pre">C</span> <span class="pre">D</span> <span class="pre">E</span> <span class="pre">aaa1bbb1ccc1</span> <span class="pre">aaa</span> <span class="pre">2</span> <span class="pre">bbb</span> <span class="pre">2</span> <span class="pre">ccc</span> <span class="pre">2</span> <span class="pre">(aaa</span> <span class="pre">3</span> <span class="pre">bbb</span> <span class="pre">3</span> <span class="pre">ccc3)&lt;cr&gt;</span></code></div>
+</div>
+<table class="docutils align-left" id="id14">
+<caption><span class="caption-text">Response Decode</span><a class="headerlink" href="#id14" title="Link to this table">¶</a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p>Component</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Unit</p></th>
+<th class="head"><p>Notes</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Item Data description Notes</p></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>a</p></td>
+<td><p>(</p></td>
+<td><p>Start code</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>b</p></td>
+<td><p>A</p></td>
+<td><p>Enable or Disable</p></td>
+<td><p>A is an Integer number 0 to 1.</p></td>
+</tr>
+<tr class="row-odd"><td><p>c</p></td>
+<td><p>B</p></td>
+<td><p>LED speed</p></td>
+<td><p>B is an Integer ranging from 0 to 2. 0 means low; 1 means medium; 2 means fast</p></td>
+</tr>
+<tr class="row-even"><td><p>d</p></td>
+<td><p>C</p></td>
+<td><p>LED effect</p></td>
+<td><p>C is an Integer ranging from 0 to 3. 0 means breathing; 2 means solid; 3 means right scrolling</p></td>
+</tr>
+<tr class="row-odd"><td><p>e</p></td>
+<td><p>D</p></td>
+<td><p>LED brightness</p></td>
+<td><p>D is an Integer ranging from 1 to 9. 1 means low; 5 means normal; 9 means high</p></td>
+</tr>
+<tr class="row-even"><td><p>f</p></td>
+<td><p>E</p></td>
+<td><p>LED total number of colors</p></td>
+<td><p>E is an Integer ranging from 2 to 3.</p></td>
+</tr>
+<tr class="row-odd"><td><p>g</p></td>
+<td><p>aaa1bbb1ccc1</p></td>
+<td><p>aaa 2 bbb 2 ccc 2 (aaa 3 bbb 3 ccc3)</p></td>
+<td><p>aaa means red, bbb means green, ccc means blue aaa1, bbb1, ccc1, aaa 2 , bbb 2 , ccc 2 , aaa 3 , bbb 3 , ccc 3 is an Integer ranging from 0 to 255.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="setting-parameters-command">
+<h2>3 Setting parameters Command<a class="headerlink" href="#setting-parameters-command" title="Link to this heading">¶</a></h2>
+<section id="ate1-crc-cr-start-ate-test-remote-panel-stop-polling">
+<h3>3.1 ATE1&lt;CRC&gt;&lt;cr&gt;: Start ATE test, remote panel stop polling<a class="headerlink" href="#ate1-crc-cr-start-ate-test-remote-panel-stop-polling" title="Link to this heading">¶</a></h3>
+</section>
+<section id="ate0-end-ate-test-remote-panel-polling">
+<h3>3.2 ATE0: End ATE test, remote panel polling<a class="headerlink" href="#ate0-end-ate-test-remote-panel-polling" title="Link to this heading">¶</a></h3>
+</section>
+<section id="pe-x-pd-x-cr-setting-some-status-enable-disable">
+<h3>3.3 PE&lt;X&gt; / PD&lt;X&gt;&lt;cr&gt;: Setting some status enable/disable<a class="headerlink" href="#pe-x-pd-x-cr-setting-some-status-enable-disable" title="Link to this heading">¶</a></h3>
+<div class="line-block">
+<div class="line">Computer: <code class="docutils literal notranslate"><span class="pre">PE&lt;X&gt;</span> <span class="pre">/</span> <span class="pre">PD&lt;X&gt;&lt;CRC&gt;&lt;cr&gt;</span></code></div>
+<div class="line">Device: <code class="docutils literal notranslate"><span class="pre">(ACK&lt;CRC&gt;&lt;cr&gt;</span></code> if DEVICE accepts this command, otherwise, responds <code class="docutils literal notranslate"><span class="pre">(NAK&lt;cr&gt;</span></code></div>
+<div class="line">PEx / PDx set flag status. PE means enable, PD means disable</div>
+<div class="line">x Control setting</div>
+<div class="line">a Enable/disable silence buzzer or open buzzer</div>
+<div class="line">b Enable/disable overload bypass</div>
+<div class="line">d Enable/Disable solar feed to grid (reserved feature)</div>
+<div class="line">k Enable/Disable LCD display escape to default page after 1min timeout</div>
+<div class="line">u Enable/Disable overload restart and battery over discharge restart</div>
+<div class="line">v Enable/Disable over temperature restart</div>
+<div class="line">x Enable/Disable backlight on</div>
+<div class="line">y Enable/Disable alarm on when primary source interrupt</div>
+<div class="line">z Enable/Disable fault code record</div>
+</div>
+</section>
+<section id="pf-cr-setting-control-parameter-to-default-value">
+<h3>3.4 PF&lt;cr&gt;: Setting control parameter to default value<a class="headerlink" href="#pf-cr-setting-control-parameter-to-default-value" title="Link to this heading">¶</a></h3>
+<div class="line-block">
+<div class="line">Computer: <code class="docutils literal notranslate"><span class="pre">PF&lt;CRC&gt;&lt;cr&gt;</span></code></div>
+<div class="line">Device: <code class="docutils literal notranslate"><span class="pre">(ACK&lt;CRC&gt;&lt;cr&gt;</span></code> if device accepts this command, otherwise, responds <code class="docutils literal notranslate"><span class="pre">(NAK&lt;CRC&gt;&lt;cr&gt;</span></code></div>
+<div class="line">Note: The correct default value can be gain by <code class="docutils literal notranslate"><span class="pre">QDI</span></code> command.</div>
+</div>
+</section>
+<section id="mnchgc-mnnn-cr-setting-max-charging-current">
+<h3>3.5 MNCHGC&lt;mnnn&gt;&lt;cr&gt;: Setting max charging current<a class="headerlink" href="#mnchgc-mnnn-cr-setting-max-charging-current" title="Link to this heading">¶</a></h3>
+<div class="line-block">
+<div class="line">Computer: <code class="docutils literal notranslate"><span class="pre">MNCHGC&lt;mnnn&gt;&lt;CRC&gt;&lt;cr&gt;</span></code></div>
+<div class="line">Device: <code class="docutils literal notranslate"><span class="pre">(ACK&lt;CRC&gt;&lt;cr&gt;</span></code> if device accepts this command, otherwise, responds <code class="docutils literal notranslate"><span class="pre">(NAK&lt;CRC&gt;&lt;cr&gt;</span></code></div>
+<div class="line">Setting value can be gain by <code class="docutils literal notranslate"><span class="pre">QMCHGCR</span></code> command.</div>
+<div class="line">nnn is max charging current, m is parallel machine number.</div>
+</div>
+</section>
+<section id="muchgc-mnn-cr-setting-utility-max-charging-current">
+<h3>3.6 MUCHGC&lt;mnn&gt;&lt;cr&gt;: Setting utility max charging current<a class="headerlink" href="#muchgc-mnn-cr-setting-utility-max-charging-current" title="Link to this heading">¶</a></h3>
+<div class="line-block">
+<div class="line">Computer: <code class="docutils literal notranslate"><span class="pre">MUCHGC&lt;mnn&gt;&lt;CRC&gt;&lt;cr&gt;</span></code></div>
+<div class="line">Device: <code class="docutils literal notranslate"><span class="pre">(ACK&lt;CRC&gt;&lt;cr&gt;</span></code> if device accepts this command, otherwise, responds <code class="docutils literal notranslate"><span class="pre">(NAK&lt;CRC&gt;&lt;cr&gt;</span></code></div>
+<div class="line">Setting value can be gain by <code class="docutils literal notranslate"><span class="pre">QMUCHGCR</span></code> command.</div>
+<div class="line">nn is max charging current, m is parallel machine number.</div>
+<div class="line">If the max AC charging current is greater than 99A, modify it to nnn</div>
+</div>
+</section>
+<section id="f-nn-cr-setting-inverter-output-rating-frequency">
+<h3>3.7 F&lt;nn&gt;&lt;cr&gt;: Setting Inverter output rating frequency<a class="headerlink" href="#f-nn-cr-setting-inverter-output-rating-frequency" title="Link to this heading">¶</a></h3>
+<div class="line-block">
+<div class="line">Computer: <code class="docutils literal notranslate"><span class="pre">F&lt;nn&gt;&lt;CRC&gt;&lt;cr&gt;</span></code></div>
+<div class="line">Device: <code class="docutils literal notranslate"><span class="pre">(ACK&lt;CRC&gt;&lt;cr&gt;</span></code> if Inverter accepts this command, otherwise, responds <code class="docutils literal notranslate"><span class="pre">(NAK&lt;CRC&gt;&lt;cr&gt;</span></code></div>
+<div class="line">Set UPS output rating frequency to 50Hz.or 60Hz</div>
+</div>
+</section>
+<section id="v-nnn-cr-setting-device-output-rating-voltage">
+<h3>3.8 V&lt;nnn&gt;&lt;cr&gt;: Setting device output rating voltage<a class="headerlink" href="#v-nnn-cr-setting-device-output-rating-voltage" title="Link to this heading">¶</a></h3>
+<div class="line-block">
+<div class="line">Computer: <code class="docutils literal notranslate"><span class="pre">V&lt;nnn&gt;&lt;CRC&gt;&lt;cr&gt;</span></code></div>
+<div class="line">Device: <code class="docutils literal notranslate"><span class="pre">(ACK&lt;CRC&gt;&lt;cr&gt;</span></code> if device accepts this command, otherwise, responds <code class="docutils literal notranslate"><span class="pre">(NAK&lt;CRC&gt;&lt;cr&gt;</span></code></div>
+<div class="line">Set inverter output rating voltage to 220V/230V/240V for HV models.</div>
+<div class="line">Set inverter output rating voltage to 127V/120V/110V for LV models.</div>
+</div>
+</section>
+<section id="pop-nn-cr-setting-device-output-source-priority">
+<h3>3.9 POP&lt;NN&gt;&lt;cr&gt;: Setting device output source priority<a class="headerlink" href="#pop-nn-cr-setting-device-output-source-priority" title="Link to this heading">¶</a></h3>
+<div class="line-block">
+<div class="line">Computer: <code class="docutils literal notranslate"><span class="pre">POP&lt;NN&gt;&lt;CRC&gt;&lt;cr&gt;</span></code></div>
+<div class="line">Device: <code class="docutils literal notranslate"><span class="pre">(ACK&lt;CRC&gt;&lt;cr&gt;</span></code> if device accepts this command, otherwise, responds <code class="docutils literal notranslate"><span class="pre">(NAK&lt;CRC&gt;&lt;cr&gt;</span></code></div>
+<div class="line">Set output source priority, 00 for UtilitySolarBat, 01 for SolarUtilityBat, 02 for SolarBatUtility</div>
+</div>
+</section>
+<section id="pbcv-nn-n-cr-set-battery-re-charge-voltage">
+<h3>3.10 PBCV&lt;nn.n&gt;&lt;cr&gt;: Set battery re-charge voltage<a class="headerlink" href="#pbcv-nn-n-cr-set-battery-re-charge-voltage" title="Link to this heading">¶</a></h3>
+<div class="line-block">
+<div class="line">Computer: <code class="docutils literal notranslate"><span class="pre">PBCV&lt;nn.n&gt;&lt;CRC&gt;&lt;cr&gt;</span></code></div>
+<div class="line">Device: <code class="docutils literal notranslate"><span class="pre">(ACK&lt;CRC&gt;&lt;cr&gt;</span></code> if device accepts this command, otherwise, responds <code class="docutils literal notranslate"><span class="pre">(NAK&lt;CRC&gt;&lt;cr&gt;</span></code></div>
+</div>
+</section>
+<section id="pbdv-nn-n-cr-set-battery-re-discharge-voltage">
+<h3>3.11 PBDV&lt;nn.n&gt;&lt;cr&gt;: Set battery re-discharge voltage<a class="headerlink" href="#pbdv-nn-n-cr-set-battery-re-discharge-voltage" title="Link to this heading">¶</a></h3>
+<div class="line-block">
+<div class="line">Computer: <code class="docutils literal notranslate"><span class="pre">PBDV&lt;nn.n&gt;&lt;CRC&gt;&lt;cr&gt;</span></code></div>
+<div class="line">Device: <code class="docutils literal notranslate"><span class="pre">(ACK&lt;CRC&gt;&lt;cr&gt;</span></code> if device accepts this command, otherwise, responds <code class="docutils literal notranslate"><span class="pre">(NAK&lt;CRC&gt;&lt;cr&gt;</span></code></div>
+<div class="line">00.0V means battery is full (charging in float mode).</div>
+</div>
+</section>
+<section id="pcp-nn-cr-setting-device-charger-priority">
+<h3>3.12 PCP&lt;NN&gt;&lt;cr&gt;: Setting device charger priority<a class="headerlink" href="#pcp-nn-cr-setting-device-charger-priority" title="Link to this heading">¶</a></h3>
+<div class="line-block">
+<div class="line">Computer: <code class="docutils literal notranslate"><span class="pre">PCP&lt;NN&gt;&lt;CRC&gt;&lt;cr&gt;</span></code></div>
+<div class="line">Device: <code class="docutils literal notranslate"><span class="pre">(ACK&lt;CRC&gt;&lt;cr&gt;</span></code> if device accepts this command, otherwise, responds <code class="docutils literal notranslate"><span class="pre">(NAK&lt;CRC&gt;&lt;cr&gt;</span></code></div>
+<div class="line">Set output source priority,</div>
+<div class="line">01 for solar first, 0 2 for solar and utility, 0 3 for only solar charging</div>
+</div>
+</section>
+<section id="pgr-nn-cr-setting-device-grid-working-range">
+<h3>3.13 PGR&lt;NN&gt;&lt;cr&gt;: Setting device grid working range<a class="headerlink" href="#pgr-nn-cr-setting-device-grid-working-range" title="Link to this heading">¶</a></h3>
+<div class="line-block">
+<div class="line">Computer: <code class="docutils literal notranslate"><span class="pre">PGR&lt;NN&gt;&lt;CRC&gt;&lt;cr&gt;</span></code></div>
+<div class="line">Device: <code class="docutils literal notranslate"><span class="pre">(ACK&lt;CRC&gt;&lt;cr&gt;</span></code> if device accepts this command, otherwise, responds <code class="docutils literal notranslate"><span class="pre">(NAK&lt;cr&gt;</span></code></div>
+<div class="line">Set device grid working range, 00 for appliance, 01 for UPS</div>
+</div>
+</section>
+<section id="pbt-nn-cr-setting-battery-type">
+<h3>3.14 PBT&lt;NN&gt;&lt;cr&gt;: Setting battery type<a class="headerlink" href="#pbt-nn-cr-setting-battery-type" title="Link to this heading">¶</a></h3>
+<div class="line-block">
+<div class="line">Computer: <code class="docutils literal notranslate"><span class="pre">PBT&lt;NN&gt;&lt;CRC&gt;&lt;cr&gt;</span></code></div>
+<div class="line">Device: <code class="docutils literal notranslate"><span class="pre">(ACK&lt;CRC&gt;&lt;cr&gt;</span></code> if device accepts this command, otherwise, responds <code class="docutils literal notranslate"><span class="pre">(NAK&lt;CRC&gt;&lt;cr&gt;</span></code></div>
+<div class="line">Setting battery type, 00 for AGM, 01 for Flooded battery, 02 for user define, 03 for Pylontech, 04 for Shinheung, 05 for Weco, 06 for Soltaro, 07 for BAK, 08 for Lib, 09 for Lic</div>
+</div>
+</section>
+<section id="popm-nn-cr-set-output-mode">
+<h3>3.15 POPM&lt;nn&gt;&lt;cr&gt;: Set output mode<a class="headerlink" href="#popm-nn-cr-set-output-mode" title="Link to this heading">¶</a></h3>
+<div class="line-block">
+<div class="line">Computer: <code class="docutils literal notranslate"><span class="pre">POPM&lt;nn&gt;&lt;CRC&gt;&lt;cr&gt;</span></code></div>
+<div class="line">Device: <code class="docutils literal notranslate"><span class="pre">(ACK&lt;CRC&gt;&lt;cr&gt;</span></code> if device accepts this command, otherwise, responds <code class="docutils literal notranslate"><span class="pre">(NAK&lt;CRC&gt;&lt;cr&gt;</span></code></div>
+<div class="line">Set output mode to 00/01/02/03/04 for HV models.</div>
+<div class="line">Set output mode to 00/01/02/03/04/05/06/07 for LV models.</div>
+</div>
+<div class="line-block">
+<div class="line">nn:</div>
+<div class="line">00: single machine output</div>
+<div class="line">01: parallel output</div>
+<div class="line">02: Phase 1 of 3 Phase output</div>
+<div class="line">03: Phase 2 of 3 Phase output</div>
+<div class="line">04: Phase 3 of 3 Phase output</div>
+<div class="line">05: Phase 1 of 2 Phase output</div>
+<div class="line">06: Phase 2 of 2 Phase output (120°)</div>
+<div class="line">07: Phase 2 of 2 Phase output (180°)</div>
+</div>
+</section>
+<section id="ppcp-mnn-cr-setting-parallel-device-charger-priority">
+<h3>3.16 PPCP&lt;MNN&gt;&lt;cr&gt;: Setting parallel device charger priority<a class="headerlink" href="#ppcp-mnn-cr-setting-parallel-device-charger-priority" title="Link to this heading">¶</a></h3>
+<div class="line-block">
+<div class="line">Computer: <code class="docutils literal notranslate"><span class="pre">PCP&lt;MNN&gt;&lt;CRC&gt;&lt;cr&gt;</span></code></div>
+<div class="line">Device: <code class="docutils literal notranslate"><span class="pre">(ACK&lt;CRC&gt;&lt;cr&gt;</span></code> if device accepts this command, otherwise, responds <code class="docutils literal notranslate"><span class="pre">(NAK&lt;CRC&gt;&lt;cr&gt;</span></code></div>
+<div class="line">01 for solar first, 02 for solar and utility, 03 for only solar charging</div>
+<div class="line">M is parallel machine number.</div>
+</div>
+</section>
+<section id="psdv-nn-n-cr-setting-battery-cut-off-voltage-battery-under-voltage">
+<h3>3.17 PSDV&lt;nn.n&gt;&lt;cr&gt;: Setting battery cut-off voltage (Battery under voltage)<a class="headerlink" href="#psdv-nn-n-cr-setting-battery-cut-off-voltage-battery-under-voltage" title="Link to this heading">¶</a></h3>
+<div class="line-block">
+<div class="line">Computer: <code class="docutils literal notranslate"><span class="pre">PSDV&lt;nn.n&gt;&lt;CRC&gt;&lt;cr&gt;</span></code></div>
+<div class="line">Device: <code class="docutils literal notranslate"><span class="pre">(ACK&lt;CRC&gt;&lt;cr&gt;</span></code> if device accepts this command, otherwise, responds <code class="docutils literal notranslate"><span class="pre">(NAK&lt;CRC&gt;&lt;cr&gt;</span></code></div>
+</div>
+</section>
+<section id="pcvv-nn-n-cr-setting-battery-c-v-constant-voltage-charging-voltage">
+<h3>3.18 PCVV&lt;nn.n&gt;&lt;cr&gt;: Setting battery C.V. (constant voltage) charging voltage<a class="headerlink" href="#pcvv-nn-n-cr-setting-battery-c-v-constant-voltage-charging-voltage" title="Link to this heading">¶</a></h3>
+<div class="line-block">
+<div class="line">Computer: <code class="docutils literal notranslate"><span class="pre">PCVV&lt;nn.n&gt;&lt;CRC&gt;&lt;cr&gt;</span></code></div>
+<div class="line">Device: <code class="docutils literal notranslate"><span class="pre">(ACK&lt;CRC&gt;&lt;cr&gt;</span></code> if device accepts this command, otherwise, responds <code class="docutils literal notranslate"><span class="pre">(NAK&lt;CRC&gt;&lt;cr&gt;</span></code></div>
+</div>
+</section>
+<section id="pbft-nn-n-cr-setting-battery-float-charging-voltage">
+<h3>3.19 PBFT&lt;nn.n&gt;&lt;cr&gt;: Setting battery float charging voltage<a class="headerlink" href="#pbft-nn-n-cr-setting-battery-float-charging-voltage" title="Link to this heading">¶</a></h3>
+<div class="line-block">
+<div class="line">Computer: <code class="docutils literal notranslate"><span class="pre">PBFT&lt;nn.n&gt;&lt;CRC&gt;&lt;cr&gt;</span></code></div>
+<div class="line">Device: <code class="docutils literal notranslate"><span class="pre">(ACK&lt;CRC&gt;&lt;cr&gt;</span></code> if device accepts this command, otherwise, responds <code class="docutils literal notranslate"><span class="pre">(NAK&lt;CRC&gt;&lt;cr&gt;</span></code></div>
+</div>
+</section>
+<section id="rtey-cr-reset-all-stored-data-for-pv-load-energy">
+<h3>3.20 RTEY&lt;cr&gt;: Reset all stored data for PV/load energy<a class="headerlink" href="#rtey-cr-reset-all-stored-data-for-pv-load-energy" title="Link to this heading">¶</a></h3>
+<div class="line-block">
+<div class="line">Computer: <code class="docutils literal notranslate"><span class="pre">RTEY&lt;CRC&gt;&lt;cr&gt;</span></code></div>
+<div class="line">Device: <code class="docutils literal notranslate"><span class="pre">(ACK&lt;CRC&gt;&lt;cr&gt;</span></code> if device accepts this command, otherwise, responds <code class="docutils literal notranslate"><span class="pre">(NAK&lt;cr&gt;</span></code></div>
+</div>
+</section>
+<section id="rtdl-cr-erase-all-data-log">
+<h3>3.21 RTDL&lt;cr&gt;: Erase all data log<a class="headerlink" href="#rtdl-cr-erase-all-data-log" title="Link to this heading">¶</a></h3>
+<div class="line-block">
+<div class="line">Computer: <code class="docutils literal notranslate"><span class="pre">RTDL&lt;CRC&gt;&lt;cr&gt;</span></code></div>
+<div class="line">Device: <code class="docutils literal notranslate"><span class="pre">(ACK&lt;CRC&gt;&lt;cr&gt;</span></code> if device accepts this command, otherwise, responds <code class="docutils literal notranslate"><span class="pre">(NAK&lt;cr&gt;</span></code></div>
+</div>
+</section>
+<section id="pbeqe-n-cr-enable-or-disable-battery-equalization">
+<h3>3.22 PBEQE&lt;n&gt;&lt;cr&gt;: Enable or disable battery equalization<a class="headerlink" href="#pbeqe-n-cr-enable-or-disable-battery-equalization" title="Link to this heading">¶</a></h3>
+<div class="line-block">
+<div class="line">Computer: <code class="docutils literal notranslate"><span class="pre">PBEQE&lt;n&gt;&lt;CRC&gt;&lt;cr&gt;</span></code></div>
+<div class="line">Device: <code class="docutils literal notranslate"><span class="pre">(ACK&lt;CRC&gt;&lt;cr&gt;</span></code> if device accepts this command, otherwise, responds <code class="docutils literal notranslate"><span class="pre">(NAK&lt;cr&gt;</span></code></div>
+<div class="line">Enable or Disable battery equalization, n=1 means enable; n=0 means disable.</div>
+</div>
+</section>
+<section id="pbeqt-nnn-cr-set-battery-equalization-time">
+<h3>3.23 PBEQT&lt;nnn&gt;&lt;cr&gt;: Set battery equalization time<a class="headerlink" href="#pbeqt-nnn-cr-set-battery-equalization-time" title="Link to this heading">¶</a></h3>
+<div class="line-block">
+<div class="line">Computer: <code class="docutils literal notranslate"><span class="pre">PBEQT&lt;nnn&gt;&lt;CRC&gt;&lt;cr&gt;</span></code></div>
+<div class="line">Device: <code class="docutils literal notranslate"><span class="pre">(ACK&lt;CRC&gt;&lt;cr&gt;</span></code> if device accepts this command, otherwise, responds <code class="docutils literal notranslate"><span class="pre">(NAK&lt;cr&gt;</span></code></div>
+<div class="line">Set equalization time, nnn is in the range of 5 to 900minute, every click increase or decrease 5minute.</div>
+</div>
+</section>
+<section id="pbeqp-nnn-cr-set-battery-equalization-period">
+<h3>3.24 PBEQP&lt;nnn&gt;&lt;cr&gt;: Set battery equalization period<a class="headerlink" href="#pbeqp-nnn-cr-set-battery-equalization-period" title="Link to this heading">¶</a></h3>
+<div class="line-block">
+<div class="line">Computer: <code class="docutils literal notranslate"><span class="pre">PBEQP&lt;nnn&gt;&lt;CRC&gt;&lt;cr&gt;</span></code></div>
+<div class="line">Device: <code class="docutils literal notranslate"><span class="pre">(ACK&lt;CRC&gt;&lt;cr&gt;</span></code> if device accepts this command, otherwise, responds <code class="docutils literal notranslate"><span class="pre">(NAK&lt;cr&gt;</span></code></div>
+<div class="line">Set equalization period, nnn is in the range of 0 to 90day, every click increase or decrease 1day.</div>
+</div>
+</section>
+<section id="pbeqv-nn-nn-cr-set-battery-equalization-voltage">
+<h3>3.25 PBEQV&lt;nn.nn&gt;&lt;cr&gt;: Set battery equalization voltage<a class="headerlink" href="#pbeqv-nn-nn-cr-set-battery-equalization-voltage" title="Link to this heading">¶</a></h3>
+<div class="line-block">
+<div class="line">Computer: <code class="docutils literal notranslate"><span class="pre">PBEQV&lt;nn.nn&gt;&lt;CRC&gt;&lt;cr&gt;</span></code></div>
+<div class="line">Device: <code class="docutils literal notranslate"><span class="pre">(ACK&lt;CRC&gt;&lt;cr&gt;</span></code> if device accepts this command, otherwise, responds <code class="docutils literal notranslate"><span class="pre">(NAK&lt;cr&gt;</span></code></div>
+<div class="line">Set equalization time, nn.nn is in the range as below.</div>
+</div>
+</section>
+<section id="pbeqot-nnn-cr-set-battery-equalization-over-time">
+<h3>3.26 PBEQOT&lt;nnn&gt;&lt;cr&gt;: Set battery equalization over time<a class="headerlink" href="#pbeqot-nnn-cr-set-battery-equalization-over-time" title="Link to this heading">¶</a></h3>
+<div class="line-block">
+<div class="line">Computer: <code class="docutils literal notranslate"><span class="pre">PBEQOT&lt;nnn&gt;&lt;CRC&gt;&lt;cr&gt;</span></code></div>
+<div class="line">Device: <code class="docutils literal notranslate"><span class="pre">(ACK&lt;CRC&gt;&lt;cr&gt;</span></code> if device accepts this command, otherwise, responds <code class="docutils literal notranslate"><span class="pre">(NAK&lt;cr&gt;</span></code></div>
+<div class="line">Set equalization time, nnn is in the range of 5 to 900minute, every click increase or decrease 5minute.</div>
+</div>
+</section>
+<section id="pbeqa-n-cr-active-or-inactive-battery-equalization-now">
+<h3>3.27 PBEQA&lt;n&gt;&lt;cr&gt;: Active or inactive battery equalization now<a class="headerlink" href="#pbeqa-n-cr-active-or-inactive-battery-equalization-now" title="Link to this heading">¶</a></h3>
+<div class="line-block">
+<div class="line">Computer: <code class="docutils literal notranslate"><span class="pre">PBEQA&lt;n&gt;&lt;CRC&gt;&lt;cr&gt;</span></code></div>
+<div class="line">Device: <code class="docutils literal notranslate"><span class="pre">(ACK&lt;CRC&gt;&lt;cr&gt;</span></code> if device accepts this command, otherwise, responds <code class="docutils literal notranslate"><span class="pre">(NAK&lt;cr&gt;</span></code></div>
+<div class="line">Active or inactive battery equalization now, n=1 means active; n=0 means inactive.</div>
+</div>
+</section>
+<section id="pcvt-nnn-cr-setting-max-charging-time-at-c-v-stage">
+<h3>3.28 PCVT&lt;nnn&gt;&lt;cr&gt;: Setting max charging time at C.V stage<a class="headerlink" href="#pcvt-nnn-cr-setting-max-charging-time-at-c-v-stage" title="Link to this heading">¶</a></h3>
+<div class="line-block">
+<div class="line">Computer: <code class="docutils literal notranslate"><span class="pre">PCVT&lt;nnn&gt;&lt;CRC&gt;&lt;cr&gt;</span></code></div>
+<div class="line">Device: <code class="docutils literal notranslate"><span class="pre">(ACK&lt;CRC&gt;&lt;cr&gt;</span></code> if device accepts this command, otherwise, responds <code class="docutils literal notranslate"><span class="pre">(NAK&lt;CRC&gt;&lt;cr&gt;</span></code></div>
+<div class="line">Setting value can be gain by QMCHGCR command.</div>
+<div class="line">nnn is max charging time at C.V stage, the range is from 000 to 900 but in multiples of 5. 000 means automatically.</div>
+</div>
+</section>
+<section id="dat-yymmddhhmmss-cr-date-and-time">
+<h3>3.29 DAT&lt;YYMMDDHHMMSS&gt;&lt;cr&gt;: Date and time<a class="headerlink" href="#dat-yymmddhhmmss-cr-date-and-time" title="Link to this heading">¶</a></h3>
+<div class="line-block">
+<div class="line">Computer: <code class="docutils literal notranslate"><span class="pre">DAT&lt;YYMMDDHHMMSS&gt;&lt;CRC&gt;&lt;cr&gt;</span></code> &lt;Y, M, D, H, S&gt; is an integer number 0 to 9</div>
+<div class="line">Device: <code class="docutils literal notranslate"><span class="pre">(ACK&lt;CRC&gt;&lt;cr&gt;</span></code> if device accepts this command, otherwise, responds <code class="docutils literal notranslate"><span class="pre">(NAK&lt;CRC&gt;&lt;cr&gt;</span></code></div>
+</div>
+</section>
+<section id="pbatcd-abc-cr-battery-charge-discharge-controlling-command">
+<h3>3.30 PBATCD&lt;abc&gt;&lt;cr&gt;: Battery charge/discharge controlling command<a class="headerlink" href="#pbatcd-abc-cr-battery-charge-discharge-controlling-command" title="Link to this heading">¶</a></h3>
+<div class="line-block">
+<div class="line">Computer: <code class="docutils literal notranslate"><span class="pre">PBATCD&lt;abc&gt;&lt;CRC&gt;&lt;cr&gt;</span></code></div>
+<div class="line">Device: <code class="docutils literal notranslate"><span class="pre">(ACK&lt;CRC&gt;&lt;cr&gt;</span></code> if device accepts this command, otherwise, responds <code class="docutils literal notranslate"><span class="pre">(NAK&lt;CRC&gt;&lt;cr&gt;</span></code></div>
+<div class="line">a = Discharge completely on/off</div>
+<div class="line">b = Discharge on/off, but standby allowed (so small discharge allowed)</div>
+<div class="line">c = Charge completely on/off</div>
+</div>
+<table class="docutils align-left" id="id15">
+<caption><span class="caption-text">Setting Detail</span><a class="headerlink" href="#id15" title="Link to this table">¶</a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p>abc</p></th>
+<th class="head"><p>Charger</p></th>
+<th class="head"><p>Discharger</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>111</p></td>
+<td><p>Enabled</p></td>
+<td><p>Enabled</p></td>
+</tr>
+<tr class="row-odd"><td><p>011</p></td>
+<td><p>Enabled</p></td>
+<td><p>depends on Prog16 setting if AC source valid, charge 2A from AC, even if prog. 16 is “only solar”. If prog. 16 is any other setting, ignore and let charging from AC source continue normally. Disabled discharger and shut down unit completely when insufficient PV or Grid is present.</p></td>
+</tr>
+<tr class="row-even"><td><p>101</p></td>
+<td><p>Enabled</p></td>
+<td><p>depends on Prog16 setting if AC source valid, charge 2A from AC, even if prog. 16 is “only solar”. If prog. 16 is any other setting, ignore and let charging from AC source continue normally. Disabled discharger but keep unit stay at standby mode.</p></td>
+</tr>
+<tr class="row-odd"><td><p>110</p></td>
+<td><p>Disabled</p></td>
+<td><p>Enabled</p></td>
+</tr>
+<tr class="row-even"><td><p>010</p></td>
+<td><p>Disabled</p></td>
+<td><p>Disabled and shut down unit completely when no PV or Grid is present.</p></td>
+</tr>
+<tr class="row-odd"><td><p>100</p></td>
+<td><p>Disabled</p></td>
+<td><p>Disabled discharger but keep unit stay at standby mode.</p></td>
+</tr>
+<tr class="row-even"><td><p>001</p></td>
+<td><p>N/A</p></td>
+<td><p>N/A</p></td>
+</tr>
+<tr class="row-odd"><td><p>000</p></td>
+<td><p>Cleaned the enable/disable charger flags and return to previous charger status.</p></td>
+<td><p>Cleaned the enable/disable discharger flags and return to previous discharger status.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="pbatmaxdisc-nnn-cr-setting-max-discharging-current">
+<h3>3.31 PBATMAXDISC&lt;nnn&gt;&lt;cr&gt;: Setting max discharging current<a class="headerlink" href="#pbatmaxdisc-nnn-cr-setting-max-discharging-current" title="Link to this heading">¶</a></h3>
+<div class="line-block">
+<div class="line">Computer: <code class="docutils literal notranslate"><span class="pre">PBATMAXDISC&lt;nnn&gt;&lt;CRC&gt;&lt;cr&gt;</span></code></div>
+<div class="line">Device: <code class="docutils literal notranslate"><span class="pre">(ACK&lt;CRC&gt;&lt;cr&gt;</span></code> if device accepts this command, otherwise, responds <code class="docutils literal notranslate"><span class="pre">(NAK&lt;CRC&gt;&lt;cr&gt;</span></code></div>
+<div class="line">nnn is max discharging current</div>
+<div class="line">48V unit: 000 or 30A~1 5 0A 000 means the function will be disable.</div>
+</div>
+</section>
+<section id="plede-n-cr-enable-disable-led-function">
+<h3>3.32 PLEDE&lt;n&gt;&lt;cr&gt;: Enable/disable LED function<a class="headerlink" href="#plede-n-cr-enable-disable-led-function" title="Link to this heading">¶</a></h3>
+<div class="line-block">
+<div class="line">Computer: <code class="docutils literal notranslate"><span class="pre">PLEDE&lt;n&gt;&lt;cr&gt;</span></code></div>
+<div class="line">Device: <code class="docutils literal notranslate"><span class="pre">(ACK&lt;cr&gt;</span></code> if device accepts this command, otherwise, responds <code class="docutils literal notranslate"><span class="pre">(NAK&lt;cr&gt;</span></code></div>
+<div class="line">n: 0 means disable; 1 means enable</div>
+</div>
+</section>
+<section id="pleds-n-cr-set-led-speed">
+<h3>3.33 PLEDS&lt;n&gt;&lt;cr&gt;: set LED speed<a class="headerlink" href="#pleds-n-cr-set-led-speed" title="Link to this heading">¶</a></h3>
+<div class="line-block">
+<div class="line">Computer: <code class="docutils literal notranslate"><span class="pre">PLEDS&lt;n&gt;&lt;cr&gt;</span></code></div>
+<div class="line">Device: <code class="docutils literal notranslate"><span class="pre">(ACK&lt;cr&gt;</span></code> if device accepts this command, otherwise, responds <code class="docutils literal notranslate"><span class="pre">(NAK&lt;cr&gt;</span></code></div>
+<div class="line">n: 0 means low; 1 means medium; 2 means fast</div>
+</div>
+</section>
+<section id="pledm-n-cr-set-led-effect">
+<h3>3.34 PLEDM&lt;n&gt;&lt;cr&gt;: set LED effect<a class="headerlink" href="#pledm-n-cr-set-led-effect" title="Link to this heading">¶</a></h3>
+<div class="line-block">
+<div class="line">Computer: <code class="docutils literal notranslate"><span class="pre">PLEDM&lt;n&gt;&lt;cr&gt;</span></code></div>
+<div class="line">Device: <code class="docutils literal notranslate"><span class="pre">(ACK&lt;cr&gt;</span></code> if device accepts this command, otherwise, responds <code class="docutils literal notranslate"><span class="pre">(NAK&lt;cr&gt;</span></code></div>
+<div class="line">n: 0 means breathing; 2 means solid; 3 means right scrolling</div>
+</div>
+</section>
+<section id="pledb-n-cr-set-led-brightness">
+<h3>3.35 PLEDB&lt;n&gt;&lt;cr&gt;: set LED brightness<a class="headerlink" href="#pledb-n-cr-set-led-brightness" title="Link to this heading">¶</a></h3>
+<div class="line-block">
+<div class="line">Computer: <code class="docutils literal notranslate"><span class="pre">PLEDB&lt;n&gt;&lt;cr&gt;</span></code></div>
+<div class="line">Device: <code class="docutils literal notranslate"><span class="pre">(ACK&lt;cr&gt;</span></code> if device accepts this command, otherwise, responds <code class="docutils literal notranslate"><span class="pre">(NAK&lt;cr&gt;</span></code></div>
+<div class="line">n means LED brightness, 1 means low; 5 means normal; 9 means high</div>
+</div>
+</section>
+<section id="pledt-n-cr-set-led-total-number-of-colors">
+<h3>3.36 PLEDT&lt;n&gt;&lt;cr&gt;: set LED total number of colors<a class="headerlink" href="#pledt-n-cr-set-led-total-number-of-colors" title="Link to this heading">¶</a></h3>
+<div class="line-block">
+<div class="line">Computer: <code class="docutils literal notranslate"><span class="pre">PLEDT&lt;n&gt;&lt;cr&gt;</span></code></div>
+<div class="line">Device: <code class="docutils literal notranslate"><span class="pre">(ACK&lt;cr&gt;</span></code> if device accepts this command, otherwise, responds <code class="docutils literal notranslate"><span class="pre">(NAK&lt;cr&gt;</span></code></div>
+<div class="line">n means total number of colors, between 2 and 3</div>
+</div>
+</section>
+<section id="pledc-n-aaabbbccc-cr-set-led-color">
+<h3>3.37 PLEDC&lt;n&gt;&lt;aaabbbccc&gt;&lt;cr&gt;: set LED color<a class="headerlink" href="#pledc-n-aaabbbccc-cr-set-led-color" title="Link to this heading">¶</a></h3>
+<div class="line-block">
+<div class="line">Computer: <code class="docutils literal notranslate"><span class="pre">PLEDC&lt;n&gt;&lt;aaabbbccc&gt;&lt;cr&gt;</span></code></div>
+<div class="line">Device: <code class="docutils literal notranslate"><span class="pre">(ACK&lt;cr&gt;</span></code></div>
+<div class="line">&lt;n&gt; must less than LED total number of colors, if device accepts this command, otherwise, responds <code class="docutils literal notranslate"><span class="pre">(NAK&lt;cr&gt;</span></code></div>
+<div class="line">&lt;n&gt; means LED order, between 1 and 3; 1 indicate Line mode, 2 indicate AVR mode, 3 indicate Battery mode &lt;aaa, bbb, ccc&gt; means RGB, between 0 and 255</div>
+<div class="line">For example:</div>
+<div class="line">Computer: <code class="docutils literal notranslate"><span class="pre">PLEDC3160032240&lt;cr&gt;</span></code></div>
+<div class="line">Device: <code class="docutils literal notranslate"><span class="pre">(ACK&lt;cr&gt;</span></code></div>
+<div class="line">Means: set battery mode to purple.</div>
+</div>
+</section>
+</section>
+<section id="appendix">
+<h2>4 Appendix<a class="headerlink" href="#appendix" title="Link to this heading">¶</a></h2>
+<section id="crc-calibration-method">
+<h3>4.1 CRC calibration method<a class="headerlink" href="#crc-calibration-method" title="Link to this heading">¶</a></h3>
 </section>
 </section>
 </section>
