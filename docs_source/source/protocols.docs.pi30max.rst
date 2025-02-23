@@ -785,16 +785,21 @@ Inquiry Command
 | Computer: ``PE<X> / PD<X><CRC><cr>``
 | Device: ``(ACK<CRC><cr>`` if DEVICE accepts this command, otherwise, responds ``(NAK<cr>``
 | PEx / PDx set flag status. PE means enable, PD means disable
-| x Control setting
-| a Enable/disable silence buzzer or open buzzer
-| b Enable/disable overload bypass
-| d Enable/Disable solar feed to grid (reserved feature)
-| k Enable/Disable LCD display escape to default page after 1min timeout
-| u Enable/Disable overload restart and battery over discharge restart
-| v Enable/Disable over temperature restart
-| x Enable/Disable backlight on
-| y Enable/Disable alarm on when primary source interrupt
-| z Enable/Disable fault code record
+
+.. csv-table:: Control Settings
+   :header: x, Control Setting
+   :widths: auto
+   :align: left
+
+   a, Enable/disable silence buzzer or open buzzer
+   b, Enable/disable overload bypass
+   d, Enable/Disable solar feed to grid (reserved feature)
+   k, Enable/Disable LCD display escape to default page after 1min timeout
+   u, Enable/Disable overload restart and battery over discharge restart
+   v, Enable/Disable over temperature restart
+   x, Enable/Disable backlight on
+   y, Enable/Disable alarm on when primary source interrupt
+   z, Enable/Disable fault code record
 
 
 3.4 PF<cr>: Setting control parameter to default value
