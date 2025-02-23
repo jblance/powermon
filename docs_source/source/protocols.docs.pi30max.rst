@@ -753,18 +753,21 @@ Inquiry Command
 
 
 .. csv-table:: Response Decode
-   :header: Component, Description, Unit, Notes
+   :header: Item, Data, Description, Notes
    :widths: auto
    :align: left
 
-   Item Data description Notes
    a, (, Start code
    b, A, Enable or Disable, A is an Integer number 0 to 1.
    c, B, LED speed, B is an Integer ranging from 0 to 2. 0 means low; 1 means medium; 2 means fast
    d, C, LED effect, C is an Integer ranging from 0 to 3. 0 means breathing; 2 means solid; 3 means right scrolling
    e, D, LED brightness, D is an Integer ranging from 1 to 9. 1 means low; 5 means normal; 9 means high
    f, E, LED total number of colors, E is an Integer ranging from 2 to 3.
-   g, aaa1bbb1ccc1, aaa 2 bbb 2 ccc 2 (aaa 3 bbb 3 ccc3), "aaa means red, bbb means green, ccc means blue aaa1, bbb1, ccc1, aaa 2 , bbb 2 , ccc 2 , aaa 3 , bbb 3 , ccc 3 is an Integer ranging from 0 to 255."
+   g, "| aaa1bbb1ccc1 
+   | aaa2bbb2ccc2
+   | aaa3bbb3ccc3", "| aaa means red
+   | bbb means green
+   | ccc means blue", "aaa1, bbb1, ccc1, aaa2, bbb2, ccc2, aaa3, bbb3, ccc3 is an Integer ranging from 0 to 255."
 
 
 3 Setting parameters Command
@@ -893,7 +896,7 @@ Inquiry Command
 | Device: ``(ACK<CRC><cr>`` if device accepts this command, otherwise, responds ``(NAK<CRC><cr>``
 | Set output mode to 00/01/02/03/04 for HV models.
 | Set output mode to 00/01/02/03/04/05/06/07 for LV models.
-
+|
 | nn:
 | 00: single machine output
 | 01: parallel output

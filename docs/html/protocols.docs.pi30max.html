@@ -2080,52 +2080,57 @@
 <table class="docutils align-left" id="id14">
 <caption><span class="caption-text">Response Decode</span><a class="headerlink" href="#id14" title="Link to this table">¶</a></caption>
 <thead>
-<tr class="row-odd"><th class="head"><p>Component</p></th>
+<tr class="row-odd"><th class="head"><p>Item</p></th>
+<th class="head"><p>Data</p></th>
 <th class="head"><p>Description</p></th>
-<th class="head"><p>Unit</p></th>
 <th class="head"><p>Notes</p></th>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p>Item Data description Notes</p></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="row-odd"><td><p>a</p></td>
+<tr class="row-even"><td><p>a</p></td>
 <td><p>(</p></td>
 <td><p>Start code</p></td>
 <td></td>
 </tr>
-<tr class="row-even"><td><p>b</p></td>
+<tr class="row-odd"><td><p>b</p></td>
 <td><p>A</p></td>
 <td><p>Enable or Disable</p></td>
 <td><p>A is an Integer number 0 to 1.</p></td>
 </tr>
-<tr class="row-odd"><td><p>c</p></td>
+<tr class="row-even"><td><p>c</p></td>
 <td><p>B</p></td>
 <td><p>LED speed</p></td>
 <td><p>B is an Integer ranging from 0 to 2. 0 means low; 1 means medium; 2 means fast</p></td>
 </tr>
-<tr class="row-even"><td><p>d</p></td>
+<tr class="row-odd"><td><p>d</p></td>
 <td><p>C</p></td>
 <td><p>LED effect</p></td>
 <td><p>C is an Integer ranging from 0 to 3. 0 means breathing; 2 means solid; 3 means right scrolling</p></td>
 </tr>
-<tr class="row-odd"><td><p>e</p></td>
+<tr class="row-even"><td><p>e</p></td>
 <td><p>D</p></td>
 <td><p>LED brightness</p></td>
 <td><p>D is an Integer ranging from 1 to 9. 1 means low; 5 means normal; 9 means high</p></td>
 </tr>
-<tr class="row-even"><td><p>f</p></td>
+<tr class="row-odd"><td><p>f</p></td>
 <td><p>E</p></td>
 <td><p>LED total number of colors</p></td>
 <td><p>E is an Integer ranging from 2 to 3.</p></td>
 </tr>
-<tr class="row-odd"><td><p>g</p></td>
-<td><p>aaa1bbb1ccc1</p></td>
-<td><p>aaa 2 bbb 2 ccc 2 (aaa 3 bbb 3 ccc3)</p></td>
-<td><p>aaa means red, bbb means green, ccc means blue aaa1, bbb1, ccc1, aaa 2 , bbb 2 , ccc 2 , aaa 3 , bbb 3 , ccc 3 is an Integer ranging from 0 to 255.</p></td>
+<tr class="row-even"><td><p>g</p></td>
+<td><div class="line-block">
+<div class="line">aaa1bbb1ccc1</div>
+<div class="line">aaa2bbb2ccc2</div>
+<div class="line">aaa3bbb3ccc3</div>
+</div>
+</td>
+<td><div class="line-block">
+<div class="line">aaa means red</div>
+<div class="line">bbb means green</div>
+<div class="line">ccc means blue</div>
+</div>
+</td>
+<td><p>aaa1, bbb1, ccc1, aaa2, bbb2, ccc2, aaa3, bbb3, ccc3 is an Integer ranging from 0 to 255.</p></td>
 </tr>
 </tbody>
 </table>
@@ -2256,8 +2261,7 @@
 <div class="line">Device: <code class="docutils literal notranslate"><span class="pre">(ACK&lt;CRC&gt;&lt;cr&gt;</span></code> if device accepts this command, otherwise, responds <code class="docutils literal notranslate"><span class="pre">(NAK&lt;CRC&gt;&lt;cr&gt;</span></code></div>
 <div class="line">Set output mode to 00/01/02/03/04 for HV models.</div>
 <div class="line">Set output mode to 00/01/02/03/04/05/06/07 for LV models.</div>
-</div>
-<div class="line-block">
+<div class="line"><br /></div>
 <div class="line">nn:</div>
 <div class="line">00: single machine output</div>
 <div class="line">01: parallel output</div>
