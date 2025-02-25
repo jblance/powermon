@@ -6,13 +6,13 @@ from powermon.device import DeviceInfo
 # from powermon.libs.errors import InvalidCRC, InvalidResponse
 from powermon.outputformats.simple import SimpleFormat
 from powermon.protocols import get_protocol_definition
-# proto = get_protocol_definition('PI30MAXA')  # uses pi30 with max model
-proto = get_protocol_definition('PI30MAX')   # uses full pi30max class file
+proto = get_protocol_definition('PI30MAXA')  # uses pi30 with max model
+# proto = get_protocol_definition('PI30MAX')   # uses full pi30max class file
 
 # TODO: add tests for incorrect/incomplete responses
 
 
-class TestProtocolPi30Max(unittest.TestCase):
+class TestProtocolPi30MaxA(unittest.TestCase):
     """ exercise different functions in PI30MAX protocol """
 
     def test_full_command_qvfw(self):

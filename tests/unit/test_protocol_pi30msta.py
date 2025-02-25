@@ -8,12 +8,12 @@ from powermon.outputformats.simple import SimpleFormat
 from powermon.protocols import get_protocol_definition
 
 # import construct as cs
-proto = get_protocol_definition('PI30MST')
+proto = get_protocol_definition('PI30MSTA')
 #proto = Proto()
 
 
-class TestProtocolPi30Mst(unittest.TestCase):
-    """ exercise different functions in PI30MAX protocol """
+class TestProtocolPi30MstA(unittest.TestCase):
+    """ exercise different functions in PI30MSTA protocol """
 
     def test_full_command_qpigs2(self):
         """ test a for correct full command for QPIGS2 """

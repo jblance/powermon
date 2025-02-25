@@ -90,6 +90,8 @@ class AbstractProtocol(metaclass=abc.ABCMeta):
     def add_command_definition(self, new_config):
         """ Add a command definition """
         command_definition_key = new_config.get("name")
+        if command_definition_key is None:
+            return
         command_definition = CommandDefinition.from_config(new_config)
         self.command_definitions[command_definition_key] = command_definition
 

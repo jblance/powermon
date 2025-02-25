@@ -21,6 +21,7 @@ class Protocol(StrEnum):
     PI30MAX = auto()
     PI30MAXA = auto()
     PI30MST = auto()
+    PI30MSTA = auto()
     DALY = auto()
     NEEY = auto()
     HELTEC = auto()
@@ -59,6 +60,9 @@ def get_protocol_definition(protocol, model=None):
         case Protocol.PI30MST:
             from powermon.protocols.pi30max import PI30MAX
             return PI30MAX(model='PIP4048MST')
+        case Protocol.PI30MSTA:
+            from powermon.protocols.pi30 import PI30
+            return PI30(model='PIP4048MST')
         case Protocol.VED:
             from powermon.protocols.ved import VictronEnergyDirect
             return VictronEnergyDirect()

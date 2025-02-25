@@ -55,6 +55,23 @@ class TestProtocolPi30(unittest.TestCase):
         # print(_result)
         self.assertEqual(_result, expected)
 
+    def test_qflag_options(self):
+        """ check options in qflag """
+        expected = {
+                    "a": "Buzzer",
+                    "b": "Overload Bypass",
+                    "j": "Power Saving",
+                    "k": "LCD Reset to Default",
+                    "u": "Overload Restart",
+                    "v": "Over Temperature Restart",
+                    "x": "LCD Backlight",
+                    "y": "Primary Source Interrupt Alarm",
+                    "z": "Record Fault Code",
+                }
+        defn = proto.get_command_definition("QFLAG")
+        result = defn.reading_definitions[0].options
+        self.assertEqual(result, expected)
+
     def test_build_result_qbms(self):
         """ test result build for QBMS """
         expected = [
