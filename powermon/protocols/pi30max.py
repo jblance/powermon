@@ -17,8 +17,6 @@ OUTPUT_MODES[6] = "Phase 2 of 2 phase (120°)"
 OUTPUT_MODES.append("Phase 2 of 2 phase (180°)")
 
 
-
-
 QUERY_COMMANDS = {
     "QID": {
         "name": "QID",
@@ -815,23 +813,30 @@ QUERY_COMMANDS = {
 }
 
 SETTER_COMMANDS = {
-    "PLEDE": {
-        "name": "PLEDE",
-        "description": "Enable-Disable LED function",
-        "help": " -- examples: PLEDE0 (disable LED), PLEDE1 (enable LED)",
-        "regex": "PLEDE([01])$",
+    "PLEDE0": {
+        "name": "PLEDE0",
+        "aliases": ["disable_led", "led=off", "set_led=off"],
+        "description": "Disable LED function",
+        "help": " -- examples: PLEDE0 (disable LED)",
+        # "regex": r"(PLEDE0|disable_led|led=off)$",
+    },
+    "PLEDE1": {
+        "name": "PLEDE1",
+        "aliases": ["enable_led", "led=on", "set_led=on"],
+        "description": "Enable LED function",
+        "help": " -- examples: PLEDE1 (enable LED)",
     },
     "PLEDS": {
         "name": "PLEDS",
         "description": "Set LED speed",
         "help": " -- examples: PLEDS0 (set LED speed low), PLEDS1 (set LED speed medium), PLEDS2 (set LED speed high)",
-        "regex": "PLEDS([012])$",
+        "regex": "PLEDS([012])$",  # TODO: split into individual commands and add aliases
     },
     "PLEDM": {
         "name": "PLEDM",
         "description": "Set LED effect",
         "help": " -- examples: PLEDM0 (set LED effect breathing), PLEDM2 (set LED effect solid), PLEDM3 (set LED right scrolling)",
-        "regex": "PLEDM([0123])$",
+        "regex": "PLEDM([0123])$",  # TODO: split into individual commands and add aliases
     },
     "PLEDB": {
         "name": "PLEDB",
@@ -849,7 +854,7 @@ SETTER_COMMANDS = {
         "name": "PLEDC",
         "description": "Set LED color",
         "help": " -- examples: PLEDCnRRRGGGBBB (n: 1 line mode, 2 AVR mode, 3 battery mode)",
-        "regex": "PLEDC(\\d\\d\\d\\d\\d\\d\\d\\d\\d\\d)$",
+        "regex": "PLEDC([123]\\d\\d\\d\\d\\d\\d\\d\\d\\d)$",
     },
 }
 
@@ -921,11 +926,11 @@ class PI30MAX(PI30):
             log.info("%s got model specifier: %s", self.protocol_id, model)
             if model == 'PIP4048MST':
                 self.replace_command_definition("QPIGS2", MST_QPIGS2)
-                self.check_definitions_count(expected=67)
+                self.check_definitions_count(expected=68)
             # else:
             #     raise PowermonProtocolError(f"unknown model {model}")
         else:
-            self.check_definitions_count(expected=67)
+            self.check_definitions_count(expected=68)
 
         self.STATUS_COMMANDS = ["QPIGS", "QPIGS2"]
         self.SETTINGS_COMMANDS = ["QPIRI", "QFLAG"]

@@ -12,6 +12,8 @@ from powermon.protocols.helpers import crc_pi30 as crc
 
 log = logging.getLogger("pi30")
 
+commands_list = []
+
 # QUERY COMMANDS
 QPI = {
     "name": "QPI",
@@ -21,6 +23,7 @@ QPI = {
     "reading_definitions": [{"description": "Protocol Id", "reading_type": ReadingType.MESSAGE, "response_type": ResponseType.BYTES}],
     "test_responses": [b"(PI30\x9a\x0b\r"],
     }
+commands_list.append(QPI)
 QID = {
     "name": "QID",
     "aliases": ["get_id", "default"],
@@ -30,6 +33,7 @@ QID = {
     "reading_definitions": [{"description": "Serial Number", "reading_type": ReadingType.MESSAGE, "response_type": ResponseType.STRING}],
     "test_responses": [b"(9293333010501\xbb\x07\r"],
     }
+commands_list.append(QID)
 QVFW = {
     "name": "QVFW",
     "description": "Get the Main CPU firmware version",
@@ -38,6 +42,7 @@ QVFW = {
     "reading_definitions": [{"reading_type": ReadingType.MESSAGE, "description": "Main CPU firmware version", "response_type": ResponseType.TEMPLATE_BYTES, "format_template" : "r.removeprefix('VERFW:')"}],
     "test_responses": [b"(VERFW:00072.70\x53\xA7\r"],
     }
+commands_list.append(QVFW)
 QVFW2 = {
     "name": "QVFW2",
     "description": "Get the Secondary CPU firmware version",
@@ -46,6 +51,7 @@ QVFW2 = {
     "reading_definitions": [{"reading_type": ReadingType.MESSAGE, "description": "Secondary CPU firmware version", "response_type": ResponseType.TEMPLATE_BYTES, "format_template" : "r.removeprefix('VERFW:')"}],
     "test_responses": [b"(VERFW:00072.70\x53\xA7\r"],
     }
+commands_list.append(QVFW2)
 QBOOT = {
     "name": "QBOOT",
     "description": "DSP Has Bootstrap inquiry",
@@ -54,6 +60,7 @@ QBOOT = {
     "reading_definitions": [{"description": "DSP Has Bootstrap", "reading_type": ReadingType.MESSAGE, "response_type": ResponseType.BOOL}],
     "test_responses": [b"(0\xb9\x1c\r"],
     }
+commands_list.append(QBOOT)
 QDI = {
     "name": "QDI",
     "description": "Get the Inverters Default Settings",
@@ -102,6 +109,7 @@ QDI = {
     ],
     "test_responses": [b"(230.0 50.0 0030 42.0 54.0 56.4 46.0 60 0 0 2 0 0 0 0 0 1 1 0 0 1 0 54.0 0 1 000\x9E\x60\r"],
     }
+commands_list.append(QDI)
 QMN = {
     "name": "QMN",
     "description": "Get the Model Name",
@@ -110,6 +118,7 @@ QMN = {
     "reading_definitions": [{"reading_type": ReadingType.MESSAGE, "description": "Model Name", "response_type": ResponseType.BYTES}],
     "test_responses": [b"(MKS2-8000\xb2\x8d\r",],
     }
+commands_list.append(QMN)
 QGMN = {
     "name": "QGMN",
     "description": "Get the General Model Number",
@@ -118,6 +127,7 @@ QGMN = {
     "reading_definitions": [{"reading_type": ReadingType.MESSAGE, "description": "General Model Number", "response_type": ResponseType.BYTES}],
     "test_responses": [b"(044\xc8\xae\r",],
     }
+commands_list.append(QGMN)
 QMCHGCR = {
     "name": "QMCHGCR",
     "description": "Get the viable options for Max Charging Current",
@@ -126,6 +136,7 @@ QMCHGCR = {
     "reading_definitions": [{"reading_type": ReadingType.MESSAGE_AMPS, "description": "Max Charging Current Options", "response_type": ResponseType.STRING}],
     "test_responses": [b"(010 020 030 040 050 060 070 080 090 100 110 120\x0c\xcb\r"], 
     }
+commands_list.append(QMCHGCR)
 QMUCHGCR = {
     "name": "QMUCHGCR",
     "description": "Get the viable options for Max Utility Charging Current",
@@ -134,6 +145,7 @@ QMUCHGCR = {
     "reading_definitions": [{"reading_type": ReadingType.MESSAGE_AMPS, "description": "Max Utility Charging Current", "response_type": ResponseType.STRING}],
     "test_responses": [b"(002 010 020 030 040 050 060 070 080 090 100 110 120\xca#\r"], 
     }
+commands_list.append(QMUCHGCR)
 QOPM = {
     "name": "QOPM",
     "description": "Get the Inverter Output Mode",
@@ -142,6 +154,7 @@ QOPM = {
     "reading_definitions": [{"description": "Output mode", "reading_type": ReadingType.MESSAGE, "response_type": ResponseType.LIST, "options": OUTPUT_MODES}],
     "test_responses": [b"(0\xb9\x1c\r"], 
     }
+commands_list.append(QOPM)
 QPIGS = {
     "name": "QPIGS",
     "description": "Get the current values of various General Status parameters",
@@ -190,6 +203,7 @@ QPIGS = {
         b"(000.0 00.0 230.0 49.9 0161 0119 003 460 57.50 012 100 0069 0014 103.8 57.45 00000 00110110 00 00 00856 010\x24\x8c\r",
     ],
     }
+commands_list.append(QPIGS)
 QPIRI = {
     "name": "QPIRI",
     "description": "Get the current Settings of the Inverter",
@@ -239,6 +253,7 @@ QPIRI = {
         b"(230.0 21.7 230.0 50.0 21.7 5000 5000 48.0 47.0 46.5 57.6 57.6 9 30 080 0 1 2 1 01 0 0 52.0 0 1\x9c\x6f\r",
         b"(230.0 34.7 230.0 50.0 34.7 8000 8000 48.0 48.0 42.0 54.0 52.5 2 010 030 1 2 2 9 01 0 0 50.0 0 1 480 0 070\xd9`\r",
     ], }
+commands_list.append(QPIRI)
 QPIWS = {
     "name": "QPIWS",
     "description": "Get any active Warning Status flags",
@@ -283,6 +298,7 @@ QPIWS = {
             ]}
     ],
     "test_responses": [b"(00000100000000001000000000000000\x56\xA6\r"], }
+commands_list.append(QPIWS)
 QPGS = {
     "name": "QPGS",
     "description": "Get the current values of various Parallel Status parameters",
@@ -388,6 +404,7 @@ QPGS = {
         # b"QPGS0?\xda\r",
     ],
     "regex": "QPGS(\\d+)$", }
+commands_list.append(QPGS)
 QFLAG = {
     "name": "QFLAG",
     "description": "Get the Status of various Inverter settings",
@@ -409,6 +426,7 @@ QFLAG = {
             }}
     ],
     "test_responses": [b"(EakxyDbjuvz\x2F\x29\r"], }
+commands_list.append(QFLAG)
 QMOD = {
     "name": "QMOD",
     "description": "Get the Inverter Mode",
@@ -420,6 +438,7 @@ QMOD = {
             "options": {"P": "Power on", "S": "Standby", "L": "Line", "B": "Battery", "F": "Fault", "H": "Power saving"}}
     ],
     "test_responses": [b"(S\xe5\xd9\r"], }
+commands_list.append(QMOD)
 Q1 = {
     "name": "Q1",
     "description": "Q1 query",
@@ -449,6 +468,7 @@ Q1 = {
             "icon": "mdi:book-open", },
     ],
     "test_responses": [b"(00000 00000 01 01 00 059 045 053 068 00 00 000 0040 0580 0000 50.00 139\xb9\r"], }
+commands_list.append(Q1)
 QBMS = {
         "name": "QBMS",
         "description": "Read lithium battery information",
@@ -468,6 +488,7 @@ QBMS = {
         "test_responses": [
             b"(0 100 0 0 1 532 532 450 0000 0030\x0e\x5E\n",
         ], }
+commands_list.append(QBMS)
 
 #New Commands for MAX type inverters
 QPIGS2 = {
@@ -501,6 +522,7 @@ QSID = {
             "response_type": ResponseType.TEMPLATE_BYTES, "format_template" : "r[2:int(r[0:2])+2]"}],
     "test_responses": [b"(1492932105105335005535\x94\x0e\r", ],  
     }
+pi30max_additional_commands = [QPIGS2, QSID]
 
 # MST variation of QPIGS2
 MST_QPIGS2 = {
@@ -715,17 +737,21 @@ class PI30(AbstractProtocol):
         self.protocol_id = b"PI30"
         self.model = model
         # self.add_command_definitions(QUERY_COMMANDS)
-        self.add_command_definitions(command_definitions_list=[QPI, QID, QVFW, QVFW2, QBOOT, QDI, QMN, QGMN, QMCHGCR, QMUCHGCR, QOPM, QPIGS, QPIRI, QPIWS, QPGS, QFLAG, QMOD, Q1, QBMS])
+        self.add_command_definitions(command_definitions_list=commands_list)
         self.add_command_definitions(SETTER_COMMANDS, result_type=ResultType.ACK)
         self.add_supported_ports([PortType.SERIAL, PortType.USB])
         match model:
             case 'MAX':
                 self.description = "PI30 protocol handler for LV6048MAX and similar inverters"
                 # Add new commands
-                self.add_command_definition(QPIGS2)
-                self.add_command_definition(QSID)
+                self.add_command_definitions(command_definitions_list=pi30max_additional_commands)
+                # $ powermon-cli --compare pi30max,pi30maxa
+                # pi30max has 67 commands
+                # pi30maxa has 46 commands
                 # Commands in pi30max but not pi30maxa (21)
-                # {'QLM', 'VERFW', 'PLEDE', 'PLEDS', 'QED', 'PLEDM', 'QLD', 'QLY', 'QT', 'QVFW3', 'QCHPT', 'QLT', 'QOPPT', 'QBEQI', 'PLEDT', 'PLEDB', 'QEM', 'PLEDC', 'QLED', 'QEY', 'QET'}
+                # {'QLED', 'QEY', 'QBEQI', 'VERFW', 'PLEDC', 'QOPPT', 'QVFW3', 'QCHPT', 'PLEDB', 'PLEDT', 'PLEDE', 'QED', 'PLEDM', 'PLEDS', 'QEM', 'QLD', 'QLY', 'QET', 'QLT', 'QT', 'QLM'}
+                # Commands in both protocols with different config (8)
+                # ['QDI', 'QMOD', 'QPIGS', 'QPIRI', 'QPGS', 'QPIWS', 'QFLAG', 'QID']
                 # Remove PI30 commands that arent used to MAX inverters
                 self.remove_command_definitions(["QVFW2"])
                 # Remove QID ID aliases
