@@ -44,6 +44,7 @@ class SerialPort(AbstractPort):
         _class = cls(path=path, baud=baud, protocol=protocol)
         # deal with wildcard path resolution
         _class.path = await _class.resolve_path(path, serial_number)
+        return _class
 
 
     def __init__(self, path, baud, protocol) -> None:
