@@ -13,7 +13,7 @@ proto = get_protocol_definition('PI30MST')
 
 
 class TestProtocolPi30Mst(unittest.TestCase):
-    """ exercise different functions in PI30MAX protocol """
+    """ exercise different functions in PI30 MST protocol """
 
     def test_full_command_qpigs2(self):
         """ test a for correct full command for QPIGS2 """
