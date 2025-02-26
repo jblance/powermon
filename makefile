@@ -8,7 +8,10 @@ test:
 	python3 -m unittest discover -s tests -f
 
 unit-tests:
-	python3 -m unittest discover -s tests/unit 
+	python3 -m unittest discover -s tests/unit -f
+
+unit-tests-all:
+	python3 -m unittest discover -s tests/unit
 
 docker-up:
 	docker-compose up --build

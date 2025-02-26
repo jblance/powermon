@@ -504,7 +504,7 @@ QUERY_COMMANDS = {
                     "Utility first",
                     "Solar first",
                     "Solar + Utility",
-                    "Only solar charging permitted"]},
+                    "Solar only"]},
             {"description": "Battery Type", "reading_type": ReadingType.MESSAGE, "response_type": ResponseType.LIST, "options": BATTERY_TYPES},
             {"description": "Buzzer", "reading_type": ReadingType.MESSAGE, "response_type": ResponseType.LIST, "options": ["enabled", "disabled"]},
             {"description": "Power saving", "reading_type": ReadingType.MESSAGE, "response_type": ResponseType.LIST, "options": ["disabled", "enabled"]},
@@ -818,7 +818,6 @@ SETTER_COMMANDS = {
         "aliases": ["disable_led", "led=off", "set_led=off"],
         "description": "Disable LED function",
         "help": " -- examples: PLEDE0 (disable LED)",
-        # "regex": r"(PLEDE0|disable_led|led=off)$",
     },
     "PLEDE1": {
         "name": "PLEDE1",

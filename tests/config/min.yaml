@@ -12,7 +12,7 @@ device:
     protocol: PI30MAXA
 
 commands:
-- command: QPIGS
+- command: QPIRI
   outputs:
   - type: screen
     format: 

@@ -8,7 +8,9 @@ from powermon.commands.reading_definition import ReadingDefinition, ReadingType
 from powermon.commands.result import Result, ResultType
 from powermon.device import DeviceInfo
 from powermon.outputformats.htmltable import HtmlTable
-from powermon.protocols.pi30max import PI30MAX as Proto
+# from powermon.protocols.pi30max import PI30MAX as Proto
+from powermon.protocols import get_protocol_definition
+proto = get_protocol_definition('PI30MAX')
 
 
 class TestFormatHtmltable(unittest.TestCase):
@@ -73,7 +75,7 @@ class TestFormatHtmltable(unittest.TestCase):
             '<strong>Command: QET incurred an error or errors during execution or processing</strong></p><ul>',
             "<li>Error #0: response has invalid CRC - got '\\x21\\x48', calculated '\\x21\\x4a'</li>", '</ul>',
             '<b>No readings in result</b>']
-        proto = Proto()
+        # proto = Proto()
         table_formatter = HtmlTable({})
         device_info = DeviceInfo(name="name", serial_number="serial_number", model="model", manufacturer="manufacturer")
         command = Command.from_config({"command": "QET"})

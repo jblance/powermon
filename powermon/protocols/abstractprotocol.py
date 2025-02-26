@@ -85,13 +85,17 @@ class AbstractProtocol(metaclass=abc.ABCMeta):
                     log.info("error was: %s", value_error)
         if command_definitions_list is not None:
             for command_definition in command_definitions_list:
-                self.add_command_definition(command_definition)
+                self.add_command_definition(command_definition, result_type)
 
-    def add_command_definition(self, new_config):
+    def add_command_definition(self, new_config, result_type = None):
         """ Add a command definition """
         command_definition_key = new_config.get("name")
         if command_definition_key is None:
             return
+        if result_type is not None:
+            # Adding command definition with supplied type, so override config
+            # log.debug("result_type override to %s", result_type)
+            new_config["result_type"] = result_type
         command_definition = CommandDefinition.from_config(new_config)
         self.command_definitions[command_definition_key] = command_definition
 

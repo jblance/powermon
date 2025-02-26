@@ -85,7 +85,7 @@ class ReadingDefinition():
     It doesn't contain the response value, just the definition of what is valid.
     """
     def __str__(self):
-        return f"{self.index=}, {self.description=}, {self.response_type=}, {self.unit=}, instance={type(self)}"
+        return f"{self.index=}, {self.description=}, {self.response_type=}, {self.unit=}, instance={type(self)} {self.component=}"
 
     def __init__(self, index, response_type, description, device_class, state_class, icon, unit=""):
         # {"index": 13, "reading_type": ReadingType.WATTS, "response_type": ResponseType.INT,
@@ -100,8 +100,8 @@ class ReadingDefinition():
         self.icon = icon
 
     def __eq__(self, other):
-        return (self.description, self.response_type, self.options, self.default, self.format_template, self.unit, self.device_class, self.state_class, self.icon) == \
-        (other.description, other.response_type, other.options, other.default, other.format_template, other.unit, other.device_class, other.state_class, other.icon)
+        return (self.description, self.response_type, self.options, self.default, self.format_template, self.unit, self.device_class, self.state_class, self.icon, self.component) == \
+        (other.description, other.response_type, other.options, other.default, other.format_template, other.unit, other.device_class, other.state_class, other.icon, other.component)
 
     @property
     def description(self) -> str:

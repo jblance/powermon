@@ -346,15 +346,17 @@ def show_command_definition_differences(p1, p2):
         if p1_rd == p2_rd:
             print(f"|{field_name:>{field_width}}|{'Matches':>{data_width}}|{'':<{data_width}}|")
         else:
-            for item in ['description', 'response_type', 'unit', 'default', 'format_template', 'icon', 'device_class']:
-                #'options'
+            if getattr(p1_rd, 'description', "").lower() != getattr(p2_rd, 'description', "").lower():
+                message = f"{Color.WARNING}{'description'}{Color.ENDC}: {getattr(p1_rd, 'description')}"
+                print(f"|{Color.FAIL}{field_name:>{field_width}}{Color.ENDC}|{message:>{data_width+9}}|{getattr(p2_rd, 'description')}")
+            for item in ['response_type', 'unit', 'default', 'format_template', 'icon', 'device_class', 'component']:
                 if getattr(p1_rd, item) == getattr(p2_rd, item):
                     pass
                 else:
                     message = f"{Color.WARNING}{item}{Color.ENDC}: {getattr(p1_rd, item)}"
                     print(f"|{Color.FAIL}{field_name:>{field_width}}{Color.ENDC}|{message:>{data_width+9}}|{getattr(p2_rd, item)}")
-            if getattr(p1_rd, 'options') != getattr(p2_rd, 'options'):
-                print(f"|{Color.FAIL}{field_name:>{field_width}}{Color.ENDC}|{'options differ':>{data_width}}|{' ':<{data_width}}|")
+            if (o1 := getattr(p1_rd, 'options')) != (o2 := getattr(p2_rd, 'options')):
+                print(f"|{Color.FAIL}{field_name:>{field_width}}{Color.ENDC}|{'options differ':>{data_width}}|{DeepDiff(o1, o2)}{' ':<{data_width}}|")
     if p1.reading_definition_count() > p2.reading_definition_count():
         for i in range(p2.reading_definition_count(), p1.reading_definition_count()):
             field_name = f"reading_definition[{i}]"

@@ -6,7 +6,9 @@ from unittest.mock import Mock, patch
 from powermon.commands.command import Command
 from powermon.libs.errors import ConfigError
 from powermon.ports.serialport import SerialPort
-from powermon.protocols.pi30max import PI30MAX
+# from powermon.protocols.pi30max import PI30MAX
+from powermon.protocols import get_protocol_definition
+proto = get_protocol_definition('PI30MAX')
 
 
 class TestSerialPort(TestCase):
@@ -18,7 +20,7 @@ class TestSerialPort(TestCase):
 
     # Given
     def setUp(self):
-        self.port = SerialPort(path='/dev/tty0', baud=None, protocol=PI30MAX())
+        self.port = SerialPort(path='/dev/tty0', baud=None, protocol=proto)
 
     # def test_multi_paths_without_serial(self):
     #     """ test serialport with glob path raises exception if serial number not defined """
