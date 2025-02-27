@@ -9,7 +9,7 @@ from powermon.ports import PortType
 from powermon.protocols.abstractprotocol import AbstractProtocol
 from powermon.protocols.constants import (BATTERY_TYPES, CHARGER_SOURCE_PRIORITIES, FAULT_CODE_OPTIONS,
                                           FAULT_CODE_OPTIONS_PI30MAX, INVERTER_MODE_OPTIONS, OUTPUT_MODES,
-                                          OUTPUT_SOURCE_PRIORITIES)
+                                          OUTPUT_SOURCE_PRIORITIES, PI30_OUTPUT_MODES)
 from powermon.protocols.helpers import crc_pi30 as crc
 
 log = logging.getLogger("pi30")
@@ -104,7 +104,8 @@ QDI = {
     ],
     "test_responses": [
         b"(230.0 50.0 0030 42.0 54.0 56.4 46.0 60 0 0 2 0 0 0 0 0 1 1 0 0 1 0 54.0 0 1 000\x9E\x60\r",
-        b"(230.0 50.0 0030 44.0 54.0 56.4 46.0 60 0 0 2 0 0 0 0 0 1 1 1 0 1 0 54.0 0 1 224\xeb\xbc\r",],
+        b"(230.0 50.0 0030 44.0 54.0 56.4 46.0 60 0 0 2 0 0 0 0 0 1 1 1 0 1 0 54.0 0 1 224\xeb\xbc\r",
+        b"(230.0 50.0 0030 44.0 54.0 56.4 46.0 60 0 0 2 0 0 0 0 0 1 1 1 0 1 7 54.0 0 1 224\x9b\xba\r",],
     }
 QMN = {
     "name": "QMN",
@@ -144,7 +145,7 @@ QOPM = {
     "category": CommandCategory.INFO,
     "result_type": ResultType.SINGLE,
     "reading_definitions": [{"description": "Output mode", "reading_type": ReadingType.MESSAGE, "response_type": ResponseType.LIST, "options": OUTPUT_MODES}],
-    "test_responses": [b"(0\xb9\x1c\r"], 
+    "test_responses": [b"(0\xb9\x1c\r", b"(7\xc9\xfb\r"], 
     }
 QPIGS = {
     "name": "QPIGS",
@@ -238,7 +239,7 @@ QPIRI = {
     ],
     "test_responses": [
         b"(230.0 21.7 230.0 50.0 21.7 5000 4000 48.0 46.0 42.0 56.4 54.0 0 10 010 1 0 0 6 01 0 0 54.0 0 1\x6F\x7E\r",
-        b"(120.0 25.0 120.0 60.0 25.0 3000 3000 48.0 46.0 44.0 58.4 54.4 2 30 060 1 2 0 9 01 0 6 54.0 0 1 000 0\x8f\xed\r",
+        b"(120.0 25.0 120.0 60.0 25.0 3000 3000 48.0 46.0 44.0 58.4 54.4 2 30 060 1 2 0 9 01 0 7 54.0 0 1 000 0\x27\xc9\r",
         b"(230.0 13.0 230.0 50.0 13.0 3000 2400 24.0 23.0 21.0 28.2 27.0 0 30 50 0 2 1 - 01 1 0 26.0 0 0\xb9\xbd\r",
         b"(230.0 21.7 230.0 50.0 21.7 5000 5000 48.0 47.0 46.5 57.6 57.6 5 30 080 0 1 2 1 01 0 0 52.0 0 1\x03$\r",
         b"(230.0 21.7 230.0 50.0 21.7 5000 5000 48.0 47.0 46.5 57.6 57.6 9 30 080 0 1 2 1 01 0 0 52.0 0 1\x9c\x6f\r",
@@ -438,9 +439,166 @@ QBMS = {
         "test_responses": [
             b"(0 100 0 0 1 532 532 450 0000 0030\x0e\x5E\n",
         ], }
-pi30_query_commands_list = [QPI, QID, QVFW, QVFW2, QBOOT, QDI, QMN, QGMN, QMCHGCR, QMUCHGCR, QOPM, QPIGS, QPIRI, QPIWS, QPGS, QFLAG, QMOD, Q1, QBMS]
+pi30_query_commands = [QPI, QID, QVFW, QVFW2, QBOOT, QDI, QMN, QGMN, QMCHGCR, QMUCHGCR, QOPM, QPIGS, QPIRI, QPIWS, QPGS, QFLAG, QMOD, Q1, QBMS]
 
-#New Query Commands for MAX type inverters
+# PI30 SETTER COMMANDS
+F = {
+    "name": "F",
+    "description": "Set Device Output Frequency",
+    "help": " -- examples: F50 (set output frequency to 50Hz) or F60 (set output frequency to 60Hz)",
+    "regex": "F([56]0)$",
+    }
+MCHGC = {
+    "name": "MCHGC",
+    "description": "Set Max Charging Current (for parallel units)",
+    "help": " -- examples: MCHGC040 (set unit 0 to max charging current of 40A), MCHGC160 (set unit 1 to max charging current of 60A)",
+    "regex": "MCHGC(\\d\\d\\d)$",
+    }
+MNCHGC = {
+    "name": "MNCHGC",
+    "description": "Set Utility Max Charging Current (more than 100A) (for 4000/5000)",
+    "help": " -- example: MNCHGC1120 (set unit 1 utility max charging current to 120A)",
+    "regex": "MNCHGC(\\d\\d\\d\\d)$",
+    }
+MUCHGC = {
+    "name": "MUCHGC",
+    "description": "Set Utility Max Charging Current",
+    "help": " -- example: MUCHGC130 (set unit 1 utility max charging current to 30A)",
+    "regex": "MUCHGC(\\d\\d\\d)$",
+    }
+PBCV = {
+    "name": "PBCV",
+    "description": "Set Battery re-charge voltage",
+    "help": " -- example PBCV44.0 - set re-charge voltage to 44V (12V unit: 11V/11.3V/11.5V/11.8V/12V/12.3V/12.5V/12.8V, 24V unit: 22V/22.5V/23V/23.5V/24V/24.5V/25V/25.5V, 48V unit: 44V/45V/46V/47V/48V/49V/50V/51V)",
+    "regex": "PBCV(\\d\\d\\.\\d)$",
+    }
+PBDV = {
+    "name": "PBDV",
+    "description": "Set Battery re-discharge voltage",
+    "help": " -- example PBDV48.0 - set re-discharge voltage to 48V (12V unit: 00.0V/12V/12.3V/12.5V/12.8V/13V/13.3V/13.5V/13.8V/14V/14.3V/14.5, 24V unit: 00.0V/24V/24.5V/25V/25.5V/26V/26.5V/27V/27.5V/28V/28.5V/29V, 48V unit: 00.0V/48V/49V/50V/51V/52V/53V/54V/55V/56V/57V/58V, 00.0V means battery is full(charging in float mode).)",
+    "regex": "PBDV(\\d\\d\\.\\d)$",
+    }
+PBFT = {
+    "name": "PBFT",
+    "description": "Set Battery Float Charging Voltage",
+    "help": " -- example PBFT58.0 - set battery float charging voltage to 58V (48.0 - 58.4V for 48V unit)",
+    "regex": "PBFT(\\d\\d\\.\\d)$",
+    }
+PBT = {
+    "name": "PBT",
+    "description": "Set Battery Type",
+    "help": " -- examples: PBT00 (set battery as AGM), PBT01 (set battery as FLOODED), PBT02 (set battery as USER)",
+    "regex": "PBT(0[012])$",
+    }
+PCP = {
+    "name": "PCP",
+    "description": "Set Device Charger Priority",
+    "help": " -- examples: PCP00 (set utility first), PCP01 (set solar first), PCP02 (HS only: set solar and utility), PCP03 (set solar only charging)",
+    "regex": "PCP(0[0123])$",
+    }
+PCVV = {
+    "name": "PCVV",
+    "description": "Set Battery C.V. (constant voltage) charging voltage",
+    "help": " -- example PCVV48.0 - set charging voltage to 48V (48.0 - 58.4V for 48V unit)",
+    "regex": "PCVV(\\d\\d\\.\\d)$",
+    }
+PE = {
+    "name": "PE",
+    "description": "Set the enabled state of an Inverter setting",
+    "help": " -- examples: PEa - enable a (buzzer) [a=buzzer, b=overload bypass, j=power saving, K=LCD go to default after 1min, u=overload restart, v=overtemp restart, x=backlight, y=alarm on primary source interrupt, z=fault code record]",
+    "regex": "PE(.+)$",
+    }
+PD = {
+    "name": "PD",
+    "description": "Set the disabled state of an Inverter setting",
+    "help": " -- examples: PDa - disable a (buzzer) [a=buzzer, b=overload bypass, j=power saving, K=LCD go to default after 1min, u=overload restart, v=overtemp restart, x=backlight, y=alarm on primary source interrupt, z=fault code record]",
+    "regex": "PD(.+)$",
+    }
+PF = {
+    "name": "PF",
+    "description": "Set Control Parameters to Default Values",
+    "help": " -- example PF (reset control parameters to defaults)",
+    }
+PGR = {
+    "name": "PGR",
+    "description": "Set Grid Working Range",
+    "help": " -- examples: PCR00 (set device working range to appliance), PCR01 (set device working range to UPS)",
+    "regex": "PGR(0[01])$",
+    }
+POP = {
+    "name": "POP",
+    "description": "Set Device Output Source Priority",
+    "help": " -- examples: POP00 (set Utility > Solar > Battery), POP01 (set Solar > Utility > Battery), POP02 (set Solar > Battery > Utility)",
+    "regex": "POP(0[012])$",
+    }
+POPLG = {
+    "name": "POPLG",
+    "description": "Set Device Operation Logic",
+    "help": " -- examples: POPLG00 (set Auto mode), POPLG01 (set Online mode), POPLG02 (set ECO mode)",
+    "regex": "POPLG(0[012])$",
+    }
+POPM = {
+    "name": "POPM",
+    "description": "Set Device Output Mode (for 4000/5000)",
+    "help": " -- examples: POPM01 (set unit 0 to 1 - parallel output), POPM10 (set unit 1 to 0 - single machine output), POPM02 (set unit 0 to 2 - phase 1 of 3), POPM13 (set unit 1 to 3 - phase 2 of 3), POPM24 (set unit 2 to 4 - phase 3 of 3)",
+    "regex": "POPM(\\d[01234])$",
+    }
+PPCP = {
+    "name": "PPCP",
+    "description": "Set Parallel Device Charger Priority (for 4000/5000)",
+    "help": " -- examples: PPCP000 (set unit 1 to 00 - utility first), PPCP101 (set unit 1 to 01 - solar first), PPCP202 (set unit 2 to 02 - solar and utility), PPCP003 (set unit 0 to 03 - solar only charging)",
+    "regex": "PPCP(\\d0[0123])$",
+    }
+PPVOKC = {
+    "name": "PPVOKC",
+    "description": "Set PV OK Condition",
+    "help": " -- examples: PPVOKC0 (as long as one unit has connected PV, parallel system will consider PV OK), PPVOKC1 (only if all inverters have connected PV, parallel system will consider PV OK)",
+    "regex": "PPVOKC([01])$",
+    }
+PSDV = {
+    "name": "PSDV",
+    "description": "Set Battery Cut-off Voltage",
+    "help": " -- example PSDV40.0 - set battery cut-off voltage to 40V (40.0 - 48.0V for 48V unit)",
+    "regex": "PSDV(\\d\\d\\.\\d)$",
+    }
+PSPB = {
+    "name": "PSPB",
+    "description": "Set Solar Power Balance",
+    "help": " -- examples: PSPB0 (PV input max current will be the max charged current), PSPB1 (PV input max power will be the sum of the max charge power and loads power)",
+    "regex": "PSPB([01])$",
+    }
+PBATCD = {
+    "name": "PBATCD",
+    "description": "Battery charge/discharge controlling command",
+    "help": " -- examples: PBATCDxxx (please read description, use carefully)",
+    "regex": "PBATCD([01][01][01])$",
+    }
+DAT = {
+    "name": "DAT",
+    "description": "Set Date Time",
+    "help": " -- examples: DATYYYYMMDDHHMMSS (14 digits after DAT)",
+    "regex": "DAT(\\d\\d\\d\\d\\d\\d\\d\\d\\d\\d\\d\\d\\d\\d)$",
+    }
+PBATMAXDISC = {
+    "name": "PBATMAXDISC",
+    "description": "Battery max discharge current",
+    "help": " -- examples: PBATMAXDISCxxx (000- disable or 030-150A)",
+    "regex": "PBATMAXDISC([01]\\d\\d)$",
+    }
+BTA = {
+    "name": "BTA",
+    "description": "Calibrate inverter battery voltage",
+    "help": " -- examples: BTA-01 (reduce inverter reading by 0.05V), BTA+09 (increase inverter reading by 0.45V)",
+    "regex": "BTA([-+]0\\d)$",
+    }
+PSAVE = {
+    "name": "PSAVE",
+    "description": "Save EEPROM changes",
+    "help": " -- examples: PSAVE (save changes to eeprom)", 
+    }
+pi30_setter_commands = [F, MCHGC, MNCHGC, MUCHGC, PBCV, PBDV, PBFT, PBT, PCP, PCVV, PE, PD, PF, PGR, POP, POPLG, POPM, PPCP, PPVOKC, PSDV, PSPB, PBATCD, DAT, PBATMAXDISC, BTA, PSAVE]
+
+# New QUERY Commands for MAX type inverters
 QPIGS2 = {
         "name": "QPIGS2",
         "description": "Get the current values of various General Status parameters 2",
@@ -769,7 +927,7 @@ QBEQI = {
     }
 pi30max_additional_query_commands = [QPIGS2, QSID, QVFW3, VERFW, QCHPT, QOPPT, QLT, QLY, QLM, QLD, QET, QEY, QEM, QED, QT, QBEQI, QLED]
 
-# New setter commands for MAX type inverters
+# New SETTER commands for MAX type inverters
 PLEDB = {
     "name": "PLEDB",
     "description": "Set LED brightness",
@@ -871,162 +1029,7 @@ MST_QPIGS2 = {
             b"(03.1 327.3 52.3 123 1 1234 122 327.1 52.4 234 567 \x23\xc7\r",
         ], }
 
-SETTER_COMMANDS = {
-    "F": {
-        "name": "F",
-        "description": "Set Device Output Frequency",
-        "help": " -- examples: F50 (set output frequency to 50Hz) or F60 (set output frequency to 60Hz)",
-        "regex": "F([56]0)$",
-    },
-    "MCHGC": {
-        "name": "MCHGC",
-        "description": "Set Max Charging Current (for parallel units)",
-        "help": " -- examples: MCHGC040 (set unit 0 to max charging current of 40A), MCHGC160 (set unit 1 to max charging current of 60A)",
-        "regex": "MCHGC(\\d\\d\\d)$",
-    },
-    "MNCHGC": {
-        "name": "MNCHGC",
-        "description": "Set Utility Max Charging Current (more than 100A) (for 4000/5000)",
-        "help": " -- example: MNCHGC1120 (set unit 1 utility max charging current to 120A)",
-        "regex": "MNCHGC(\\d\\d\\d\\d)$",
-    },
-    "MUCHGC": {
-        "name": "MUCHGC",
-        "description": "Set Utility Max Charging Current",
-        "help": " -- example: MUCHGC130 (set unit 1 utility max charging current to 30A)",
-        "regex": "MUCHGC(\\d\\d\\d)$",
-    },
-    "PBCV": {
-        "name": "PBCV",
-        "description": "Set Battery re-charge voltage",
-        "help": " -- example PBCV44.0 - set re-charge voltage to 44V (12V unit: 11V/11.3V/11.5V/11.8V/12V/12.3V/12.5V/12.8V, 24V unit: 22V/22.5V/23V/23.5V/24V/24.5V/25V/25.5V, 48V unit: 44V/45V/46V/47V/48V/49V/50V/51V)",
-        "regex": "PBCV(\\d\\d\\.\\d)$",
-    },
-    "PBDV": {
-        "name": "PBDV",
-        "description": "Set Battery re-discharge voltage",
-        "help": " -- example PBDV48.0 - set re-discharge voltage to 48V (12V unit: 00.0V/12V/12.3V/12.5V/12.8V/13V/13.3V/13.5V/13.8V/14V/14.3V/14.5, 24V unit: 00.0V/24V/24.5V/25V/25.5V/26V/26.5V/27V/27.5V/28V/28.5V/29V, 48V unit: 00.0V/48V/49V/50V/51V/52V/53V/54V/55V/56V/57V/58V, 00.0V means battery is full(charging in float mode).)",
-        "regex": "PBDV(\\d\\d\\.\\d)$",
-    },
-    "PBFT": {
-        "name": "PBFT",
-        "description": "Set Battery Float Charging Voltage",
-        "help": " -- example PBFT58.0 - set battery float charging voltage to 58V (48.0 - 58.4V for 48V unit)",
-        "regex": "PBFT(\\d\\d\\.\\d)$",
-    },
-    "PBT": {
-        "name": "PBT",
-        "description": "Set Battery Type",
-        "help": " -- examples: PBT00 (set battery as AGM), PBT01 (set battery as FLOODED), PBT02 (set battery as USER)",
-        "regex": "PBT(0[012])$",
-    },
-    "PCP": {
-        "name": "PCP",
-        "description": "Set Device Charger Priority",
-        "help": " -- examples: PCP00 (set utility first), PCP01 (set solar first), PCP02 (HS only: set solar and utility), PCP03 (set solar only charging)",
-        "regex": "PCP(0[0123])$",
-    },
-    "PCVV": {
-        "name": "PCVV",
-        "description": "Set Battery C.V. (constant voltage) charging voltage",
-        "help": " -- example PCVV48.0 - set charging voltage to 48V (48.0 - 58.4V for 48V unit)",
-        "regex": "PCVV(\\d\\d\\.\\d)$",
-    },
-    "PE": {
-        "name": "PE",
-        "description": "Set the enabled state of an Inverter setting",
-        "help": " -- examples: PEa - enable a (buzzer) [a=buzzer, b=overload bypass, j=power saving, K=LCD go to default after 1min, u=overload restart, v=overtemp restart, x=backlight, y=alarm on primary source interrupt, z=fault code record]",
-        "regex": "PE(.+)$",
-    },
-    "PD": {
-        "name": "PD",
-        "description": "Set the disabled state of an Inverter setting",
-        "help": " -- examples: PDa - disable a (buzzer) [a=buzzer, b=overload bypass, j=power saving, K=LCD go to default after 1min, u=overload restart, v=overtemp restart, x=backlight, y=alarm on primary source interrupt, z=fault code record]",
-        "regex": "PD(.+)$",
-    },
-    "PF": {
-        "name": "PF",
-        "description": "Set Control Parameters to Default Values",
-        "help": " -- example PF (reset control parameters to defaults)",
-    },
-    "PGR": {
-        "name": "PGR",
-        "description": "Set Grid Working Range",
-        "help": " -- examples: PCR00 (set device working range to appliance), PCR01 (set device working range to UPS)",
-        "regex": "PGR(0[01])$",
-    },
-    "POP": {
-        "name": "POP",
-        "description": "Set Device Output Source Priority",
-        "help": " -- examples: POP00 (set Utility > Solar > Battery), POP01 (set Solar > Utility > Battery), POP02 (set Solar > Battery > Utility)",
-        "regex": "POP(0[012])$",
-    },
-    "POPLG": {
-        "name": "POPLG",
-        "description": "Set Device Operation Logic",
-        "help": " -- examples: POPLG00 (set Auto mode), POPLG01 (set Online mode), POPLG02 (set ECO mode)",
-        "regex": "POPLG(0[012])$",
-    },
-    "POPM": {
-        "name": "POPM",
-        "description": "Set Device Output Mode (for 4000/5000)",
-        "help": " -- examples: POPM01 (set unit 0 to 1 - parallel output), POPM10 (set unit 1 to 0 - single machine output), POPM02 (set unit 0 to 2 - phase 1 of 3), POPM13 (set unit 1 to 3 - phase 2 of 3), POPM24 (set unit 2 to 4 - phase 3 of 3)",
-        "regex": "POPM(\\d[01234])$",
-    },
-    "PPCP": {
-        "name": "PPCP",
-        "description": "Set Parallel Device Charger Priority (for 4000/5000)",
-        "help": " -- examples: PPCP000 (set unit 1 to 00 - utility first), PPCP101 (set unit 1 to 01 - solar first), PPCP202 (set unit 2 to 02 - solar and utility), PPCP003 (set unit 0 to 03 - solar only charging)",
-        "regex": "PPCP(\\d0[0123])$",
-    },
-    "PPVOKC": {
-        "name": "PPVOKC",
-        "description": "Set PV OK Condition",
-        "help": " -- examples: PPVOKC0 (as long as one unit has connected PV, parallel system will consider PV OK), PPVOKC1 (only if all inverters have connected PV, parallel system will consider PV OK)",
-        "regex": "PPVOKC([01])$",
-    },
-    "PSDV": {
-        "name": "PSDV",
-        "description": "Set Battery Cut-off Voltage",
-        "help": " -- example PSDV40.0 - set battery cut-off voltage to 40V (40.0 - 48.0V for 48V unit)",
-        "regex": "PSDV(\\d\\d\\.\\d)$",
-    },
-    "PSPB": {
-        "name": "PSPB",
-        "description": "Set Solar Power Balance",
-        "help": " -- examples: PSPB0 (PV input max current will be the max charged current), PSPB1 (PV input max power will be the sum of the max charge power and loads power)",
-        "regex": "PSPB([01])$",
-    },
-    "PBATCD": {
-        "name": "PBATCD",
-        "description": "Battery charge/discharge controlling command",
-        "help": " -- examples: PBATCDxxx (please read description, use carefully)",
-        "regex": "PBATCD([01][01][01])$",
-    },
-    "DAT": {
-        "name": "DAT",
-        "description": "Set Date Time",
-        "help": " -- examples: DATYYYYMMDDHHMMSS (14 digits after DAT)",
-        "regex": "DAT(\\d\\d\\d\\d\\d\\d\\d\\d\\d\\d\\d\\d\\d\\d)$",
-    },
-    "PBATMAXDISC": {
-        "name": "PBATMAXDISC",
-        "description": "Battery max discharge current",
-        "help": " -- examples: PBATMAXDISCxxx (000- disable or 030-150A)",
-        "regex": "PBATMAXDISC([01]\\d\\d)$",
-    },
-    "BTA": {
-        "name": "BTA",
-        "description": "Calibrate inverter battery voltage",
-        "help": " -- examples: BTA-01 (reduce inverter reading by 0.05V), BTA+09 (increase inverter reading by 0.45V)",
-        "regex": "BTA([-+]0\\d)$",
-    },
-    "PSAVE": {
-        "name": "PSAVE",
-        "description": "Save EEPROM changes",
-        "help": " -- examples: PSAVE (save changes to eeprom)",
-    },
-}
+
 
 
 class PI30(AbstractProtocol):
@@ -1039,9 +1042,10 @@ class PI30(AbstractProtocol):
         self.protocol_id = b"PI30"
         self.model = model
         # self.add_command_definitions(QUERY_COMMANDS)
-        self.add_command_definitions(command_definitions_list=pi30_query_commands_list)
-        self.add_command_definitions(SETTER_COMMANDS, result_type=ResultType.ACK)
+        self.add_command_definitions(command_definitions_list=pi30_query_commands)
+        self.add_command_definitions(command_definitions_list=pi30_setter_commands, result_type=ResultType.ACK)
         self.add_supported_ports([PortType.SERIAL, PortType.USB])
+
         match model:
             case 'MAX':
                 self.description = "PI30 protocol handler for LV6048MAX and similar inverters"
@@ -1058,6 +1062,8 @@ class PI30(AbstractProtocol):
                 self.check_definitions_count(expected=45)
 
     def _update_to_max(self):
+        """ function to update the PI30 command definitions to suit MAX type inverters """
+        # Changes to PI30 for MAX type inverters
         # Add new commands
         self.add_command_definitions(command_definitions_list=pi30max_additional_query_commands)
         self.add_command_definitions(command_definitions_list=pi30max_additional_setter_commands, result_type=ResultType.ACK)
@@ -1065,10 +1071,13 @@ class PI30(AbstractProtocol):
         self.remove_command_definitions(["QVFW2"])
         # Remove QID ID aliases (replaced by QSID)
         self.command_definitions["QID"].aliases = None
-        # Update QFLAG options
+        # Update QOPM options
+        self.command_definitions["QOPM"].reading_definitions[0].options = PI30_OUTPUT_MODES
+        # Update QFLAG options and change test_response to correspond to the different options
         self.command_definitions["QFLAG"].reading_definitions[0].options = MAX_QFLAG_OPTIONS
         self.command_definitions["QFLAG"].test_responses = [b"(EakxyDbduvz\x8d\x73\r"]
         # Update QDI reading definitions for MAX
+        self.command_definitions["QDI"].reading_definitions[21].options = PI30_OUTPUT_MODES
         self.command_definitions["QDI"].reading_definitions[25] = ReadingDefinition.from_config({"description": "Max Charging Time at CV", "reading_type": ReadingType.TIME_MINUTES, "response_type": ResponseType.INT})
         self.command_definitions["QDI"].reading_definitions[26] = ReadingDefinition.from_config({"description": "Max Discharging current", "reading_type": ReadingType.CURRENT, "response_type": ResponseType.INT})
         # Update QPIGS reading definitions for MAX
@@ -1091,11 +1100,13 @@ class PI30(AbstractProtocol):
         # Update QPGS reading definitions for MAX
         self.command_definitions["QPGS"].reading_definitions[3].options = FAULT_CODE_OPTIONS_PI30MAX
         self.command_definitions["QPGS"].reading_definitions[14].description = "PV1 Input Voltage"
+        self.command_definitions["QPGS"].reading_definitions[20].options = PI30_OUTPUT_MODES
         self.command_definitions["QPGS"].reading_definitions[25].description = "PV1 Input Current"
         self.command_definitions["QPGS"].reading_definitions[27] = ReadingDefinition.from_config({"description": "PV2 Input Voltage", "reading_type": ReadingType.VOLTS, "icon": "mdi:solar-power", "device_class": "voltage", "response_type": ResponseType.FLOAT})
         self.command_definitions["QPGS"].reading_definitions[28] = ReadingDefinition.from_config({"description": "PV2 Input Current", "reading_type": ReadingType.CURRENT, "icon": "mdi:solar-power", "device_class": "current"})
         # Update QPIRI reading definitions for MAX
         self.command_definitions["QPIRI"].reading_definitions[27] = ReadingDefinition.from_config({"description": "Max discharging current", "reading_type": ReadingType.CURRENT, "icon": "mdi:current-ac", "device_class": "current"})
+        self.command_definitions["QPIRI"].reading_definitions[21].options = PI30_OUTPUT_MODES
 
     def check_valid(self, response: str, command_definition: CommandDefinition = None) -> bool:
         """ check response is valid """

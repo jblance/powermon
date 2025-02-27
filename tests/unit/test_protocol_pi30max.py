@@ -130,6 +130,26 @@ class TestProtocolPi30Max(unittest.TestCase):
         # print(formatted_data)
         self.assertEqual(formatted_data, expected)
 
+    def test_build_result_qpiri_output_mode_7(self):
+        """ test result build for QPIRI """
+        expected = ['ac_input_voltage=120.0V', 'ac_input_current=25.0A', 'ac_output_voltage=120.0V', 'ac_output_frequency=60.0Hz', 'ac_output_current=25.0A',
+            'ac_output_apparent_power=3000VA', 'ac_output_active_power=3000W', 'battery_voltage=48.0V', 'battery_recharge_voltage=46.0V', 'battery_under_voltage=44.0V',
+            'battery_bulk_charge_voltage=58.4V', 'battery_float_charge_voltage=54.4V', 'battery_type=User', 'max_ac_charging_current=30A', 'max_charging_current=60A',
+            'input_voltage_range=UPS', 'output_source_priority=Solar > Battery > Utility', 'charger_source_priority=Utility first', 'max_parallel_units=9',
+            'machine_type=Off Grid', 'topology=transformerless', 'output_mode=Phase 2 of 2 phase (180°)', 'battery_redischarge_voltage=54.0V',
+            'pv_ok_condition=As long as one unit of inverters has connect PV, parallel system will consider PV OK',
+            'pv_power_balance=PV input max power will be the sum of the max charged power and loads power', 'max_charging_time_for_cv_stage=0min', 'operation_logic=Automatic mode']
+        simple_formatter = SimpleFormat({"extra_info": False})
+        device_info = DeviceInfo(name="name", serial_number="serial_number", model="model", manufacturer="manufacturer")
+        command = Command.from_config({"command": "QPIRI"})
+        command.command_definition = proto.get_command_definition('QPIRI')
+        # print(command.command_definition)
+        test_response = command.command_definition.test_responses[1]
+        _result = command.build_result(raw_response=test_response, protocol=proto)
+        formatted_data = simple_formatter.format(command, _result, device_info)
+        # print(formatted_data)
+        self.assertEqual(formatted_data, expected)
+
     def test_battery_options_qpiri(self):
         """ test battery options list of QPIRI """
         expected = ['AGM', 'Flooded', 'User', 'Pylontech', 'Shinheung', 'WECO', 'Soltaro', 'TBD', 'LIb-protocol compatible', '3rd party Lithium']
@@ -366,6 +386,19 @@ class TestProtocolPi30Max(unittest.TestCase):
         # print(formatted_data)
         self.assertEqual(formatted_data, expected)
 
+    def test_build_result_qdi_7(self):
+        """ test result build for QDI output mode 7"""
+        expected = ['ac_output_voltage=230.0V', 'ac_output_frequency=50.0Hz', 'max_ac_charging_current=30A', 'battery_under_voltage=44.0V', 'battery_float_charge_voltage=54.0V', 'battery_bulk_charge_voltage=56.4V', 'battery_recharge_voltage=46.0V', 'max_charging_current=60A', 'input_voltage_range=Appliance', 'output_source_priority=Utility > Solar > Battery', 'charger_source_priority=Solar + Utility', 'battery_type=AGM', 'buzzer=enabled', 'power_saving=disabled', 'overload_restart=disabled', 'over_temperature_restart=disabled', 'lcd_backlight=enabled', 'primary_source_interrupt_alarm=enabled', 'record_fault_code=enabled', 'overload_bypass=disabled', 'lcd_reset_to_default=enabled', 'output_mode=Phase 2 of 2 phase (180°)', 'battery_redischarge_voltage=54.0V', 'pv_ok_condition=As long as one unit of inverters has connect PV, parallel system will consider PV OK', 'pv_power_balance=PV input max power will be the sum of the max charged power and loads power', 'max_charging_time_at_cv=224min']
+        simple_formatter = SimpleFormat({"extra_info": False})
+        device_info = DeviceInfo(name="name", serial_number="serial_number", model="model", manufacturer="manufacturer")
+        command = Command.from_config({"command": "QDI"})
+        command.command_definition = proto.get_command_definition('QDI')
+        test_response = command.command_definition.test_responses[2]
+        _result = command.build_result(raw_response=test_response, protocol=proto)
+        formatted_data = simple_formatter.format(command, _result, device_info)
+        # print(formatted_data)
+        self.assertEqual(formatted_data, expected)
+
     def test_build_result_qmod(self):
         """ test result build for QMOD """
         expected = ['device_mode=Standby']
@@ -400,6 +433,32 @@ class TestProtocolPi30Max(unittest.TestCase):
         command = Command.from_config({"command": "QPGS0"})
         command.command_definition = proto.get_command_definition('QPGS0')
         test_response = command.command_definition.test_responses[2]
+        _result = command.build_result(raw_response=test_response, protocol=proto)
+        formatted_data = simple_formatter.format(command, _result, device_info)
+        # print(formatted_data)
+        self.assertEqual(formatted_data, expected)
+
+    def test_build_result_qpgs0_7(self):
+        """ test result build for QPGS0 with output mode 7"""
+        expected = ['parallel_instance_number=valid', 'serial_number=92912102100033', 'work_mode=Battery', 'fault_code=No fault', 'grid_voltage=0.0V', 'grid_frequency=0.0Hz', 'ac_output_voltage=120.1V', 'ac_output_frequency=59.99Hz', 'ac_output_apparent_power=48VA', 'ac_output_active_power=0W', 'load_percentage=0%', 'battery_voltage=53.1V', 'battery_charging_current=0A', 'battery_capacity=59%', 'pv1_input_voltage=0.0V', 'total_charging_current=0A', 'total_ac_output_apparent_power=154VA', 'total_output_active_power=16W', 'total_ac_output_percentage=0%', 'is_scc_ok=0', 'is_ac_charging=0', 'is_scc_charging=0', 'is_battery_over_voltage=0', 'is_battery_under_voltage=0', 'is_line_lost=1', 'is_load_on=1', 'is_configuration_changed=0', 'output_mode=Phase 2 of 2 phase (180°)', 'charger_source_priority=Solar first', 'max_charger_current=60A', 'max_charger_range=120A', 'max_ac_charger_current=30A', 'pv1_input_current=0A', 'battery_discharge_current=0A', 'pv2_input_voltage=0.0V', 'pv2_input_current=0A']
+        simple_formatter = SimpleFormat({"extra_info": False})
+        device_info = DeviceInfo(name="name", serial_number="serial_number", model="model", manufacturer="manufacturer")
+        command = Command.from_config({"command": "QPGS0"})
+        command.command_definition = proto.get_command_definition('QPGS0')
+        test_response = command.command_definition.test_responses[1]
+        _result = command.build_result(raw_response=test_response, protocol=proto)
+        formatted_data = simple_formatter.format(command, _result, device_info)
+        # print(formatted_data)
+        self.assertEqual(formatted_data, expected)
+
+    def test_build_result_qopm_7(self):
+        """ test result build for QOPM with output mode 7"""
+        expected = ['output_mode=Phase 2 of 2 phase (180°)']
+        simple_formatter = SimpleFormat({"extra_info": False})
+        device_info = DeviceInfo(name="name", serial_number="serial_number", model="model", manufacturer="manufacturer")
+        command = Command.from_config({"command": "QOPM"})
+        command.command_definition = proto.get_command_definition('QOPM')
+        test_response = command.command_definition.test_responses[1]
         _result = command.build_result(raw_response=test_response, protocol=proto)
         formatted_data = simple_formatter.format(command, _result, device_info)
         # print(formatted_data)

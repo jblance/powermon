@@ -29,6 +29,10 @@ OUTPUT_MODES = [
     "Phase 2 of 2 phase"
 ]
 
+PI30_OUTPUT_MODES = OUTPUT_MODES.copy()
+PI30_OUTPUT_MODES[6] = "Phase 2 of 2 phase (120°)"
+PI30_OUTPUT_MODES.append("Phase 2 of 2 phase (180°)")
+
 OUTPUT_SOURCE_PRIORITIES = [
     "Utility > Solar > Battery",
     "Solar > Utility > Battery",

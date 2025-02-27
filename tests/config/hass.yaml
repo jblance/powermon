@@ -6,6 +6,7 @@ device:
   port:
     type: test
     protocol: PI30MAX
+    response_number: 1
 commands:
 - command: QPGS0
   outputs:
@@ -14,5 +15,10 @@ commands:
       type: hass_autodiscovery
       entity_id_prefix: inverter42
       discovery_prefix: homeassistant
-      filter: ^work
+      # filter: ^work
+  - type: screen
+    format:
+      type: hass
+      entity_id_prefix: inverter42
+
 
