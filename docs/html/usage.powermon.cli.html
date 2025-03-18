@@ -181,49 +181,44 @@
   <section id="powermon-cli-usage">
 <h1>Powermon-cli Usage<a class="headerlink" href="#powermon-cli-usage" title="Link to this heading">¶</a></h1>
 <p>So far there are several uses for the <code class="docutils literal notranslate"><span class="pre">powermon-cli</span></code> command</p>
-<p># list the available protocols</p>
-<blockquote>
-<div><ul class="simple">
+<ol class="arabic simple">
+<li><p>list the available protocols</p>
+<ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">powermon-cli</span> <span class="pre">--listProtocols</span></code></p></li>
 </ul>
-</div></blockquote>
-<p># List available commands in a given protocol</p>
-<blockquote>
-<div><ul class="simple">
+</li>
+<li><p>List available commands in a given protocol</p>
+<ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">powermon-cli</span> <span class="pre">--listCommands</span> <span class="pre">PI30</span></code></p></li>
 </ul>
-</div></blockquote>
-<p># List available output modules</p>
-<blockquote>
-<div><ul class="simple">
+</li>
+<li><p>List available output modules</p>
+<ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">powermon-cli</span> <span class="pre">--listOutputs</span></code></p></li>
 </ul>
-</div></blockquote>
-<p># List available output formats</p>
-<blockquote>
-<div><ul class="simple">
+</li>
+<li><p>List available output formats</p>
+<ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">powermon-cli</span> <span class="pre">--listFormats</span></code></p></li>
 </ul>
-</div></blockquote>
-<p># generating a config file starter from the answers of a series of questions</p>
-<blockquote>
-<div><ul class="simple">
+</li>
+<li><p>generating a config file starter from the answers of a series of questions</p>
+<ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">powermon-cli</span> <span class="pre">-g</span></code></p></li>
 </ul>
-</div></blockquote>
-<p># compare two protocols (and optionally a single command in each protocol)</p>
-<blockquote>
-<div><ul class="simple">
+</li>
+<li><p>compare two protocols (and optionally a single command in each protocol)</p>
+<ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">powermon-cli</span> <span class="pre">--compareProtocols</span> <span class="pre">pi30,pi30max</span></code>  (compare the pi30 and pi30max protocols)</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">powermon-cli</span> <span class="pre">--compareProtocols</span> <span class="pre">pi30,pi30max:QMOD</span></code>  (compare the QMOD command from the pi30 and pi30max protocols)</p></li>
 </ul>
-</div></blockquote>
-<p># scan for details of BLE devices (with options to show additional details)</p>
-<blockquote>
-<div><ul class="simple">
+</li>
+<li><p>scan for details of BLE devices (with options to show additional details)</p>
+<ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">powermon-cli</span> <span class="pre">--bleScan</span> <span class="pre">--details</span> <span class="pre">--advData</span> <span class="pre">--getChars</span></code></p></li>
 </ul>
-</div></blockquote>
+</li>
+</ol>
 <section id="command-options">
 <h2>Command Options<a class="headerlink" href="#command-options" title="Link to this heading">¶</a></h2>
 <div class="literal-block-wrapper docutils container" id="id1">
