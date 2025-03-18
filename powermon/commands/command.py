@@ -111,6 +111,7 @@ class Command():
             log.info("command must be defined")
             raise ConfigError("command must be defined in config")
         commandtype = config.get("type", "basic")
+        # Process templated command type
         template = None
         if commandtype == 'templated':
             log.debug("got a templated command: %s", code)
@@ -120,6 +121,10 @@ class Command():
             except SyntaxError as ex:
                 print(ex)
                 return
+        if commandtype == 'cache_query':
+            print('got cache query command')
+            print('TODO')
+            # exit(1)
         override = config.get("override", None)
         # if override is not None:
         #     print("override: %s" % override)

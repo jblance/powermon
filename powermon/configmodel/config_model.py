@@ -48,7 +48,7 @@ class OutputConfig(NoExtraBaseModel):
 class CommandConfig(NoExtraBaseModel):
     """ model/allowed elements for command section of config """
     command: str
-    type: None | Literal["basic"] | Literal["templated"] = Field(default="basic")
+    type: None | Literal["basic"] | Literal["templated"] | Literal["cache_query"] = Field(default="basic")
     override: None | dict = Field(default=None)
     trigger: None | LoopsTriggerConfig | AtTriggerConfig | EveryTriggerConfig = Field(default=None)
     outputs: None | List[OutputConfig] | str = Field(default=None)

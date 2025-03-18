@@ -211,8 +211,13 @@ class Device:
             if force or command.is_due():
                 log.info("Running command: %s", command)
                 try:
-                    # run command
-                    result: Result = await self.port.run_command(command)
+                    match command.command_type:
+                        case 'cache_query':
+                            print(command.command_type)
+                            result: Result = None
+                        case _:
+                            # run command
+                            result: Result = await self.port.run_command(command)
                     log.info("Got result: %s", result)
                 except Exception as exception:  # pylint: disable=W0718
                     # specific errors need to incorporated into Result as part of the processing
