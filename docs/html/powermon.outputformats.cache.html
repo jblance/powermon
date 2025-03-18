@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1"><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-      <title>powermon.protocols.pi30max module</title>
+      <title>powermon.outputformats.cache module</title>
     
           <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
           <link rel="stylesheet" href="_static/theme.css " type="text/css" />
@@ -21,8 +21,8 @@
     
   <link rel="index" title="Index" href="genindex.html" />
   <link rel="search" title="Search" href="search.html" />
-  <link rel="next" title="powermon.protocols.ved module" href="powermon.protocols.ved.html" />
-  <link rel="prev" title="powermon.protocols.pi30 module" href="powermon.protocols.pi30.html" /> 
+  <link rel="next" title="powermon.outputformats.hass module" href="powermon.outputformats.hass.html" />
+  <link rel="prev" title="powermon.outputformats.bmsresponse module" href="powermon.outputformats.bmsresponse.html" /> 
   </head>
 
   <body>
@@ -161,20 +161,20 @@
     
       <li><a href="powermon.html">powermon package</a> &raquo;</li>
     
-      <li><a href="powermon.protocols.html">powermon.protocols package</a> &raquo;</li>
+      <li><a href="powermon.outputformats.html">powermon.outputformats package</a> &raquo;</li>
     
-    <li>powermon.protocols.pi30max module</li>
+    <li>powermon.outputformats.cache module</li>
   </ul>
   
 
   <ul class="page-nav">
   <li class="prev">
-    <a href="powermon.protocols.pi30.html"
-       title="previous chapter">← powermon.protocols.pi30 module</a>
+    <a href="powermon.outputformats.bmsresponse.html"
+       title="previous chapter">← powermon.outputformats.bmsresponse module</a>
   </li>
   <li class="next">
-    <a href="powermon.protocols.ved.html"
-       title="next chapter">powermon.protocols.ved module →</a>
+    <a href="powermon.outputformats.hass.html"
+       title="next chapter">powermon.outputformats.hass module →</a>
   </li>
 </ul>
   
@@ -182,14 +182,26 @@
 <hr>
           <div class="content" role="main" v-pre>
             
-  <section id="module-powermon.protocols.pi30max">
-<span id="powermon-protocols-pi30max-module"></span><h1>powermon.protocols.pi30max module<a class="headerlink" href="#module-powermon.protocols.pi30max" title="Link to this heading">¶</a></h1>
-<p>powermon / protocols / pi30max.py</p>
+  <section id="module-powermon.outputformats.cache">
+<span id="powermon-outputformats-cache-module"></span><h1>powermon.outputformats.cache module<a class="headerlink" href="#module-powermon.outputformats.cache" title="Link to this heading">¶</a></h1>
+<p>powermon / outputformats / cache.py</p>
 <dl class="py class">
-<dt class="sig sig-object py" id="powermon.protocols.pi30max.PI30MAX">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">powermon.protocols.pi30max.</span></span><span class="sig-name descname"><span class="pre">PI30MAX</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#powermon.protocols.pi30max.PI30MAX" title="Link to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="powermon.protocols.pi30.html#powermon.protocols.pi30.PI30" title="powermon.protocols.pi30.PI30"><code class="xref py py-class docutils literal notranslate"><span class="pre">PI30</span></code></a></p>
-<p>PI30 protocol handler for LV6048MAX and similar inverters</p>
+<dt class="sig sig-object py" id="powermon.outputformats.cache.Cache">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">powermon.outputformats.cache.</span></span><span class="sig-name descname"><span class="pre">Cache</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#powermon.outputformats.cache.Cache" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="powermon.outputformats.abstractformat.html#powermon.outputformats.abstractformat.AbstractFormat" title="powermon.outputformats.abstractformat.AbstractFormat"><code class="xref py py-class docutils literal notranslate"><span class="pre">AbstractFormat</span></code></a></p>
+<p>simple format - {name}={value}{unit} format</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="powermon.outputformats.cache.Cache.format">
+<span class="sig-name descname"><span class="pre">format</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">command</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">result</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Result</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device_info</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span></span></span><a class="headerlink" href="#powermon.outputformats.cache.Cache.format" title="Link to this definition">¶</a></dt>
+<dd><p>entry point for all formats</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="powermon.outputformats.cache.Cache.from_dto">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_dto</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dto</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="powermon.outputformats.abstractformat.html#powermon.outputformats.abstractformat.AbstractFormatDTO" title="powermon.outputformats.abstractformat.AbstractFormatDTO"><span class="pre">AbstractFormatDTO</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#powermon.outputformats.cache.Cache.from_dto" title="Link to this definition">¶</a></dt>
+<dd><p>build class object from dto</p>
+</dd></dl>
+
 </dd></dl>
 
 </section>
@@ -199,12 +211,12 @@
           <div class="page-nav">
             <div class="inner"><ul class="page-nav">
   <li class="prev">
-    <a href="powermon.protocols.pi30.html"
-       title="previous chapter">← powermon.protocols.pi30 module</a>
+    <a href="powermon.outputformats.bmsresponse.html"
+       title="previous chapter">← powermon.outputformats.bmsresponse module</a>
   </li>
   <li class="next">
-    <a href="powermon.protocols.ved.html"
-       title="next chapter">powermon.protocols.ved module →</a>
+    <a href="powermon.outputformats.hass.html"
+       title="next chapter">powermon.outputformats.hass module →</a>
   </li>
 </ul><div class="footer" role="contentinfo">
       &#169; Copyright 2024, jblance.

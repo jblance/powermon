@@ -14,6 +14,7 @@ Submodules
 
    powermon.outputformats.abstractformat
    powermon.outputformats.bmsresponse
+   powermon.outputformats.cache
    powermon.outputformats.hass
    powermon.outputformats.htmltable
    powermon.outputformats.json_fmt
