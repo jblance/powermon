@@ -1,9 +1,9 @@
 ##################
-MPPsolar Protocols
+BMS Protocol Docs
 ##################
 
 .. toctree::
     :maxdepth: 2
     
-    protocols.docs.pi30
-    protocols.docs.pi30max
+    protocoldocs.bms.jkserial
+    protocoldocs.bms.jkv4

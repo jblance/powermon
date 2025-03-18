@@ -30,6 +30,6 @@ Documentation
    tutorials
    config_file
    docker
-   protocols
+   protocoldocs
    modules
    

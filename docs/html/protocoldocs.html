@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1"><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-      <title>PI30</title>
+      <title>Protocol Documentation</title>
     
           <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
           <link rel="stylesheet" href="_static/theme.css " type="text/css" />
@@ -21,8 +21,8 @@
     
   <link rel="index" title="Index" href="genindex.html" />
   <link rel="search" title="Search" href="search.html" />
-  <link rel="next" title="PI30MAX - MAX Communication Protocol" href="protocols.docs.pi30max.html" />
-  <link rel="prev" title="MPPsolar Protocols" href="protocols.mppsolar.html" /> 
+  <link rel="next" title="BMS Protocol Docs" href="protocoldocs.bms.html" />
+  <link rel="prev" title="Docker" href="docker.html" /> 
   </head>
 
   <body>
@@ -71,7 +71,7 @@
       <p class="caption">
         <span class="caption-text"><a href="index.html#documentation">documentation</a></span>
       </p>
-      <ul class="">
+      <ul class="current">
         
           <li class="toctree-l1 ">
             
@@ -127,11 +127,19 @@
           </li>
 
         
-          <li class="toctree-l1 ">
+          <li class="toctree-l1 current">
             
-              <a href="protocols.html" class="reference internal ">Protocols</a>
+              <a href="#" class="reference internal current">Protocol Documentation</a>
             
 
+            
+              <ul>
+                
+                  <li class="toctree-l2"><a href="#bms-protocol-docs" class="reference internal">BMS Protocol Docs</a></li>
+                
+                  <li class="toctree-l2"><a href="#inverter-protocol-docs" class="reference internal">Inverter Protocol Docs</a></li>
+                
+              </ul>
             
           </li>
 
@@ -157,22 +165,18 @@
   <ul class="breadcrumbs">
     <li><a href="index.html">Docs</a> &raquo;</li>
     
-      <li><a href="protocols.html">Protocols</a> &raquo;</li>
-    
-      <li><a href="protocols.mppsolar.html">MPPsolar Protocols</a> &raquo;</li>
-    
-    <li>PI30</li>
+    <li>Protocol Documentation</li>
   </ul>
   
 
   <ul class="page-nav">
   <li class="prev">
-    <a href="protocols.mppsolar.html"
-       title="previous chapter">← MPPsolar Protocols</a>
+    <a href="docker.html"
+       title="previous chapter">← Docker</a>
   </li>
   <li class="next">
-    <a href="protocols.docs.pi30max.html"
-       title="next chapter">PI30MAX - MAX Communication Protocol →</a>
+    <a href="protocoldocs.bms.html"
+       title="next chapter">BMS Protocol Docs →</a>
   </li>
 </ul>
   
@@ -180,23 +184,32 @@
 <hr>
           <div class="content" role="main" v-pre>
             
-  <section id="pi30">
-<h1>PI30<a class="headerlink" href="#pi30" title="Link to this heading">¶</a></h1>
-<section id="document-details">
-<h2>Document Details<a class="headerlink" href="#document-details" title="Link to this heading">¶</a></h2>
-<p>Source:</p>
-<p>Implemented in protocol: PI30</p>
+  <section id="protocol-documentation">
+<h1>Protocol Documentation<a class="headerlink" href="#protocol-documentation" title="Link to this heading">¶</a></h1>
+<p>A collection of the protocol documentation found around the web in a bunch of locations</p>
+<section id="bms-protocol-docs">
+<h2>BMS Protocol Docs<a class="headerlink" href="#bms-protocol-docs" title="Link to this heading">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="protocoldocs.bms.html">BMS Protocol Docs</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="protocoldocs.bms.jkserial.html">JKSERIAL - JK TTL Communications v2.5 - <code class="docutils literal notranslate"><span class="pre">0x4E57</span></code> | <code class="docutils literal notranslate"><span class="pre">NW</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="protocoldocs.bms.jkv4.html">JKXX - Jiabaida Software Board General Protocol V4</a></li>
+</ul>
+</li>
+</ul>
+</div>
 </section>
-<section id="physical-interface">
-<h2>Physical Interface<a class="headerlink" href="#physical-interface" title="Link to this heading">¶</a></h2>
-<p>This protocol defines the communication protocol between the monitoring platform and the inverter, as well as the message format,
-transmission mode and communication mode, etc.</p>
-</section>
-<section id="frame-structure">
-<h2>Frame Structure<a class="headerlink" href="#frame-structure" title="Link to this heading">¶</a></h2>
-<blockquote>
-<div><p>…#TODO: finish …</p>
-</div></blockquote>
+<section id="inverter-protocol-docs">
+<h2>Inverter Protocol Docs<a class="headerlink" href="#inverter-protocol-docs" title="Link to this heading">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="protocoldocs.inverter.html">MPPsolar Protocol Docs</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="protocoldocs.inverter.pi30.html">PI30</a></li>
+<li class="toctree-l2"><a class="reference internal" href="protocoldocs.inverter.pi30max.html">PI30MAX - MAX Communication Protocol</a></li>
+</ul>
+</li>
+</ul>
+</div>
 </section>
 </section>
 
@@ -205,12 +218,12 @@ transmission mode and communication mode, etc.</p>
           <div class="page-nav">
             <div class="inner"><ul class="page-nav">
   <li class="prev">
-    <a href="protocols.mppsolar.html"
-       title="previous chapter">← MPPsolar Protocols</a>
+    <a href="docker.html"
+       title="previous chapter">← Docker</a>
   </li>
   <li class="next">
-    <a href="protocols.docs.pi30max.html"
-       title="next chapter">PI30MAX - MAX Communication Protocol →</a>
+    <a href="protocoldocs.bms.html"
+       title="next chapter">BMS Protocol Docs →</a>
   </li>
 </ul><div class="footer" role="contentinfo">
       &#169; Copyright 2024, jblance.
