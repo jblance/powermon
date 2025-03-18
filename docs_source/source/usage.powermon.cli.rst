@@ -5,32 +5,32 @@ So far there are several uses for the ``powermon-cli`` command
 
 # list the available protocols
 
-  * ``powermon-cli --listProtocols``
+    * ``powermon-cli --listProtocols``
 
 # List available commands in a given protocol
 
-  * ``powermon-cli --listCommands PI30``
+    * ``powermon-cli --listCommands PI30``
 
 # List available output modules
 
-  * ``powermon-cli --listOutputs``
+    * ``powermon-cli --listOutputs``
 
 # List available output formats
 
-  * ``powermon-cli --listFormats``
+    * ``powermon-cli --listFormats``
 
 # generating a config file starter from the answers of a series of questions
 
-  * ``powermon-cli -g``
+    * ``powermon-cli -g``
 
 # compare two protocols (and optionally a single command in each protocol)
 
-  * ``powermon-cli --compareProtocols pi30,pi30max``  (compare the pi30 and pi30max protocols)
-  * ``powermon-cli --compareProtocols pi30,pi30max:QMOD``  (compare the QMOD command from the pi30 and pi30max protocols)
+    * ``powermon-cli --compareProtocols pi30,pi30max``  (compare the pi30 and pi30max protocols)
+    * ``powermon-cli --compareProtocols pi30,pi30max:QMOD``  (compare the QMOD command from the pi30 and pi30max protocols)
 
 # scan for details of BLE devices (with options to show additional details) 
 
-  * ``powermon-cli --bleScan --details --advData --getChars``
+    * ``powermon-cli --bleScan --details --advData --getChars``
 
 
 Command Options
