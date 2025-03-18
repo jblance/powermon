@@ -1,20 +1,37 @@
 Powermon-cli Usage
 ==================
 
-So far there are 3 uses for the ``powermon-cli`` command
+So far there are several uses for the ``powermon-cli`` command
 
-* generating a config file starter from the answers of a series of questions
+# list the available protocols
+
+  * ``powermon-cli --listProtocols``
+
+# List available commands in a given protocol
+
+  * ``powermon-cli --listCommands PI30``
+
+# List available output modules
+
+  * ``powermon-cli --listOutputs``
+
+# List available output formats
+
+  * ``powermon-cli --listFormats``
+
+# generating a config file starter from the answers of a series of questions
 
   * ``powermon-cli -g``
 
-* compare two protocols (and optionally a single command in each protocol)
+# compare two protocols (and optionally a single command in each protocol)
 
   * ``powermon-cli --compareProtocols pi30,pi30max``  (compare the pi30 and pi30max protocols)
   * ``powermon-cli --compareProtocols pi30,pi30max:QMOD``  (compare the QMOD command from the pi30 and pi30max protocols)
 
-* scan for details of BLE devices (with options to show additional details) 
+# scan for details of BLE devices (with options to show additional details) 
 
   * ``powermon-cli --bleScan --details --advData --getChars``
+
 
 Command Options
 ---------------
@@ -45,6 +62,67 @@ Command Options
     --advData             Include advertisement data in BLE Scan
     --getChars            Connect to BLE device(s) and list characteristics
     --address MAC         Only scan for supplied mac address
+
+
+List Protocols
+---------------
+
+.. code-block:: console
+    :caption: list available protocols
+
+    $ powermon-cli --listProtocols
+    Supported protocols
+    PI18: PI18 protocol handler
+    PI30: PI30 protocol handler
+    PI30MAX: PI30 protocol handler for LV6048MAX and similar inverters
+    PI30MST: PI30 protocol handler for PIP4048MST and similar inverters
+    DALY: DALY protocol handler for DALY BMS
+    NEEY: NEEY Active Balancer protocol handler
+    HELTEC: NEEY Active Balancer protocol handler
+    VED: VED protocol handler for Victron direct SmartShunts
+    JKSERIAL: JKBMS TTL serial communication protocol handler
+
+
+List Commands in a protocol
+----------------------------
+
+.. code-block:: console
+    :caption: list commands in PI30 protocol
+
+    $ powermon-cli --listCommands PI30
+    Commands in protocol: PI30
+    QPI  - Get the Inverter supported Protocol ID 
+    QID ['get_id', 'default'] - Get the Serial Number of the Inverter 
+    QVFW  - Get the Main CPU firmware version 
+    QVFW2  - Get the Secondary CPU firmware version 
+    QBOOT  - Get DSP Has Bootstrap 
+    QDI  - Get the Inverters Default Settings 
+    QMN  - Get the Model Name 
+    PGR  - Set Grid Working Range  -- examples: PCR00 (set device working range to appliance), PCR01 (set device working range to UPS)
+    POP  - Set Device Output Source Priority  -- examples: POP00 (set Utility > Solar > Battery), POP01 (set Solar > Utility > Battery), POP02 (set Solar > Battery > Utility)
+    POPLG  - Set Device Operation Logic  -- examples: POPLG00 (set Auto mode), POPLG01 (set Online mode), POPLG02 (set ECO mode)
+    POPM  - Set Device Output Mode (for 4000/5000)  -- examples: POPM01 (set unit 0 to 1 - parallel output), POPM10 (set unit 1 to 0 - single machine output), POPM02 (set unit 0 to 2 - phase 1 of 3), POPM13 (set unit 1 to 3 - phase 2 of 3), POPM24 (set unit 2 to 4 - phase 3 of 3)
+    [...output truncated...]
+
+
+List Output formats
+--------------------
+
+.. code-block:: console
+    :caption: available output formats
+
+    $ powermon-cli --listFormats
+    Available output formats
+    HASS: hass: generates Home Assistant auto config and update mqtt messages
+    HASS_AUTODISCOVERY: hass_autodiscovery: generates Home Assistant auto config (only) mqtt messages
+    HASS_STATE: hass_state: generates Home Assistant state update mqtt messages (requires entities to exist or HassAutoDiscovery to have been run first)
+    HTMLTABLE: htmltable: generates html table of results
+    JSON: json: generates json representation of the results
+    RAW: raw: outputs the response as received from the device
+    SIMPLE: simple: generates a simple representation of the results, eg 'soc=89%'
+    TABLE: table: generates a table of the results (optionally formatted with line art boxes)
+    BMSRESPONSE: bmsresponse: generates the BMSResponse for a PI30 inverter
+    CACHE: cache: generates mqtt messages suited to populating the results cache
 
 
 Compare Protocols

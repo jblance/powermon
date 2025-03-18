@@ -180,25 +180,50 @@
             
   <section id="powermon-cli-usage">
 <h1>Powermon-cli Usage<a class="headerlink" href="#powermon-cli-usage" title="Link to this heading">¶</a></h1>
-<p>So far there are 3 uses for the <code class="docutils literal notranslate"><span class="pre">powermon-cli</span></code> command</p>
-<ul class="simple">
-<li><p>generating a config file starter from the answers of a series of questions</p>
-<ul>
+<p>So far there are several uses for the <code class="docutils literal notranslate"><span class="pre">powermon-cli</span></code> command</p>
+<p># list the available protocols</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">powermon-cli</span> <span class="pre">--listProtocols</span></code></p></li>
+</ul>
+</div></blockquote>
+<p># List available commands in a given protocol</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">powermon-cli</span> <span class="pre">--listCommands</span> <span class="pre">PI30</span></code></p></li>
+</ul>
+</div></blockquote>
+<p># List available output modules</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">powermon-cli</span> <span class="pre">--listOutputs</span></code></p></li>
+</ul>
+</div></blockquote>
+<p># List available output formats</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">powermon-cli</span> <span class="pre">--listFormats</span></code></p></li>
+</ul>
+</div></blockquote>
+<p># generating a config file starter from the answers of a series of questions</p>
+<blockquote>
+<div><ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">powermon-cli</span> <span class="pre">-g</span></code></p></li>
 </ul>
-</li>
-<li><p>compare two protocols (and optionally a single command in each protocol)</p>
-<ul>
+</div></blockquote>
+<p># compare two protocols (and optionally a single command in each protocol)</p>
+<blockquote>
+<div><ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">powermon-cli</span> <span class="pre">--compareProtocols</span> <span class="pre">pi30,pi30max</span></code>  (compare the pi30 and pi30max protocols)</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">powermon-cli</span> <span class="pre">--compareProtocols</span> <span class="pre">pi30,pi30max:QMOD</span></code>  (compare the QMOD command from the pi30 and pi30max protocols)</p></li>
 </ul>
-</li>
-<li><p>scan for details of BLE devices (with options to show additional details)</p>
-<ul>
+</div></blockquote>
+<p># scan for details of BLE devices (with options to show additional details)</p>
+<blockquote>
+<div><ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">powermon-cli</span> <span class="pre">--bleScan</span> <span class="pre">--details</span> <span class="pre">--advData</span> <span class="pre">--getChars</span></code></p></li>
 </ul>
-</li>
-</ul>
+</div></blockquote>
 <section id="command-options">
 <h2>Command Options<a class="headerlink" href="#command-options" title="Link to this heading">¶</a></h2>
 <div class="literal-block-wrapper docutils container" id="id1">
@@ -230,10 +255,71 @@
 </div>
 </div>
 </section>
+<section id="list-protocols">
+<h2>List Protocols<a class="headerlink" href="#list-protocols" title="Link to this heading">¶</a></h2>
+<div class="literal-block-wrapper docutils container" id="id2">
+<div class="code-block-caption"><span class="caption-text">list available protocols</span><a class="headerlink" href="#id2" title="Link to this code">¶</a></div>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>powermon-cli<span class="w"> </span>--listProtocols
+<span class="go">Supported protocols</span>
+<span class="go">PI18: PI18 protocol handler</span>
+<span class="go">PI30: PI30 protocol handler</span>
+<span class="go">PI30MAX: PI30 protocol handler for LV6048MAX and similar inverters</span>
+<span class="go">PI30MST: PI30 protocol handler for PIP4048MST and similar inverters</span>
+<span class="go">DALY: DALY protocol handler for DALY BMS</span>
+<span class="go">NEEY: NEEY Active Balancer protocol handler</span>
+<span class="go">HELTEC: NEEY Active Balancer protocol handler</span>
+<span class="go">VED: VED protocol handler for Victron direct SmartShunts</span>
+<span class="go">JKSERIAL: JKBMS TTL serial communication protocol handler</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="list-commands-in-a-protocol">
+<h2>List Commands in a protocol<a class="headerlink" href="#list-commands-in-a-protocol" title="Link to this heading">¶</a></h2>
+<div class="literal-block-wrapper docutils container" id="id3">
+<div class="code-block-caption"><span class="caption-text">list commands in PI30 protocol</span><a class="headerlink" href="#id3" title="Link to this code">¶</a></div>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>powermon-cli<span class="w"> </span>--listCommands<span class="w"> </span>PI30
+<span class="go">Commands in protocol: PI30</span>
+<span class="go">QPI  - Get the Inverter supported Protocol ID</span>
+<span class="go">QID [&#39;get_id&#39;, &#39;default&#39;] - Get the Serial Number of the Inverter</span>
+<span class="go">QVFW  - Get the Main CPU firmware version</span>
+<span class="go">QVFW2  - Get the Secondary CPU firmware version</span>
+<span class="go">QBOOT  - Get DSP Has Bootstrap</span>
+<span class="go">QDI  - Get the Inverters Default Settings</span>
+<span class="go">QMN  - Get the Model Name</span>
+<span class="go">PGR  - Set Grid Working Range  -- examples: PCR00 (set device working range to appliance), PCR01 (set device working range to UPS)</span>
+<span class="go">POP  - Set Device Output Source Priority  -- examples: POP00 (set Utility &gt; Solar &gt; Battery), POP01 (set Solar &gt; Utility &gt; Battery), POP02 (set Solar &gt; Battery &gt; Utility)</span>
+<span class="go">POPLG  - Set Device Operation Logic  -- examples: POPLG00 (set Auto mode), POPLG01 (set Online mode), POPLG02 (set ECO mode)</span>
+<span class="go">POPM  - Set Device Output Mode (for 4000/5000)  -- examples: POPM01 (set unit 0 to 1 - parallel output), POPM10 (set unit 1 to 0 - single machine output), POPM02 (set unit 0 to 2 - phase 1 of 3), POPM13 (set unit 1 to 3 - phase 2 of 3), POPM24 (set unit 2 to 4 - phase 3 of 3)</span>
+<span class="go">[...output truncated...]</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="list-output-formats">
+<h2>List Output formats<a class="headerlink" href="#list-output-formats" title="Link to this heading">¶</a></h2>
+<div class="literal-block-wrapper docutils container" id="id4">
+<div class="code-block-caption"><span class="caption-text">available output formats</span><a class="headerlink" href="#id4" title="Link to this code">¶</a></div>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>powermon-cli<span class="w"> </span>--listFormats
+<span class="go">Available output formats</span>
+<span class="go">HASS: hass: generates Home Assistant auto config and update mqtt messages</span>
+<span class="go">HASS_AUTODISCOVERY: hass_autodiscovery: generates Home Assistant auto config (only) mqtt messages</span>
+<span class="go">HASS_STATE: hass_state: generates Home Assistant state update mqtt messages (requires entities to exist or HassAutoDiscovery to have been run first)</span>
+<span class="go">HTMLTABLE: htmltable: generates html table of results</span>
+<span class="go">JSON: json: generates json representation of the results</span>
+<span class="go">RAW: raw: outputs the response as received from the device</span>
+<span class="go">SIMPLE: simple: generates a simple representation of the results, eg &#39;soc=89%&#39;</span>
+<span class="go">TABLE: table: generates a table of the results (optionally formatted with line art boxes)</span>
+<span class="go">BMSRESPONSE: bmsresponse: generates the BMSResponse for a PI30 inverter</span>
+<span class="go">CACHE: cache: generates mqtt messages suited to populating the results cache</span>
+</pre></div>
+</div>
+</div>
+</section>
 <section id="compare-protocols">
 <h2>Compare Protocols<a class="headerlink" href="#compare-protocols" title="Link to this heading">¶</a></h2>
-<div class="literal-block-wrapper docutils container" id="id2">
-<div class="code-block-caption"><span class="caption-text">compare PI30 and PI30MAX protocols</span><a class="headerlink" href="#id2" title="Link to this code">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id5">
+<div class="code-block-caption"><span class="caption-text">compare PI30 and PI30MAX protocols</span><a class="headerlink" href="#id5" title="Link to this code">¶</a></div>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>powermon-cli<span class="w"> </span>--compareProtocols<span class="w"> </span>pi30,pi30max
 
 <span class="go">=====================</span>
