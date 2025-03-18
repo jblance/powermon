@@ -29,7 +29,8 @@ The port section is required, with at least the ``type`` defined
       serial_number: 1234589  # [optional] serial number of physical device
                               # must be what is returned by get_id command
                               # if port path is a wildcard
-      model: 1012LV-MK        # [optional]
+      model: 1012LV-MK        # [optional] but used for adjusting some protocols
+                              # eg PI30 protocol with model MAX uses the MAX version of the protocol
       manufacturer: MPP-Solar # [optional]
       port:
         type: test          # must be one of test, usb, serial, ble
@@ -87,13 +88,22 @@ The port section is required and must be one of ``test``, ``usb``, ``serial``, `
 ``commands``
 ============
 
-This section details the commands to be run against the device
+This section details the commands to be run against the device. This section requires a list of ``command``s with each command having optional additional information:
+
+* type
+* override
+* trigger
+* outputs
 
 .. code-block:: yaml
     :caption: commands section example
 
     commands:
-    - command: QPIGS
+    - command: QPIGS        # command to execute (from protocol)
+      type: basic           # [optional] defaults to basic, valid 'basic', 'templated', 'cache_query'
+      overide: {}           # [optional] 
+      trigger:              # [optional] 'every', 'loops', 'at'
+        every: 5
       outputs:
       - type: screen
         format: table
@@ -148,6 +158,15 @@ This section details the mqttbroker connection information
 
 ``daemon``
 ==========
+
+This section configures the daemon settings
+
+.. code-block:: yaml
+    :caption: daemon section example
+
+    daemon:
+      type: systemd     # either 'systemd' or 'initd'
+      keepalive: 100    # seconds between keepalive pings
 
 
 .. _api:
