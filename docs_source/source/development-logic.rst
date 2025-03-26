@@ -5,6 +5,7 @@ Powermon Logic
 
 .. mermaid::
     :zoom:
+    :config: {"mermaid_output_format": "svg"}
 
     classDiagram
         direction LR

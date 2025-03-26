@@ -25,7 +25,7 @@ const load = async () => {
     const mermaids_to_add_zoom = 1 === -1 ? all_mermaids.length : 1;
     const mermaids_processed = document.querySelectorAll(".mermaid[data-processed='true']");
     if(mermaids_to_add_zoom > 0) {
-        var svgs = d3.selectAll(".mermaid[data-zoom-id=id-eaf7cd0b-fcce-4e21-bdb7-d02adb7bcad6] svg");
+        var svgs = d3.selectAll(".mermaid[data-zoom-id=id-8545f97e-3454-447b-8a6f-c45b0223c175] svg");
         if(all_mermaids.length !== mermaids_processed.length) {
             // try again in a sec, wait for mermaids to load
             setTimeout(load, 200);
@@ -208,8 +208,13 @@ window.addEventListener("load", load);
             
   <section id="powermon-logic">
 <h1>Powermon Logic<a class="headerlink" href="#powermon-logic" title="Link to this heading">¶</a></h1>
-<pre data-zoom-id="id-eaf7cd0b-fcce-4e21-bdb7-d02adb7bcad6" class="mermaid">
-        classDiagram
+<pre data-zoom-id="id-8545f97e-3454-447b-8a6f-c45b0223c175" class="mermaid">
+        ---
+config:
+  mermaid_output_format: svg
+
+---
+classDiagram
     direction LR
     Device &quot;1&quot; --o &quot;1&quot; Port
     Device &quot;1&quot; --o &quot;1&quot; MqttBroker
