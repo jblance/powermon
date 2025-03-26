@@ -26,7 +26,7 @@ class DeviceTest(TestCase):
 
         # Add command into command list with dueToRun=True to emulate running command
         output = Mock(spec=AbstractOutput)
-        self.device.add_command(Mock(spec=Command, code="Q1", outputs=[output], dueToRun=Mock(return_value=True)))
+        self.device.add_command(Mock(spec=Command, code="Q1", command_type=None, outputs=[output], dueToRun=Mock(return_value=True)))
 
         # Run main device loop. Expecting positive result
         # self.assertTrue(self.device.run())

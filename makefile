@@ -1,7 +1,7 @@
-powermon-unit-tests: 
-	python3 -m unittest discover -s tests/unit -f -v
+integration-tests: 
+	python3 -m unittest discover -s tests/integration -f
 
-powermon-integration-tests: 
+integration-tests_verbose: 
 	python3 -m unittest discover -s tests/integration -f -v
 
 test:
@@ -9,6 +9,9 @@ test:
 
 unit-tests:
 	python3 -m unittest discover -s tests/unit -f
+
+unit-tests-verbose:
+	python3 -m unittest discover -s tests/unit -f -v
 
 unit-tests-all:
 	python3 -m unittest discover -s tests/unit

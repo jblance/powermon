@@ -162,7 +162,7 @@ class Result:
         """ return readings from a raw_response using the supplied reading definition """
         try:
             return reading_definition.reading_from_raw_response(response, override=self.command.override)
-        except ValueError:
+        except (ValueError, IndexError):
             error = Reading(raw_value=None, processed_value=reading_definition.get_invalid_message(response), definition=ReadingDefinition.from_config({"description": reading_definition.description}))
             error.is_valid = False
             return [error]
