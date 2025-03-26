@@ -19,7 +19,36 @@
         <script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js"></script>
         <script type="module">
 import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.2.0/dist/mermaid.esm.min.mjs";
-window.addEventListener("load", () => mermaid.run());
+const load = async () => {
+    await mermaid.run();
+    const all_mermaids = document.querySelectorAll(".mermaid");
+    const mermaids_to_add_zoom = 1 === -1 ? all_mermaids.length : 1;
+    const mermaids_processed = document.querySelectorAll(".mermaid[data-processed='true']");
+    if(mermaids_to_add_zoom > 0) {
+        var svgs = d3.selectAll(".mermaid[data-zoom-id=id-eaf7cd0b-fcce-4e21-bdb7-d02adb7bcad6] svg");
+        if(all_mermaids.length !== mermaids_processed.length) {
+            // try again in a sec, wait for mermaids to load
+            setTimeout(load, 200);
+            return;
+        } else if(svgs.size() !== mermaids_to_add_zoom) {
+            // try again in a sec, wait for mermaids to load
+            setTimeout(load, 200);
+            return;
+        } else {
+            svgs.each(function() {
+                var svg = d3.select(this);
+                svg.html("<g class='wrapper'>" + svg.html() + "</g>");
+                var inner = svg.select("g");
+                var zoom = d3.zoom().on("zoom", function(event) {
+                    inner.attr("transform", event.transform);
+                });
+                svg.call(zoom);
+            });
+        }
+    }
+};
+
+window.addEventListener("load", load);
 </script>
 
       
@@ -179,7 +208,7 @@ window.addEventListener("load", () => mermaid.run());
             
   <section id="powermon-logic">
 <h1>Powermon Logic<a class="headerlink" href="#powermon-logic" title="Link to this heading">¶</a></h1>
-<pre  class="mermaid">
+<pre data-zoom-id="id-eaf7cd0b-fcce-4e21-bdb7-d02adb7bcad6" class="mermaid">
         classDiagram
     direction LR
     Device &quot;1&quot; --o &quot;1&quot; Port
@@ -261,7 +290,8 @@ window.addEventListener("load", () => mermaid.run());
         process(Command, Result, mqtt_broker, device_info)
         multiple_from_config() -&gt; list[Output]
     }
-    </pre></section>
+    </pre><p>Notes:</p>
+</section>
 
 
           </div>

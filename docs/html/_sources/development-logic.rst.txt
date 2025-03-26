@@ -4,6 +4,7 @@ Powermon Logic
 
 
 .. mermaid::
+    :zoom:
 
     classDiagram
         direction LR
@@ -86,3 +87,5 @@ Powermon Logic
             process(Command, Result, mqtt_broker, device_info)
             multiple_from_config() -> list[Output]
         }
+
+Notes:
