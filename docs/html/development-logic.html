@@ -13,43 +13,6 @@
         <script src="_static/documentation_options.js?v=5929fcd5"></script>
         <script src="_static/doctools.js?v=9bcbadda"></script>
         <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
-        <script type="module" src="https://cdn.jsdelivr.net/npm/mermaid@11.2.0/dist/mermaid.esm.min.mjs"></script>
-        <script type="module" src="https://cdn.jsdelivr.net/npm/@mermaid-js/layout-elk@0.1.4/dist/mermaid-layout-elk.esm.min.mjs"></script>
-        <script type="module">import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.2.0/dist/mermaid.esm.min.mjs";import elkLayouts from "https://cdn.jsdelivr.net/npm/@mermaid-js/layout-elk@0.1.4/dist/mermaid-layout-elk.esm.min.mjs";mermaid.registerLayoutLoaders(elkLayouts);mermaid.initialize({startOnLoad:false});</script>
-        <script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js"></script>
-        <script type="module">
-import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.2.0/dist/mermaid.esm.min.mjs";
-const load = async () => {
-    await mermaid.run();
-    const all_mermaids = document.querySelectorAll(".mermaid");
-    const mermaids_to_add_zoom = 1 === -1 ? all_mermaids.length : 1;
-    const mermaids_processed = document.querySelectorAll(".mermaid[data-processed='true']");
-    if(mermaids_to_add_zoom > 0) {
-        var svgs = d3.selectAll(".mermaid[data-zoom-id=id-905389ca-75e0-4f38-8925-742894cb8329] svg");
-        if(all_mermaids.length !== mermaids_processed.length) {
-            // try again in a sec, wait for mermaids to load
-            setTimeout(load, 200);
-            return;
-        } else if(svgs.size() !== mermaids_to_add_zoom) {
-            // try again in a sec, wait for mermaids to load
-            setTimeout(load, 200);
-            return;
-        } else {
-            svgs.each(function() {
-                var svg = d3.select(this);
-                svg.html("<g class='wrapper'>" + svg.html() + "</g>");
-                var inner = svg.select("g");
-                var zoom = d3.zoom().on("zoom", function(event) {
-                    inner.attr("transform", event.transform);
-                });
-                svg.call(zoom);
-            });
-        }
-    }
-};
-
-window.addEventListener("load", load);
-</script>
 
       
       <!-- bundled in js (rollup iife) -->
@@ -208,94 +171,7 @@ window.addEventListener("load", load);
             
   <section id="powermon-logic">
 <h1>Powermon Logic<a class="headerlink" href="#powermon-logic" title="Link to this heading">¶</a></h1>
-<pre data-zoom-id="id-905389ca-75e0-4f38-8925-742894cb8329" class="mermaid">
-        ---
-config:
-  theme: base
-
----
-classDiagram
-    direction LR
-    Device &quot;1&quot; --o &quot;1&quot; Port
-    Device &quot;1&quot; --o &quot;1&quot; MqttBroker
-    Device &quot;1&quot; --o &quot;*&quot; Command
-    class Device{
-        name
-        device_id
-        model
-        manufacturer
-        commands: list[Command]
-        port: Port
-        mqtt_broker: MqttBroker
-        add_command(Command)
-        run()
-    }
-    class Port{
-        protocol: Protocol
-        run_command(Command)
-        send_and_receive(Command) &quot;called from run_command&quot;
-    }
-    class Protocol{
-        protocol_id: str
-        command_definitions: dict[int, CommandDefinition]
-        add_command_definitions(command_definitions_config, result_type)
-        get_command_definition(command: str) -&gt; CommandDefinition
-        get_full_command(command: str) -&gt; bytes
-    }
-    Port &quot;1&quot; --o &quot;1&quot; Protocol
-    class Command{
-        code: str
-        type: str
-        override: dict
-        outputs: list[Output]
-        trigger: Trigger
-        command_definition: CommandDefinition
-        is_due() -&gt; bool
-        build_result(raw_response: bytes, protocol: Protocol) -&gt; Result
-    }
-    Command &quot;1&quot; --o &quot;*&quot; Output
-    Command &quot;1&quot; --o &quot;1&quot; Trigger
-    Command &quot;1&quot; --o &quot;1&quot; CommandDefinition
-    Command &quot;1&quot; --o &quot;1&quot; Result
-    class CommandDefinition{
-        code
-        description
-        help_text: str
-        result_type: ResultType
-        reading_definitions: list[ReadingDefinition]
-        test_responses: list
-        regex: str
-        get_reading_definition(lookup: str|int) -&gt; ReadingDefinition
-    }
-    CommandDefinition&quot;1&quot; --o &quot;*&quot; ReadingDefinition
-    class ReadingDefinition{
-        index
-        response_type: ResponseType
-        description: str
-        device_class: str
-        state_class: str
-        icon: str
-        unit: str
-        options: list | dict
-        default: int | str
-        format_template: str
-        reading_from_raw_response(raw_value) -&gt; list[Reading]
-        translate_raw_response(raw_value) &quot;calls reading_from_raw_response&quot;
-    }
-    class Result{
-        result_type: ResultType
-        command_definition: CommandDefinition
-        raw_response: bytes
-        readings: list[Reading]
-        decode_responses(self, responses) -&gt; list[Reading]
-        readings_from_response(response, reading_definition: ReadingDefinition) -&gt; list[Reading]
-    }
-    class Output{
-        name: str
-        process(Command, Result, mqtt_broker, device_info)
-        multiple_from_config() -&gt; list[Output]
-    }
-    </pre><p>Notes:</p>
+<p>Notes:</p>
 </section>
 
 

@@ -5,7 +5,10 @@ Powermon Logic
 
 .. mermaid::
     :zoom:
-    :config: {"theme": "base"}
+    :config: {"theme": "base", 'themeVariables': {
+      'lineColor': '#F8B229',
+      'secondaryColor': '#006100',
+    }}
 
     classDiagram
         direction LR
