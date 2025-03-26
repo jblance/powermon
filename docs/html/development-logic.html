@@ -2,12 +2,12 @@
 <html  lang="en">
   <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-      <title>Search</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1"><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+      <title>Powermon Logic</title>
     
           <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
           <link rel="stylesheet" href="_static/theme.css " type="text/css" />
-  
       
       <!-- sphinx script_files -->
         <script src="_static/documentation_options.js?v=5929fcd5"></script>
@@ -26,16 +26,11 @@ window.addEventListener("load", () => mermaid.run());
       <!-- bundled in js (rollup iife) -->
       <!-- <script src="_static/theme-vendors.js"></script> -->
       <script src="_static/theme.js" defer></script>
-  <script type="text/javascript" src="_static/searchtools.js"></script>
-  <script src="_static/language_data.js"></script>
     
   <link rel="index" title="Index" href="genindex.html" />
-  <link rel="search" title="Search" href="#" />
-  <script type="text/javascript" src="searchindex.js" defer></script>
-  
-  <script type="text/javascript" id="searchindexloader"></script>
-   
-
+  <link rel="search" title="Search" href="search.html" />
+  <link rel="next" title="Protocol Documentation" href="protocoldocs.html" />
+  <link rel="prev" title="Development" href="development.html" /> 
   </head>
 
   <body>
@@ -70,7 +65,7 @@ window.addEventListener("load", () => mermaid.run());
           </navlinks><div id="searchbox" class="searchbox" role="search">
   <div class="caption"><span class="caption-text">Quick search</span>
     <div class="searchformwrapper">
-      <form class="search" action="#" method="get">
+      <form class="search" action="search.html" method="get">
         <input type="text" name="q" />
         <input type="submit" value="Search" />
         <input type="hidden" name="check_keywords" value="yes" />
@@ -161,43 +156,125 @@ window.addEventListener("load", () => mermaid.run());
   <ul class="breadcrumbs">
     <li><a href="index.html">Docs</a> &raquo;</li>
     
-    <li>Search</li>
+      <li><a href="development.html">Development</a> &raquo;</li>
+    
+    <li>Powermon Logic</li>
   </ul>
   
 
   <ul class="page-nav">
+  <li class="prev">
+    <a href="development.html"
+       title="previous chapter">← Development</a>
+  </li>
+  <li class="next">
+    <a href="protocoldocs.html"
+       title="next chapter">Protocol Documentation →</a>
+  </li>
 </ul>
   
 </div>
 <hr>
           <div class="content" role="main" v-pre>
             
-  <h1 id="search-documentation">Search</h1>
-  <div id="fallback" class="admonition warning">
-  <p>
-    Please activate JavaScript to enable the search
-    functionality.
-  </p>
-  </div>
-  <p>
-    From here you can search these documents. Enter your search
-    words into the box below and click "search". Note that the search
-    function will automatically search for all of the words. Pages
-    containing fewer words won't appear in the result list.
-  </p>
-  <form action="" method="get">
-    <input type="text" name="q" value="" />
-    <input type="submit" value="search" />
-    <span id="search-progress" style="padding-left: 10px"></span>
-  </form>
-  
-  <div id="search-results">
-  
-  </div>
+  <section id="powermon-logic">
+<h1>Powermon Logic<a class="headerlink" href="#powermon-logic" title="Link to this heading">¶</a></h1>
+<pre  class="mermaid">
+        classDiagram
+    direction LR
+    Device &quot;1&quot; --o &quot;1&quot; Port
+    Device &quot;1&quot; --o &quot;1&quot; MqttBroker
+    Device &quot;1&quot; --o &quot;*&quot; Command
+    class Device{
+        name
+        device_id
+        model
+        manufacturer
+        commands: list[Command]
+        port: Port
+        mqtt_broker: MqttBroker
+        add_command(Command)
+        run()
+    }
+    class Port{
+        protocol: Protocol
+        run_command(Command)
+        send_and_receive(Command) &quot;called from run_command&quot;
+    }
+    class Protocol{
+        protocol_id: str
+        command_definitions: dict[int, CommandDefinition]
+        add_command_definitions(command_definitions_config, result_type)
+        get_command_definition(command: str) -&gt; CommandDefinition
+        get_full_command(command: str) -&gt; bytes
+    }
+    Port &quot;1&quot; --o &quot;1&quot; Protocol
+    class Command{
+        code: str
+        type: str
+        override: dict
+        outputs: list[Output]
+        trigger: Trigger
+        command_definition: CommandDefinition
+        is_due() -&gt; bool
+        build_result(raw_response: bytes, protocol: Protocol) -&gt; Result
+    }
+    Command &quot;1&quot; --o &quot;*&quot; Output
+    Command &quot;1&quot; --o &quot;1&quot; Trigger
+    Command &quot;1&quot; --o &quot;1&quot; CommandDefinition
+    Command &quot;1&quot; --o &quot;1&quot; Result
+    class CommandDefinition{
+        code
+        description
+        help_text: str
+        result_type: ResultType
+        reading_definitions: list[ReadingDefinition]
+        test_responses: list
+        regex: str
+        get_reading_definition(lookup: str|int) -&gt; ReadingDefinition
+    }
+    CommandDefinition&quot;1&quot; --o &quot;*&quot; ReadingDefinition
+    class ReadingDefinition{
+        index
+        response_type: ResponseType
+        description: str
+        device_class: str
+        state_class: str
+        icon: str
+        unit: str
+        options: list | dict
+        default: int | str
+        format_template: str
+        reading_from_raw_response(raw_value) -&gt; list[Reading]
+        translate_raw_response(raw_value) &quot;calls reading_from_raw_response&quot;
+    }
+    class Result{
+        result_type: ResultType
+        command_definition: CommandDefinition
+        raw_response: bytes
+        readings: list[Reading]
+        decode_responses(self, responses) -&gt; list[Reading]
+        readings_from_response(response, reading_definition: ReadingDefinition) -&gt; list[Reading]
+    }
+    class Output{
+        name: str
+        process(Command, Result, mqtt_broker, device_info)
+        multiple_from_config() -&gt; list[Output]
+    }
+    </pre></section>
+
 
           </div>
           <div class="page-nav">
             <div class="inner"><ul class="page-nav">
+  <li class="prev">
+    <a href="development.html"
+       title="previous chapter">← Development</a>
+  </li>
+  <li class="next">
+    <a href="protocoldocs.html"
+       title="next chapter">Protocol Documentation →</a>
+  </li>
 </ul><div class="footer" role="contentinfo">
       &#169; Copyright 2024, jblance.
     <br>
@@ -208,9 +285,6 @@ window.addEventListener("load", () => mermaid.run());
       </page>
     </div></div>
     
-  <script type="text/javascript">
-    $('#fallback').hide();
-  </script>
-
+    
   </body>
 </html>

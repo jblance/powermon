@@ -17,6 +17,7 @@ extensions = ['sphinx.ext.autodoc',
       'sphinx.ext.napoleon',
       'autodocsumm',
       'sphinx.ext.coverage',
+      'sphinxcontrib.mermaid',
        ]
 
 templates_path = ['_templates']
