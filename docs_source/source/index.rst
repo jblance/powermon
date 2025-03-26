@@ -27,9 +27,9 @@ Documentation
    installation
    usage
    devices
-   tutorials
    config_file
+   tutorials
    docker
-   protocoldocs
-   modules
+   development
+   
    

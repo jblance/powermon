@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1"><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-      <title>powermon.outputformats.htmltable module</title>
+      <title>Development</title>
     
           <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
           <link rel="stylesheet" href="_static/theme.css " type="text/css" />
@@ -21,8 +21,8 @@
     
   <link rel="index" title="Index" href="genindex.html" />
   <link rel="search" title="Search" href="search.html" />
-  <link rel="next" title="powermon.outputformats.json_fmt module" href="powermon.outputformats.json_fmt.html" />
-  <link rel="prev" title="powermon.outputformats.hass module" href="powermon.outputformats.hass.html" /> 
+  <link rel="next" title="Protocol Documentation" href="protocoldocs.html" />
+  <link rel="prev" title="Docker" href="docker.html" /> 
   </head>
 
   <body>
@@ -71,7 +71,7 @@
       <p class="caption">
         <span class="caption-text"><a href="index.html#documentation">documentation</a></span>
       </p>
-      <ul class="">
+      <ul class="current">
         
           <li class="toctree-l1 ">
             
@@ -127,11 +127,17 @@
           </li>
 
         
-          <li class="toctree-l1 ">
+          <li class="toctree-l1 current">
             
-              <a href="development.html" class="reference internal ">Development</a>
+              <a href="#" class="reference internal current">Development</a>
             
 
+            
+              <ul>
+                
+                  <li class="toctree-l2"><a href="#powermon-logic" class="reference internal">Powermon Logic</a></li>
+                
+              </ul>
             
           </li>
 
@@ -148,26 +154,18 @@
   <ul class="breadcrumbs">
     <li><a href="index.html">Docs</a> &raquo;</li>
     
-      <li><a href="development.html">Development</a> &raquo;</li>
-    
-      <li><a href="modules.html">powermon</a> &raquo;</li>
-    
-      <li><a href="powermon.html">powermon package</a> &raquo;</li>
-    
-      <li><a href="powermon.outputformats.html">powermon.outputformats package</a> &raquo;</li>
-    
-    <li>powermon.outputformats.htmltable module</li>
+    <li>Development</li>
   </ul>
   
 
   <ul class="page-nav">
   <li class="prev">
-    <a href="powermon.outputformats.hass.html"
-       title="previous chapter">← powermon.outputformats.hass module</a>
+    <a href="docker.html"
+       title="previous chapter">← Docker</a>
   </li>
   <li class="next">
-    <a href="powermon.outputformats.json_fmt.html"
-       title="next chapter">powermon.outputformats.json_fmt module →</a>
+    <a href="protocoldocs.html"
+       title="next chapter">Protocol Documentation →</a>
   </li>
 </ul>
   
@@ -175,22 +173,24 @@
 <hr>
           <div class="content" role="main" v-pre>
             
-  <section id="module-powermon.outputformats.htmltable">
-<span id="powermon-outputformats-htmltable-module"></span><h1>powermon.outputformats.htmltable module<a class="headerlink" href="#module-powermon.outputformats.htmltable" title="Link to this heading">¶</a></h1>
-<p>powermon / outputformats / htmltable.py</p>
-<dl class="py class">
-<dt class="sig sig-object py" id="powermon.outputformats.htmltable.HtmlTable">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">powermon.outputformats.htmltable.</span></span><span class="sig-name descname"><span class="pre">HtmlTable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#powermon.outputformats.htmltable.HtmlTable" title="Link to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="powermon.outputformats.abstractformat.html#powermon.outputformats.abstractformat.AbstractFormat" title="powermon.outputformats.abstractformat.AbstractFormat"><code class="xref py py-class docutils literal notranslate"><span class="pre">AbstractFormat</span></code></a></p>
-<p>output the data as html</p>
-<dl class="py method">
-<dt class="sig sig-object py" id="powermon.outputformats.htmltable.HtmlTable.format">
-<span class="sig-name descname"><span class="pre">format</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">command</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">result</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Result</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device_info</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#powermon.outputformats.htmltable.HtmlTable.format" title="Link to this definition">¶</a></dt>
-<dd><p>entry point for all formats</p>
-</dd></dl>
-
-</dd></dl>
-
+  <section id="development">
+<h1>Development<a class="headerlink" href="#development" title="Link to this heading">¶</a></h1>
+<section id="powermon-logic">
+<h2>Powermon Logic<a class="headerlink" href="#powermon-logic" title="Link to this heading">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="protocoldocs.html">Protocol Documentation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="protocoldocs.html#bms-protocol-docs">BMS Protocol Docs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="protocoldocs.html#inverter-protocol-docs">Inverter Protocol Docs</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">powermon</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="powermon.html">powermon package</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
 </section>
 
 
@@ -198,12 +198,12 @@
           <div class="page-nav">
             <div class="inner"><ul class="page-nav">
   <li class="prev">
-    <a href="powermon.outputformats.hass.html"
-       title="previous chapter">← powermon.outputformats.hass module</a>
+    <a href="docker.html"
+       title="previous chapter">← Docker</a>
   </li>
   <li class="next">
-    <a href="powermon.outputformats.json_fmt.html"
-       title="next chapter">powermon.outputformats.json_fmt module →</a>
+    <a href="protocoldocs.html"
+       title="next chapter">Protocol Documentation →</a>
   </li>
 </ul><div class="footer" role="contentinfo">
       &#169; Copyright 2024, jblance.

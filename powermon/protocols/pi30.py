@@ -1030,17 +1030,14 @@ MST_QPIGS2 = {
         ], }
 
 
-
-
 class PI30(AbstractProtocol):
     """ pi30 protocol handler """
     def __str__(self):
         return self.description
 
     def __init__(self, model=None) -> None:
-        super().__init__()
+        super().__init__(model=model)
         self.protocol_id = b"PI30"
-        self.model = model
         # self.add_command_definitions(QUERY_COMMANDS)
         self.add_command_definitions(command_definitions_list=pi30_query_commands)
         self.add_command_definitions(command_definitions_list=pi30_setter_commands, result_type=ResultType.ACK)

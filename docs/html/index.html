@@ -101,7 +101,7 @@
         
           <li class="toctree-l1 ">
             
-              <a href="tutorials.html" class="reference internal ">Tutorials</a>
+              <a href="config_file.html" class="reference internal ">Config File Syntax</a>
             
 
             
@@ -110,7 +110,7 @@
         
           <li class="toctree-l1 ">
             
-              <a href="config_file.html" class="reference internal ">Config File Syntax</a>
+              <a href="tutorials.html" class="reference internal ">Tutorials</a>
             
 
             
@@ -128,16 +128,7 @@
         
           <li class="toctree-l1 ">
             
-              <a href="protocoldocs.html" class="reference internal ">Protocol Documentation</a>
-            
-
-            
-          </li>
-
-        
-          <li class="toctree-l1 ">
-            
-              <a href="modules.html" class="reference internal ">powermon</a>
+              <a href="development.html" class="reference internal ">Development</a>
             
 
             
@@ -234,6 +225,14 @@
 <li class="toctree-l2"><a class="reference internal" href="devices.html#balancers">Balancers</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="config_file.html">Config File Syntax</a></li>
+<li class="toctree-l1"><a class="reference internal" href="config_file.html#device"><code class="docutils literal notranslate"><span class="pre">device</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="config_file.html#commands"><code class="docutils literal notranslate"><span class="pre">commands</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="config_file.html#loop"><code class="docutils literal notranslate"><span class="pre">loop</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="config_file.html#mqttbroker"><code class="docutils literal notranslate"><span class="pre">mqttbroker</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="config_file.html#daemon"><code class="docutils literal notranslate"><span class="pre">daemon</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="config_file.html#api"><code class="docutils literal notranslate"><span class="pre">api</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="config_file.html#debuglevel"><code class="docutils literal notranslate"><span class="pre">debuglevel</span></code></a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorials.html">Tutorials</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="tutorials.html#daly-bms">Daly BMS</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="tutorials.dalybms.html">Daly BMS</a><ul>
@@ -247,14 +246,6 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="config_file.html">Config File Syntax</a></li>
-<li class="toctree-l1"><a class="reference internal" href="config_file.html#device"><code class="docutils literal notranslate"><span class="pre">device</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="config_file.html#commands"><code class="docutils literal notranslate"><span class="pre">commands</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="config_file.html#loop"><code class="docutils literal notranslate"><span class="pre">loop</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="config_file.html#mqttbroker"><code class="docutils literal notranslate"><span class="pre">mqttbroker</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="config_file.html#daemon"><code class="docutils literal notranslate"><span class="pre">daemon</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="config_file.html#api"><code class="docutils literal notranslate"><span class="pre">api</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="config_file.html#debuglevel"><code class="docutils literal notranslate"><span class="pre">debuglevel</span></code></a></li>
 <li class="toctree-l1"><a class="reference internal" href="docker.html">Docker</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="docker.html#installing-docker-on-a-raspberry-pi">Installing Docker on a raspberry pi</a></li>
 <li class="toctree-l2"><a class="reference internal" href="docker.html#run-powermon-in-docker-using-docker-hub-image">Run powermon in docker (using docker hub image)</a></li>
@@ -262,40 +253,15 @@
 <li class="toctree-l2"><a class="reference internal" href="docker.html#run-a-simple-mqtt-container">Run a simple mqtt container</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="protocoldocs.html">Protocol Documentation</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="protocoldocs.html#bms-protocol-docs">BMS Protocol Docs</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="protocoldocs.bms.html">BMS Protocol Docs</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="protocoldocs.bms.jkserial.html">JKSERIAL - JK TTL Communications v2.5 - <code class="docutils literal notranslate"><span class="pre">0x4E57</span></code> | <code class="docutils literal notranslate"><span class="pre">NW</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="protocoldocs.bms.jkv4.html">JKXX - Jiabaida Software Board General Protocol V4</a></li>
+<li class="toctree-l1"><a class="reference internal" href="development.html">Development</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="development.html#powermon-logic">Powermon Logic</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="protocoldocs.html">Protocol Documentation</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="protocoldocs.html#bms-protocol-docs">BMS Protocol Docs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="protocoldocs.html#inverter-protocol-docs">Inverter Protocol Docs</a></li>
 </ul>
 </li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="protocoldocs.html#inverter-protocol-docs">Inverter Protocol Docs</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="protocoldocs.inverter.html">MPPsolar Protocol Docs</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="protocoldocs.inverter.pi30.html">PI30</a></li>
-<li class="toctree-l4"><a class="reference internal" href="protocoldocs.inverter.pi30max.html">PI30MAX - MAX Communication Protocol</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="modules.html">powermon</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="powermon.html">powermon package</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="powermon.html#subpackages">Subpackages</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="powermon.configmodel.html">powermon.configmodel package</a></li>
-<li class="toctree-l4"><a class="reference internal" href="powermon.libs.html">powermon.libs package</a></li>
-<li class="toctree-l4"><a class="reference internal" href="powermon.outputformats.html">powermon.outputformats package</a></li>
-<li class="toctree-l4"><a class="reference internal" href="powermon.outputs.html">powermon.outputs package</a></li>
-<li class="toctree-l4"><a class="reference internal" href="powermon.ports.html">powermon.ports package</a></li>
-<li class="toctree-l4"><a class="reference internal" href="powermon.protocols.html">powermon.protocols package</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="powermon.html#submodules">Submodules</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="powermon.cli.html">powermon.cli module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="powermon.device.html">powermon.device module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="powermon.runner.html">powermon.runner module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules.html">powermon</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="powermon.html">powermon package</a></li>
 </ul>
 </li>
 </ul>
