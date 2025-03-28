@@ -6,12 +6,13 @@ import importlib
 import logging
 from enum import StrEnum, auto
 
-# from strenum import LowercaseStrEnum
+from rich.console import Console
 
 from powermon.libs.errors import ConfigError
-from powermon.libs.config import Color
+
 
 log = logging.getLogger("protocols")
+rprint = Console(highlight=False).print
 
 
 class Protocol(StrEnum):
@@ -30,7 +31,7 @@ class Protocol(StrEnum):
 
 def get_protocol_definition(protocol, model=None):
     """
-    Get the protocol based on the protocol name and optionally model number
+    Get the protocol based on the protocol name and optionally device model
     """
 
     log.debug("Protocol: %s", protocol)
@@ -53,9 +54,6 @@ def get_protocol_definition(protocol, model=None):
         case Protocol.PI30MAX:
             from powermon.protocols.pi30 import PI30
             return PI30(model="MAX")
-        # case Protocol.PI30MAXA:
-        #     from powermon.protocols.pi30max import PI30MAX
-        #     return PI30MAX()
         case Protocol.PI30MST:
             from powermon.protocols.pi30 import PI30
             return PI30(model='MST')
@@ -72,12 +70,12 @@ def get_protocol_definition(protocol, model=None):
 
 def list_protocols():
     """ helper function to display the list of supported protocols """
-    print(f"{Color.WARNING}Supported protocols{Color.ENDC}")
+    rprint("[bold yellow]Supported protocols")
     for name in Protocol:
         try:
             _proto = get_protocol_definition(name)
             if _proto is not None:
-                print(f"{Color.OKGREEN}{name.upper()}{Color.ENDC}: {_proto}")
+                rprint(f"[green]{name.upper()}[/]: {_proto}")
         except ModuleNotFoundError as exc:
             log.info("Error in module %s: %s", name, exc)
             continue
@@ -96,12 +94,9 @@ def list_commands(protocol: str=None):
         _proto = get_protocol_definition(protocol)
         command_definitions = _proto.list_commands()
         # print(command_definitions)
-        print(f"Commands in protocol: {Color.WARNING}{protocol.upper()}{Color.ENDC}")
+        rprint(f"Commands in protocol: [bold yellow]{protocol.upper()}")
         for item in command_definitions:
-            # if command_definitions[item].aliases is None:
-            #     print(f"{Color.OKGREEN}{item}{Color.ENDC}: {command_definitions[item].description} {command_definitions[item].help_text}")
-            # else:
-            print(f"{Color.OKGREEN}{item}{Color.ENDC} {Color.OKCYAN}{command_definitions[item].aliases}{Color.ENDC} - {command_definitions[item].description} {command_definitions[item].help_text}")
+            rprint(f"[green]{item}[/] [cyan]{command_definitions[item].aliases}[/cyan] - {command_definitions[item].description} {command_definitions[item].help_text}")
     except ConfigError:
-        print(f"{Color.FAIL}Protocol {protocol} not found{Color.ENDC}")
+        rprint(f"[bold red]Protocol {protocol} not found")
     return

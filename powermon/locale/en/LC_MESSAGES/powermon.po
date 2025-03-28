@@ -1,14 +1,14 @@
 # English translations for PACKAGE package.
-# Copyright (C) 2024 THE PACKAGE'S COPYRIGHT HOLDER
+# Copyright (C) 2025 THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# Automatically generated, 2024.
+# Automatically generated, 2025.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-12-16 22:46+0000\n"
-"PO-Revision-Date: 2024-12-16 22:46+0000\n"
+"POT-Creation-Date: 2025-03-28 02:07+0000\n"
+"PO-Revision-Date: 2025-03-28 02:07+0000\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
 "Language: en_US\n"
@@ -17,19 +17,23 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: powermon/cli.py:427
+#: powermon/cli.py:424
 msgid "Power Device Monitoring Utility CLI"
 msgstr "Power Device Monitoring Utility CLI"
 
-#: powermon/runner.py:71
+#: powermon/powermon.py:69
 msgid "Power Device Monitoring Utility"
 msgstr "Power Device Monitoring Utility"
 
-#: powermon/device.py:87
+#: powermon/powermon.py:78
+msgid "Full location of config file (defaults to ./powermon.yaml)"
+msgstr "Full location of config file (defaults to ./powermon.yaml)"
+
+#: powermon/device.py:83
 msgid "No device definition in config. Check configFile argument?"
 msgstr "No device definition in config. Check configFile argument?"
 
-#: powermon/device.py:95
+#: powermon/device.py:92
 msgid ""
 "Breaking Change: Please rename 'id' device config item to 'serial_number'"
 msgstr ""
