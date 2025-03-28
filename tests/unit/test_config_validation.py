@@ -4,7 +4,7 @@ from glob import glob
 
 from pydantic import ValidationError
 
-from powermon.runner import _read_yaml_file
+from powermon.powermon import _read_yaml_file
 from powermon.configmodel.config_model import ConfigModel
 
 

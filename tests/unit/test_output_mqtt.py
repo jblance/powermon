@@ -37,7 +37,7 @@ class TestOutputMqtt(unittest.TestCase):
         mock_formatter.format.return_value = "mocked_formated_data"
         self.assertRaises(RuntimeError, output_mqtt.process, command=command, result=_result, mqtt_broker=None, device_info=device_info)
 
-    @mock.patch('powermon.libs.mqttbroker.MqttBroker')
+    @mock.patch('powermon.MqttBroker')
     @mock.patch('powermon.outputformats.AbstractFormat')
     def test_output_mqtt_calls_formatter(self, mock_mqtt_broker, mock_formatter):
         """ test process calls the formatter """
@@ -46,7 +46,7 @@ class TestOutputMqtt(unittest.TestCase):
         output_mqtt.process(command=command, result=_result, mqtt_broker=mock_mqtt_broker, device_info=device_info)
         mock_formatter.format.assert_called_once_with(command=command, result=_result, device_info=device_info)
 
-    @mock.patch('powermon.libs.mqttbroker.MqttBroker')
+    @mock.patch('powermon.MqttBroker')
     @mock.patch('powermon.outputformats.AbstractFormat')
     def test_output_mqtt_calls_publish_str(self, mock_mqtt_broker, mock_formatter):
         """ test process calls the publish once for a str format response """
@@ -55,7 +55,7 @@ class TestOutputMqtt(unittest.TestCase):
         output_mqtt.process(command=command, result=_result, mqtt_broker=mock_mqtt_broker, device_info=device_info)
         mock_mqtt_broker.publish.assert_called_once_with(topic=test_topic, payload=mock_formatter.format.return_value)
 
-    @mock.patch('powermon.libs.mqttbroker.MqttBroker')
+    @mock.patch('powermon.MqttBroker')
     @mock.patch('powermon.outputformats.AbstractFormat')
     def test_output_mqtt_calls_publish_bytes(self, mock_mqtt_broker, mock_formatter):
         """ test process calls the publish once for a bytes format response """
@@ -64,7 +64,7 @@ class TestOutputMqtt(unittest.TestCase):
         output_mqtt.process(command=command, result=_result, mqtt_broker=mock_mqtt_broker, device_info=device_info)
         mock_mqtt_broker.publish.assert_called_once_with(topic=test_topic, payload=mock_formatter.format.return_value)
 
-    @mock.patch('powermon.libs.mqttbroker.MqttBroker')
+    @mock.patch('powermon.MqttBroker')
     @mock.patch('powermon.outputformats.AbstractFormat')
     def test_output_mqtt_calls_publish_list_of_str(self, mock_mqtt_broker, mock_formatter):
         """ test process calls the publish once for each of a list of str format responses """
@@ -73,7 +73,7 @@ class TestOutputMqtt(unittest.TestCase):
         output_mqtt.process(command=command, result=_result, mqtt_broker=mock_mqtt_broker, device_info=device_info)
         mock_mqtt_broker.publish.assert_has_calls([mock.call(topic=test_topic, payload='mocked_formatted_data'), mock.call(topic=test_topic, payload='more_mocked_formatted_data')])
 
-    @mock.patch('powermon.libs.mqttbroker.MqttBroker')
+    @mock.patch('powermon.MqttBroker')
     @mock.patch('powermon.outputformats.AbstractFormat')
     def test_output_mqtt_calls_publish_list_of_dict(self, mock_mqtt_broker, mock_formatter):
         """ test process calls the publish once for each of a list of dict (topic/payload) format responses """
@@ -82,7 +82,7 @@ class TestOutputMqtt(unittest.TestCase):
         output_mqtt.process(command=command, result=_result, mqtt_broker=mock_mqtt_broker, device_info=device_info)
         mock_mqtt_broker.publish.assert_has_calls([mock.call(topic='test/topic1', payload='mocked_formatted_data'), mock.call(topic='test/topic2', payload='more_mocked_formatted_data')])
 
-    @mock.patch('powermon.libs.mqttbroker.MqttBroker')
+    @mock.patch('powermon.MqttBroker')
     @mock.patch('powermon.outputformats.AbstractFormat')
     def test_output_mqtt_calls_publish_dict_missing_topic(self, mock_mqtt_broker, mock_formatter):
         """ test process calls the publish correct for a dict with payload only format responses """

@@ -16,5 +16,4 @@ Submodules
    powermon.libs.config
    powermon.libs.daemon
    powermon.libs.errors
-   powermon.libs.mqttbroker
    powermon.libs.version

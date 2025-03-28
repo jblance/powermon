@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1"><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-      <title>powermon.outputformats.htmltable module</title>
+      <title>powermon.powermon module</title>
     
           <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
           <link rel="stylesheet" href="_static/theme.css " type="text/css" />
@@ -21,8 +21,7 @@
     
   <link rel="index" title="Index" href="genindex.html" />
   <link rel="search" title="Search" href="search.html" />
-  <link rel="next" title="powermon.outputformats.json_fmt module" href="powermon.outputformats.json_fmt.html" />
-  <link rel="prev" title="powermon.outputformats.hass module" href="powermon.outputformats.hass.html" /> 
+  <link rel="prev" title="powermon.device module" href="powermon.device.html" /> 
   </head>
 
   <body>
@@ -154,20 +153,14 @@
     
       <li><a href="powermon.html">powermon package</a> &raquo;</li>
     
-      <li><a href="powermon.outputformats.html">powermon.outputformats package</a> &raquo;</li>
-    
-    <li>powermon.outputformats.htmltable module</li>
+    <li>powermon.powermon module</li>
   </ul>
   
 
   <ul class="page-nav">
   <li class="prev">
-    <a href="powermon.outputformats.hass.html"
-       title="previous chapter">← powermon.outputformats.hass module</a>
-  </li>
-  <li class="next">
-    <a href="powermon.outputformats.json_fmt.html"
-       title="next chapter">powermon.outputformats.json_fmt module →</a>
+    <a href="powermon.device.html"
+       title="previous chapter">← powermon.device module</a>
   </li>
 </ul>
   
@@ -175,20 +168,19 @@
 <hr>
           <div class="content" role="main" v-pre>
             
-  <section id="module-powermon.outputformats.htmltable">
-<span id="powermon-outputformats-htmltable-module"></span><h1>powermon.outputformats.htmltable module<a class="headerlink" href="#module-powermon.outputformats.htmltable" title="Link to this heading">¶</a></h1>
-<p>powermon / outputformats / htmltable.py</p>
-<dl class="py class">
-<dt class="sig sig-object py" id="powermon.outputformats.htmltable.HtmlTable">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">powermon.outputformats.htmltable.</span></span><span class="sig-name descname"><span class="pre">HtmlTable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#powermon.outputformats.htmltable.HtmlTable" title="Link to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="powermon.outputformats.abstractformat.html#powermon.outputformats.abstractformat.AbstractFormat" title="powermon.outputformats.abstractformat.AbstractFormat"><code class="xref py py-class docutils literal notranslate"><span class="pre">AbstractFormat</span></code></a></p>
-<p>output the data as html</p>
-<dl class="py method">
-<dt class="sig sig-object py" id="powermon.outputformats.htmltable.HtmlTable.format">
-<span class="sig-name descname"><span class="pre">format</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">command</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">result</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Result</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device_info</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#powermon.outputformats.htmltable.HtmlTable.format" title="Link to this definition">¶</a></dt>
-<dd><p>entry point for all formats</p>
+  <section id="module-powermon.powermon">
+<span id="powermon-powermon-module"></span><h1>powermon.powermon module<a class="headerlink" href="#module-powermon.powermon" title="Link to this heading">¶</a></h1>
+<p>main powermon code</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="powermon.powermon.main">
+<span class="sig-prename descclassname"><span class="pre">powermon.powermon.</span></span><span class="sig-name descname"><span class="pre">main</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#powermon.powermon.main" title="Link to this definition">¶</a></dt>
+<dd><p>entry point for powermon command</p>
 </dd></dl>
 
+<dl class="py function">
+<dt class="sig sig-object py" id="powermon.powermon.runner">
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">powermon.powermon.</span></span><span class="sig-name descname"><span class="pre">runner</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#powermon.powermon.runner" title="Link to this definition">¶</a></dt>
+<dd><p>powermon command function</p>
 </dd></dl>
 
 </section>
@@ -198,12 +190,8 @@
           <div class="page-nav">
             <div class="inner"><ul class="page-nav">
   <li class="prev">
-    <a href="powermon.outputformats.hass.html"
-       title="previous chapter">← powermon.outputformats.hass module</a>
-  </li>
-  <li class="next">
-    <a href="powermon.outputformats.json_fmt.html"
-       title="next chapter">powermon.outputformats.json_fmt module →</a>
+    <a href="powermon.device.html"
+       title="previous chapter">← powermon.device module</a>
   </li>
 </ul><div class="footer" role="contentinfo">
       &#169; Copyright 2024, jblance.
