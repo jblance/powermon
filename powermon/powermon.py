@@ -23,6 +23,8 @@ from powermon.libs.mqttbroker import MqttBroker
 from powermon.libs.version import __version__  # noqa: F401
 from powermon.protocols import list_commands, list_protocols
 
+from importlib.metadata import version
+
 # Set-up logger
 log = logging.getLogger("")
 FORMAT = "%(asctime)-15s:%(levelname)s:%(module)s:%(funcName)s@%(lineno)d: %(message)s"
@@ -73,7 +75,7 @@ async def runner():
         "--configFile",
         nargs="?",
         type=str,
-        help="Full location of config file (defaults to ./powermon.yaml)",
+        help=_("Full location of config file (defaults to ./powermon.yaml)"),
         const="./powermon.yaml",
         default=None,
     )
