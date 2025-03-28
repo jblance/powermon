@@ -14,6 +14,7 @@ Subpackages
 
    powermon.configmodel
    powermon.libs
+   powermon.mqttbroker
    powermon.outputformats
    powermon.outputs
    powermon.ports
