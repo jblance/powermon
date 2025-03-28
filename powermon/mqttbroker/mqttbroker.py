@@ -29,13 +29,7 @@ class MqttBroker:
         """builds the mqtt broker object from a config dict
 
         Args:
-            - config (dict, optional): Defaults to None which will disable class.
-                - name: broker network name or ip address
-                - port (optional): broker port. Defaults to 1883
-                - username (optional): required if broker authentication wanted
-                - password (optional): required if broker authentication wanted
-                - adhoc_topic: (optional): topic to monitor for adhoc commands
-                - adhoc_result_topic (optional): topic to publish adhoc command results
+            config (dict, optional): Defaults to None which will disable class.
 
         Returns:
             Self: configured (or disabled if config is None) MqttBroker class

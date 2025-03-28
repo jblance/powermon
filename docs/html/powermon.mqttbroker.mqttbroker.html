@@ -210,13 +210,7 @@
 <dd><p>builds the mqtt broker object from a config dict</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>config</strong> (<em>-</em>) – Defaults to None which will disable class.
-- name: broker network name or ip address
-- port (optional): broker port. Defaults to 1883
-- username (optional): required if broker authentication wanted
-- password (optional): required if broker authentication wanted
-- adhoc_topic: (optional): topic to monitor for adhoc commands
-- adhoc_result_topic (optional): topic to publish adhoc command results</p>
+<dd class="field-odd"><p><strong>config</strong> (<em>dict</em><em>, </em><em>optional</em>) – Defaults to None which will disable class.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>configured (or disabled if config is None) MqttBroker class</p>
