@@ -1,7 +1,7 @@
 """mqtt broker 
 
    - provides MqttBroker class
-   
+
 """
 import logging
 from time import sleep
@@ -26,7 +26,21 @@ class MqttBroker:
 
     @classmethod
     def from_config(cls, config: dict=None) -> Self:
-        """ build the mqtt broker object from a config dict """
+        """builds the mqtt broker object from a config dict
+
+        Args:
+            config (dict, optional): Defaults to None which will disable class.
+                name: broker network name or ip address
+                port (optional): broker port. Defaults to 1883
+                username (optional): required if broker authentication wanted
+                password (optional): required if broker authentication wanted
+                adhoc_topic: (optional): topic to monitor for adhoc commands
+                adhoc_result_topic (optional): topic to publish adhoc command results
+
+        Returns:
+            Self: configured (or disabled if config is None) MqttBroker class
+        """
+
         log.debug("mqttbroker config: %s", safe_config(config))
 
         if config:
@@ -56,7 +70,7 @@ class MqttBroker:
 
     @property
     def adhoc_topic(self) -> str:
-        """ return the adhoc command topic """
+        """the topic to listen for any adhoc command"""
         return getattr(self, "_adhoc_topic", None)
 
     @adhoc_topic.setter
@@ -66,7 +80,7 @@ class MqttBroker:
 
     @property
     def adhoc_result_topic(self) -> str:
-        """ return the adhoc result topic """
+        """the topic to publish adhoc results to"""
         return getattr(self, "_adhoc_result_topic", None)
 
     @adhoc_result_topic.setter
@@ -75,7 +89,7 @@ class MqttBroker:
         self._adhoc_result_topic = value
 
     def on_connect(self, client, userdata, flags, rc):
-        """ callback for connect """
+        """callback for connect"""
         # 0: Connection successful
         # 1: Connection refused - incorrect protocol version
         # 2: Connection refused - invalid client identifier
@@ -91,8 +105,9 @@ class MqttBroker:
             "Connection refused - server unavailable",
             "Connection refused - bad username or password",
             "Connection refused - not authorised",
+            "Connection failed"
         ]
-        log.debug("MqttBroker connection returned result: %s %s", rc, connection_result[rc])
+        log.debug("MqttBroker connection returned result: %s %s", rc, connection_result[rc if rc <= 6 else 6])
         if rc == 0:
             self.is_connected = True
             return
@@ -212,6 +227,9 @@ class MqttBroker:
             if not self.is_connected:
                 log.warning("mqtt broker did not connect")
                 return
+        if topic is None:
+            log.warning('no topic supplied to publish to')
+            return
         if isinstance(topic, bytes):
             topic = topic.decode('utf-8')
         if isinstance(payload, bytes):
