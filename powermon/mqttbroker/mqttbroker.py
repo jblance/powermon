@@ -1,6 +1,11 @@
-""" powermon / libs / mqttbroker.py """
+"""mqtt broker 
+
+   - provides MqttBroker class
+   
+"""
 import logging
 from time import sleep
+from typing import Self, Callable
 
 import paho.mqtt.client as mqtt_client
 
@@ -11,7 +16,8 @@ log = logging.getLogger("mqttbroker")
 
 
 class MqttBroker:
-    """ Wrapper for mqtt broker connectivity and message proccessing """
+    """MqttBroker class - wraps connecting, subscribing and publishing to a mqtt broker
+    """
     def __str__(self):
         if self.disabled:
             return "MqttBroker DISABLED"
@@ -19,7 +25,7 @@ class MqttBroker:
             return f"MqttBroker name: {self.name}, port: {self.port}, user: {self.username}"
 
     @classmethod
-    def from_config(cls, config=None) -> 'MqttBroker':
+    def from_config(cls, config: dict=None) -> Self:
         """ build the mqtt broker object from a config dict """
         log.debug("mqttbroker config: %s", safe_config(config))
 
@@ -97,7 +103,7 @@ class MqttBroker:
         log.debug("on_disconnect called - client: %s, userdata: %s, rc: %s", client, userdata, rc)
         self.is_connected = False
 
-    def connect(self):
+    def connect(self) -> None:
         """ connect to mqtt broker """
         if self.disabled:
             log.info("MQTT broker not enabled, was a broker name defined? '%s'", self.name)
@@ -127,15 +133,15 @@ class MqttBroker:
         except ConnectionRefusedError as ex:
             log.warning("%s refused connection with error: '%s'", self.name, ex)
 
-    def start(self):
-        """ start mqtt broker """
+    def start(self) -> None:
+        """start the mqtt broker """
         if self.disabled:
             return
         if self.is_connected:
             self.mqttc.loop_start()
 
-    def stop(self):
-        """ stop mqtt broker """
+    def stop(self) -> None:
+        """stop the mqtt broker"""
         log.debug("Stopping mqttbroker connection")
         if self.disabled:
             return
@@ -150,8 +156,13 @@ class MqttBroker:
     #         return
     #     setattr(self, variable, value)
 
-    def subscribe(self, topic, callback):
-        """ subscribe to a mqtt topic """
+    def subscribe(self, topic: str, callback: Callable) -> None:
+        """subscribe to a topic on the mqtt broker
+
+        Args:
+            topic (str): topic to subscribe to
+            callback (Callable): function to call when a message is received
+        """
         if not self.name:
             return
         if self.disabled:
@@ -169,17 +180,23 @@ class MqttBroker:
         else:
             log.warning("Did not subscribe to topic: %s as not connected to broker", topic)
 
-    def post_adhoc_command(self, command_code):
+    def post_adhoc_command(self, command_code: str) -> None:
         """ shortcut function to publish an adhoc command """
         self.publish(topic=self.adhoc_topic, payload=command_code)
 
-    def post_adhoc_result(self, payload):
+    def post_adhoc_result(self, payload: str) -> None:
         """ shortcut function to publish the results of an adhoc command """
         self.publish(topic=self.adhoc_result_topic, payload=payload)
 
 
-    def publish(self, topic: str = None, payload: str = None):
-        """ function to publish messages to mqtt broker """
+    def publish(self, topic: str, payload: str) -> None:
+        """ publish messages to the defined mqtt broker
+            - if broker name is 'screen' will write to stdout instead
+
+        Args:
+            topic (str): topic to publish to.
+            payload (str): content to publish.
+        """
         if self.disabled:
             log.debug("Cannot publish msg as mqttbroker disabled")
             return

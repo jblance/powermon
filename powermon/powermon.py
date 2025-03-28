@@ -12,18 +12,16 @@ import yaml
 from pyaml_env import parse_config
 from pydantic import ValidationError
 
-from powermon import _
+from powermon import MqttBroker, _
 from powermon.commands.command import Command
 from powermon.configmodel.config_model import ConfigModel
 from powermon.device import Device
 from powermon.libs.apicoordinator import ApiCoordinator
 from powermon.libs.config import safe_config
 from powermon.libs.daemon import Daemon
-from powermon.libs.mqttbroker import MqttBroker
+#from powermon.libs.mqttbroker import MqttBroker
 from powermon.libs.version import __version__  # noqa: F401
 from powermon.protocols import list_commands, list_protocols
-
-from importlib.metadata import version
 
 # Set-up logger
 log = logging.getLogger("")
