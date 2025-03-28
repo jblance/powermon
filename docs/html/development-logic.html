@@ -25,7 +25,7 @@ const load = async () => {
     const mermaids_to_add_zoom = 1 === -1 ? all_mermaids.length : 1;
     const mermaids_processed = document.querySelectorAll(".mermaid[data-processed='true']");
     if(mermaids_to_add_zoom > 0) {
-        var svgs = d3.selectAll(".mermaid[data-zoom-id=id-3cf2faa2-c012-449e-9636-3b8d10d916ef] svg");
+        var svgs = d3.selectAll(".mermaid[data-zoom-id=id-c3b99419-3550-4027-a2c9-c28d943eb1aa] svg");
         if(all_mermaids.length !== mermaids_processed.length) {
             // try again in a sec, wait for mermaids to load
             setTimeout(load, 200);
@@ -208,7 +208,7 @@ window.addEventListener("load", load);
             
   <section id="powermon-logic">
 <h1>Powermon Logic<a class="headerlink" href="#powermon-logic" title="Link to this heading">¶</a></h1>
-<pre data-zoom-id="id-3cf2faa2-c012-449e-9636-3b8d10d916ef" class="mermaid">
+<pre data-zoom-id="id-c3b99419-3550-4027-a2c9-c28d943eb1aa" class="mermaid">
         ---
 config:
   theme: base
@@ -314,7 +314,7 @@ classDiagram
        title="next chapter">Protocol Documentation →</a>
   </li>
 </ul><div class="footer" role="contentinfo">
-      &#169; Copyright 2024, jblance.
+      &#169; Copyright 2025, jblance.
     <br>
     Created using <a href="http://sphinx-doc.org/">Sphinx</a> 8.1.3 with <a href="https://github.com/schettino72/sphinx_press_theme">Press Theme</a> 0.9.1.
 </div>

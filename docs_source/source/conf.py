@@ -7,7 +7,7 @@
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
 project = 'powermon'
-copyright = '2024, jblance'
+copyright = '2025, jblance'
 author = 'jblance'
 
 # -- General configuration ---------------------------------------------------

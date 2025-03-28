@@ -210,13 +210,15 @@
 <dd><p>builds the mqtt broker object from a config dict</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>config</strong> (<em>dict</em><em>, </em><em>optional</em>) – Defaults to None which will disable class.
-name: broker network name or ip address
-port (optional): broker port. Defaults to 1883
-username (optional): required if broker authentication wanted
-password (optional): required if broker authentication wanted
-adhoc_topic: (optional): topic to monitor for adhoc commands
-adhoc_result_topic (optional): topic to publish adhoc command results</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>config</strong> (<em>dict</em><em>, </em><em>optional</em>) – Defaults to None which will disable class.</p></li>
+<li><p><strong>name</strong> (<em>-</em>) – broker network name or ip address</p></li>
+<li><p><strong>port</strong> (<em>-</em>) – broker port. Defaults to 1883</p></li>
+<li><p><strong>username</strong> (<em>-</em>) – required if broker authentication wanted</p></li>
+<li><p><strong>password</strong> (<em>-</em>) – required if broker authentication wanted</p></li>
+<li><p><strong>adhoc_topic</strong> (<em>-</em>) – (optional): topic to monitor for adhoc commands</p></li>
+<li><p><strong>adhoc_result_topic</strong> (<em>-</em>) – topic to publish adhoc command results</p></li>
+</ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>configured (or disabled if config is None) MqttBroker class</p>
@@ -313,7 +315,7 @@ adhoc_result_topic (optional): topic to publish adhoc command results</p>
        title="next chapter">powermon.outputformats package →</a>
   </li>
 </ul><div class="footer" role="contentinfo">
-      &#169; Copyright 2024, jblance.
+      &#169; Copyright 2025, jblance.
     <br>
     Created using <a href="http://sphinx-doc.org/">Sphinx</a> 8.1.3 with <a href="https://github.com/schettino72/sphinx_press_theme">Press Theme</a> 0.9.1.
 </div>
