@@ -3,7 +3,7 @@
 debuglevel: INFO
 
 device:
-  id: test
+  serial_number: test1234
   name: 1012LV-MK
   model: 1012LV-MK
   manufacturer: MPP-Solar
