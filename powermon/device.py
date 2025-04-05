@@ -86,11 +86,6 @@ class Device:
         model = config.get("model")
         manufacturer = config.get("manufacturer")
         serial_number = config.get("serial_number")
-
-        # check if old config still in use
-        if "id" in config:
-            raise ConfigNeedsUpdatingError(_("Breaking Change: Please rename 'id' device config item to 'serial_number'"))
-
         port_config = config.get("port")
         # add serial number and model to config
         port_config['serial_number'] = serial_number

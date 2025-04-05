@@ -126,7 +126,7 @@ async def runner():
 
     # Build configuration from config file and command line overrides
     log.info("Using config file: %s", args.configFile)
-    # build config with details from config file
+    # build config with details from config file - including env variable expansion
     config = _read_yaml_file(args.configFile)
 
     # build config - override with any command line arguments
@@ -147,13 +147,9 @@ async def runner():
         print(f"{config=}")
         print(exception)
         return None
+    # FIXME: remove
     print(config_model)
-    print(type(config_model.device.port))
-    # $ uv run powermon -C tests/config/min.yaml 
-    # device=DeviceConfig(name='Test_Inverter', id=None, serial_number='A123456789', model='8048MAX', manufacturer='MPP-Solar', port=TestPortConfig(type='test', response_number=1, protocol='PI30MAX')) commands=[CommandConfig(command='QPGS0', type='basic', override=None, trigger=None, outputs=[OutputConfig(type='screen', topic=None, format=BaseFormatConfig(type='table', tag=None, draw_lines=False, keep_case=None, remove_spaces=None, extra_info=True, excl_filter=None, filter=None))])] mqttbroker=None api=None daemon=None debuglevel=None loop='once'
-    # <class 'powermon.configmodel.port_config_model.TestPortConfig'>
-
-    exit()
+    print(config_model.mqttbroker)
 
     # logging (DEBUG, INFO, WARNING, ERROR, CRITICAL)
     log.setLevel(config.get("debuglevel", logging.WARNING))
@@ -164,6 +160,8 @@ async def runner():
     # build mqtt broker object (optional)
     mqtt_broker = MqttBroker.from_config(config=config.get("mqttbroker"))
     log.info(mqtt_broker)
+
+    exit()
 
     # build device object (required)
     device = await Device.from_config(config=config.get("device"))

@@ -147,7 +147,7 @@ commands:
 loop: 10
 
 mqttbroker:
-#  name: localhost
+  name: localhost
 #  port: 1883
 #  username: null
 #  password: null
