@@ -146,9 +146,6 @@ async def runner():
         print(f"{config=}")
         print(exception)
         return None
-    # FIXME: remove
-    # print(config_model)
-    # print(config_model.mqttbroker)
 
     # logging (DEBUG, INFO, WARNING, ERROR, CRITICAL)
     log.setLevel(config.get("debuglevel", logging.WARNING))
@@ -157,16 +154,22 @@ async def runner():
     log.info("config: %s", config_model)
 
     # build mqtt broker object (optional)
-    mqtt_broker = MqttBroker.from_config(config=config_model)
+    # mqtt_broker = MqttBroker.from_config(config=config_model.mqttbroker)
+    mqtt_broker = MqttBroker(config=config_model.mqttbroker)
     log.info(mqtt_broker)
-
     print(mqtt_broker)
+
+
     exit()
 
     # build device object (required)
-    device = await Device.from_config(config=config.get("device"))
+    print(config_model.device)
+    device = await Device.from_config(config=config_model.device)
     device.mqtt_broker = mqtt_broker
     log.debug(device)
+    print(device)
+
+    exit()
 
     # process adhoc command line command
     if args.adhoc:

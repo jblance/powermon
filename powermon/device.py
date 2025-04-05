@@ -5,16 +5,15 @@ from typing import Optional
 
 from pydantic import BaseModel
 
-from powermon import _
-from powermon.commands.command import Command, CommandDTO
-from powermon.commands.result import Result
-from powermon.libs.errors import (CommandDefinitionMissing, ConfigError,
-                                  ConfigNeedsUpdatingError)
-from powermon import MqttBroker
-from powermon.outputformats import FormatterType, get_formatter
-from powermon.outputs.abstractoutput import AbstractOutput
-from powermon.ports import from_config as port_from_config
-from powermon.ports.abstractport import AbstractPort, _AbstractPortDTO
+from . import MqttBroker, _
+from .commands.command import Command, CommandDTO
+from .commands.result import Result
+from .config.powermon_config import PowermonConfig
+from .libs.errors import CommandDefinitionMissing, ConfigError
+from .outputformats import FormatterType, get_formatter
+from .outputs.abstractoutput import AbstractOutput
+from .ports import from_config as port_from_config
+from .ports.abstractport import AbstractPort, _AbstractPortDTO
 
 # Set-up logger
 log = logging.getLogger("Device")
@@ -77,7 +76,7 @@ class Device:
         return DeviceDTO(device_info=self.device_info.to_dto(), port=self.port.to_dto(), commands=commands)
 
     @classmethod
-    async def from_config(cls, config=None):
+    async def from_config(cls, config: PowermonConfig):
         """build the object from a config dict"""
         if not config:
             log.warning(_("No device definition in config. Check configFile argument?"))
