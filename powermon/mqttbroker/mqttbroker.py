@@ -9,7 +9,7 @@ from typing import Callable
 
 import paho.mqtt.client as mqtt_client
 
-from .mqtt_config import MQTTConfig
+from ..config.mqtt_config import MQTTConfig
 
 # Set-up logger
 log = logging.getLogger("mqttbroker")

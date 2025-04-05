@@ -9,7 +9,7 @@ from . import NoExtraBaseModel
 from .api_config import APIConfig
 from .daemon_config import DaemonConfig
 from .device_config import DeviceConfig
-from ..mqttbroker.mqtt_config import MQTTConfig
+from .mqtt_config import MQTTConfig
 from .command_config import CommandConfig
 
 
