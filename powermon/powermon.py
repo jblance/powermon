@@ -19,7 +19,6 @@ from .commands.command import Command
 from .config.powermon_config import PowermonConfig
 from .device import Device
 from .libs.apicoordinator import ApiCoordinator
-from .libs.config import safe_config
 from .libs.daemon import Daemon
 #from powermon.libs.mqttbroker import MqttBroker
 # from powermon.libs.version import __version__  # noqa: F401
@@ -148,19 +147,20 @@ async def runner():
         print(exception)
         return None
     # FIXME: remove
-    print(config_model)
-    print(config_model.mqttbroker)
+    # print(config_model)
+    # print(config_model.mqttbroker)
 
     # logging (DEBUG, INFO, WARNING, ERROR, CRITICAL)
     log.setLevel(config.get("debuglevel", logging.WARNING))
 
     # debug config
-    log.info("config: %s", safe_config(config))
+    log.info("config: %s", config_model)
 
     # build mqtt broker object (optional)
-    mqtt_broker = MqttBroker.from_config(config=config.get("mqttbroker"))
+    mqtt_broker = MqttBroker.from_config(config=config_model)
     log.info(mqtt_broker)
 
+    print(mqtt_broker)
     exit()
 
     # build device object (required)

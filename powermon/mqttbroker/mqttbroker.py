@@ -5,11 +5,12 @@
 """
 import logging
 from time import sleep
-from typing import Self, Callable
+from typing import Callable, Self
 
 import paho.mqtt.client as mqtt_client
 
-from powermon.libs.config import safe_config
+from ..config.powermon_config import PowermonConfig
+from .mqtt_config import MQTTConfig
 
 # Set-up logger
 log = logging.getLogger("mqttbroker")
@@ -25,26 +26,25 @@ class MqttBroker:
             return f"MqttBroker name: {self.name}, port: {self.port}, user: {self.username}"
 
     @classmethod
-    def from_config(cls, config: dict=None) -> Self:
+    def from_config(cls, config: PowermonConfig) -> Self:
         """builds the mqtt broker object from a config dict
 
         Args:
-            config (dict, optional): Defaults to None which will disable class.
+            config (PowermonConfig): Pydantic model of validated config
 
         Returns:
             Self: configured (or disabled if config is None) MqttBroker class
         """
 
-        log.debug("mqttbroker config: %s", safe_config(config))
-
-        if config:
-            name = config.get("name")
-            port = config.get("port", 1883)
-            username = config.get("username")
-            password = config.get("password")
+        if isinstance(config, PowermonConfig) and isinstance(config.mqttbroker, MQTTConfig) and config.mqttbroker.name is not None:
+            log.debug("mqttbroker config: %s", config.mqttbroker)
+            name = config.mqttbroker.name
+            port = config.mqttbroker.port
+            username = config.mqttbroker.username
+            password = config.mqttbroker.password
             mqtt_broker = cls(name=name, port=port, username=username, password=password)
-            mqtt_broker.adhoc_topic = config.get("adhoc_topic")
-            mqtt_broker.adhoc_result_topic = config.get("adhoc_result_topic")
+            mqtt_broker.adhoc_topic = config.mqttbroker.adhoc_topic
+            mqtt_broker.adhoc_result_topic = config.mqttbroker.adhoc_result_topic
             return mqtt_broker
         else:
             return cls(name=None)
