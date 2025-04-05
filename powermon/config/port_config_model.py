@@ -4,7 +4,7 @@ from typing import Literal
 
 from pydantic import Field
 
-from powermon.configmodel import NoExtraBaseModel
+from . import NoExtraBaseModel
 
 
 class BlePortConfig(NoExtraBaseModel):

@@ -5,7 +5,7 @@ from glob import glob
 from pydantic import ValidationError
 
 from powermon.powermon import _read_yaml_file
-from powermon.configmodel.config_model import ConfigModel
+from powermon.config.powermon_config import PowermonConfig
 
 
 class TestConfigModel(unittest.TestCase):
@@ -18,9 +18,9 @@ class TestConfigModel(unittest.TestCase):
         for filename in files:
             # print(f"Checking valid: {filename}")
             config = _read_yaml_file(filename)
-            config_model = ConfigModel(config=config)
+            config_model = PowermonConfig(**config)
             self.assertTrue(config_model is not None)
-            self.assertIsInstance(config_model, ConfigModel)
+            self.assertIsInstance(config_model, PowermonConfig)
 
     def test_invalid_config_files(self):
         """ test that invalid config file raise exception """
@@ -30,4 +30,4 @@ class TestConfigModel(unittest.TestCase):
             config = _read_yaml_file(filename)
             # config_model = ConfigModel(config=config)
             with self.assertRaises(ValidationError):
-                ConfigModel(config=config)
+                PowermonConfig(**config)

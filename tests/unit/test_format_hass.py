@@ -10,7 +10,7 @@ from powermon.commands.reading_definition import (ReadingDefinition,
 from powermon.commands.result import Result, ResultType
 from powermon.device import DeviceInfo
 from powermon.outputformats.hass import Hass
-from powermon.libs.version import __version__
+from powermon import __version__
 
 
 class TestFormatHass(unittest.TestCase):

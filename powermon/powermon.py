@@ -4,6 +4,7 @@ import asyncio
 # import gettext
 import json
 import logging
+# import pathlib
 import time
 from argparse import ArgumentParser
 from platform import python_version
@@ -12,16 +13,17 @@ import yaml
 from pyaml_env import parse_config
 from pydantic import ValidationError
 
-from powermon import MqttBroker, _
-from powermon.commands.command import Command
-from powermon.configmodel.config_model import ConfigModel
-from powermon.device import Device
-from powermon.libs.apicoordinator import ApiCoordinator
-from powermon.libs.config import safe_config
-from powermon.libs.daemon import Daemon
+from powermon import MqttBroker, _, __version__
+
+from .commands.command import Command
+from .config.powermon_config import PowermonConfig
+from .device import Device
+from .libs.apicoordinator import ApiCoordinator
+from .libs.config import safe_config
+from .libs.daemon import Daemon
 #from powermon.libs.mqttbroker import MqttBroker
-from powermon.libs.version import __version__  # noqa: F401
-from powermon.protocols import list_commands, list_protocols
+# from powermon.libs.version import __version__  # noqa: F401
+from .protocols import list_commands, list_protocols
 
 # Set-up logger
 log = logging.getLogger("")
@@ -132,7 +134,7 @@ async def runner():
 
     # validate config
     try:
-        config_model = ConfigModel(config=config)
+        config_model = PowermonConfig(**config)
         log.debug(config_model)
         log.info("Config validation successful")
         if args.validate:
@@ -145,6 +147,13 @@ async def runner():
         print(f"{config=}")
         print(exception)
         return None
+    print(config_model)
+    print(type(config_model.device.port))
+    # $ uv run powermon -C tests/config/min.yaml 
+    # device=DeviceConfig(name='Test_Inverter', id=None, serial_number='A123456789', model='8048MAX', manufacturer='MPP-Solar', port=TestPortConfig(type='test', response_number=1, protocol='PI30MAX')) commands=[CommandConfig(command='QPGS0', type='basic', override=None, trigger=None, outputs=[OutputConfig(type='screen', topic=None, format=BaseFormatConfig(type='table', tag=None, draw_lines=False, keep_case=None, remove_spaces=None, extra_info=True, excl_filter=None, filter=None))])] mqttbroker=None api=None daemon=None debuglevel=None loop='once'
+    # <class 'powermon.configmodel.port_config_model.TestPortConfig'>
+
+    exit()
 
     # logging (DEBUG, INFO, WARNING, ERROR, CRITICAL)
     log.setLevel(config.get("debuglevel", logging.WARNING))
