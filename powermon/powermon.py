@@ -153,14 +153,10 @@ async def runner():
     # debug config
     log.info("config: %s", config_model)
 
-    # build mqtt broker object (optional)
+    # build mqtt broker object
     # mqtt_broker = MqttBroker.from_config(config=config_model.mqttbroker)
     mqtt_broker = MqttBroker(config=config_model.mqttbroker)
     log.info(mqtt_broker)
-    print(mqtt_broker)
-
-
-    exit()
 
     # build device object (required)
     print(config_model.device)
