@@ -1,9 +1,7 @@
-from pydantic import BaseModel, Extra, Field
+from pydantic import BaseModel, Extra, Field, ConfigDict
 
 
 class NoExtraBaseModel(BaseModel):
     """ updated BaseModel with Extras forbidden """
-    class Config:
-        """pydantic BaseModel config"""
-        extra = Extra.forbid
+    model_config = ConfigDict(extra='forbid')
         
