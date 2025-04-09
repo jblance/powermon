@@ -19,28 +19,24 @@ from ..ports.abstractport import AbstractPort, _AbstractPortDTO
 log = logging.getLogger("Device")
 
 
-class DeviceInfoDTO(BaseModel):
-    """ data transfer model for DeviceInfo class """
-    name: str | int
-    serial_number: str | int
-    model: Optional[str | int]
-    manufacturer: Optional[str | int]
-
-
 class DeviceInfo:
-    """ struct like class to contain info about the device """
-    def __init__(self, name, serial_number, model=None, manufacturer=None):
-        self.name = name
-        self.serial_number = serial_number
-        self.model = model
-        self.manufacturer = manufacturer
+    """ Object holding Device Information """
+    def __init__(BaseModel):
+        name: str = 'unnamed_device'
+        serial_number: Optional[str] = Field(strict=False, default=None, coerce_numbers_to_str=True)
+        model: Optional[str] = None
+        manufacturer: Optional[str] = None
+        # self.name = name
+        # self.serial_number = serial_number
+        # self.model = model
+        # self.manufacturer = manufacturer
 
-    def __str__(self):
-        return f"DeviceInfo: {self.name=}, {self.serial_number=}, {self.model=}, {self.manufacturer=}"
+    # def __str__(self):
+    #     return f"DeviceInfo: {self.name=}, {self.serial_number=}, {self.model=}, {self.manufacturer=}"
 
     def to_dto(self):
-        """convert the DeviceInfo to a Data Transfer Object"""
-        return DeviceInfoDTO(name=self.name, serial_number=self.serial_number, model=self.model, manufacturer=self.manufacturer)
+        """convert the DeviceInfo to json"""
+        return self.model_dump(mode='json')
 
 
 class DeviceDTO(BaseModel):
