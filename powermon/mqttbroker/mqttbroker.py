@@ -15,7 +15,7 @@ from ..config.mqtt_config import MQTTConfig
 log = logging.getLogger("mqttbroker")
 
 
-class MqttBroker:
+class MqttBroker():
     """MqttBroker class - wraps connecting, subscribing and publishing to a mqtt broker
     """
     def __str__(self):

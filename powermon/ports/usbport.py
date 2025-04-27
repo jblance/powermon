@@ -26,7 +26,7 @@ class USBPort(AbstractPort):
     @classmethod
     async def from_config(cls, config=None):
         log.debug("building usb port. config:%s", config)
-        path = config.get("path", "/dev/hidraw0")
+        path = config.get("path")
         serial_number = config.get("serial_number")
         # get protocol handler, default to PI30 if not supplied
         protocol = get_protocol_definition(protocol=config.get("protocol", "PI30"), model=config.get("model"))
