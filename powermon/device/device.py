@@ -3,49 +3,47 @@
 import logging
 from typing import Optional
 
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
-from .. import MqttBroker, _
+from .. import MqttBroker
 from ..commands.command import Command, CommandDTO
 from ..commands.result import Result
-from ..config.powermon_config import PowermonConfig
-from ..libs.errors import CommandDefinitionMissing, ConfigError
+# from ..config.powermon_config import PowermonConfig
+from ..config.device_config import DeviceConfig
+from ..libs.errors import CommandDefinitionMissing
 from ..outputformats import FormatterType, get_formatter
 from ..outputs.abstractoutput import AbstractOutput
-from ..ports import from_config as port_from_config
+# from ..ports import from_config as port_from_config
 from ..ports.abstractport import AbstractPort, _AbstractPortDTO
 
 # Set-up logger
 log = logging.getLogger("Device")
 
 
-class DeviceInfoDTO(BaseModel):
-    """ data transfer model for DeviceInfo class """
-    name: str | int
-    serial_number: str | int
-    model: Optional[str | int]
-    manufacturer: Optional[str | int]
-
-
-class DeviceInfo:
+class DeviceInfo(BaseModel):
     """ struct like class to contain info about the device """
-    def __init__(self, name, serial_number, model=None, manufacturer=None):
-        self.name = name
-        self.serial_number = serial_number
-        self.model = model
-        self.manufacturer = manufacturer
+    name: str = 'unnamed_device'
+    serial_number: Optional[str] = Field(strict=False, default=None, coerce_numbers_to_str=True)
+    model: Optional[str] = None
+    manufacturer: Optional[str] = None
 
-    def __str__(self):
-        return f"DeviceInfo: {self.name=}, {self.serial_number=}, {self.model=}, {self.manufacturer=}"
+    # def __init__(self, name, serial_number, model=None, manufacturer=None):
+    #     self.name = name
+    #     self.serial_number = serial_number
+    #     self.model = model
+    #     self.manufacturer = manufacturer
+
+    # def __str__(self):
+    #     return f"DeviceInfo: {self.name=}, {self.serial_number=}, {self.model=}, {self.manufacturer=}"
 
     def to_dto(self):
         """convert the DeviceInfo to a Data Transfer Object"""
-        return DeviceInfoDTO(name=self.name, serial_number=self.serial_number, model=self.model, manufacturer=self.manufacturer)
+        return self.model_dump_json()
 
 
 class DeviceDTO(BaseModel):
     """ data transfer model for Device class """
-    device_info: DeviceInfoDTO
+    device_info: DeviceInfo
     port: _AbstractPortDTO
     commands: list[CommandDTO]
 
@@ -55,9 +53,10 @@ class Device:
     A device is a port with a protocol
     also contains the name, model and id of the device
     """
-    def __init__(self, name: str, serial_number: str = "", model: str = "", manufacturer: str = "", port: AbstractPort = None):
-        self.device_info = DeviceInfo(name=name, serial_number=serial_number, model=model, manufacturer=manufacturer)
-        self.port: AbstractPort = port
+    # def __init__(self, name: str, serial_number: str = "", model: str = "", manufacturer: str = "", port: AbstractPort = None):
+    def __init__(self, config: DeviceConfig):
+        self.device_info = DeviceInfo(name=config.name, serial_number=config.serial_number, model=config.model, manufacturer=config.manufacturer)
+        self.port: AbstractPort = None
         self.commands: list[Command] = []
         self.mqtt_broker = None
         self.adhoc_commands: list = []
@@ -75,28 +74,29 @@ class Device:
             commands.append(command.to_dto())
         return DeviceDTO(device_info=self.device_info.to_dto(), port=self.port.to_dto(), commands=commands)
 
-    @classmethod
-    async def from_config(cls, config: PowermonConfig):
-        """build the object from a config dict"""
-        if not config:
-            log.warning(_("No device definition in config. Check configFile argument?"))
-            return cls(name="unnamed")
-        name = config.get("name", "unnamed_device")
-        model = config.get("model")
-        manufacturer = config.get("manufacturer")
-        serial_number = config.get("serial_number")
-        port_config = config.get("port")
-        # add serial number and model to config
-        port_config['serial_number'] = serial_number
-        port_config['model'] = model
-        port = await port_from_config(port_config)
+    # @classmethod
+    # async def from_config(cls, config: PowermonConfig):
+    #     """build the object from a config dict"""
+    #     if not config:
+    #         log.warning(_("No device definition in config. Check configFile argument?"))
+    #         return cls(name="unnamed")
+    #     name = config.name
+    #     model = config.model
+    #     manufacturer = config.manufacturer
+    #     serial_number = config.serial_number
 
-        # raise error if unable to configure port
-        if not port:
-            log.error("Invalid port config '%s' found", config)
-            raise ConfigError(f"Invalid port config '{config}' found")
+    #     port_config = config.port
+    #     # add serial number and model to config
+    #     # port_config['serial_number'] = serial_number
+    #     # port_config['model'] = model
+    #     port = await port_from_config(port_config)
 
-        return cls(name=name, serial_number=serial_number, model=model, manufacturer=manufacturer, port=port)
+    #     # raise error if unable to configure port
+    #     if not port:
+    #         log.error("Invalid port config '%s' found", config)
+    #         raise ConfigError(f"Invalid port config '{config}' found")
+
+    #     return cls(name=name, serial_number=serial_number, model=model, manufacturer=manufacturer, port=port)
 
     @property
     def port(self) -> AbstractPort:

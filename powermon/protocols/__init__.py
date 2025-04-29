@@ -28,6 +28,8 @@ class Protocol(StrEnum):
     VED = auto()
     JKSERIAL = auto()
 
+    DEFAULT = PI30
+
 
 def get_protocol_definition(protocol, model=None):
     """

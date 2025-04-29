@@ -65,8 +65,8 @@ def main():
 
 async def runner():
     """powermon command function"""
-    transl_name = _("Power Device Monitoring Utility")
-    description = f"{transl_name}, version: {__version__}, python version: {python_version()}"  # pylint: disable=C0301
+    _name = _("Power Device Monitoring Utility")
+    description = f"{_name}, version: {__version__}, python version: {python_version()}"  # pylint: disable=C0301
     parser = ArgumentParser(description=description)
 
     parser.add_argument(
@@ -108,7 +108,7 @@ async def runner():
     # Display version if asked
     log.info(description)
     if args.version:
-        print(_(description))
+        print(description)
         return None
 
     # Do enquiry commands
@@ -118,6 +118,7 @@ async def runner():
         list_protocols()
         return None
 
+    # - List Commands
     if args.listCommands:
         print(description)
         list_commands(protocol=args.listCommands)
@@ -138,11 +139,11 @@ async def runner():
         log.info("Config validation successful")
         if args.validate:
             # if --validate option set, only do validation
-            print("Config validation successful")
+            print(_("Config validation successful"))
             return None
     except ValidationError as exception:
         # if config fails to validate, print reason and exit
-        print("Config validation failed")
+        print(_("Config validation failed"))
         print(f"{config=}")
         print(exception)
         return None
@@ -155,12 +156,12 @@ async def runner():
 
     # build mqtt broker object
     # mqtt_broker = MqttBroker.from_config(config=config_model.mqttbroker)
-    mqtt_broker = MqttBroker(config=config_model.mqttbroker)
+    mqtt_broker = MqttBroker(config_model.mqttbroker)
     log.info(mqtt_broker)
 
     # build device object (required)
     print(config_model.device)
-    device = await Device.from_config(config=config_model.device)
+    device = Device(config_model.device)
     device.mqtt_broker = mqtt_broker
     log.debug(device)
     print(device)
