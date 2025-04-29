@@ -14,13 +14,14 @@ from powermon.libs.errors import ConfigError
 log = logging.getLogger("protocols")
 rprint = Console(highlight=False).print
 
+MAX_MODELS = ['MAX']
+MST_MODELS = ['MST']
 
 class Protocol(StrEnum):
     """Enumeration of currently implemented Protocols"""
     PI18 = auto()  # WIP
     PI30 = auto()
     PI30MAX = auto()
-    # PI30MAXA = auto()
     PI30MST = auto()
     DALY = auto()
     NEEY = auto()
@@ -31,43 +32,42 @@ class Protocol(StrEnum):
     DEFAULT = PI30
 
 
-def get_protocol_definition(protocol, model=None):
+
+def from_name(name, model=None):
     """
     Get the protocol based on the protocol name and optionally device model
     """
 
-    log.debug("Protocol: %s", protocol)
+    log.debug("Protocol: %s", name)
 
-    protocol_id = protocol.lower()
+    protocol_id = name.lower()
+    proto = None
 
     match protocol_id:
         case Protocol.DALY:
-            from powermon.protocols.daly import Daly
-            return Daly()
+            from powermon.protocols.daly import Daly as proto
         case Protocol.NEEY | Protocol.HELTEC:
-            from powermon.protocols.neey import Neey
-            return Neey()
+            from powermon.protocols.neey import Neey as proto
         case Protocol.PI18:
-            from powermon.protocols.pi18 import PI18
-            return PI18()
+            from powermon.protocols.pi18 import PI18 as proto
         case Protocol.PI30:
-            from powermon.protocols.pi30 import PI30
-            return PI30(model=model)
+            if model in MAX_MODELS:
+                from powermon.protocols.pi30max import PI30MAX as proto
+            elif model in MST_MODELS:
+                from powermon.protocols.pi30mst import PI30MST as proto
+            else:
+                from powermon.protocols.pi30 import PI30 as proto
         case Protocol.PI30MAX:
-            from powermon.protocols.pi30 import PI30
-            return PI30(model="MAX")
+            from powermon.protocols.pi30max import PI30MAX as proto
         case Protocol.PI30MST:
-            from powermon.protocols.pi30 import PI30
-            return PI30(model='MST')
+            from powermon.protocols.pi30mst import PI30MST as proto
         case Protocol.VED:
-            from powermon.protocols.ved import VictronEnergyDirect
-            return VictronEnergyDirect()
+            from powermon.protocols.ved import VictronEnergyDirect as proto
         case Protocol.JKSERIAL:
-            from powermon.protocols.jkserial import JkSerial
-            return JkSerial()
+            from powermon.protocols.jkserial import JkSerial as proto
         case _:
             raise ConfigError(f"Invalid protocol_id, no protocol found for: '{protocol_id}'")
-    return None
+    return proto()
 
 
 def list_protocols():
@@ -75,7 +75,7 @@ def list_protocols():
     rprint("[bold yellow]Supported protocols")
     for name in Protocol:
         try:
-            _proto = get_protocol_definition(name)
+            _proto = from_name(name)
             if _proto is not None:
                 rprint(f"[green]{name.upper()}[/]: {_proto}")
         except ModuleNotFoundError as exc:
@@ -86,19 +86,19 @@ def list_protocols():
             continue
 
 
-def list_commands(protocol: str=None):
+def list_commands(name: str=None):
     """ helper function to display the commands available for a specified protocol
 
     Args:
-        protocol (str, optional): Name of protocol to list commands from. Defaults to None.
+        name (str, optional): Name of protocol to list commands from. Defaults to None.
     """
     try:
-        _proto = get_protocol_definition(protocol)
+        _proto = from_name(name)
         command_definitions = _proto.list_commands()
         # print(command_definitions)
-        rprint(f"Commands in protocol: [bold yellow]{protocol.upper()}")
+        rprint(f"Commands in protocol: [bold yellow]{name.upper()}")
         for item in command_definitions:
             rprint(f"[green]{item}[/] [cyan]{command_definitions[item].aliases}[/cyan] - {command_definitions[item].description} {command_definitions[item].help_text}")
     except ConfigError:
-        rprint(f"[bold red]Protocol {protocol} not found")
+        rprint(f"[bold red]Protocol {name} not found")
     return
