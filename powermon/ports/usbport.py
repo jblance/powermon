@@ -10,7 +10,7 @@ from powermon.commands.result import Result, ResultType
 from powermon.libs.errors import ConfigError, PowermonProtocolError
 from powermon.ports import PortType
 from powermon.ports.abstractport import AbstractPort, _AbstractPortDTO
-from powermon.protocols import get_protocol_definition
+# from powermon.protocols import get_protocol_definition
 
 log = logging.getLogger("USBPort")
 
@@ -24,16 +24,12 @@ class UsbPortDTO(_AbstractPortDTO):
 class USBPort(AbstractPort):
     """ usb port object """
     @classmethod
-    async def from_config(cls, config=None):
+    async def from_config(cls, config, protocol, serial_number):
         log.debug("building usb port. config:%s", config)
-        path = config.get("path")
-        serial_number = config.get("serial_number")
-        # get protocol handler, default to PI30 if not supplied
-        protocol = get_protocol_definition(protocol=config.get("protocol", "PI30"), model=config.get("model"))
         # instantiate class
-        _class = cls(path=path, protocol=protocol)
+        _class = cls(path=config.path, protocol=protocol)
         # deal with wildcard path resolution
-        _class.path = await _class.resolve_path(path, serial_number)
+        _class.path = await _class.resolve_path(config.path, serial_number)
         return _class
 
     def __init__(self, path, protocol) -> None:

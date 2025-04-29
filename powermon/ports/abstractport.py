@@ -29,7 +29,7 @@ class AbstractPort(ABC):
 
     @classmethod
     @abstractmethod
-    async def from_config(cls, config: dict) -> "AbstractPort":
+    async def from_config(cls, config, protocol, serial_number) -> "AbstractPort":
         """ build port object from config dict """
         raise NotImplementedError
 

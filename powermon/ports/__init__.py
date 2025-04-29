@@ -5,6 +5,7 @@ from enum import StrEnum, auto
 from pydantic import BaseModel
 
 from powermon.libs.errors import ConfigError
+# from .abstractport import AbstractPort
 
 
 # Set-up logger
@@ -30,16 +31,16 @@ class PortTypeDTO(BaseModel):
     """ data transfer model for PortType class """
     port_type: PortType
 
-def from_config(port_config):
+async def from_config(config=None, protocol=None, serial_number=None) -> 'AbstractPort':
     """ get a port object from config data """
-    log.debug("port_config: %s", port_config)
+    log.debug("port_config: %s", config)
 
     port_object = None
-    if not port_config:
+    if not config:
         raise ConfigError("no port config supplied")
 
     # port type is mandatory
-    port_type = port_config.get("type")
+    port_type = config.type
     log.debug("portType: %s", port_type)
 
     # return None if port type is not defined
@@ -50,18 +51,17 @@ def from_config(port_config):
     match port_type:
         case PortType.TEST:
             from powermon.ports.testport import TestPort
-            port_object = TestPort.from_config(config=port_config)
+            port_object = await TestPort.from_config(config=config, protocol=protocol, serial_number=serial_number)
         case PortType.SERIAL:
             from powermon.ports.serialport import SerialPort
-            port_object = SerialPort.from_config(config=port_config)
+            port_object = await SerialPort.from_config(config=config, protocol=protocol, serial_number=serial_number)
         case PortType.USB:
             from powermon.ports.usbport import USBPort
-            port_object = USBPort.from_config(config=port_config)
+            port_object = await USBPort.from_config(config=config, protocol=protocol, serial_number=serial_number)
         # Pattern for port types that cause problems when imported
         case PortType.BLE:
-            log.debug("port_type BLE found")
             from powermon.ports.bleport import BlePort
-            port_object = BlePort.from_config(config=port_config)
+            port_object = await BlePort.from_config(config=config, protocol=protocol, serial_number=serial_number)
         case _:
             log.info("port type object not found for %s", port_type)
             raise ConfigError(f"Invalid port type: '{port_type}'")

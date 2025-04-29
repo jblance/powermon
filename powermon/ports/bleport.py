@@ -25,7 +25,7 @@ from powermon.libs.errors import (BLEResponseError, ConfigError,
                                   PowermonProtocolError, PowermonWIP)
 from powermon.ports import PortType
 from powermon.ports.abstractport import AbstractPort, _AbstractPortDTO
-from powermon.protocols import get_protocol_definition
+# from powermon.protocols import get_protocol_definition
 from powermon.protocols.abstractprotocol import AbstractProtocol
 
 log = logging.getLogger("BlePort")
@@ -56,7 +56,7 @@ class BlePort(AbstractPort):
         return f"BlePort: {self.mac=}, protocol:{self.protocol}, {self.client=}, {self.error_message=}"
 
     @classmethod
-    async def from_config(cls, config: dict) -> 'BlePort':
+    async def from_config(cls, config, protocol, serial_number) -> 'BlePort':
         """build the BlePort object from a config dict
 
         Args:
@@ -79,7 +79,7 @@ class BlePort(AbstractPort):
         # intializing_handle = config.get("intializing_handle", 48)
         # command_handle = config.get("command_handle", 15)
         # get protocol handler, default to PI30 if not supplied
-        protocol = get_protocol_definition(protocol=config.get("protocol", "PI30"), model=config.get("model"))
+        protocol = protocol
         return cls(mac=mac, protocol=protocol)
 
     def __init__(self, mac, protocol: AbstractProtocol) -> None:

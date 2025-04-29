@@ -8,7 +8,7 @@ from powermon.commands.result import Result
 from powermon.ports import PortType
 # from powermon.dto.portDTO import PortDTO
 from powermon.ports.abstractport import AbstractPort, _AbstractPortDTO
-from powermon.protocols import get_protocol_definition
+# from powermon.protocols import get_protocol_definition
 
 log = logging.getLogger("test")
 
@@ -26,23 +26,19 @@ class TestPort(AbstractPort):
 
         self.response_number = response_number
         self.connected = False
-        self._test_data = None
+        # self._test_data = None
 
     def to_dto(self) -> _AbstractPortDTO:
         dto = TestPortDTO(port_type=self.port_type, protocol=self.protocol.to_dto(), response_number=self.response_number)
         return dto
 
     def __str__(self):
-        return "Test port"
+        return f"Test port: {self.response_number=}"
 
     @classmethod
-    async def from_config(cls, config=None):
+    async def from_config(cls, config, protocol, serial_number):
         log.debug("building test port. config:%s", config)
-        # allows specification of which of the test responses to use (mainly to allow test cases to be repeatable)
-        response_number = config.get("response_number", None)
-        # get protocol handler, default to PI30 if not supplied
-        protocol = get_protocol_definition(protocol=config.get("protocol", "PI30"), model=config.get("model"))
-        return cls(response_number=response_number, protocol=protocol)
+        return cls(response_number=config.response_number, protocol=protocol)
 
     def is_connected(self):
         log.debug("Test port is connected")
@@ -66,19 +62,16 @@ class TestPort(AbstractPort):
             # Have test data defined, so use that
             number_of_test_responses = len(command_defn.test_responses)
             if self.response_number is not None and self.response_number < number_of_test_responses:
-                self._test_data = command_defn.test_responses[self.response_number]
-                log.info('Selected response number %s:, %s', self.response_number, self._test_data)
+                _test_data = command_defn.test_responses[self.response_number]
+                log.info('Selected response number %s:, %s', self.response_number, _test_data)
             else:
-                self._test_data = command_defn.test_responses[random.randrange(number_of_test_responses)]
-                log.info('Applying random response: %s', self._test_data)
+                _test_data = command_defn.test_responses[random.randrange(number_of_test_responses)]
+                log.info('Applying random response: %s', _test_data)
         else:
             # No test responses defined
             raise ValueError(f"Testing a command '{command.code}' with no test responses defined")
-        
-        # Get raw response
-        response_line = self._test_data
-        log.debug("Raw response: %s", response_line)
 
-        # response = self.get_protocol().check_response_and_trim(response_line)
-        result = command.build_result(raw_response=response_line, protocol=self.protocol)
+        # Get raw response
+        log.debug("Raw response: %s", _test_data)
+        result = command.build_result(raw_response=_test_data, protocol=self.protocol)
         return result
