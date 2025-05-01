@@ -6,7 +6,7 @@ from powermon.device import DeviceInfo
 from powermon.libs.errors import InvalidCRC, InvalidResponse
 from powermon.outputformats.simple import SimpleFormat
 # from powermon.ports import PortType
-from powermon.protocols import get_protocol_definition
+from powermon.protocols import from_name as get_protocol_definition
 proto = get_protocol_definition('NEEY')
 
 device_info_response = b'U\xaa\x11\x01\x01\x00d\x00GW-24S4EB\x00\x00\x00\x00\x00\x00\x00HW-2.8.0ZH-1.2.3V1.0.0\x00\x0020220916\x04\x00\x00\x00n\x85?\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00G\xff'

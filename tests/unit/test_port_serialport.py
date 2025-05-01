@@ -4,10 +4,10 @@ from unittest import TestCase
 from unittest.mock import Mock, patch
 
 from powermon.commands.command import Command
-from powermon.libs.errors import ConfigError
+# from powermon.libs.errors import ConfigError
 from powermon.ports.serialport import SerialPort
 # from powermon.protocols.pi30max import PI30MAX
-from powermon.protocols import get_protocol_definition
+from powermon.protocols import from_name as get_protocol_definition
 proto = get_protocol_definition('PI30MAX')
 
 

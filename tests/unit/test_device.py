@@ -2,11 +2,13 @@ import asyncio
 from unittest import TestCase
 from unittest.mock import Mock
 
+from powermon.config.device_config import DeviceConfig
+from powermon.config.port_config_model import TestPortConfig
 from powermon.device import Device
 from powermon.commands.command import Command
 from powermon.outputs.abstractoutput import AbstractOutput
-from powermon.ports.serialport import SerialPort
-from powermon.protocols.pi30 import PI30
+from powermon.ports import from_config as port_from_config
+from powermon.protocols import from_name as protocol_from_name
 
 
 class DeviceTest(TestCase):
@@ -15,14 +17,17 @@ class DeviceTest(TestCase):
         self.port = None
         self.device = None
 
-    def setUp(self) -> None:
-        self.port = Mock(spec=SerialPort, protocol=PI30())
-        self.device = Device(name="Test Device", port=self.port)
-
     def test_if_output_processed_in_success_run(self):
         """
         Test if output process called in success command run
         """
+        #self.port = Mock(spec=SerialPort, protocol=PI30())
+        port_config = TestPortConfig(type='test', protocol='pi30')
+
+        device_config = DeviceConfig(name="Test Device", serial_number='1234546', model="BIGMODEL", manufacturer='mppsolar', port=port_config)
+        _protocol = protocol_from_name(name=port_config.protocol, model=device_config.model)
+        self.device = Device(device_config)
+        self.device.port = asyncio.run( port_from_config(config=port_config, protocol=_protocol, serial_number=device_config.serial_number))
 
         # Add command into command list with dueToRun=True to emulate running command
         output = Mock(spec=AbstractOutput)

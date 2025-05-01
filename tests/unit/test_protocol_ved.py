@@ -10,7 +10,7 @@ from powermon.commands.result import ResultType
 from powermon.device import DeviceInfo
 from powermon.libs.errors import CommandError, InvalidCRC, InvalidResponse
 from powermon.outputformats.simple import SimpleFormat
-from powermon.protocols import get_protocol_definition
+from powermon.protocols import from_name as get_protocol_definition
 proto = get_protocol_definition('VED')
 
 battery_capacity_defn = cs.Struct(

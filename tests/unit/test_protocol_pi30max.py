@@ -5,7 +5,7 @@ from powermon.commands.command import Command
 from powermon.device import DeviceInfo
 # from powermon.libs.errors import InvalidCRC, InvalidResponse
 from powermon.outputformats.simple import SimpleFormat
-from powermon.protocols import get_protocol_definition
+from powermon.protocols import from_name as get_protocol_definition
 proto = get_protocol_definition('PI30MAX')
 
 # TODO: add tests for incorrect/incomplete responses
