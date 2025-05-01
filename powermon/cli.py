@@ -8,14 +8,13 @@ from deepdiff import DeepDiff
 #import yaml
 from ruamel.yaml import YAML
 
-from powermon import _
+from powermon import _, __version__
 from powermon.libs.config import Color
 from powermon.libs.errors import CommandDefinitionMissing, ConfigError
-from powermon.libs.version import __version__  # noqa: F401
 from powermon.outputformats import FormatterType, get_formatter, list_formats
 from powermon.outputs import OutputType, list_outputs
 from powermon.ports.bleport import ble_reset
-from powermon.protocols import (Protocol, get_protocol_definition,
+from powermon.protocols import (Protocol, from_name,
                                 list_commands, list_protocols)
 
 
@@ -149,12 +148,12 @@ def generate_config_file():
     while command := input(f"{Color.ENDC}Enter {Color.OKGREEN}COMMAND ({len(commands)+1}){Color.ENDC} (or '?' to list available commands) or press enter to end: {Color.OKBLUE}"):
         if command == '?':
             print(f"{Color.ENDC}", end='')
-            list_commands(protocol=config['device']['port']['protocol'])
+            list_commands(name=config['device']['port']['protocol'])
             continue
         if command == '':
             break
         # check that command is valid for this protocol
-        proto = get_protocol_definition(protocol=protocol_name)
+        proto = from_name(name=protocol_name)
         try:
             proto.get_command_definition(command=command)
         except CommandDefinitionMissing:
@@ -381,8 +380,8 @@ def compare_protocols(protocols):
         _proto_2, _cmd = _proto_2.split(':')
         limit_to_single_command = True
     try:
-        proto_1 = get_protocol_definition(_proto_1)
-        proto_2 = get_protocol_definition(_proto_2)
+        proto_1 = from_name(_proto_1)
+        proto_2 = from_name(_proto_2)
     except ConfigError as ex:
         print(f'ERROR: {ex}')
         return
@@ -479,4 +478,3 @@ def main():
             generate_config_file()
         except KeyboardInterrupt:
             print(f"{Color.FAIL}Generation of config file aborted{Color.ENDC}")
-    
