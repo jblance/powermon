@@ -1,8 +1,8 @@
 # yaml config example with mqtt
 device:
-  name: MQTT_Inverter
+  name: Inverter_w_MQTT
   serial_number: 123456789
-  model: 1012LV-MK
+  model: MAX
   manufacturer: MPP-Solar
   port:
     type: test
@@ -23,7 +23,7 @@ commands:
     topic: powermon/serial_number/results
           
 mqttbroker:
-  name: localhost
+  name: screen
   port: 1883
   username: test
   password: test_password

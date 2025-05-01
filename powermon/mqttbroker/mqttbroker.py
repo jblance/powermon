@@ -21,6 +21,11 @@ class MqttBroker():
     def __str__(self):
         return f"{self.__module__}: {self.disabled=}, {self.name=}, {self.port=}, {self.username=}, {self.adhoc_topic=}, {self.adhoc_result_topic=}"
 
+
+    def __repr__(self):
+        return str(self)
+
+
     def __init__(self, config: MQTTConfig):
         self.name = config.name
         self.port = config.port
@@ -34,25 +39,30 @@ class MqttBroker():
             self.disabled = False
             self.mqttc = mqtt_client.Client()
 
+
     @property
     def adhoc_topic(self) -> str:
         """the topic to listen for any adhoc command"""
         return getattr(self, "_adhoc_topic", None)
+
 
     @adhoc_topic.setter
     def adhoc_topic(self, value):
         log.debug("setting adhoc topic to: %s", value)
         self._adhoc_topic = value
 
+
     @property
     def adhoc_result_topic(self) -> str:
         """the topic to publish adhoc results to"""
         return getattr(self, "_adhoc_result_topic", None)
 
+
     @adhoc_result_topic.setter
     def adhoc_result_topic(self, value):
         log.debug("setting adhoc result topic to: %s", value)
         self._adhoc_result_topic = value
+
 
     def on_connect(self, client, userdata, flags, rc):
         """callback for connect"""
@@ -79,10 +89,12 @@ class MqttBroker():
             return
         self.is_connected = False
 
+
     def on_disconnect(self, client, userdata, rc):
         """ callback for disconnect """
         log.debug("on_disconnect called - client: %s, userdata: %s, rc: %s", client, userdata, rc)
         self.is_connected = False
+
 
     def connect(self) -> None:
         """ connect to mqtt broker """
@@ -114,6 +126,7 @@ class MqttBroker():
         except ConnectionRefusedError as ex:
             log.warning("%s refused connection with error: '%s'", self.name, ex)
 
+
     def start(self) -> None:
         """start the mqtt broker """
         if self.disabled:
@@ -121,12 +134,14 @@ class MqttBroker():
         if self.is_connected:
             self.mqttc.loop_start()
 
+
     def stop(self) -> None:
         """stop the mqtt broker"""
         log.debug("Stopping mqttbroker connection")
         if self.disabled:
             return
         self.mqttc.loop_stop()
+
 
     def subscribe(self, topic: str, callback: Callable) -> None:
         """subscribe to a topic on the mqtt broker
@@ -152,9 +167,11 @@ class MqttBroker():
         else:
             log.warning("Did not subscribe to topic: %s as not connected to broker", topic)
 
+
     def post_adhoc_command(self, command_code: str) -> None:
         """ shortcut function to publish an adhoc command """
         self.publish(topic=self.adhoc_topic, payload=command_code)
+
 
     def post_adhoc_result(self, payload: str) -> None:
         """ shortcut function to publish the results of an adhoc command """

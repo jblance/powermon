@@ -22,7 +22,9 @@ from .libs.apicoordinator import ApiCoordinator
 from .libs.daemon import Daemon
 #from powermon.libs.mqttbroker import MqttBroker
 # from powermon.libs.version import __version__  # noqa: F401
+from .protocols import from_name as protocol_from_name
 from .protocols import list_commands, list_protocols
+from .ports import from_config as port_from_config
 
 # Set-up logger
 log = logging.getLogger("")
@@ -61,9 +63,9 @@ def _process_command_line_overrides(args):
 
 def main():
     """entry point for powermon command"""
-    asyncio.run(runner())
+    asyncio.run(async_main())
 
-async def runner():
+async def async_main():
     """powermon command function"""
     _name = _("Power Device Monitoring Utility")
     description = f"{_name}, version: {__version__}, python version: {python_version()}"  # pylint: disable=C0301
@@ -121,7 +123,7 @@ async def runner():
     # - List Commands
     if args.listCommands:
         print(description)
-        list_commands(protocol=args.listCommands)
+        list_commands(name=args.listCommands)
         return None
 
     # Build configuration from config file and command line overrides
@@ -160,13 +162,11 @@ async def runner():
     log.info(mqtt_broker)
 
     # build device object (required)
-    print(config_model.device)
     device = Device(config_model.device)
+    _protocol = protocol_from_name(name=config_model.device.port.protocol, model=config_model.device.model)
+    device.port = await port_from_config(config=config_model.device.port, protocol=_protocol, serial_number=config_model.device.serial_number)
     device.mqtt_broker = mqtt_broker
     log.debug(device)
-    print(device)
-
-    exit()
 
     # process adhoc command line command
     if args.adhoc:

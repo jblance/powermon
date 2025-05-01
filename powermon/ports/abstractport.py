@@ -27,6 +27,10 @@ class AbstractPort(ABC):
         self.is_protocol_supported()
 
 
+    def __repr__(self):
+        return str(self)
+
+
     @classmethod
     @abstractmethod
     async def from_config(cls, config, protocol, serial_number) -> "AbstractPort":

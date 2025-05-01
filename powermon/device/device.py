@@ -5,7 +5,7 @@ from typing import Optional
 
 from pydantic import BaseModel, Field
 
-from .. import MqttBroker
+from powermon import MqttBroker
 from ..commands.command import Command, CommandDTO
 from ..commands.result import Result
 # from ..config.powermon_config import PowermonConfig
@@ -13,7 +13,7 @@ from ..config.device_config import DeviceConfig
 from ..libs.errors import CommandDefinitionMissing
 from ..outputformats import FormatterType, get_formatter
 from ..outputs.abstractoutput import AbstractOutput
-# from ..ports import from_config as port_from_config
+from ..ports import from_config as port_from_config
 from ..ports.abstractport import AbstractPort, _AbstractPortDTO
 
 # Set-up logger
@@ -52,8 +52,8 @@ class DeviceDTO(BaseModel):
 
 class Device:
     """
-    A device is a port with a protocol
-    also contains the name, model and id of the device
+    The device object has information about the device - the name, model and serial number of the device
+    The object also defines the port and protocol that is used to communicate with the device
     """
     # def __init__(self, name: str, serial_number: str = "", model: str = "", manufacturer: str = "", port: AbstractPort = None):
     def __init__(self, config: DeviceConfig):
@@ -64,9 +64,9 @@ class Device:
         self.adhoc_commands: list = []
 
     def __str__(self):
-        return f"Device: {self.device_info.name}, {self.device_info.serial_number=}, " + \
-            f"{self.device_info.model=}, {self.device_info.manufacturer=}, " + \
-            f"port: {self.port}, mqtt_broker: {self.mqtt_broker}, commands:{self.commands}"
+        #return f"Device: {self.device_info.name}, {self.device_info.serial_number=}, " + \
+        #    f"{self.device_info.model=}, {self.device_info.manufacturer=}, " + \
+        return f"Device: {self.device_info=}, {self.port=}, {self.mqtt_broker=}, commands:{self.commands}"
 
     def to_dto(self) -> DeviceDTO:
         """convert the Device to a Data Transfer Object"""
