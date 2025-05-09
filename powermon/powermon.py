@@ -136,8 +136,8 @@ async def async_main():
 
     # validate config
     try:
-        config_model = PowermonConfig(**config)
-        log.debug(config_model)
+        powermon_config = PowermonConfig(**config)
+        log.debug(powermon_config)
         log.info("Config validation successful")
         if args.validate:
             # if --validate option set, only do validation
@@ -151,20 +151,20 @@ async def async_main():
         return None
 
     # logging (DEBUG, INFO, WARNING, ERROR, CRITICAL)
-    log.setLevel(config.get("debuglevel", logging.WARNING))
+    log.setLevel(powermon_config.debuglevel)
 
     # debug config
-    log.info("config: %s", config_model)
+    log.info("config: %s", powermon_config)
 
     # build mqtt broker object
-    # mqtt_broker = MqttBroker.from_config(config=config_model.mqttbroker)
-    mqtt_broker = MqttBroker(config_model.mqttbroker)
+    # mqtt_broker = MqttBroker.from_config(config=powermon_config.mqttbroker)
+    mqtt_broker = MqttBroker(powermon_config)
     log.info(mqtt_broker)
 
     # build device object (required)
-    device = Device(config_model.device)
-    _protocol = protocol_from_name(name=config_model.device.port.protocol, model=config_model.device.model)
-    device.port = await port_from_config(config=config_model.device.port, protocol=_protocol, serial_number=config_model.device.serial_number)
+    device = Device(powermon_config)
+    _protocol = protocol_from_name(name=powermon_config.device.port.protocol, model=powermon_config.device.model)
+    device.port = await port_from_config(config=powermon_config.device.port, protocol=_protocol, serial_number=powermon_config.device.serial_number)
     device.mqtt_broker = mqtt_broker
     log.debug(device)
 
@@ -214,7 +214,7 @@ async def async_main():
     api_coordinator.announce(device)
 
     # loop config
-    loop = config.get("loop", "once")
+    loop = config.get("loop")
     try:
         if loop == "once":
             loop = False

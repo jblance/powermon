@@ -26,4 +26,4 @@ mqttbroker:
   adhoc_topic: powermon/adhoc_commands
   adhoc_result_topic: powermon/adhoc_results
   
-loop: once
+loop: null

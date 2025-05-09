@@ -9,7 +9,7 @@ from typing import Callable
 
 import paho.mqtt.client as mqtt_client
 
-from ..config.mqtt_config import MQTTConfig
+# from .. import PowermonConfig
 
 # Set-up logger
 log = logging.getLogger("mqttbroker")
@@ -26,11 +26,11 @@ class MqttBroker():
         return str(self)
 
 
-    def __init__(self, config: MQTTConfig):
-        self.name = config.name
-        self.port = config.port
-        self.username = config.username
-        self.password = config.password
+    def __init__(self, config: 'PowermonConfig'):
+        self.name = config.mqttbroker.name
+        self.port = config.mqttbroker.port
+        self.username = config.mqttbroker.username
+        self.password = config.mqttbroker.password
         self.is_connected = False
 
         if self.name is None:

@@ -2,6 +2,7 @@ import asyncio
 from unittest import TestCase
 from unittest.mock import Mock
 
+from powermon import PowermonConfig
 from powermon.config.device_config import DeviceConfig
 from powermon.config.port_config_model import TestPortConfig
 from powermon.device import Device
@@ -26,8 +27,9 @@ class DeviceTest(TestCase):
 
         device_config = DeviceConfig(name="Test Device", serial_number='1234546', model="BIGMODEL", manufacturer='mppsolar', port=port_config)
         _protocol = protocol_from_name(name=port_config.protocol, model=device_config.model)
-        self.device = Device(device_config)
-        self.device.port = asyncio.run( port_from_config(config=port_config, protocol=_protocol, serial_number=device_config.serial_number))
+        powermon_config = PowermonConfig(device=device_config, commands=[])
+        self.device = Device(powermon_config)
+        self.device.port = asyncio.run( port_from_config(config=port_config, protocol=_protocol, serial_number=powermon_config.device.serial_number))
 
         # Add command into command list with dueToRun=True to emulate running command
         output = Mock(spec=AbstractOutput)

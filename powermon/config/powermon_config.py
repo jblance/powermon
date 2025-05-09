@@ -1,9 +1,9 @@
 """
 pydantic definitions for the powermon config model
 """
-from typing import List, Literal  # , Optional
+from typing import List, Optional
 
-from pydantic import Field
+# from pydantic import Field
 
 from . import NoExtraBaseModel
 from .api_config import APIConfig
@@ -18,7 +18,7 @@ class PowermonConfig(NoExtraBaseModel):
     device: DeviceConfig
     commands: List[CommandConfig]
     mqttbroker: MQTTConfig = MQTTConfig()
-    api: None | APIConfig = Field(default=None)
-    daemon: None | DaemonConfig = Field(default=None)
+    api: APIConfig = APIConfig()
+    daemon: DaemonConfig = DaemonConfig()
     debuglevel: int | str = 'WARNING'
-    loop: None | int | Literal["once"] = Field(default=None)
+    loop: Optional[int] = None

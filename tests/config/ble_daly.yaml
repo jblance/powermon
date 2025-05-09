@@ -16,4 +16,4 @@ commands:
     format: 
       type: table
       draw_lines: True
-loop: once
+loop: null

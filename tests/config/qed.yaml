@@ -10,15 +10,30 @@ device:
     type: test
     protocol: PI30MAX
 commands:
-- command: f'QED{dateparse("yesterday").strftime("%Y%m%d")}'
+# - command: f'QED{dateparse("yesterday").strftime("%Y%m%d")}'
+#   type: templated
+#   trigger:
+#     every: 1
+#   outputs:
+#   - type: screen
+#     format:
+#       type: hass
+#       tag: Test_Inverter
+#       filter: ^pv
+- command: f'QED{dateparse("today").strftime("%Y%m%d")}'
   type: templated
+  override: 
+    description: 
+      pv_generated_energy_for_day: bob
+  trigger:
+    every: 1
   outputs:
   - type: screen
     format:
-      type: simple
+      type: table
       tag: Test_Inverter
-      filter: ^pv
-loop: once
+      # filter: ^pv
+loop: null
 mqttbroker:
   name: homeassistant.lan
   port: 1883

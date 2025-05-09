@@ -9,11 +9,11 @@ device:
     #path: /dev/ttyUSB*
     # response_number: 0
     # mac: 66:66:18:01:09:18
-    protocol: PI30MAX
+    protocol: PI30
     response_number: 1
 
 commands:
-- command: QPGS0
+- command: QPI
   outputs:
   - type: screen
     format: 
@@ -40,4 +40,4 @@ commands:
 #       type: table
 #       draw_lines: True
 #       extra_info: True
-loop: once
+loop: null

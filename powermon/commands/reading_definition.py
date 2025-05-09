@@ -321,6 +321,14 @@ class ReadingDefinition():
         """ generate a reading object from a raw value """
         log.debug("raw_value: %s, override: %s", raw_value, override)
         value = self.translate_raw_response(raw_value)
+        ## Check for overrides
+        if override is not None:
+            # look for 'rename' type override
+            print(f"{self.description=} {override['description']}")
+            if 'description' in override and self.description in override['description']:
+                log.error("replacing description: %s with %s", self.description, override['description'][self.description])
+                self.description = override['description'][self.description]
+                #print(f"{self.description} {override['description'][self.description]=}")
         return [Reading(raw_value=raw_value, processed_value=value, definition=self)]
 
     def get_invalid_message(self, raw_value) -> str:

@@ -4,6 +4,7 @@ import pathlib
 
 from .mqttbroker.mqttbroker import MqttBroker
 from .version import __version__
+from .config.powermon_config import PowermonConfig
 
 
 LOCALE_PATH = f"{pathlib.Path(__file__).parent}/locale/"

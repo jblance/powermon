@@ -9,7 +9,7 @@ from powermon import MqttBroker
 from ..commands.command import Command, CommandDTO
 from ..commands.result import Result
 # from ..config.powermon_config import PowermonConfig
-from ..config.device_config import DeviceConfig
+from .. import PowermonConfig
 from ..libs.errors import CommandDefinitionMissing
 from ..outputformats import FormatterType, get_formatter
 from ..outputs.abstractoutput import AbstractOutput
@@ -56,8 +56,8 @@ class Device:
     The object also defines the port and protocol that is used to communicate with the device
     """
     # def __init__(self, name: str, serial_number: str = "", model: str = "", manufacturer: str = "", port: AbstractPort = None):
-    def __init__(self, config: DeviceConfig):
-        self.device_info = DeviceInfo(name=config.name, serial_number=config.serial_number, model=config.model, manufacturer=config.manufacturer)
+    def __init__(self, config: PowermonConfig):
+        self.device_info = DeviceInfo(name=config.device.name, serial_number=config.device.serial_number, model=config.device.model, manufacturer=config.device.manufacturer)
         self.port: AbstractPort = None
         self.commands: list[Command] = []
         self.mqtt_broker = None

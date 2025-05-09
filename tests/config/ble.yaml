@@ -18,4 +18,4 @@ commands:
       type: table
       draw_lines: True
       extra_info: True
-loop: once
+loop: null

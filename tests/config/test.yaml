@@ -25,4 +25,4 @@ commands:
       # battery_cutoff_voltage: 48
       # battery_max_charge_current: 100
       # battery_max_discharge_current: 100
-loop: once
+loop: null

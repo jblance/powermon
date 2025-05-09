@@ -16,4 +16,4 @@ commands:
       # remove_spaces: False
       # keep_case: True
 
-loop: once
+#loop: null

@@ -49,5 +49,5 @@ commands:
     format: mqttsimple
 
 daemon:
-  # type: initd
+  type: initd
   # keepalive: 100

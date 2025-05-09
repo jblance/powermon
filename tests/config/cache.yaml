@@ -23,7 +23,7 @@ commands:
     format: bmsresponse
 
 
-loop: once
+loop: null
 
 
 # 2 devices 

@@ -2,14 +2,13 @@
 import logging
 
 from powermon.commands.command_definition import CommandCategory, CommandDefinition
-from powermon.commands.reading_definition import ReadingDefinition, ReadingType, ResponseType
+from powermon.commands.reading_definition import ReadingType, ResponseType
 from powermon.commands.result import ResultType
 from powermon.libs.errors import InvalidCRC, InvalidResponse
 from powermon.ports import PortType
 from powermon.protocols.abstractprotocol import AbstractProtocol
 from powermon.protocols.constants import (BATTERY_TYPES, CHARGER_SOURCE_PRIORITIES, FAULT_CODE_OPTIONS,
-                                          FAULT_CODE_OPTIONS_PI30MAX, INVERTER_MODE_OPTIONS, OUTPUT_MODES,
-                                          OUTPUT_SOURCE_PRIORITIES, PI30_OUTPUT_MODES)
+                                          INVERTER_MODE_OPTIONS, OUTPUT_MODES, OUTPUT_SOURCE_PRIORITIES)
 from powermon.protocols.helpers import crc_pi30 as crc
 
 log = logging.getLogger("pi30")
@@ -20,7 +19,7 @@ QPI = {
     "description": "Get the Inverter supported Protocol ID",
     "category": CommandCategory.INFO,
     "result_type": ResultType.SINGLE,
-    "reading_definitions": [{"description": "Protocol Id", "reading_type": ReadingType.MESSAGE, "response_type": ResponseType.BYTES}],
+    "reading_definitions": [{"description": "Protocol Id", "reading_type": ReadingType.MESSAGE, "response_type": ResponseType.STRING}],
     "test_responses": [b"(PI30\x9a\x0b\r"],
     }
 QID = {
