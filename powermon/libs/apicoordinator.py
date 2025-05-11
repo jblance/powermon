@@ -52,10 +52,10 @@ class ApiCoordinator:
             announce_topic = "powermon/announce"
             adhoc_topic_format = "powermon/{device_id}/addcommand"
         else:
-            refresh_interval = config.get("refresh_interval", 300)
-            enabled = config.get("enabled", True)  # default to enabled if not specified
-            announce_topic = config.get("announce_topic", "powermon/announce")
-            adhoc_topic_format = config.get("adhoc_topic_format", "powermon/{device_id}/addcommand")
+            refresh_interval = config.refresh_interval
+            enabled = config.enabled
+            announce_topic = config.announce_topic
+            adhoc_topic_format = config.adhoc_topic
 
         return cls(adhoc_topic_format=adhoc_topic_format, announce_topic=announce_topic, enabled=enabled, refresh_interval=refresh_interval)
 

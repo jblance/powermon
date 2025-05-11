@@ -9,6 +9,7 @@ from enum import StrEnum, auto
 from rich.console import Console
 
 from powermon.libs.errors import ConfigError
+# from ..config.device_config import DeviceConfig
 
 
 log = logging.getLogger("protocols")
@@ -31,6 +32,12 @@ class Protocol(StrEnum):
 
     DEFAULT = PI30
 
+
+def from_device_config(config: 'DeviceConfig') -> Protocol:
+    protocol_name = config.port.protocol
+    model = config.model
+
+    return from_name(name=protocol_name, model=model)
 
 
 def from_name(name, model=None):
