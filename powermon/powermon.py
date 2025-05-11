@@ -19,10 +19,10 @@ from .commands.command import Command
 from .config.powermon_config import PowermonConfig
 from .device import Device
 from .libs.apicoordinator import ApiCoordinator
-from .libs.daemon import Daemon
+from .daemons import from_config as daemon_from_config
 #from powermon.libs.mqttbroker import MqttBroker
 # from powermon.libs.version import __version__  # noqa: F401
-from .protocols import from_name as protocol_from_name
+from .protocols import from_device_config as protocols_from_device_config
 from .protocols import list_commands, list_protocols
 from .ports import from_config as port_from_config
 
@@ -129,41 +129,49 @@ async def async_main():
     # Build configuration from config file and command line overrides
     log.info("Using config file: %s", args.configFile)
     # build config with details from config file - including env variable expansion
-    config = _read_yaml_file(args.configFile)
+    _config = _read_yaml_file(args.configFile)
 
     # build config - override with any command line arguments
-    config.update(_process_command_line_overrides(args))
+    _config.update(_process_command_line_overrides(args))
 
     # validate config
     try:
-        powermon_config = PowermonConfig(**config)
+        powermon_config = PowermonConfig(**_config)
         log.debug(powermon_config)
         log.info("Config validation successful")
-        if args.validate:
-            # if --validate option set, only do validation
-            print(_("Config validation successful"))
-            return None
     except ValidationError as exception:
         # if config fails to validate, print reason and exit
         print(_("Config validation failed"))
-        print(f"{config=}")
+        print(f"{_config=}")
         print(exception)
         return None
 
-    # logging (DEBUG, INFO, WARNING, ERROR, CRITICAL)
+    if args.validate:
+        # if --validate option set, only do validation
+        print(_("Config validation successful"))
+        return None
+
+    # set logging level (DEBUG, INFO, WARNING, ERROR, CRITICAL)
     log.setLevel(powermon_config.debuglevel)
 
-    # debug config
-    log.info("config: %s", powermon_config)
 
     # build mqtt broker object
     # mqtt_broker = MqttBroker.from_config(config=powermon_config.mqttbroker)
-    mqtt_broker = MqttBroker(powermon_config)
+    mqtt_broker = MqttBroker(powermon_config.mqttbroker)
     log.info(mqtt_broker)
+
+    # build the daemon object (optional)
+    daemon = daemon_from_config(config=powermon_config.daemon)
+    log.info(daemon)
+
+    # build api coordinator
+    api_coordinator = ApiCoordinator.from_config(config=powermon_config.api)
+    log.info(api_coordinator)
 
     # build device object (required)
     device = Device(powermon_config)
-    _protocol = protocol_from_name(name=powermon_config.device.port.protocol, model=powermon_config.device.model)
+    ## get the protocol 
+    _protocol = protocols_from_device_config(config=powermon_config.device)
     device.port = await port_from_config(config=powermon_config.device.port, protocol=_protocol, serial_number=powermon_config.device.serial_number)
     device.mqtt_broker = mqtt_broker
     log.debug(device)
@@ -187,22 +195,18 @@ async def async_main():
         # print(_command)
         return
     # add commands to device command list
-    for command_config in config.get("commands"):
+    for command_config in powermon_config.commands:
         log.info("Adding command, config: %s", command_config)
         device.add_command(Command.from_config(command_config))
     log.info(device)
 
-    # build the daemon object (optional)
-    daemon = Daemon.from_config(config=config.get("daemon"))
-    log.info(daemon)
-
-    # build api coordinator
-    api_coordinator = ApiCoordinator.from_config(config=config.get("api"))
-    api_coordinator.set_device(device)
-    api_coordinator.set_mqtt_broker(mqtt_broker)
-    log.info(api_coordinator)
+    
+    
 
     # initialize api coordinator
+    api_coordinator.set_device(device)
+    api_coordinator.set_mqtt_broker(mqtt_broker)
+    
     api_coordinator.initialize()
 
     # initialize daemon
@@ -214,9 +218,9 @@ async def async_main():
     api_coordinator.announce(device)
 
     # loop config
-    loop = config.get("loop")
+    loop = powermon_config.loop
     try:
-        if loop == "once":
+        if loop is None:
             loop = False
         else:
             loop = float(loop) + 0.01  # adding a little bit so is delay is 0, loop != False
