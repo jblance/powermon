@@ -34,6 +34,14 @@ class Protocol(StrEnum):
 
 
 def from_device_config(config: 'DeviceConfig') -> Protocol:
+    """Get a protocol object from a DeviceConfig model
+
+    Args:
+        config (DeviceConfig): validated config model
+
+    Returns:
+        Protocol: instantiated protocol object matching the config
+    """
     protocol_name = config.port.protocol
     model = config.model
 

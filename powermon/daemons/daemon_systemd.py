@@ -12,7 +12,7 @@ except ModuleNotFoundError as exception:
 from .daemon import Daemon
 
 # Set-up logger
-log = logging.getLogger("daemon")
+log = logging.getLogger("daemon_systemd")
 
 class DaemonSystemd(Daemon):
 
@@ -46,4 +46,3 @@ class DaemonSystemd(Daemon):
         # Print log message
         if message is not None:
             journal.write(message)
-

@@ -5,6 +5,9 @@ from pydantic import BaseModel
 
 from ..config.daemon_config import DaemonConfig
 
+# Set-up logger
+log = logging.getLogger("daemon_systemd")
+
 
 class DaemonType(StrEnum):
     """ Daemon types implemented """
@@ -24,15 +27,14 @@ class DaemonDTO(BaseModel):
 def from_config(config: DaemonConfig):
     match config.type:
         case DaemonType.DISABLED | None:
-            print('disabled')
+            from .daemon_disabled import DaemonDisabled as Daemon
         case DaemonType.SIMPLE:
-            print('simple')
+            from .daemon_simple import DaemonSimple as Daemon
         case DaemonType.SYSTEMD:
-            print('systemd')
             from .daemon_systemd import DaemonSystemd as Daemon
-            return Daemon(keepalive=config.keepalive)
         case DaemonType.INITD:
-            print('initd')
+            from .daemon_initd import DaemonInitd as Daemon
         case _:
-            print('Invalid daemon type')
-    exit()
+            log.error('Invalid daemon type: %s', config.type)
+            return
+    return Daemon(keepalive=config.keepalive)
