@@ -1,0 +1,21 @@
+# minimal config for powermon version 2
+devices:
+  - name: Test_Inverter
+    serial_number: A123456789
+    model: 8048MAX
+    manufacturer: MPP-Solar
+    port:
+      type: test
+      protocol: PI30
+      response_number: 1
+    commands:
+    - command: QPI
+      outputs:
+      - type: screen
+        format: 
+          type: table
+          draw_lines: False
+          extra_info: True
+loop: null
+daemon:
+  type: simple

@@ -20,7 +20,7 @@ class Cache(AbstractFormat):
         return f"{self.name}: generates mqtt messages suited to populating the results cache"
 
 
-    def format(self, command, result: Result, device_info) -> list:
+    def format(self, command, result: Result, device) -> list:
         ## cache format
         #
         # topic: powermon/device-by-name/{device_name}/{category}/{parameter_name}
@@ -37,7 +37,7 @@ class Cache(AbstractFormat):
         # result should be a list of dict of format {'topic': <topic>, 'payload': <json payload>}
         _result = []
 
-        device_name = device_info.name.replace(' ', '_')
+        device_name = device.name.replace(' ', '_')
         category = command.command_definition.category
         topic_prefix = f"powermon/device-by-name/{device_name}/{category}"
         # print(topic_prefix)

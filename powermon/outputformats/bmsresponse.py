@@ -32,7 +32,7 @@ class BMSResponse(AbstractFormat):
     def __str__(self):
         return f"{self.name}: generates the BMSResponse for a PI30 inverter"
 
-    def format(self, command, result: Result, device_info) -> list:
+    def format(self, command, result: Result, device) -> list:
 
         _result = []
 

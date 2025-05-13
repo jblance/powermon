@@ -65,7 +65,7 @@ class AbstractFormat(ABC):
             self._key_exclusion_filter = re.compile(filter_string)
 
     @abstractmethod
-    def format(self, command, result: Result, device_info) -> list:
+    def format(self, command, result: Result, device) -> list:
         """ entry point for all formats """
 
     def format_and_filter_data(self, result: Result) -> list[Reading]:

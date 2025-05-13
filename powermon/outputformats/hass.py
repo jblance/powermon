@@ -33,7 +33,7 @@ class Hass(AbstractFormat):
         options.update(extra_options)
         return options
 
-    def format(self, command: Command, result: Result, device_info) -> list:
+    def format(self, command: Command, result: Result, device) -> list:
         log.info("Using output formatter: %s", self.name)
 
         config_msgs = []
@@ -94,7 +94,7 @@ class Hass(AbstractFormat):
             payload = {
                 "name": f"{name}",
                 "state_topic": f"{state_topic}",
-                "unique_id": f"{object_id}_{device_info.serial_number}",
+                "unique_id": f"{object_id}_{device.serial_number}",
                 # "force_update": "true",
                 # "last_reset": str(datetime.now()),
             }
@@ -102,10 +102,10 @@ class Hass(AbstractFormat):
             # Add device info
             # payload["device"] = {"name": f"{device_name}", "identifiers": ["mppsolar"], "model": "PIP6048MAX", "manufacturer": "MPP-Solar"}
             payload["device"] = {
-                "name": device_info.name,
-                "identifiers": [device_info.serial_number],
-                "model": device_info.model,
-                "manufacturer": device_info.manufacturer,
+                "name": device.name,
+                "identifiers": [device.serial_number],
+                "model": device.model,
+                "manufacturer": device.manufacturer,
             }
 
             # Add origin info

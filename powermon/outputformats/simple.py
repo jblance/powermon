@@ -18,7 +18,7 @@ class SimpleFormat(AbstractFormat):
     def __str__(self):
         return f"{self.name}: generates a simple representation of the results, eg 'soc=89%'"
 
-    def format(self, command, result: Result, device_info) -> list:
+    def format(self, command, result: Result, device) -> list:
 
         _result = []
 

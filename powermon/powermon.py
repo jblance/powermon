@@ -13,18 +13,16 @@ import yaml
 from pyaml_env import parse_config
 from pydantic import ValidationError
 
-from powermon import MqttBroker, _, __version__
+from powermon import MqttBroker, PowermonConfig, _, __version__
 
 from .commands.command import Command
-from .config.powermon_config import PowermonConfig
+from .daemons import from_config as daemon_from_config
+# from .config.powermon_config import PowermonConfig
 from .device import Device
 from .libs.apicoordinator import ApiCoordinator
-from .daemons import from_config as daemon_from_config
-#from powermon.libs.mqttbroker import MqttBroker
-# from powermon.libs.version import __version__  # noqa: F401
+from .ports import from_config as port_from_config
 from .protocols import from_device_config as protocols_from_device_config
 from .protocols import list_commands, list_protocols
-from .ports import from_config as port_from_config
 
 # Set-up logger
 log = logging.getLogger("")
@@ -154,7 +152,6 @@ async def async_main():
     # set logging level (DEBUG, INFO, WARNING, ERROR, CRITICAL)
     log.setLevel(powermon_config.debuglevel)
 
-
     # build mqtt broker object
     # mqtt_broker = MqttBroker.from_config(config=powermon_config.mqttbroker)
     mqtt_broker = MqttBroker(powermon_config.mqttbroker)
@@ -168,13 +165,21 @@ async def async_main():
     api_coordinator = ApiCoordinator.from_config(config=powermon_config.api)
     log.info(api_coordinator)
 
-    # build device object (required)
-    device = Device(powermon_config)
-    ## get the protocol 
-    _protocol = protocols_from_device_config(config=powermon_config.device)
-    device.port = await port_from_config(config=powermon_config.device.port, protocol=_protocol, serial_number=powermon_config.device.serial_number)
-    device.mqtt_broker = mqtt_broker
-    log.debug(device)
+    # build device objects (required)
+    devices = []
+    for device_config in powermon_config.devices:
+        _device = Device(device_config)
+        _device.mqtt_broker = mqtt_broker
+        ## get the protocol 
+        ## TODO: fix again
+        # _protocol = protocols_from_device_config(config=powermon_config.device)
+        # _device.port = await port_from_config(config=powermon_config.device.port, protocol=_protocol, serial_number=powermon_config.device.serial_number)
+        print(_device.device_info.name)
+        devices.append(_device)
+    print([str(device) for device in devices])
+    exit()
+    
+    log.debug(devices)
 
     # process adhoc command line command
     if args.adhoc:
@@ -236,7 +241,8 @@ async def async_main():
             daemon.watchdog()
 
             # run device loop (ie run any needed commands)
-            await device.run(args.force)
+            for device in devices:
+                await device.run(args.force)
 
             # run api coordinator ...
             api_coordinator.run()
@@ -252,7 +258,8 @@ async def async_main():
         print("KeyboardInterrupt - stopping")
     finally:
         # disconnect device
-        await device.finalize()
+        for device in devices:
+            await device.finalize()
 
         # disconnect mqtt
         mqtt_broker.stop()

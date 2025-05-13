@@ -9,7 +9,7 @@ from powermon import MqttBroker
 from ..commands.command import Command, CommandDTO
 from ..commands.result import Result
 # from ..config.powermon_config import PowermonConfig
-from .. import PowermonConfig
+from ..config.device_config import DeviceConfig
 from ..libs.errors import CommandDefinitionMissing
 from ..outputformats import FormatterType, get_formatter
 from ..outputs.abstractoutput import AbstractOutput
@@ -20,32 +20,12 @@ from ..ports.abstractport import AbstractPort, _AbstractPortDTO
 log = logging.getLogger("Device")
 
 
-class DeviceInfo(BaseModel):
-    """ struct like class to contain info about the device """
+class DeviceDTO(BaseModel):
+    """ data transfer model for Device class """
     name: str = 'unnamed_device'
     serial_number: Optional[str] = Field(strict=False, default=None, coerce_numbers_to_str=True)
     model: Optional[str] = None
     manufacturer: Optional[str] = None
-
-    # def __init__(self, name, serial_number, model=None, manufacturer=None):
-    #     self.name = name
-    #     self.serial_number = serial_number
-    #     self.model = model
-    #     self.manufacturer = manufacturer
-
-    # def __str__(self):
-    #     return f"DeviceInfo: {self.name=}, {self.serial_number=}, {self.model=}, {self.manufacturer=}"
-    # def __str__(self):
-    #     return f"DeviceInfo: {self.name=}, {self.serial_number=}, {self.model=}, {self.manufacturer=}"
-
-    def to_dto(self):
-        """convert the DeviceInfo to a Data Transfer Object"""
-        return self.model_dump_json()
-
-
-class DeviceDTO(BaseModel):
-    """ data transfer model for Device class """
-    device_info: DeviceInfo
     port: _AbstractPortDTO
     commands: list[CommandDTO]
 
@@ -56,8 +36,11 @@ class Device:
     The object also defines the port and protocol that is used to communicate with the device
     """
     # def __init__(self, name: str, serial_number: str = "", model: str = "", manufacturer: str = "", port: AbstractPort = None):
-    def __init__(self, config: PowermonConfig):
-        self.device_info = DeviceInfo(name=config.device.name, serial_number=config.device.serial_number, model=config.device.model, manufacturer=config.device.manufacturer)
+    def __init__(self, config: DeviceConfig):
+        self.name=config.name
+        self.serial_number=config.serial_number
+        self.model=config.model
+        self.manufacturer=config.manufacturer
         self.port: AbstractPort = None
         self.commands: list[Command] = []
         self.mqtt_broker = None
@@ -66,7 +49,7 @@ class Device:
     def __str__(self):
         #return f"Device: {self.device_info.name}, {self.device_info.serial_number=}, " + \
         #    f"{self.device_info.model=}, {self.device_info.manufacturer=}, " + \
-        return f"Device: {self.device_info=}, {self.port=}, {self.mqtt_broker=}, commands:{self.commands}"
+        return f"Device: {self.name=}, {self.serial_number=}, {self.model=}, {self.manufacturer=} {self.port=}, {self.mqtt_broker=}, commands:{self.commands}"
 
     def to_dto(self) -> DeviceDTO:
         """convert the Device to a Data Transfer Object"""
@@ -74,7 +57,7 @@ class Device:
         command: Command
         for command in self.commands:
             commands.append(command.to_dto())
-        return DeviceDTO(device_info=self.device_info.to_dto(), port=self.port.to_dto(), commands=commands)
+        return DeviceDTO(name=self.name, serial_number=self.serial_number, model=self.model, manufacturer=self.manufacturer, port=self.port.to_dto(), commands=commands)
 
     # @classmethod
     # async def from_config(cls, config: PowermonConfig):
@@ -161,7 +144,7 @@ class Device:
 
     async def finalize(self):
         """Device finalization activities"""
-        log.info("finalizing device")
+        log.info("finalizing device: %s", self.name)
         # close connection on port
         await self.port.disconnect()
 
@@ -225,4 +208,4 @@ class Device:
                 output: AbstractOutput
                 for output in command.outputs:
                     log.debug("Using Output: %s", output)
-                    output.process(command=command, result=result, mqtt_broker=self.mqtt_broker, device_info=self.device_info)
+                    output.process(command=command, result=result, device=self)

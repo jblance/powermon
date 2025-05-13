@@ -16,7 +16,7 @@ class HtmlTable(AbstractFormat):
     def __str__(self):
         return f"{self.name}: generates html table of results"
 
-    def format(self, command, result: Result, device_info):
+    def format(self, command, result: Result, device):
         log.info("Using output formatter: %s", self.name)
 
         _result = []

@@ -28,7 +28,7 @@ class Json(AbstractFormat):
         options.update(extra_options)
         return options
 
-    def format(self, command=None, result: Result=None, device_info=None) -> list:
+    def format(self, command=None, result: Result=None, device=None) -> list:
 
         _result = []
 

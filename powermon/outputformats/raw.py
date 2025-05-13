@@ -19,7 +19,7 @@ class Raw(AbstractFormat):
         """ return a dict of all options and defaults """
         return {}
 
-    def format(self, command, result: Result, device_info):
+    def format(self, command, result: Result, device):
         log.info("Using output formatter: %s", self.name)
 
         data = result.raw_response

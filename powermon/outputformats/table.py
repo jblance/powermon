@@ -31,7 +31,7 @@ class Table(AbstractFormat):
         options.update(extra_options)
         return options
 
-    def format(self, command, result: Result, device_info) -> list[str]:
+    def format(self, command, result: Result, device) -> list[str]:
         log.info("Using output formatter: %s", self.name)
 
         _result = []

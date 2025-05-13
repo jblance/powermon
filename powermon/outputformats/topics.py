@@ -7,6 +7,7 @@ log = logging.getLogger("Topics")
 
 
 class Topics(AbstractFormat):
+    # TODO: remove or fix
     def __init__(self, config, topic):
         super().__init__(config)
         self.name = "topics"

@@ -31,9 +31,9 @@ class MQTT(AbstractOutput):
     # def get_topic(self) -> str:
     #     return self.topic
 
-    def process(self, command=None, result: Result = None, mqtt_broker=None, device_info=None):
+    def process(self, command=None, result: Result = None, device=None):
         log.info("Using output processor: MQTT, topic: %s", self.topic)
-        log.debug("formatter: %s, result: %s, mqtt_broker: %s, device_info: %s", self.formatter, result, mqtt_broker, device_info)
+        log.debug("formatter: %s, result: %s, device: %s", self.formatter, result, device)
 
         # exit if no data
         if result is None:
@@ -45,27 +45,27 @@ class MQTT(AbstractOutput):
             # log.warning("No formatter supplied")
             raise RuntimeError("No formatter supplied")
 
-        if mqtt_broker is None:
+        if device.mqtt_broker is None:
             # log.warning("No mqtt broker supplied")
             raise RuntimeError("No mqtt broker supplied")
 
         # build the messages...
-        formatted_data = self.formatter.format(command=command, result=result, device_info=device_info)
+        formatted_data = self.formatter.format(command=command, result=result, device=device)
         log.debug("mqtt.output msgs %s", formatted_data)
 
         # publish
         if isinstance(formatted_data, (str, bytes)):
             # simple payload, so publish as payload
-            mqtt_broker.publish(topic=self.topic, payload=formatted_data)
+            device.mqtt_broker.publish(topic=self.topic, payload=formatted_data)
         elif isinstance(formatted_data, list):
             # iterate list
             for item in formatted_data:
                 if isinstance(item, (str, bytes)):
-                    mqtt_broker.publish(topic=self.topic, payload=item)
+                    device.mqtt_broker.publish(topic=self.topic, payload=item)
                 elif isinstance(item, dict) and 'topic' in item and 'payload' in item:
-                    mqtt_broker.publish(topic=item['topic'], payload=item['payload'])
+                    device.mqtt_broker.publish(topic=item['topic'], payload=item['payload'])
                 elif isinstance(item, dict) and 'payload' in item:
-                    mqtt_broker.publish(topic=self.topic, payload=item['payload'])
+                    device.mqtt_broker.publish(topic=self.topic, payload=item['payload'])
                 else:
                     log.warning('Unknown mqtt data to publish, type: %s, data: %s', type(item), item)
         else:

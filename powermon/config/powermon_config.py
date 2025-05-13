@@ -10,13 +10,11 @@ from .api_config import APIConfig
 from .daemon_config import DaemonConfig
 from .device_config import DeviceConfig
 from .mqtt_config import MQTTConfig
-from .command_config import CommandConfig
 
 
 class PowermonConfig(NoExtraBaseModel):
-    """ model/allowed elements for first level of config """
-    device: DeviceConfig
-    commands: List[CommandConfig]
+    """ model/allowed elements for first level of config (version 2)"""
+    devices: List[DeviceConfig]
     mqttbroker: MQTTConfig = MQTTConfig()
     api: APIConfig = APIConfig()
     daemon: DaemonConfig = DaemonConfig()
