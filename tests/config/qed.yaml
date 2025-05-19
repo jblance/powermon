@@ -1,38 +1,38 @@
 # yaml config for powermon
-device:
-  name: Test_Inverter
-  serial_number: 123456789
-  model: 8048MAX
-  manufacturer: MPP-Solar
-  port:
-    # baud: 2400
-    # path: /dev/ttyUSB0
-    type: test
-    protocol: PI30MAX
-commands:
-# - command: f'QED{dateparse("yesterday").strftime("%Y%m%d")}'
-#   type: templated
-#   trigger:
-#     every: 1
-#   outputs:
-#   - type: screen
-#     format:
-#       type: hass
-#       tag: Test_Inverter
-#       filter: ^pv
-- command: f'QED{dateparse("today").strftime("%Y%m%d")}'
-  type: templated
-  override: 
-    description: 
-      pv_generated_energy_for_day: bob
-  trigger:
-    every: 1
-  outputs:
-  - type: screen
-    format:
-      type: table
-      tag: Test_Inverter
-      # filter: ^pv
+devices:
+  - name: Test_Inverter
+    serial_number: 123456789
+    model: 8048MAX
+    manufacturer: MPP-Solar
+    port:
+      # baud: 2400
+      # path: /dev/ttyUSB0
+      type: test
+      protocol: PI30MAX
+    commands:
+    # - command: f'QED{dateparse("yesterday").strftime("%Y%m%d")}'
+    #   type: templated
+    #   trigger:
+    #     every: 1
+    #   outputs:
+    #   - type: screen
+    #     format:
+    #       type: hass
+    #       tag: Test_Inverter
+    #       filter: ^pv
+    - command: f'QED{dateparse("today").strftime("%Y%m%d")}'
+      type: templated
+      override: 
+        description: 
+          pv_generated_energy_for_day: bob
+      trigger:
+        every: 1
+      outputs:
+      - type: screen
+        format:
+          type: table
+          tag: Test_Inverter
+          # filter: ^pv
 loop: null
 mqttbroker:
   name: homeassistant.lan

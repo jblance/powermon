@@ -16,6 +16,24 @@ devices:
           type: table
           draw_lines: False
           extra_info: True
+  - name: Second_Inverter
+    serial_number: Z987654321
+    model: 8048MAX
+    manufacturer: MPP-Solar
+    port:
+      type: test
+      protocol: PI30
+      response_number: 0
+    commands:
+    - command: QPI
+      outputs:
+      - type: screen
+        format: 
+          type: table
+          draw_lines: False
+          extra_info: True
+mqttbroker:
+  name: localhost
 loop: null
 daemon:
   type: simple
