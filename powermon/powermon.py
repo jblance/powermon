@@ -13,11 +13,12 @@ from pyaml_env import parse_config
 from pydantic import ValidationError
 from rich.pretty import pprint
 
-from powermon import MqttBroker, PowermonConfig, _, __version__, Daemon
+from powermon import PowermonConfig, _, __version__
+from powermon.daemons import Daemon, daemon_from_config
+from powermon.device import Device
+from powermon.mqttbroker import MqttBroker
 
 from .commands.command import Command
-# import .daemons.Damemon
-from .device import Device
 from .libs.apicoordinator import ApiCoordinator
 from .protocols import list_commands, list_protocols
 
@@ -130,7 +131,7 @@ async def async_main():
 
     # validate config
     try:
-        powermon_config = PowermonConfig(**_config) # ty: ignore[missing-argument]
+        powermon_config: PowermonConfig = PowermonConfig(**_config) # ty: ignore[missing-argument]
         log.debug(powermon_config)
         log.info("Config validation successful")
     except ValidationError as exception:
@@ -150,11 +151,11 @@ async def async_main():
 
     # build mqtt broker object
     # mqtt_broker = MqttBroker.from_config(config=powermon_config.mqttbroker)
-    mqtt_broker = MqttBroker(powermon_config.mqttbroker)
+    mqtt_broker: MqttBroker = MqttBroker(powermon_config.mqttbroker)
     log.info(mqtt_broker)
 
     # build the daemon object (optional)
-    daemon = Daemon.from_config(config=powermon_config.daemon)
+    daemon: Daemon = daemon_from_config(config=powermon_config.daemon)
     log.info(daemon)
 
     # build api coordinator

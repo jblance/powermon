@@ -13,7 +13,7 @@ from ..config.device_config import DeviceConfig
 from ..libs.errors import CommandDefinitionMissing
 from ..outputformats import FormatterType, get_formatter
 from ..outputs.abstractoutput import AbstractOutput
-from ..ports import from_config as port_from_config
+# from ..ports import from_config as port_from_config
 from ..ports.abstractport import AbstractPort, _AbstractPortDTO
 
 # Set-up logger
@@ -37,23 +37,26 @@ class Device:
     """
     # def __init__(self, name: str, serial_number: str = "", model: str = "", manufacturer: str = "", port: AbstractPort = None):
     def __init__(self, config: DeviceConfig):
-        self.name=config.name
-        self.serial_number=config.serial_number
-        self.model=config.model
-        self.manufacturer=config.manufacturer
+        self._config: DeviceConfig = config
+        self.name: str = config.name
+        self.serial_number: str = config.serial_number
+        self.model: str = config.model
+        self.manufacturer: str = config.manufacturer
         self.port: AbstractPort = None
         self.commands: list[Command] = []
-        self.mqtt_broker = None
+        self.mqtt_broker: MqttBroker = None
         self.adhoc_commands: list = []
 
     def __str__(self):
-        #return f"Device: {self.device_info.name}, {self.device_info.serial_number=}, " + \
-        #    f"{self.device_info.model=}, {self.device_info.manufacturer=}, " + \
-        return f"Device: {self.name=}, {self.serial_number=}, {self.model=}, {self.manufacturer=} {self.port=}, {self.mqtt_broker=}, commands:{self.commands}"
+        return f"Device: {self.name=}, {self.serial_number=}, {self.model=}, {self.manufacturer=} {self.port=}, {self.mqtt_broker=}, commands:{self.commands}"  #, config: {self._config}"
+
+    def __repr__(self):
+        """ Returns representation of Device that allows eval(device.__repr__()) to rebuild object"""
+        return f"Device(DeviceConfig(**{self._config.model_dump()}))"
 
     def to_dto(self) -> DeviceDTO:
         """convert the Device to a Data Transfer Object"""
-        commands = []
+        commands: list[Command] = []
         command: Command
         for command in self.commands:
             commands.append(command.to_dto())
@@ -193,7 +196,7 @@ class Device:
                     match command.command_type:
                         case 'cache_query':
                             print(command.command_type)
-                            result: Result = None
+                            result: Result = None  # ty: ignore[invalid-assignment]
                         case _:
                             # run command
                             result: Result = await self.port.run_command(command)
