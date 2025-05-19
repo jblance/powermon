@@ -20,4 +20,6 @@ Submodules
    powermon.protocols.neey
    powermon.protocols.pi18
    powermon.protocols.pi30
+   powermon.protocols.pi30max
+   powermon.protocols.pi30mst
    powermon.protocols.ved

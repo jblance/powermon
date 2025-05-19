@@ -12,7 +12,9 @@ Subpackages
 .. toctree::
    :maxdepth: 4
 
-   powermon.configmodel
+   powermon.config
+   powermon.daemons
+   powermon.device
    powermon.libs
    powermon.mqttbroker
    powermon.outputformats
@@ -27,5 +29,5 @@ Submodules
    :maxdepth: 4
 
    powermon.cli
-   powermon.device
    powermon.powermon
+   powermon.version

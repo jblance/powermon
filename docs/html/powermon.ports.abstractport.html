@@ -180,30 +180,30 @@
 <p>abstractport.py</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="powermon.ports.abstractport.AbstractPort">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">powermon.ports.abstractport.</span></span><span class="sig-name descname"><span class="pre">AbstractPort</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">protocol</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="powermon.protocols.abstractprotocol.html#powermon.protocols.abstractprotocol.AbstractProtocol" title="powermon.protocols.abstractprotocol.AbstractProtocol"><span class="pre">AbstractProtocol</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#powermon.ports.abstractport.AbstractPort" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">powermon.ports.abstractport.</span></span><span class="sig-name descname"><span class="pre">AbstractPort</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">protocol</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="powermon.protocols.abstractprotocol.html#powermon.protocols.abstractprotocol.AbstractProtocol" title="powermon.protocols.abstractprotocol.AbstractProtocol"><span class="pre">AbstractProtocol</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#powermon.ports.abstractport.AbstractPort" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ABC</span></code></p>
 <p>base model for all ports</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="powermon.ports.abstractport.AbstractPort.connect">
-<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">connect</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#powermon.ports.abstractport.AbstractPort.connect" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">connect</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#powermon.ports.abstractport.AbstractPort.connect" title="Link to this definition">¶</a></dt>
 <dd><p>default port connect function</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="powermon.ports.abstractport.AbstractPort.disconnect">
-<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">disconnect</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#powermon.ports.abstractport.AbstractPort.disconnect" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">disconnect</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#powermon.ports.abstractport.AbstractPort.disconnect" title="Link to this definition">¶</a></dt>
 <dd><p>default port disconnect function</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="powermon.ports.abstractport.AbstractPort.from_config">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span><span class="pre">async</span><span class="w"> </span><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_config</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#powermon.ports.abstractport.AbstractPort" title="powermon.ports.abstractport.AbstractPort"><span class="pre">AbstractPort</span></a></span></span><a class="headerlink" href="#powermon.ports.abstractport.AbstractPort.from_config" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">abstractmethod</span></span><span class="w"> </span><span class="k"><span class="pre">async</span></span><span class="w"> </span><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_config</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">protocol</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">serial_number</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#powermon.ports.abstractport.AbstractPort" title="powermon.ports.abstractport.AbstractPort"><span class="pre">AbstractPort</span></a></span></span><a class="headerlink" href="#powermon.ports.abstractport.AbstractPort.from_config" title="Link to this definition">¶</a></dt>
 <dd><p>build port object from config dict</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="powermon.ports.abstractport.AbstractPort.is_connected">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">is_connected</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#powermon.ports.abstractport.AbstractPort.is_connected" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">abstractmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">is_connected</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#powermon.ports.abstractport.AbstractPort.is_connected" title="Link to this definition">¶</a></dt>
 <dd><p>default is_connected function</p>
 </dd></dl>
 
@@ -215,25 +215,25 @@
 
 <dl class="py property">
 <dt class="sig sig-object py" id="powermon.ports.abstractport.AbstractPort.protocol">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">protocol</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="powermon.protocols.abstractprotocol.html#powermon.protocols.abstractprotocol.AbstractProtocol" title="powermon.protocols.abstractprotocol.AbstractProtocol"><span class="pre">AbstractProtocol</span></a></em><a class="headerlink" href="#powermon.ports.abstractport.AbstractPort.protocol" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">protocol</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="powermon.protocols.abstractprotocol.html#powermon.protocols.abstractprotocol.AbstractProtocol" title="powermon.protocols.abstractprotocol.AbstractProtocol"><span class="pre">AbstractProtocol</span></a></em><a class="headerlink" href="#powermon.ports.abstractport.AbstractPort.protocol" title="Link to this definition">¶</a></dt>
 <dd><p>return the protocol associated with this port</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="powermon.ports.abstractport.AbstractPort.run_command">
-<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">run_command</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">command</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Command</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Result</span></span></span><a class="headerlink" href="#powermon.ports.abstractport.AbstractPort.run_command" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">run_command</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">command</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Command</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Result</span></span></span><a class="headerlink" href="#powermon.ports.abstractport.AbstractPort.run_command" title="Link to this definition">¶</a></dt>
 <dd><p>run_command takes a command object, runs the command and returns a result object (replaces process_command)</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="powermon.ports.abstractport.AbstractPort.send_and_receive">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">send_and_receive</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">command</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Command</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Result</span></span></span><a class="headerlink" href="#powermon.ports.abstractport.AbstractPort.send_and_receive" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">abstractmethod</span></span><span class="w"> </span><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">send_and_receive</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">command</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Command</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Result</span></span></span><a class="headerlink" href="#powermon.ports.abstractport.AbstractPort.send_and_receive" title="Link to this definition">¶</a></dt>
 <dd><p>main worker function for port objects, specific to each port type</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="powermon.ports.abstractport.AbstractPort.to_dto">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">to_dto</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">_AbstractPortDTO</span></span></span><a class="headerlink" href="#powermon.ports.abstractport.AbstractPort.to_dto" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">abstractmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">to_dto</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">_AbstractPortDTO</span></span></span><a class="headerlink" href="#powermon.ports.abstractport.AbstractPort.to_dto" title="Link to this definition">¶</a></dt>
 <dd><p>convert port object to data transfer object</p>
 </dd></dl>
 
@@ -256,7 +256,7 @@
 </ul><div class="footer" role="contentinfo">
       &#169; Copyright 2025, jblance.
     <br>
-    Created using <a href="http://sphinx-doc.org/">Sphinx</a> 8.1.3 with <a href="https://github.com/schettino72/sphinx_press_theme">Press Theme</a> 0.9.1.
+    Created using <a href="http://sphinx-doc.org/">Sphinx</a> 8.2.3 with <a href="https://github.com/schettino72/sphinx_press_theme">Press Theme</a> 0.9.1.
 </div>
             </div>
           </div>

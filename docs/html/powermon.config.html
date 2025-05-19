@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html  lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1"><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+      <title>powermon.config package</title>
+    
+          <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+          <link rel="stylesheet" href="_static/theme.css " type="text/css" />
+      
+      <!-- sphinx script_files -->
+        <script src="_static/documentation_options.js?v=5929fcd5"></script>
+        <script src="_static/doctools.js?v=9bcbadda"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+
+      
+      <!-- bundled in js (rollup iife) -->
+      <!-- <script src="_static/theme-vendors.js"></script> -->
+      <script src="_static/theme.js" defer></script>
+    
+  <link rel="index" title="Index" href="genindex.html" />
+  <link rel="search" title="Search" href="search.html" />
+  <link rel="next" title="powermon.config.api_config module" href="powermon.config.api_config.html" />
+  <link rel="prev" title="powermon package" href="powermon.html" /> 
+  </head>
+
+  <body>
+    <div id="app">
+    <div class="theme-container" :class="pageClasses"><navbar @toggle-sidebar="toggleSidebar">
+  <router-link to="index.html" class="home-link">
+    
+      <span class="site-name">powermon</span>
+    
+  </router-link>
+
+  <div class="links">
+    <navlinks class="can-hide">
+
+
+
+    </navlinks>
+  </div>
+</navbar>
+
+      
+      <div class="sidebar-mask" @click="toggleSidebar(false)">
+      </div>
+        <sidebar @toggle-sidebar="toggleSidebar">
+          
+          <navlinks>
+            
+
+
+
+            
+          </navlinks><div id="searchbox" class="searchbox" role="search">
+  <div class="caption"><span class="caption-text">Quick search</span>
+    <div class="searchformwrapper">
+      <form class="search" action="search.html" method="get">
+        <input type="text" name="q" />
+        <input type="submit" value="Search" />
+        <input type="hidden" name="check_keywords" value="yes" />
+        <input type="hidden" name="area" value="default" />
+      </form>
+    </div>
+  </div>
+</div><div class="sidebar-links" role="navigation" aria-label="main navigation">
+  
+    <div class="sidebar-group">
+      <p class="caption">
+        <span class="caption-text"><a href="index.html#documentation">documentation</a></span>
+      </p>
+      <ul class="">
+        
+          <li class="toctree-l1 ">
+            
+              <a href="installation.html" class="reference internal ">Installation</a>
+            
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 ">
+            
+              <a href="usage.html" class="reference internal ">Usage</a>
+            
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 ">
+            
+              <a href="devices.html" class="reference internal ">Devices</a>
+            
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 ">
+            
+              <a href="config_file.html" class="reference internal ">Config File Syntax</a>
+            
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 ">
+            
+              <a href="tutorials.html" class="reference internal ">Tutorials</a>
+            
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 ">
+            
+              <a href="docker.html" class="reference internal ">Docker</a>
+            
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 ">
+            
+              <a href="development.html" class="reference internal ">Development</a>
+            
+
+            
+          </li>
+
+        
+      </ul>
+    </div>
+  
+</div>
+        </sidebar>
+
+      <page>
+          <div class="body-header" role="navigation" aria-label="navigation">
+  
+  <ul class="breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+    
+      <li><a href="development.html">Development</a> &raquo;</li>
+    
+      <li><a href="modules.html">powermon</a> &raquo;</li>
+    
+      <li><a href="powermon.html">powermon package</a> &raquo;</li>
+    
+    <li>powermon.config package</li>
+  </ul>
+  
+
+  <ul class="page-nav">
+  <li class="prev">
+    <a href="powermon.html"
+       title="previous chapter">← powermon package</a>
+  </li>
+  <li class="next">
+    <a href="powermon.config.api_config.html"
+       title="next chapter">powermon.config.api_config module →</a>
+  </li>
+</ul>
+  
+</div>
+<hr>
+          <div class="content" role="main" v-pre>
+            
+  <section id="module-powermon.config">
+<span id="powermon-config-package"></span><h1>powermon.config package<a class="headerlink" href="#module-powermon.config" title="Link to this heading">¶</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="powermon.config.NoExtraBaseModel">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">powermon.config.</span></span><span class="sig-name descname"><span class="pre">NoExtraBaseModel</span></span><a class="headerlink" href="#powermon.config.NoExtraBaseModel" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseModel</span></code></p>
+<p>updated BaseModel with Extras forbidden</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="powermon.config.NoExtraBaseModel.model_config">
+<span class="sig-name descname"><span class="pre">model_config</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">ConfigDict</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'extra':</span> <span class="pre">'forbid'}</span></em><a class="headerlink" href="#powermon.config.NoExtraBaseModel.model_config" title="Link to this definition">¶</a></dt>
+<dd><p>Configuration for the model, should be a dictionary conforming to [<cite>ConfigDict</cite>][pydantic.config.ConfigDict].</p>
+</dd></dl>
+
+</dd></dl>
+
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="powermon.config.api_config.html">powermon.config.api_config module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="powermon.config.api_config.html#powermon.config.api_config.APIConfig"><code class="docutils literal notranslate"><span class="pre">APIConfig</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="powermon.config.api_config.html#powermon.config.api_config.APIConfig.model_config"><code class="docutils literal notranslate"><span class="pre">APIConfig.model_config</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="powermon.config.command_config.html">powermon.config.command_config module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="powermon.config.command_config.html#powermon.config.command_config.CommandConfig"><code class="docutils literal notranslate"><span class="pre">CommandConfig</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="powermon.config.command_config.html#powermon.config.command_config.CommandConfig.model_config"><code class="docutils literal notranslate"><span class="pre">CommandConfig.model_config</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="powermon.config.daemon_config.html">powermon.config.daemon_config module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="powermon.config.daemon_config.html#powermon.config.daemon_config.DaemonConfig"><code class="docutils literal notranslate"><span class="pre">DaemonConfig</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="powermon.config.daemon_config.html#powermon.config.daemon_config.DaemonConfig.model_config"><code class="docutils literal notranslate"><span class="pre">DaemonConfig.model_config</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="powermon.config.device_config.html">powermon.config.device_config module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="powermon.config.device_config.html#powermon.config.device_config.DeviceConfig"><code class="docutils literal notranslate"><span class="pre">DeviceConfig</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="powermon.config.device_config.html#powermon.config.device_config.DeviceConfig.model_config"><code class="docutils literal notranslate"><span class="pre">DeviceConfig.model_config</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="powermon.config.format_config_model.html">powermon.config.format_config_model module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="powermon.config.format_config_model.html#powermon.config.format_config_model.BMSResponseFormatConfig"><code class="docutils literal notranslate"><span class="pre">BMSResponseFormatConfig</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="powermon.config.format_config_model.html#powermon.config.format_config_model.BMSResponseFormatConfig.model_config"><code class="docutils literal notranslate"><span class="pre">BMSResponseFormatConfig.model_config</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="powermon.config.format_config_model.html#powermon.config.format_config_model.BaseFormatConfig"><code class="docutils literal notranslate"><span class="pre">BaseFormatConfig</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="powermon.config.format_config_model.html#powermon.config.format_config_model.BaseFormatConfig.model_config"><code class="docutils literal notranslate"><span class="pre">BaseFormatConfig.model_config</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="powermon.config.format_config_model.html#powermon.config.format_config_model.HassFormatConfig"><code class="docutils literal notranslate"><span class="pre">HassFormatConfig</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="powermon.config.format_config_model.html#powermon.config.format_config_model.HassFormatConfig.model_config"><code class="docutils literal notranslate"><span class="pre">HassFormatConfig.model_config</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="powermon.config.format_config_model.html#powermon.config.format_config_model.JsonFormatConfig"><code class="docutils literal notranslate"><span class="pre">JsonFormatConfig</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="powermon.config.format_config_model.html#powermon.config.format_config_model.JsonFormatConfig.model_config"><code class="docutils literal notranslate"><span class="pre">JsonFormatConfig.model_config</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="powermon.config.format_config_model.html#powermon.config.format_config_model.MqttFormatConfig"><code class="docutils literal notranslate"><span class="pre">MqttFormatConfig</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="powermon.config.format_config_model.html#powermon.config.format_config_model.MqttFormatConfig.model_config"><code class="docutils literal notranslate"><span class="pre">MqttFormatConfig.model_config</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="powermon.config.mqtt_config.html">powermon.config.mqtt_config module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="powermon.config.mqtt_config.html#powermon.config.mqtt_config.MQTTConfig"><code class="docutils literal notranslate"><span class="pre">MQTTConfig</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="powermon.config.mqtt_config.html#powermon.config.mqtt_config.MQTTConfig.model_config"><code class="docutils literal notranslate"><span class="pre">MQTTConfig.model_config</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="powermon.config.output_config.html">powermon.config.output_config module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="powermon.config.output_config.html#powermon.config.output_config.OutputConfig"><code class="docutils literal notranslate"><span class="pre">OutputConfig</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="powermon.config.output_config.html#powermon.config.output_config.OutputConfig.model_config"><code class="docutils literal notranslate"><span class="pre">OutputConfig.model_config</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="powermon.config.port_config_model.html">powermon.config.port_config_model module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="powermon.config.port_config_model.html#powermon.config.port_config_model.BlePortConfig"><code class="docutils literal notranslate"><span class="pre">BlePortConfig</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="powermon.config.port_config_model.html#powermon.config.port_config_model.BlePortConfig.model_config"><code class="docutils literal notranslate"><span class="pre">BlePortConfig.model_config</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="powermon.config.port_config_model.html#powermon.config.port_config_model.SerialPortConfig"><code class="docutils literal notranslate"><span class="pre">SerialPortConfig</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="powermon.config.port_config_model.html#powermon.config.port_config_model.SerialPortConfig.model_config"><code class="docutils literal notranslate"><span class="pre">SerialPortConfig.model_config</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="powermon.config.port_config_model.html#powermon.config.port_config_model.TestPortConfig"><code class="docutils literal notranslate"><span class="pre">TestPortConfig</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="powermon.config.port_config_model.html#powermon.config.port_config_model.TestPortConfig.model_config"><code class="docutils literal notranslate"><span class="pre">TestPortConfig.model_config</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="powermon.config.port_config_model.html#powermon.config.port_config_model.UsbPortConfig"><code class="docutils literal notranslate"><span class="pre">UsbPortConfig</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="powermon.config.port_config_model.html#powermon.config.port_config_model.UsbPortConfig.model_config"><code class="docutils literal notranslate"><span class="pre">UsbPortConfig.model_config</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="powermon.config.powermon_config.html">powermon.config.powermon_config module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="powermon.config.powermon_config.html#powermon.config.powermon_config.PowermonConfig"><code class="docutils literal notranslate"><span class="pre">PowermonConfig</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="powermon.config.powermon_config.html#powermon.config.powermon_config.PowermonConfig.model_config"><code class="docutils literal notranslate"><span class="pre">PowermonConfig.model_config</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="powermon.config.trigger_config_model.html">powermon.config.trigger_config_model module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="powermon.config.trigger_config_model.html#powermon.config.trigger_config_model.AtTriggerConfig"><code class="docutils literal notranslate"><span class="pre">AtTriggerConfig</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="powermon.config.trigger_config_model.html#powermon.config.trigger_config_model.AtTriggerConfig.model_config"><code class="docutils literal notranslate"><span class="pre">AtTriggerConfig.model_config</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="powermon.config.trigger_config_model.html#powermon.config.trigger_config_model.EveryTriggerConfig"><code class="docutils literal notranslate"><span class="pre">EveryTriggerConfig</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="powermon.config.trigger_config_model.html#powermon.config.trigger_config_model.EveryTriggerConfig.model_config"><code class="docutils literal notranslate"><span class="pre">EveryTriggerConfig.model_config</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="powermon.config.trigger_config_model.html#powermon.config.trigger_config_model.LoopsTriggerConfig"><code class="docutils literal notranslate"><span class="pre">LoopsTriggerConfig</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="powermon.config.trigger_config_model.html#powermon.config.trigger_config_model.LoopsTriggerConfig.model_config"><code class="docutils literal notranslate"><span class="pre">LoopsTriggerConfig.model_config</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+</section>
+
+
+          </div>
+          <div class="page-nav">
+            <div class="inner"><ul class="page-nav">
+  <li class="prev">
+    <a href="powermon.html"
+       title="previous chapter">← powermon package</a>
+  </li>
+  <li class="next">
+    <a href="powermon.config.api_config.html"
+       title="next chapter">powermon.config.api_config module →</a>
+  </li>
+</ul><div class="footer" role="contentinfo">
+      &#169; Copyright 2025, jblance.
+    <br>
+    Created using <a href="http://sphinx-doc.org/">Sphinx</a> 8.2.3 with <a href="https://github.com/schettino72/sphinx_press_theme">Press Theme</a> 0.9.1.
+</div>
+            </div>
+          </div>
+      </page>
+    </div></div>
+    
+    
+  </body>
+</html>

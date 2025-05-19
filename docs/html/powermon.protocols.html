@@ -180,24 +180,41 @@ Includes an Enumeration of available protocols, some helper functions
 as well as a Abstract Base Protocol and the protocol classes</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="powermon.protocols.Protocol">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">powermon.protocols.</span></span><span class="sig-name descname"><span class="pre">Protocol</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">names</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">module</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qualname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">boundary</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#powermon.protocols.Protocol" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">powermon.protocols.</span></span><span class="sig-name descname"><span class="pre">Protocol</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#powermon.protocols.Protocol" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">StrEnum</span></code></p>
 <p>Enumeration of currently implemented Protocols</p>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="powermon.protocols.get_protocol_definition">
-<span class="sig-prename descclassname"><span class="pre">powermon.protocols.</span></span><span class="sig-name descname"><span class="pre">get_protocol_definition</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">protocol</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#powermon.protocols.get_protocol_definition" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="powermon.protocols.from_device_config">
+<span class="sig-prename descclassname"><span class="pre">powermon.protocols.</span></span><span class="sig-name descname"><span class="pre">from_device_config</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="powermon.config.device_config.html#powermon.config.device_config.DeviceConfig" title="powermon.config.device_config.DeviceConfig"><span class="pre">DeviceConfig</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#powermon.protocols.Protocol" title="powermon.protocols.Protocol"><span class="pre">Protocol</span></a></span></span><a class="headerlink" href="#powermon.protocols.from_device_config" title="Link to this definition">¶</a></dt>
+<dd><p>Get a protocol object from a DeviceConfig model</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>config</strong> (<a class="reference internal" href="powermon.config.device_config.html#powermon.config.device_config.DeviceConfig" title="powermon.config.device_config.DeviceConfig"><em>DeviceConfig</em></a>) – validated config model</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>instantiated protocol object matching the config</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#powermon.protocols.Protocol" title="powermon.protocols.Protocol">Protocol</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="powermon.protocols.from_name">
+<span class="sig-prename descclassname"><span class="pre">powermon.protocols.</span></span><span class="sig-name descname"><span class="pre">from_name</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#powermon.protocols.from_name" title="Link to this definition">¶</a></dt>
 <dd><p>Get the protocol based on the protocol name and optionally device model</p>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="powermon.protocols.list_commands">
-<span class="sig-prename descclassname"><span class="pre">powermon.protocols.</span></span><span class="sig-name descname"><span class="pre">list_commands</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">protocol</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#powermon.protocols.list_commands" title="Link to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">powermon.protocols.</span></span><span class="sig-name descname"><span class="pre">list_commands</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#powermon.protocols.list_commands" title="Link to this definition">¶</a></dt>
 <dd><p>helper function to display the commands available for a specified protocol</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>protocol</strong> (<em>str</em><em>, </em><em>optional</em>) – Name of protocol to list commands from. Defaults to None.</p>
+<dd class="field-odd"><p><strong>name</strong> (<em>str</em><em>, </em><em>optional</em>) – Name of protocol to list commands from. Defaults to None.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -235,9 +252,7 @@ as well as a Abstract Base Protocol and the protocol classes</p>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="powermon.protocols.abstractprotocol.html#powermon.protocols.abstractprotocol.AbstractProtocolDTO"><code class="docutils literal notranslate"><span class="pre">AbstractProtocolDTO</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="powermon.protocols.abstractprotocol.html#powermon.protocols.abstractprotocol.AbstractProtocolDTO.model_computed_fields"><code class="docutils literal notranslate"><span class="pre">AbstractProtocolDTO.model_computed_fields</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="powermon.protocols.abstractprotocol.html#powermon.protocols.abstractprotocol.AbstractProtocolDTO.model_config"><code class="docutils literal notranslate"><span class="pre">AbstractProtocolDTO.model_config</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="powermon.protocols.abstractprotocol.html#powermon.protocols.abstractprotocol.AbstractProtocolDTO.model_fields"><code class="docutils literal notranslate"><span class="pre">AbstractProtocolDTO.model_fields</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -301,6 +316,14 @@ as well as a Abstract Base Protocol and the protocol classes</p>
 </li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="powermon.protocols.pi30max.html">powermon.protocols.pi30max module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="powermon.protocols.pi30max.html#powermon.protocols.pi30max.PI30MAX"><code class="docutils literal notranslate"><span class="pre">PI30MAX</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="powermon.protocols.pi30mst.html">powermon.protocols.pi30mst module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="powermon.protocols.pi30mst.html#powermon.protocols.pi30mst.PI30MST"><code class="docutils literal notranslate"><span class="pre">PI30MST</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="powermon.protocols.ved.html">powermon.protocols.ved module</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="powermon.protocols.ved.html#powermon.protocols.ved.VictronEnergyDirect"><code class="docutils literal notranslate"><span class="pre">VictronEnergyDirect</span></code></a><ul>
 <li class="toctree-l3"><a class="reference internal" href="powermon.protocols.ved.html#powermon.protocols.ved.VictronEnergyDirect.check_crc"><code class="docutils literal notranslate"><span class="pre">VictronEnergyDirect.check_crc()</span></code></a></li>
@@ -331,7 +354,7 @@ as well as a Abstract Base Protocol and the protocol classes</p>
 </ul><div class="footer" role="contentinfo">
       &#169; Copyright 2025, jblance.
     <br>
-    Created using <a href="http://sphinx-doc.org/">Sphinx</a> 8.1.3 with <a href="https://github.com/schettino72/sphinx_press_theme">Press Theme</a> 0.9.1.
+    Created using <a href="http://sphinx-doc.org/">Sphinx</a> 8.2.3 with <a href="https://github.com/schettino72/sphinx_press_theme">Press Theme</a> 0.9.1.
 </div>
             </div>
           </div>

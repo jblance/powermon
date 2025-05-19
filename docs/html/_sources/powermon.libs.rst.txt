@@ -14,6 +14,4 @@ Submodules
 
    powermon.libs.apicoordinator
    powermon.libs.config
-   powermon.libs.daemon
    powermon.libs.errors
-   powermon.libs.version
