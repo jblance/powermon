@@ -5,9 +5,11 @@
 """
 import logging
 from time import sleep
-from typing import Callable
+from typing import Callable, Optional
 
 import paho.mqtt.client as mqtt_client
+
+from . import MQTTConfig
 
 
 # Set-up logger
@@ -25,7 +27,7 @@ class MqttBroker():
         return str(self)
 
 
-    def __init__(self, config: 'MqttConfig'):
+    def __init__(self, config: MQTTConfig):
         self.name = config.name
         self.port = config.port
         self.username = config.username
@@ -40,7 +42,7 @@ class MqttBroker():
 
 
     @property
-    def adhoc_topic(self) -> str:
+    def adhoc_topic(self) -> Optional[str]:
         """the topic to listen for any adhoc command"""
         return getattr(self, "_adhoc_topic", None)
 
@@ -52,7 +54,7 @@ class MqttBroker():
 
 
     @property
-    def adhoc_result_topic(self) -> str:
+    def adhoc_result_topic(self) -> Optional[str]:
         """the topic to publish adhoc results to"""
         return getattr(self, "_adhoc_result_topic", None)
 
@@ -210,5 +212,5 @@ class MqttBroker():
         try:
             infot = self.mqttc.publish(topic, payload)
             infot.wait_for_publish(5)
-        except Exception as e:
+        except Exception as e:  # pylint: disable=W0718
             log.warning(str(e))
