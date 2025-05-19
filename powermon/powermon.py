@@ -1,33 +1,29 @@
 # !/usr/bin/python3
 """main powermon code"""
 import asyncio
-# import gettext
 import json
 import logging
-# import pathlib
 import time
 from argparse import ArgumentParser
+from logging import Logger
 from platform import python_version
 
 import yaml
 from pyaml_env import parse_config
 from pydantic import ValidationError
+from rich.pretty import pprint
 
-from powermon import MqttBroker, PowermonConfig, _, __version__
+from powermon import MqttBroker, PowermonConfig, _, __version__, Daemon
 
 from .commands.command import Command
-from .daemons import from_config as daemon_from_config
-# from .config.powermon_config import PowermonConfig
+# import .daemons.Damemon
 from .device import Device
 from .libs.apicoordinator import ApiCoordinator
-from .ports import from_config as port_from_config
-from .protocols import from_device_config as protocols_from_device_config
 from .protocols import list_commands, list_protocols
 
 # Set-up logger
-log = logging.getLogger("")
-FORMAT = "%(asctime)-15s:%(levelname)s:%(module)s:%(funcName)s@%(lineno)d: %(message)s"
-logging.basicConfig(format=FORMAT)
+log: Logger = logging.getLogger("")
+logging.basicConfig(format="%(asctime)-15s:%(levelname)s:%(module)s:%(funcName)s@%(lineno)d: %(message)s")
 
 
 def _read_yaml_file(yaml_file=None):
@@ -65,9 +61,9 @@ def main():
 
 async def async_main():
     """powermon command function"""
-    _name = _("Power Device Monitoring Utility")
-    description = f"{_name}, version: {__version__}, python version: {python_version()}"  # pylint: disable=C0301
-    parser = ArgumentParser(description=description)
+    _name: str = _("Power Device Monitoring Utility")
+    description: str = f"{_name}, version: {__version__}, python version: {python_version()}"  # pylint: disable=C0301
+    parser: ArgumentParser = ArgumentParser(description=description)
 
     parser.add_argument(
         "-C",
@@ -134,7 +130,7 @@ async def async_main():
 
     # validate config
     try:
-        powermon_config = PowermonConfig(**_config)
+        powermon_config = PowermonConfig(**_config) # ty: ignore[missing-argument]
         log.debug(powermon_config)
         log.info("Config validation successful")
     except ValidationError as exception:
@@ -158,7 +154,7 @@ async def async_main():
     log.info(mqtt_broker)
 
     # build the daemon object (optional)
-    daemon = daemon_from_config(config=powermon_config.daemon)
+    daemon = Daemon.from_config(config=powermon_config.daemon)
     log.info(daemon)
 
     # build api coordinator
@@ -170,15 +166,15 @@ async def async_main():
     for device_config in powermon_config.devices:
         _device = Device(device_config)
         _device.mqtt_broker = mqtt_broker
-        ## get the protocol 
+        ## get the protocol
         ## TODO: fix again
         # _protocol = protocols_from_device_config(config=powermon_config.device)
         # _device.port = await port_from_config(config=powermon_config.device.port, protocol=_protocol, serial_number=powermon_config.device.serial_number)
-        print(_device.device_info.name)
         devices.append(_device)
-    print([str(device) for device in devices])
+    for device in devices:
+        pprint(device)
     exit()
-    
+
     log.debug(devices)
 
     # process adhoc command line command
@@ -204,9 +200,6 @@ async def async_main():
         log.info("Adding command, config: %s", command_config)
         device.add_command(Command.from_config(command_config))
     log.info(device)
-
-    
-    
 
     # initialize api coordinator
     api_coordinator.set_device(device)

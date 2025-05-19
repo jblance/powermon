@@ -7,7 +7,7 @@ from ..config import NoExtraBaseModel
 
 class MQTTConfig(NoExtraBaseModel):
     """ model/allowed elements for mqtt broker section of config """
-    name: str = None
+    name: Optional[str] = None
     port: int = 1883
     username: Optional[str] = None
     password: Optional[str] = Field(default=None, repr=False)

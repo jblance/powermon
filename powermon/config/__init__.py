@@ -1,4 +1,4 @@
-from pydantic import BaseModel, Extra, Field, ConfigDict
+from pydantic import BaseModel, ConfigDict
 
 
 class NoExtraBaseModel(BaseModel):

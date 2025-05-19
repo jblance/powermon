@@ -1,1 +1,2 @@
-from .device import Device, DeviceInfo
+""" Device class is .... """
+from .device import Device
