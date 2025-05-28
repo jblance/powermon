@@ -1,0 +1,19 @@
+# minimal config for powermon
+devices:
+  - name: Test_Inverter
+    serial_number: A123456789
+    model: 8048MAX
+    manufacturer: MPP-Solar
+    port:
+      type: serial
+      path: /dev/ttyUSB*
+      protocol: PI30
+    commands:
+    - command: QID
+      outputs:
+      - type: screen
+        format: 
+          type: table
+          draw_lines: False
+          extra_info: True
+loop: null

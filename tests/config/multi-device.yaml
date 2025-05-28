@@ -1,12 +1,12 @@
 # minimal config for powermon version 2
 devices:
-  - name: Test_Inverter
+  - name: MultiTest Device 1
     serial_number: A123456789
     model: 8048MAX
     manufacturer: MPP-Solar
     port:
       type: test
-      protocol: PI30
+      protocol: PI30MAX
       response_number: 1
     commands:
     - command: QPI
@@ -15,17 +15,19 @@ devices:
         format: 
           type: table
           draw_lines: False
-          extra_info: True
-  - name: Second_Inverter
+          extra_info: False
+  - name: MultiTest Device 2
     serial_number: Z987654321
     model: 8048MAX
     manufacturer: MPP-Solar
     port:
       type: test
-      protocol: PI30
+      protocol: PI30MAX
       response_number: 0
     commands:
     - command: QPI
+      trigger:
+        every: 1
       outputs:
       - type: screen
         format: 
