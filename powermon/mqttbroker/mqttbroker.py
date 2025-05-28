@@ -24,14 +24,22 @@ class MqttBroker():
 
 
     def __repr__(self):
-        return str(self)
+        if self.username is not None and self.password is not None:
+            return f"MqttBroker(name='{self.name}', port={self.port}, username='{self.username}', password='{self.password}')"
+        else:
+            return f"MqttBroker(name='{self.name}', port={self.port}, username=None, password=None)"
 
 
-    def __init__(self, config: MQTTConfig):
-        self.name = config.name
-        self.port = config.port
-        self.username = config.username
-        self.password = config.password
+    @classmethod
+    def from_config(cls, config: MQTTConfig):
+        return cls(name=config.name, port=config.port, username=config.username, password=config.password)
+
+
+    def __init__(self, name: str, port: int, username: Optional[str] = None, password: Optional[str] = None):
+        self.name = name
+        self.port = port
+        self.username = username
+        self.password = password
         self.is_connected = False
 
         if self.name is None:
