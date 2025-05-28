@@ -8,6 +8,7 @@ from powermon.commands.command import Command
 from powermon.commands.result import Result
 from powermon.libs.errors import PowermonProtocolError
 from powermon.protocols.abstractprotocol import AbstractProtocol, AbstractProtocolDTO
+from ..protocols import Protocol
 
 log = logging.getLogger("Port")
 
@@ -21,6 +22,8 @@ class _AbstractPortDTO(BaseModel):
 class AbstractPort(ABC):
     """ base model for all ports """
     def __init__(self, protocol: AbstractProtocol):
+        if isinstance(protocol, str):
+            protocol = Protocol.from_name(name=protocol)
         self.protocol: AbstractProtocol = protocol
         self.error_message = None
         # self.port_type = None

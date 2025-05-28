@@ -29,11 +29,15 @@ class TestPort(AbstractPort):
         # self._test_data = None
 
     def to_dto(self) -> _AbstractPortDTO:
-        dto = TestPortDTO(port_type=self.port_type, protocol=self.protocol.to_dto(), response_number=self.response_number)
+        dto = TestPortDTO(port_type=self.port_type, response_number=self.response_number, protocol=self.protocol.to_dto())
         return dto
 
     def __str__(self):
         return f"Test port: {self.response_number=}"
+
+    def __repr__(self):
+        """ Returns representation of the port that allows eval(port.__repr__()) to rebuild object"""
+        return f"TestPort(response_number='{self.response_number}', protocol='{self.protocol.protocol_id}')"
 
     @classmethod
     async def from_config(cls, config, protocol, serial_number):
