@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html  lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1"><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+      <title>USB permissions on Linux</title>
+    
+          <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+          <link rel="stylesheet" href="_static/theme.css " type="text/css" />
+      
+      <!-- sphinx script_files -->
+        <script src="_static/documentation_options.js?v=5929fcd5"></script>
+        <script src="_static/doctools.js?v=9bcbadda"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+
+      
+      <!-- bundled in js (rollup iife) -->
+      <!-- <script src="_static/theme-vendors.js"></script> -->
+      <script src="_static/theme.js" defer></script>
+    
+  <link rel="index" title="Index" href="genindex.html" />
+  <link rel="search" title="Search" href="search.html" />
+  <link rel="next" title="Usage" href="j2_usage.html" />
+  <link rel="prev" title="Installation" href="j1_installation.html" /> 
+  </head>
+
+  <body>
+    <div id="app">
+    <div class="theme-container" :class="pageClasses"><navbar @toggle-sidebar="toggleSidebar">
+  <router-link to="index.html" class="home-link">
+    
+      <span class="site-name">powermon</span>
+    
+  </router-link>
+
+  <div class="links">
+    <navlinks class="can-hide">
+
+
+
+    </navlinks>
+  </div>
+</navbar>
+
+      
+      <div class="sidebar-mask" @click="toggleSidebar(false)">
+      </div>
+        <sidebar @toggle-sidebar="toggleSidebar">
+          
+          <navlinks>
+            
+
+
+
+            
+          </navlinks><div id="searchbox" class="searchbox" role="search">
+  <div class="caption"><span class="caption-text">Quick search</span>
+    <div class="searchformwrapper">
+      <form class="search" action="search.html" method="get">
+        <input type="text" name="q" />
+        <input type="submit" value="Search" />
+        <input type="hidden" name="check_keywords" value="yes" />
+        <input type="hidden" name="area" value="default" />
+      </form>
+    </div>
+  </div>
+</div><div class="sidebar-links" role="navigation" aria-label="main navigation">
+  
+    <div class="sidebar-group">
+      <p class="caption">
+        <span class="caption-text"><a href="index.html#documentation">documentation</a></span>
+      </p>
+      <ul class="">
+        
+          <li class="toctree-l1 ">
+            
+              <a href="j1_installation.html" class="reference internal ">Installation</a>
+            
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 ">
+            
+              <a href="j2_usage.html" class="reference internal ">Usage</a>
+            
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 ">
+            
+              <a href="devices.html" class="reference internal ">Devices</a>
+            
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 ">
+            
+              <a href="config_file.html" class="reference internal ">Config File Syntax</a>
+            
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 ">
+            
+              <a href="tutorials.html" class="reference internal ">Tutorials</a>
+            
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 ">
+            
+              <a href="docker.html" class="reference internal ">Docker</a>
+            
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 ">
+            
+              <a href="development.html" class="reference internal ">Development</a>
+            
+
+            
+          </li>
+
+        
+      </ul>
+    </div>
+  
+</div>
+        </sidebar>
+
+      <page>
+          <div class="body-header" role="navigation" aria-label="navigation">
+  
+  <ul class="breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+    
+      <li><a href="j1_installation.html">Installation</a> &raquo;</li>
+    
+    <li>USB permissions on Linux</li>
+  </ul>
+  
+
+  <ul class="page-nav">
+  <li class="prev">
+    <a href="j1_installation.html"
+       title="previous chapter">← Installation</a>
+  </li>
+  <li class="next">
+    <a href="j2_usage.html"
+       title="next chapter">Usage →</a>
+  </li>
+</ul>
+  
+</div>
+<hr>
+          <div class="content" role="main" v-pre>
+            
+  <section id="usb-permissions-on-linux">
+<h1>USB permissions on Linux<a class="headerlink" href="#usb-permissions-on-linux" title="Link to this heading">¶</a></h1>
+<section id="permission-denied-error">
+<h2>Permission denied error<a class="headerlink" href="#permission-denied-error" title="Link to this heading">¶</a></h2>
+<p>When you use Powermon to access a USB device on Linux, you may run into
+Permission denied error. It’s because by default, the device nodes are
+owned by <code class="docutils literal notranslate"><span class="pre">root</span></code>. To run Powermon as a non-root user, you have to
+change the permissions of the device nodes with <code class="docutils literal notranslate"><span class="pre">udev</span></code> rules .</p>
+<p>First, run Powermon as root to confirm that you can talk to your
+inverter or BMS:</p>
+<p><code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">powermon</span> <span class="pre">-C</span> <span class="pre">inverter-conf.yaml</span></code></p>
+<p>Where <code class="docutils literal notranslate"><span class="pre">inverter-conf.yaml</span></code> is the path to your YAML config.</p>
+<p>After running the above command, you should see the values from your
+device, according to the settings in the YAML config file. If not, make
+sure that the cable is plugged in on both ends and that you chose the
+right device.</p>
+</section>
+<section id="udev-rules-basic">
+<h2>udev rules - basic<a class="headerlink" href="#udev-rules-basic" title="Link to this heading">¶</a></h2>
+<p>For everyday monitoring, don’t run it as root. Instead, change the
+permissions with <code class="docutils literal notranslate"><span class="pre">udev</span></code> rules:</p>
+<ol class="arabic">
+<li><p>Create file <code class="docutils literal notranslate"><span class="pre">60-powermon-usb.rules</span></code> in the <code class="docutils literal notranslate"><span class="pre">etc/udev/rules.d</span></code>
+directory if it doesn’t exist:</p>
+<p><code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">touch</span> <span class="pre">/etc/udev/rules.d/60-powermon-usb.rules</span></code></p>
+</li>
+<li><p>Open the file with a text editor (for example <code class="docutils literal notranslate"><span class="pre">nano</span></code>):</p>
+<p><code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">nano</span> <span class="pre">/etc/udev/rules.d/60-powermon-usb.rules</span></code></p>
+</li>
+<li><p>Paste the following lines:</p>
+<ul class="simple">
+<li><p>for devices connected through <code class="docutils literal notranslate"><span class="pre">hidraw</span></code>:</p></li>
+</ul>
+<p><code class="docutils literal notranslate"><span class="pre">KERNEL==&quot;hidraw[0-9]*&quot;,</span> <span class="pre">SUBSYSTEM==&quot;hidraw&quot;,</span> <span class="pre">MODE=&quot;0666&quot;</span></code></p>
+<ul class="simple">
+<li><p>for devices connected through <code class="docutils literal notranslate"><span class="pre">ttyUSB</span></code>:</p></li>
+</ul>
+<p><code class="docutils literal notranslate"><span class="pre">KERNEL==&quot;ttyUSB[0-9]*&quot;,</span> <span class="pre">MODE=&quot;0666&quot;</span></code></p>
+</li>
+<li><p>Save the file.</p></li>
+<li><p>Reload the udev rules:</p>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">udevadm</span> <span class="pre">control</span> <span class="pre">--reload-rules</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">udevadm</span> <span class="pre">trigger</span></code></p></li>
+</ol>
+</li>
+<li><p>Run Powermon as a regular user to confirm it’s working:</p>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">powermon</span> <span class="pre">-C</span> <span class="pre">inverter-conf.yaml</span></code></p></li>
+</ol>
+</li>
+</ol>
+<p>This rule makes any <code class="docutils literal notranslate"><span class="pre">hidraw</span></code> and <code class="docutils literal notranslate"><span class="pre">ttyUSB</span></code> devices to be readable and
+writable by any user on the system.</p>
+</section>
+<section id="udev-rules-advanced">
+<h2>udev rules - advanced<a class="headerlink" href="#udev-rules-advanced" title="Link to this heading">¶</a></h2>
+<p>Such broad permissions are not always desirable. You can use more restrictive
+permissions by targeting specific vendor and product IDs:</p>
+<ol class="arabic simple">
+<li><p>Find the vendor and product IDs:</p>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">lsusb</span></code></p></li>
+<li><p>If you see multiple devices, unplug your cable, run <code class="docutils literal notranslate"><span class="pre">lsusb</span></code>
+again, and compare which devices are missing. Note the device IDs
+and name.</p></li>
+<li><p>List the attributes of the specific device:</p>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">udevadm</span> <span class="pre">info</span> <span class="pre">--attribute-walk</span> <span class="pre">--path=$(udevadm</span> <span class="pre">info</span> <span class="pre">--query=path</span> <span class="pre">--name=/dev/ttyUSB0)</span></code>
+- replace <code class="docutils literal notranslate"><span class="pre">/dev/ttyUSB0</span></code> with your device.</p></li>
+<li><p>look for <code class="docutils literal notranslate"><span class="pre">ATTRS{idProduct}==</span></code> and <code class="docutils literal notranslate"><span class="pre">ATTRS{idVendor}==</span></code> that
+match the IDs from your previous <code class="docutils literal notranslate"><span class="pre">lsusb</span></code> command.</p></li>
+<li><p>In our case we found <code class="docutils literal notranslate"><span class="pre">ATTRS{idProduct}==&quot;7523&quot;</span></code> and
+<code class="docutils literal notranslate"><span class="pre">ATTRS{idVendor}==&quot;1a86&quot;</span></code>.</p></li>
+</ol>
+</li>
+</ol>
+</li>
+<li><p>Create file <code class="docutils literal notranslate"><span class="pre">60-powermon-usb.rules</span></code> in the <code class="docutils literal notranslate"><span class="pre">etc/udev/rules.d</span></code>
+directory if it doesn’t exist:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">touch</span> <span class="pre">/etc/udev/rules.d/60-powermon-usb.rules</span></code></p></li>
+</ul>
+</li>
+<li><p>Open the file with a text editor (for example <code class="docutils literal notranslate"><span class="pre">nano</span></code>):</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">nano</span> <span class="pre">/etc/udev/rules.d/60-powermon-usb.rules</span></code></p></li>
+</ul>
+</li>
+<li><p>Edit the file. If there are existing rules for the matching device,
+remove them.</p>
+<ul class="simple">
+<li><p>In our case, we’re editing <code class="docutils literal notranslate"><span class="pre">dev/ttyUSB0</span></code> rules</p></li>
+<li><p>We replace the existing line
+<code class="docutils literal notranslate"><span class="pre">KERNEL==&quot;ttyUSB[0-9]*&quot;,</span> <span class="pre">MODE=&quot;0666&quot;</span></code> with
+<code class="docutils literal notranslate"><span class="pre">KERNEL==&quot;ttyUSB[0-9]*&quot;,</span> <span class="pre">ATTRS{idVendor}==&quot;1a86&quot;,</span> <span class="pre">ATTRS{idProduct}==&quot;7523&quot;,</span> <span class="pre">MODE=&quot;0660&quot;,</span> <span class="pre">TAG+=&quot;uaccess&quot;</span></code></p></li>
+<li><p>By providing the exact vendor and product ID, we limit the rule to
+a specific device.</p></li>
+<li><p>Note the <code class="docutils literal notranslate"><span class="pre">MODE</span></code> is now <code class="docutils literal notranslate"><span class="pre">0660</span></code> (zero at the end).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">TAG+=&quot;uaccess&quot;</span></code> makes the device usable to logged-in users.</p></li>
+<li><p>In the future, if you replace the cable, you might need to change
+the vendor and product ID.</p></li>
+</ul>
+</li>
+<li><p>Save the file.</p></li>
+<li><p>Reload the udev rules:</p>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">udevadm</span> <span class="pre">control</span> <span class="pre">--reload-rules</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">udevadm</span> <span class="pre">trigger</span></code></p></li>
+</ol>
+</li>
+<li><p>Run Powermon as a regular user to confirm it’s working:</p>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">powermon</span> <span class="pre">-C</span> <span class="pre">inverter-conf.yaml</span></code></p></li>
+</ol>
+</li>
+</ol>
+</section>
+</section>
+
+
+          </div>
+          <div class="page-nav">
+            <div class="inner"><ul class="page-nav">
+  <li class="prev">
+    <a href="j1_installation.html"
+       title="previous chapter">← Installation</a>
+  </li>
+  <li class="next">
+    <a href="j2_usage.html"
+       title="next chapter">Usage →</a>
+  </li>
+</ul><div class="footer" role="contentinfo">
+      &#169; Copyright 2025, jblance.
+    <br>
+    Created using <a href="http://sphinx-doc.org/">Sphinx</a> 8.2.3 with <a href="https://github.com/schettino72/sphinx_press_theme">Press Theme</a> 0.9.1.
+</div>
+            </div>
+          </div>
+      </page>
+    </div></div>
+    
+    
+  </body>
+</html>

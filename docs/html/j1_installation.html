@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1"><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-      <title>powermon.daemons.daemon_initd module</title>
+      <title>Installation</title>
     
           <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
           <link rel="stylesheet" href="_static/theme.css " type="text/css" />
@@ -21,8 +21,8 @@
     
   <link rel="index" title="Index" href="genindex.html" />
   <link rel="search" title="Search" href="search.html" />
-  <link rel="next" title="powermon.daemons.daemon_simple module" href="powermon.daemons.daemon_simple.html" />
-  <link rel="prev" title="powermon.daemons.daemon_disabled module" href="powermon.daemons.daemon_disabled.html" /> 
+  <link rel="next" title="USB permissions on Linux" href="j1.1_installation.usbpermissions.html" />
+  <link rel="prev" title="Powermon" href="index.html" /> 
   </head>
 
   <body>
@@ -71,13 +71,21 @@
       <p class="caption">
         <span class="caption-text"><a href="index.html#documentation">documentation</a></span>
       </p>
-      <ul class="">
+      <ul class="current">
         
-          <li class="toctree-l1 ">
+          <li class="toctree-l1 current">
             
-              <a href="j1_installation.html" class="reference internal ">Installation</a>
+              <a href="#" class="reference internal current">Installation</a>
             
 
+            
+              <ul>
+                
+                  <li class="toctree-l2"><a href="#installation" class="reference internal">Installation</a></li>
+                
+                  <li class="toctree-l2"><a href="#usb-permissions-on-linux" class="reference internal">USB permissions on Linux</a></li>
+                
+              </ul>
             
           </li>
 
@@ -148,26 +156,18 @@
   <ul class="breadcrumbs">
     <li><a href="index.html">Docs</a> &raquo;</li>
     
-      <li><a href="development.html">Development</a> &raquo;</li>
-    
-      <li><a href="modules.html">powermon</a> &raquo;</li>
-    
-      <li><a href="powermon.html">powermon package</a> &raquo;</li>
-    
-      <li><a href="powermon.daemons.html">powermon.daemons package</a> &raquo;</li>
-    
-    <li>powermon.daemons.daemon_initd module</li>
+    <li>Installation</li>
   </ul>
   
 
   <ul class="page-nav">
   <li class="prev">
-    <a href="powermon.daemons.daemon_disabled.html"
-       title="previous chapter">← powermon.daemons.daemon_disabled module</a>
+    <a href="index.html"
+       title="previous chapter">← Powermon</a>
   </li>
   <li class="next">
-    <a href="powermon.daemons.daemon_simple.html"
-       title="next chapter">powermon.daemons.daemon_simple module →</a>
+    <a href="j1.1_installation.usbpermissions.html"
+       title="next chapter">USB permissions on Linux →</a>
   </li>
 </ul>
   
@@ -175,20 +175,35 @@
 <hr>
           <div class="content" role="main" v-pre>
             
-  <section id="module-powermon.daemons.daemon_initd">
-<span id="powermon-daemons-daemon-initd-module"></span><h1>powermon.daemons.daemon_initd module<a class="headerlink" href="#module-powermon.daemons.daemon_initd" title="Link to this heading">¶</a></h1>
-<dl class="py class">
-<dt class="sig sig-object py" id="powermon.daemons.daemon_initd.DaemonInitd">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">powermon.daemons.daemon_initd.</span></span><span class="sig-name descname"><span class="pre">DaemonInitd</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">keepalive</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#powermon.daemons.daemon_initd.DaemonInitd" title="Link to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="powermon.daemons.daemon.html#powermon.daemons.daemon.Daemon" title="powermon.daemons.daemon.Daemon"><code class="xref py py-class docutils literal notranslate"><span class="pre">Daemon</span></code></a></p>
-<dl class="py method">
-<dt class="sig sig-object py" id="powermon.daemons.daemon_initd.DaemonInitd.initialize">
-<span class="sig-name descname"><span class="pre">initialize</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#powermon.daemons.daemon_initd.DaemonInitd.initialize" title="Link to this definition">¶</a></dt>
-<dd><p>Daemon initialization activities</p>
-</dd></dl>
+  <section id="installation">
+<h1>Installation<a class="headerlink" href="#installation" title="Link to this heading">¶</a></h1>
+<p>powermon is packaged on pypi. There are a number of optional dependancies based on the usage required</p>
+<div class="literal-block-wrapper docutils container" id="id1">
+<div class="code-block-caption"><span class="caption-text">installation examples</span><a class="headerlink" href="#id1" title="Link to this code">¶</a></div>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">user@host:~ $ </span>pip<span class="w"> </span>install<span class="w"> </span>powermon<span class="w">           </span><span class="c1"># minimal install</span>
+<span class="gp">user@host:~ $ </span>pip<span class="w"> </span>install<span class="w"> </span>powermon<span class="o">[</span>api<span class="o">]</span><span class="w">      </span><span class="c1"># include web api dependancies</span>
+<span class="gp">user@host:~ $ </span>pip<span class="w"> </span>install<span class="w"> </span>powermon<span class="o">[</span>ble<span class="o">]</span><span class="w">      </span><span class="c1"># include bluetooth dependancies</span>
+<span class="gp">user@host:~ $ </span>pip<span class="w"> </span>install<span class="w"> </span>powermon<span class="o">[</span>modbus<span class="o">]</span><span class="w">   </span><span class="c1"># include modbus dependancies</span>
+<span class="gp">user@host:~ $ </span>pip<span class="w"> </span>install<span class="w"> </span>powermon<span class="o">[</span>systemd<span class="o">]</span><span class="w">  </span><span class="c1"># include systemd dependancies</span>
+<span class="gp">user@host:~ $ </span>pip<span class="w"> </span>install<span class="w"> </span>powermon<span class="o">[</span>ble,dev<span class="o">]</span><span class="w">  </span><span class="c1"># include bluetooth and development dependencies</span>
 
-</dd></dl>
-
+<span class="gp">user@host:~ $ </span>pip<span class="w"> </span>install<span class="w"> </span>powermon<span class="o">[</span>dev<span class="o">]</span><span class="w">      </span><span class="c1"># include all development dependancies</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="usb-permissions-on-linux">
+<h1>USB permissions on Linux<a class="headerlink" href="#usb-permissions-on-linux" title="Link to this heading">¶</a></h1>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="j1.1_installation.usbpermissions.html">USB permissions on Linux</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="j1.1_installation.usbpermissions.html#permission-denied-error">Permission denied error</a></li>
+<li class="toctree-l2"><a class="reference internal" href="j1.1_installation.usbpermissions.html#udev-rules-basic">udev rules - basic</a></li>
+<li class="toctree-l2"><a class="reference internal" href="j1.1_installation.usbpermissions.html#udev-rules-advanced">udev rules - advanced</a></li>
+</ul>
+</li>
+</ul>
+</div>
 </section>
 
 
@@ -196,12 +211,12 @@
           <div class="page-nav">
             <div class="inner"><ul class="page-nav">
   <li class="prev">
-    <a href="powermon.daemons.daemon_disabled.html"
-       title="previous chapter">← powermon.daemons.daemon_disabled module</a>
+    <a href="index.html"
+       title="previous chapter">← Powermon</a>
   </li>
   <li class="next">
-    <a href="powermon.daemons.daemon_simple.html"
-       title="next chapter">powermon.daemons.daemon_simple module →</a>
+    <a href="j1.1_installation.usbpermissions.html"
+       title="next chapter">USB permissions on Linux →</a>
   </li>
 </ul><div class="footer" role="contentinfo">
       &#169; Copyright 2025, jblance.

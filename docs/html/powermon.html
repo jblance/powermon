@@ -75,7 +75,7 @@
         
           <li class="toctree-l1 ">
             
-              <a href="installation.html" class="reference internal ">Installation</a>
+              <a href="j1_installation.html" class="reference internal ">Installation</a>
             
 
             
@@ -84,7 +84,7 @@
         
           <li class="toctree-l1 ">
             
-              <a href="usage.html" class="reference internal ">Usage</a>
+              <a href="j2_usage.html" class="reference internal ">Usage</a>
             
 
             
@@ -173,6 +173,113 @@
             
   <section id="module-powermon">
 <span id="powermon-package"></span><h1>powermon package<a class="headerlink" href="#module-powermon" title="Link to this heading">¶</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="powermon.MqttBroker">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">powermon.</span></span><span class="sig-name descname"><span class="pre">MqttBroker</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="powermon.config.mqtt_config.html#powermon.config.mqtt_config.MQTTConfig" title="powermon.config.mqtt_config.MQTTConfig"><span class="pre">MQTTConfig</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#powermon.MqttBroker" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>MqttBroker class - wraps connecting, subscribing and publishing to a mqtt broker</p>
+<dl class="py property">
+<dt class="sig sig-object py" id="powermon.MqttBroker.adhoc_result_topic">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">adhoc_result_topic</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#powermon.MqttBroker.adhoc_result_topic" title="Link to this definition">¶</a></dt>
+<dd><p>the topic to publish adhoc results to</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="powermon.MqttBroker.adhoc_topic">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">adhoc_topic</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#powermon.MqttBroker.adhoc_topic" title="Link to this definition">¶</a></dt>
+<dd><p>the topic to listen for any adhoc command</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="powermon.MqttBroker.connect">
+<span class="sig-name descname"><span class="pre">connect</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#powermon.MqttBroker.connect" title="Link to this definition">¶</a></dt>
+<dd><p>connect to mqtt broker</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="powermon.MqttBroker.on_connect">
+<span class="sig-name descname"><span class="pre">on_connect</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">client</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">userdata</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flags</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rc</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#powermon.MqttBroker.on_connect" title="Link to this definition">¶</a></dt>
+<dd><p>callback for connect</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="powermon.MqttBroker.on_disconnect">
+<span class="sig-name descname"><span class="pre">on_disconnect</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">client</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">userdata</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rc</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#powermon.MqttBroker.on_disconnect" title="Link to this definition">¶</a></dt>
+<dd><p>callback for disconnect</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="powermon.MqttBroker.post_adhoc_command">
+<span class="sig-name descname"><span class="pre">post_adhoc_command</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">command_code</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#powermon.MqttBroker.post_adhoc_command" title="Link to this definition">¶</a></dt>
+<dd><p>shortcut function to publish an adhoc command</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="powermon.MqttBroker.post_adhoc_result">
+<span class="sig-name descname"><span class="pre">post_adhoc_result</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">payload</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#powermon.MqttBroker.post_adhoc_result" title="Link to this definition">¶</a></dt>
+<dd><p>shortcut function to publish the results of an adhoc command</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="powermon.MqttBroker.publish">
+<span class="sig-name descname"><span class="pre">publish</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">topic</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">payload</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#powermon.MqttBroker.publish" title="Link to this definition">¶</a></dt>
+<dd><dl class="simple">
+<dt>publish messages to the defined mqtt broker</dt><dd><ul class="simple">
+<li><p>if broker name is ‘screen’ will write to stdout instead</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>topic</strong> (<em>str</em>) – topic to publish to.</p></li>
+<li><p><strong>payload</strong> (<em>str</em>) – content to publish.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="powermon.MqttBroker.start">
+<span class="sig-name descname"><span class="pre">start</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#powermon.MqttBroker.start" title="Link to this definition">¶</a></dt>
+<dd><p>start the mqtt broker</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="powermon.MqttBroker.stop">
+<span class="sig-name descname"><span class="pre">stop</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#powermon.MqttBroker.stop" title="Link to this definition">¶</a></dt>
+<dd><p>stop the mqtt broker</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="powermon.MqttBroker.subscribe">
+<span class="sig-name descname"><span class="pre">subscribe</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">topic</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">callback</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#powermon.MqttBroker.subscribe" title="Link to this definition">¶</a></dt>
+<dd><p>subscribe to a topic on the mqtt broker</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>topic</strong> (<em>str</em>) – topic to subscribe to</p></li>
+<li><p><strong>callback</strong> (<em>Callable</em>) – function to call when a message is received</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="powermon.PowermonConfig">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">powermon.</span></span><span class="sig-name descname"><span class="pre">PowermonConfig</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">devices</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="powermon.config.device_config.html#powermon.config.device_config.DeviceConfig" title="powermon.config.device_config.DeviceConfig"><span class="pre">DeviceConfig</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mqttbroker</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="powermon.config.mqtt_config.html#powermon.config.mqtt_config.MQTTConfig" title="powermon.config.mqtt_config.MQTTConfig"><span class="pre">MQTTConfig</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">MQTTConfig(name=None,</span> <span class="pre">port=1883,</span> <span class="pre">username=None,</span> <span class="pre">adhoc_topic=None,</span> <span class="pre">adhoc_result_topic=None)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">api</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="powermon.config.api_config.html#powermon.config.api_config.APIConfig" title="powermon.config.api_config.APIConfig"><span class="pre">APIConfig</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">APIConfig(host=None,</span> <span class="pre">port=None,</span> <span class="pre">enabled=False,</span> <span class="pre">log_level=None,</span> <span class="pre">announce_topic=None,</span> <span class="pre">adhoc_topic=None,</span> <span class="pre">refresh_interval=None)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">daemon</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="powermon.config.daemon_config.html#powermon.config.daemon_config.DaemonConfig" title="powermon.config.daemon_config.DaemonConfig"><span class="pre">DaemonConfig</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">DaemonConfig(type=None,</span> <span class="pre">keepalive=None)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">debuglevel</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'WARNING'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">loop</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#powermon.PowermonConfig" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="powermon.config.html#powermon.config.NoExtraBaseModel" title="powermon.config.NoExtraBaseModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">NoExtraBaseModel</span></code></a></p>
+<p>model/allowed elements for first level of config (version 2)</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="powermon.PowermonConfig.model_config">
+<span class="sig-name descname"><span class="pre">model_config</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">ConfigDict</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'extra':</span> <span class="pre">'forbid'}</span></em><a class="headerlink" href="#powermon.PowermonConfig.model_config" title="Link to this definition">¶</a></dt>
+<dd><p>Configuration for the model, should be a dictionary conforming to [<cite>ConfigDict</cite>][pydantic.config.ConfigDict].</p>
+</dd></dl>
+
+</dd></dl>
+
 <section id="subpackages">
 <h2>Subpackages<a class="headerlink" href="#subpackages" title="Link to this heading">¶</a></h2>
 <div class="toctree-wrapper compound">
@@ -237,6 +344,10 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="powermon.daemons.html">powermon.daemons package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="powermon.daemons.html#powermon.daemons.Daemon"><code class="docutils literal notranslate"><span class="pre">Daemon</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="powermon.daemons.html#powermon.daemons.Daemon.to_dto"><code class="docutils literal notranslate"><span class="pre">Daemon.to_dto()</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="powermon.daemons.html#powermon.daemons.DaemonConfig"><code class="docutils literal notranslate"><span class="pre">DaemonConfig</span></code></a><ul>
 <li class="toctree-l3"><a class="reference internal" href="powermon.daemons.html#powermon.daemons.DaemonConfig.model_config"><code class="docutils literal notranslate"><span class="pre">DaemonConfig.model_config</span></code></a></li>
 </ul>
@@ -249,6 +360,8 @@
 <li class="toctree-l2"><a class="reference internal" href="powermon.daemons.html#submodules">Submodules</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="powermon.daemons.daemon.html">powermon.daemons.daemon module</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="powermon.daemons.daemon.html#powermon.daemons.daemon.Daemon"><code class="docutils literal notranslate"><span class="pre">Daemon</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="powermon.daemons.daemon.html#powermon.daemons.daemon.DaemonDTO"><code class="docutils literal notranslate"><span class="pre">DaemonDTO</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="powermon.daemons.daemon.html#powermon.daemons.daemon.DaemonType"><code class="docutils literal notranslate"><span class="pre">DaemonType</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="powermon.daemons.daemon_disabled.html">powermon.daemons.daemon_disabled module</a><ul>
@@ -309,6 +422,24 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="powermon.mqttbroker.html">powermon.mqttbroker package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="powermon.mqttbroker.html#powermon.mqttbroker.MQTTConfig"><code class="docutils literal notranslate"><span class="pre">MQTTConfig</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="powermon.mqttbroker.html#powermon.mqttbroker.MQTTConfig.model_config"><code class="docutils literal notranslate"><span class="pre">MQTTConfig.model_config</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="powermon.mqttbroker.html#powermon.mqttbroker.MqttBroker"><code class="docutils literal notranslate"><span class="pre">MqttBroker</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="powermon.mqttbroker.html#powermon.mqttbroker.MqttBroker.adhoc_result_topic"><code class="docutils literal notranslate"><span class="pre">MqttBroker.adhoc_result_topic</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="powermon.mqttbroker.html#powermon.mqttbroker.MqttBroker.adhoc_topic"><code class="docutils literal notranslate"><span class="pre">MqttBroker.adhoc_topic</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="powermon.mqttbroker.html#powermon.mqttbroker.MqttBroker.connect"><code class="docutils literal notranslate"><span class="pre">MqttBroker.connect()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="powermon.mqttbroker.html#powermon.mqttbroker.MqttBroker.on_connect"><code class="docutils literal notranslate"><span class="pre">MqttBroker.on_connect()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="powermon.mqttbroker.html#powermon.mqttbroker.MqttBroker.on_disconnect"><code class="docutils literal notranslate"><span class="pre">MqttBroker.on_disconnect()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="powermon.mqttbroker.html#powermon.mqttbroker.MqttBroker.post_adhoc_command"><code class="docutils literal notranslate"><span class="pre">MqttBroker.post_adhoc_command()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="powermon.mqttbroker.html#powermon.mqttbroker.MqttBroker.post_adhoc_result"><code class="docutils literal notranslate"><span class="pre">MqttBroker.post_adhoc_result()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="powermon.mqttbroker.html#powermon.mqttbroker.MqttBroker.publish"><code class="docutils literal notranslate"><span class="pre">MqttBroker.publish()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="powermon.mqttbroker.html#powermon.mqttbroker.MqttBroker.start"><code class="docutils literal notranslate"><span class="pre">MqttBroker.start()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="powermon.mqttbroker.html#powermon.mqttbroker.MqttBroker.stop"><code class="docutils literal notranslate"><span class="pre">MqttBroker.stop()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="powermon.mqttbroker.html#powermon.mqttbroker.MqttBroker.subscribe"><code class="docutils literal notranslate"><span class="pre">MqttBroker.subscribe()</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="powermon.mqttbroker.html#submodules">Submodules</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="powermon.mqttbroker.mqttbroker.html">powermon.mqttbroker.mqttbroker module</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="powermon.mqttbroker.mqttbroker.html#powermon.mqttbroker.mqttbroker.MqttBroker"><code class="docutils literal notranslate"><span class="pre">MqttBroker</span></code></a></li>

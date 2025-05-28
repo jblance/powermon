@@ -24,8 +24,8 @@ Documentation
 .. toctree::
    :maxdepth: 4
 
-   installation
-   usage
+   j1_installation
+   j2_usage
    devices
    config_file
    tutorials

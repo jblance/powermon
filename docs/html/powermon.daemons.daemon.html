@@ -75,7 +75,7 @@
         
           <li class="toctree-l1 ">
             
-              <a href="installation.html" class="reference internal ">Installation</a>
+              <a href="j1_installation.html" class="reference internal ">Installation</a>
             
 
             
@@ -84,7 +84,7 @@
         
           <li class="toctree-l1 ">
             
-              <a href="usage.html" class="reference internal ">Usage</a>
+              <a href="j2_usage.html" class="reference internal ">Usage</a>
             
 
             
@@ -189,6 +189,26 @@
 <dd><p>return the data transfer object version of this object</p>
 </dd></dl>
 
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="powermon.daemons.daemon.DaemonDTO">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">powermon.daemons.daemon.</span></span><span class="sig-name descname"><span class="pre">DaemonDTO</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">daemon_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#powermon.daemons.daemon.DaemonType" title="powermon.daemons.daemon.DaemonType"><span class="pre">DaemonType</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">last_notify</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keepalive</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#powermon.daemons.daemon.DaemonDTO" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseModel</span></code></p>
+<p>data transfer ojbect model</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="powermon.daemons.daemon.DaemonDTO.model_config">
+<span class="sig-name descname"><span class="pre">model_config</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">ConfigDict</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></em><a class="headerlink" href="#powermon.daemons.daemon.DaemonDTO.model_config" title="Link to this definition">¶</a></dt>
+<dd><p>Configuration for the model, should be a dictionary conforming to [<cite>ConfigDict</cite>][pydantic.config.ConfigDict].</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="powermon.daemons.daemon.DaemonType">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">powermon.daemons.daemon.</span></span><span class="sig-name descname"><span class="pre">DaemonType</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#powermon.daemons.daemon.DaemonType" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">StrEnum</span></code></p>
+<p>Daemon types implemented</p>
 </dd></dl>
 
 </section>

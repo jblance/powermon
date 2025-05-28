@@ -10,7 +10,7 @@ Powermon Usage
 .. toctree::
     :maxdepth: 2
     
-    usage.powermon
+    j2.1_usage.powermon
 
 ##################
 Powermon CLI Usage
@@ -19,4 +19,4 @@ Powermon CLI Usage
 .. toctree::
     :maxdepth: 2
     
-    usage.powermon.cli
+    j2.2_usage.powermon.cli

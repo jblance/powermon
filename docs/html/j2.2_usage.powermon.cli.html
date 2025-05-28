@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html  lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1"><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+      <title>Powermon-cli Usage</title>
+    
+          <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+          <link rel="stylesheet" href="_static/theme.css " type="text/css" />
+      
+      <!-- sphinx script_files -->
+        <script src="_static/documentation_options.js?v=5929fcd5"></script>
+        <script src="_static/doctools.js?v=9bcbadda"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+
+      
+      <!-- bundled in js (rollup iife) -->
+      <!-- <script src="_static/theme-vendors.js"></script> -->
+      <script src="_static/theme.js" defer></script>
+    
+  <link rel="index" title="Index" href="genindex.html" />
+  <link rel="search" title="Search" href="search.html" />
+  <link rel="next" title="Devices" href="devices.html" />
+  <link rel="prev" title="Usage" href="j2.1_usage.powermon.html" /> 
+  </head>
+
+  <body>
+    <div id="app">
+    <div class="theme-container" :class="pageClasses"><navbar @toggle-sidebar="toggleSidebar">
+  <router-link to="index.html" class="home-link">
+    
+      <span class="site-name">powermon</span>
+    
+  </router-link>
+
+  <div class="links">
+    <navlinks class="can-hide">
+
+
+
+    </navlinks>
+  </div>
+</navbar>
+
+      
+      <div class="sidebar-mask" @click="toggleSidebar(false)">
+      </div>
+        <sidebar @toggle-sidebar="toggleSidebar">
+          
+          <navlinks>
+            
+
+
+
+            
+          </navlinks><div id="searchbox" class="searchbox" role="search">
+  <div class="caption"><span class="caption-text">Quick search</span>
+    <div class="searchformwrapper">
+      <form class="search" action="search.html" method="get">
+        <input type="text" name="q" />
+        <input type="submit" value="Search" />
+        <input type="hidden" name="check_keywords" value="yes" />
+        <input type="hidden" name="area" value="default" />
+      </form>
+    </div>
+  </div>
+</div><div class="sidebar-links" role="navigation" aria-label="main navigation">
+  
+    <div class="sidebar-group">
+      <p class="caption">
+        <span class="caption-text"><a href="index.html#documentation">documentation</a></span>
+      </p>
+      <ul class="">
+        
+          <li class="toctree-l1 ">
+            
+              <a href="j1_installation.html" class="reference internal ">Installation</a>
+            
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 ">
+            
+              <a href="j2_usage.html" class="reference internal ">Usage</a>
+            
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 ">
+            
+              <a href="devices.html" class="reference internal ">Devices</a>
+            
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 ">
+            
+              <a href="config_file.html" class="reference internal ">Config File Syntax</a>
+            
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 ">
+            
+              <a href="tutorials.html" class="reference internal ">Tutorials</a>
+            
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 ">
+            
+              <a href="docker.html" class="reference internal ">Docker</a>
+            
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 ">
+            
+              <a href="development.html" class="reference internal ">Development</a>
+            
+
+            
+          </li>
+
+        
+      </ul>
+    </div>
+  
+</div>
+        </sidebar>
+
+      <page>
+          <div class="body-header" role="navigation" aria-label="navigation">
+  
+  <ul class="breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+    
+      <li><a href="j2_usage.html">Usage</a> &raquo;</li>
+    
+    <li>Powermon-cli Usage</li>
+  </ul>
+  
+
+  <ul class="page-nav">
+  <li class="prev">
+    <a href="j2.1_usage.powermon.html"
+       title="previous chapter">← Usage</a>
+  </li>
+  <li class="next">
+    <a href="devices.html"
+       title="next chapter">Devices →</a>
+  </li>
+</ul>
+  
+</div>
+<hr>
+          <div class="content" role="main" v-pre>
+            
+  <section id="powermon-cli-usage">
+<h1>Powermon-cli Usage<a class="headerlink" href="#powermon-cli-usage" title="Link to this heading">¶</a></h1>
+<p>So far there are several uses for the <code class="docutils literal notranslate"><span class="pre">powermon-cli</span></code> command</p>
+<ol class="arabic simple">
+<li><p>list the available protocols</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">powermon-cli</span> <span class="pre">--listProtocols</span></code></p></li>
+</ul>
+</li>
+<li><p>List available commands in a given protocol</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">powermon-cli</span> <span class="pre">--listCommands</span> <span class="pre">PI30</span></code></p></li>
+</ul>
+</li>
+<li><p>List available output modules</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">powermon-cli</span> <span class="pre">--listOutputs</span></code></p></li>
+</ul>
+</li>
+<li><p>List available output formats</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">powermon-cli</span> <span class="pre">--listFormats</span></code></p></li>
+</ul>
+</li>
+<li><p>generating a config file starter from the answers of a series of questions</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">powermon-cli</span> <span class="pre">-g</span></code></p></li>
+</ul>
+</li>
+<li><p>compare two protocols (and optionally a single command in each protocol)</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">powermon-cli</span> <span class="pre">--compareProtocols</span> <span class="pre">pi30,pi30max</span></code>  (compare the pi30 and pi30max protocols)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">powermon-cli</span> <span class="pre">--compareProtocols</span> <span class="pre">pi30,pi30max:QMOD</span></code>  (compare the QMOD command from the pi30 and pi30max protocols)</p></li>
+</ul>
+</li>
+<li><p>scan for details of BLE devices (with options to show additional details)</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">powermon-cli</span> <span class="pre">--bleScan</span> <span class="pre">--details</span> <span class="pre">--advData</span> <span class="pre">--getChars</span></code></p></li>
+</ul>
+</li>
+</ol>
+<section id="command-options">
+<h2>Command Options<a class="headerlink" href="#command-options" title="Link to this heading">¶</a></h2>
+<div class="literal-block-wrapper docutils container" id="id1">
+<div class="code-block-caption"><span class="caption-text">powermon command options</span><a class="headerlink" href="#id1" title="Link to this code">¶</a></div>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>powermon-cli<span class="w"> </span>-h
+<span class="go">usage: powermon-cli [-h] [-v] [-g] [--listProtocols] [--listCommands PROTOCOL] [--listFormats] [--listOutputs] [--compareProtocols PROTO1,PROTO2] [--bleReset] [--bleScan] [--details] [--advData] [--getChars] [--address MAC]</span>
+
+<span class="go">Power Device Monitoring Utility CLI, version: 1.0.16-dev, python version: 3.11.7</span>
+
+<span class="go">options:</span>
+<span class="go">-h, --help            show this help message and exit</span>
+<span class="go">-v, --version         Display the version</span>
+<span class="go">-g, --generateConfigFile</span>
+<span class="go">                        Generate Config File</span>
+<span class="go">--listProtocols       List available protocols</span>
+<span class="go">--listCommands PROTOCOL</span>
+<span class="go">                        List available commands for PROTOCOL</span>
+<span class="go">--listFormats         List available output formats</span>
+<span class="go">--listOutputs         List available output modules</span>
+<span class="go">--compareProtocols PROTO1,PROTO2[:CMD]</span>
+<span class="go">                        Compare 2 protocol definitions (comma separated) with optional CMD to only compare that command</span>
+<span class="go">--bleReset            Reset the bluetooth subsystem (power off / on bluetoothctl)</span>
+<span class="go">--bleScan             Scan for BLE devices</span>
+<span class="go">--details             Show extra BLE device data</span>
+<span class="go">--advData             Include advertisement data in BLE Scan</span>
+<span class="go">--getChars            Connect to BLE device(s) and list characteristics</span>
+<span class="go">--address MAC         Only scan for supplied mac address</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="list-protocols">
+<h2>List Protocols<a class="headerlink" href="#list-protocols" title="Link to this heading">¶</a></h2>
+<div class="literal-block-wrapper docutils container" id="id2">
+<div class="code-block-caption"><span class="caption-text">list available protocols</span><a class="headerlink" href="#id2" title="Link to this code">¶</a></div>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>powermon-cli<span class="w"> </span>--listProtocols
+<span class="go">Supported protocols</span>
+<span class="go">PI18: PI18 protocol handler</span>
+<span class="go">PI30: PI30 protocol handler</span>
+<span class="go">PI30MAX: PI30 protocol handler for LV6048MAX and similar inverters</span>
+<span class="go">PI30MST: PI30 protocol handler for PIP4048MST and similar inverters</span>
+<span class="go">DALY: DALY protocol handler for DALY BMS</span>
+<span class="go">NEEY: NEEY Active Balancer protocol handler</span>
+<span class="go">HELTEC: NEEY Active Balancer protocol handler</span>
+<span class="go">VED: VED protocol handler for Victron direct SmartShunts</span>
+<span class="go">JKSERIAL: JKBMS TTL serial communication protocol handler</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="list-commands-in-a-protocol">
+<h2>List Commands in a protocol<a class="headerlink" href="#list-commands-in-a-protocol" title="Link to this heading">¶</a></h2>
+<div class="literal-block-wrapper docutils container" id="id3">
+<div class="code-block-caption"><span class="caption-text">list commands in PI30 protocol</span><a class="headerlink" href="#id3" title="Link to this code">¶</a></div>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>powermon-cli<span class="w"> </span>--listCommands<span class="w"> </span>PI30
+<span class="go">Commands in protocol: PI30</span>
+<span class="go">QPI  - Get the Inverter supported Protocol ID</span>
+<span class="go">QID [&#39;get_id&#39;, &#39;default&#39;] - Get the Serial Number of the Inverter</span>
+<span class="go">QVFW  - Get the Main CPU firmware version</span>
+<span class="go">QVFW2  - Get the Secondary CPU firmware version</span>
+<span class="go">QBOOT  - Get DSP Has Bootstrap</span>
+<span class="go">QDI  - Get the Inverters Default Settings</span>
+<span class="go">QMN  - Get the Model Name</span>
+<span class="go">PGR  - Set Grid Working Range  -- examples: PCR00 (set device working range to appliance), PCR01 (set device working range to UPS)</span>
+<span class="go">POP  - Set Device Output Source Priority  -- examples: POP00 (set Utility &gt; Solar &gt; Battery), POP01 (set Solar &gt; Utility &gt; Battery), POP02 (set Solar &gt; Battery &gt; Utility)</span>
+<span class="go">POPLG  - Set Device Operation Logic  -- examples: POPLG00 (set Auto mode), POPLG01 (set Online mode), POPLG02 (set ECO mode)</span>
+<span class="go">POPM  - Set Device Output Mode (for 4000/5000)  -- examples: POPM01 (set unit 0 to 1 - parallel output), POPM10 (set unit 1 to 0 - single machine output), POPM02 (set unit 0 to 2 - phase 1 of 3), POPM13 (set unit 1 to 3 - phase 2 of 3), POPM24 (set unit 2 to 4 - phase 3 of 3)</span>
+<span class="go">[...output truncated...]</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="list-output-formats">
+<h2>List Output formats<a class="headerlink" href="#list-output-formats" title="Link to this heading">¶</a></h2>
+<div class="literal-block-wrapper docutils container" id="id4">
+<div class="code-block-caption"><span class="caption-text">available output formats</span><a class="headerlink" href="#id4" title="Link to this code">¶</a></div>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>powermon-cli<span class="w"> </span>--listFormats
+<span class="go">Available output formats</span>
+<span class="go">HASS: hass: generates Home Assistant auto config and update mqtt messages</span>
+<span class="go">HASS_AUTODISCOVERY: hass_autodiscovery: generates Home Assistant auto config (only) mqtt messages</span>
+<span class="go">HASS_STATE: hass_state: generates Home Assistant state update mqtt messages (requires entities to exist or HassAutoDiscovery to have been run first)</span>
+<span class="go">HTMLTABLE: htmltable: generates html table of results</span>
+<span class="go">JSON: json: generates json representation of the results</span>
+<span class="go">RAW: raw: outputs the response as received from the device</span>
+<span class="go">SIMPLE: simple: generates a simple representation of the results, eg &#39;soc=89%&#39;</span>
+<span class="go">TABLE: table: generates a table of the results (optionally formatted with line art boxes)</span>
+<span class="go">BMSRESPONSE: bmsresponse: generates the BMSResponse for a PI30 inverter</span>
+<span class="go">CACHE: cache: generates mqtt messages suited to populating the results cache</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="compare-protocols">
+<h2>Compare Protocols<a class="headerlink" href="#compare-protocols" title="Link to this heading">¶</a></h2>
+<div class="literal-block-wrapper docutils container" id="id5">
+<div class="code-block-caption"><span class="caption-text">compare PI30 and PI30MAX protocols</span><a class="headerlink" href="#id5" title="Link to this code">¶</a></div>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>powermon-cli<span class="w"> </span>--compareProtocols<span class="w"> </span>pi30,pi30max
+
+<span class="go">=====================</span>
+<span class="go">PROTOCOL COMPARISON</span>
+<span class="go">=====================</span>
+<span class="go">pi30 has 45 commands</span>
+<span class="go">pi30max has 67 commands</span>
+<span class="go">Commands with the same definition in both protocols (36)</span>
+<span class="go">        [&#39;PCP&#39;, &#39;F&#39;, &#39;PBFT&#39;, &#39;QMN&#39;, &#39;QBMS&#39;, &#39;POP&#39;, &#39;PBATMAXDISC&#39;, &#39;POPM&#39;, &#39;MNCHGC&#39;, &#39;DAT&#39;, &#39;PPVOKC&#39;, &#39;PBCV&#39;, &#39;PBT&#39;, &#39;PCVV&#39;, &#39;Q1&#39;, &#39;QMUCHGCR&#39;, &#39;PPCP&#39;, &#39;BTA&#39;, &#39;QPI&#39;, &#39;QVFW&#39;, &#39;PGR&#39;, &#39;MCHGC&#39;, &#39;PBDV&#39;, &#39;PSAVE&#39;, &#39;QOPM&#39;, &#39;PBATCD&#39;, &#39;PSDV&#39;, &#39;PE&#39;, &#39;QBOOT&#39;, &#39;PSPB&#39;, &#39;PF&#39;, &#39;PD&#39;, &#39;MUCHGC&#39;, &#39;POPLG&#39;, &#39;QGMN&#39;, &#39;QMCHGCR&#39;]</span>
+<span class="go">Commands in pi30max but not pi30 (23)</span>
+<span class="go">        {&#39;PLEDT&#39;, &#39;PLEDB&#39;, &#39;QEY&#39;, &#39;QVFW3&#39;, &#39;QOPPT&#39;, &#39;PLEDM&#39;, &#39;PLEDC&#39;, &#39;QLM&#39;, &#39;VERFW&#39;, &#39;QPIGS2&#39;, &#39;QLD&#39;, &#39;QLY&#39;, &#39;QBEQI&#39;, &#39;QLT&#39;, &#39;QT&#39;, &#39;QET&#39;, &#39;PLEDE&#39;, &#39;QSID&#39;, &#39;QEM&#39;, &#39;QLED&#39;, &#39;QED&#39;, &#39;PLEDS&#39;, &#39;QCHPT&#39;}</span>
+<span class="go">Commands in pi30 but not pi30max (1)</span>
+<span class="go">        {&#39;QVFW2&#39;}</span>
+<span class="go">Commands in both protocols with different config (8)</span>
+<span class="go">        [&#39;QPIWS&#39;, &#39;QID&#39;, &#39;QDI&#39;, &#39;QPGS&#39;, &#39;QPIGS&#39;, &#39;QMOD&#39;, &#39;QFLAG&#39;, &#39;QPIRI&#39;]</span>
+
+<span class="go">QPIWS</span>
+<span class="go">|                        description|                                      Warning status inquiry|Warning status inquiry                                      |</span>
+<span class="go">|                          help_text|      -- queries any active warnings flags from the Inverter|Not Present                                                 |</span>
+<span class="go">|                        result_type|                                           ResultType.SINGLE|ResultType.SINGLE                                           |</span>
+<span class="go">|                              regex|                                                            |                                                            |</span>
+<span class="go">|                            aliases|                                                            |                                                            |</span>
+<span class="go">|                       command_type|                                                            |                                                            |</span>
+<span class="go">|                       command_code|                                                            |                                                            |</span>
+<span class="go">|                       command_data|                                                            |                                                            |</span>
+<span class="go">|                          construct|                                                            |                                                            |</span>
+<span class="go">|             construct_min_response|                                                           8|8                                                           |</span>
+<span class="go">|             test_responses (count)|                                                           1|2                                                           |</span>
+<span class="go">|        reading_definitions (count)|                                                           1|1                                                           |</span>
+<span class="go">|                     rd[0]: Warning|                                                     Matches|                                                            |</span>
+
+<span class="go">[...output truncated...]</span>
+</pre></div>
+</div>
+</div>
+</section>
+</section>
+
+
+          </div>
+          <div class="page-nav">
+            <div class="inner"><ul class="page-nav">
+  <li class="prev">
+    <a href="j2.1_usage.powermon.html"
+       title="previous chapter">← Usage</a>
+  </li>
+  <li class="next">
+    <a href="devices.html"
+       title="next chapter">Devices →</a>
+  </li>
+</ul><div class="footer" role="contentinfo">
+      &#169; Copyright 2025, jblance.
+    <br>
+    Created using <a href="http://sphinx-doc.org/">Sphinx</a> 8.2.3 with <a href="https://github.com/schettino72/sphinx_press_theme">Press Theme</a> 0.9.1.
+</div>
+            </div>
+          </div>
+      </page>
+    </div></div>
+    
+    
+  </body>
+</html>

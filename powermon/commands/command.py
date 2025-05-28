@@ -2,7 +2,7 @@
 import logging
 from enum import Enum
 
-from dateparser import parse as dateparse  # pylint: disable=W0611 # noqa: 401
+from dateparser import parse as dateparse  #noqa:F401
 from pydantic import BaseModel
 
 from powermon.commands.command_definition import CommandDefinition

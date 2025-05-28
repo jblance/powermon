@@ -20,4 +20,4 @@ USB permissions on Linux
 .. toctree::
     :maxdepth: 2
     
-    installation.usbpermissions
+    j1.1_installation.usbpermissions
