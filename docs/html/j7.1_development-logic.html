@@ -25,7 +25,7 @@ const load = async () => {
     const mermaids_to_add_zoom = 1 === -1 ? all_mermaids.length : 1;
     const mermaids_processed = document.querySelectorAll(".mermaid[data-processed='true']");
     if(mermaids_to_add_zoom > 0) {
-        var svgs = d3.selectAll(".mermaid[data-zoom-id=id-c048493e-cf2f-43c2-81dd-05cbc7b5a32b] svg");
+        var svgs = d3.selectAll(".mermaid[data-zoom-id=id-8d42850f-8f63-411b-916c-05e65b998817] svg");
         if(all_mermaids.length !== mermaids_processed.length) {
             // try again in a sec, wait for mermaids to load
             setTimeout(load, 200);
@@ -208,7 +208,7 @@ window.addEventListener("load", load);
             
   <section id="powermon-logic">
 <h1>Powermon Logic<a class="headerlink" href="#powermon-logic" title="Link to this heading">¶</a></h1>
-<pre data-zoom-id="id-c048493e-cf2f-43c2-81dd-05cbc7b5a32b" class="mermaid">
+<pre data-zoom-id="id-8d42850f-8f63-411b-916c-05e65b998817" class="mermaid">
         ---
 config:
   theme: base
@@ -298,7 +298,47 @@ classDiagram
         process(Command, Result, mqtt_broker, device_info)
         multiple_from_config() -&gt; list[Output]
     }
-    </pre><p>Notes:</p>
+    </pre><p>Notes: Out of Date</p>
+<section id="config-command-parsing">
+<h2>Config / Command Parsing<a class="headerlink" href="#config-command-parsing" title="Link to this heading">¶</a></h2>
+<p>At startup, powermon processes the config file (yaml) and builds the objects as above</p>
+<p><code class="docutils literal notranslate"><span class="pre">MqttBroker</span></code> - <code class="docutils literal notranslate"><span class="pre">__init__</span></code> optionally builds mqtt broker object: <code class="docutils literal notranslate"><span class="pre">mqtt_broker</span> <span class="pre">=</span> <span class="pre">MqttBroker.from_config(config=config.get(&quot;mqttbroker&quot;))</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">Device</span></code> - <code class="docutils literal notranslate"><span class="pre">__init__</span></code> builds device object: <code class="docutils literal notranslate"><span class="pre">device</span> <span class="pre">=</span> <span class="pre">Device.from_config(config=config.get(&quot;device&quot;))</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">Port</span></code> - port is built during Device.from_config() with <code class="docutils literal notranslate"><span class="pre">port_from_config(config.get(&quot;port&quot;))</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">Protocol</span></code> - protocol is build in port.from_config() with <code class="docutils literal notranslate"><span class="pre">get_protocol_definition(protocol=config.get(&quot;protocol&quot;,</span> <span class="pre">&quot;PI30&quot;))</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">Command</span></code> - <code class="docutils literal notranslate"><span class="pre">__init__</span></code> loops through all the commands in the config and adds them to the device
+<code class="docutils literal notranslate"><span class="pre">device.add_command(Command.from_config(command_config))</span></code>
+the command definition is found with <code class="docutils literal notranslate"><span class="pre">command.command_definition</span> <span class="pre">=</span> <span class="pre">self.port.protocol.get_command_definition(command.code)</span></code> and added to the list with <code class="docutils literal notranslate"><span class="pre">Device.commands.append(command)</span></code>
+outputs are added with <code class="docutils literal notranslate"><span class="pre">outputs.multiple_from_config(config)</span></code> which uses <code class="docutils literal notranslate"><span class="pre">getOutputClass(OutputType,</span> <span class="pre">formatter)</span></code> to instantiate the correct output class and set the formatter</p>
+</section>
+<section id="command-execution-run-loop">
+<h2>Command Execution / Run Loop<a class="headerlink" href="#command-execution-run-loop" title="Link to this heading">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">Device</span></code> is the entry point / main controller</p>
+<p><code class="docutils literal notranslate"><span class="pre">Device.run()</span></code> is called in a loop, checking if <code class="docutils literal notranslate"><span class="pre">Command.is_due()</span></code>, if it is the command is run with <code class="docutils literal notranslate"><span class="pre">Device.port.run_command(Command)</span></code>
+this returns a <code class="docutils literal notranslate"><span class="pre">Result</span></code>, which is build in <code class="docutils literal notranslate"><span class="pre">Port</span></code> with <code class="docutils literal notranslate"><span class="pre">Command.build_result(raw_response,</span> <span class="pre">Protocol)</span></code>
+<code class="docutils literal notranslate"><span class="pre">Command.build_result()</span></code> then:
+* checks response is valid: <code class="docutils literal notranslate"><span class="pre">protocol.check_valid(raw_response)</span></code>
+* checks crc is correct: <code class="docutils literal notranslate"><span class="pre">protocol.check_crc(raw_response)</span></code>
+* trims the response: <code class="docutils literal notranslate"><span class="pre">protocol.trim_response(raw_response)</span></code>
+* splits response into individual values: <code class="docutils literal notranslate"><span class="pre">protocol.split_response(trimmed_response,</span> <span class="pre">self.command_definition)</span></code>
+* builds the result:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="n">Result</span><span class="p">(</span><span class="n">command</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span> <span class="n">raw_response</span><span class="o">=</span><span class="n">raw_response</span><span class="p">,</span> <span class="n">responses</span><span class="o">=</span><span class="n">responses</span><span class="p">)</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Result</span></code> sets readings with</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@readings</span><span class="o">.</span><span class="n">setter</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">readings</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">responses</span><span class="p">):</span>
+  <span class="bp">self</span><span class="o">.</span><span class="n">_readings</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">decode_responses</span><span class="p">(</span><span class="n">responses</span><span class="o">=</span><span class="n">responses</span><span class="p">)</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Result.decode_responses()`` uses the <code class="docutils literal notranslate"><span class="pre">ResultType</span></code> to decode the responses into a list of <code class="docutils literal notranslate"><span class="pre">Readings</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Device.run()</span></code> then loops through the outputs and runs process on each:</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">output.process(Command,</span> <span class="pre">Result,</span> <span class="pre">mqtt_broker,</span> <span class="pre">device_info)</span></code></p></li>
+</ul>
+</section>
 </section>
 
 

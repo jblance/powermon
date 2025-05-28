@@ -89,4 +89,56 @@ Powermon Logic
             multiple_from_config() -> list[Output]
         }
 
-Notes:
+Notes: Out of Date
+
+#########################
+Config / Command Parsing
+#########################
+
+At startup, powermon processes the config file (yaml) and builds the objects as above 
+
+``MqttBroker`` - ``__init__`` optionally builds mqtt broker object: ``mqtt_broker = MqttBroker.from_config(config=config.get("mqttbroker"))``
+
+``Device`` - ``__init__`` builds device object: ``device = Device.from_config(config=config.get("device"))``
+
+``Port`` - port is built during Device.from_config() with ``port_from_config(config.get("port"))``
+
+``Protocol`` - protocol is build in port.from_config() with ``get_protocol_definition(protocol=config.get("protocol", "PI30"))``
+
+``Command`` - ``__init__`` loops through all the commands in the config and adds them to the device
+``device.add_command(Command.from_config(command_config))``
+the command definition is found with ``command.command_definition = self.port.protocol.get_command_definition(command.code)`` and added to the list with ``Device.commands.append(command)``
+outputs are added with ``outputs.multiple_from_config(config)`` which uses ``getOutputClass(OutputType, formatter)`` to instantiate the correct output class and set the formatter
+
+
+##############################
+Command Execution / Run Loop
+##############################
+
+``Device`` is the entry point / main controller
+
+``Device.run()`` is called in a loop, checking if ``Command.is_due()``, if it is the command is run with ``Device.port.run_command(Command)``
+this returns a ``Result``, which is build in ``Port`` with ``Command.build_result(raw_response, Protocol)``
+``Command.build_result()`` then:
+* checks response is valid: ``protocol.check_valid(raw_response)``
+* checks crc is correct: ``protocol.check_crc(raw_response)``
+* trims the response: ``protocol.trim_response(raw_response)``
+* splits response into individual values: ``protocol.split_response(trimmed_response, self.command_definition)``
+* builds the result:
+
+.. code-block:: python
+
+    result = Result(command=self, raw_response=raw_response, responses=responses)
+
+* ``Result`` sets readings with
+
+.. code-block:: python
+   
+   @readings.setter
+   def readings(self, responses):
+     self._readings = self.decode_responses(responses=responses)
+
+* Result.decode_responses()`` uses the ``ResultType`` to decode the responses into a list of ``Readings``
+* ``Device.run()`` then loops through the outputs and runs process on each:
+* ``output.process(Command, Result, mqtt_broker, device_info)``
+
