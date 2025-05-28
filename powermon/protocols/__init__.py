@@ -2,15 +2,12 @@
 Includes an Enumeration of available protocols, some helper functions 
 as well as a Abstract Base Protocol and the protocol classes
 """
-import importlib
 import logging
 from enum import StrEnum, auto
-from typing import Optional
 
 from rich.console import Console
 
 from powermon.libs.errors import ConfigError
-# from ..config.device_config import DeviceConfig
 
 
 log = logging.getLogger("protocols")
@@ -102,7 +99,7 @@ def list_protocols():
             continue
 
 
-def list_commands(name: Optional[str] = None):
+def list_commands(name: str):
     """ helper function to display the commands available for a specified protocol
 
     Args:
