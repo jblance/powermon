@@ -1,7 +1,7 @@
 """ device.py """
 # import gettext
 import logging
-from typing import Optional
+from typing import Optional, List
 
 from pydantic import BaseModel, Field
 
@@ -13,7 +13,7 @@ from ..config.device_config import DeviceConfig
 from ..libs.errors import CommandDefinitionMissing
 from ..outputformats import FormatterType, get_formatter
 from ..outputs.abstractoutput import AbstractOutput
-# from ..ports import from_config as port_from_config
+from ..ports import Port
 from ..ports.abstractport import AbstractPort, _AbstractPortDTO
 
 # Set-up logger
@@ -36,23 +36,34 @@ class Device:
     The object also defines the port and protocol that is used to communicate with the device
     """
     # def __init__(self, name: str, serial_number: str = "", model: str = "", manufacturer: str = "", port: AbstractPort = None):
-    def __init__(self, config: DeviceConfig):
-        self._config: DeviceConfig = config
-        self.name: str = config.name
-        self.serial_number: str = config.serial_number
-        self.model: str = config.model
-        self.manufacturer: str = config.manufacturer
-        self.port: AbstractPort = None
-        self.commands: list[Command] = []
-        self.mqtt_broker: MqttBroker = None
+    @classmethod
+    async def from_config(cls, config: DeviceConfig):
+        _device: Device = cls(name=config.name, serial_number=config.serial_number, model=config.model, manufacturer=config.manufacturer)
+        _device.config = config
+        _device.port = await Port.from_device_config(config=config)
+        return _device
+
+    
+
+    def __init__(self, name: str, serial_number: str, model: str, manufacturer: str, port: Optional[AbstractPort] = None, commands: Optional[List[Command]] = None, mqtt_broker: Optional[MqttBroker] = None):
+        self.config: DeviceConfig = None
+        self.name: str = name
+        self.serial_number: str = serial_number
+        self.model: str = model
+        self.manufacturer: str = manufacturer
+        self.port: AbstractPort = port
+        self.commands: list[Command] = [] if commands is None else commands
+        self.mqtt_broker: MqttBroker = mqtt_broker
         self.adhoc_commands: list = []
 
     def __str__(self):
-        return f"Device: {self.name=}, {self.serial_number=}, {self.model=}, {self.manufacturer=} {self.port=}, {self.mqtt_broker=}, commands:{self.commands}"  #, config: {self._config}"
+        return f"Device: {self.name=}, {self.serial_number=}, {self.model=}, {self.manufacturer=} {self.port=}, {self.mqtt_broker=}, commands:{self.commands}"
 
     def __repr__(self):
         """ Returns representation of Device that allows eval(device.__repr__()) to rebuild object"""
-        return f"Device(DeviceConfig(**{self._config.model_dump()}))"
+        _repr = f"Device(name='{self.name}', serial_number='{self.serial_number}', model='{self.model}', manufacturer='{self.manufacturer}', port={self.port!r}, commands={self.commands})"
+        #print(_repr)
+        return _repr
 
     def to_dto(self) -> DeviceDTO:
         """convert the Device to a Data Transfer Object"""
@@ -61,40 +72,6 @@ class Device:
         for command in self.commands:
             commands.append(command.to_dto())
         return DeviceDTO(name=self.name, serial_number=self.serial_number, model=self.model, manufacturer=self.manufacturer, port=self.port.to_dto(), commands=commands)
-
-    # @classmethod
-    # async def from_config(cls, config: PowermonConfig):
-    #     """build the object from a config dict"""
-    #     if not config:
-    #         log.warning(_("No device definition in config. Check configFile argument?"))
-    #         return cls(name="unnamed")
-    #     name = config.name
-    #     model = config.model
-    #     manufacturer = config.manufacturer
-    #     serial_number = config.serial_number
-
-    #     port_config = config.port
-    #     # add serial number and model to config
-    #     # port_config['serial_number'] = serial_number
-    #     # port_config['model'] = model
-    #     port = await port_from_config(port_config)
-
-    #     # raise error if unable to configure port
-    #     if not port:
-    #         log.error("Invalid port config '%s' found", config)
-    #         raise ConfigError(f"Invalid port config '{config}' found")
-
-    #     return cls(name=name, serial_number=serial_number, model=model, manufacturer=manufacturer, port=port)
-
-    @property
-    def port(self) -> AbstractPort:
-        """the port associated with this device"""
-        return self._port
-
-    @port.setter
-    def port(self, value):
-        log.debug("Setting port to: %s", value)
-        self._port = value
 
     @property
     def mqtt_broker(self) -> MqttBroker:
