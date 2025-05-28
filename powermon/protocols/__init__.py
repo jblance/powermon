@@ -5,6 +5,7 @@ as well as a Abstract Base Protocol and the protocol classes
 import importlib
 import logging
 from enum import StrEnum, auto
+from typing import Optional
 
 from rich.console import Console
 
@@ -32,57 +33,57 @@ class Protocol(StrEnum):
 
     DEFAULT = PI30
 
+    @staticmethod
+    def from_device_config(config) -> 'Protocol':
+        """Get a protocol object from a DeviceConfig model
 
-def from_device_config(config: 'DeviceConfig') -> Protocol:
-    """Get a protocol object from a DeviceConfig model
+        Args:
+            config (DeviceConfig): validated config model
 
-    Args:
-        config (DeviceConfig): validated config model
+        Returns:
+            Protocol: instantiated protocol object matching the config
+        """
+        protocol_name: str = config.port.protocol
+        model: str = config.model
 
-    Returns:
-        Protocol: instantiated protocol object matching the config
-    """
-    protocol_name = config.port.protocol
-    model = config.model
+        return Protocol.from_name(name=protocol_name, model=model)
 
-    return from_name(name=protocol_name, model=model)
+    @staticmethod
+    def from_name(name, model=None):
+        """
+        Get the protocol based on the protocol name and optionally device model
+        """
 
+        log.debug("Protocol: %s", name)
 
-def from_name(name, model=None):
-    """
-    Get the protocol based on the protocol name and optionally device model
-    """
+        protocol_id: str = name.lower()
+        # proto = None
 
-    log.debug("Protocol: %s", name)
-
-    protocol_id = name.lower()
-    proto = None
-
-    match protocol_id:
-        case Protocol.DALY:
-            from powermon.protocols.daly import Daly as proto
-        case Protocol.NEEY | Protocol.HELTEC:
-            from powermon.protocols.neey import Neey as proto
-        case Protocol.PI18:
-            from powermon.protocols.pi18 import PI18 as proto
-        case Protocol.PI30:
-            if model in MAX_MODELS:
+        match protocol_id:
+            case Protocol.DALY:
+                from powermon.protocols.daly import Daly as proto
+            case Protocol.NEEY | Protocol.HELTEC:
+                from powermon.protocols.neey import Neey as proto
+            case Protocol.PI18:
+                from powermon.protocols.pi18 import PI18 as proto
+            case Protocol.PI30:
+                if model in MAX_MODELS:
+                    from powermon.protocols.pi30max import PI30MAX as proto
+                elif model in MST_MODELS:
+                    from powermon.protocols.pi30mst import PI30MST as proto
+                else:
+                    from powermon.protocols.pi30 import PI30 as proto
+            case Protocol.PI30MAX:
                 from powermon.protocols.pi30max import PI30MAX as proto
-            elif model in MST_MODELS:
+            case Protocol.PI30MST:
                 from powermon.protocols.pi30mst import PI30MST as proto
-            else:
-                from powermon.protocols.pi30 import PI30 as proto
-        case Protocol.PI30MAX:
-            from powermon.protocols.pi30max import PI30MAX as proto
-        case Protocol.PI30MST:
-            from powermon.protocols.pi30mst import PI30MST as proto
-        case Protocol.VED:
-            from powermon.protocols.ved import VictronEnergyDirect as proto
-        case Protocol.JKSERIAL:
-            from powermon.protocols.jkserial import JkSerial as proto
-        case _:
-            raise ConfigError(f"Invalid protocol_id, no protocol found for: '{protocol_id}'")
-    return proto()
+            case Protocol.VED:
+                from powermon.protocols.ved import VictronEnergyDirect as proto
+            case Protocol.JKSERIAL:
+                from powermon.protocols.jkserial import JkSerial as proto
+            case _:
+                raise ConfigError(f"Invalid protocol_id, no protocol found for: '{protocol_id}'")
+        return proto()
 
 
 def list_protocols():
@@ -90,7 +91,7 @@ def list_protocols():
     rprint("[bold yellow]Supported protocols")
     for name in Protocol:
         try:
-            _proto = from_name(name)
+            _proto = Protocol.from_name(name)
             if _proto is not None:
                 rprint(f"[green]{name.upper()}[/]: {_proto}")
         except ModuleNotFoundError as exc:
@@ -101,14 +102,14 @@ def list_protocols():
             continue
 
 
-def list_commands(name: str=None):
+def list_commands(name: Optional[str] = None):
     """ helper function to display the commands available for a specified protocol
 
     Args:
         name (str, optional): Name of protocol to list commands from. Defaults to None.
     """
     try:
-        _proto = from_name(name)
+        _proto = Protocol.from_name(name)
         command_definitions = _proto.list_commands()
         # print(command_definitions)
         rprint(f"Commands in protocol: [bold yellow]{name.upper()}")
