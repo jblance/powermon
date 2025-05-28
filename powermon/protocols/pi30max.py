@@ -409,7 +409,7 @@ class PI30MAX(PI30):
 
     def __init__(self, model=None) -> None:
         super().__init__()
-        self.protocol_id = b"PI30MAX"
+        self.protocol_id = "PI30MAX"
         self.description = "PI30 protocol handler for LV6048MAX and similar inverters"
         
         # Add new commands

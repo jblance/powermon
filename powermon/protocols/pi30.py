@@ -1,5 +1,6 @@
 """ pi30.py """
 import logging
+from typing import Optional
 
 from powermon.commands.command_definition import CommandCategory, CommandDefinition
 from powermon.commands.reading_definition import ReadingType, ResponseType
@@ -605,7 +606,7 @@ class PI30(AbstractProtocol):
 
     def __init__(self, model=None) -> None:
         super().__init__(model=model)
-        self.protocol_id = b"PI30"
+        self.protocol_id = "PI30"
         self.description = "PI30 protocol handler"
         self.add_command_definitions(command_definitions_list=pi30_query_commands)
         self.add_command_definitions(command_definitions_list=pi30_setter_commands, result_type=ResultType.ACK)
@@ -613,7 +614,7 @@ class PI30(AbstractProtocol):
         self.check_definitions_count(expected=45)
 
 
-    def check_valid(self, response: str, command_definition: CommandDefinition = None) -> bool:
+    def check_valid(self, response: str, command_definition: Optional[CommandDefinition] = None) -> bool:
         """ check response is valid """
         log.debug("check valid for %s, definition: %s", response, command_definition)
         if response is None:
@@ -624,7 +625,7 @@ class PI30(AbstractProtocol):
             raise InvalidResponse("Response missing start character '('")
         return True
 
-    def check_crc(self, response: str, command_definition: CommandDefinition = None):
+    def check_crc(self, response: str, command_definition: Optional[CommandDefinition] = None):
         """ crc check, needs override in protocol """
         log.debug("check crc for %s in pi30", response)
         # check crc matches the calculated one
