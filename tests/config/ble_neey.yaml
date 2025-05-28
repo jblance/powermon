@@ -1,22 +1,22 @@
 # BLE advertising config
-device:
-  name: SmartShunt Bat2
-  serial_number: xx12345678
-  model: SmartShunt 500A/50mV
-  manufacturer: Victron
-  port:
-    type: test
-    protocol: NEEY
-    response_number: 1
+devices:
+  - name: SmartShunt Bat2
+    serial_number: xx12345678
+    model: SmartShunt 500A/50mV
+    manufacturer: Victron
+    port:
+      type: test
+      protocol: NEEY
+      response_number: 1
 
-commands:
-- command: settings
-  outputs:
-  - type: screen
-    format: 
-      type: hass
-      # draw_lines: True
-      filter: buzzer
+    commands:
+    - command: settings
+      outputs:
+      - type: screen
+        format: 
+          type: hass
+          # draw_lines: True
+          filter: buzzer
 
 mqttbroker:
   name: localhost

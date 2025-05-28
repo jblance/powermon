@@ -1,19 +1,19 @@
 # yaml config for powermon
-device:
-  serial_number: 123456789
-  model: 1012LV-MK
-  manufacturer: MPP-Solar
-  port:
-    #path: /dev/hidraw0
-    type: test
-    protocol: PI30
-
-commands:
-- command: QPIGS #Must be in the protocol command list
-  type: basic
-  outputs:
-  - type: screen
-    format: table
+devices:
+  - name: powermon_test
+    serial_number: 123456789
+    model: 1012LV-MK
+    manufacturer: MPP-Solar
+    port:
+      #path: /dev/hidraw0
+      type: test
+      protocol: PI30
+    commands:
+    - command: QPIGS #Must be in the protocol command list
+      type: basic
+      outputs:
+      - type: screen
+        format: table
           
 mqttbroker:
   name: localhost

@@ -1,23 +1,23 @@
 # yaml config for powermon
-device:
-  name: Test_Inverter
-  serial_number: 123456789
-  model: 1012LV-MK
-  manufacturer: MPP-Solar
-  port:
-    #baud: 2400
-    path: /dev/hidraw0
-    type: usb
-    protocol: PI30
+devices:
+  - name: Test_Inverter
+    serial_number: 123456789
+    model: 1012LV-MK
+    manufacturer: MPP-Solar
+    port:
+      #baud: 2400
+      path: /dev/hidraw0
+      type: usb
+      protocol: PI30
 
-commands:
-  - command: QPIGS
-    type: basic #default command type is basic
-    outputs:
-      - type: mqtt
-        format: 
-          type: mqttmessage
-          topic: Test_Inverter
+    commands:
+      - command: QPIGS
+        type: basic #default command type is basic
+        outputs:
+          - type: mqtt
+            format: 
+              type: mqttmessage
+              topic: Test_Inverter
 
 mqttbroker:
   name: localhost

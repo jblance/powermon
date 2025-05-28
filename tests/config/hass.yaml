@@ -1,24 +1,24 @@
-device:
-  name: Test_Inverter
-  serial_number: 123456789
-  model: 8048MAX
-  manufacturer: MPP-Solar
-  port:
-    type: test
-    protocol: PI30MAX
-    response_number: 1
-commands:
-- command: QPGS0
-  outputs:
-  - type: screen
-    format: 
-      type: hass_autodiscovery
-      entity_id_prefix: inverter42
-      discovery_prefix: homeassistant
-      # filter: ^work
-  - type: screen
-    format:
-      type: hass
-      entity_id_prefix: inverter42
+devices:
+  - name: Test_Inverter
+    serial_number: 123456789
+    model: 8048MAX
+    manufacturer: MPP-Solar
+    port:
+      type: test
+      protocol: PI30MAX
+      response_number: 1
+    commands:
+    - command: QPGS0
+      outputs:
+      - type: screen
+        format: 
+          type: hass_autodiscovery
+          entity_id_prefix: inverter42
+          discovery_prefix: homeassistant
+          # filter: ^work
+      - type: screen
+        format:
+          type: hass
+          entity_id_prefix: inverter42
 
 

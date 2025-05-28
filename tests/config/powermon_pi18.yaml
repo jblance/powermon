@@ -1,148 +1,148 @@
 # yaml config for powermon
 #debuglevel: 0
 
-device:
-  name: Inverter1
-  serial_number: a123456789
-  model: HybridV25048
-  manufacturer: MPP-Solar
-  port:
-    path: /dev/hidraw0
-    type: usb
-    protocol: PI18
+devices:
+  - name: Inverter1
+    serial_number: a123456789
+    model: HybridV25048
+    manufacturer: MPP-Solar
+    port:
+      path: /dev/hidraw0
+      type: usb
+      protocol: PI18
 
-commands:
-# Current Settings inquiry
-  - command: PIRI
-    #trigger:
-    #  every: 2
-    outputs:
-    - type: screen
-      format: table 
+    commands:
+    # Current Settings inquiry
+      - command: PIRI
+        #trigger:
+        #  every: 2
+        outputs:
+        - type: screen
+          format: table 
 
-# Protocol ID inquiry
-  - command: PI
-    outputs:
-    - type: screen
-      format: table
+    # Protocol ID inquiry
+      - command: PI
+        outputs:
+        - type: screen
+          format: table
 
-# Total PV Generated Energy Inquiry
-  - command: ET
-    outputs:
-    - type: screen
-      format: table
+    # Total PV Generated Energy Inquiry
+      - command: ET
+        outputs:
+        - type: screen
+          format: table
 
-# Yearly PV Generated Energy Inquiry (not get data)
-#  - command: EY
-#    outputs:
-#    - type: screen
-#      format: table
-# Monthly PV Generated Energy Inquiry (not get data)
-#  - command: EM
-#    outputs:
-#    - type: screen
-#      format: table
-# Daily PV Generated Energy Inquiry (Not get data)
-#  - command: ED
-#    outputs:
-#    - type: screen
-#      format: table
+    # Yearly PV Generated Energy Inquiry (not get data)
+    #  - command: EY
+    #    outputs:
+    #    - type: screen
+    #      format: table
+    # Monthly PV Generated Energy Inquiry (not get data)
+    #  - command: EM
+    #    outputs:
+    #    - type: screen
+    #      format: table
+    # Daily PV Generated Energy Inquiry (Not get data)
+    #  - command: ED
+    #    outputs:
+    #    - type: screen
+    #      format: table
 
-# General Status Parameters inquiry
-  - command: GS
-    outputs:
-    - type: screen
-      format: table
+    # General Status Parameters inquiry
+      - command: GS
+        outputs:
+        - type: screen
+          format: table
 
-# Mode inquiry
-  - command: MOD
-    outputs:
-    - type: screen
-      format: table
+    # Mode inquiry
+      - command: MOD
+        outputs:
+        - type: screen
+          format: table
 
-# Max Charging Current Options inquiry
-  - command: MCHGCR
-    outputs:
-    - type: screen
-      format: table
+    # Max Charging Current Options inquiry
+      - command: MCHGCR
+        outputs:
+        - type: screen
+          format: table
 
-# Max Utility Charging Current Options inquiry
-  - command: MUCHGCR
-    outputs:
-    - type: screen
-      format: table
+    # Max Utility Charging Current Options inquiry
+      - command: MUCHGCR
+        outputs:
+        - type: screen
+          format: table
 
-#### SET
+    #### SET
 
-# Set Device Output Source Priority
-# POP0 (set utility first), POP01 (set solar first)
-#  - command: POP1
-#    outputs:
-#    - type: screen
-#      format: table 
+    # Set Device Output Source Priority
+    # POP0 (set utility first), POP01 (set solar first)
+    #  - command: POP1
+    #    outputs:
+    #    - type: screen
+    #      format: table 
 
-# Set Solar Power priority
-# PSP0 (Battery-Load-Utiliy +AC Charge), PSP1 (Load-Battery-Utiliy)
-#  - command: PSP1
-#    outputs:
-#    - type: screen
-#      format: table 
+    # Set Solar Power priority
+    # PSP0 (Battery-Load-Utiliy +AC Charge), PSP1 (Load-Battery-Utiliy)
+    #  - command: PSP1
+    #    outputs:
+    #    - type: screen
+    #      format: table 
 
-# Set Machine type, enable: Grid-Tie
-# PEI (enable Grid-Tie)
-#  - command: PEI
-#    outputs:
-#    - type: screen
-#      format: table 
+    # Set Machine type, enable: Grid-Tie
+    # PEI (enable Grid-Tie)
+    #  - command: PEI
+    #    outputs:
+    #    - type: screen
+    #      format: table 
 
-# Set Machine type, disable: Grid-Tie
-# PDI (disable Grid-Tie)
-#  - command: PDI
-#    outputs:
-#    - type: screen
-#      format: table 
+    # Set Machine type, disable: Grid-Tie
+    # PDI (disable Grid-Tie)
+    #  - command: PDI
+    #    outputs:
+    #    - type: screen
+    #      format: table 
 
-# Set Device Charger Priority
-# PCP0,1 (set unit 0 [0-9] to Solar and Utility)   PCP0,0 (set unit 0 to Solar first), PCP0,1 (set unit 0 to Solar and Utility), PCP0,2 (set unit 0 to solar only charging)
-#  - command: PCP0,1
-#    outputs:
-#    - type: screen
-#      format: table 
+    # Set Device Charger Priority
+    # PCP0,1 (set unit 0 [0-9] to Solar and Utility)   PCP0,0 (set unit 0 to Solar first), PCP0,1 (set unit 0 to Solar and Utility), PCP0,2 (set unit 0 to solar only charging)
+    #  - command: PCP0,1
+    #    outputs:
+    #    - type: screen
+    #      format: table 
 
-# Set Battery Max Charging Current Solar + AC
-# MCHGC0,040 (set unit 0 to max charging current of 40A), MCHGC1,060 (set unit 1 to max charging current of 60A) [010 020 030 040 050 060 070 080]
-#  - command: MCHGC0,080
-#    outputs:
-#    - type: screen
-#      format: table 
+    # Set Battery Max Charging Current Solar + AC
+    # MCHGC0,040 (set unit 0 to max charging current of 40A), MCHGC1,060 (set unit 1 to max charging current of 60A) [010 020 030 040 050 060 070 080]
+    #  - command: MCHGC0,080
+    #    outputs:
+    #    - type: screen
+    #      format: table 
 
-# Set Battery Max AC Charging Current
-# MUCHGC0,040 (set unit 0 to max charging current of 40A), MUCHGC1,060 (set unit 1 to max charging current of 60A) [002 010 020 030 040 050 060 070 080]
-#  - command: MUCHGC0,002
-#    outputs:
-#    - type: screen
-#      format: table 
+    # Set Battery Max AC Charging Current
+    # MUCHGC0,040 (set unit 0 to max charging current of 40A), MUCHGC1,060 (set unit 1 to max charging current of 60A) [002 010 020 030 040 050 060 070 080]
+    #  - command: MUCHGC0,002
+    #    outputs:
+    #    - type: screen
+    #      format: table 
 
-# Set Battery Type 
-# PBT0 (set battery as AGM), PBT1 (set battery as FLOODED), PBT2 (set battery as USER)
-#  - command: PBT2
-#    outputs:
-#    - type: screen
-#      format: table 
+    # Set Battery Type 
+    # PBT0 (set battery as AGM), PBT1 (set battery as FLOODED), PBT2 (set battery as USER)
+    #  - command: PBT2
+    #    outputs:
+    #    - type: screen
+    #      format: table 
 
-# Set Battery Bulk,Float Charging Voltages
-# MCHGV552,540 - set battery charging voltage Bulk to 52.2V, float 54V (set Bulk Voltage [480~584] in 0.1V xxx, Float Voltage [480~584] in 0.1V yyy) 
-#  - command: MCHGV552,540
-#    outputs:
-#    - type: screen
-#      format: table 
+    # Set Battery Bulk,Float Charging Voltages
+    # MCHGV552,540 - set battery charging voltage Bulk to 52.2V, float 54V (set Bulk Voltage [480~584] in 0.1V xxx, Float Voltage [480~584] in 0.1V yyy) 
+    #  - command: MCHGV552,540
+    #    outputs:
+    #    - type: screen
+    #      format: table 
 
-# Set Battery Cut-off Voltage
-# PSDV400 - set battery cut-off voltage to 40V [400~480V] for 48V unit)
-#  - command: PSDV440
-#    outputs:
-#    - type: screen
-#      format: table 
+    # Set Battery Cut-off Voltage
+    # PSDV400 - set battery cut-off voltage to 40V [400~480V] for 48V unit)
+    #  - command: PSDV440
+    #    outputs:
+    #    - type: screen
+    #      format: table 
 
 loop: 10
 

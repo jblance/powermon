@@ -1,26 +1,25 @@
 # yaml config example with mqtt
-device:
-  name: Inverter_w_MQTT
-  serial_number: 123456789
-  model: MAX
-  manufacturer: MPP-Solar
-  port:
-    type: test
-    # response_number: 0
-    protocol: PI30
-
-commands:
-- command: QID
-  trigger:
-    every: 30
-  outputs:
-  - type: screen
-    format: 
-      type: table
-      # draw_lines: True
-      extra_info: True
-  - type: mqtt
-    topic: powermon/serial_number/results
+devices:
+  - name: Inverter_w_MQTT
+    serial_number: 123456789
+    model: MAX
+    manufacturer: MPP-Solar
+    port:
+      type: test
+      # response_number: 0
+      protocol: PI30
+    commands:
+    - command: QID
+      trigger:
+        every: 30
+      outputs:
+      - type: screen
+        format: 
+          type: table
+          # draw_lines: True
+          extra_info: True
+      - type: mqtt
+        topic: powermon/serial_number/results
           
 mqttbroker:
   name: screen

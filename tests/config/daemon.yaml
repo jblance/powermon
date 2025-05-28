@@ -1,29 +1,29 @@
 # yaml config for powermon
-device:
-  name: Test_Inverter
-  serial_number: 123456789
-  model: 8048MAX
-  manufacturer: MPP-Solar
-  port:
-    type: test
-    protocol: PI30MAX
+devices:
+  - name: Test_Inverter
+    serial_number: 123456789
+    model: 8048MAX
+    manufacturer: MPP-Solar
+    port:
+      type: test
+      protocol: PI30MAX
 
-commands:
-- command: QPI  #0
-  type: basic #so far not neccessary, might remove
-  # trigger: # default to something sensible (only one of the below is needed/used)
-  # - loops: 6 # run every 6 loops
-  # trigger:
-  # - at: "15:00" # run at/near to 3pm localtime
-  trigger:
-    every: 5 # run every 5 seconds (approx)
-  # trigger: ondemand # (maybe) to allow config to be setup in advance??
-  # trigger: disabled # excludes from 'once' runs
-  outputs:
-  - type: screen
-    # format: hass
-    # format: raw
-    format: table
+    commands:
+    - command: QPI  #0
+      type: basic #so far not neccessary, might remove
+      # trigger: # default to something sensible (only one of the below is needed/used)
+      # - loops: 6 # run every 6 loops
+      # trigger:
+      # - at: "15:00" # run at/near to 3pm localtime
+      trigger:
+        every: 5 # run every 5 seconds (approx)
+      # trigger: ondemand # (maybe) to allow config to be setup in advance??
+      # trigger: disabled # excludes from 'once' runs
+      outputs:
+      - type: screen
+        # format: hass
+        # format: raw
+        format: table
 
 daemon:
   type: systemd

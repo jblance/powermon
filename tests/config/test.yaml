@@ -1,28 +1,27 @@
 # test port config
-device:
-  name: JK BMS
-  serial_number: 12345
-  model: BD6A24S10P
-  manufacturer: JK
-  port:
-    type: test
-    # identifier: A123456789
-    # response_number: 3
-    # protocol: jkserial
-
-commands:
-- command: get_id
-  outputs:
-  - type: screen
-    format: table
-  - type: screen
-    format:
-      type: table
-      # protocol: pi30
-      # force_charge: False
-      # battery_charge_voltage: 54.4
-      # battery_float_voltage: 52
-      # battery_cutoff_voltage: 48
-      # battery_max_charge_current: 100
-      # battery_max_discharge_current: 100
+devices:
+  - name: JK BMS
+    serial_number: 12345
+    model: BD6A24S10P
+    manufacturer: JK
+    port:
+      type: test
+      # identifier: A123456789
+      # response_number: 3
+      # protocol: jkserial
+    commands:
+    - command: get_id
+      outputs:
+      - type: screen
+        format: table
+      - type: screen
+        format:
+          type: table
+          # protocol: pi30
+          # force_charge: False
+          # battery_charge_voltage: 54.4
+          # battery_float_voltage: 52
+          # battery_cutoff_voltage: 48
+          # battery_max_charge_current: 100
+          # battery_max_discharge_current: 100
 loop: null

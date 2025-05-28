@@ -1,19 +1,19 @@
 # BLE advertising config
-device:
-  name: BLE_Advertising
-  serial_number: SmartShunt Bat2
-  model: SmartShunt 500A/50mV
-  manufacturer: Victron
-  port:
-    type: test
-    protocol: DALY
-    response_number: 2
+devices:
+  - name: BLE_Advertising
+    serial_number: SmartShunt Bat2
+    model: SmartShunt 500A/50mV
+    manufacturer: Victron
+    port:
+      type: test
+      protocol: DALY
+      response_number: 2
 
-commands:
-- command: state of charge
-  outputs:
-  - type: screen
-    format: 
-      type: table
-      draw_lines: True
+    commands:
+    - command: state of charge
+      outputs:
+      - type: screen
+        format: 
+          type: table
+          draw_lines: True
 loop: null

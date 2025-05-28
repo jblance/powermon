@@ -1,26 +1,26 @@
 # config for cache testing
-device:
-  name: Cache_Test_Inverter
-  serial_number: A123456789
-  model: 8048MAX
-  manufacturer: MPP-Solar
-  port:
-    type: test
-    protocol: PI30MAX
-    # response_number: 0
-commands:
-- command: QID
-  outputs:
-  - type: screen
-    format: 
-      type: cache
-      extra_info: True
-      # filter: ^ac|^pv
-- command: QID
-  # type: cache_query
-  outputs:
-  - type: screen
-    format: bmsresponse
+devices:
+  - name: Cache_Test_Inverter
+    serial_number: A123456789
+    model: 8048MAX
+    manufacturer: MPP-Solar
+    port:
+      type: test
+      protocol: PI30MAX
+      # response_number: 0
+    commands:
+    - command: QID
+      outputs:
+      - type: screen
+        format: 
+          type: cache
+          extra_info: True
+          # filter: ^ac|^pv
+    - command: QID
+      # type: cache_query
+      outputs:
+      - type: screen
+        format: bmsresponse
 
 
 loop: null

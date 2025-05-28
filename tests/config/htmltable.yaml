@@ -1,19 +1,19 @@
 # htmltable test config
-device:
-  name: Test_Inverter
-  serial_number: 123456789
-  model: 8048MAX
-  manufacturer: MPP-Solar
-  port:
-    type: test
-    protocol: PI30MAX
-commands:
-- command: QPGS0
-  outputs:
-  - type: screen
-    format: 
-      type: htmltable
-      # remove_spaces: False
-      # keep_case: True
+devices:
+  - name: Test_Inverter
+    serial_number: 123456789
+    model: 8048MAX
+    manufacturer: MPP-Solar
+    port:
+      type: test
+      protocol: PI30MAX
+    commands:
+    - command: QPGS0
+      outputs:
+      - type: screen
+        format: 
+          type: htmltable
+          # remove_spaces: False
+          # keep_case: True
 
 #loop: null

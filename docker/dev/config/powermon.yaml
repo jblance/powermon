@@ -2,25 +2,25 @@
 # logging (DEBUG, INFO, WARNING, ERROR, CRITICAL)
 debuglevel: INFO
 
-device:
-  serial_number: test1234
-  name: 1012LV-MK
-  model: 1012LV-MK
-  manufacturer: MPP-Solar
-  port:
-    path: /dev/hidraw0
-    type: usb
-    protocol: PI30
+devices:
+  - serial_number: test1234
+    name: 1012LV-MK
+    model: 1012LV-MK
+    manufacturer: MPP-Solar
+    port:
+      path: /dev/hidraw0
+      type: usb
+      protocol: PI30
 
-commands:
-- command: Q1 #Must be in the protocol command list
-  type: basic
-  trigger:
-    every: 30  # seconds
-  outputs:
-  - type: api_mqtt
-    format: 
-      type: simple
+    commands:
+    - command: Q1 #Must be in the protocol command list
+      type: basic
+      trigger:
+        every: 30  # seconds
+      outputs:
+      - type: api_mqtt
+        format: 
+          type: simple
 
           
 mqttbroker:

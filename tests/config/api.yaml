@@ -1,25 +1,25 @@
-device:
-  serial_number: 123456789
-  model: 1012LV-MK
-  manufacturer: MPP-Solar
-  port:
-    type: test
-    # response_number: 0
-    protocol: PI30
-
-commands:
-- command: QID
-  trigger:
-    every: 30
-  outputs:
-  - type: screen
-    format: 
-      type: table
-      draw_lines: True
-      extra_info: False
-  - type: mqtt
-    topic: powermon/serial_number/results
-    format: json
+devices:
+  - name: api-test-device
+    serial_number: 123456789
+    model: 1012LV-MK
+    manufacturer: MPP-Solar
+    port:
+      type: test
+      # response_number: 0
+      protocol: PI30
+    commands:
+    - command: QID
+      trigger:
+        every: 30
+      outputs:
+      - type: screen
+        format: 
+          type: table
+          draw_lines: True
+          extra_info: False
+      - type: mqtt
+        topic: powermon/serial_number/results
+        format: json
           
 mqttbroker:
   name: localhost
