@@ -2,40 +2,27 @@
 <html  lang="en">
   <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-      <title>Search</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1"><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+      <title>Tutorials</title>
     
           <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
           <link rel="stylesheet" href="_static/theme.css " type="text/css" />
-  
       
       <!-- sphinx script_files -->
         <script src="_static/documentation_options.js?v=5929fcd5"></script>
         <script src="_static/doctools.js?v=9bcbadda"></script>
         <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
-        <script type="module" src="https://cdn.jsdelivr.net/npm/mermaid@11.2.0/dist/mermaid.esm.min.mjs"></script>
-        <script type="module" src="https://cdn.jsdelivr.net/npm/@mermaid-js/layout-elk@0.1.4/dist/mermaid-layout-elk.esm.min.mjs"></script>
-        <script type="module">import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.2.0/dist/mermaid.esm.min.mjs";import elkLayouts from "https://cdn.jsdelivr.net/npm/@mermaid-js/layout-elk@0.1.4/dist/mermaid-layout-elk.esm.min.mjs";mermaid.registerLayoutLoaders(elkLayouts);mermaid.initialize({startOnLoad:false});</script>
-        <script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js"></script>
-        <script type="module">
-import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.2.0/dist/mermaid.esm.min.mjs";
-window.addEventListener("load", () => mermaid.run());
-</script>
 
       
       <!-- bundled in js (rollup iife) -->
       <!-- <script src="_static/theme-vendors.js"></script> -->
       <script src="_static/theme.js" defer></script>
-  <script type="text/javascript" src="_static/searchtools.js"></script>
-  <script src="_static/language_data.js"></script>
     
   <link rel="index" title="Index" href="genindex.html" />
-  <link rel="search" title="Search" href="#" />
-  <script type="text/javascript" src="searchindex.js" defer></script>
-  
-  <script type="text/javascript" id="searchindexloader"></script>
-   
-
+  <link rel="search" title="Search" href="search.html" />
+  <link rel="next" title="Daly BMS" href="j5.1_tutorials.dalybms.html" />
+  <link rel="prev" title="Config File Syntax" href="j4_config_file.html" /> 
   </head>
 
   <body>
@@ -70,7 +57,7 @@ window.addEventListener("load", () => mermaid.run());
           </navlinks><div id="searchbox" class="searchbox" role="search">
   <div class="caption"><span class="caption-text">Quick search</span>
     <div class="searchformwrapper">
-      <form class="search" action="#" method="get">
+      <form class="search" action="search.html" method="get">
         <input type="text" name="q" />
         <input type="submit" value="Search" />
         <input type="hidden" name="check_keywords" value="yes" />
@@ -84,7 +71,7 @@ window.addEventListener("load", () => mermaid.run());
       <p class="caption">
         <span class="caption-text"><a href="index.html#documentation">documentation</a></span>
       </p>
-      <ul class="">
+      <ul class="current">
         
           <li class="toctree-l1 ">
             
@@ -122,11 +109,17 @@ window.addEventListener("load", () => mermaid.run());
           </li>
 
         
-          <li class="toctree-l1 ">
+          <li class="toctree-l1 current">
             
-              <a href="j5_tutorials.html" class="reference internal ">Tutorials</a>
+              <a href="#" class="reference internal current">Tutorials</a>
             
 
+            
+              <ul>
+                
+                  <li class="toctree-l2"><a href="#daly-bms" class="reference internal">Daly BMS</a></li>
+                
+              </ul>
             
           </li>
 
@@ -161,43 +154,57 @@ window.addEventListener("load", () => mermaid.run());
   <ul class="breadcrumbs">
     <li><a href="index.html">Docs</a> &raquo;</li>
     
-    <li>Search</li>
+    <li>Tutorials</li>
   </ul>
   
 
   <ul class="page-nav">
+  <li class="prev">
+    <a href="j4_config_file.html"
+       title="previous chapter">← Config File Syntax</a>
+  </li>
+  <li class="next">
+    <a href="j5.1_tutorials.dalybms.html"
+       title="next chapter">Daly BMS →</a>
+  </li>
 </ul>
   
 </div>
 <hr>
           <div class="content" role="main" v-pre>
             
-  <h1 id="search-documentation">Search</h1>
-  <div id="fallback" class="admonition warning">
-  <p>
-    Please activate JavaScript to enable the search
-    functionality.
-  </p>
-  </div>
-  <p>
-    From here you can search these documents. Enter your search
-    words into the box below and click "search". Note that the search
-    function will automatically search for all of the words. Pages
-    containing fewer words won't appear in the result list.
-  </p>
-  <form action="" method="get">
-    <input type="text" name="q" value="" />
-    <input type="submit" value="search" />
-    <span id="search-progress" style="padding-left: 10px"></span>
-  </form>
-  
-  <div id="search-results">
-  
-  </div>
+  <section id="tutorials">
+<h1>Tutorials<a class="headerlink" href="#tutorials" title="Link to this heading">¶</a></h1>
+<section id="daly-bms">
+<h2>Daly BMS<a class="headerlink" href="#daly-bms" title="Link to this heading">¶</a></h2>
+<p>Setting up powermon to monitor a Daly BMS via the serial cable</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="j5.1_tutorials.dalybms.html">Daly BMS</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="j5.1_tutorials.dalybms.html#what-you-need">What you need</a></li>
+<li class="toctree-l2"><a class="reference internal" href="j5.1_tutorials.dalybms.html#instructions">Instructions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="j5.1_tutorials.dalybms.html#configuration">Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="j5.1_tutorials.dalybms.html#troubleshooting">Troubleshooting</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<p>more to come….</p>
+</section>
+</section>
+
 
           </div>
           <div class="page-nav">
             <div class="inner"><ul class="page-nav">
+  <li class="prev">
+    <a href="j4_config_file.html"
+       title="previous chapter">← Config File Syntax</a>
+  </li>
+  <li class="next">
+    <a href="j5.1_tutorials.dalybms.html"
+       title="next chapter">Daly BMS →</a>
+  </li>
 </ul><div class="footer" role="contentinfo">
       &#169; Copyright 2025, jblance.
     <br>
@@ -208,9 +215,6 @@ window.addEventListener("load", () => mermaid.run());
       </page>
     </div></div>
     
-  <script type="text/javascript">
-    $('#fallback').hide();
-  </script>
-
+    
   </body>
 </html>

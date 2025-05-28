@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html  lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1"><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+      <title>Config File Syntax</title>
+    
+          <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+          <link rel="stylesheet" href="_static/theme.css " type="text/css" />
+      
+      <!-- sphinx script_files -->
+        <script src="_static/documentation_options.js?v=5929fcd5"></script>
+        <script src="_static/doctools.js?v=9bcbadda"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+
+      
+      <!-- bundled in js (rollup iife) -->
+      <!-- <script src="_static/theme-vendors.js"></script> -->
+      <script src="_static/theme.js" defer></script>
+    
+  <link rel="index" title="Index" href="genindex.html" />
+  <link rel="search" title="Search" href="search.html" />
+  <link rel="next" title="Tutorials" href="j5_tutorials.html" />
+  <link rel="prev" title="Devices" href="j3_devices.html" /> 
+  </head>
+
+  <body>
+    <div id="app">
+    <div class="theme-container" :class="pageClasses"><navbar @toggle-sidebar="toggleSidebar">
+  <router-link to="index.html" class="home-link">
+    
+      <span class="site-name">powermon</span>
+    
+  </router-link>
+
+  <div class="links">
+    <navlinks class="can-hide">
+
+
+
+    </navlinks>
+  </div>
+</navbar>
+
+      
+      <div class="sidebar-mask" @click="toggleSidebar(false)">
+      </div>
+        <sidebar @toggle-sidebar="toggleSidebar">
+          
+          <navlinks>
+            
+
+
+
+            
+          </navlinks><div id="searchbox" class="searchbox" role="search">
+  <div class="caption"><span class="caption-text">Quick search</span>
+    <div class="searchformwrapper">
+      <form class="search" action="search.html" method="get">
+        <input type="text" name="q" />
+        <input type="submit" value="Search" />
+        <input type="hidden" name="check_keywords" value="yes" />
+        <input type="hidden" name="area" value="default" />
+      </form>
+    </div>
+  </div>
+</div><div class="sidebar-links" role="navigation" aria-label="main navigation">
+  
+    <div class="sidebar-group">
+      <p class="caption">
+        <span class="caption-text"><a href="index.html#documentation">documentation</a></span>
+      </p>
+      <ul class="current">
+        
+          <li class="toctree-l1 ">
+            
+              <a href="j1_installation.html" class="reference internal ">Installation</a>
+            
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 ">
+            
+              <a href="j2_usage.html" class="reference internal ">Usage</a>
+            
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 ">
+            
+              <a href="j3_devices.html" class="reference internal ">Devices</a>
+            
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 current">
+            
+              <a href="#" class="reference internal current">Config File Syntax</a>
+            
+
+            
+              <ul>
+                
+                  <li class="toctree-l2"><a href="#config-file-syntax" class="reference internal">Config File Syntax</a></li>
+                
+                  <li class="toctree-l2"><a href="#device" class="reference internal">device</a></li>
+                
+                  <li class="toctree-l2"><a href="#commands" class="reference internal">commands</a></li>
+                
+                  <li class="toctree-l2"><a href="#loop" class="reference internal">loop</a></li>
+                
+                  <li class="toctree-l2"><a href="#mqttbroker" class="reference internal">mqttbroker</a></li>
+                
+                  <li class="toctree-l2"><a href="#daemon" class="reference internal">daemon</a></li>
+                
+                  <li class="toctree-l2"><a href="#api" class="reference internal">api</a></li>
+                
+                  <li class="toctree-l2"><a href="#debuglevel" class="reference internal">debuglevel</a></li>
+                
+              </ul>
+            
+          </li>
+
+        
+          <li class="toctree-l1 ">
+            
+              <a href="j5_tutorials.html" class="reference internal ">Tutorials</a>
+            
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 ">
+            
+              <a href="j6_docker.html" class="reference internal ">Docker</a>
+            
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 ">
+            
+              <a href="j7_development.html" class="reference internal ">Development</a>
+            
+
+            
+          </li>
+
+        
+      </ul>
+    </div>
+  
+</div>
+        </sidebar>
+
+      <page>
+          <div class="body-header" role="navigation" aria-label="navigation">
+  
+  <ul class="breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+    
+    <li>Config File Syntax</li>
+  </ul>
+  
+
+  <ul class="page-nav">
+  <li class="prev">
+    <a href="j3_devices.html"
+       title="previous chapter">← Devices</a>
+  </li>
+  <li class="next">
+    <a href="j5_tutorials.html"
+       title="next chapter">Tutorials →</a>
+  </li>
+</ul>
+  
+</div>
+<hr>
+          <div class="content" role="main" v-pre>
+            
+  <section id="config-file-syntax">
+<h1>Config File Syntax<a class="headerlink" href="#config-file-syntax" title="Link to this heading">¶</a></h1>
+<p>There are 7 sections in the config file:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#device"><span class="std std-ref">device</span></a> [required]</p></li>
+<li><p><a class="reference internal" href="#commands"><span class="std std-ref">commands</span></a> [required]</p></li>
+<li><p><a class="reference internal" href="#loop"><span class="std std-ref">loop</span></a> [optional]</p></li>
+<li><p><a class="reference internal" href="#mqttbroker"><span class="std std-ref">mqttbroker</span></a> [optional]</p></li>
+<li><p><a class="reference internal" href="#daemon"><span class="std std-ref">daemon</span></a> [optional]</p></li>
+<li><p><a class="reference internal" href="#api"><span class="std std-ref">api</span></a> [optional]</p></li>
+<li><p><a class="reference internal" href="#debuglevel"><span class="std std-ref">debuglevel</span></a> [optional]</p></li>
+</ul>
+<p>Note: the <code class="docutils literal notranslate"><span class="pre">powermon-cli</span></code> has an option to generate a config file based on the answers to questions see <a class="reference internal" href="j2.2_usage.powermon.cli.html"><span class="doc">Powermon-cli Usage</span></a></p>
+</section>
+<section id="device">
+<span id="id1"></span><h1><code class="docutils literal notranslate"><span class="pre">device</span></code><a class="headerlink" href="#device" title="Link to this heading">¶</a></h1>
+<p>The device section has details about the device (some are optional, some may be required by certain output formats)</p>
+<p>The port section is required, with at least the <code class="docutils literal notranslate"><span class="pre">type</span></code> defined</p>
+<div class="literal-block-wrapper docutils container" id="id10">
+<div class="code-block-caption"><span class="caption-text">device section example</span><a class="headerlink" href="#id10" title="Link to this code">¶</a></div>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">device</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">My Inverter</span><span class="w">       </span><span class="c1"># [optional] user name for physical device</span>
+<span class="w">  </span><span class="nt">serial_number</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1234589</span><span class="w">  </span><span class="c1"># [optional] serial number of physical device</span>
+<span class="w">                          </span><span class="c1"># must be what is returned by get_id command</span>
+<span class="w">                          </span><span class="c1"># if port path is a wildcard</span>
+<span class="w">  </span><span class="nt">model</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1012LV-MK</span><span class="w">        </span><span class="c1"># [optional] but used for adjusting some protocols</span>
+<span class="w">                          </span><span class="c1"># eg PI30 protocol with model MAX uses the MAX version of the protocol</span>
+<span class="w">  </span><span class="nt">manufacturer</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">MPP-Solar</span><span class="w"> </span><span class="c1"># [optional]</span>
+<span class="w">  </span><span class="nt">port</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">test</span><span class="w">          </span><span class="c1"># must be one of test, usb, serial, ble</span>
+<span class="w">    </span><span class="nt">protocol</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">PI30</span><span class="w">      </span><span class="c1"># [defaults to PI30] the protocol must be defined for any type of port</span>
+<span class="w">                        </span><span class="c1">#  - valid protocols are listed in the protocols document</span>
+<span class="w">                        </span><span class="c1"># the options for each port type are shown in separate sections below</span>
+</pre></div>
+</div>
+</div>
+<p>The port section is required and must be one of <code class="docutils literal notranslate"><span class="pre">test</span></code>, <code class="docutils literal notranslate"><span class="pre">usb</span></code>, <code class="docutils literal notranslate"><span class="pre">serial</span></code>, <code class="docutils literal notranslate"><span class="pre">ble</span></code>, each of which has different config items/requirements</p>
+<div class="literal-block-wrapper docutils container" id="id11">
+<div class="code-block-caption"><span class="caption-text">port - test</span><a class="headerlink" href="#id11" title="Link to this code">¶</a></div>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">port</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">test</span><span class="w">          </span><span class="c1"># test port - returns one of the defined test_responses</span>
+<span class="w">                      </span><span class="c1">#  in the protocol definition - used for testing protocols</span>
+<span class="w">  </span><span class="nt">protocol</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">PI30</span>
+<span class="w">  </span><span class="nt">response_number</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span><span class="w">  </span><span class="c1"># [optional] - if defined uses the number test_response</span>
+<span class="w">                      </span><span class="c1">#  from the protocol command definition (0 is first test_response)</span>
+</pre></div>
+</div>
+</div>
+<div class="literal-block-wrapper docutils container" id="id12">
+<div class="code-block-caption"><span class="caption-text">port - usb</span><a class="headerlink" href="#id12" title="Link to this code">¶</a></div>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">port</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">usb</span><span class="w">           </span><span class="c1"># usb port - uses direct usb access to device</span>
+<span class="w">                      </span><span class="c1">#  (as opposed to serial which needs a usb to serial converter)</span>
+<span class="w">  </span><span class="nt">protocol</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">PI30</span>
+<span class="w">  </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/dev/hidrawX</span><span class="w">  </span><span class="c1"># X can be a number to specify a particular path</span>
+<span class="w">                      </span><span class="c1">#   or a wildcard (eg ?) to check a range of paths</span>
+</pre></div>
+</div>
+</div>
+<div class="literal-block-wrapper docutils container" id="id13">
+<div class="code-block-caption"><span class="caption-text">port - serial</span><a class="headerlink" href="#id13" title="Link to this code">¶</a></div>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">port</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">serial</span><span class="w">        </span><span class="c1"># serial port - typically uses a usb to serial converter to connect to the device</span>
+<span class="w">  </span><span class="nt">protocol</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">PI30</span>
+<span class="w">  </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/dev/ttyUSBX</span><span class="w">  </span><span class="c1"># X can be a number to specify a particular path</span>
+<span class="w">                      </span><span class="c1">#   or a wildcard to check a range of paths</span>
+<span class="w">  </span><span class="nt">baud</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2400</span><span class="w">          </span><span class="c1"># [optional, defaults to 2400] baud rate of connection</span>
+</pre></div>
+</div>
+</div>
+<div class="literal-block-wrapper docutils container" id="id14">
+<div class="code-block-caption"><span class="caption-text">port - ble</span><a class="headerlink" href="#id14" title="Link to this code">¶</a></div>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">port</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ble</span><span class="w">            </span><span class="c1"># ble port - uses Bluetooth Low Energy to connect</span>
+<span class="w">                       </span><span class="c1">#  to device and get info via BLE characteristics</span>
+<span class="w">  </span><span class="nt">protocol</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">PI30</span>
+<span class="w">  </span><span class="nt">mac</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">00:00:00:00:00</span><span class="w">  </span><span class="c1"># mac address of ble device</span>
+<span class="w">  </span><span class="nt">victron_key</span><span class="p">:</span><span class="w"> </span><span class="kt">!ENV</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${VICTRON_KEY}</span><span class="w">  </span><span class="c1"># [optional] required for victron devices - see XXXX document</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="commands">
+<span id="id2"></span><h1><code class="docutils literal notranslate"><span class="pre">commands</span></code><a class="headerlink" href="#commands" title="Link to this heading">¶</a></h1>
+<p>This section details the commands to be run against the device. This section requires a list of <a href="#id3"><span class="problematic" id="id4">``</span></a>command``s with each command having optional additional information:</p>
+<ul class="simple">
+<li><p>type</p></li>
+<li><p>override</p></li>
+<li><p>trigger</p></li>
+<li><p>outputs</p></li>
+</ul>
+<div class="literal-block-wrapper docutils container" id="id15">
+<div class="code-block-caption"><span class="caption-text">commands section example</span><a class="headerlink" href="#id15" title="Link to this code">¶</a></div>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">commands</span><span class="p">:</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">QPIGS</span><span class="w">        </span><span class="c1"># command to execute (from protocol)</span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">basic</span><span class="w">           </span><span class="c1"># [optional] defaults to basic, valid &#39;basic&#39;, &#39;templated&#39;, &#39;cache_query&#39;</span>
+<span class="w">  </span><span class="nt">overide</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{}</span><span class="w">           </span><span class="c1"># [optional]</span>
+<span class="w">  </span><span class="nt">trigger</span><span class="p">:</span><span class="w">              </span><span class="c1"># [optional] &#39;every&#39;, &#39;loops&#39;, &#39;at&#39;</span>
+<span class="w">    </span><span class="nt">every</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5</span>
+<span class="w">  </span><span class="nt">outputs</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">screen</span>
+<span class="w">    </span><span class="nt">format</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">table</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">screen</span>
+<span class="w">    </span><span class="nt">format</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">table</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="loop">
+<span id="id5"></span><h1><code class="docutils literal notranslate"><span class="pre">loop</span></code><a class="headerlink" href="#loop" title="Link to this heading">¶</a></h1>
+<p>The loop directive can either be <code class="docutils literal notranslate"><span class="pre">once</span></code> or a number.
+<code class="docutils literal notranslate"><span class="pre">once</span></code> is mostly for testing and will run through the commands once and then exit,
+a number will define the number of seconds to pause at the end of each loop.
+If the entry cannot be interpreted as a number then it will default to <code class="docutils literal notranslate"><span class="pre">once</span></code></p>
+<p>Note: the effect of <code class="docutils literal notranslate"><span class="pre">once</span></code> can be forced on the command line by adding <code class="docutils literal notranslate"><span class="pre">-1</span></code> or <code class="docutils literal notranslate"><span class="pre">--once</span></code> to the <code class="docutils literal notranslate"><span class="pre">powermon</span></code> command</p>
+<div class="literal-block-wrapper docutils container" id="id16">
+<div class="code-block-caption"><span class="caption-text">loop section example - will run through the commands once and then exit</span><a class="headerlink" href="#id16" title="Link to this code">¶</a></div>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">loop</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">once</span>
+</pre></div>
+</div>
+</div>
+<div class="literal-block-wrapper docutils container" id="id17">
+<div class="code-block-caption"><span class="caption-text">loop section example - will add 5 sec delay to end of each loop</span><a class="headerlink" href="#id17" title="Link to this code">¶</a></div>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">loop</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="mqttbroker">
+<span id="id6"></span><h1><code class="docutils literal notranslate"><span class="pre">mqttbroker</span></code><a class="headerlink" href="#mqttbroker" title="Link to this heading">¶</a></h1>
+<p>This section details the mqttbroker connection information</p>
+<div class="literal-block-wrapper docutils container" id="id18">
+<div class="code-block-caption"><span class="caption-text">mqttbroker section example</span><a class="headerlink" href="#id18" title="Link to this code">¶</a></div>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">mqttbroker</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">192.168.86.222</span>
+<span class="w">  </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1833</span>
+<span class="w">  </span><span class="nt">username</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">password</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">adhoc_topic</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">powermon/adhoc_commands</span>
+<span class="w">  </span><span class="nt">adhoc_result_topic</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">powermon/adhoc_results</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="daemon">
+<span id="id7"></span><h1><code class="docutils literal notranslate"><span class="pre">daemon</span></code><a class="headerlink" href="#daemon" title="Link to this heading">¶</a></h1>
+<p>This section configures the daemon settings</p>
+<div class="literal-block-wrapper docutils container" id="id19">
+<div class="code-block-caption"><span class="caption-text">daemon section example</span><a class="headerlink" href="#id19" title="Link to this code">¶</a></div>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">daemon</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">systemd</span><span class="w">     </span><span class="c1"># either &#39;systemd&#39; or &#39;initd&#39;</span>
+<span class="w">  </span><span class="nt">keepalive</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">100</span><span class="w">    </span><span class="c1"># seconds between keepalive pings</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="api">
+<span id="id8"></span><h1><code class="docutils literal notranslate"><span class="pre">api</span></code><a class="headerlink" href="#api" title="Link to this heading">¶</a></h1>
+</section>
+<section id="debuglevel">
+<span id="id9"></span><h1><code class="docutils literal notranslate"><span class="pre">debuglevel</span></code><a class="headerlink" href="#debuglevel" title="Link to this heading">¶</a></h1>
+</section>
+
+
+          </div>
+          <div class="page-nav">
+            <div class="inner"><ul class="page-nav">
+  <li class="prev">
+    <a href="j3_devices.html"
+       title="previous chapter">← Devices</a>
+  </li>
+  <li class="next">
+    <a href="j5_tutorials.html"
+       title="next chapter">Tutorials →</a>
+  </li>
+</ul><div class="footer" role="contentinfo">
+      &#169; Copyright 2025, jblance.
+    <br>
+    Created using <a href="http://sphinx-doc.org/">Sphinx</a> 8.2.3 with <a href="https://github.com/schettino72/sphinx_press_theme">Press Theme</a> 0.9.1.
+</div>
+            </div>
+          </div>
+      </page>
+    </div></div>
+    
+    
+  </body>
+</html>

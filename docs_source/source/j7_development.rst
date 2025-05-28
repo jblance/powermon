@@ -11,6 +11,6 @@ Powermon Logic
 .. toctree::
     :maxdepth: 2
     
-    development-logic
-    protocoldocs
-    modules
+    j7.1_development-logic
+    j7.2_protocoldocs
+    j7.3_modules

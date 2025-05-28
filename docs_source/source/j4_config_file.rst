@@ -10,7 +10,7 @@ There are 7 sections in the config file:
 * :ref:`api` [optional]
 * :ref:`debuglevel` [optional]
 
-Note: the ``powermon-cli`` has an option to generate a config file based on the answers to questions see :doc:`usage.powermon.cli`
+Note: the ``powermon-cli`` has an option to generate a config file based on the answers to questions see :doc:`j2.2_usage.powermon.cli`
 
 
 .. _device:

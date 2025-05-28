@@ -33,8 +33,8 @@ Instructions
 1. Connect the UART part of the connection cable to the UART port on the
    BMS. Connect the USB part of the connection cable to the USB port of
    your device.
-2. :doc:`Install Powermon on your device.<installation>`
-3. (optional) :doc:`Enable non-root access to your USB device.<installation.usbpermissions>`
+2. :doc:`Install Powermon on your device.<j1_installation>`
+3. (optional) :doc:`Enable non-root access to your USB device.<j1.1_installation.usbpermissions>`
 4. Configure your Powermon connection (see the examples below) and save
    it to a file ``daly-conf.yaml`` .
 5. Test the connection: ``powermon -C daly-conf.yaml`` .

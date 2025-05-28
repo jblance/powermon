@@ -26,10 +26,10 @@ Documentation
 
    j1_installation
    j2_usage
-   devices
-   config_file
-   tutorials
-   docker
-   development
+   j3_devices
+   j4_config_file
+   j5_tutorials
+   j6_docker
+   j7_development
    
    

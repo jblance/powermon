@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html  lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1"><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+      <title>JKSERIAL - JK TTL Communications v2.5 - 0x4E57 | NW</title>
+    
+          <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+          <link rel="stylesheet" href="_static/theme.css " type="text/css" />
+      
+      <!-- sphinx script_files -->
+        <script src="_static/documentation_options.js?v=5929fcd5"></script>
+        <script src="_static/doctools.js?v=9bcbadda"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+
+      
+      <!-- bundled in js (rollup iife) -->
+      <!-- <script src="_static/theme-vendors.js"></script> -->
+      <script src="_static/theme.js" defer></script>
+    
+  <link rel="index" title="Index" href="genindex.html" />
+  <link rel="search" title="Search" href="search.html" />
+  <link rel="next" title="JKXX - Jiabaida Software Board General Protocol V4" href="j7.2.1.2_protocol.jkv4.html" />
+  <link rel="prev" title="Protocol Documentation" href="j7.2_protocoldocs.html" /> 
+  </head>
+
+  <body>
+    <div id="app">
+    <div class="theme-container" :class="pageClasses"><navbar @toggle-sidebar="toggleSidebar">
+  <router-link to="index.html" class="home-link">
+    
+      <span class="site-name">powermon</span>
+    
+  </router-link>
+
+  <div class="links">
+    <navlinks class="can-hide">
+
+
+
+    </navlinks>
+  </div>
+</navbar>
+
+      
+      <div class="sidebar-mask" @click="toggleSidebar(false)">
+      </div>
+        <sidebar @toggle-sidebar="toggleSidebar">
+          
+          <navlinks>
+            
+
+
+
+            
+          </navlinks><div id="searchbox" class="searchbox" role="search">
+  <div class="caption"><span class="caption-text">Quick search</span>
+    <div class="searchformwrapper">
+      <form class="search" action="search.html" method="get">
+        <input type="text" name="q" />
+        <input type="submit" value="Search" />
+        <input type="hidden" name="check_keywords" value="yes" />
+        <input type="hidden" name="area" value="default" />
+      </form>
+    </div>
+  </div>
+</div><div class="sidebar-links" role="navigation" aria-label="main navigation">
+  
+    <div class="sidebar-group">
+      <p class="caption">
+        <span class="caption-text"><a href="index.html#documentation">documentation</a></span>
+      </p>
+      <ul class="">
+        
+          <li class="toctree-l1 ">
+            
+              <a href="j1_installation.html" class="reference internal ">Installation</a>
+            
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 ">
+            
+              <a href="j2_usage.html" class="reference internal ">Usage</a>
+            
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 ">
+            
+              <a href="j3_devices.html" class="reference internal ">Devices</a>
+            
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 ">
+            
+              <a href="j4_config_file.html" class="reference internal ">Config File Syntax</a>
+            
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 ">
+            
+              <a href="j5_tutorials.html" class="reference internal ">Tutorials</a>
+            
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 ">
+            
+              <a href="j6_docker.html" class="reference internal ">Docker</a>
+            
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 ">
+            
+              <a href="j7_development.html" class="reference internal ">Development</a>
+            
+
+            
+          </li>
+
+        
+      </ul>
+    </div>
+  
+</div>
+        </sidebar>
+
+      <page>
+          <div class="body-header" role="navigation" aria-label="navigation">
+  
+  <ul class="breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+    
+      <li><a href="j7_development.html">Development</a> &raquo;</li>
+    
+      <li><a href="j7.2_protocoldocs.html">Protocol Documentation</a> &raquo;</li>
+    
+    <li>JKSERIAL - JK TTL Communications v2.5 - <code class="docutils literal notranslate"><span class="pre">0x4E57</span></code> | <code class="docutils literal notranslate"><span class="pre">NW</span></code></li>
+  </ul>
+  
+
+  <ul class="page-nav">
+  <li class="prev">
+    <a href="j7.2_protocoldocs.html"
+       title="previous chapter">← Protocol Documentation</a>
+  </li>
+  <li class="next">
+    <a href="j7.2.1.2_protocol.jkv4.html"
+       title="next chapter">JKXX - Jiabaida Software Board General Protocol V4 →</a>
+  </li>
+</ul>
+  
+</div>
+<hr>
+          <div class="content" role="main" v-pre>
+            
+  <section id="jkserial-jk-ttl-communications-v2-5-0x4e57-nw">
+<h1>JKSERIAL - JK TTL Communications v2.5 - <code class="docutils literal notranslate"><span class="pre">0x4E57</span></code> | <code class="docutils literal notranslate"><span class="pre">NW</span></code><a class="headerlink" href="#jkserial-jk-ttl-communications-v2-5-0x4e57-nw" title="Link to this heading">¶</a></h1>
+<section id="document-details">
+<h2>Document Details<a class="headerlink" href="#document-details" title="Link to this heading">¶</a></h2>
+<p>Source: <a class="reference external" href="http://www.jk-bms.com/en/Upload/2023-12-05/1702131628.pdf">http://www.jk-bms.com/en/Upload/2023-12-05/1702131628.pdf</a></p>
+<p>Implemented in protocol: <code class="docutils literal notranslate"><span class="pre">JKSERIAL</span></code></p>
+</section>
+<section id="physical-interface">
+<h2>Physical Interface<a class="headerlink" href="#physical-interface" title="Link to this heading">¶</a></h2>
+<p>This protocol defines the communication protocol between the monitoring platform and the battery terminal, as well as the message format,
+transmission mode and communication mode, etc.</p>
+<p>Communication using 2G GPRS in TCP transmission, 4G in GAT1, Socket interface mode,
+RS232TTL serial port, content custom communication format, baud rate 115200.</p>
+<p>During the communication process, the device has active reporting frame and passive response frame. Please refer to the communication data
+format for details. The interval of each packet number is at least 100MS, and the longest reply packet is not more than 5S. Timed broadcast. If
+dormant, the control terminal will send the activation information, activate the BMS, and then communicate.</p>
+</section>
+<section id="frame-structure">
+<h2>Frame Structure<a class="headerlink" href="#frame-structure" title="Link to this heading">¶</a></h2>
+<p>Example: <code class="docutils literal notranslate"><span class="pre">'NW\x00\x13\x00\x00\x00\x00\x06\x03\x00\x00\x00\x00\x00\x00h\x00\x00\x01)'</span></code></p>
+<table class="docutils align-left" id="id1">
+<caption><span class="caption-text">Frame Structure</span><a class="headerlink" href="#id1" title="Link to this table">¶</a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p>no</p></th>
+<th class="head"><p>length</p></th>
+<th class="head"><p>byte description</p></th>
+<th class="head"><p>description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>1</p></td>
+<td><p>2</p></td>
+<td><p>start bytes</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0x4E57</span></code> or <code class="docutils literal notranslate"><span class="pre">NW</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>2</p></td>
+<td><p>2</p></td>
+<td><p>length</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0x0013</span></code> all data bytes except the first two characters including the checksum and the length field itself</p></td>
+</tr>
+<tr class="row-even"><td><p>3</p></td>
+<td><p>4</p></td>
+<td><p>bms terminal no</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0x00000000</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>4</p></td>
+<td><p>1</p></td>
+<td><p>command word</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0x06</span></code> read all the data - see Command Word section5</p></td>
+</tr>
+<tr class="row-even"><td><p>5</p></td>
+<td><p>1</p></td>
+<td><p>frame source</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0x03</span></code> 0: BMS, 1: Bluetooth, 2: GPS, 3: PC</p></td>
+</tr>
+<tr class="row-odd"><td><p>6</p></td>
+<td><p>1</p></td>
+<td><p>transport type</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0x00</span></code> 0: request frame, 1: reply frame, 2: BMS active reporting</p></td>
+</tr>
+<tr class="row-even"><td><p>7</p></td>
+<td><p>n</p></td>
+<td><p>data</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0x00</span></code> not used for ‘read all data’ command</p></td>
+</tr>
+<tr class="row-odd"><td><p>8</p></td>
+<td><p>4</p></td>
+<td><p>record number</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0x00000000</span></code> The high 1 byte is the random code meaningless (reserved for encryption), the low 3 bytes is the record sequence number</p></td>
+</tr>
+<tr class="row-even"><td><p>9</p></td>
+<td><p>1</p></td>
+<td><p>end byte</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0x68</span></code> or <code class="docutils literal notranslate"><span class="pre">h</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>10</p></td>
+<td><p>4</p></td>
+<td><p>checksum</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0x000001)</span></code> high 2 bytes not yet enabled, low 2 bytes crc cumulative check</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="command-word">
+<h2>Command Word<a class="headerlink" href="#command-word" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">0x01</span></code> - Activate - Activate the BMS (when dormant) before proceeding to any other action</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">0x02</span></code> - Write - Write / configure BMS parameter(s)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">0x03</span></code> - Read - Read BMS parameter</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">0x05</span></code> - Pair - Pair with the BMS</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">0x06</span></code> - Read All Data - Read all BMS data at once</p></li>
+</ul>
+</section>
+<section id="transport-type">
+<h2>Transport Type<a class="headerlink" href="#transport-type" title="Link to this heading">¶</a></h2>
+<p>0 for request frame, 1 for reply frame. 2 is for active reporting.
+As long as 5-Bluetooth,2-GPS,3-PC PC and 4-BMS are initiated first, the reply will use 1.</p>
+</section>
+<section id="crc-calc">
+<h2>crc calc<a class="headerlink" href="#crc-calc" title="Link to this heading">¶</a></h2>
+<div class="literal-block-wrapper docutils container" id="id2">
+<div class="code-block-caption"><span class="caption-text">crc calc - sum all data</span><a class="headerlink" href="#id2" title="Link to this code">¶</a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">crc</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="n">byte_data</span><span class="p">:</span>
+    <span class="n">crc</span> <span class="o">+=</span> <span class="n">b</span>
+<span class="n">crc_low</span> <span class="o">=</span> <span class="n">crc</span> <span class="o">&amp;</span> <span class="mh">0xFF</span>
+<span class="n">crc_high</span> <span class="o">=</span> <span class="p">(</span><span class="n">crc</span> <span class="o">&gt;&gt;</span> <span class="mi">8</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mh">0xFF</span>
+</pre></div>
+</div>
+</div>
+<section id="bms-data">
+<h3>BMS Data<a class="headerlink" href="#bms-data" title="Link to this heading">¶</a></h3>
+<table class="docutils align-left" id="id3">
+<caption><span class="caption-text">BMS Data Definitions</span><a class="headerlink" href="#id3" title="Link to this table">¶</a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p>Use</p></th>
+<th class="head"><p>Code</p></th>
+<th class="head"><p>Name</p></th>
+<th class="head"><p>Byte Count</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>R</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0x79</span></code></p></td>
+<td><p>Single Battery Voltage</p></td>
+<td><p>3*n</p></td>
+<td><p>the first byte is the battery number, the second is data length, then each 3 bytes is battery number, and 2 bytes of voltage in mV</p></td>
+</tr>
+<tr class="row-odd"><td><p>R</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0x80</span></code></p></td>
+<td><p>Power tube temperature</p></td>
+<td><p>2</p></td>
+<td><p>0 – 140 (-40 to 100 °C) parts over 100 are negative temperatures, such as 10, 1 is negative 1 °C (100 Benchmark)</p></td>
+</tr>
+<tr class="row-even"><td><p>R</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0x81</span></code></p></td>
+<td><p>Battery box temperature</p></td>
+<td><p>2</p></td>
+<td><p>0 – 140 (-40 to 100 °C) parts over 100 are negative temperatures, such as 10, 1 is negative 1 °C (100 Benchmark)</p></td>
+</tr>
+<tr class="row-odd"><td><p>R</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0x82</span></code></p></td>
+<td><p>Battery temperature</p></td>
+<td><p>2</p></td>
+<td><p>0 – 140 (-40 to 100 °C) parts over 100 are negative temperatures, such as 10, 1 is negative 1 °C (100 Benchmark)</p></td>
+</tr>
+<tr class="row-even"><td><p>R</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0x83</span></code></p></td>
+<td><p>Total battery voltage</p></td>
+<td><p>2</p></td>
+<td><p>0.01V, eg 3500 * 0.01 = 35.00v The minimum unit is 10 mV</p></td>
+</tr>
+</tbody>
+</table>
+<p>…#TODO: finish …</p>
+</section>
+</section>
+</section>
+
+
+          </div>
+          <div class="page-nav">
+            <div class="inner"><ul class="page-nav">
+  <li class="prev">
+    <a href="j7.2_protocoldocs.html"
+       title="previous chapter">← Protocol Documentation</a>
+  </li>
+  <li class="next">
+    <a href="j7.2.1.2_protocol.jkv4.html"
+       title="next chapter">JKXX - Jiabaida Software Board General Protocol V4 →</a>
+  </li>
+</ul><div class="footer" role="contentinfo">
+      &#169; Copyright 2025, jblance.
+    <br>
+    Created using <a href="http://sphinx-doc.org/">Sphinx</a> 8.2.3 with <a href="https://github.com/schettino72/sphinx_press_theme">Press Theme</a> 0.9.1.
+</div>
+            </div>
+          </div>
+      </page>
+    </div></div>
+    
+    
+  </body>
+</html>
