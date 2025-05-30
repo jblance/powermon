@@ -2,9 +2,11 @@
 import logging
 from enum import StrEnum, auto
 
+from rich import print
+
 from powermon.libs.errors import ConfigError
-from powermon.outputformats.abstractformat import AbstractFormat
-from powermon.libs.config import Color
+
+from .abstractformat import AbstractFormat
 
 log = logging.getLogger("formats")
 
@@ -27,36 +29,36 @@ class FormatterType(StrEnum):
 DEFAULT_FORMAT = FormatterType.SIMPLE
 
 def list_formats():
-    print(f"{Color.WARNING}Available output formats{Color.ENDC}")
+    print("[orange]Available output formats")
     for formatter in FormatterType:
-        print(f"{Color.OKGREEN}{formatter.upper()}{Color.ENDC}: {get_formatter(formatter)({})}")
+        print(f"[green]{formatter.upper()}[/]: {get_formatter(formatter)({})}")
         # print(formatter)
 
 
 def get_formatter(format_type):
     match format_type:
         case FormatterType.HTMLTABLE:
-            from powermon.outputformats.htmltable import HtmlTable as fmt
+            from .htmltable import HtmlTable as fmt
         case FormatterType.HASS:
-            from powermon.outputformats.hass import Hass as fmt
+            from .hass import Hass as fmt
         case FormatterType.HASS_AUTODISCOVERY:
-            from powermon.outputformats.hass import HassAutoDiscovery as fmt
+            from .hass import HassAutoDiscovery as fmt
         case FormatterType.HASS_STATE:
-            from powermon.outputformats.hass import HassState as fmt
+            from .hass import HassState as fmt
         case FormatterType.JSON:
-            from powermon.outputformats.json_fmt import Json as fmt
+            from .json_fmt import Json as fmt
         # case FormatterType.TOPICS:
         #     from powermon.outputformats.topics import Topics as fmt
         case FormatterType.SIMPLE:
-            from powermon.outputformats.simple import SimpleFormat as fmt
+            from .simple import SimpleFormat as fmt
         case FormatterType.TABLE:
-            from powermon.outputformats.table import Table as fmt
+            from .table import Table as fmt
         case FormatterType.RAW:
-            from powermon.outputformats.raw import Raw as fmt
+            from .raw import Raw as fmt
         case FormatterType.CACHE:
-            from powermon.outputformats.cache import Cache as fmt
+            from .cache import Cache as fmt
         case FormatterType.BMSRESPONSE:
-            from powermon.outputformats.bmsresponse import BMSResponse as fmt
+            from .bmsresponse import BMSResponse as fmt
         case _:
             log.warning("No formatter found for: %s", format_type)
             return None
