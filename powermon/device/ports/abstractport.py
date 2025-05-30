@@ -8,7 +8,7 @@ from pydantic import BaseModel
 # from powermon.commands.result import Result
 from ...libs.errors import PowermonProtocolError
 from ...protocols.abstractprotocol import AbstractProtocol, AbstractProtocolDTO
-from ...protocols import Protocol
+from .protocols import Protocol
 
 log = logging.getLogger("Port")
 
