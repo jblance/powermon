@@ -3,13 +3,13 @@ from unittest import TestCase
 from unittest.mock import Mock
 
 from powermon import PowermonConfig
-from powermon.config.device_config import DeviceConfig
+# from powermon.config.device_config import DeviceConfig
 from powermon.config.port_config_model import TestPortConfig
 from powermon.device import Device
 from powermon.commands.command import Command
 from powermon.outputs.abstractoutput import AbstractOutput
-from powermon.ports import from_config as port_from_config
-from powermon.protocols import from_name as protocol_from_name
+from powermon.ports import Port
+from powermon.protocols import Protocol
 
 
 class DeviceTest(TestCase):
@@ -25,11 +25,12 @@ class DeviceTest(TestCase):
         #self.port = Mock(spec=SerialPort, protocol=PI30())
         port_config = TestPortConfig(type='test', protocol='pi30')
 
-        device_config = DeviceConfig(name="Test Device", serial_number='1234546', model="BIGMODEL", manufacturer='mppsolar', port=port_config)
-        _protocol = protocol_from_name(name=port_config.protocol, model=device_config.model)
-        powermon_config = PowermonConfig(device=device_config, commands=[])
-        self.device = Device(powermon_config)
-        self.device.port = asyncio.run( port_from_config(config=port_config, protocol=_protocol, serial_number=powermon_config.device.serial_number))
+        # device_config = DeviceConfig()
+        _model = 'max'
+        _protocol = Protocol.from_name(name=port_config.protocol, model=_model)
+        powermon_config = PowermonConfig(devices=[{'name': "Test Device", 'serial_number': '1234546', 'model': _model, 'manufacturer': 'mppsolar', 'port':port_config, 'commands': []}])
+        self.device = Device(powermon_config.devices[0])
+        self.device.port = asyncio.run( Port.from_config(config=port_config, protocol=_protocol, serial_number=powermon_config.devices[0].serial_number))
 
         # Add command into command list with dueToRun=True to emulate running command
         output = Mock(spec=AbstractOutput)

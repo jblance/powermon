@@ -1,20 +1,20 @@
 """ device.py """
 # import gettext
 import logging
-from typing import Optional, List
+from typing import List, Optional
 
 from pydantic import BaseModel, Field
 
-from powermon import MqttBroker
-from ..commands.command import Command, CommandDTO
+# from ..commands.command import Command, CommandDTO
 from ..commands.result import Result
-# from ..config.powermon_config import PowermonConfig
-from ..config.device_config import DeviceConfig
+from ..config import DeviceConfig
+from ..instructions import Instruction
 from ..libs.errors import CommandDefinitionMissing
-from ..outputformats import FormatterType, get_formatter
-from ..outputs.abstractoutput import AbstractOutput
-from ..ports import Port
-from ..ports.abstractport import AbstractPort, _AbstractPortDTO
+from ..mqttbroker import MqttBroker
+from ..instructions.outputs.outputformats import FormatterType, get_formatter
+from ..instructions.outputs.abstractoutput import AbstractOutput
+from .ports import Port
+from .ports.abstractport import AbstractPort, _AbstractPortDTO
 
 # Set-up logger
 log = logging.getLogger("Device")
@@ -27,7 +27,7 @@ class DeviceDTO(BaseModel):
     model: Optional[str] = None
     manufacturer: Optional[str] = None
     port: _AbstractPortDTO
-    commands: list[CommandDTO]
+    # instructions: list[CommandDTO]
 
 
 class Device:
@@ -45,38 +45,42 @@ class Device:
 
     
 
-    def __init__(self, name: str, serial_number: str, model: str, manufacturer: str, port: Optional[AbstractPort] = None, commands: Optional[List[Command]] = None, mqtt_broker: Optional[MqttBroker] = None):
+    def __init__(self, name: str, serial_number: str, model: str, manufacturer: str, port: Optional[AbstractPort] = None, instructions: Optional[List[Instruction]] = None, mqtt_broker: Optional[MqttBroker] = None):
         self.config: DeviceConfig = None
         self.name: str = name
         self.serial_number: str = serial_number
         self.model: str = model
         self.manufacturer: str = manufacturer
         self.port: AbstractPort = port
-        self.commands: list[Command] = [] if commands is None else commands
+        self.instructions: list[Instruction] = [] if instructions is None else instructions
         self.mqtt_broker: MqttBroker = mqtt_broker
         self.adhoc_commands: list = []
 
     def __str__(self):
-        return f"Device: {self.name=}, {self.serial_number=}, {self.model=}, {self.manufacturer=} {self.port=}, {self.mqtt_broker=}, commands:{self.commands}"
+        return f"Device: {self.name=}, {self.serial_number=}, {self.model=}, {self.manufacturer=} {self.port=}, {self.mqtt_broker=}, instructions:{self.instructions}"
+
 
     def __repr__(self):
         """ Returns representation of Device that allows eval(device.__repr__()) to rebuild object"""
-        _repr = f"Device(name='{self.name}', serial_number='{self.serial_number}', model='{self.model}', manufacturer='{self.manufacturer}', port={self.port!r}, commands={self.commands})"
+        _repr = f"Device(name='{self.name}', serial_number='{self.serial_number}', model='{self.model}', manufacturer='{self.manufacturer}', port={self.port!r}, instructions={self.instructions})"
         #print(_repr)
         return _repr
 
+
     def to_dto(self) -> DeviceDTO:
         """convert the Device to a Data Transfer Object"""
-        commands: list[Command] = []
-        command: Command
-        for command in self.commands:
-            commands.append(command.to_dto())
-        return DeviceDTO(name=self.name, serial_number=self.serial_number, model=self.model, manufacturer=self.manufacturer, port=self.port.to_dto(), commands=commands)
+        instructions: list[Instruction] = []
+        instruction: Instruction
+        for instruction in self.instructions:
+            instructions.append(instruction.to_dto())
+        return DeviceDTO(name=self.name, serial_number=self.serial_number, model=self.model, manufacturer=self.manufacturer, port=self.port.to_dto(), instructions=instructions)
+
 
     @property
     def mqtt_broker(self) -> MqttBroker:
         """ the mqtt_broker object """
         return self._mqtt_broker
+
 
     @mqtt_broker.setter
     def mqtt_broker(self, mqtt_broker):
@@ -86,6 +90,7 @@ class Device:
         if isinstance(mqtt_broker, MqttBroker) and mqtt_broker.adhoc_topic is not None:
             log.info("Subscribing to adhoc_topic: %s", mqtt_broker.adhoc_topic)
             mqtt_broker.subscribe(topic=mqtt_broker.adhoc_topic, callback=self.adhoc_command_cb)
+
 
     def adhoc_command_cb(self, client, userdata, msg):
         """ callback for adhoc command messages """
@@ -97,6 +102,15 @@ class Device:
         # add to adhoc queue
         log.info("adding adhoc command: %s", adhoc_command)
         self.adhoc_commands.append(adhoc_command)
+
+
+    def add_instruction(self, instruction: Instruction) -> None:
+        if instruction is None:
+            return
+        # do instruction processing - eg find definition
+        #
+        self.instructions.append(instruction)
+
 
     def add_command(self, command: Command) -> None:
         """add a command to the devices' list of commands

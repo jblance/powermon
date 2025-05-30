@@ -10,7 +10,7 @@ from powermon.commands.result import Result
 from powermon.commands.trigger import Trigger, TriggerDTO
 from powermon.libs.errors import (CommandExecutionFailed, ConfigError,
                                   InvalidCRC, InvalidResponse)
-from powermon.outputs import OutputType, multiple_from_config
+from ..instructions.outputs import OutputType, Output
 from powermon.outputs.abstractoutput import AbstractOutput, AbstractOutputDTO
 from powermon.outputs.api_mqtt import ApiMqtt
 
@@ -128,24 +128,24 @@ class Command():
         override = config.get("override", None)
         # if override is not None:
         #     print("override: %s" % override)
-        outputs = multiple_from_config(config.get("outputs", ""))
+        outputs = Output.multiple_from_config(config.get("outputs", ""))
         trigger = Trigger.from_config(config=config.get("trigger"))
         command_object = cls(code=code, commandtype=commandtype, outputs=outputs, trigger=trigger)
         command_object.override = override
         command_object.template = template
         return command_object
 
-    @classmethod
-    def from_dto(cls, command_dto: CommandDTO) -> "Command":
-        """ build object from data transfer object """
-        trigger = Trigger.from_dto(command_dto.trigger)
-        command = cls(code=command_dto.command_code, commandtype="basic", outputs=[], trigger=trigger)
-        outputs = []
-        for output_dto in command_dto.outputs:
-            if output_dto.type == OutputType.API_MQTT:
-                outputs.append(ApiMqtt.from_dto(output_dto))
-        command.outputs = outputs
-        return command
+    # @classmethod
+    # def from_dto(cls, command_dto: CommandDTO) -> "Command":
+    #     """ build object from data transfer object """
+    #     trigger = Trigger.from_dto(command_dto.trigger)
+    #     command = cls(code=command_dto.command_code, commandtype="basic", outputs=[], trigger=trigger)
+    #     outputs = []
+    #     for output_dto in command_dto.outputs:
+    #         if output_dto.type == OutputType.API_MQTT:
+    #             outputs.append(ApiMqtt.from_dto(output_dto))
+    #     command.outputs = outputs
+    #     return command
 
     @classmethod
     def from_code(cls, command_code) -> "Command":

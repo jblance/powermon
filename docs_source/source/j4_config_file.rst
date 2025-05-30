@@ -1,9 +1,8 @@
 Config File Syntax
 ==================
-There are 7 sections in the config file:
+There are 6 sections in the config file:
 
-* :ref:`device` [required]
-* :ref:`commands` [required]
+* :ref:`devices` [required]
 * :ref:`loop` [optional]
 * :ref:`mqttbroker` [optional]
 * :ref:`daemon` [optional]
@@ -13,30 +12,48 @@ There are 7 sections in the config file:
 Note: the ``powermon-cli`` has an option to generate a config file based on the answers to questions see :doc:`j2.2_usage.powermon.cli`
 
 
-.. _device:
+.. _devices:
 
-``device``
+``devices``
 ==========
-The device section has details about the device (some are optional, some may be required by certain output formats)
+The devices section is a list of one or more devices, each device has details about the device, the connection port, and the 'commands' that should be run
 
 The port section is required, with at least the ``type`` defined
+The commands section details the commands to be run against the device. This section requires a list of ``command``s with each command having optional additional information:
+
+* type
+* override
+* trigger
+* outputs
 
 .. code-block:: yaml
-    :caption: device section example
+    :caption: devices section example
 
-    device:
-      name: My Inverter       # [optional] user name for physical device
-      serial_number: 1234589  # [optional] serial number of physical device
+    devices:
+      - name: My Inverter       # [optional] user name for physical device
+        serial_number: 1234589  # [optional] serial number of physical device
                               # must be what is returned by get_id command
                               # if port path is a wildcard
-      model: 1012LV-MK        # [optional] but used for adjusting some protocols
+        model: 1012LV-MK        # [optional] but used for adjusting some protocols
                               # eg PI30 protocol with model MAX uses the MAX version of the protocol
-      manufacturer: MPP-Solar # [optional]
-      port:
-        type: test          # must be one of test, usb, serial, ble
-        protocol: PI30      # [defaults to PI30] the protocol must be defined for any type of port
+        manufacturer: MPP-Solar # [optional]
+        port:
+          type: test          # must be one of test, usb, serial, ble
+          protocol: PI30      # [defaults to PI30] the protocol must be defined for any type of port
                             #  - valid protocols are listed in the protocols document
                             # the options for each port type are shown in separate sections below
+        commands:
+        - command: QPIGS        # command to execute (from protocol)
+          type: basic           # [optional] defaults to basic, valid 'basic', 'templated', 'cache_query'
+          overide: {}           # [optional] 
+          trigger:              # [optional] 'every', 'loops', 'at'
+            every: 5
+          outputs:
+          - type: screen
+            format: table
+          - type: screen
+            format:
+              type: table
 
 The port section is required and must be one of ``test``, ``usb``, ``serial``, ``ble``, each of which has different config items/requirements
 
@@ -82,35 +99,6 @@ The port section is required and must be one of ``test``, ``usb``, ``serial``, `
       protocol: PI30
       mac: 00:00:00:00:00  # mac address of ble device
       victron_key: !ENV ${VICTRON_KEY}  # [optional] required for victron devices - see XXXX document
-
-.. _commands:
-
-``commands``
-============
-
-This section details the commands to be run against the device. This section requires a list of ``command``s with each command having optional additional information:
-
-* type
-* override
-* trigger
-* outputs
-
-.. code-block:: yaml
-    :caption: commands section example
-
-    commands:
-    - command: QPIGS        # command to execute (from protocol)
-      type: basic           # [optional] defaults to basic, valid 'basic', 'templated', 'cache_query'
-      overide: {}           # [optional] 
-      trigger:              # [optional] 'every', 'loops', 'at'
-        every: 5
-      outputs:
-      - type: screen
-        format: table
-      - type: screen
-        format:
-          type: table
-
 
 .. _loop:
 

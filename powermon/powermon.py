@@ -12,15 +12,18 @@ import yaml
 from pyaml_env import parse_config
 from pydantic import ValidationError
 from rich.pretty import pprint
+# from rich import print  # prints colored text
 
-from powermon import PowermonConfig, _, __version__
-from powermon.daemons import Daemon, daemon_from_config
+from powermon import _, __version__
+from powermon.config import PowermonConfig
+from powermon.daemons import Daemon
 from powermon.device import Device
+from powermon.instructions import Instruction
 from powermon.mqttbroker import MqttBroker
 
 from .commands.command import Command
 from .libs.apicoordinator import ApiCoordinator
-from .protocols import list_commands, list_protocols
+from .protocols import list_commands, list_protocols, Protocol
 
 # Set-up logger
 log: Logger = logging.getLogger("")
@@ -151,11 +154,11 @@ async def async_main():
 
     # build mqtt broker object
     # mqtt_broker = MqttBroker.from_config(config=powermon_config.mqttbroker)
-    mqtt_broker: MqttBroker = MqttBroker(powermon_config.mqttbroker)
+    mqtt_broker: MqttBroker = MqttBroker.from_config(powermon_config.mqttbroker)
     log.info(mqtt_broker)
 
     # build the daemon object (optional)
-    daemon: Daemon = daemon_from_config(config=powermon_config.daemon)
+    daemon: Daemon = Daemon.from_config(config=powermon_config.daemon)
     log.info(daemon)
 
     # build api coordinator
@@ -165,59 +168,62 @@ async def async_main():
     # build device objects (required)
     devices = []
     for device_config in powermon_config.devices:
-        _device = Device(device_config)
+        # build the device object from the config
+        _device: Device = await Device.from_config(device_config)
+        # add reference to mqtt broker
         _device.mqtt_broker = mqtt_broker
-        ## get the protocol
-        ## TODO: fix again
-        # _protocol = protocols_from_device_config(config=powermon_config.device)
-        # _device.port = await port_from_config(config=powermon_config.device.port, protocol=_protocol, serial_number=powermon_config.device.serial_number)
-        devices.append(_device)
-    for device in devices:
-        pprint(device)
-    exit()
 
-    log.debug(devices)
-
-    # process adhoc command line command
-    if args.adhoc:
-        print("Received an adhoc command")
-        # if not running mqttbroker, run command directly
-        if device.mqtt_broker.disabled or not device.mqtt_broker.is_connected:
-            print("Running adhoc command to non-connected device")
-            adhoc_command_config = {"command": args.adhoc}
-            device.add_command(Command.from_config(adhoc_command_config))
-            await device.initialize()
-            await device.run(True)
-            await device.finalize()
-            return
-        # post adhoc command to mqtt
-        device.mqtt_broker.post_adhoc_command(command_code=args.adhoc)
-        # _command = Command.from_code(args.adhoc)
-        # _command.command_definition = device.port.protocol.get_command_definition(args.adhoc)
-        # print(_command)
-        return
-    # add commands to device command list
-    for command_config in powermon_config.commands:
-        log.info("Adding command, config: %s", command_config)
-        device.add_command(Command.from_config(command_config))
-    log.info(device)
-
-    # initialize api coordinator
-    api_coordinator.set_device(device)
-    api_coordinator.set_mqtt_broker(mqtt_broker)
+         # add instructions to device instruction list
+        for instruction_config in device_config.instructions:
+            log.info("Adding instruction, config: %s", instruction_config)
+            print(instruction_config)
+            _device.add_instruction(Instruction.from_config(instruction_config))  # TODO: fix here
     
-    api_coordinator.initialize()
+        # add to devices list
+        log.info(_device)
+        devices.append(_device)
+    
+    log.debug(devices)
+    exit()
+    
+    # # TODO: sort out how to make this work
+    # # process adhoc command line command
+    # if args.adhoc:
+    #     print("Received an adhoc command")
+    #     # if not running mqttbroker, run command directly
+    #     if device.mqtt_broker.disabled or not device.mqtt_broker.is_connected:
+    #         print("Running adhoc command to non-connected device")
+    #         adhoc_command_config = {"command": args.adhoc}
+    #         device.add_command(Command.from_config(adhoc_command_config))
+    #         await device.initialize()
+    #         await device.run(True)
+    #         await device.finalize()
+    #         return
+    #     # post adhoc command to mqtt
+    #     device.mqtt_broker.post_adhoc_command(command_code=args.adhoc)
+    #     # _command = Command.from_code(args.adhoc)
+    #     # _command.command_definition = device.port.protocol.get_command_definition(args.adhoc)
+    #     # print(_command)
+    #     return
+    
+    # # TODO: sort api coordinator / approach
+    # # initialize api coordinator
+    # api_coordinator.set_device(device)
+    # api_coordinator.set_mqtt_broker(mqtt_broker)
+    # api_coordinator.initialize()
 
     # initialize daemon
     daemon.initialize()
-    api_coordinator.announce(daemon)
+    # api_coordinator.announce(daemon)
 
-    # initialize device
-    await device.initialize()
-    api_coordinator.announce(device)
+    # initialize devices
+    for device in devices:
+        await device.initialize()
+    # api_coordinator.announce(device)
 
-    # loop config
-    loop = powermon_config.loop
+    exit()
+    # set loop
+    loop = Loop.from_config(powermon_config.loop)  # TODO: fix here
     try:
         if loop is None:
             loop = False
