@@ -1,13 +1,10 @@
 """ outputs / api_mqtt.py """
 import logging
 
-# from powermon.dto.resultDTO import ResultDTO
 from powermon.commands.result import Result
-# from powermon.device import Device
-# from powermon.commands.command import CommandDTO
-from powermon.outputs.abstractoutput import AbstractOutputDTO
-from powermon.outputformats.simple import SimpleFormat
-from powermon.outputs.abstractoutput import AbstractOutput
+
+from .abstractoutput import AbstractOutput, AbstractOutputDTO
+from .formatters.simple import SimpleFormat
 
 log = logging.getLogger("ApiMqtt")
 
