@@ -11,18 +11,16 @@ from platform import python_version
 import yaml
 from pyaml_env import parse_config
 from pydantic import ValidationError
-from rich.pretty import pprint
-# from rich import print  # prints colored text
 
-from . import _, __version__
-from .powermon_config import PowermonConfig
 from powermon.daemons import Daemon
 from powermon.device import Device
 from powermon.instructions import Instruction
 from powermon.mqttbroker import MqttBroker
 
+from . import _, __version__
 from .commands.command import Command
-from .protocols import list_commands, list_protocols, Protocol
+from .powermon_config import PowermonConfig
+from .protocols import Protocol, list_commands, list_protocols
 
 # Set-up logger
 log: Logger = logging.getLogger("")

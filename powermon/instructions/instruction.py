@@ -6,7 +6,7 @@ from dateparser import parse as dateparse  #noqa:F401
 from powermon.commands.command_definition import CommandDefinition
 from powermon.commands.result import Result
 from .triggers import Trigger
-from powermon.libs.errors import (
+from ..powermon_exceptions import (
     CommandExecutionFailed,
     InvalidCRC,
     InvalidResponse,

@@ -7,7 +7,7 @@ from pydantic import BaseModel
 from powermon.commands.reading import Reading
 from powermon.commands.reading_definition import (ReadingDefinition,
                                                   ResponseType)
-from powermon.libs.errors import CommandExecutionFailed
+from ..powermon_exceptions import CommandExecutionFailed
 
 log = logging.getLogger("result")
 

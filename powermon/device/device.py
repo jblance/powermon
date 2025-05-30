@@ -9,25 +9,15 @@ from pydantic import BaseModel, Field
 from ..commands.result import Result
 from .device_config import DeviceConfig
 from ..instructions import Instruction
-from ..libs.errors import CommandDefinitionMissing
+from ..powermon_exceptions import CommandDefinitionMissing
 from ..mqttbroker import MqttBroker
 from ..instructions.outputs.formatters import FormatterType
 from ..instructions.outputs.abstractoutput import AbstractOutput
 from .ports import Port
-from .ports.abstractport import AbstractPort, _AbstractPortDTO
+from .ports.abstractport import AbstractPort
 
 # Set-up logger
 log = logging.getLogger("Device")
-
-
-class DeviceDTO(BaseModel):
-    """ data transfer model for Device class """
-    name: str = 'unnamed_device'
-    serial_number: Optional[str] = Field(strict=False, default=None, coerce_numbers_to_str=True)
-    model: Optional[str] = None
-    manufacturer: Optional[str] = None
-    port: _AbstractPortDTO
-    # instructions: list[CommandDTO]
 
 
 class Device:
@@ -65,15 +55,6 @@ class Device:
         _repr = f"Device(name='{self.name}', serial_number='{self.serial_number}', model='{self.model}', manufacturer='{self.manufacturer}', port={self.port!r}, instructions={self.instructions})"
         #print(_repr)
         return _repr
-
-
-    def to_dto(self) -> DeviceDTO:
-        """convert the Device to a Data Transfer Object"""
-        instructions: list[Instruction] = []
-        instruction: Instruction
-        for instruction in self.instructions:
-            instructions.append(instruction.to_dto())
-        return DeviceDTO(name=self.name, serial_number=self.serial_number, model=self.model, manufacturer=self.manufacturer, port=self.port.to_dto(), instructions=instructions)
 
 
     @property

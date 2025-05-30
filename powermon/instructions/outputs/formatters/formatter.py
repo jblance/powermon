@@ -4,7 +4,7 @@ import logging
 
 from rich import print
 
-from powermon.libs.errors import ConfigError
+from ....powermon_exceptions import ConfigError
 
 from .formatter_type import FormatterType
 from .abstractformat import AbstractFormat

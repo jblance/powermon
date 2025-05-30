@@ -2,7 +2,7 @@
 import logging
 from abc import ABC, abstractmethod
 
-from ...libs.errors import PowermonProtocolError
+from ...powermon_exceptions import PowermonProtocolError
 from .protocols.abstractprotocol import AbstractProtocol
 from .protocols import Protocol
 
