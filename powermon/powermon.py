@@ -22,7 +22,6 @@ from powermon.instructions import Instruction
 from powermon.mqttbroker import MqttBroker
 
 from .commands.command import Command
-from .libs.apicoordinator import ApiCoordinator
 from .protocols import list_commands, list_protocols, Protocol
 
 # Set-up logger
@@ -161,10 +160,6 @@ async def async_main():
     daemon: Daemon = Daemon.from_config(config=powermon_config.daemon)
     log.info(daemon)
 
-    # build api coordinator
-    api_coordinator = ApiCoordinator.from_config(config=powermon_config.api)
-    log.info(api_coordinator)
-
     # build device objects (required)
     devices = []
     for device_config in powermon_config.devices:
@@ -206,20 +201,12 @@ async def async_main():
     #     # print(_command)
     #     return
     
-    # # TODO: sort api coordinator / approach
-    # # initialize api coordinator
-    # api_coordinator.set_device(device)
-    # api_coordinator.set_mqtt_broker(mqtt_broker)
-    # api_coordinator.initialize()
-
     # initialize daemon
     daemon.initialize()
-    # api_coordinator.announce(daemon)
 
     # initialize devices
     for device in devices:
         await device.initialize()
-    # api_coordinator.announce(device)
 
     exit()
     # set loop
@@ -243,9 +230,6 @@ async def async_main():
             # run device loop (ie run any needed commands)
             for device in devices:
                 await device.run(args.force)
-
-            # run api coordinator ...
-            api_coordinator.run()
 
             # only run loop once if required
             if not loop:
