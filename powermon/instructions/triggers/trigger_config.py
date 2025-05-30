@@ -1,18 +1,24 @@
 """ pydantic definitions for the powermon trigger config model
 """
-from .noextrabasemodel_config import NoExtraBaseModel
+from pydantic import BaseModel, ConfigDict
 
 
-class LoopsTriggerConfig(NoExtraBaseModel):
+class LoopsTriggerConfig(BaseModel):
     """ model/allowed elements for 'loops' trigger config """
     loops: int
 
+    model_config = ConfigDict(extra='forbid')
 
-class AtTriggerConfig(NoExtraBaseModel):
+
+class AtTriggerConfig(BaseModel):
     """ model/allowed elements for 'at' trigger config """
     at: str
 
+    model_config = ConfigDict(extra='forbid')
 
-class EveryTriggerConfig(NoExtraBaseModel):
+
+class EveryTriggerConfig(BaseModel):
     """ model/allowed elements for 'every' trigger config """
     every: int
+
+    model_config = ConfigDict(extra='forbid')

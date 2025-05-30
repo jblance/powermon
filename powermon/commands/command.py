@@ -36,16 +36,6 @@ class CommandType(Enum):
     JKSERIAL_ACTIVATION = 'jkserial_activation'
 
 
-class CommandDTO(BaseModel):
-    """ model/allowed elements for a command data transfer object """
-    code: str
-    command_type: str
-    template: None | str
-    override: None | str | dict
-    trigger: TriggerDTO
-    outputs: list[AbstractOutputDTO]
-
-
 class Command():
     """
     Command object, holds the details of the command, including:
@@ -66,16 +56,6 @@ class Command():
         self.full_command: str = None
         self.override: str
 
-    def to_dto(self):
-        """ return the command data transfer object """
-        return CommandDTO(
-            code=self.code,
-            command_type=self.command_type,
-            template=self.template,
-            override=self.override,
-            trigger=self.trigger.to_dto(),
-            outputs=[output.to_dto() for output in self.outputs],
-        )
 
     def __str__(self):
         if self.code is None:

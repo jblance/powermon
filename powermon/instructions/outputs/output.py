@@ -3,8 +3,7 @@ from enum import Enum
 
 from rich import print
 
-from .outputformats import DEFAULT_FORMAT
-from .outputformats import from_config as format_from_config
+from .formatters import Formatter
 
 # Set-up logger
 log = logging.getLogger("outputs")
@@ -67,10 +66,10 @@ class Output():
         _outputs = []
         log.debug("processing outputs_config: %s", outputs_config)
         if outputs_config is None:
-            _outputs.append(Output.parse_output_config({"type": "screen", "format": DEFAULT_FORMAT}))
+            _outputs.append(Output.parse_output_config({"type": "screen", "format": Formatter.DEFAULT_FORMAT}))
         elif isinstance(outputs_config, str):
             # eg 'screen'
-            _outputs.append(Output.parse_output_config({"type": outputs_config, "format": DEFAULT_FORMAT}))
+            _outputs.append(Output.parse_output_config({"type": outputs_config, "format": Formatter.DEFAULT_FORMAT}))
         elif isinstance(outputs_config, list):
             # eg [{'type': 'screen', 'format': 'simple'}, {'type': 'screen', 'format': {'type': 'htmltable'}}]
             for output_config in outputs_config:
@@ -87,8 +86,8 @@ class Output():
         """ generate a single output object from a config """
         log.debug("parse_output_config, config: %s", output_config)
         output_type = output_config.get("type", Output.DEFAULT)
-        format_config = output_config.get("format", DEFAULT_FORMAT)
-        _format = format_from_config(format_config)
+        format_config = output_config.get("format", Formatter.DEFAULT_FORMAT)
+        _format = Formatter.from_config(format_config)
         log.debug("got format: %s", (_format))
         _output = Output.get_output_class(output_type, formatter=_format, output_config=output_config)
         log.debug("got output: %s", _output)

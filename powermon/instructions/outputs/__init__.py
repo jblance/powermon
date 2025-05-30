@@ -1,4 +1,5 @@
 """ outputs / __init__.py """
-from .output import OutputType, Output
+from .output import Output, OutputType
+from .output_config import OutputConfig
 
-__all__ = ['OutputType', 'Output']
+__all__ = ['Output', 'OutputType', 'OutputConfig']

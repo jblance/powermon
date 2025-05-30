@@ -2,12 +2,10 @@
 """
 from typing import Literal
 
-from pydantic import Field
-
-from .noextrabasemodel_config import NoExtraBaseModel
+from pydantic import BaseModel, ConfigDict, Field
 
 
-class BaseFormatConfig(NoExtraBaseModel):
+class BaseFormatConfig(BaseModel):
     """ model/allowed elements for base format config """
     type: str
     tag: None | str = Field(default=None)
@@ -17,6 +15,8 @@ class BaseFormatConfig(NoExtraBaseModel):
     extra_info: None | bool = Field(default=None)
     excl_filter: None | str = Field(default=None)
     filter: None | str = Field(default=None)
+
+    model_config = ConfigDict(extra='forbid')
 
 
 class HassFormatConfig(BaseFormatConfig):

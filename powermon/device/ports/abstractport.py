@@ -2,21 +2,11 @@
 import logging
 from abc import ABC, abstractmethod
 
-from pydantic import BaseModel
-
-# from powermon.commands.command import Command
-# from powermon.commands.result import Result
 from ...libs.errors import PowermonProtocolError
-from ...protocols.abstractprotocol import AbstractProtocol, AbstractProtocolDTO
+from .protocols.abstractprotocol import AbstractProtocol
 from .protocols import Protocol
 
 log = logging.getLogger("Port")
-
-
-class _AbstractPortDTO(BaseModel):
-    """ data transfer model for AbstractPort class """
-    port_type: str
-    protocol: AbstractProtocolDTO
 
 
 class AbstractPort(ABC):
@@ -70,12 +60,6 @@ class AbstractPort(ABC):
     @abstractmethod
     async def send_and_receive(self, command: Command) -> Result:
         """ main worker function for port objects, specific to each port type """
-        raise NotImplementedError
-
-
-    @abstractmethod
-    def to_dto(self) -> _AbstractPortDTO:
-        """ convert port object to data transfer object """
         raise NotImplementedError
 
 

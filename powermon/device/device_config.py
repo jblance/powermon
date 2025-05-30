@@ -1,13 +1,13 @@
 from typing import List, Optional
 
 from pydantic import Field
+from pydantic import BaseModel, ConfigDict
 
-from .noextrabasemodel_config import NoExtraBaseModel
-from .instruction_config import InstructionConfig
-from .port_config import BlePortConfig, SerialPortConfig, TestPortConfig, UsbPortConfig
+from ..instructions import InstructionConfig
+from .ports import BlePortConfig, SerialPortConfig, TestPortConfig, UsbPortConfig
 
 
-class DeviceConfig(NoExtraBaseModel):
+class DeviceConfig(BaseModel):
     """ model/allowed elements for device section of config """
     name: str = 'unnamed_device'
     serial_number: Optional[str] = Field(strict=False, default=None, coerce_numbers_to_str=True)
@@ -15,3 +15,5 @@ class DeviceConfig(NoExtraBaseModel):
     manufacturer: Optional[str] = None
     port: TestPortConfig | SerialPortConfig | UsbPortConfig | BlePortConfig
     instructions: List[InstructionConfig]
+
+    model_config = ConfigDict(extra='forbid')

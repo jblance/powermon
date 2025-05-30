@@ -14,8 +14,8 @@ from pydantic import ValidationError
 from rich.pretty import pprint
 # from rich import print  # prints colored text
 
-from powermon import _, __version__
-from powermon.config import PowermonConfig
+from . import _, __version__
+from .powermon_config import PowermonConfig
 from powermon.daemons import Daemon
 from powermon.device import Device
 from powermon.instructions import Instruction

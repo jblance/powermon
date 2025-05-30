@@ -1,22 +1,21 @@
 """ commands / command.py """
 import logging
 
-
 from dateparser import parse as dateparse  #noqa:F401
 
 from powermon.commands.command_definition import CommandDefinition
 from powermon.commands.result import Result
-from powermon.commands.trigger import Trigger, TriggerDTO
+from .triggers import Trigger
 from powermon.libs.errors import (
     CommandExecutionFailed,
-    ConfigError,
     InvalidCRC,
     InvalidResponse,
 )
-from .outputs.abstractoutput import AbstractOutput, AbstractOutputDTO
-from .outputs import OutputType, Output
-from ..config import InstructionConfig
-from ..types import InstructionType
+
+from .instruction_config import InstructionConfig
+from .instruction_types import InstructionType
+from .outputs import Output
+from .outputs.abstractoutput import AbstractOutput
 
 log = logging.getLogger("Instruction")
 
@@ -67,16 +66,6 @@ class Instruction():
         self.full_command: str = None
         self.override: dict = {}
 
-    # def to_dto(self):
-    #     """ return the command data transfer object """
-    #     return CommandDTO(
-    #         code=self.code,
-    #         command_type=self.command_type,
-    #         template=self.template,
-    #         override=self.override,
-    #         trigger=self.trigger.to_dto(),
-    #         outputs=[output.to_dto() for output in self.outputs],
-    #     )
 
     def __str__(self):
         _outs = ""

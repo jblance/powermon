@@ -10,8 +10,8 @@ from tenacity import retry, stop_after_attempt, wait_fixed  # https://tenacity.r
 from powermon.commands.command import Command, CommandType
 from powermon.commands.result import Result
 from powermon.libs.errors import ConfigError, InvalidResponse, PowermonProtocolError
-from powermon.ports import PortType
-from powermon.ports.abstractport import AbstractPort, _AbstractPortDTO
+from .port_type import PortType
+from .abstractport import AbstractPort
 # from powermon.protocols import get_protocol_definition
 
 log = logging.getLogger("SerialPort")
@@ -19,12 +19,6 @@ log = logging.getLogger("SerialPort")
 VICTRON_LINES_TO_READ = 30
 READ_UNTIL_DONE_WAIT_TIME = 0.5
 
-
-class SerialPortDTO(_AbstractPortDTO):
-    """ data transfer model for SerialPort class """
-    path: str
-    baud: int
-    serial_number: None | int | str
 
 class SerialPort(AbstractPort):
     """ serial port object - normally a usb to serial adapter """
@@ -83,11 +77,6 @@ class SerialPort(AbstractPort):
                 log.info("SUCCESS: path: %s matches serial_number: %s", _path, serial_number)
                 return _path  # return the matching path
         raise ConfigError(f"None of the paths match serial_number: {serial_number}")
-
-
-    def to_dto(self) -> _AbstractPortDTO:
-        dto = SerialPortDTO(port_type="serial", path=self.path, baud=self.baud, protocol=self.protocol.to_dto())
-        return dto
 
 
     def is_connected(self):

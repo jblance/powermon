@@ -7,7 +7,7 @@ from enum import StrEnum, auto
 
 from rich.console import Console
 
-from powermon.libs.errors import ConfigError
+from ....libs.errors import ConfigError
 
 
 log = logging.getLogger("protocols")

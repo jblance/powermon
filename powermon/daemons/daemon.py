@@ -4,8 +4,6 @@ from abc import ABC, abstractmethod
 from enum import StrEnum, auto
 from typing import Optional
 
-from pydantic import BaseModel
-
 from . import DaemonConfig
 
 # Set-up logger
@@ -17,13 +15,6 @@ class DaemonType(StrEnum):
     SIMPLE = auto()
     SYSTEMD = auto()
     INITD = auto()
-
-
-class DaemonDTO(BaseModel):
-    """ data transfer ojbect model """
-    daemon_type: DaemonType
-    last_notify: Optional[int | float] = None
-    keepalive: int
 
 
 class Daemon(ABC):
@@ -76,12 +67,3 @@ class Daemon(ABC):
     @abstractmethod
     def log(self, message=None):
         raise NotImplementedError
-
-
-    def to_dto(self):
-        """ return the data transfer object version of this object """
-        return DaemonDTO(
-            daemon_type=self.type,
-            last_notify=self.last_notify,
-            keepalive=self.keepalive,
-        )

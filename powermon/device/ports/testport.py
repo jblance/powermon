@@ -5,17 +5,10 @@ import random
 from powermon.commands.command import Command
 from powermon.commands.command_definition import CommandDefinition
 from powermon.commands.result import Result
-from powermon.ports import PortType
-# from powermon.dto.portDTO import PortDTO
-from powermon.ports.abstractport import AbstractPort, _AbstractPortDTO
-# from powermon.protocols import get_protocol_definition
+from .port_type import PortType
+from .abstractport import AbstractPort
 
 log = logging.getLogger("test")
-
-
-class TestPortDTO(_AbstractPortDTO):
-    """ data transfer model for TestPort class """
-    response_number: None | int
 
 
 class TestPort(AbstractPort):
@@ -27,10 +20,6 @@ class TestPort(AbstractPort):
         self.response_number = response_number
         self.connected = False
         # self._test_data = None
-
-    def to_dto(self) -> _AbstractPortDTO:
-        dto = TestPortDTO(port_type=self.port_type, response_number=self.response_number, protocol=self.protocol.to_dto())
-        return dto
 
     def __str__(self):
         return f"Test port: {self.response_number=}"

@@ -8,17 +8,10 @@ from glob import glob
 from powermon.commands.command import Command
 from powermon.commands.result import Result, ResultType
 from powermon.libs.errors import ConfigError, PowermonProtocolError
-from powermon.ports import PortType
-from powermon.ports.abstractport import AbstractPort, _AbstractPortDTO
-# from powermon.protocols import get_protocol_definition
+from .port_type import PortType
+from .abstractport import AbstractPort
 
 log = logging.getLogger("USBPort")
-
-
-class UsbPortDTO(_AbstractPortDTO):
-    """ data transfer model for SerialPort class """
-    path: str
-    serial_number: None | int | str
 
 
 class USBPort(AbstractPort):
@@ -72,10 +65,6 @@ class USBPort(AbstractPort):
                 return _path  # return the matching path
         raise ConfigError(f"None of the paths match serial_number: {serial_number}")
 
-
-    def to_dto(self):
-        dto = UsbPortDTO(port_type="usb", path=self.path, protocol=self.protocol.to_dto())
-        return dto
 
     def is_connected(self) -> bool:
         return self.port is not None

@@ -7,11 +7,11 @@ from pydantic import BaseModel, Field
 
 # from ..commands.command import Command, CommandDTO
 from ..commands.result import Result
-from ..config import DeviceConfig
+from .device_config import DeviceConfig
 from ..instructions import Instruction
 from ..libs.errors import CommandDefinitionMissing
 from ..mqttbroker import MqttBroker
-from ..instructions.outputs.outputformats import FormatterType, get_formatter
+from ..instructions.outputs.formatters import FormatterType
 from ..instructions.outputs.abstractoutput import AbstractOutput
 from .ports import Port
 from .ports.abstractport import AbstractPort, _AbstractPortDTO
