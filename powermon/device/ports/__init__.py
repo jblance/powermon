@@ -4,9 +4,9 @@ from enum import StrEnum, auto
 
 from pydantic import BaseModel
 
-from powermon.libs.errors import ConfigError
+from ...libs.errors import ConfigError
 # from .abstractport import AbstractPort
-from ..protocols import Protocol
+from ...protocols import Protocol
 
 
 # Set-up logger
@@ -72,17 +72,17 @@ class Port():
         # build port object
         match port_type:
             case PortType.TEST:
-                from powermon.ports.testport import TestPort
+                from .testport import TestPort
                 port_object: TestPort = await TestPort.from_config(config=config, protocol=protocol, serial_number=serial_number)
             case PortType.SERIAL:
-                from powermon.ports.serialport import SerialPort
+                from .serialport import SerialPort
                 port_object: SerialPort = await SerialPort.from_config(config=config, protocol=protocol, serial_number=serial_number)
             case PortType.USB:
-                from powermon.ports.usbport import USBPort
+                from .usbport import USBPort
                 port_object: USBPort = await USBPort.from_config(config=config, protocol=protocol, serial_number=serial_number)
             # Pattern for port types that cause problems when imported
             case PortType.BLE:
-                from powermon.ports.bleport import BlePort
+                from .bleport import BlePort
                 port_object: BlePort = await BlePort.from_config(config=config, protocol=protocol, serial_number=serial_number)
             case _:
                 log.info("port type object not found for %s", port_type)

@@ -4,11 +4,11 @@ from abc import ABC, abstractmethod
 
 from pydantic import BaseModel
 
-from powermon.commands.command import Command
-from powermon.commands.result import Result
-from powermon.libs.errors import PowermonProtocolError
-from powermon.protocols.abstractprotocol import AbstractProtocol, AbstractProtocolDTO
-from ..protocols import Protocol
+# from powermon.commands.command import Command
+# from powermon.commands.result import Result
+from ...libs.errors import PowermonProtocolError
+from ...protocols.abstractprotocol import AbstractProtocol, AbstractProtocolDTO
+from ...protocols import Protocol
 
 log = logging.getLogger("Port")
 
