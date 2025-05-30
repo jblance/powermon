@@ -1,7 +1,7 @@
-from pydantic import BaseModel, ConfigDict
+from .powermon_config import PowermonConfig
+from .device_config import DeviceConfig
+from .instruction_config import InstructionConfig
 
 
-class NoExtraBaseModel(BaseModel):
-    """ updated BaseModel with Extras forbidden """
-    model_config = ConfigDict(extra='forbid')
+__all__ = ['PowermonConfig', 'DeviceConfig', 'InstructionConfig']
         

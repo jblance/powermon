@@ -2,7 +2,7 @@ from typing import Optional
 
 # from pydantic import Field
 
-from . import NoExtraBaseModel
+from .noextrabasemodel_config import NoExtraBaseModel
 
 
 class APIConfig(NoExtraBaseModel):

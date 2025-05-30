@@ -3,9 +3,7 @@ pydantic definitions for the powermon config model
 """
 from typing import List, Optional
 
-# from pydantic import Field
-
-from . import NoExtraBaseModel
+from .noextrabasemodel_config import NoExtraBaseModel
 from .api_config import APIConfig
 from .daemon_config import DaemonConfig
 from .device_config import DeviceConfig

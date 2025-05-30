@@ -2,7 +2,7 @@ from typing import Optional
 
 from pydantic import Field
 
-from ..config import NoExtraBaseModel
+from .noextrabasemodel_config import NoExtraBaseModel
 
 
 class MQTTConfig(NoExtraBaseModel):

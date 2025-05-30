@@ -4,7 +4,7 @@ from typing import Literal, Optional
 
 from pydantic import Field
 
-from . import NoExtraBaseModel
+from .noextrabasemodel_config import NoExtraBaseModel
 from ..protocols import Protocol
 
 

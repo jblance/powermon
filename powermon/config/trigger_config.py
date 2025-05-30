@@ -1,6 +1,6 @@
 """ pydantic definitions for the powermon trigger config model
 """
-from . import NoExtraBaseModel
+from .noextrabasemodel_config import NoExtraBaseModel
 
 
 class LoopsTriggerConfig(NoExtraBaseModel):
