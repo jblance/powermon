@@ -16,4 +16,5 @@ devices:
         format:
           type: table
           draw_lines: true
+
 loop: null

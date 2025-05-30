@@ -7,7 +7,7 @@ devices:
     port:
       type: test
       protocol: PI30MAX
-    commands:
+    instructions:
     - command: QPGS0
       outputs:
       - type: screen

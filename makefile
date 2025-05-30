@@ -1,20 +1,23 @@
+validate-config-tests:
+	uv run python3 -m unittest tests/unit/test_config_validation.py 
+
 integration-tests: 
-	python3 -m unittest discover -s tests/integration -f
+	uv runpython3 -m unittest discover -s tests/integration -f
 
 integration-tests_verbose: 
-	python3 -m unittest discover -s tests/integration -f -v
+	uv runpython3 -m unittest discover -s tests/integration -f -v
 
 test:
-	python3 -m unittest discover -s tests -f
+	uv runpython3 -m unittest discover -s tests -f
 
 unit-tests:
-	python3 -m unittest discover -s tests/unit -f
+	uv runpython3 -m unittest discover -s tests/unit -f
 
 unit-tests-verbose:
-	python3 -m unittest discover -s tests/unit -f -v
+	uv runpython3 -m unittest discover -s tests/unit -f -v
 
 unit-tests-all:
-	python3 -m unittest discover -s tests/unit
+	uv runpython3 -m unittest discover -s tests/unit
 
 docker-up:
 	docker-compose up --build

@@ -8,7 +8,7 @@ devices:
       type: test
       protocol: PI30MAX
 
-    commands:
+    instructions:
     - command: QPIGS
       type: basic #so far not neccessary, might remove
       outputs:

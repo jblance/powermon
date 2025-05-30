@@ -9,8 +9,7 @@ devices:
       mac: 66:66:18:01:09:18
       victron_key: !ENV ${VICTRON_KEY}
       protocol: VED
-
-    commands:
+    instructions:
     - command: advertising
       outputs:
       - type: screen

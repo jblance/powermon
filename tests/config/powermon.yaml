@@ -8,7 +8,7 @@ devices:
       #path: /dev/hidraw0
       type: test
       protocol: PI30
-    commands:
+    instructions:
     - command: QPIGS #Must be in the protocol command list
       type: basic
       outputs:

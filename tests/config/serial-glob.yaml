@@ -8,7 +8,7 @@ devices:
       type: serial
       path: /dev/ttyUSB*
       protocol: PI30
-    commands:
+    instructions:
     - command: QID
       outputs:
       - type: screen
@@ -16,4 +16,5 @@ devices:
           type: table
           draw_lines: False
           extra_info: True
+
 loop: null

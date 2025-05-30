@@ -7,7 +7,7 @@ devices:
       type: test
       protocol: PI30MAX
       response_number: 1
-    commands:
+    instructions:
     - command: QPGS0
       outputs:
       - type: screen

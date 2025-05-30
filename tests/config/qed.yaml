@@ -9,7 +9,7 @@ devices:
       # path: /dev/ttyUSB0
       type: test
       protocol: PI30MAX
-    commands:
+    instructions:
     # - command: f'QED{dateparse("yesterday").strftime("%Y%m%d")}'
     #   type: templated
     #   trigger:
@@ -21,7 +21,7 @@ devices:
     #       tag: Test_Inverter
     #       filter: ^pv
     - command: f'QED{dateparse("today").strftime("%Y%m%d")}'
-      type: templated
+      type: template
       override: 
         description: 
           pv_generated_energy_for_day: bob
@@ -33,7 +33,9 @@ devices:
           type: table
           tag: Test_Inverter
           # filter: ^pv
+
 loop: null
+
 mqttbroker:
   name: homeassistant.lan
   port: 1883

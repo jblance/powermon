@@ -8,7 +8,7 @@ devices:
       type: test
       # response_number: 0
       protocol: PI30
-    commands:
+    instructions:
     - command: QID
       trigger:
         every: 30
@@ -28,6 +28,3 @@ mqttbroker:
   password: test_password
   adhoc_topic: powermon/adhoc_commands
   adhoc_result_topic: powermon/adhoc_results
-
-api:
-  enabled: False

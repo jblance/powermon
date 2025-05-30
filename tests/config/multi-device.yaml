@@ -34,8 +34,11 @@ devices:
           type: table
           draw_lines: False
           extra_info: True
+
 mqttbroker:
   name: localhost
+
 loop: null
+
 daemon:
   type: simple

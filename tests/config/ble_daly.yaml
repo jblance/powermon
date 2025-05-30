@@ -8,8 +8,7 @@ devices:
       type: test
       protocol: DALY
       response_number: 2
-
-    commands:
+    instructions:
     - command: state of charge
       outputs:
       - type: screen

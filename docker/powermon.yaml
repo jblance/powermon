@@ -9,8 +9,7 @@ devices:
       path: /dev/hidraw0
       type: usb
       protocol: PI30
-
-    commands:
+    instructions:
       - command: QPIGS
         type: basic #default command type is basic
         outputs:

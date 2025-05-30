@@ -8,8 +8,7 @@ devices:
       type: test
       protocol: NEEY
       response_number: 1
-
-    commands:
+    instructions:
     - command: settings
       outputs:
       - type: screen

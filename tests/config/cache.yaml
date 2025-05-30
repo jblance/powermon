@@ -8,7 +8,7 @@ devices:
       type: test
       protocol: PI30MAX
       # response_number: 0
-    commands:
+    instructions:
     - command: QID
       outputs:
       - type: screen
