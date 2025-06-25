@@ -2,8 +2,8 @@
 import logging
 
 from ...powermon_exceptions import ConfigError
+from ...protocols import Protocol
 from .port_type import PortType
-from .protocols import Protocol
 
 # Set-up logger
 log = logging.getLogger("ports")

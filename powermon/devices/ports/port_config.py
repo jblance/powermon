@@ -4,7 +4,7 @@ from typing import Literal, Optional
 
 from pydantic import BaseModel, ConfigDict, Field
 
-from .protocols import Protocol
+from ...protocols import Protocol
 
 
 class BlePortConfig(BaseModel):

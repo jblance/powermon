@@ -3,8 +3,8 @@ import logging
 from abc import ABC, abstractmethod
 
 from ...powermon_exceptions import PowermonProtocolError
-from .protocols.abstractprotocol import AbstractProtocol
-from .protocols import Protocol
+from ...protocols.abstractprotocol import AbstractProtocol
+from ...protocols import Protocol
 
 log = logging.getLogger("Port")
 

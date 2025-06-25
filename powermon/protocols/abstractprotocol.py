@@ -9,12 +9,12 @@ from pydantic import BaseModel
 from powermon.commands.command import Command
 from powermon.commands.command_definition import CommandDefinition, CommandDefinitionDTO
 from powermon.commands.result import ResultType
-from ....instructions.triggers import Trigger
-from ....powermon_exceptions import (CommandDefinitionIncorrect,
+from ..instructions.triggers import Trigger
+from ..powermon_exceptions import (CommandDefinitionIncorrect,
                              CommandDefinitionMissing, InvalidResponse,
                              PowermonProtocolError)
-from ....instructions.outputs import Output
-from .. import PortType
+from ..instructions.outputs import Output
+from ..devices.ports import PortType
 from .helpers import crc_pi30 as crc
 
 log = logging.getLogger("AbstractProtocol")

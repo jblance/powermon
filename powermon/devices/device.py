@@ -20,6 +20,7 @@ class Device:
     """
     The device object has information about the device - the name, model and serial number of the device
     The object also defines the port and protocol that is used to communicate with the device
+    The object maintains a (updatable) list of instructions (and their triggers and outputs) that should be followed
     """
     # def __init__(self, name: str, serial_number: str = "", model: str = "", manufacturer: str = "", port: AbstractPort = None):
     @classmethod

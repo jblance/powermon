@@ -7,7 +7,7 @@ from powermon.commands.reading_definition import ReadingType, ResponseType
 from powermon.commands.result import ResultType
 from powermon.powermon_exceptions import InvalidCRC, InvalidResponse
 
-from .. import PortType
+from ..devices.ports import PortType
 from .abstractprotocol import AbstractProtocol
 from .constants import (BATTERY_TYPES, CHARGER_SOURCE_PRIORITIES, FAULT_CODE_OPTIONS,
                                           INVERTER_MODE_OPTIONS, OUTPUT_MODES, OUTPUT_SOURCE_PRIORITIES)

@@ -7,7 +7,7 @@ import logging
 from rich.console import Console
 
 from .protocol_types import ProtocolType
-from ....powermon_exceptions import ConfigError
+from ..powermon_exceptions import ConfigError
 
 
 log = logging.getLogger("protocols")
