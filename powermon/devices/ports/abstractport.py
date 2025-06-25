@@ -58,7 +58,7 @@ class AbstractPort(ABC):
 
 
     @abstractmethod
-    async def send_and_receive(self, command: Command) -> Result:
+    async def send_and_receive(self, command: 'Command') -> 'Result':
         """ main worker function for port objects, specific to each port type """
         raise NotImplementedError
 
@@ -75,7 +75,7 @@ class AbstractPort(ABC):
         self._protocol = value
 
 
-    async def run_command(self, command: Command) -> Result:
+    async def run_command(self, command: 'Command') -> 'Result':
         """ run_command takes a command object, runs the command and returns a result object (replaces process_command) """
         log.debug("Command %s", command)
 

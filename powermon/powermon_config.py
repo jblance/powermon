@@ -6,7 +6,7 @@ from typing import List, Optional
 from pydantic import BaseModel, ConfigDict
 
 from .daemons import DaemonConfig
-from .device import DeviceConfig
+from .devices import DeviceConfig
 from .mqttbroker import MQTTConfig
 
 

@@ -3,32 +3,22 @@ Includes an Enumeration of available protocols, some helper functions
 as well as a Abstract Base Protocol and the protocol classes
 """
 import logging
-from enum import StrEnum, auto
 
 from rich.console import Console
 
+from .protocol_types import ProtocolType
 from ....powermon_exceptions import ConfigError
 
 
 log = logging.getLogger("protocols")
 rprint = Console(highlight=False).print
 
-MAX_MODELS = ['MAX']
-MST_MODELS = ['MST']
 
-class Protocol(StrEnum):
-    """Enumeration of currently implemented Protocols"""
-    PI18 = auto()  # WIP
-    PI30 = auto()
-    PI30MAX = auto()
-    PI30MST = auto()
-    DALY = auto()
-    NEEY = auto()
-    HELTEC = auto()
-    VED = auto()
-    JKSERIAL = auto()
 
-    DEFAULT = PI30
+class Protocol():
+    DEFAULT = ProtocolType.PI30
+    MAX_MODELS = ['MAX']
+    MST_MODELS = ['MST']
 
     @staticmethod
     def from_device_config(config) -> 'Protocol':
@@ -57,27 +47,27 @@ class Protocol(StrEnum):
         # proto = None
 
         match protocol_id:
-            case Protocol.DALY:
-                from powermon.protocols.daly import Daly as proto
-            case Protocol.NEEY | Protocol.HELTEC:
-                from powermon.protocols.neey import Neey as proto
-            case Protocol.PI18:
-                from powermon.protocols.pi18 import PI18 as proto
-            case Protocol.PI30:
-                if model in MAX_MODELS:
-                    from powermon.protocols.pi30max import PI30MAX as proto
-                elif model in MST_MODELS:
-                    from powermon.protocols.pi30mst import PI30MST as proto
+            case ProtocolType.DALY:
+                from .daly import Daly as proto
+            case ProtocolType.NEEY | ProtocolType.HELTEC:
+                from .neey import Neey as proto
+            case ProtocolType.PI18:
+                from .pi18 import PI18 as proto
+            case ProtocolType.PI30:
+                if model in Protocol.MAX_MODELS:
+                    from .pi30max import PI30MAX as proto
+                elif model in Protocol.MST_MODELS:
+                    from .pi30mst import PI30MST as proto
                 else:
-                    from powermon.protocols.pi30 import PI30 as proto
-            case Protocol.PI30MAX:
-                from powermon.protocols.pi30max import PI30MAX as proto
-            case Protocol.PI30MST:
-                from powermon.protocols.pi30mst import PI30MST as proto
-            case Protocol.VED:
-                from powermon.protocols.ved import VictronEnergyDirect as proto
-            case Protocol.JKSERIAL:
-                from powermon.protocols.jkserial import JkSerial as proto
+                    from .pi30 import PI30 as proto
+            case ProtocolType.PI30MAX:
+                from .pi30max import PI30MAX as proto
+            case ProtocolType.PI30MST:
+                from .pi30mst import PI30MST as proto
+            case ProtocolType.VED:
+                from .ved import VictronEnergyDirect as proto
+            case ProtocolType.JKSERIAL:
+                from .jkserial import JkSerial as proto
             case _:
                 raise ConfigError(f"Invalid protocol_id, no protocol found for: '{protocol_id}'")
         return proto()
@@ -86,7 +76,7 @@ class Protocol(StrEnum):
 def list_protocols():
     """ helper function to display the list of supported protocols """
     rprint("[bold yellow]Supported protocols")
-    for name in Protocol:
+    for name in ProtocolType:
         try:
             _proto = Protocol.from_name(name)
             if _proto is not None:

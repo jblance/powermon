@@ -13,14 +13,12 @@ from pyaml_env import parse_config
 from pydantic import ValidationError
 
 from powermon.daemons import Daemon
-from powermon.device import Device
+from powermon.devices import Device
 from powermon.instructions import Instruction
 from powermon.mqttbroker import MqttBroker
 
 from . import _, __version__
-from .commands.command import Command
 from .powermon_config import PowermonConfig
-from .protocols import Protocol, list_commands, list_protocols
 
 # Set-up logger
 log: Logger = logging.getLogger("")
@@ -82,15 +80,13 @@ async def async_main():
         help="""Supply config items on the commandline in json format, \
              eg '{"device": {"port":{"type":"test"}}, "commands": [{"command":"QPI"}]}'""",
     )
-    parser.add_argument("-V", "--validate", action="store_true", help="Validate the configuration")
-    parser.add_argument("-v", "--version", action="store_true", help="Display the version")
-    parser.add_argument("--listProtocols", action="store_true", help="Display the currently supported protocols")
-    parser.add_argument("--listCommands", type=str, metavar='PROTOCOL', default=None, help="Display available commands for PROTOCOL")
-    parser.add_argument("-1", "--once", action="store_true", help="Only loop through config once")
-    parser.add_argument("--force", action="store_true", help="Force commands to run even if wouldnt be triggered (should only be used with --once)")
-    parser.add_argument("-I", "--info", action="store_true", help="Enable Info and above level messages")
-    parser.add_argument("-D", "--debug", action="store_true", help="Enable Debug and above (i.e. all) messages")
-    parser.add_argument("-a", "--adhoc", type=str, metavar='COMMAND', default=None, help="Send adhoc command to mqtt adhoc command queue - needs config file specified and populated")
+    parser.add_argument("-V", "--validate", action="store_true", help=_("Validate the configuration"))
+    parser.add_argument("-v", "--version", action="store_true", help=_("Display the version"))
+    parser.add_argument("-1", "--once", action="store_true", help=_("Only loop through config once"))
+    parser.add_argument("--force", action="store_true", help=_("Force commands to run even if wouldnt be triggered (should only be used with --once)"))
+    parser.add_argument("-I", "--info", action="store_true", help=_("Enable Info and above level messages"))
+    parser.add_argument("-D", "--debug", action="store_true", help=_("Enable Debug and above (i.e. all) messages"))
+    parser.add_argument("-a", "--adhoc", type=str, metavar='COMMAND', default=None, help=_("Send adhoc command to mqtt adhoc command queue - needs config file specified and populated"))
 
     args = parser.parse_args()
     # prog_name = parser.prog
@@ -106,19 +102,6 @@ async def async_main():
     log.info(description)
     if args.version:
         print(description)
-        return None
-
-    # Do enquiry commands
-    # - List Protocols
-    if args.listProtocols:
-        print(description)
-        list_protocols()
-        return None
-
-    # - List Commands
-    if args.listCommands:
-        print(description)
-        list_commands(name=args.listCommands)
         return None
 
     # Build configuration from config file and command line overrides
@@ -171,14 +154,13 @@ async def async_main():
             log.info("Adding instruction, config: %s", instruction_config)
             print(instruction_config)
             _device.add_instruction(Instruction.from_config(instruction_config))  # TODO: fix here
-    
+
         # add to devices list
         log.info(_device)
         devices.append(_device)
-    
+
     log.debug(devices)
-    exit()
-    
+
     # # TODO: sort out how to make this work
     # # process adhoc command line command
     # if args.adhoc:

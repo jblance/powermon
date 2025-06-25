@@ -5,12 +5,13 @@ from typing import Optional
 from powermon.commands.command_definition import CommandCategory, CommandDefinition
 from powermon.commands.reading_definition import ReadingType, ResponseType
 from powermon.commands.result import ResultType
-from powermon.libs.errors import InvalidCRC, InvalidResponse
-from powermon.ports import PortType
-from powermon.protocols.abstractprotocol import AbstractProtocol
-from powermon.protocols.constants import (BATTERY_TYPES, CHARGER_SOURCE_PRIORITIES, FAULT_CODE_OPTIONS,
+from powermon.powermon_exceptions import InvalidCRC, InvalidResponse
+
+from .. import PortType
+from .abstractprotocol import AbstractProtocol
+from .constants import (BATTERY_TYPES, CHARGER_SOURCE_PRIORITIES, FAULT_CODE_OPTIONS,
                                           INVERTER_MODE_OPTIONS, OUTPUT_MODES, OUTPUT_SOURCE_PRIORITIES)
-from powermon.protocols.helpers import crc_pi30 as crc
+from .helpers import crc_pi30 as crc
 
 log = logging.getLogger("pi30")
 
@@ -255,41 +256,41 @@ QPIWS = {
             "response_type": ResponseType.FLAGS,
             "flags": [
                 "PV loss warning",
-                    "Inverter fault",
-                    "Bus over fault",
-                    "Bus under fault",
-                    "Bus soft fail fault",
-                    "Line fail warning",
-                    "OPV short warning",
-                    "Inverter voltage too low fault",
-                    "Inverter voltage too high fault",
-                    "Over temperature fault",
-                    "Fan locked fault",
-                    "Battery voltage to high fault",
-                    "Battery low alarm warning",
-                    "Reserved",
-                    "Battery under shutdown warning",
-                    "Battery derating warning",
-                    "Overload fault",
-                    "EEPROM fault",
-                    "Inverter over current fault",
-                    "Inverter soft fail fault",
-                    "Self test fail fault",
-                    "OP DC voltage over fault",
-                    "Bat open fault",
-                    "Current sensor fail fault",
-                    "Battery short fault",
-                    "Power limit warning",
-                    "PV voltage high warning",
-                    "MPPT overload fault",
-                    "MPPT overload warning",
-                    "Battery too low to charge warning",
-                    "",
-                    "Battery weak",
-                    "Battery weak",
-                    "Battery weak",
-                    "",
-                    "Battery equalisation warning"
+                "Inverter fault",
+                "Bus over fault",
+                "Bus under fault",
+                "Bus soft fail fault",
+                "Line fail warning",
+                "OPV short warning",
+                "Inverter voltage too low fault",
+                "Inverter voltage too high fault",
+                "Over temperature fault",
+                "Fan locked fault",
+                "Battery voltage to high fault",
+                "Battery low alarm warning",
+                "Reserved",
+                "Battery under shutdown warning",
+                "Battery derating warning",
+                "Overload fault",
+                "EEPROM fault",
+                "Inverter over current fault",
+                "Inverter soft fail fault",
+                "Self test fail fault",
+                "OP DC voltage over fault",
+                "Bat open fault",
+                "Current sensor fail fault",
+                "Battery short fault",
+                "Power limit warning",
+                "PV voltage high warning",
+                "MPPT overload fault",
+                "MPPT overload warning",
+                "Battery too low to charge warning",
+                "",
+                "Battery weak",
+                "Battery weak",
+                "Battery weak",
+                "",
+                "Battery equalisation warning"
             ]}
     ],
     "test_responses": [b"(00000100000000001000000000000000\x56\xA6\r", b"(000000000000000000000000000000000000<\x8e\r",], }

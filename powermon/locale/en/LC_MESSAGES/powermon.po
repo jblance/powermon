@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-03-28 02:07+0000\n"
-"PO-Revision-Date: 2025-03-28 02:07+0000\n"
+"POT-Creation-Date: 2025-06-25 00:47+0000\n"
+"PO-Revision-Date: 2025-06-25 00:47+0000\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
 "Language: en_US\n"
@@ -17,24 +17,58 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: powermon/cli.py:424
+#: powermon/cli.py:423
 msgid "Power Device Monitoring Utility CLI"
 msgstr "Power Device Monitoring Utility CLI"
 
-#: powermon/powermon.py:69
+#: powermon/powermon.py:63
 msgid "Power Device Monitoring Utility"
 msgstr "Power Device Monitoring Utility"
 
-#: powermon/powermon.py:78
+#: powermon/powermon.py:72
 msgid "Full location of config file (defaults to ./powermon.yaml)"
 msgstr "Full location of config file (defaults to ./powermon.yaml)"
 
-#: powermon/device.py:83
-msgid "No device definition in config. Check configFile argument?"
-msgstr "No device definition in config. Check configFile argument?"
+#: powermon/powermon.py:83
+msgid "validate"
+msgstr "Validate the configuration"
 
-#: powermon/device.py:92
+#: powermon/powermon.py:84
+msgid "Display the version"
+msgstr "Display the version"
+
+#: powermon/powermon.py:85
+msgid "Only loop through config once"
+msgstr "Only loop through config once"
+
+#: powermon/powermon.py:86
 msgid ""
-"Breaking Change: Please rename 'id' device config item to 'serial_number'"
+"Force commands to run even if wouldnt be triggered (should only be used with "
+"--once)"
 msgstr ""
-"Breaking Change: Please rename 'id' device config item to 'serial_number'"
+"Force commands to run even if wouldnt be triggered (should only be used with "
+"--once)"
+
+#: powermon/powermon.py:87
+msgid "Enable Info and above level messages"
+msgstr "Enable Info and above level messages"
+
+#: powermon/powermon.py:88
+msgid "Enable Debug and above (i.e. all) messages"
+msgstr "Enable Debug and above (i.e. all) messages"
+
+#: powermon/powermon.py:89
+msgid ""
+"Send adhoc command to mqtt adhoc command queue - needs config file specified "
+"and populated"
+msgstr ""
+"Send adhoc command to mqtt adhoc command queue - needs config file specified "
+"and populated"
+
+#: powermon/powermon.py:122
+msgid "Config validation failed"
+msgstr "Config validation failed"
+
+#: powermon/powermon.py:129
+msgid "Config validation successful"
+msgstr "Config validation successful"

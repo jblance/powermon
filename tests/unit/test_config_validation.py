@@ -18,7 +18,7 @@ class TestConfigModel(unittest.TestCase):
         for filename in files:
             # print(f"Checking valid: {filename}")
             config = _read_yaml_file(filename)
-            config_model = PowermonConfig(**config)
+            config_model = PowermonConfig(**config)  # ty: ignore[missing-argument]
             self.assertTrue(config_model is not None)
             self.assertIsInstance(config_model, PowermonConfig)
 
@@ -30,4 +30,4 @@ class TestConfigModel(unittest.TestCase):
             config = _read_yaml_file(filename)
             # config_model = ConfigModel(config=config)
             with self.assertRaises(ValidationError):
-                PowermonConfig(**config)
+                PowermonConfig(**config)  # ty: ignore[missing-argument]

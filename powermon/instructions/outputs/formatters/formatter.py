@@ -67,7 +67,7 @@ class Formatter():
             format_config = {}
             format_config["type"] = format_type
         else:
-            format_type = format_config.get("type")
+            format_type = format_config.type
         log.debug("getFormatfromConfig, formatType: %s", format_type)
 
         fmt = Formatter.get_formatter(format_type)

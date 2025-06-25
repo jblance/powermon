@@ -9,23 +9,15 @@ from pydantic import BaseModel
 from powermon.commands.command import Command
 from powermon.commands.command_definition import CommandDefinition, CommandDefinitionDTO
 from powermon.commands.result import ResultType
-from powermon.commands.trigger import Trigger
-from powermon.libs.errors import (CommandDefinitionIncorrect,
+from ....instructions.triggers import Trigger
+from ....powermon_exceptions import (CommandDefinitionIncorrect,
                              CommandDefinitionMissing, InvalidResponse,
                              PowermonProtocolError)
-from powermon.outputs import multiple_from_config
-from powermon.ports import PortType
-from powermon.protocols.helpers import crc_pi30 as crc
+from ....instructions.outputs import Output
+from .. import PortType
+from .helpers import crc_pi30 as crc
 
 log = logging.getLogger("AbstractProtocol")
-
-
-class AbstractProtocolDTO(BaseModel):
-    """ data transfer model for AbstractPort class """
-    protocol_id: str
-    command_definitions: dict[str, CommandDefinitionDTO]
-    supported_ports: list[PortType]
-    id_command: None | str
 
 
 class AbstractProtocol(metaclass=abc.ABCMeta):
@@ -46,27 +38,27 @@ class AbstractProtocol(metaclass=abc.ABCMeta):
         self.id_command = None
         self.port_type = None
 
-    def to_dto(self) -> AbstractProtocolDTO:
-        """ convert protocol object to data transfer object """
-        dto = AbstractProtocolDTO(protocol_id=self.protocol_id, command_definitions=self.get_command_definition_dtos(), supported_ports=self.supported_ports, id_command=self.id_command)
-        return dto
 
     @property
     def protocol_id(self) -> str:
         """ return the protocol id """
         return self._protocol_id
 
+
     @protocol_id.setter
     def protocol_id(self, value):
         self._protocol_id = value
+
 
     def add_supported_ports(self, port_types: list):
         """ Add to the supported port types list """
         self.supported_ports.extend(port_types)
 
+
     def clear_supported_ports(self):
         """ Remove all supported port types except the TEST port type """
         self.supported_ports = [PortType.TEST,]
+
 
     def add_command_definitions(self, command_definitions_config: dict = None, command_definitions_list: list = None, result_type: ResultType = None):
         """ Add command definitions from the configuration """
@@ -88,6 +80,7 @@ class AbstractProtocol(metaclass=abc.ABCMeta):
             for command_definition in command_definitions_list:
                 self.add_command_definition(command_definition, result_type)
 
+
     def add_command_definition(self, new_config, result_type = None):
         """ Add a command definition """
         command_definition_key = new_config.get("name")
@@ -100,10 +93,6 @@ class AbstractProtocol(metaclass=abc.ABCMeta):
         command_definition = CommandDefinition.from_config(new_config)
         self.command_definitions[command_definition_key] = command_definition
 
-    def replace_command_definition(self, command_definition_key, new_config):
-        """ Replace a command definition with a new one """
-        command_definition = CommandDefinition.from_config(new_config)
-        self.command_definitions[command_definition_key] = command_definition
 
     def remove_command_definitions(self, commands_to_remove: list):
         """ Remove specified command definitions """
@@ -111,6 +100,7 @@ class AbstractProtocol(metaclass=abc.ABCMeta):
             return
         for command_to_remove in commands_to_remove:
             self.command_definitions.pop(command_to_remove, None)
+
 
     def get_command_definition(self, command: str) -> CommandDefinition:
         """ Get the command definition for a given command string """
@@ -145,6 +135,7 @@ class AbstractProtocol(metaclass=abc.ABCMeta):
         log.info("No command_defn found for %s", command)
         raise CommandDefinitionMissing(f"No command definition found for command: {command}")
 
+
     def check_definitions_count(self, expected=None):
         """ check and report number of command definitions, error if 0 """
         definitions_count = len(self.command_definitions)
@@ -159,12 +150,6 @@ class AbstractProtocol(metaclass=abc.ABCMeta):
         else:
             raise PowermonProtocolError(f"Loaded protocol '{self.protocol_id}' but found {definitions_count} commands, expected {expected}")
 
-    def get_command_definition_dtos(self) -> dict[str, CommandDefinitionDTO]:
-        """ convert all associated command objects to data transfer objects """
-        command_dtos: dict[str, CommandDefinitionDTO] = {}
-        for command_tuple in self.command_definitions.items():
-            command_dtos[command_tuple[0]] = command_tuple[1].to_dto()
-        return command_dtos
 
     def list_commands(self) -> dict[str, CommandDefinition]:
         """ list available commands for the protocol """
@@ -172,6 +157,7 @@ class AbstractProtocol(metaclass=abc.ABCMeta):
             log.error("Attempted to list commands with no protocol defined")
             raise ValueError("Attempted to list commands with no protocol defined")
         return self.command_definitions
+
 
     def get_full_command(self, command: bytes|str) -> bytes:
         """ generate the full command including crc and \n as needed """
@@ -187,6 +173,7 @@ class AbstractProtocol(metaclass=abc.ABCMeta):
         log.debug("full command: %s", full_command)
         return full_command
 
+
     def check_valid(self, response: str, command_definition: CommandDefinition) -> bool:
         """ check response is valid """
         log.debug("check valid for %s, definition: %s", response, command_definition)
@@ -198,15 +185,18 @@ class AbstractProtocol(metaclass=abc.ABCMeta):
             raise InvalidResponse("Response is too short")
         return True
 
+
     def check_crc(self, response: str, command_definition: CommandDefinition) -> bool:
         """ crc check, needs override in protocol """
         log.debug("no check crc for %s, definition: %s", response, command_definition)
         return True
 
+
     def trim_response(self, response: str, command_definition: CommandDefinition) -> str:
         """ Remove extra characters from response """
         log.debug("trim %s, definition: %s", response, command_definition)
         return response[1:-3]
+
 
     def split_response(self, response: bytes, command_definition: CommandDefinition) -> list:
         """ split response into individual items, return as ordered list or list of tuples """
@@ -271,6 +261,7 @@ class AbstractProtocol(metaclass=abc.ABCMeta):
         log.debug("responses: '%s'", responses)
         return responses
 
+
     def get_id_command(self) -> Command:
         """ return the command that generates a unique id for this type of device """
         # if self.id_command is None:
@@ -278,7 +269,7 @@ class AbstractProtocol(metaclass=abc.ABCMeta):
         cd = self.get_command_definition('get_id')
         if cd is None:
             raise PowermonProtocolError(f"get_id command must be defined in protocol {self.protocol_id}")
-        outputs = multiple_from_config({"type": "screen", "format": "raw"})
+        outputs = Output.multiple_from_config({"type": "screen", "format": "raw"})
         trigger = Trigger.from_config(None)
         command = Command(code=cd.code, commandtype=cd.command_type, outputs=outputs, trigger=trigger)
         command.command_definition = cd

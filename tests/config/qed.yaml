@@ -24,7 +24,7 @@ devices:
       type: template
       override: 
         description: 
-          pv_generated_energy_for_day: bob
+          pv_generated_energy_for_day: todays_energy
       trigger:
         every: 1
       outputs:

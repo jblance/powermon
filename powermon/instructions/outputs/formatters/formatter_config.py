@@ -1,20 +1,20 @@
 """ pydantic definitions for the powermon format config model
 """
-from typing import Literal
+from typing import Literal, Optional
 
 from pydantic import BaseModel, ConfigDict, Field
 
 
 class BaseFormatConfig(BaseModel):
     """ model/allowed elements for base format config """
-    type: str
-    tag: None | str = Field(default=None)
-    draw_lines: None | bool = Field(default=None)
-    keep_case: None | bool = Field(default=None)
-    remove_spaces: None | bool = Field(default=None)
-    extra_info: None | bool = Field(default=None)
-    excl_filter: None | str = Field(default=None)
-    filter: None | str = Field(default=None)
+    type: Optional[str] = 'simple'
+    tag: Optional[str] = None
+    draw_lines: Optional[bool] = False
+    keep_case: Optional[bool] = False
+    remove_spaces: Optional[bool] = True
+    extra_info: Optional[bool] = False
+    excl_filter: Optional[str] = None
+    filter: Optional[str] = None
 
     model_config = ConfigDict(extra='forbid')
 

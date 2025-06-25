@@ -13,8 +13,8 @@ from .formatters import (
 
 class OutputConfig(BaseModel):
     """ model/allowed elements for output config """
-    type: Literal['screen'] | Literal['mqtt'] | Literal['api_mqtt']
+    type: Literal['screen'] | Literal['mqtt']
     topic: Optional[str] = None
-    format: None | str | BaseFormatConfig | HassFormatConfig | MqttFormatConfig | JsonFormatConfig | BMSResponseFormatConfig = None
+    format: Optional[BaseFormatConfig | HassFormatConfig | MqttFormatConfig | JsonFormatConfig | BMSResponseFormatConfig] = BaseFormatConfig()
 
     model_config = ConfigDict(extra='forbid')

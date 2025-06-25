@@ -49,7 +49,7 @@ class Instruction():
         # for output_config in config.outputs:
         #     print(output_config)
         #     outputs.append(Output.from_config(output_config))
-        outputs = Output.multiple_from_config(config.outputs)  # TODO: fix
+        outputs = Output.from_config(config.outputs)
 
         command_object = instruction(command_str=config.command, trigger=trigger, outputs=outputs, config=config)
         return command_object

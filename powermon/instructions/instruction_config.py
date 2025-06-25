@@ -12,6 +12,6 @@ class InstructionConfig(BaseModel):
     type: InstructionType = InstructionType.BASIC
     override: dict = {}
     trigger: LoopsTriggerConfig | AtTriggerConfig | EveryTriggerConfig = EveryTriggerConfig(every=5)
-    outputs: List[OutputConfig] = [OutputConfig(type='screen')]
+    outputs: str | List[OutputConfig] = [OutputConfig(type='screen')]
 
     model_config = ConfigDict(extra='forbid')

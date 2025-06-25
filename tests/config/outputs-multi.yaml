@@ -11,10 +11,12 @@ devices:
     - command: get_id
       outputs:
       - type: screen
-        format: table
-      - type: screen
-        format:
-          type: table
-          draw_lines: true
-
+      # - type: screen
+      #   format:
+      #     type: table
+      #     draw_lines: true
+      # - type: screen
+      #   format: table
+    # - command: QPI
+    #   outputs: screen
 loop: null

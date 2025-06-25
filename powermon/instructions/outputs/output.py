@@ -1,19 +1,12 @@
 import logging
-from enum import Enum
 
-from rich import print
+
+from rich import print as rprint
 
 from .formatters import Formatter
-
+from .output_types import OutputType
 # Set-up logger
 log = logging.getLogger("outputs")
-
-
-class OutputType(Enum):
-    """ enum of valid output types """
-    SCREEN = 'screen'
-    MQTT = 'mqtt'
-    API_MQTT = 'api_mqtt'
 
 
 class Output():
@@ -29,10 +22,6 @@ class Output():
             from .mqtt import MQTT
             output_class = MQTT.from_config(output_config)
             output_class.formatter = formatter
-        elif output_type == OutputType.API_MQTT:
-            from .api_mqtt import ApiMqtt
-            output_class = ApiMqtt.from_config(output_config)
-            output_class.formatter = formatter
         else:
             from .screen import Screen
             output_class = Screen.from_config(output_config)
@@ -47,7 +36,7 @@ class Output():
             try:
                 output = Output.get_output_class(name, Output.DEFAULT, {})
                 if output is not None:
-                    print(f"[GREEN]{name.upper()}[/]: {output}")
+                    rprint(f"[GREEN]{name.upper()}[/]: {output}")
             except ModuleNotFoundError as exc:
                 log.info("Error in module %s: %s", name, exc)
                 continue
@@ -56,13 +45,13 @@ class Output():
                 continue
 
     @staticmethod
-    def multiple_from_config(outputs_config):
+    def from_config(outputs_config):
         """ return one or more output classes from a config """
         # outputs can be None,
         # str (eg screen),
         # list (eg [{'type': 'screen', 'format': 'simple'}, {'type': 'screen', 'format': {'type': 'htmltable'}}])
         # dict (eg {'format': 'table'})
-        # print("outputs %s, type: %s" % (outputs, type(outputs)))
+        rprint(f"outputs_config {outputs_config}")
         _outputs = []
         log.debug("processing outputs_config: %s", outputs_config)
         if outputs_config is None:
@@ -85,8 +74,9 @@ class Output():
     def parse_output_config(output_config):
         """ generate a single output object from a config """
         log.debug("parse_output_config, config: %s", output_config)
-        output_type = output_config.get("type", Output.DEFAULT)
-        format_config = output_config.get("format", Formatter.DEFAULT_FORMAT)
+        output_type = output_config.type
+        format_config = output_config.format  #", Formatter.DEFAULT_FORMAT)
+        rprint(format_config)
         _format = Formatter.from_config(format_config)
         log.debug("got format: %s", (_format))
         _output = Output.get_output_class(output_type, formatter=_format, output_config=output_config)

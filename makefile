@@ -1,23 +1,26 @@
+run-powermon:
+	uv run powermon -C tests/config/multi-device.yaml
+
 validate-config-tests:
 	uv run python3 -m unittest tests/unit/test_config_validation.py 
 
 integration-tests: 
-	uv runpython3 -m unittest discover -s tests/integration -f
+	uv run python3 -m unittest discover -s tests/integration -f
 
 integration-tests_verbose: 
-	uv runpython3 -m unittest discover -s tests/integration -f -v
+	uv run python3 -m unittest discover -s tests/integration -f -v
 
 test:
-	uv runpython3 -m unittest discover -s tests -f
+	uv run python3 -m unittest discover -s tests -f
 
 unit-tests:
-	uv runpython3 -m unittest discover -s tests/unit -f
+	uv run python3 -m unittest discover -s tests/unit -f
 
 unit-tests-verbose:
-	uv runpython3 -m unittest discover -s tests/unit -f -v
+	uv run python3 -m unittest discover -s tests/unit -f -v
 
 unit-tests-all:
-	uv runpython3 -m unittest discover -s tests/unit
+	uv run python3 -m unittest discover -s tests/unit
 
 docker-up:
 	docker-compose up --build

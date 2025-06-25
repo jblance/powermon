@@ -4,8 +4,8 @@ import logging
 from powermon.commands.reading import Reading
 from powermon.commands.reading_definition import ReadingDefinition
 from powermon.commands.result import Result
-from powermon.libs.errors import ConfigError
-from powermon.outputformats.abstractformat import AbstractFormat
+from powermon.powermon_exceptions import ConfigError
+from .abstractformat import AbstractFormat
 
 log = logging.getLogger("Table")
 

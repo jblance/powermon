@@ -3,15 +3,11 @@
 import logging
 from typing import List, Optional
 
-from pydantic import BaseModel, Field
-
-# from ..commands.command import Command, CommandDTO
 from ..commands.result import Result
 from .device_config import DeviceConfig
 from ..instructions import Instruction
-from ..powermon_exceptions import CommandDefinitionMissing
 from ..mqttbroker import MqttBroker
-from ..instructions.outputs.formatters import FormatterType
+# from ..instructions.outputs.formatters import FormatterType
 from ..instructions.outputs.abstractoutput import AbstractOutput
 from .ports import Port
 from .ports.abstractport import AbstractPort
@@ -33,7 +29,6 @@ class Device:
         _device.port = await Port.from_device_config(config=config)
         return _device
 
-    
 
     def __init__(self, name: str, serial_number: str, model: str, manufacturer: str, port: Optional[AbstractPort] = None, instructions: Optional[List[Instruction]] = None, mqtt_broker: Optional[MqttBroker] = None):
         self.config: DeviceConfig = None
@@ -86,6 +81,7 @@ class Device:
 
 
     def add_instruction(self, instruction: Instruction) -> None:
+        """ add instruction to list of instructions """
         if instruction is None:
             return
         # do instruction processing - eg find definition
@@ -93,25 +89,25 @@ class Device:
         self.instructions.append(instruction)
 
 
-    def add_command(self, command: Command) -> None:
-        """add a command to the devices' list of commands
+    # def add_command(self, command: 'Command') -> None:
+    #     """add a command to the devices' list of commands
 
-        Args:
-            command (Command): Command object to add to list
-        """
-        if command is None:
-            return
-        # get command definition from protocol
-        try:
-            command.command_definition = self.port.protocol.get_command_definition(command.code)
-        except CommandDefinitionMissing as ex:
-            log.warning("Could not find a definition for command: %s", command.code)
-            log.debug("Exception was %r", ex)
-            return
+    #     Args:
+    #         command (Command): Command object to add to list
+    #     """
+    #     if command is None:
+    #         return
+    #     # get command definition from protocol
+    #     try:
+    #         command.command_definition = self.port.protocol.get_command_definition(command.code)
+    #     except CommandDefinitionMissing as ex:
+    #         log.warning("Could not find a definition for command: %s", command.code)
+    #         log.debug("Exception was %r", ex)
+    #         return
 
-        # append to commands list
-        self.commands.append(command)
-        log.debug("added command (%s), command list length: %i", command, len(self.commands))
+    #     # append to commands list
+    #     self.commands.append(command)
+    #     log.debug("added command (%s), command list length: %i", command, len(self.commands))
 
     async def initialize(self):
         """Device initialization activities"""
@@ -123,38 +119,38 @@ class Device:
         # close connection on port
         await self.port.disconnect()
 
-    async def run_adhoc_commands(self):
-        """ check for any adhoc commands in the queue and run them """
-        # check for any adhoc commands
-        while len(self.adhoc_commands) > 0:
-            # get the oldest adhoc command
-            adhoc_command = self.adhoc_commands.pop(0)
-            # run command
-            log.info("Running adhoc command: %s", adhoc_command)
-            try:
-                # run command
-                result: Result = await self.port.run_command(adhoc_command)
-                log.info("Got result: %s", result)
-            except Exception as exception:  # pylint: disable=W0718
-                # specific errors need to incorporated into Result as part of the processing
-                # so any exceptions at this stage will be truely unexpected
-                log.error("Error decoding result: %s", exception)
-                raise exception
-            # process result
-            # Currently using JSON format, one message per parameter
-            #   eg:  powermon/adhoc_commands QPI
-            #        powermon/adhoc_results {"data_name": "protocol_id", "data_value": "PI30", "data_unit": ""}
-            _formatter = get_formatter(FormatterType.JSON)({})
-            # publish result
-            payload = _formatter.format(command=None, result=result, device_info=None)
-            log.debug("Payload: %s", payload)
-            for item in payload:
-                self.mqtt_broker.post_adhoc_result(item)
+    # async def run_adhoc_commands(self):
+    #     """ check for any adhoc commands in the queue and run them """
+    #     # check for any adhoc commands
+    #     while len(self.adhoc_commands) > 0:
+    #         # get the oldest adhoc command
+    #         adhoc_command = self.adhoc_commands.pop(0)
+    #         # run command
+    #         log.info("Running adhoc command: %s", adhoc_command)
+    #         try:
+    #             # run command
+    #             result: Result = await self.port.run_command(adhoc_command)
+    #             log.info("Got result: %s", result)
+    #         except Exception as exception:  # pylint: disable=W0718
+    #             # specific errors need to incorporated into Result as part of the processing
+    #             # so any exceptions at this stage will be truely unexpected
+    #             log.error("Error decoding result: %s", exception)
+    #             raise exception
+    #         # process result
+    #         # Currently using JSON format, one message per parameter
+    #         #   eg:  powermon/adhoc_commands QPI
+    #         #        powermon/adhoc_results {"data_name": "protocol_id", "data_value": "PI30", "data_unit": ""}
+    #         _formatter = get_formatter(FormatterType.JSON)({})
+    #         # publish result
+    #         payload = _formatter.format(command=None, result=result, device_info=None)
+    #         log.debug("Payload: %s", payload)
+    #         for item in payload:
+    #             self.mqtt_broker.post_adhoc_result(item)
 
     async def run(self, force=False):
         """checks for commands to run and runs them"""
         # run any adhoc commands
-        await self.run_adhoc_commands()
+        # await self.run_adhoc_commands()
 
         # check for any commands in the queue
         if self.commands is None or len(self.commands) == 0:

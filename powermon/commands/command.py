@@ -3,16 +3,19 @@ import logging
 from enum import Enum
 
 from dateparser import parse as dateparse  #noqa:F401
-from pydantic import BaseModel
 
 from powermon.commands.command_definition import CommandDefinition
 from powermon.commands.result import Result
-from powermon.commands.trigger import Trigger, TriggerDTO
-from powermon.libs.errors import (CommandExecutionFailed, ConfigError,
-                                  InvalidCRC, InvalidResponse)
-from ..instructions.outputs import OutputType, Output
-from powermon.outputs.abstractoutput import AbstractOutput, AbstractOutputDTO
-from powermon.outputs.api_mqtt import ApiMqtt
+from powermon.instructions.triggers import Trigger
+from powermon.powermon_exceptions import (
+    CommandExecutionFailed,
+    ConfigError,
+    InvalidCRC,
+    InvalidResponse,
+)
+
+from powermon.instructions.outputs import Output
+from powermon.instructions.outputs.abstractoutput import AbstractOutput
 
 log = logging.getLogger("Command")
 
