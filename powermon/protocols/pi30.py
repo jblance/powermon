@@ -5,7 +5,7 @@ from typing import Optional
 from powermon.commands.command_definition import CommandCategory, CommandDefinition
 from powermon.commands.reading_definition import ReadingType, ResponseType
 from powermon.commands.result import ResultType
-from powermon.powermon_exceptions import InvalidCRC, InvalidResponse
+from powermon.exceptions import InvalidCRC, InvalidResponse
 
 from ..devices.ports import PortType
 from .abstractprotocol import AbstractProtocol

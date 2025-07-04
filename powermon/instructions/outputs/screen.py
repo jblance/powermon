@@ -2,18 +2,22 @@
 import logging
 
 from powermon.commands.result import Result
-from .abstractoutput import AbstractOutput
+from .output import Output
 
 log = logging.getLogger("screen")
 
 
-class Screen(AbstractOutput):
+class Screen(Output):
     """outputs the results to the screen as per the formatter supplied """
-    def __init__(self):
+    def __init__(self, formatter = None):
         super().__init__(name="Screen")
+        self.formatter = formatter
 
     def __str__(self):
-        return "outputs.Screen: outputs the results to the screen as per the formatter supplied"
+        return f"{self.__class__}: outputs the results to the screen as per the formatter supplied"
+
+    def __repr__(self):
+        return f"Screen(formatter={self.formatter!r})"
 
     def process(self, command=None, result: Result = None, device=None):
         log.info("Using output sender: screen")

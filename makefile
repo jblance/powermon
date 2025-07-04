@@ -1,5 +1,14 @@
-run-powermon:
-	uv run powermon -C tests/config/multi-device.yaml
+run-devices:
+	uv run powermon -C tests/config/devices.yaml
+
+run-devices-i:
+	uv run powermon -C tests/config/devicesyaml -I
+
+run-outputs:
+	uv run powermon -C tests/config/outputs.yaml
+
+run-outputs-i:
+	uv run powermon -C tests/config/outputs.yaml -I
 
 validate-config-tests:
 	uv run python3 -m unittest tests/unit/test_config_validation.py 

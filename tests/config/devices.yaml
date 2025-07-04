@@ -58,11 +58,17 @@ devices:
       - type: screen
         format: 
           type: table
+    - command: QID
+      trigger: disabled
+      outputs:
+      - type: screen
+        format: 
+          type: table
 
 mqttbroker:
   name: localhost
 
-loop: null
+# loop: 5
 
 daemon:
   type: disabled

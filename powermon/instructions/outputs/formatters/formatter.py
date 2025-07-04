@@ -1,10 +1,9 @@
 """ outputformats / __init__.py """
 import logging
 
-
 from rich import print
 
-from ....powermon_exceptions import ConfigError
+from powermon.exceptions import ConfigError
 
 from ._types import FormatterType
 from .abstractformat import AbstractFormat
@@ -56,21 +55,10 @@ class Formatter():
     def from_config(format_config) -> AbstractFormat:
         """ use a config dict to build and return a format class """
         # Get values from config
-        log.debug("Format from_config, format_config: %s", format_config)
+        log.debug("format_config: %s", format_config)
+        log.debug("formatType: %s", format_config.type)
 
-        # formatConfig can be None, a str (eg 'simple') or a dict
-        if format_config is None:
-            format_type = FormatterType.SIMPLE
-            format_config = {}
-        elif isinstance(format_config, str):
-            format_type = format_config
-            format_config = {}
-            format_config["type"] = format_type
-        else:
-            format_type = format_config.type
-        log.debug("getFormatfromConfig, formatType: %s", format_type)
-
-        fmt = Formatter.get_formatter(format_type)
+        fmt = Formatter.get_formatter(format_config.type)
         if fmt is None:
-            raise ConfigError(f"Unknown formater: {format_type}", format_type)
+            raise ConfigError(f"Unknown formater: {format_config.type}")
         return fmt(format_config)

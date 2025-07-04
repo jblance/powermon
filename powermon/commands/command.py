@@ -6,16 +6,15 @@ from dateparser import parse as dateparse  #noqa:F401
 
 from powermon.commands.command_definition import CommandDefinition
 from powermon.commands.result import Result
-from powermon.instructions.triggers import Trigger
-from powermon.powermon_exceptions import (
+from powermon.exceptions import (
     CommandExecutionFailed,
     ConfigError,
     InvalidCRC,
     InvalidResponse,
 )
-
 from powermon.instructions.outputs import Output
-from powermon.instructions.outputs.abstractoutput import AbstractOutput
+# from powermon.instructions.outputs.abstractoutput import AbstractOutput
+from powermon.instructions.triggers import Trigger
 
 log = logging.getLogger("Command")
 
@@ -48,10 +47,10 @@ class Command():
     - trigger
     - outputs
     """
-    def __init__(self, code: str, commandtype: str, outputs: list[AbstractOutput], trigger: Trigger):
+    def __init__(self, code: str, commandtype: str, outputs: list[Output], trigger: Trigger):
         self.code = code
         self.command_type = commandtype
-        self.outputs: list[AbstractOutput] = outputs
+        self.outputs: list[Output] = outputs
         self.trigger: Trigger = trigger
 
         self.command_definition: CommandDefinition
@@ -191,12 +190,12 @@ class Command():
         self._override = value
 
     @property
-    def outputs(self) -> list[AbstractOutput]:
+    def outputs(self) -> list[Output]:
         """ a list of output objects """
         return self._outputs
 
     @outputs.setter
-    def outputs(self, outputs: list[AbstractOutput]):
+    def outputs(self, outputs: list[Output]):
         self._outputs = outputs
 
     def is_due(self):

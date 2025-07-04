@@ -5,13 +5,19 @@ import time
 from glob import glob
 
 import serial
-from tenacity import retry, stop_after_attempt, wait_fixed  # https://tenacity.readthedocs.io/en/latest/
+from tenacity import (  # https://tenacity.readthedocs.io/en/latest/
+    retry,
+    stop_after_attempt,
+    wait_fixed,
+)
 
 from powermon.commands.command import Command, CommandType
 from powermon.commands.result import Result
-from powermon.libs.errors import ConfigError, InvalidResponse, PowermonProtocolError
-from .port_type import PortType
-from .abstractport import AbstractPort
+from powermon.exceptions import ConfigError, InvalidResponse, PowermonProtocolError
+
+from ._types import PortType
+from .port import Port
+
 # from powermon.protocols import get_protocol_definition
 
 log = logging.getLogger("SerialPort")
@@ -20,7 +26,7 @@ VICTRON_LINES_TO_READ = 30
 READ_UNTIL_DONE_WAIT_TIME = 0.5
 
 
-class SerialPort(AbstractPort):
+class SerialPort(Port):
     """ serial port object - normally a usb to serial adapter """
 
     def __str__(self):

@@ -5,12 +5,12 @@ outputs messages to mqtt broker
 import logging
 
 from powermon.commands.result import Result
-from .abstractoutput import AbstractOutput
+from .output import Output
 
 log = logging.getLogger("MQTT")
 
 
-class MQTT(AbstractOutput):
+class MQTT(Output):
     """ mqtt output class"""
     def __init__(self, topic: str):
         super().__init__(name="Mqtt")

@@ -20,13 +20,17 @@ except ImportError:
 
 from powermon.commands.command import Command
 from powermon.commands.result import Result
-# from powermon.libs.config import safe_config
-from powermon.libs.errors import (BLEResponseError, ConfigError,
-                                  PowermonProtocolError, PowermonWIP)
-from .port_type import PortType
-from .abstractport import AbstractPort
-# from powermon.protocols import get_protocol_definition
+from powermon.exceptions import (
+    BLEResponseError,
+    ConfigError,
+    PowermonProtocolError,
+    PowermonWIP,
+)
+
 from powermon.protocols.abstractprotocol import AbstractProtocol
+
+from ._types import PortType
+from .port import Port
 
 log = logging.getLogger("BlePort")
 
@@ -48,7 +52,7 @@ def ble_reset():
     # open_blue.kill()
 
 
-class BlePort(AbstractPort):
+class BlePort(Port):
     """ BlePort class - represents a BLE port - extends AbstractPort
     """
 

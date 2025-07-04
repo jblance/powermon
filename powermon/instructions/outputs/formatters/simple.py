@@ -1,6 +1,6 @@
 """ powermon / outputformats / simple.py """
 import logging
-from powermon.outputformats.abstractformat import AbstractFormat, AbstractFormatDTO
+from .abstractformat import AbstractFormat
 from powermon.commands.result import Result
 from powermon.commands.reading import Reading
 
@@ -11,12 +11,16 @@ class SimpleFormat(AbstractFormat):
     """ simple format - {name}={value}{unit} format """
     def __init__(self, config):
         super().__init__(config)
+        self.config = config
         self.name = "simple"
 
     # def set_command_description(self, command_description):
     #     pass
     def __str__(self):
         return f"{self.name}: generates a simple representation of the results, eg 'soc=89%'"
+
+    def __repr__(self):
+        return f"SimpleFormat(config={self.config!r})"
 
     def format(self, command, result: Result, device) -> list:
 
@@ -52,7 +56,3 @@ class SimpleFormat(AbstractFormat):
                 _result.append(f"{name}={value}{unit}")
         return _result
 
-    @classmethod
-    def from_dto(cls, dto: AbstractFormatDTO):
-        """ build class object from dto """
-        return cls(config=dto)

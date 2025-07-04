@@ -4,17 +4,20 @@ import logging
 import re
 
 import construct as cs
-from pydantic import BaseModel
 
 from powermon.commands.command import Command
-from powermon.commands.command_definition import CommandDefinition, CommandDefinitionDTO
+from powermon.commands.command_definition import CommandDefinition
 from powermon.commands.result import ResultType
-from ..instructions.triggers import Trigger
-from ..powermon_exceptions import (CommandDefinitionIncorrect,
-                             CommandDefinitionMissing, InvalidResponse,
-                             PowermonProtocolError)
-from ..instructions.outputs import Output
+from powermon.exceptions import (
+    CommandDefinitionIncorrect,
+    CommandDefinitionMissing,
+    InvalidResponse,
+    PowermonProtocolError,
+)
+
 from ..devices.ports import PortType
+from ..instructions.outputs import Output
+from ..instructions.triggers import Trigger
 from .helpers import crc_pi30 as crc
 
 log = logging.getLogger("AbstractProtocol")

@@ -8,9 +8,9 @@ from .device_config import DeviceConfig
 from ..instructions import Instruction
 from ..mqttbroker import MqttBroker
 # from ..instructions.outputs.formatters import FormatterType
-from ..instructions.outputs.abstractoutput import AbstractOutput
+from ..instructions.outputs.output import Output
 from .ports import Port
-from .ports.abstractport import AbstractPort
+
 
 # Set-up logger
 log = logging.getLogger("Device")
@@ -22,7 +22,7 @@ class Device:
     The object also defines the port and protocol that is used to communicate with the device
     The object maintains a (updatable) list of instructions (and their triggers and outputs) that should be followed
     """
-    # def __init__(self, name: str, serial_number: str = "", model: str = "", manufacturer: str = "", port: AbstractPort = None):
+    # def __init__(self, name: str, serial_number: str = "", model: str = "", manufacturer: str = "", port: Port = None):
     @classmethod
     async def from_config(cls, config: DeviceConfig):
         _device: Device = cls(name=config.name, serial_number=config.serial_number, model=config.model, manufacturer=config.manufacturer)
@@ -31,13 +31,13 @@ class Device:
         return _device
 
 
-    def __init__(self, name: str, serial_number: str, model: str, manufacturer: str, port: Optional[AbstractPort] = None, instructions: Optional[List[Instruction]] = None, mqtt_broker: Optional[MqttBroker] = None):
+    def __init__(self, name: str, serial_number: str, model: str, manufacturer: str, port: Optional[Port] = None, instructions: Optional[List[Instruction]] = None, mqtt_broker: Optional[MqttBroker] = None):
         self.config: DeviceConfig = None
         self.name: str = name
         self.serial_number: str = serial_number
         self.model: str = model
         self.manufacturer: str = manufacturer
-        self.port: AbstractPort = port
+        self.port: Port = port
         self.instructions: list[Instruction] = [] if instructions is None else instructions
         self.mqtt_broker: MqttBroker = mqtt_broker
         self.adhoc_commands: list = []
@@ -69,16 +69,16 @@ class Device:
             mqtt_broker.subscribe(topic=mqtt_broker.adhoc_topic, callback=self.adhoc_command_cb)
 
 
-    def adhoc_command_cb(self, client, userdata, msg):
-        """ callback for adhoc command messages """
-        log.debug("received message on %s, with payload: %s", msg.topic, msg.payload)
-        # build command object
-        command_code = msg.payload.decode()
-        adhoc_command = Command.from_code(command_code)
-        adhoc_command.command_definition = self.port.protocol.get_command_definition(command_code)
-        # add to adhoc queue
-        log.info("adding adhoc command: %s", adhoc_command)
-        self.adhoc_commands.append(adhoc_command)
+    # def adhoc_command_cb(self, client, userdata, msg):
+    #     """ callback for adhoc command messages """
+    #     log.debug("received message on %s, with payload: %s", msg.topic, msg.payload)
+    #     # build command object
+    #     command_code = msg.payload.decode()
+    #     adhoc_command = Command.from_code(command_code)
+    #     adhoc_command.command_definition = self.port.protocol.get_command_definition(command_code)
+    #     # add to adhoc queue
+    #     log.info("adding adhoc command: %s", adhoc_command)
+    #     self.adhoc_commands.append(adhoc_command)
 
 
     def add_instruction(self, instruction: Instruction) -> None:
@@ -87,6 +87,7 @@ class Device:
             return
         # do instruction processing - eg find definition
         #
+        instruction.command_definition = self.port.protocol.get_command_definition(instruction.get_command())
         self.instructions.append(instruction)
 
 
@@ -110,9 +111,11 @@ class Device:
     #     self.commands.append(command)
     #     log.debug("added command (%s), command list length: %i", command, len(self.commands))
 
+
     async def initialize(self):
         """Device initialization activities"""
         log.info("initializing device")
+
 
     async def finalize(self):
         """Device finalization activities"""
@@ -148,8 +151,9 @@ class Device:
     #         for item in payload:
     #             self.mqtt_broker.post_adhoc_result(item)
 
-    async def run(self, force=False):
-        """checks for commands to run and runs them"""
+
+    async def run_instructions(self, force=False):
+        """loops through the instruction list and runs any instructions that are due"""
         # run any adhoc commands
         # await self.run_adhoc_commands()
 
@@ -158,29 +162,18 @@ class Device:
             log.info("no instructions in queue")
             return
 
-        for instruction in self.instructions:
-            print("looping instructions")
-            if force or instruction.is_due():
-                log.info("Processing instruction: %s", instruction)
-                print(f"Processing instruction: {instruction}")
+        for i, instruction in enumerate(self.instructions):
+            if force or instruction.trigger.is_due():
+                log.info("Processing instruction[%s]: %s", i,instruction)
+                # run command
+                print(f"processing instruction[{i}]: {instruction}") # FIXME: remove print
+                result: Result = await self.port.execute_instruction(instruction)
+                print(result)  # TODO: remove print
                 continue  # TODO: fix from here
-                try:
-                    match command.command_type:
-                        case 'cache_query':
-                            print(command.command_type)
-                            result: Result = None  # ty: ignore[invalid-assignment]
-                        case _:
-                            # run command
-                            result: Result = await self.port.run_command(command)
-                    log.info("Got result: %s", result)
-                except Exception as exception:  # pylint: disable=W0718
-                    # specific errors need to incorporated into Result as part of the processing
-                    # so any exceptions at this stage will be truely unexpected
-                    log.error("Error decoding result: %s", exception)
-                    raise exception
+                log.info("Got result: %s", result)
 
                 # loop through each output and process result
-                output: AbstractOutput
+                output: Output
                 for output in command.outputs:
                     log.debug("Using Output: %s", output)
                     output.process(command=command, result=result, device=self)

@@ -5,13 +5,13 @@ import random
 from powermon.commands.command import Command
 from powermon.commands.command_definition import CommandDefinition
 from powermon.commands.result import Result
-from .port_type import PortType
-from .abstractport import AbstractPort
+from ._types import PortType
+from .port import Port
 
 log = logging.getLogger("test")
 
 
-class TestPort(AbstractPort):
+class TestPort(Port):
     """ test port object - responds with test data (if configured in the protocol) """
     def __init__(self, response_number, protocol):
         self.port_type = PortType.TEST
@@ -22,7 +22,7 @@ class TestPort(AbstractPort):
         # self._test_data = None
 
     def __str__(self):
-        return f"Test port: {self.response_number=}"
+        return f"{self.__class__.__name__}: {self.response_number=}"
 
     def __repr__(self):
         """ Returns representation of the port that allows eval(port.__repr__()) to rebuild object"""
@@ -46,11 +46,11 @@ class TestPort(AbstractPort):
         log.debug("Test port disconnected")
         self.connected = False
 
-    async def send_and_receive(self, command: Command) -> Result:
-        full_command = command.full_command
+    async def send_and_receive(self, instruction) -> Result:
+        full_command = instruction.full_command
         log.info("Executing command via testport: %s", full_command)
 
-        command_defn : CommandDefinition = command.command_definition
+        command_defn : CommandDefinition = instruction.command_definition
         if command_defn is not None:
             # Have test data defined, so use that
             number_of_test_responses = len(command_defn.test_responses)
@@ -62,9 +62,9 @@ class TestPort(AbstractPort):
                 log.info('Applying random response: %s', _test_data)
         else:
             # No test responses defined
-            raise ValueError(f"Testing a command '{command.code}' with no test responses defined")
+            raise ValueError(f"Testing a command '{instruction.command_str}' with no test responses defined")
 
         # Get raw response
         log.debug("Raw response: %s", _test_data)
-        result = command.build_result(raw_response=_test_data, protocol=self.protocol)
+        result = instruction.build_result(raw_response=_test_data, protocol=self.protocol)
         return result

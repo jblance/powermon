@@ -11,12 +11,18 @@ devices:
     - command: get_id
       outputs:
       - type: screen
-      # - type: screen
-      #   format:
-      #     type: table
-      #     draw_lines: true
-      # - type: screen
-      #   format: table
+      - type: screen
+        format:
+          type: table
+          draw_lines: true
+      - type: screen
+        format: 
+          type: hass
+          discovery_prefix: ha/autodiscovery
+      - type: screen
+        format: 
+          type: json
+          format: basic
     # - command: QPI
     #   outputs: screen
 loop: null

@@ -4,7 +4,7 @@ import logging
 from powermon.commands.reading import Reading
 from powermon.commands.reading_definition import ReadingDefinition
 from powermon.commands.result import Result
-from powermon.powermon_exceptions import ConfigError
+from powermon.exceptions import ConfigError
 from .abstractformat import AbstractFormat
 
 log = logging.getLogger("Table")
@@ -15,7 +15,7 @@ class Table(AbstractFormat):
     def __init__(self, config):
         super().__init__(config)
         self.name = "table"
-        self.draw_lines = config.get("draw_lines", False)
+        self.draw_lines = config.draw_lines
         # self.command_description = "unknown command"
 
     # def set_command_description(self, command_description):

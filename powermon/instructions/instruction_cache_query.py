@@ -1,7 +1,8 @@
+import logging
+
 from . import Instruction
 
+log = logging.getLogger("InstructionCacheQuery")
+
 class InstructionCacheQuery(Instruction):
-    @classmethod
-    def from_config(cls, config):
-        print('Instruction Cache Query todo')
-        return cls
+    pass

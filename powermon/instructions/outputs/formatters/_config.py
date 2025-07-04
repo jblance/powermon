@@ -7,7 +7,7 @@ from pydantic import BaseModel, ConfigDict, Field
 
 class BaseFormatConfig(BaseModel):
     """ model/allowed elements for base format config """
-    type: Optional[str] = 'simple'
+    type: Optional[Literal['table', 'simple','raw']] = 'simple'
     tag: Optional[str] = None
     draw_lines: Optional[bool] = False
     keep_case: Optional[bool] = False
@@ -21,22 +21,20 @@ class BaseFormatConfig(BaseModel):
 
 class HassFormatConfig(BaseFormatConfig):
     """ model/allowed elements for hass format config """
-    discovery_prefix: None | str = Field(default=None)
+    type: Literal['hass']
+    discovery_prefix: None | str = Field(default='homeassistant')
     entity_id_prefix: None | str = Field(default=None)
-
-
-class MqttFormatConfig(BaseFormatConfig):
-    """ model/allowed elements for mqtt format config """
-    topic: None | str
 
 
 class JsonFormatConfig(BaseFormatConfig):
     """ model/allowed elements for mqtt format config """
-    format: None | str
-    include_missing: None | bool = Field(default=None)
+    type: Literal['json']
+    format: Optional[Literal['basic']] = 'basic'
+    include_missing: Optional[bool] = False
 
 class BMSResponseFormatConfig(BaseFormatConfig):
     """ model/allowed elements for BMSResponse format config """
+    type: Literal['bmsresponse']
     protocol: None | Literal['pi30'] = Field(default=None)
     force_charge: None | bool = Field(default=None)
     battery_charge_voltage: None | float = Field(default=None)

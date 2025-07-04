@@ -34,5 +34,5 @@ class TriggerSeconds(Trigger):
         if self.last_run is None:
             next_run = time.time()
         else:
-            next_run = self.last_run + self.value
+            next_run = self.last_run + self.seconds
         return next_run

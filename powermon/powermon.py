@@ -201,7 +201,7 @@ async def async_main():
 
             # run device loop (ie run any needed commands)
             for device in devices:
-                await device.run(args.force)
+                await device.run_instructions(args.force)
 
             # add small delay in loop
             time.sleep(loop.delay)

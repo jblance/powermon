@@ -1,9 +1,12 @@
 """ powermon / ports / __init__.py """
 import logging
+from abc import abstractmethod
 
-from ...powermon_exceptions import ConfigError
+from powermon.exceptions import ConfigError, PowermonProtocolError
+
 from ...protocols import Protocol
-from .port_type import PortType
+# from ...protocols.abstractprotocol import AbstractProtocol
+from ._types import PortType
 
 # Set-up logger
 log = logging.getLogger("ports")
@@ -57,7 +60,6 @@ class Port():
             case PortType.USB:
                 from .usbport import USBPort
                 port_object: USBPort = await USBPort.from_config(config=config, protocol=protocol, serial_number=serial_number)
-            # Pattern for port types that cause problems when imported
             case PortType.BLE:
                 from .bleport import BlePort
                 port_object: BlePort = await BlePort.from_config(config=config, protocol=protocol, serial_number=serial_number)
@@ -66,3 +68,92 @@ class Port():
                 raise ConfigError(f"Invalid port type: '{port_type}'")
 
         return port_object
+
+    def __init__(self, protocol):
+        if isinstance(protocol, str):
+            protocol = Protocol.from_name(name=protocol)
+        self.protocol = protocol
+        self.error_message = None
+        # self.port_type = None
+        self.is_protocol_supported()
+
+    def is_protocol_supported(self):
+        """ function to check if the protocol is supported by this port """
+        port_type = getattr(self, "port_type", None)
+        if port_type is None:
+            raise PowermonProtocolError("Port type not defined")
+        if port_type not in self.protocol.supported_ports:
+            raise PowermonProtocolError(f"Protocol {self.protocol.protocol_id.decode()} not supported by port type {port_type}")
+
+    async def connect(self) -> bool:
+        """ default port connect function """
+        log.debug("Port connect not implemented")
+        return False
+
+
+    async def disconnect(self) -> None:
+        """ default port disconnect function """
+        log.debug("Port disconnect not implemented")
+
+
+    @abstractmethod
+    def is_connected(self) -> bool:
+        """ default is_connected function """
+        raise NotImplementedError
+
+    @property
+    def protocol(self):
+        """ return the protocol associated with this port """
+        return self._protocol
+
+
+    @protocol.setter
+    def protocol(self, value):
+        log.debug("Setting protocol to: %s", value)
+        self._protocol = value
+
+
+    async def run_command(self, command: 'Command') -> 'Result':
+        """ run_command takes a command object, runs the command and returns a result object (replaces process_command) """
+        log.debug("Command %s", command)
+
+        # open port if it is closed
+        if not self.is_connected():
+            if not await self.connect():
+                raise ConnectionError(f"Unable to connect to port: {self.error_message}")
+        # FIXME: what if still not connected....
+        # should, log an error and wait to try to reconnect (increasing backoff times)
+
+        # update run times and re- expand any template
+        command.touch()
+        # update full_command - add crc etc
+        # updates every run incase something has changed
+        command.full_command = self.protocol.get_full_command(command.code)
+
+        # run the command via the 'send_and_receive port function
+        result = await self.send_and_receive(command)
+        log.debug("after send_and_receive: %s", result)
+        return result
+
+    async def execute_instruction(self, instruction) -> 'Result':
+        """ takes an instruction, runs the command and returns a result object"""
+        log.debug("Instruction %s", instruction)
+
+        # open port if it is closed
+        if not self.is_connected():
+            if not await self.connect():
+                raise ConnectionError(f"Unable to connect to port: {self.error_message}")
+        # FIXME: what if still not connected....
+        # should, log an error and wait to try to reconnect (increasing backoff times)
+
+        # update trigger times
+        instruction.trigger.touch()
+        
+        # update full_command - add crc etc
+        # updates every run incase something has changed
+        instruction.full_command = self.protocol.get_full_command(instruction.get_command())
+
+        # run the command via the 'send_and_receive port function
+        result = await self.send_and_receive(instruction)
+        log.debug("after send_and_receive: %s", result)
+        return result

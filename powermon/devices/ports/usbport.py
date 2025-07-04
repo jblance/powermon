@@ -7,14 +7,14 @@ from glob import glob
 
 from powermon.commands.command import Command
 from powermon.commands.result import Result, ResultType
-from powermon.libs.errors import ConfigError, PowermonProtocolError
-from .port_type import PortType
-from .abstractport import AbstractPort
+from powermon.exceptions import ConfigError, PowermonProtocolError
+from ._types import PortType
+from .port import Port
 
 log = logging.getLogger("USBPort")
 
 
-class USBPort(AbstractPort):
+class USBPort(Port):
     """ usb port object """
     @classmethod
     async def from_config(cls, config, protocol, serial_number):

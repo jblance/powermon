@@ -1,17 +1,21 @@
 import logging
-
+from abc import abstractmethod
 
 from rich import print as rprint
 
-from .formatters import Formatter
+# from pydantic import BaseModel
+from powermon.commands.result import Result
+
 from ._types import OutputType
+from .formatters import Formatter
+from .formatters.abstractformat import AbstractFormat
+
 # Set-up logger
 log = logging.getLogger("outputs")
 
 
 class Output():
-    DEFAULT = OutputType.SCREEN
-
+    """ base class for all output modules """
     @staticmethod
     def get_output_class(output_type, formatter, output_config=None):
         """ return the instantiated output class - inc formatter """
@@ -45,40 +49,33 @@ class Output():
                 continue
 
     @staticmethod
-    def from_config(outputs_config):
-        """ return one or more output classes from a config """
-        # outputs can be None,
-        # str (eg screen),
-        # list (eg [{'type': 'screen', 'format': 'simple'}, {'type': 'screen', 'format': {'type': 'htmltable'}}])
-        # dict (eg {'format': 'table'})
-        # rprint(f"outputs_config {outputs_config}")
+    def from_config(output_config):
+        """ return output class from a config """
         _outputs = []
-        log.debug("processing outputs_config: %s", outputs_config)
-        if outputs_config is None:
-            _outputs.append(Output.parse_output_config({"type": "screen", "format": Formatter.DEFAULT_FORMAT}))
-        elif isinstance(outputs_config, str):
-            # eg 'screen'
-            _outputs.append(Output.parse_output_config({"type": outputs_config, "format": Formatter.DEFAULT_FORMAT}))
-        elif isinstance(outputs_config, list):
-            # eg [{'type': 'screen', 'format': 'simple'}, {'type': 'screen', 'format': {'type': 'htmltable'}}]
-            for output_config in outputs_config:
-                _outputs.append(Output.parse_output_config(output_config))
-        elif isinstance(outputs_config, dict):
-            # eg {'format': 'table'}
-            _outputs.append(Output.parse_output_config(outputs_config))
-        else:
-            pass
-        return _outputs
 
-    @staticmethod
-    def parse_output_config(output_config):
-        """ generate a single output object from a config """
         log.debug("parse_output_config, config: %s", output_config)
         output_type = output_config.type
-        format_config = output_config.format  #", Formatter.DEFAULT_FORMAT)
-        # rprint(format_config)
+        format_config = output_config.format
         _format = Formatter.from_config(format_config)
         log.debug("got format: %s", (_format))
         _output = Output.get_output_class(output_type, formatter=_format, output_config=output_config)
-        log.debug("got output: %s", _output)
+        log.debug("got output: %s", _output) 
+
         return _output
+    
+    def __init__(self, name=None) -> None:
+        self.name = name
+
+    @property
+    def formatter(self):
+        """ the formatter for this output """
+        return getattr(self, "_formatter", None)
+
+    @formatter.setter
+    def formatter(self, formatter : AbstractFormat):
+        self._formatter = formatter
+
+    @abstractmethod
+    def process(self, command=None, result: Result = None, device=None):
+        """ entry point of any output class """
+        raise NotImplementedError("need to implement process function")

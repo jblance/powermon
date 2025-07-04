@@ -6,11 +6,11 @@ import logging
 
 import construct as cs
 
-from .. import __version__  # noqa: F401
-from ..commands.command import Command
-from ..commands.reading import Reading
-from ..commands.result import Result
-from ..outputformats.abstractformat import AbstractFormat
+from powermon import __version__  # noqa: F401
+from ....commands.command import Command
+from ....commands.reading import Reading
+from ....commands.result import Result
+from .abstractformat import AbstractFormat
 
 log = logging.getLogger("hass")
 
@@ -20,8 +20,8 @@ class Hass(AbstractFormat):
     def __init__(self, config):
         super().__init__(config)
         self.name = "hass"
-        self.discovery_prefix = config.get("discovery_prefix", "homeassistant")
-        self.entity_id_prefix = config.get("entity_id_prefix", None)
+        self.discovery_prefix = config.discovery_prefix
+        self.entity_id_prefix = config.entity_id_prefix
 
     def __str__(self):
         return f"{self.name}: generates Home Assistant auto config and update mqtt messages"
