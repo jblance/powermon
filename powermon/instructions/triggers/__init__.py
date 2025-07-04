@@ -1,4 +1,4 @@
 from .trigger import Trigger
-from .trigger_config import LoopsTriggerConfig, AtTriggerConfig, EveryTriggerConfig
+from ._config import LoopsTriggerConfig, AtTriggerConfig, SecondsTriggerConfig
 
-__all__ = ['Trigger', 'LoopsTriggerConfig', 'AtTriggerConfig', 'EveryTriggerConfig']
+__all__ = ['Trigger', 'LoopsTriggerConfig', 'AtTriggerConfig', 'SecondsTriggerConfig']

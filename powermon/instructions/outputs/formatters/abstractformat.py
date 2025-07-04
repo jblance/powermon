@@ -6,7 +6,7 @@ from abc import ABC, abstractmethod
 from powermon.commands.reading import Reading
 from powermon.commands.result import Result
 
-from .formatter_config import BaseFormatConfig
+from ._config import BaseFormatConfig
 
 log = logging.getLogger("Formatter")
 

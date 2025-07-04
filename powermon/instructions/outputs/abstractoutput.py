@@ -2,7 +2,7 @@
 import logging
 from abc import ABC, abstractmethod
 
-from pydantic import BaseModel
+# from pydantic import BaseModel
 
 from powermon.commands.result import Result
 from .formatters.abstractformat import AbstractFormat

@@ -5,7 +5,7 @@ outputs messages to mqtt broker
 import logging
 
 from powermon.commands.result import Result
-from powermon.outputs.abstractoutput import AbstractOutput
+from .abstractoutput import AbstractOutput
 
 log = logging.getLogger("MQTT")
 

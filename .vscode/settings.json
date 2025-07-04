@@ -1,3 +1,4 @@
 {
-    "esbonio.server.enabled": false
+    "esbonio.server.enabled": false,
+    "todo-tree.tree.scanMode": "open files"
 }

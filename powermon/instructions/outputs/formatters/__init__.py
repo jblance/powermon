@@ -1,5 +1,11 @@
-from .formatter_type import FormatterType
+from ._config import (
+    BaseFormatConfig,
+    BMSResponseFormatConfig,
+    HassFormatConfig,
+    JsonFormatConfig,
+    MqttFormatConfig,
+)
+from ._types import FormatterType
 from .formatter import Formatter
-from .formatter_config import BaseFormatConfig, BMSResponseFormatConfig, HassFormatConfig, JsonFormatConfig, MqttFormatConfig
 
 __all__ = ['Formatter', 'FormatterType', 'BaseFormatConfig', 'BMSResponseFormatConfig', 'HassFormatConfig', 'JsonFormatConfig', 'MqttFormatConfig']

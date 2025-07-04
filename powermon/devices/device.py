@@ -43,7 +43,7 @@ class Device:
         self.adhoc_commands: list = []
 
     def __str__(self):
-        return f"Device: {self.name=}, {self.serial_number=}, {self.model=}, {self.manufacturer=} {self.port=}, {self.mqtt_broker=}, instructions:{self.instructions}"
+        return f"Device: {self.name=}, {self.serial_number=}, {self.model=}, {self.manufacturer=} {self.port=}, {self.mqtt_broker=}, instructions:{[str(instruction) for instruction in self.instructions]}"
 
 
     def __repr__(self):
@@ -154,13 +154,16 @@ class Device:
         # await self.run_adhoc_commands()
 
         # check for any commands in the queue
-        if self.commands is None or len(self.commands) == 0:
-            log.info("no commands in queue")
+        if self.instructions is None or len(self.instructions) == 0:
+            log.info("no instructions in queue")
             return
 
-        for command in self.commands:
-            if force or command.is_due():
-                log.info("Running command: %s", command)
+        for instruction in self.instructions:
+            print("looping instructions")
+            if force or instruction.is_due():
+                log.info("Processing instruction: %s", instruction)
+                print(f"Processing instruction: {instruction}")
+                continue  # TODO: fix from here
                 try:
                     match command.command_type:
                         case 'cache_query':

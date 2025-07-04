@@ -5,54 +5,57 @@ from dateparser import parse as dateparse  #noqa:F401
 
 from powermon.commands.command_definition import CommandDefinition
 from powermon.commands.result import Result
-from .triggers import Trigger
+
 from ..powermon_exceptions import (
     CommandExecutionFailed,
     InvalidCRC,
     InvalidResponse,
 )
-
-from .instruction_config import InstructionConfig
-from .instruction_types import InstructionType
+from ._config import InstructionConfig
+from ._types import InstructionType
 from .outputs import Output
 from .outputs.abstractoutput import AbstractOutput
+from .triggers import Trigger
 
 log = logging.getLogger("Instruction")
 
 
 class Instruction():
     """ class that incapsulates an instruction from the user (ie from config file)
-
     """
 
-    # @classmethod
-    # def from_code(cls, command_code) -> "Command":
-    #     """ build object from just a code """
-    #     return cls(code=command_code, commandtype="basic", outputs=[], trigger=None)
     @staticmethod
     def from_config(config: InstructionConfig) -> "Instruction":
         """build object from config dict"""
+
+        # build trigger
+        trigger = Trigger.from_config(config.trigger)
+        # print(config.trigger)
+        print(trigger)  # TODO: remove print statement
+
+        # build outputs list
+        outputs = []
+        for output_config in config.outputs:
+            # print(output_config)
+            outputs.append(Output.from_config(output_config))
+        # print(outputs)
+
+
         instruction_type: InstructionType = config.type
         # template = None
         match instruction_type:
-            case InstructionType.TEMPLATE:
-                from .instruction_template import InstructionTemplate as instruction
-            case InstructionType.CACHE_QUERY:
-                from .instruction_cache_query import (
-                    InstructionCacheQuery as instruction,
-                )
             case InstructionType.BASIC:
                 from .instruction_basic import InstructionBasic as instruction
+                _instruction: Instruction = instruction(command_str=config.command, trigger=trigger, outputs=outputs, config=config)
+            case InstructionType.TEMPLATE:
+                from .instruction_template import InstructionTemplate as instruction
+                _instruction = instruction(command_str=config.command, trigger=trigger, outputs=outputs, config=config)
+            case InstructionType.CACHE_QUERY:
+                from .instruction_cache_query import InstructionCacheQuery as instruction
 
-        trigger = Trigger.from_config(config.trigger)
-        outputs = []
-        # for output_config in config.outputs:
-        #     print(output_config)
-        #     outputs.append(Output.from_config(output_config))
-        outputs = Output.from_config(config.outputs)
+        _instruction = instruction(command_str=config.command, trigger=trigger, outputs=outputs, config=config)
 
-        command_object = instruction(command_str=config.command, trigger=trigger, outputs=outputs, config=config)
-        return command_object
+        return _instruction
 
 
     def __init__(self, command_str: str, trigger: Trigger, outputs: list[AbstractOutput], config: InstructionConfig):
@@ -72,8 +75,8 @@ class Instruction():
         for output in self.outputs:
             _outs += str(output)
 
-        return f"Instruction: {self.command_str=} {self.full_command=}, {self.command_type=}, \
-            [{_outs=}], {self.trigger!s}, {self.command_definition!s} {self.override=} {self.template=}"
+        return f"{self.__class__.__name__}: {self.command_str=} {self.full_command=}, \
+            [{_outs=}], {self.trigger!s}, {self.command_definition!s} {self.override=}"
 
 
     def build_result(self, raw_response=None, protocol=None) -> Result:

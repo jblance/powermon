@@ -5,3 +5,4 @@ class InstructionBasic(Instruction):
     def from_config(cls, config):
         print('Instruction Basic todo')
         return cls
+

@@ -6,7 +6,7 @@ from rich import print
 
 from ....powermon_exceptions import ConfigError
 
-from .formatter_type import FormatterType
+from ._types import FormatterType
 from .abstractformat import AbstractFormat
 
 log = logging.getLogger("formats")

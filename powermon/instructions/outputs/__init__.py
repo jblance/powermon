@@ -1,6 +1,6 @@
 """ outputs / __init__.py """
+from ._config import OutputConfig
+from ._types import OutputType
 from .output import Output
-from .output_types import OutputType
-from .output_config import OutputConfig
 
 __all__ = ['Output', 'OutputType', 'OutputConfig']

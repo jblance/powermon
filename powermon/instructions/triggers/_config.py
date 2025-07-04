@@ -17,8 +17,9 @@ class AtTriggerConfig(BaseModel):
     model_config = ConfigDict(extra='forbid')
 
 
-class EveryTriggerConfig(BaseModel):
-    """ model/allowed elements for 'every' trigger config """
-    every: int
+class SecondsTriggerConfig(BaseModel):
+    """ model/allowed elements for 'seconds' trigger config """
+    seconds: int
 
     model_config = ConfigDict(extra='forbid')
+

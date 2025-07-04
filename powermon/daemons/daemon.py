@@ -1,20 +1,14 @@
 """ daemon.py """
 import logging
 from abc import ABC, abstractmethod
-from enum import StrEnum, auto
 from typing import Optional
 
-from . import DaemonConfig
+from . import DaemonConfig, DaemonType
 
 # Set-up logger
 log = logging.getLogger("daemon")
 
-class DaemonType(StrEnum):
-    """ Daemon types implemented """
-    DISABLED = auto()
-    SIMPLE = auto()
-    SYSTEMD = auto()
-    INITD = auto()
+
 
 
 class Daemon(ABC):

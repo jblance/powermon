@@ -11,14 +11,15 @@ from platform import python_version
 import yaml
 from pyaml_env import parse_config
 from pydantic import ValidationError
-
-from powermon.daemons import Daemon
-from powermon.devices import Device
-from powermon.instructions import Instruction
-from powermon.mqttbroker import MqttBroker
+from rich import print as rprint
 
 from . import _, __version__
-from .powermon_config import PowermonConfig
+from ._config import PowermonConfig
+from .daemons import Daemon
+from .devices import Device
+from .instructions import Instruction
+from .loop import Loop
+from .mqttbroker import MqttBroker
 
 # Set-up logger
 log: Logger = logging.getLogger("")
@@ -137,12 +138,12 @@ async def async_main():
     mqtt_broker: MqttBroker = MqttBroker.from_config(powermon_config.mqttbroker)
     log.info(mqtt_broker)
 
-    # build the daemon object (optional)
+    # build the daemon object
     daemon: Daemon = Daemon.from_config(config=powermon_config.daemon)
     log.info(daemon)
 
-    # build device objects (required)
-    devices = []
+    # build device object(s)
+    devices: list[Device] = []
     for device_config in powermon_config.devices:
         # build the device object from the config
         _device: Device = await Device.from_config(device_config)
@@ -152,8 +153,8 @@ async def async_main():
          # add instructions to device instruction list
         for instruction_config in device_config.instructions:
             log.info("Adding instruction, config: %s", instruction_config)
-            print(instruction_config)
-            _device.add_instruction(Instruction.from_config(instruction_config))  # TODO: fix here
+            # print('instruction_config', instruction_config)
+            _device.add_instruction(Instruction.from_config(instruction_config))
 
         # add to devices list
         log.info(_device)
@@ -188,22 +189,13 @@ async def async_main():
     for device in devices:
         await device.initialize()
 
-    exit()
-    # set loop
-    loop = Loop.from_config(powermon_config.loop)  # TODO: fix here
-    try:
-        if loop is None:
-            loop = False
-        else:
-            loop = float(loop) + 0.01  # adding a little bit so is delay is 0, loop != False
-    except ValueError:
-        log.warning("loop unable to cast %s to float - defaulting to 'False'", loop)
-        loop = False
-    log.debug("loop set to: %s", loop)
+    # build loop object
+    loop = Loop.from_config(powermon_config.loop)
+    log.info(loop)
 
     # Main working loop
     try:
-        while True:
+        while loop.should_loop():
             # tell the daemon we're still working
             daemon.watchdog()
 
@@ -211,12 +203,8 @@ async def async_main():
             for device in devices:
                 await device.run(args.force)
 
-            # only run loop once if required
-            if not loop:
-                break
-
             # add small delay in loop
-            time.sleep(loop)
+            time.sleep(loop.delay)
 
     except KeyboardInterrupt:
         print("KeyboardInterrupt - stopping")

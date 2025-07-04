@@ -16,6 +16,20 @@ devices:
           type: table
           draw_lines: False
           extra_info: False
+    - command: QID
+      trigger: once
+      outputs:
+      - type: screen
+        format: 
+          type: table
+    - command: f'QED{dateparse("today").strftime("%Y%m%d")}'
+      type: template
+      trigger:
+        seconds: 1
+      outputs:
+      - type: screen
+        format:
+          type: table
   - name: MultiTest Device 2
     serial_number: Z987654321
     model: 8048MAX
@@ -26,14 +40,24 @@ devices:
       response_number: 0
     instructions:
     - command: QPI
+      override: 
+        description: 
+          pv_generated_energy_for_day: todays_energy
       trigger:
-        every: 1
+        loops: 5
       outputs:
       - type: screen
         format: 
           type: table
           draw_lines: False
           extra_info: True
+    - command: QID
+      trigger:
+        at: 05:00
+      outputs:
+      - type: screen
+        format: 
+          type: table
 
 mqttbroker:
   name: localhost
@@ -41,4 +65,4 @@ mqttbroker:
 loop: null
 
 daemon:
-  type: simple
+  type: disabled

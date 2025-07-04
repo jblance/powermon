@@ -18,8 +18,10 @@ class DaemonDisabled(Daemon):
         self.last_notify = time()
 
     def watchdog(self):
+        if self.keepalive is None:
+            return
         elapsed = time() - self.last_notify
-        if (elapsed) > self.keepalive:
+        if elapsed > self.keepalive:
             self.last_notify = time()
 
     def notify(self, status="OK"):

@@ -4,7 +4,7 @@ import logging
 from rich import print as rprint
 
 from .formatters import Formatter
-from .output_types import OutputType
+from ._types import OutputType
 # Set-up logger
 log = logging.getLogger("outputs")
 
@@ -51,7 +51,7 @@ class Output():
         # str (eg screen),
         # list (eg [{'type': 'screen', 'format': 'simple'}, {'type': 'screen', 'format': {'type': 'htmltable'}}])
         # dict (eg {'format': 'table'})
-        rprint(f"outputs_config {outputs_config}")
+        # rprint(f"outputs_config {outputs_config}")
         _outputs = []
         log.debug("processing outputs_config: %s", outputs_config)
         if outputs_config is None:
@@ -76,7 +76,7 @@ class Output():
         log.debug("parse_output_config, config: %s", output_config)
         output_type = output_config.type
         format_config = output_config.format  #", Formatter.DEFAULT_FORMAT)
-        rprint(format_config)
+        # rprint(format_config)
         _format = Formatter.from_config(format_config)
         log.debug("got format: %s", (_format))
         _output = Output.get_output_class(output_type, formatter=_format, output_config=output_config)
