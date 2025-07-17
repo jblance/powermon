@@ -1,0 +1,136 @@
+# Powermon Logic
+
+
+``` mermaid
+classDiagram
+    direction LR
+    Device "1" --o "1" Port 
+    Device "1" --o "1" MqttBroker
+    Device "1" --o "*" Command
+    class Device{
+        name
+        device_id
+        model
+        manufacturer
+        commands: list[Command]
+        port: Port
+        mqtt_broker: MqttBroker
+        add_command(Command)
+        run()
+    }
+    class Port{
+        protocol: Protocol
+        run_command(Command)
+        send_and_receive(Command) "called from run_command"
+    }
+    class Protocol{
+        protocol_id: str
+        command_definitions: dict[int, CommandDefinition]
+        add_command_definitions(command_definitions_config, result_type)
+        get_command_definition(command: str) -> CommandDefinition
+        get_full_command(command: str) -> bytes
+    }
+    Port "1" --o "1" Protocol
+    class Command{
+        code: str
+        type: str
+        override: dict
+        outputs: list[Output]
+        trigger: Trigger
+        command_definition: CommandDefinition
+        is_due() -> bool
+        build_result(raw_response: bytes, protocol: Protocol) -> Result
+    }
+    Command "1" --o "*" Output
+    Command "1" --o "1" Trigger
+    Command "1" --o "1" CommandDefinition
+    Command "1" --o "1" Result
+    class CommandDefinition{
+        code
+        description
+        help_text: str
+        result_type: ResultType
+        reading_definitions: list[ReadingDefinition]
+        test_responses: list
+        regex: str
+        get_reading_definition(lookup: str|int) -> ReadingDefinition
+    }
+    CommandDefinition"1" --o "*" ReadingDefinition
+    class ReadingDefinition{
+        index
+        response_type: ResponseType
+        description: str
+        device_class: str
+        state_class: str
+        icon: str
+        unit: str
+        options: list | dict
+        default: int | str
+        format_template: str
+        reading_from_raw_response(raw_value) -> list[Reading]
+        translate_raw_response(raw_value) "calls reading_from_raw_response"
+    }
+    class Result{
+        result_type: ResultType
+        command_definition: CommandDefinition
+        raw_response: bytes
+        readings: list[Reading]
+        decode_responses(self, responses) -> list[Reading]
+        readings_from_response(response, reading_definition: ReadingDefinition) -> list[Reading]
+    }
+    class Output{
+        name: str
+        process(Command, Result, mqtt_broker, device_info)
+        multiple_from_config() -> list[Output]
+    }
+```
+
+Notes: Out of Date
+
+## Config / Command Parsing
+
+At startup, powermon processes the config file (yaml) and builds the objects as above 
+
+``MqttBroker`` - ``__init__`` optionally builds mqtt broker object: ``mqtt_broker = MqttBroker.from_config(config=config.get("mqttbroker"))``
+
+``Device`` - ``__init__`` builds device object: ``device = Device.from_config(config=config.get("device"))``
+
+``Port`` - port is built during Device.from_config() with ``port_from_config(config.get("port"))``
+
+``Protocol`` - protocol is build in port.from_config() with ``get_protocol_definition(protocol=config.get("protocol", "PI30"))``
+
+``Command`` - ``__init__`` loops through all the commands in the config and adds them to the device
+``device.add_command(Command.from_config(command_config))``
+the command definition is found with ``command.command_definition = self.port.protocol.get_command_definition(command.code)`` and added to the list with ``Device.commands.append(command)``
+outputs are added with ``outputs.multiple_from_config(config)`` which uses ``getOutputClass(OutputType, formatter)`` to instantiate the correct output class and set the formatter
+
+
+## Command Execution / Run Loop
+
+``Device`` is the entry point / main controller
+
+``Device.run()`` is called in a loop, checking if ``Command.is_due()``, if it is the command is run with ``Device.port.run_command(Command)``
+this returns a ``Result``, which is build in ``Port`` with ``Command.build_result(raw_response, Protocol)``
+``Command.build_result()`` then:
+* checks response is valid: ``protocol.check_valid(raw_response)``
+* checks crc is correct: ``protocol.check_crc(raw_response)``
+* trims the response: ``protocol.trim_response(raw_response)``
+* splits response into individual values: ``protocol.split_response(trimmed_response, self.command_definition)``
+* builds the result:
+
+```python
+result = Result(command=self, raw_response=raw_response, responses=responses)
+```
+
+* ``Result`` sets readings with
+
+```python
+@readings.setter
+def readings(self, responses):
+    self._readings = self.decode_responses(responses=responses)
+```
+
+* Result.decode_responses()`` uses the ``ResultType`` to decode the responses into a list of ``Readings``
+* ``Device.run()`` then loops through the outputs and runs process on each:
+* ``output.process(Command, Result, mqtt_broker, device_info)``
+

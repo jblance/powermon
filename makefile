@@ -1,3 +1,6 @@
+run-docs:
+	uv run mkdocs serve
+	
 run-devices:
 	uv run powermon -C tests/config/devices.yaml
 
