@@ -31,10 +31,12 @@ nav:
     - Development Logic: code_ref/development_logic.md
     - powermon: code_ref/powermon.md
   - Protocol Documentation:
-    - PI30: protocol_docs/pi30.md
-    - PI30MAX: protocol_docs/pi30max.md
-    - JKSERIAL: protocol_docs/jkserial.md
-    - JKV4: protocol_docs/jkv4.md
+    - Daly CANBus: protocol_docs/daly_can.md
+    - Voltronic Power (PI16): protocol_docs/PI16.md
+    - MPPsolar (PI30): protocol_docs/pi30.md
+    - MPPsolar (PI30MAX): protocol_docs/pi30max.md
+    - JKBMS SERIAL (JKSERIAL): protocol_docs/jkserial.md
+    - JKBMS (JKV4): protocol_docs/jkv4.md
 markdown_extensions:
   - toc:
       toc_depth: 3
@@ -52,3 +54,5 @@ plugins:
   # - toc:
   - mkdocstrings:
       default_handler: python
+extra_css:
+  - stylesheets/extra.css
