@@ -36,7 +36,7 @@ devices:
     manufacturer: MPP-Solar
     port:
       type: test
-      protocol: PI30MAX
+      protocol: PI30
       response_number: 0
     instructions:
     - command: QPI
