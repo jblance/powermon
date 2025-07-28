@@ -8,10 +8,10 @@ from argparse import ArgumentParser
 from logging import Logger
 from platform import python_version
 
-import yaml
-from pyaml_env import parse_config
-from pydantic import ValidationError
-from rich import print as rprint
+import yaml                             # ty: ignore[unresolved-import]
+from pyaml_env import parse_config      # ty: ignore[unresolved-import]
+from pydantic import ValidationError    # ty: ignore[unresolved-import]
+# from rich import print as rprint        # ty: ignore[unresolved-import]
 
 from . import _, __version__
 from ._config import PowermonConfig
