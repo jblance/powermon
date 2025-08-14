@@ -16,8 +16,8 @@ from powermon.exceptions import (
 )
 
 from ..devices.ports import PortType
-from ..instructions.outputs import Output
-from ..instructions.triggers import Trigger
+from ..actions.outputs import Output
+from ..actions.triggers import Trigger
 from .helpers import crc_pi30 as crc
 
 log = logging.getLogger("AbstractProtocol")

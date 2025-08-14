@@ -135,7 +135,7 @@ class Result:
                         # More definitions than results, either INFO type definitions or too little data
                         if reading_definition.response_type == ResponseType.INFO_FROM_COMMAND:
                             # INFO is contained in supplied command eg QEY2023 -> 2023
-                            readings = self.readings_from_response(self.command.code, reading_definition)
+                            readings = self.readings_from_response(self.command_str, reading_definition)
                             all_readings.extend(readings)
             case ResultType.VED_INDEXED | ResultType.CONSTRUCT | ResultType.BYTEARRAY:
                 # have a list of (index,value) tuples
@@ -161,7 +161,7 @@ class Result:
     def readings_from_response(self, response, reading_definition) -> list[Reading]:
         """ return readings from a raw_response using the supplied reading definition """
         try:
-            return reading_definition.reading_from_raw_response(response, override=self.command.override)
+            return reading_definition.reading_from_raw_response(response, override=None)  # FIXME: fix override
         except (ValueError, IndexError):
             error = Reading(raw_value=None, processed_value=reading_definition.get_invalid_message(response), definition=ReadingDefinition.from_config({"description": reading_definition.description}))
             error.is_valid = False

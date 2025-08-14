@@ -135,9 +135,9 @@ class Port():
         log.debug("after send_and_receive: %s", result)
         return result
 
-    async def execute_instruction(self, instruction) -> 'Result':
+    async def execute_action(self, action) -> 'Result':
         """ takes an instruction, runs the command and returns a result object"""
-        log.debug("Instruction %s", instruction)
+        log.debug("Action %s", action)
 
         # open port if it is closed
         if not self.is_connected():
@@ -147,13 +147,13 @@ class Port():
         # should, log an error and wait to try to reconnect (increasing backoff times)
 
         # update trigger times
-        instruction.trigger.touch()
+        action.trigger.touch()
         
         # update full_command - add crc etc
         # updates every run incase something has changed
-        instruction.full_command = self.protocol.get_full_command(instruction.get_command())
+        action.full_command = self.protocol.get_full_command(action.get_command())
 
         # run the command via the 'send_and_receive port function
-        result = await self.send_and_receive(instruction)
+        result = await self.send_and_receive(action)
         log.debug("after send_and_receive: %s", result)
         return result

@@ -7,17 +7,18 @@ import time
 from argparse import ArgumentParser
 from logging import Logger
 from platform import python_version
+from typing import Optional
 
-import yaml                             # ty: ignore[unresolved-import]
-from pyaml_env import parse_config      # ty: ignore[unresolved-import]
-from pydantic import ValidationError    # ty: ignore[unresolved-import]
-# from rich import print as rprint        # ty: ignore[unresolved-import]
+import yaml  # ty: ignore[unresolved-import]
+from pyaml_env import parse_config  # ty: ignore[unresolved-import]
+from pydantic import ValidationError  # ty: ignore[unresolved-import]
 
+# from rich import print as rprint      # ty: ignore[unresolved-import]
 from . import _, __version__
 from ._config import PowermonConfig
 from .daemons import Daemon
 from .devices import Device
-from .instructions import Instruction
+from .actions import Action
 from .loop import Loop
 from .mqttbroker import MqttBroker
 
@@ -25,6 +26,20 @@ from .mqttbroker import MqttBroker
 log: Logger = logging.getLogger("")
 logging.basicConfig(format="%(asctime)-15s:%(levelname)s:%(module)s:%(funcName)s@%(lineno)d: %(message)s")
 
+
+def _set_log_level(debug=False, info=False, level=None):
+    """ function to set log level """
+    if level is not None:
+        # set logging level (DEBUG, INFO, WARNING, ERROR, CRITICAL)
+        log.setLevel(level)
+    elif debug:
+        log.setLevel(logging.DEBUG)
+    elif info:
+        log.setLevel(logging.INFO)
+    else:
+        log.setLevel(logging.WARNING)
+    return
+        
 
 def _read_yaml_file(yaml_file=None):
     """function to read a yaml file and return dict"""
@@ -55,9 +70,28 @@ def _process_command_line_overrides(args):
     return _config
 
 
+def _validate_config(config: Optional[dict] = None, validate_only: bool=False):
+    try:
+        powermon_config: PowermonConfig = PowermonConfig(**config) # ty: ignore[missing-argument]
+        log.debug(powermon_config)
+        log.info("Config validation successful")
+        if validate_only:
+        # if --validate option set, only do validation
+            print(_("Config validation successful"))
+            exit(0)
+        return powermon_config
+    except ValidationError as exception:
+        # if config fails to validate, print reason and exit
+        print(_("Config validation failed"))
+        print(f"{config=}")
+        print(exception)
+        exit(1)
+
+
 def main():
     """entry point for powermon command"""
     asyncio.run(async_main())
+
 
 async def async_main():
     """powermon command function"""
@@ -72,15 +106,13 @@ async def async_main():
         type=str,
         help=_("Full location of config file (defaults to ./powermon.yaml)"),
         const="./powermon.yaml",
-        default=None,
-    )
+        default=None)
     parser.add_argument(
         "--config",
         type=str,
         default=None,
         help="""Supply config items on the commandline in json format, \
-             eg '{"device": {"port":{"type":"test"}}, "commands": [{"command":"QPI"}]}'""",
-    )
+             eg '{"device": {"port":{"type":"test"}}, "commands": [{"command":"QPI"}]}'""")
     parser.add_argument("-V", "--validate", action="store_true", help=_("Validate the configuration"))
     parser.add_argument("-v", "--version", action="store_true", help=_("Display the version"))
     parser.add_argument("-1", "--once", action="store_true", help=_("Only loop through config once"))
@@ -93,11 +125,7 @@ async def async_main():
     # prog_name = parser.prog
 
     # Temporarily set debug level based on command line options
-    log.setLevel(logging.WARNING)
-    if args.info:
-        log.setLevel(logging.INFO)
-    if args.debug:
-        log.setLevel(logging.DEBUG)
+    _set_log_level(debug=args.debug, info=args.info)
 
     # Display version if asked
     log.info(description)
@@ -105,36 +133,17 @@ async def async_main():
         print(description)
         return None
 
-    # Build configuration from config file and command line overrides
     log.info("Using config file: %s", args.configFile)
-    # build config with details from config file - including env variable expansion
     _config = _read_yaml_file(args.configFile)
-
-    # build config - override with any command line arguments
     _config.update(_process_command_line_overrides(args))
 
     # validate config
-    try:
-        powermon_config: PowermonConfig = PowermonConfig(**_config) # ty: ignore[missing-argument]
-        log.debug(powermon_config)
-        log.info("Config validation successful")
-    except ValidationError as exception:
-        # if config fails to validate, print reason and exit
-        print(_("Config validation failed"))
-        print(f"{_config=}")
-        print(exception)
-        return None
+    powermon_config = _validate_config(config=_config, validate_only=args.validate)
 
-    if args.validate:
-        # if --validate option set, only do validation
-        print(_("Config validation successful"))
-        return None
-
-    # set logging level (DEBUG, INFO, WARNING, ERROR, CRITICAL)
-    log.setLevel(powermon_config.debuglevel)
+    # update log level with config debug level
+    _set_log_level(level=powermon_config.debuglevel)
 
     # build mqtt broker object
-    # mqtt_broker = MqttBroker.from_config(config=powermon_config.mqttbroker)
     mqtt_broker: MqttBroker = MqttBroker.from_config(powermon_config.mqttbroker)
     log.info(mqtt_broker)
 
@@ -142,24 +151,8 @@ async def async_main():
     daemon: Daemon = Daemon.from_config(config=powermon_config.daemon)
     log.info(daemon)
 
-    # build device object(s)
-    devices: list[Device] = []
-    for device_config in powermon_config.devices:
-        # build the device object from the config
-        _device: Device = await Device.from_config(device_config)
-        # add reference to mqtt broker
-        _device.mqtt_broker = mqtt_broker
-
-         # add instructions to device instruction list
-        for instruction_config in device_config.instructions:
-            log.info("Adding instruction, config: %s", instruction_config)
-            # print('instruction_config', instruction_config)
-            _device.add_instruction(Instruction.from_config(instruction_config))
-
-        # add to devices list
-        log.info(_device)
-        devices.append(_device)
-
+    # build list of devices
+    devices: list[Device] = await Device.from_configs(powermon_config.devices, mqtt_broker=mqtt_broker)
     log.debug(devices)
 
     # # TODO: sort out how to make this work
@@ -201,7 +194,7 @@ async def async_main():
 
             # run device loop (ie run any needed commands)
             for device in devices:
-                await device.run_instructions(args.force)
+                await device.run_actions(args.force)
 
             # add small delay in loop
             time.sleep(loop.delay)

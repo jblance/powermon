@@ -1,5 +1,5 @@
 """ Device class is .... """
+from ._config import DeviceConfig
 from .device import Device
-from .device_config import DeviceConfig
 
 __all__ = ['Device', 'DeviceConfig']

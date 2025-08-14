@@ -12,9 +12,9 @@ from powermon.exceptions import (
     InvalidCRC,
     InvalidResponse,
 )
-from powermon.instructions.outputs import Output
+from powermon.actions.outputs import Output
 # from powermon.instructions.outputs.abstractoutput import AbstractOutput
-from powermon.instructions.triggers import Trigger
+from powermon.actions.triggers import Trigger
 
 log = logging.getLogger("Command")
 

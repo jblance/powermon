@@ -3,7 +3,7 @@ from typing import List, Optional
 from pydantic import Field
 from pydantic import BaseModel, ConfigDict
 
-from ..instructions import InstructionConfig
+from ..actions import ActionConfig
 from .ports import BlePortConfig, SerialPortConfig, TestPortConfig, UsbPortConfig
 
 
@@ -14,6 +14,6 @@ class DeviceConfig(BaseModel):
     model: Optional[str] = None
     manufacturer: Optional[str] = None
     port: TestPortConfig | SerialPortConfig | UsbPortConfig | BlePortConfig
-    instructions: List[InstructionConfig]
+    actions: List[ActionConfig]
 
     model_config = ConfigDict(extra='forbid')

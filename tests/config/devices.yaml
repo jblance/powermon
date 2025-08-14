@@ -8,7 +8,7 @@ devices:
       type: test
       protocol: PI30MAX
       response_number: 1
-    instructions:
+    actions:
     - command: QPI
       outputs:
       - type: screen
@@ -38,7 +38,7 @@ devices:
       type: test
       protocol: PI30
       response_number: 0
-    instructions:
+    actions:
     - command: QPI
       override: 
         description: 

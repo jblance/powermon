@@ -4,28 +4,28 @@ import logging
 from dateparser import parse as dateparse  #noqa:F401
 
 from powermon.commands.command_definition import CommandDefinition
-# from powermon.commands.result import Result
-# from powermon.exceptions import (
-#     CommandExecutionFailed,
-#     InvalidCRC,
-#     InvalidResponse,
-# )
+from powermon.commands.result import Result
+from powermon.exceptions import (
+    CommandExecutionFailed,
+    InvalidCRC,
+    InvalidResponse,
+)
 
-from ._config import InstructionConfig
-from ._types import InstructionType
+from ._config import ActionConfig
+from ._types import ActionType
 from .outputs import Output
 # from .outputs.abstractoutput import AbstractOutput
 from .triggers import Trigger
 
-log = logging.getLogger("Instruction")
+log = logging.getLogger("Action")
 
 
-class Instruction():
-    """ class that incapsulates an instruction from the user (ie from config file)
+class Action():
+    """ class that incapsulates an Action from the user (ie from config file)
     """
 
     @staticmethod
-    def from_config(config: InstructionConfig) -> "Instruction":
+    def from_config(config: ActionConfig) -> "Action":
         """build object from config dict"""
 
         # build trigger
@@ -37,23 +37,23 @@ class Instruction():
             outputs.append(Output.from_config(output_config))
 
         # overrides
-        # TODO: implement overrides handling in instruction
+        # TODO: implement overrides handling in Action
 
-        instruction_type: InstructionType = config.type
+        Action_type: ActionType = config.type
         # template = None
-        match instruction_type:
-            case InstructionType.BASIC:
-                from .instruction_basic import InstructionBasic as instruction
-            case InstructionType.TEMPLATE:
-                from .instruction_template import InstructionTemplate as instruction
-            case InstructionType.CACHE_QUERY:
-                from .instruction_cache_query import InstructionCacheQuery as instruction
+        match Action_type:
+            case ActionType.BASIC:
+                from .action_basic import ActionBasic as Action
+            case ActionType.TEMPLATE:
+                from .action_template import ActionTemplate as Action
+            case ActionType.CACHE_QUERY:
+                from .action_cache_query import ActionCacheQuery as Action
 
-        _instruction = instruction(command_str=config.command, trigger=trigger, outputs=outputs, config=config)
-        return _instruction
+        _Action = Action(command_str=config.command, trigger=trigger, outputs=outputs, config=config)
+        return _Action
 
 
-    def __init__(self, command_str: str, trigger: Trigger, outputs: list[Output], config: InstructionConfig):
+    def __init__(self, command_str: str, trigger: Trigger, outputs: list[Output], config: ActionConfig):
         self.command_str = command_str
         self.outputs: list[Output] = outputs
         self.trigger: Trigger = trigger
@@ -72,23 +72,23 @@ class Instruction():
         return f"{self.__class__.__name__}: {self.command_str=}, {self.full_command=}, [{_outs=}], {self.trigger!s}, {self.command_definition!s} {self.override=}"
 
 
-    # def build_result(self, raw_response=None, protocol=None) -> Result:
-    #     """ build a result object from the raw_response """
-    #     log.debug("build_result: for command with 'code: %s, command_definition: %s'", self.code, self.command_definition)
-    #     try:
-    #         # check response is valid
-    #         protocol.check_valid(raw_response, self.command_definition)
-    #         # check crc is correct
-    #         protocol.check_crc(raw_response, self.command_definition)
-    #         # trim response
-    #         trimmed_response = protocol.trim_response(raw_response, self.command_definition)
-    #         # split response
-    #         responses = protocol.split_response(trimmed_response, self.command_definition)
-    #         # build the Result object
-    #         result = Result(command=self, raw_response=raw_response, responses=responses)
-    #     except (InvalidResponse, InvalidCRC, CommandExecutionFailed) as e:
-    #         result = Result(command=self, raw_response=e, responses=[], is_error=True)
-    #     return result
+    def build_result(self, raw_response, protocol) -> Result:
+        """ build a result object from the raw_response """
+        log.debug("build_result: for command with 'code: %s, command_definition: %s'", self.command_str, self.command_definition)
+        try:
+            # check response is valid
+            protocol.check_valid(raw_response, self.command_definition)
+            # check crc is correct
+            protocol.check_crc(raw_response, self.command_definition)
+            # trim response
+            trimmed_response = protocol.trim_response(raw_response, self.command_definition)
+            # split response
+            responses = protocol.split_response(trimmed_response, self.command_definition)
+            # build the Result object
+            result = Result(command=self, raw_response=raw_response, responses=responses)
+        except (InvalidResponse, InvalidCRC, CommandExecutionFailed) as e:
+            result = Result(command=self, raw_response=e, responses=[], is_error=True)
+        return result
 
     @property
     def full_command(self) -> str | None:

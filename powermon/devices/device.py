@@ -4,13 +4,11 @@ import logging
 from typing import List, Optional
 
 from ..commands.result import Result
-from .device_config import DeviceConfig
-from ..instructions import Instruction
+from ..actions import Action
+from ..actions.outputs.output import Output
 from ..mqttbroker import MqttBroker
-# from ..instructions.outputs.formatters import FormatterType
-from ..instructions.outputs.output import Output
+from . import DeviceConfig
 from .ports import Port
-
 
 # Set-up logger
 log = logging.getLogger("Device")
@@ -20,9 +18,24 @@ class Device:
     """
     The device object has information about the device - the name, model and serial number of the device
     The object also defines the port and protocol that is used to communicate with the device
-    The object maintains a (updatable) list of instructions (and their triggers and outputs) that should be followed
+    The object maintains a (updatable) list of Actions (and their triggers and outputs) that should be followed
     """
     # def __init__(self, name: str, serial_number: str = "", model: str = "", manufacturer: str = "", port: Port = None):
+    @classmethod 
+    async def from_configs(cls, configs: List[DeviceConfig], mqtt_broker: Optional[MqttBroker] = None) -> List['Device']:
+        """Builds a list of Device objects from a list of DeviceConfig objects"""
+        devices: List[Device] = []
+        for config in configs:
+            device: Device = await cls.from_config(config)
+            device.mqtt_broker = mqtt_broker
+            # add Actions to device Action list
+            for action_config in config.actions:
+                log.info("Adding action, config: %s", action_config)
+                # print('Action_config', Action_config)
+                device.add_action(Action.from_config(action_config))
+            devices.append(device)
+        return devices
+
     @classmethod
     async def from_config(cls, config: DeviceConfig):
         _device: Device = cls(name=config.name, serial_number=config.serial_number, model=config.model, manufacturer=config.manufacturer)
@@ -31,24 +44,24 @@ class Device:
         return _device
 
 
-    def __init__(self, name: str, serial_number: str, model: str, manufacturer: str, port: Optional[Port] = None, instructions: Optional[List[Instruction]] = None, mqtt_broker: Optional[MqttBroker] = None):
+    def __init__(self, name: str, serial_number: str, model: str, manufacturer: str, port: Optional[Port] = None, actions: Optional[List[Action]] = None, mqtt_broker: Optional[MqttBroker] = None):
         self.config: DeviceConfig = None
         self.name: str = name
         self.serial_number: str = serial_number
         self.model: str = model
         self.manufacturer: str = manufacturer
         self.port: Port = port
-        self.instructions: list[Instruction] = [] if instructions is None else instructions
+        self.actions: list[Action] = [] if actions is None else actions
         self.mqtt_broker: MqttBroker = mqtt_broker
         self.adhoc_commands: list = []
 
     def __str__(self):
-        return f"Device: {self.name=}, {self.serial_number=}, {self.model=}, {self.manufacturer=} {self.port=}, {self.mqtt_broker=}, instructions:{[str(instruction) for instruction in self.instructions]}"
+        return f"Device: {self.name=}, {self.serial_number=}, {self.model=}, {self.manufacturer=} {self.port=}, {self.mqtt_broker=}, Actions:{[str(Action) for Action in self.Actions]}"
 
 
     def __repr__(self):
         """ Returns representation of Device that allows eval(device.__repr__()) to rebuild object"""
-        _repr = f"Device(name='{self.name}', serial_number='{self.serial_number}', model='{self.model}', manufacturer='{self.manufacturer}', port={self.port!r}, instructions={self.instructions})"
+        _repr = f"Device(name='{self.name}', serial_number='{self.serial_number}', model='{self.model}', manufacturer='{self.manufacturer}', port={self.port!r}, Actions={self.Actions})"
         #print(_repr)
         return _repr
 
@@ -81,14 +94,14 @@ class Device:
     #     self.adhoc_commands.append(adhoc_command)
 
 
-    def add_instruction(self, instruction: Instruction) -> None:
-        """ add instruction to list of instructions """
-        if instruction is None:
+    def add_action(self, action: Action) -> None:
+        """ add action to list of actions """
+        if action is None:
             return
-        # do instruction processing - eg find definition
+        # do Action processing - eg find definition
         #
-        instruction.command_definition = self.port.protocol.get_command_definition(instruction.get_command())
-        self.instructions.append(instruction)
+        action.command_definition = self.port.protocol.get_command_definition(action.get_command())
+        self.actions.append(action)
 
 
     # def add_command(self, command: 'Command') -> None:
@@ -152,22 +165,22 @@ class Device:
     #             self.mqtt_broker.post_adhoc_result(item)
 
 
-    async def run_instructions(self, force=False):
-        """loops through the instruction list and runs any instructions that are due"""
+    async def run_actions(self, force=False):
+        """loops through the Action list and runs any Actions that are due"""
         # run any adhoc commands
         # await self.run_adhoc_commands()
 
         # check for any commands in the queue
-        if self.instructions is None or len(self.instructions) == 0:
-            log.info("no instructions in queue")
+        if self.actions is None or len(self.actions) == 0:
+            log.info("no Actions in queue")
             return
 
-        for i, instruction in enumerate(self.instructions):
-            if force or instruction.trigger.is_due():
-                log.info("Processing instruction[%s]: %s", i,instruction)
+        for i, action in enumerate(self.actions):
+            if force or action.trigger.is_due():
+                log.info("Processing action[%s]: %s", i,action)
                 # run command
-                print(f"processing instruction[{i}]: {instruction}") # FIXME: remove print
-                result: Result = await self.port.execute_instruction(instruction)
+                print(f"processing Action[{i}]: {action}") # FIXME: remove print
+                result: Result = await self.port.execute_action(action)
                 print(result)  # TODO: remove print
                 continue  # TODO: fix from here
                 log.info("Got result: %s", result)

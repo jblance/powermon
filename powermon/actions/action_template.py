@@ -4,11 +4,11 @@ import logging
 # f'QED{dateparse("today").strftime("%Y%m%d")}'
 from dateparser import parse as dateparse  #noqa:F401
 
-from . import Instruction
+from . import Action
 
-log = logging.getLogger("InstructionTemplate")
+log = logging.getLogger("ActionTemplate")
 
-class InstructionTemplate(Instruction):
+class ActionTemplate(Action):
     pass
 
     def get_command(self):
