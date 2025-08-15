@@ -5,7 +5,7 @@ run-devices:
 	uv run powermon -C tests/config/devices.yaml
 
 run-devices-i:
-	uv run powermon -C tests/config/devicesyaml -I
+	uv run powermon -C tests/config/devices.yaml -I
 
 run-outputs:
 	uv run powermon -C tests/config/outputs.yaml
