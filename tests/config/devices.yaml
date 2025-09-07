@@ -9,27 +9,27 @@ devices:
       protocol: PI30MAX
       response_number: 1
     actions:
-    - command: QPI
-      outputs:
-      - type: screen
-        format: 
-          type: table
-          draw_lines: False
-          extra_info: False
-    - command: QID
-      trigger: once
-      outputs:
-      - type: screen
-        format: 
-          type: table
-    - command: f'QED{dateparse("today").strftime("%Y%m%d")}'
-      type: template
-      trigger:
-        seconds: 1
-      outputs:
-      - type: screen
-        format:
-          type: table
+      - command: QPI
+        outputs:
+        - type: screen
+          format: 
+            type: table
+            draw_lines: False
+            extra_info: False
+      - command: QID
+        trigger: once
+        outputs:
+        - type: screen
+          format: 
+            type: table
+      - command: f'QED{dateparse("today").strftime("%Y%m%d")}'
+        type: template
+        trigger:
+          seconds: 1
+        outputs:
+        - type: screen
+          format:
+            type: table
   - name: MultiTest Device 2
     serial_number: Z987654321
     model: 8048MAX
@@ -39,31 +39,31 @@ devices:
       protocol: PI30
       response_number: 0
     actions:
-    - command: QPI
-      override: 
-        description: 
-          pv_generated_energy_for_day: todays_energy
-      trigger:
-        loops: 5
-      outputs:
-      - type: screen
-        format: 
-          type: table
-          draw_lines: False
-          extra_info: True
-    - command: QID
-      trigger:
-        at: 05:00
-      outputs:
-      - type: screen
-        format: 
-          type: table
-    - command: QID
-      trigger: disabled
-      outputs:
-      - type: screen
-        format: 
-          type: table
+      - command: QPI
+        override: 
+          description: 
+            pv_generated_energy_for_day: todays_energy
+        trigger:
+          loops: 5
+        outputs:
+        - type: screen
+          format: 
+            type: table
+            draw_lines: False
+            extra_info: True
+      - command: QID
+        trigger:
+          at: 05:00
+        outputs:
+        - type: screen
+          format: 
+            type: table
+      - command: QID
+        trigger: disabled
+        outputs:
+        - type: screen
+          format: 
+            type: table
 
 mqttbroker:
   name: localhost
