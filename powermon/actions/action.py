@@ -1,7 +1,8 @@
 """ commands / command.py """
 import logging
+from typing import Optional
 
-from dateparser import parse as dateparse  #noqa:F401
+from dateparser import parse as dateparse # type: ignore[unresolved-import] # noqa: F401
 
 from powermon.commands.command_definition import CommandDefinition
 from powermon.commands.result import Result
@@ -14,6 +15,7 @@ from powermon.exceptions import (
 from ._config import ActionConfig
 from ._types import ActionType
 from .outputs import Output
+
 # from .outputs.abstractoutput import AbstractOutput
 from .triggers import Trigger
 
@@ -54,7 +56,7 @@ class Action():
 
 
     def __init__(self, command_str: str, trigger: Trigger, outputs: list[Output], config: ActionConfig):
-        self.command_str = command_str
+        self.command_str: str = command_str
         self.outputs: list[Output] = outputs
         self.trigger: Trigger = trigger
 
@@ -104,7 +106,7 @@ class Action():
         return self.command_str
 
     @property
-    def command_definition(self) -> CommandDefinition:
+    def command_definition(self) -> Optional[CommandDefinition]:
         """ the definition of this command """
         return getattr(self, "_command_definition", None)
 

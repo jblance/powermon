@@ -27,20 +27,6 @@ log: Logger = logging.getLogger("")
 logging.basicConfig(format="%(asctime)-15s:%(levelname)s:%(module)s:%(funcName)s@%(lineno)d: %(message)s")
 
 
-def _set_log_level(debug=False, info=False, level=None):
-    """ function to set log level """
-    if level is not None:
-        # set logging level (DEBUG, INFO, WARNING, ERROR, CRITICAL)
-        log.setLevel(level)
-    elif debug:
-        log.setLevel(logging.DEBUG)
-    elif info:
-        log.setLevel(logging.INFO)
-    else:
-        log.setLevel(logging.WARNING)
-    return
-        
-
 def _read_yaml_file(yaml_file=None):
     """function to read a yaml file and return dict"""
     _yaml = {}
@@ -58,7 +44,7 @@ def _read_yaml_file(yaml_file=None):
 
 def _process_command_line_overrides(args):
     """override config with command line options"""
-    _config = {}
+    _config = {'debuglevel': logging.WARNING}
     if args.config:
         _config = json.loads(args.config)
     if args.once:
@@ -76,7 +62,7 @@ def _validate_config(config: Optional[dict] = None, validate_only: bool=False):
         log.debug(powermon_config)
         log.info("Config validation successful")
         if validate_only:
-        # if --validate option set, only do validation
+            # if --validate option set, only do validation
             print(_("Config validation successful"))
             exit(0)
         return powermon_config
@@ -86,6 +72,19 @@ def _validate_config(config: Optional[dict] = None, validate_only: bool=False):
         print(f"{config=}")
         print(exception)
         exit(1)
+
+
+def build_config(args = None) -> PowermonConfig:
+    """build the powermon config object from command line args and config file"""
+    # read config file
+    _config = _read_yaml_file(args.configFile)
+    # process command line overrides
+    _config.update(_process_command_line_overrides(args))
+    # set log level
+    log.setLevel(_config['debuglevel'])
+    log.info("Using config file: %s", args.configFile)
+    # validate config
+    return _validate_config(config=_config, validate_only=args.validate if args else False)
 
 
 def main():
@@ -122,27 +121,17 @@ async def async_main():
     parser.add_argument("-a", "--adhoc", type=str, metavar='COMMAND', default=None, help=_("Send adhoc command to mqtt adhoc command queue - needs config file specified and populated"))
 
     args = parser.parse_args()
-    # prog_name = parser.prog
 
-    # Temporarily set debug level based on command line options
-    _set_log_level(debug=args.debug, info=args.info)
-
-    # Display version if asked
-    log.info(description)
+    # Display version if asked for
     if args.version:
         print(description)
         return None
 
-    log.info("Using config file: %s", args.configFile)
-    _config = _read_yaml_file(args.configFile)
-    _config.update(_process_command_line_overrides(args))
-
-    # validate config
-    powermon_config = _validate_config(config=_config, validate_only=args.validate)
-
-    # update log level with config debug level
-    _set_log_level(level=powermon_config.debuglevel)
-
+    # build config object
+    powermon_config: PowermonConfig = build_config(args=args)
+    
+    log.info(description)
+    
     # build mqtt broker object
     mqtt_broker: MqttBroker = MqttBroker.from_config(powermon_config.mqttbroker)
     log.info(mqtt_broker)
