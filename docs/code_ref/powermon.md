@@ -1,1 +1,3 @@
 ::: powermon.powermon
+
+::: powermon.devices

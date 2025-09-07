@@ -28,6 +28,7 @@ nav:
   - Tutorials:
     - Daly BMS: tutorials/daly_bms.md
   - Code Reference: 
+    - Explaination: code_ref/explaination.md
     - Development Logic: code_ref/development_logic.md
     - powermon: code_ref/powermon.md
   - Protocol Documentation:
