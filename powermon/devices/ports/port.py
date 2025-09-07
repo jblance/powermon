@@ -113,38 +113,38 @@ class Port():
         self._protocol = value
 
 
-    async def run_command(self, command: 'Command') -> 'Result':
-        """ run_command takes a command object, runs the command and returns a result object (replaces process_command) """
-        log.debug("Command %s", command)
+    # async def run_command(self, command: 'Command') -> 'Result':
+    #     """ run_command takes a command object, runs the command and returns a result object (replaces process_command) """
+    #     log.debug("Command %s", command)
 
-        # open port if it is closed
-        if not self.is_connected():
-            if not await self.connect():
-                raise ConnectionError(f"Unable to connect to port: {self.error_message}")
-        # FIXME: what if still not connected....
-        # should, log an error and wait to try to reconnect (increasing backoff times)
+    #     # open port if it is closed
+    #     if not self.is_connected():
+    #         if not await self.connect():
+    #             raise ConnectionError(f"Unable to connect to port: {self.error_message}")
+    #     # FIXME: what if still not connected....
+    #     # should, log an error and wait to try to reconnect (increasing backoff times)
 
-        # update run times and re- expand any template
-        command.touch()
-        # update full_command - add crc etc
-        # updates every run incase something has changed
-        command.full_command = self.protocol.get_full_command(command.code)
+    #     # update run times and re- expand any template
+    #     command.touch()
+    #     # update full_command - add crc etc
+    #     # updates every run incase something has changed
+    #     command.full_command = self.protocol.get_full_command(command.code)
 
-        # run the command via the 'send_and_receive port function
-        result = await self.send_and_receive(command)
-        log.debug("after send_and_receive: %s", result)
-        return result
+    #     # run the command via the 'send_and_receive port function
+    #     result = await self.send_and_receive(command)
+    #     log.debug("after send_and_receive: %s", result)
+    #     return result
 
     async def execute_action(self, action) -> 'Result':
-        """ takes an instruction, runs the command and returns a result object"""
+        """ takes an action, runs the command and returns a result object"""
         log.debug("Action %s", action)
 
         # open port if it is closed
         if not self.is_connected():
             if not await self.connect():
                 raise ConnectionError(f"Unable to connect to port: {self.error_message}")
-        # FIXME: what if still not connected....
-        # should, log an error and wait to try to reconnect (increasing backoff times)
+            # FIXME: what if still not connected....
+            # should, log an error and wait to try to reconnect (increasing backoff times)
 
         # update trigger times
         action.trigger.touch()
@@ -154,6 +154,13 @@ class Port():
         action.full_command = self.protocol.get_full_command(action.get_command())
 
         # run the command via the 'send_and_receive port function
-        result = await self.send_and_receive(action)
-        log.debug("after send_and_receive: %s", result)
-        return result
+        # result = await self.send_and_receive(action)
+        # log.debug("after send_and_receive: %s", result)
+        # return result
+        
+        raw_response = await self.get_response(action)
+        # print(f"raw_response: {raw_response}")  # TODO: remove this debug print
+        ## decoded_response = self.protocol.decode_response(raw_response, command.command_definition)
+        
+        return raw_response
+        

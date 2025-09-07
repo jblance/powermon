@@ -3,6 +3,8 @@
 import logging
 from typing import List, Optional
 
+from rich import print as pprint  # ty: ignore[unresolved-import]
+
 from ..commands.result import Result
 from ..actions import Action
 from ..actions.outputs.output import Output
@@ -179,11 +181,11 @@ class Device:
             if force or action.trigger.is_due():
                 log.info("Processing action[%s]: %s", i,action)
                 # run command
-                print(f"processing Action[{i}]: {action}") # FIXME: remove print
+                pprint(f"processing Action[{i}]: {action}") # FIXME: remove print
                 result: Result = await self.port.execute_action(action)
-                print(result)  # TODO: remove print
-                continue  # TODO: fix from here
+                pprint(f"Got result: {result}")  # TODO: remove print
                 log.info("Got result: %s", result)
+                continue  # TODO: fix from here
 
                 # loop through each output and process result
                 output: Output
