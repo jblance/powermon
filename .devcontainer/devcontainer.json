@@ -1,8 +1,5 @@
 {
-    "image": "mcr.microsoft.com/devcontainers/universal:2",
-    "features": {
-      "ghcr.io/devcontainers/features/python:1": {
-        "version": "3.11"
-      }
-    }
-  }
+  "name": "powermon",
+  "image": "mcr.microsoft.com/devcontainers/python:3.12",
+  "postCreateCommand": "curl -LsSf https://astral.sh/uv/install.sh | sh"
+}
