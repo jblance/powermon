@@ -33,7 +33,8 @@ powermon requires a config file, and the simplest usage is:
 see [full usage options](usage/usage.md#powermon-command)
 
 
-   j4_config_file
-   j5_tutorials
-   j6_docker
-   j7_development
+## todo
+-   j4_config_file
+-   j5_tutorials
+-   j6_docker
+-   j7_development

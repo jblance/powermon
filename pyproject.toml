@@ -49,14 +49,6 @@ api = [
     "sqlalchemy<3.0.0,>=2.0.15",
     "uvicorn>=0.15.0",
 ]
-dev = [
-    "sphinx<9.0.0,>=8.0.2",
-    "autodocsumm<1.0.0,>=0.2.13",
-    "sphinx-press-theme<1.0.0,>=0.9.1",
-    "sphinxcontrib-mermaid<2.0.0,>=1.0.0",
-    "ruff",
-    "black",
-]
 modbus = [
     "pymodbus<4.0.0,>=3.6.4",
 ]
@@ -73,7 +65,14 @@ includes = ["powermon", "powermon_api", "*.mo"]
 requires = ["pdm-backend"]
 build-backend = "pdm.backend"
 
+[dependency-groups]
+dev = [
+    "black>=26.3.1",
+    "ruff>=0.15.9",
+    "zensical>=0.0.32",
+]
+
 [tool.black]
 line-length = 149
-target-version = ["py311"]
+target-version = ["py312"]
 
