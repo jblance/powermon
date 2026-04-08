@@ -1,20 +1,38 @@
+run-docs:
+	uv run mkdocs serve
+	
+run-devices:
+	uv run powermon -C tests/config/devices.yaml
+
+run-devices-i:
+	uv run powermon -C tests/config/devices.yaml -I
+
+run-outputs:
+	uv run powermon -C tests/config/outputs.yaml
+
+run-outputs-i:
+	uv run powermon -C tests/config/outputs.yaml -I
+
+validate-config-tests:
+	uv run python3 -m unittest tests/unit/test_config_validation.py 
+
 integration-tests: 
-	python3 -m unittest discover -s tests/integration -f
+	uv run python3 -m unittest discover -s tests/integration -f
 
 integration-tests_verbose: 
-	python3 -m unittest discover -s tests/integration -f -v
+	uv run python3 -m unittest discover -s tests/integration -f -v
 
 test:
-	python3 -m unittest discover -s tests -f
+	uv run python3 -m unittest discover -s tests -f
 
 unit-tests:
-	python3 -m unittest discover -s tests/unit -f
+	uv run python3 -m unittest discover -s tests/unit -f
 
 unit-tests-verbose:
-	python3 -m unittest discover -s tests/unit -f -v
+	uv run python3 -m unittest discover -s tests/unit -f -v
 
 unit-tests-all:
-	python3 -m unittest discover -s tests/unit
+	uv run python3 -m unittest discover -s tests/unit
 
 docker-up:
 	docker-compose up --build
