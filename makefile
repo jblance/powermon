@@ -16,6 +16,10 @@ run-outputs-i:
 validate-config-tests:
 	uv run python3 -m unittest tests/unit/test_config_validation.py 
 
+## pytest tests
+cli-tests:
+	uv run pytest -s tests/cli
+
 integration-tests: 
 	uv run python3 -m unittest discover -s tests/integration -f
 

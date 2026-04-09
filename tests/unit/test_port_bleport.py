@@ -4,7 +4,7 @@ from unittest import TestCase
 from unittest.mock import patch
 
 # from powermon.commands.command import Command
-from powermon.libs.errors import PowermonProtocolError
+from powermon.exceptions import PowermonProtocolError
 from powermon.ports.bleport import BlePort
 from powermon.protocols.daly import Daly
 from powermon.protocols.pi30 import PI30 as UnsupportedProto

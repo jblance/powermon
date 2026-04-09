@@ -25,7 +25,7 @@ except ImportError:
 from powermon.commands.command import Command
 from powermon.commands.result import Result
 from powermon.libs.config import safe_config
-from powermon.libs.errors import BLEResponseError, ConfigError, PowermonProtocolError, PowermonWIP
+from powermon.exceptions import BLEResponseError, ConfigError, PowermonProtocolError, PowermonWIP
 from powermon.ports import PortType
 from powermon.ports.abstractport import AbstractPort, _AbstractPortDTO
 from powermon.protocols import get_protocol_definition

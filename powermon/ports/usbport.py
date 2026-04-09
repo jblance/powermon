@@ -7,7 +7,7 @@ from glob import glob
 
 from powermon.commands.command import Command
 from powermon.commands.result import Result, ResultType
-from powermon.libs.errors import ConfigError, PowermonProtocolError
+from powermon.exceptions import ConfigError, PowermonProtocolError
 from powermon.ports import PortType
 from powermon.ports.abstractport import AbstractPort, _AbstractPortDTO
 from powermon.protocols import get_protocol_definition

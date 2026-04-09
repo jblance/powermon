@@ -9,7 +9,7 @@ from tenacity import retry, stop_after_attempt, wait_fixed  # https://tenacity.r
 
 from powermon.commands.command import Command, CommandType
 from powermon.commands.result import Result
-from powermon.libs.errors import ConfigError, InvalidResponse, PowermonProtocolError
+from powermon.exceptions import ConfigError, InvalidResponse, PowermonProtocolError
 from powermon.ports import PortType
 from powermon.ports.abstractport import AbstractPort, _AbstractPortDTO
 from powermon.protocols import get_protocol_definition

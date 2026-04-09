@@ -3,7 +3,7 @@ import logging
 from powermon.outputformats.abstractformat import AbstractFormat, AbstractFormatDTO
 from powermon.commands.result import Result
 from powermon.commands.reading import Reading
-from powermon.libs.errors import ConfigError
+from powermon.exceptions import ConfigError
 
 log = logging.getLogger("bmsresponse")
 

@@ -6,7 +6,7 @@ from pydantic import BaseModel
 
 from powermon.commands.command import Command
 from powermon.commands.result import Result
-from powermon.libs.errors import PowermonProtocolError
+from powermon.exceptions import PowermonProtocolError
 from powermon.protocols.abstractprotocol import AbstractProtocol, AbstractProtocolDTO
 
 log = logging.getLogger("Port")

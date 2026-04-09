@@ -8,7 +8,7 @@ from pydantic import BaseModel
 from powermon.commands.command_definition import CommandDefinition
 from powermon.commands.result import Result
 from powermon.commands.trigger import Trigger, TriggerDTO
-from powermon.libs.errors import (CommandExecutionFailed, ConfigError,
+from powermon.exceptions import (CommandExecutionFailed, ConfigError,
                                   InvalidCRC, InvalidResponse)
 from powermon.outputs import OutputType, multiple_from_config
 from powermon.outputs.abstractoutput import AbstractOutput, AbstractOutputDTO

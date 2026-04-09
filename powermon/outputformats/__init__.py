@@ -2,7 +2,7 @@
 import logging
 from enum import StrEnum, auto
 
-from powermon.libs.errors import ConfigError
+from powermon.exceptions import ConfigError
 from powermon.outputformats.abstractformat import AbstractFormat
 from powermon.libs.config import Color
 

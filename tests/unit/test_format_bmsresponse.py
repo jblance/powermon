@@ -8,7 +8,7 @@ from powermon.commands.command import Command
                                                 #   ReadingType, ResponseType)
 # from powermon.commands.result import Result, ResultType
 from powermon.device import DeviceInfo
-from powermon.libs.errors import ConfigError
+from powermon.exceptions import ConfigError
 from powermon.outputformats.bmsresponse import BMSResponse as fmt
 from powermon.protocols.jkserial import JkSerial as Proto
 

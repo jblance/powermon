@@ -4,7 +4,7 @@ from enum import StrEnum, auto
 
 from pydantic import BaseModel
 
-from powermon.libs.errors import ConfigError
+from powermon.exceptions import ConfigError
 
 
 # Set-up logger

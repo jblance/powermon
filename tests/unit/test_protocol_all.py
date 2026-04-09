@@ -1,7 +1,7 @@
 import unittest
 
 from powermon.commands.command import Command
-from powermon.libs.errors import CommandDefinitionMissing
+from powermon.exceptions import CommandDefinitionMissing
 from powermon.protocols import Protocol, get_protocol_definition
 from powermon.protocols.abstractprotocol import AbstractProtocol
 

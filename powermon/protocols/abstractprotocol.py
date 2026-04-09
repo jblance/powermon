@@ -10,7 +10,7 @@ from powermon.commands.command import Command
 from powermon.commands.command_definition import CommandDefinition, CommandDefinitionDTO
 from powermon.commands.result import ResultType
 from powermon.commands.trigger import Trigger
-from powermon.libs.errors import (CommandDefinitionIncorrect,
+from powermon.exceptions import (CommandDefinitionIncorrect,
                              CommandDefinitionMissing, InvalidResponse,
                              PowermonProtocolError)
 from powermon.outputs import multiple_from_config

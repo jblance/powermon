@@ -48,7 +48,7 @@ def default_deps() -> Deps:
 
     from powermon import _ as _translate
     from powermon.libs.version import __version__ as _version
-    from powermon.libs.errors import ConfigError as _ConfigError
+    from powermon.exceptions import ConfigError as _ConfigError
 
     from powermon.protocols import (
         Protocol as _Protocol,

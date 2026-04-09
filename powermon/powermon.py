@@ -1,6 +1,7 @@
 # !/usr/bin/python3
 """main powermon code"""
 import asyncio
+
 # import gettext
 import json
 import logging
@@ -12,16 +13,19 @@ import yaml
 from pyaml_env import parse_config
 from pydantic import ValidationError
 
-from powermon import MqttBroker, _
+#from powermon import MqttBroker, _
 from powermon.commands.command import Command
 from powermon.configmodel.config_model import ConfigModel
 from powermon.device import Device
 from powermon.libs.apicoordinator import ApiCoordinator
 from powermon.libs.config import safe_config
 from powermon.libs.daemon import Daemon
+
 #from powermon.libs.mqttbroker import MqttBroker
-from powermon.libs.version import __version__  # noqa: F401
+#from powermon.libs.version import __version__  # noqa: F401
 from powermon.protocols import list_commands, list_protocols
+
+from . import tl, __version__
 
 # Set-up logger
 log = logging.getLogger("")
@@ -64,7 +68,7 @@ def main():
 
 async def runner():
     """powermon command function"""
-    transl_name = _("Power Device Monitoring Utility")
+    transl_name = tl("Power Device Monitoring Utility")
     description = f"{transl_name}, version: {__version__}, python version: {python_version()}"  # pylint: disable=C0301
     parser = ArgumentParser(description=description)
 
@@ -73,7 +77,7 @@ async def runner():
         "--configFile",
         nargs="?",
         type=str,
-        help=_("Full location of config file (defaults to ./powermon.yaml)"),
+        help=tl("Full location of config file (defaults to ./powermon.yaml)"),
         const="./powermon.yaml",
         default=None,
     )
@@ -107,7 +111,7 @@ async def runner():
     # Display version if asked
     log.info(description)
     if args.version:
-        print(_(description))
+        print(tl(description))
         return None
 
     # Do enquiry commands
