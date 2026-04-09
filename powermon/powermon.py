@@ -106,13 +106,6 @@ async def async_main():
         help=tl("Full location of config file (defaults to ./powermon.yaml)"),
         const="./powermon.yaml",
         default=None)
-    parser.add_argument(
-        "--config",
-        type=str,
-        default=None,
-        help="""Supply config items on the commandline in json format, \
-             eg '{"device": {"port":{"type":"test"}}, "commands": [{"command":"QPI"}]}'""")
-    parser.add_argument("-V", "--validate", action="store_true", help=tl("Validate the configuration"))
     parser.add_argument("-v", "--version", action="store_true", help=tl("Display the version"))
     parser.add_argument("-1", "--once", action="store_true", help=tl("Only loop through config once"))
     parser.add_argument("--force", action="store_true", help=tl("Force commands to run even if wouldnt be triggered (should only be used with --once)"))
