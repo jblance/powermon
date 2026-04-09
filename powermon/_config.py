@@ -12,6 +12,7 @@ from .mqttbroker import MQTTConfig
 
 class PowermonConfig(BaseModel):
     """ model/allowed elements for first level of config (version 2)"""
+    config_version: int = 2
     devices: List[DeviceConfig]
     mqttbroker: MQTTConfig = MQTTConfig()
     daemon: DaemonConfig = DaemonConfig()

@@ -248,28 +248,31 @@ def _validate_config_fallback(config_path: Path):
     Loads YAML and validates against powermon.configmodel.config_model.ConfigModel
     (works with Pydantic v1 or v2 style APIs).
     """
-    from ruamel.yaml import YAML
+    #from ruamel.yaml import YAML
     from pyaml_env import parse_config  # ty: ignore[unresolved-import]
 
-    yaml = YAML(typ="safe")
-    with config_path.open("r", encoding="utf-8") as f:    
-        try:
-            data: dict = parse_config(f)
-        except yaml.YAMLError as exc:
-            raise yaml.YAMLError(f"Error processing yaml file: {exc}") from exc
-        except FileNotFoundError as exc:
-            raise FileNotFoundError(f"Error opening yaml file: {exc}") from exc
-        #data = yaml.load(f)
+    #yaml = YAML(typ="safe")
+    #with config_path.open("r", encoding="utf-8") as f:    
+    try:
+        data: dict = parse_config(str(config_path))
+    #except yaml.YAMLError as exc:
+    #    raise yaml.YAMLError(f"Error processing yaml file: {exc}") from exc
+    except FileNotFoundError as exc:
+        raise FileNotFoundError(f"Error opening yaml file: {exc}") from exc   
+    except Exception as exc:
+        raise ValueError(f"Error processing yaml file: {exc}") from exc
+    #data = yaml.load(f)
 
     # Import here to keep CLI import-time light
-    from powermon.configmodel.config_model import ConfigModel
+    #from powermon.configmodel.config_model import ConfigModel
+    from powermon._config import PowermonConfig
 
     # Pydantic v2: model_validate
-    if hasattr(ConfigModel, "model_validate"):
-        return ConfigModel.model_validate(data)
+    if hasattr(PowermonConfig, "model_validate"):
+        return PowermonConfig.model_validate(data)
 
     # Pydantic v1: parse_obj / constructor
-    if hasattr(ConfigModel, "parse_obj"):
-        return ConfigModel.parse_obj(data)
+    if hasattr(PowermonConfig, "parse_obj"):
+        return PowermonConfig.parse_obj(data)
 
-    return ConfigModel(**data)
+    return PowermonConfig(**data)
