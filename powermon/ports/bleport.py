@@ -4,10 +4,14 @@
 import asyncio
 import logging
 import subprocess
+from sys import stdout
 from time import sleep
+from typing import Optional
+
+from ruamel.yaml import YAML
 
 try:
-    from bleak import BleakClient, BleakScanner
+    from bleak import BleakClient, BleakScanner, BLEDevice
     from bleak.exc import BleakDeviceNotFoundError
 except ImportError:
     print("You are missing a python library - 'bleak'")
@@ -21,14 +25,92 @@ except ImportError:
 from powermon.commands.command import Command
 from powermon.commands.result import Result
 from powermon.libs.config import safe_config
-from powermon.libs.errors import (BLEResponseError, ConfigError,
-                                  PowermonProtocolError, PowermonWIP)
+from powermon.libs.errors import BLEResponseError, ConfigError, PowermonProtocolError, PowermonWIP
 from powermon.ports import PortType
 from powermon.ports.abstractport import AbstractPort, _AbstractPortDTO
 from powermon.protocols import get_protocol_definition
 from powermon.protocols.abstractprotocol import AbstractProtocol
 
 log = logging.getLogger("BlePort")
+
+def ble_scan(
+    *,
+    details: bool = False,
+    adv_data: bool = False,
+    address: Optional[str] = None,
+    get_chars: bool = False,
+    timeout: float = 5.0,
+) -> None:
+    """Scan for BLE devices (optionally listing characteristics)."""
+    
+
+    yaml = YAML()
+    addr_norm = address.upper() if address else None
+
+    async def print_device(bledevice: BLEDevice, advertisementdata=None) -> None:
+        if addr_norm and bledevice.address.upper() != addr_norm:
+            return
+
+        if not details:
+            print(f"Name: {bledevice.name}\tAddress: {bledevice.address}")
+            return
+
+        print("Name:", bledevice.name)
+        print("Address:", bledevice.address)
+        print("Metadata:", end="")
+        yaml.dump(bledevice._metadata, stdout)  # pylint: disable=W0212
+        print("RSSI:", bledevice._rssi)  # pylint: disable=W0212
+        print("Details:")
+        yaml.dump(bledevice.details, stdout)
+
+        if advertisementdata:
+            print("\tAdvertisementData:")
+            print("\tlocal_name:", advertisementdata.local_name)
+            print("\tmanufacturer_data:", advertisementdata.manufacturer_data)
+            print("\tplatform_data:", advertisementdata.platform_data)
+            print("\tservice_data:", advertisementdata.service_data)
+            print("\tservice_uuids:", advertisementdata.service_uuids)
+            print("\trssi:", advertisementdata.rssi)
+            print("\ttx_power:", advertisementdata.tx_power)
+
+        if get_chars:
+            print("Connecting to BLE client...")
+            async with BleakClient(bledevice) as client:
+                print("Connected?", client.is_connected)
+
+                for service in client.services:
+                    print(f"[Service] {service}")
+
+                    for char in service.characteristics:
+                        print(
+                            f"  [Characteristic] Handle: {char.handle:02d} (0x{char.handle:02X}), "
+                            f"UUID: {char.uuid}, Description: {char.description}, "
+                            f"Properties: {char.properties}"
+                        )
+                        for desc in char.descriptors:
+                            print(
+                                f"    [Descriptor] Handle: {desc.handle:02d} (0x{desc.handle:02X}), "
+                                f"UUID: {desc.uuid}"
+                            )
+
+    async def scan() -> None:
+        print("Scanning for BLE devices…")
+        devices = await BleakScanner.discover(timeout=timeout, return_adv=adv_data)
+
+        # return_adv=False => list[BLEDevice]
+        # return_adv=True  => dict[address] = (BLEDevice, AdvertisementData)
+        if isinstance(devices, dict):
+            print(f"Found {len(devices)} BLE devices")
+            for dev, adv in devices.values():
+                await print_device(dev, adv)
+        else:
+            print(f"Found {len(devices)} BLE devices")
+            for dev in devices:
+                await print_device(dev)
+    try:
+        asyncio.run(scan())
+    except KeyboardInterrupt:
+        print("[yellow]BLE scan cancelled[/]")
 
 
 def ble_reset():
