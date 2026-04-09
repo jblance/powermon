@@ -1,3 +1,6 @@
+"""
+pydantic definitions for the device config model
+"""
 from typing import List, Optional
 
 from pydantic import Field

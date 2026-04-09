@@ -11,3 +11,5 @@ class ProtocolType(StrEnum):
     HELTEC = auto()
     VED = auto()
     JKSERIAL = auto()
+
+    DEFAULT = PI30

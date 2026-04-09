@@ -16,7 +16,7 @@ rprint = Console(highlight=False).print
 
 
 class Protocol():
-    DEFAULT = ProtocolType.PI30
+    #DEFAULT = ProtocolType.PI30
     MAX_MODELS = ['MAX']
     MST_MODELS = ['MST']
 

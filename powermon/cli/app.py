@@ -143,11 +143,25 @@ def create_app(deps: Optional[Deps] = None) -> typer.Typer:
 
     @config_app.command("generate")
     def generate() -> None:
-        """Generate a configuration file interactively."""
-        try:
-            deps.generate_config_file()
-        except KeyboardInterrupt:
-            print("[red]Generation of config file aborted[/red]")
+        """Generate a base configuration file."""
+
+        from ruamel.yaml import YAML
+        import sys
+        from .config_generate import generate_base_config
+
+        config = generate_base_config()
+
+        yaml = YAML()
+        yaml.indent(mapping=2, sequence=4, offset=2)
+
+        data = config.model_dump(
+            mode='json',
+            exclude_defaults=False,
+            exclude_none=True,
+        )
+
+        yaml.dump(data, sys.stdout)
+
 
     @config_app.command("validate")
     def validate(

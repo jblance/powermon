@@ -13,7 +13,6 @@ import yaml  # ty: ignore[unresolved-import]
 from pyaml_env import parse_config  # ty: ignore[unresolved-import]
 from pydantic import ValidationError  # ty: ignore[unresolved-import]
 
-# from rich import print as rprint      # ty: ignore[unresolved-import]
 from . import tl, __version__
 from ._config import PowermonConfig
 from .daemons import Daemon
@@ -32,8 +31,6 @@ def _read_yaml_file(yaml_file=None):
     _yaml = {}
     if yaml_file is not None:
         try:
-            # with open(yaml_file, "r", encoding="utf-8") as stream:
-            #     _yaml = yaml.safe_load(stream)
             _yaml = parse_config(yaml_file)
         except yaml.YAMLError as exc:
             raise yaml.YAMLError(f"Error processing yaml file: {exc}") from exc
