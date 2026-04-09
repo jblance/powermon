@@ -14,7 +14,6 @@ from powermon.libs.errors import CommandDefinitionMissing, ConfigError
 from powermon.libs.version import __version__  # noqa: F401
 from powermon.outputformats import FormatterType, get_formatter, list_formats
 from powermon.outputs import OutputType, list_outputs
-from powermon.ports.bleport import ble_reset
 from powermon.protocols import (Protocol, get_protocol_definition,
                                 list_commands, list_protocols)
 
@@ -463,6 +462,7 @@ def main():
         return None
 
     if args.bleReset:
+        from powermon.ports.bleport import ble_reset
         ble_reset()
         return
 
