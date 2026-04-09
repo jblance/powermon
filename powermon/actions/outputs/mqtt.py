@@ -17,7 +17,7 @@ class MQTT(Output):
         self.topic = topic
 
     def __str__(self):
-        return f"outputs.MQTT: {self.topic=}"
+        return f"{self.name}: sends MQTT message (message is formatter as per {self.formatter=}) to defined topic, {self.topic=}"
 
     @property
     def topic(self):

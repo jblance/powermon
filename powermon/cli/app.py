@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from functools import lru_cache
+from pathlib import Path
 from typing import Any, Optional
 
 import typer
@@ -148,6 +149,55 @@ def create_app(deps: Optional[Deps] = None) -> typer.Typer:
         except KeyboardInterrupt:
             print("[red]Generation of config file aborted[/red]")
 
+    @config_app.command("validate")
+    def validate(
+        config_path: Path = typer.Argument(
+            ...,
+            exists=True,
+            dir_okay=False,
+            readable=True,
+            help="Path to configuration file (YAML)",
+        ),
+        show: bool = typer.Option(
+            False,
+            "--show",
+            help="Print the parsed/normalised config after validation",
+        ),
+    ) -> None:
+        """
+        Validate a configuration file against the config model.
+
+        Returns exit code 0 on success, 1 on validation error.
+        """
+        # If you later add `validate_config` to Deps, we’ll use it.
+        validate_fn = getattr(deps, "validate_config", None)
+
+        try:
+            if callable(validate_fn):
+                cfg = validate_fn(config_path)
+            else:
+                cfg = _validate_config_fallback(config_path)
+        except Exception as ex:
+            print(f"[red]Config validation failed:[/] {ex}")
+            raise typer.Exit(code=1) from ex
+
+        print(f"[green]Config OK:[/] {config_path}")
+
+        if show and cfg is not None:
+            # Best-effort pretty print for Pydantic v1/v2 and plain dicts
+            try:
+                if hasattr(cfg, "model_dump"):
+                    data = cfg.model_dump()
+                elif hasattr(cfg, "dict"):
+                    data = cfg.dict()
+                else:
+                    data = cfg
+            except Exception:
+                data = cfg
+
+            print("[bold]Parsed config:[/bold]")
+            print(data)
+
     # ---- ble ----
 
     @ble_app.command("reset")
@@ -189,3 +239,37 @@ def create_app(deps: Optional[Deps] = None) -> typer.Typer:
         )
 
     return app
+
+
+def _validate_config_fallback(config_path: Path):
+    """
+    Fallback config validator used if deps.validate_config isn't provided.
+
+    Loads YAML and validates against powermon.configmodel.config_model.ConfigModel
+    (works with Pydantic v1 or v2 style APIs).
+    """
+    from ruamel.yaml import YAML
+    from pyaml_env import parse_config  # ty: ignore[unresolved-import]
+
+    yaml = YAML(typ="safe")
+    with config_path.open("r", encoding="utf-8") as f:    
+        try:
+            data: dict = parse_config(f)
+        except yaml.YAMLError as exc:
+            raise yaml.YAMLError(f"Error processing yaml file: {exc}") from exc
+        except FileNotFoundError as exc:
+            raise FileNotFoundError(f"Error opening yaml file: {exc}") from exc
+        #data = yaml.load(f)
+
+    # Import here to keep CLI import-time light
+    from powermon.configmodel.config_model import ConfigModel
+
+    # Pydantic v2: model_validate
+    if hasattr(ConfigModel, "model_validate"):
+        return ConfigModel.model_validate(data)
+
+    # Pydantic v1: parse_obj / constructor
+    if hasattr(ConfigModel, "parse_obj"):
+        return ConfigModel.parse_obj(data)
+
+    return ConfigModel(**data)

@@ -14,7 +14,7 @@ class Screen(Output):
         self.formatter = formatter
 
     def __str__(self):
-        return f"{self.__class__}: outputs the results to the screen as per the formatter supplied"
+        return f"{self.name}: outputs the results to the screen as per the formatter {self.formatter=} supplied"
 
     def __repr__(self):
         return f"Screen(formatter={self.formatter!r})"

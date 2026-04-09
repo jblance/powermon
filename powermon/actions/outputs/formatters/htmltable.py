@@ -1,6 +1,6 @@
 """ powermon / outputformats / htmltable.py """
 import logging
-from powermon.outputformats.abstractformat import AbstractFormat
+from .abstractformat import AbstractFormat
 from powermon.commands.result import Result
 from powermon.commands.reading import Reading
 

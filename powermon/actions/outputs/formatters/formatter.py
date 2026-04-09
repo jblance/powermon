@@ -5,6 +5,7 @@ from rich import print
 
 from powermon.exceptions import ConfigError
 
+from ._config import BaseFormatConfig
 from ._types import FormatterType
 from .abstractformat import AbstractFormat
 
@@ -18,7 +19,7 @@ class Formatter():
     def list_formats():
         print("[orange]Available output formats")
         for formatter in FormatterType:
-            print(f"[green]{formatter.upper()}[/]: {Formatter.get_formatter(formatter)({})}")
+            print(f"[green]{formatter.upper()}[/]: {Formatter.get_formatter(formatter)(config=None)}")
             # print(formatter)
 
     @staticmethod

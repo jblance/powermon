@@ -2,6 +2,7 @@
 import json
 import logging
 from .abstractformat import AbstractFormat
+from ._config import JsonFormatConfig
 from powermon.commands.result import Result
 from powermon.commands.reading import Reading
 
@@ -11,6 +12,8 @@ log = logging.getLogger("json")
 class Json(AbstractFormat):
     """ simple format - {name}={value}{unit} format """
     def __init__(self, config):
+        if config is None:
+            config = JsonFormatConfig()
         super().__init__(config)
         self.name = "json"
         self.json_format = config.format

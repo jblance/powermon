@@ -2,7 +2,7 @@
 import logging
 from time import time
 
-from powermon.outputformats.abstractformat import AbstractFormat, AbstractFormatDTO
+from .abstractformat import AbstractFormat
 from powermon.commands.result import Result
 from powermon.commands.reading import Reading
 
@@ -82,7 +82,3 @@ class Cache(AbstractFormat):
             _result.append({'topic': topic, 'payload': payload})
         return _result
 
-    @classmethod
-    def from_dto(cls, dto: AbstractFormatDTO):
-        """ build class object from dto """
-        return cls(config=dto)

@@ -1,4 +1,5 @@
 from __future__ import annotations
+from powermon.protocols import Protocol
 
 from dataclasses import dataclass
 from typing import Any, Callable
@@ -46,18 +47,17 @@ def default_deps() -> Deps:
     from platform import python_version as _python_version
     from deepdiff import DeepDiff as _DeepDiff
 
-    from powermon import _ as _translate
-    from powermon.libs.version import __version__ as _version
+    from powermon import tl as _translate
+    from powermon.version import __version__ as _version
     from powermon.exceptions import ConfigError as _ConfigError
 
-    from powermon.protocols import (
+    from powermon.protocols.protocol import (
         Protocol as _Protocol,
-        get_protocol_definition as _get_protocol_definition,
         list_protocols as _list_protocols,
         list_commands as _list_commands,
     )
-    from powermon.outputformats import list_formats as _list_formats
-    from powermon.outputs import list_outputs as _list_outputs
+    from powermon.actions.outputs.formatters import Formatter
+    from powermon.actions.outputs.output import Output
 
     # Config generator (stub for now—replace later with your real implementation)
     def _generate_config_file() -> None:
@@ -80,10 +80,10 @@ def default_deps() -> Deps:
         python_version=_python_version,
         list_protocols=_list_protocols,
         list_commands=_list_commands,
-        list_formats=_list_formats,
-        list_outputs=_list_outputs,
+        list_formats=Formatter.list_formats,
+        list_outputs=Output.list_outputs,
         protocol_enum=_Protocol,
-        get_protocol_definition=_get_protocol_definition,
+        get_protocol_definition=Protocol.from_name,
         config_error_type=_ConfigError,
         deepdiff=_DeepDiff,
         generate_config_file=_generate_config_file,

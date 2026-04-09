@@ -7,10 +7,11 @@ import logging
 import construct as cs
 
 from powermon import __version__  # noqa: F401
-from ....commands.command import Command
+#from ....commands.command import Command
 from ....commands.reading import Reading
 from ....commands.result import Result
 from .abstractformat import AbstractFormat
+from._config import HassFormatConfig
 
 log = logging.getLogger("hass")
 
@@ -18,6 +19,8 @@ log = logging.getLogger("hass")
 class Hass(AbstractFormat):
     """ formatter to generate home assistant auto config mqtt messages """
     def __init__(self, config):
+        if config is None:
+            config = HassFormatConfig()
         super().__init__(config)
         self.name = "hass"
         self.discovery_prefix = config.discovery_prefix
@@ -33,7 +36,7 @@ class Hass(AbstractFormat):
         options.update(extra_options)
         return options
 
-    def format(self, command: Command, result: Result, device) -> list:
+    def format(self, command, result: Result, device) -> list:
         log.info("Using output formatter: %s", self.name)
 
         config_msgs = []

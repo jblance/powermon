@@ -1,9 +1,12 @@
 """ powermon / outputformats / bmsresponse.py """
 import logging
-from powermon.outputformats.abstractformat import AbstractFormat, AbstractFormatDTO
-from powermon.commands.result import Result
+
 from powermon.commands.reading import Reading
-from powermon.libs.errors import ConfigError
+from powermon.commands.result import Result
+from powermon.exceptions import ConfigError
+
+from ._config import BMSResponseFormatConfig
+from .abstractformat import AbstractFormat
 
 log = logging.getLogger("bmsresponse")
 
@@ -11,21 +14,23 @@ log = logging.getLogger("bmsresponse")
 class BMSResponse(AbstractFormat):
     """ bmsresponse in PI30 format """
     def __init__(self, config):
+        if config is None:
+            config = BMSResponseFormatConfig()
         super().__init__(config)
         self.name = "bmsresponse"
 
         # response type
-        self.response_protocol = config.get("protocol", "not-configured")
+        self.response_protocol = config.protocol
 
         # values from BMS
         self.data = {'battery_voltage': None, 'battery_soc': None, 'discharge_on': None, 'charge_on': None}
         # config set values
-        self.data['force_charge'] = config.get("", False)
-        self.data['battery_charge_voltage'] = config.get("battery_charge_voltage")
-        self.data['battery_float_voltage'] = config.get("battery_float_voltage")
-        self.data['battery_cutoff_voltage'] = config.get("battery_cutoff_voltage")
-        self.data['battery_max_charge_current'] = config.get("battery_max_charge_current")
-        self.data['battery_max_discharge_current'] = config.get("battery_max_discharge_current")
+        self.data['force_charge'] = False #config.get("", False)
+        self.data['battery_charge_voltage'] = config.battery_charge_voltage
+        self.data['battery_float_voltage'] = config.battery_float_voltage
+        self.data['battery_cutoff_voltage'] = config.battery_cutoff_voltage
+        self.data['battery_max_charge_current'] = config.battery_max_charge_current
+        self.data['battery_max_discharge_current'] = config.battery_max_discharge_current
         # todos
         self.data['battery_connected'] = True
 
@@ -86,7 +91,3 @@ class BMSResponse(AbstractFormat):
         _result.append(_response)
         return _result
 
-    @classmethod
-    def from_dto(cls, dto: AbstractFormatDTO):
-        """ build class object from dto """
-        return cls(config=dto)

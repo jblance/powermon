@@ -21,20 +21,20 @@ class BaseFormatConfig(BaseModel):
 
 class HassFormatConfig(BaseFormatConfig):
     """ model/allowed elements for hass format config """
-    type: Literal['hass']
-    discovery_prefix: None | str = Field(default='homeassistant')
-    entity_id_prefix: None | str = Field(default=None)
+    type: Literal['hass'] = 'hass'
+    discovery_prefix: Optional[str] = 'homeassistant'
+    entity_id_prefix: Optional[str] = None
 
 
 class JsonFormatConfig(BaseFormatConfig):
     """ model/allowed elements for mqtt format config """
-    type: Literal['json']
+    type: Literal['json'] = 'json'
     format: Optional[Literal['basic']] = 'basic'
     include_missing: Optional[bool] = False
 
 class BMSResponseFormatConfig(BaseFormatConfig):
     """ model/allowed elements for BMSResponse format config """
-    type: Literal['bmsresponse']
+    type: Literal['bmsresponse'] = 'bmsresponse'
     protocol: None | Literal['pi30'] = Field(default=None)
     force_charge: None | bool = Field(default=None)
     battery_charge_voltage: None | float = Field(default=None)

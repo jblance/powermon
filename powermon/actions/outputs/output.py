@@ -38,9 +38,9 @@ class Output():
         print("Supported outputs")
         for name in OutputType:
             try:
-                output = Output.get_output_class(name, Output.DEFAULT, {})
+                output = Output.get_output_class(name, Formatter.DEFAULT_FORMAT, {})
                 if output is not None:
-                    rprint(f"[GREEN]{name.upper()}[/]: {output}")
+                    rprint(f"[green]{name}[/]: {output}")
             except ModuleNotFoundError as exc:
                 log.info("Error in module %s: %s", name, exc)
                 continue

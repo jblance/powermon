@@ -13,10 +13,11 @@ log = logging.getLogger("Formatter")
 
 class AbstractFormat(ABC):
     """ base for all format types """
-    def __init__(self, config):
+    def __init__(self, config=None):
+        self.default_config = BaseFormatConfig()
         self.name = "AbstractFormat"
         if config is None:
-            config = {}
+            config = self.default_config
         if isinstance(config, BaseFormatConfig):
             self.remove_spaces = config.remove_spaces
             self.keep_case = config.keep_case

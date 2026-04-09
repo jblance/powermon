@@ -1,6 +1,6 @@
 """ powermon / outputformats / raw.py """
 import logging
-from powermon.outputformats.abstractformat import AbstractFormat
+from .abstractformat import AbstractFormat
 from powermon.commands.result import Result
 
 log = logging.getLogger("raw")

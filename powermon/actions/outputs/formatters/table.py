@@ -6,6 +6,7 @@ from powermon.commands.reading_definition import ReadingDefinition
 from powermon.commands.result import Result
 from powermon.exceptions import ConfigError
 from .abstractformat import AbstractFormat
+from ._config import BaseFormatConfig
 
 log = logging.getLogger("Table")
 
@@ -13,6 +14,8 @@ log = logging.getLogger("Table")
 class Table(AbstractFormat):
     """ table formatter - formats results in a table suitable for std out """
     def __init__(self, config):
+        if config is None:
+            config = BaseFormatConfig()
         super().__init__(config)
         self.name = "table"
         self.draw_lines = config.draw_lines
