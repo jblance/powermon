@@ -1,0 +1,28 @@
+devices:
+  - name: test - multi outputs
+    serial_number: 123456789
+    model: LV4048
+    manufacturer: MPP-Solar
+    port:
+      type: test
+      # response_number: 3
+      protocol: pi30
+    instructions:
+    - command: get_id
+      outputs:
+      - type: screen
+      - type: screen
+        format:
+          type: table
+          draw_lines: true
+      - type: screen
+        format: 
+          type: hass
+          discovery_prefix: ha/autodiscovery
+      - type: screen
+        format: 
+          type: json
+          format: basic
+    # - command: QPI
+    #   outputs: screen
+loop: null
