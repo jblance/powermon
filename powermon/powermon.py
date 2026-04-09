@@ -1,36 +1,30 @@
 # !/usr/bin/python3
 """main powermon code"""
 import asyncio
-
-# import gettext
 import json
 import logging
 import time
 from argparse import ArgumentParser
+from logging import Logger
 from platform import python_version
+from typing import Optional
 
-import yaml
-from pyaml_env import parse_config
-from pydantic import ValidationError
+import yaml  # ty: ignore[unresolved-import]
+from pyaml_env import parse_config  # ty: ignore[unresolved-import]
+from pydantic import ValidationError  # ty: ignore[unresolved-import]
 
-#from powermon import MqttBroker, _
-from powermon.commands.command import Command
-from powermon.configmodel.config_model import ConfigModel
-from powermon.device import Device
-from powermon.libs.apicoordinator import ApiCoordinator
-from powermon.libs.config import safe_config
-from powermon.libs.daemon import Daemon
-
-#from powermon.libs.mqttbroker import MqttBroker
-#from powermon.libs.version import __version__  # noqa: F401
-from powermon.protocols import list_commands, list_protocols
-
-from . import tl, __version__
+# from rich import print as rprint      # ty: ignore[unresolved-import]
+from . import _, __version__
+from ._config import PowermonConfig
+from .daemons import Daemon
+from .devices import Device
+from .actions import Action
+from .loop import Loop
+from .mqttbroker import MqttBroker
 
 # Set-up logger
-log = logging.getLogger("")
-FORMAT = "%(asctime)-15s:%(levelname)s:%(module)s:%(funcName)s@%(lineno)d: %(message)s"
-logging.basicConfig(format=FORMAT)
+log: Logger = logging.getLogger("")
+logging.basicConfig(format="%(asctime)-15s:%(levelname)s:%(module)s:%(funcName)s@%(lineno)d: %(message)s")
 
 
 def _read_yaml_file(yaml_file=None):
@@ -50,7 +44,7 @@ def _read_yaml_file(yaml_file=None):
 
 def _process_command_line_overrides(args):
     """override config with command line options"""
-    _config = {}
+    _config = {'debuglevel': logging.WARNING}
     if args.config:
         _config = json.loads(args.config)
     if args.once:
@@ -62,190 +56,144 @@ def _process_command_line_overrides(args):
     return _config
 
 
+def _validate_config(config: Optional[dict] = None, validate_only: bool=False):
+    try:
+        powermon_config: PowermonConfig = PowermonConfig(**config) # ty: ignore[missing-argument]
+        log.debug(powermon_config)
+        log.info("Config validation successful")
+        if validate_only:
+            # if --validate option set, only do validation
+            print(_("Config validation successful"))
+            exit(0)
+        return powermon_config
+    except ValidationError as exception:
+        # if config fails to validate, print reason and exit
+        print(_("Config validation failed"))
+        print(f"{config=}")
+        print(exception)
+        exit(1)
+
+
+def build_config(args = None) -> PowermonConfig:
+    """build the powermon config object from command line args and config file"""
+    # read config file
+    _config = _read_yaml_file(args.configFile)
+    # process command line overrides
+    _config.update(_process_command_line_overrides(args))
+    # set log level
+    log.setLevel(_config['debuglevel'])
+    log.info("Using config file: %s", args.configFile)
+    # validate config
+    return _validate_config(config=_config, validate_only=args.validate if args else False)
+
+
 def main():
     """entry point for powermon command"""
-    asyncio.run(runner())
+    asyncio.run(async_main())
 
-async def runner():
+
+async def async_main():
     """powermon command function"""
-    transl_name = tl("Power Device Monitoring Utility")
-    description = f"{transl_name}, version: {__version__}, python version: {python_version()}"  # pylint: disable=C0301
-    parser = ArgumentParser(description=description)
+    _name: str = _("Power Device Monitoring Utility")
+    description: str = f"{_name}, version: {__version__}, python version: {python_version()}"  # pylint: disable=C0301
+    parser: ArgumentParser = ArgumentParser(description=description)
 
     parser.add_argument(
         "-C",
         "--configFile",
         nargs="?",
         type=str,
-        help=tl("Full location of config file (defaults to ./powermon.yaml)"),
+        help=_("Full location of config file (defaults to ./powermon.yaml)"),
         const="./powermon.yaml",
-        default=None,
-    )
+        default=None)
     parser.add_argument(
         "--config",
         type=str,
         default=None,
         help="""Supply config items on the commandline in json format, \
-             eg '{"device": {"port":{"type":"test"}}, "commands": [{"command":"QPI"}]}'""",
-    )
-    parser.add_argument("-V", "--validate", action="store_true", help="Validate the configuration")
-    parser.add_argument("-v", "--version", action="store_true", help="Display the version")
-    parser.add_argument("--listProtocols", action="store_true", help="Display the currently supported protocols")
-    parser.add_argument("--listCommands", type=str, metavar='PROTOCOL', default=None, help="Display available commands for PROTOCOL")
-    parser.add_argument("-1", "--once", action="store_true", help="Only loop through config once")
-    parser.add_argument("--force", action="store_true", help="Force commands to run even if wouldnt be triggered (should only be used with --once)")
-    parser.add_argument("-I", "--info", action="store_true", help="Enable Info and above level messages")
-    parser.add_argument("-D", "--debug", action="store_true", help="Enable Debug and above (i.e. all) messages")
-    parser.add_argument("-a", "--adhoc", type=str, metavar='COMMAND', default=None, help="Send adhoc command to mqtt adhoc command queue - needs config file specified and populated")
+             eg '{"device": {"port":{"type":"test"}}, "commands": [{"command":"QPI"}]}'""")
+    parser.add_argument("-V", "--validate", action="store_true", help=_("Validate the configuration"))
+    parser.add_argument("-v", "--version", action="store_true", help=_("Display the version"))
+    parser.add_argument("-1", "--once", action="store_true", help=_("Only loop through config once"))
+    parser.add_argument("--force", action="store_true", help=_("Force commands to run even if wouldnt be triggered (should only be used with --once)"))
+    parser.add_argument("-I", "--info", action="store_true", help=_("Enable Info and above level messages"))
+    parser.add_argument("-D", "--debug", action="store_true", help=_("Enable Debug and above (i.e. all) messages"))
+    parser.add_argument("-a", "--adhoc", type=str, metavar='COMMAND', default=None, help=_("Send adhoc command to mqtt adhoc command queue - needs config file specified and populated"))
 
     args = parser.parse_args()
-    # prog_name = parser.prog
 
-    # Temporarily set debug level based on command line options
-    log.setLevel(logging.WARNING)
-    if args.info:
-        log.setLevel(logging.INFO)
-    if args.debug:
-        log.setLevel(logging.DEBUG)
-
-    # Display version if asked
-    log.info(description)
+    # Display version if asked for
     if args.version:
-        print(tl(description))
-        return None
-
-    # Do enquiry commands
-    # - List Protocols
-    if args.listProtocols:
         print(description)
-        list_protocols()
         return None
 
-    if args.listCommands:
-        print(description)
-        list_commands(protocol=args.listCommands)
-        return None
-
-    # Build configuration from config file and command line overrides
-    log.info("Using config file: %s", args.configFile)
-    # build config with details from config file
-    config = _read_yaml_file(args.configFile)
-
-    # build config - override with any command line arguments
-    config.update(_process_command_line_overrides(args))
-
-    # validate config
-    try:
-        config_model = ConfigModel(config=config)
-        log.debug(config_model)
-        log.info("Config validation successful")
-        if args.validate:
-            # if --validate option set, only do validation
-            print("Config validation successful")
-            return None
-    except ValidationError as exception:
-        # if config fails to validate, print reason and exit
-        print("Config validation failed")
-        print(f"{config=}")
-        print(exception)
-        return None
-
-    # logging (DEBUG, INFO, WARNING, ERROR, CRITICAL)
-    log.setLevel(config.get("debuglevel", logging.WARNING))
-
-    # debug config
-    log.info("config: %s", safe_config(config))
-
-    # build mqtt broker object (optional)
-    mqtt_broker = MqttBroker.from_config(config=config.get("mqttbroker"))
+    # build config object
+    powermon_config: PowermonConfig = build_config(args=args)
+    
+    log.info(description)
+    
+    # build mqtt broker object
+    mqtt_broker: MqttBroker = MqttBroker.from_config(powermon_config.mqttbroker)
     log.info(mqtt_broker)
 
-    # build device object (required)
-    device = await Device.from_config(config=config.get("device"))
-    device.mqtt_broker = mqtt_broker
-    log.debug(device)
-
-    # process adhoc command line command
-    if args.adhoc:
-        print("Received an adhoc command")
-        # if not running mqttbroker, run command directly
-        if device.mqtt_broker.disabled or not device.mqtt_broker.is_connected:
-            print("Running adhoc command to non-connected device")
-            adhoc_command_config = {"command": args.adhoc}
-            device.add_command(Command.from_config(adhoc_command_config))
-            await device.initialize()
-            await device.run(True)
-            await device.finalize()
-            return
-        # post adhoc command to mqtt
-        device.mqtt_broker.post_adhoc_command(command_code=args.adhoc)
-        # _command = Command.from_code(args.adhoc)
-        # _command.command_definition = device.port.protocol.get_command_definition(args.adhoc)
-        # print(_command)
-        return
-    # add commands to device command list
-    for command_config in config.get("commands"):
-        log.info("Adding command, config: %s", command_config)
-        device.add_command(Command.from_config(command_config))
-    log.info(device)
-
-    # build the daemon object (optional)
-    daemon = Daemon.from_config(config=config.get("daemon"))
+    # build the daemon object
+    daemon: Daemon = Daemon.from_config(config=powermon_config.daemon)
     log.info(daemon)
 
-    # build api coordinator
-    api_coordinator = ApiCoordinator.from_config(config=config.get("api"))
-    api_coordinator.set_device(device)
-    api_coordinator.set_mqtt_broker(mqtt_broker)
-    log.info(api_coordinator)
+    # build list of devices
+    devices: list[Device] = await Device.from_configs(powermon_config.devices, mqtt_broker=mqtt_broker)
+    log.debug(devices)
 
-    # initialize api coordinator
-    api_coordinator.initialize()
-
+    # # TODO: sort out how to make this work
+    # # process adhoc command line command
+    # if args.adhoc:
+    #     print("Received an adhoc command")
+    #     # if not running mqttbroker, run command directly
+    #     if device.mqtt_broker.disabled or not device.mqtt_broker.is_connected:
+    #         print("Running adhoc command to non-connected device")
+    #         adhoc_command_config = {"command": args.adhoc}
+    #         device.add_command(Command.from_config(adhoc_command_config))
+    #         await device.initialize()
+    #         await device.run(True)
+    #         await device.finalize()
+    #         return
+    #     # post adhoc command to mqtt
+    #     device.mqtt_broker.post_adhoc_command(command_code=args.adhoc)
+    #     # _command = Command.from_code(args.adhoc)
+    #     # _command.command_definition = device.port.protocol.get_command_definition(args.adhoc)
+    #     # print(_command)
+    #     return
+    
     # initialize daemon
     daemon.initialize()
-    api_coordinator.announce(daemon)
 
-    # initialize device
-    await device.initialize()
-    api_coordinator.announce(device)
+    # initialize devices
+    for device in devices:
+        await device.initialize()
 
-    # loop config
-    loop = config.get("loop", "once")
-    try:
-        if loop == "once":
-            loop = False
-        else:
-            loop = float(loop) + 0.01  # adding a little bit so is delay is 0, loop != False
-    except ValueError:
-        log.warning("loop unable to cast %s to float - defaulting to 'False'", loop)
-        loop = False
-    log.debug("loop set to: %s", loop)
+    # build loop object
+    loop = Loop.from_config(powermon_config.loop)
+    log.info(loop)
 
     # Main working loop
     try:
-        while True:
+        while loop.should_loop():
             # tell the daemon we're still working
             daemon.watchdog()
 
             # run device loop (ie run any needed commands)
-            await device.run(args.force)
-
-            # run api coordinator ...
-            api_coordinator.run()
-
-            # only run loop once if required
-            if not loop:
-                break
+            for device in devices:
+                await device.run_actions(args.force)
 
             # add small delay in loop
-            time.sleep(loop)
+            time.sleep(loop.delay)
 
     except KeyboardInterrupt:
         print("KeyboardInterrupt - stopping")
     finally:
         # disconnect device
-        await device.finalize()
+        for device in devices:
+            await device.finalize()
 
         # disconnect mqtt
         mqtt_broker.stop()
