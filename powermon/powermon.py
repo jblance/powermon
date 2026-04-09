@@ -14,7 +14,7 @@ from pyaml_env import parse_config  # ty: ignore[unresolved-import]
 from pydantic import ValidationError  # ty: ignore[unresolved-import]
 
 # from rich import print as rprint      # ty: ignore[unresolved-import]
-from . import _, __version__
+from . import tl, __version__
 from ._config import PowermonConfig
 from .daemons import Daemon
 from .devices import Device
@@ -63,12 +63,12 @@ def _validate_config(config: Optional[dict] = None, validate_only: bool=False):
         log.info("Config validation successful")
         if validate_only:
             # if --validate option set, only do validation
-            print(_("Config validation successful"))
+            print(tl("Config validation successful"))
             exit(0)
         return powermon_config
     except ValidationError as exception:
         # if config fails to validate, print reason and exit
-        print(_("Config validation failed"))
+        print(tl("Config validation failed"))
         print(f"{config=}")
         print(exception)
         exit(1)
@@ -94,7 +94,7 @@ def main():
 
 async def async_main():
     """powermon command function"""
-    _name: str = _("Power Device Monitoring Utility")
+    _name: str = tl("Power Device Monitoring Utility")
     description: str = f"{_name}, version: {__version__}, python version: {python_version()}"  # pylint: disable=C0301
     parser: ArgumentParser = ArgumentParser(description=description)
 
@@ -103,7 +103,7 @@ async def async_main():
         "--configFile",
         nargs="?",
         type=str,
-        help=_("Full location of config file (defaults to ./powermon.yaml)"),
+        help=tl("Full location of config file (defaults to ./powermon.yaml)"),
         const="./powermon.yaml",
         default=None)
     parser.add_argument(
@@ -112,13 +112,13 @@ async def async_main():
         default=None,
         help="""Supply config items on the commandline in json format, \
              eg '{"device": {"port":{"type":"test"}}, "commands": [{"command":"QPI"}]}'""")
-    parser.add_argument("-V", "--validate", action="store_true", help=_("Validate the configuration"))
-    parser.add_argument("-v", "--version", action="store_true", help=_("Display the version"))
-    parser.add_argument("-1", "--once", action="store_true", help=_("Only loop through config once"))
-    parser.add_argument("--force", action="store_true", help=_("Force commands to run even if wouldnt be triggered (should only be used with --once)"))
-    parser.add_argument("-I", "--info", action="store_true", help=_("Enable Info and above level messages"))
-    parser.add_argument("-D", "--debug", action="store_true", help=_("Enable Debug and above (i.e. all) messages"))
-    parser.add_argument("-a", "--adhoc", type=str, metavar='COMMAND', default=None, help=_("Send adhoc command to mqtt adhoc command queue - needs config file specified and populated"))
+    parser.add_argument("-V", "--validate", action="store_true", help=tl("Validate the configuration"))
+    parser.add_argument("-v", "--version", action="store_true", help=tl("Display the version"))
+    parser.add_argument("-1", "--once", action="store_true", help=tl("Only loop through config once"))
+    parser.add_argument("--force", action="store_true", help=tl("Force commands to run even if wouldnt be triggered (should only be used with --once)"))
+    parser.add_argument("-I", "--info", action="store_true", help=tl("Enable Info and above level messages"))
+    parser.add_argument("-D", "--debug", action="store_true", help=tl("Enable Debug and above (i.e. all) messages"))
+    parser.add_argument("-a", "--adhoc", type=str, metavar='COMMAND', default=None, help=tl("Send adhoc command to mqtt adhoc command queue - needs config file specified and populated"))
 
     args = parser.parse_args()
 
