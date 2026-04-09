@@ -32,13 +32,12 @@ nav:
     - Development Logic: code_ref/development_logic.md
     - powermon: code_ref/powermon.md
   - Protocol Documentation:
+    - Daly CANBus: protocol_docs/daly_can.md
     - MPPsolar (PI30): protocol_docs/pi30.md
     - MPPsolar (PI30MAX): protocol_docs/pi30max.md
     - JKBMS SERIAL (JKSERIAL): protocol_docs/jkserial.md
     - JKBMS (JKV4): protocol_docs/jkv4.md
-    - WIP:
-      - Daly CANBus: protocol_docs/daly_can.md
-      - Voltronic Power (PI16): protocol_docs/PI16.md
+    - Voltronic Power (PI16): protocol_docs/PI16.md
 markdown_extensions:
   - tables
   - toc:
@@ -52,12 +51,8 @@ markdown_extensions:
         - name: mermaid
           class: mermaid
           format: !!python/name:pymdownx.superfences.fence_code_format
-        - name: csv
-          class: csv
-          format: !!python/name:pymdownx.superfences.fence_div_format
 plugins:
   - search
-  - table-reader
   - mkdocstrings:
       default_handler: python
 extra_css:
