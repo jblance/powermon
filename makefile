@@ -1,5 +1,5 @@
 run-docs:
-	uv run mkdocs serve
+	uv run zensical serve
 	
 run-devices:
 	uv run powermon -C tests/config/devices.yaml

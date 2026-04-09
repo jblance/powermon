@@ -40,6 +40,7 @@ nav:
       - Daly CANBus: protocol_docs/daly_can.md
       - Voltronic Power (PI16): protocol_docs/PI16.md
 markdown_extensions:
+  - tables
   - toc:
       toc_depth: 3
   - pymdownx.highlight:
@@ -51,9 +52,12 @@ markdown_extensions:
         - name: mermaid
           class: mermaid
           format: !!python/name:pymdownx.superfences.fence_code_format
+        - name: csv
+          class: csv
+          format: !!python/name:pymdownx.superfences.fence_div_format
 plugins:
   - search
-  # - toc:
+  - table-reader
   - mkdocstrings:
       default_handler: python
 extra_css:

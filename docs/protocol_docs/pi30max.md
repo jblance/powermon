@@ -133,108 +133,74 @@ Request the Device Serial Number
 
 ### 2.5 QVFW3<cr>: Secondary CPU (remote panel) Firmware version
 
-| Computer: ``QVFW3<CRC><cr>``
-| Device: ``(VERFW: <NNNNN.NN><CRC><cr>``
-| <N> is a HEX number from 0...9 or A...F.
+* Computer: ``QVFW3<CRC><cr>``
+* Device: ``(VERFW: <NNNNN.NN><CRC><cr>``
+* <N> is a HEX number from 0...9 or A...F.
 
-2.6 VERFW:<cr>: Bluetooth version inquiry
------------------------------------------
+### 2.6 VERFW:<cr>: Bluetooth version inquiry
 
-| Computer: ``VERFW:<CRC><cr>``
-| Device: ``(VERFW: <NNNNN.NN><cr>``
-| <N> is a HEX number from 0...9 or A...F.
+* Computer: ``VERFW:<CRC><cr>``
+* Device: ``(VERFW: <NNNNN.NN><cr>``
+* <N> is a HEX number from 0...9 or A...F.
 
-2.7 QPIRI<cr>: Device Rating Information inquiry
-------------------------------------------------
+### 2.7 QPIRI<cr>: Device Rating Information inquiry
 
-| Computer: ``QPIRI<CRC><cr>``
-| Device: ``(BBB.B CC.C DDD.D EE.E FF.F HHHH IIII JJ.J KK.K JJ.J KK.K LL.L O PP QQQ O P Q R SS T U VV.V W X YYY Z CCC <CRC><cr>``
+* Computer: ``QPIRI<CRC><cr>``
+* Device: ``(BBB.B CC.C DDD.D EE.E FF.F HHHH IIII JJ.J KK.K JJ.J KK.K LL.L O PP QQQ O P Q R SS T U VV.V W X YYY Z CCC <CRC><cr>``
 
-.. csv-table:: Response Decode
-   :header: ,Component, Description, Units, Notes
-   :widths: auto
-   :align: left
+#### Response Decode
 
-   A, (, Start byte,
-   B, BBB.B, Grid rating voltage, V, B is an integer ranging from 0 to 9.
-   C, CC.C, Grid rating current, A, C is an Integer ranging from 0 to 9.
-   D, DDD.D, AC output rating voltage, V, D is an Integer ranging from 0 to 9.
-   E, EE.E, AC output rating frequency, Hz, E is an Integer ranging from 0 to 9.
-   F, FF.F, AC output rating current, A, F is an Integer ranging from 0 to 9.
-   H, HHHH, AC output rating apparent power, VA, H is an Integer ranging from 0 to 9.
-   I, IIII, AC output rating active power, W, I is an Integer ranging from 0 to 9.
-   J, JJ.J, Battery rating voltage, V, J is an Integer ranging from 0 to 9.
-   K, KK.K, Battery re-charge voltage, V, K is an Integer ranging from 0 to 9.
-   l, JJ.J, Battery under voltage, V, J is an Integer ranging from 0 to 9.
-   M, KK.K, Battery bulk voltage, V, K is an Integer ranging from 0 to 9.
-   N, LL.L, Battery float voltage, V, L is an Integer ranging from 0 to 9.
-   O, O, Battery type, ,  "| 0: AGM
-   | 1: Flooded
-   | 2: User
-   | 3: Pylon
-   | 5: Weco
-   | 6: Soltaro
-   | 8: Lib
-   | 9: Lic"
-   P, PP, Max AC charging current, A, "P is an Integer ranging from 0 to 9. If the max AC charging current is greater than 99A, then return to PPP"
-   Q, QQQ, Max charging current, A, Q is an Integer ranging from 0 to 9.
-   O, O, Input voltage range, , "| 0: Appliance
-   | 1: UPS"
-   P, P, Output source priority, , "| 0: UtilitySolarBat
-   | 1: SolarUtilityBat
-   | 2: SolarBatUtility"
-   Q, Q, Charger source priority, , "| 1: Solar first
-   | 2: Solar + Utility
-   | 3: Only solar charging permitted"
-   R, R, Parallel max num, , R is an Integer ranging from 0 to 9.
-   S, SS, Machine type, , "| 00: Grid tie
-   | 01: Off Grid
-   | 10: Hybrid"
-   T, T, Topology, , "| 0: transformerless
-   | 1: transformer"
-   U, U, Output mode, , "| 00: single machine output
-   | 01: parallel output
-   | 02: Phase 1 of 3 Phase output
-   | 03: Phase 2 of 3 Phase output
-   | 04: Phase 3 of 3 Phase output
-   | 05: Phase 1 of 2 Phase output
-   | 06: Phase 2 of 2 Phase output (120°)
-   | 07: Phase 2 of 2 Phase output (180°)"
-   V, VV.V, Battery re-discharge voltage, V, V is an Integer ranging from 0 to 9.
-   W, W, PV OK condition for parallel, , "| 0: As long as one unit of inverters has connect PV, parallel system will consider PV OK
-   | 1: Only All of inverters have connect PV, parallel system will consider PV OK"
-   X, X, PV power balance, , "| 0: PV input max current will be the max charged current
-   | 1: PV input max power will be the sum of the max charged power and loads power."
-   Y, YYY, Max. charging time at C.V stage (only 48 V model), min, Y is an Integer ranging from 0 to 9.
-   Z, Z, Operation Logic (only 48V model), , "| 0: Automatically
-   | 1: On-line mode
-   | 2: ECO mode"
-   A1, CCC, Max discharging current (only 48V model), A, C is an integer ranging from 0 to 9.
+| Code | Data | Description | Notes |
+|------|------|-------------|-------|
+| A | ( | Start byte | |
+| B | BBB.B | Grid rating voltage | B is an integer ranging from 0 to 9. The units is V. |
+| C | CC.C | Grid rating current | C is an integer ranging from 0 to 9. The units is A. |
+| D | DDD.D | AC output rating voltage | D is an integer ranging from 0 to 9. The units is V. |
+| E | EE.E | AC output rating frequency | E is an integer ranging from 0 to 9. The units is Hz. |
+| F | FF.F | AC output rating current | F is an integer ranging from 0 to 9. The unit is A. |
+| H | HHHH | AC output rating apparent power | H is an integer ranging from 0 to 9. The unit is VA. |
+| I | IIII | AC output rating active power | I is an integer ranging from 0 to 9. The unit is W. |
+| J | JJ.J | Battery rating voltage | J is an integer ranging from 0 to 9. The units is V. |
+| K | KK.K | Battery re-charge voltage | K is an integer ranging from 0 to 9. The units is V. |
+| L | JJ.J | Battery under voltage | J is an integer ranging from 0 to 9. The units is V. |
+| M | KK.K | Battery bulk voltage | K is an integer ranging from 0 to 9. The units is V. |
+| N | LL.L | Battery float voltage | L is an integer ranging from 0 to 9. The units is V. |
+| O | O | Battery type | 0: AGM<br>1: Flooded<br>2: User<br>3: Pylon<br>5: Weco<br>6: Soltaro<br>8: Lib<br>9: Lic |
+| P | PP | Max AC charging current | P is an integer ranging from 0 to 9. The units is A.<br>If the max AC charging current is greater than 99A, then return to PPP |
+| Q | QQQ | Max charging current | Q is an integer ranging from 0 to 9. The units is A. |
+| O | O | Input voltage range | 0: Appliance<br>1: UPS |
+| P | P | Output source priority | 0: UtilitySolarBat<br>1: SolarUtilityBat<br>2: SolarBatUtility |
+| Q | Q | Charger source priority | 1: Solar first<br>2: Solar + Utility<br>3: Only solar charging permitted |
+| R | R | Parallel max num | R is an integer ranging from 0 to 9. |
+| S | SS | Machine type | 00: Grid tie<br>01: Off Grid<br>10: Hybrid |
+| T | T | Topology | 0: transformerless<br>1: transformer |
+| U | U | Output mode | 00: single machine output<br>01: parallel output<br>02: Phase 1 of 3 Phase output<br>03: Phase 2 of 3 Phase output<br>04: Phase 3 of 3 Phase output<br>05: Phase 1 of 2 Phase output<br>06: Phase 2 of 2 Phase output (120°)<br>07: Phase 2 of 2 Phase output (180°) |
+| V | VV.V | Battery re-discharge voltage | V is an integer ranging from 0 to 9. The unit is V. |
+| W | W | PV OK condition for parallel | 0: As long as one unit of inverters has connect PV, parallel system will consider PV OK<br>1: Only All of inverters have connect PV, parallel system will consider PV OK |
+| X | X | PV power balance | 0: PV input max current will be the max charged current<br>1: PV input max power will be the sum of the max charged power and loads power |
+| Y | YYY | Max charging time at C.V stage (only 48V model) | Y is an integer ranging from 0 to 9. The unit is minute. |
+| Z | Z | Operation Logic (only 48V model) | 0: Automatically<br>1: On-line mode<br>2: ECO mode |
+| A1 | CCC | Max discharging current (only 48V model) | C is an integer ranging from 0 to 9. The units is A. |
 
 
-2.8 QFLAG<cr>: Device flag status inquiry
------------------------------------------
+### 2.8 QFLAG<cr>: Device flag status inquiry
 
+* Computer: ``QFLAG <CRC><cr>``
+* Device: ``(ExxxDxxx <CRC><cr>``
+    * ``ExxxDxxx`` is the flag status. E means enable, D means disable
 
-| Computer: ``QFLAG <CRC><cr>``
-| Device: ``(ExxxDxxx <CRC><cr>``
-|
-| ``ExxxDxxx`` is the flag status. E means enable, D means disable
+| x | Control setting |
+|---|-----------------|
+| a | Enable/disable silence buzzer or open buzzer |
+| b | Enable/Disable overload bypass function |
+| d | Enable/Disable solar feed to grid (reserved feature) |
+| k | Enable/Disable LCD display escape to default page after 1 min timeout |
+| u | Enable/Disable overload restart |
+| v | Enable/Disable over temperature restart |
+| x | Enable/Disable backlight on |
+| y | Enable/Disable alarm on when primary source interrupt |
+| z | Enable/Disable fault code record |
 
-.. csv-table:: Response Decode
-   :header: x, Control setting
-   :widths: auto
-   :align: left
-
-   a, Enable/disable silence buzzer or open buzzer
-   b, Enable/Disable overload bypass function
-   d, Enable/Disable solar feed to grid (reserved feature)
-   k, Enable/Disable LCD display escape to default page after 1min timeout
-   u, Enable/Disable overload restart
-   v, Enable/Disable over temperature restart
-   x, Enable/Disable backlight on
-   y, Enable/Disable alarm on when primary source interrupt
-   z, Enable/Disable fault code record
 
 2.9 QPIGS<cr>: Device general status parameters inquiry
 -------------------------------------------------------
