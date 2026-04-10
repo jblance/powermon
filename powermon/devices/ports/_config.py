@@ -2,7 +2,7 @@
 """
 from typing import Literal, Optional
 
-from pydantic import BaseModel, ConfigDict, Field
+from pydantic import BaseModel, ConfigDict, Field  # ty: ignore[unresolved-import]
 
 from ...protocols import ProtocolType
 
@@ -36,9 +36,9 @@ class UsbPortConfig(BaseModel):
     model_config = ConfigDict(extra='forbid')
 
 
-class TestPortConfig(BaseModel):
-    """ model/allowed elements for test port config """
-    type: Literal["test"] = 'test'
+class MockPortConfig(BaseModel):
+    """ model/allowed elements for mock port config """
+    type: Literal["mock"] = 'mock'
     response_number: Optional[int] = None
     protocol: ProtocolType = ProtocolType.DEFAULT
 

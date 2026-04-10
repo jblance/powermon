@@ -7,7 +7,7 @@ from pydantic import Field
 from pydantic import BaseModel, ConfigDict
 
 from ..actions import ActionConfig
-from .ports import BlePortConfig, SerialPortConfig, TestPortConfig, UsbPortConfig
+from .ports import BlePortConfig, SerialPortConfig, MockPortConfig, UsbPortConfig
 
 
 class DeviceConfig(BaseModel):
@@ -16,7 +16,7 @@ class DeviceConfig(BaseModel):
     serial_number: Optional[str] = Field(strict=False, default=None, coerce_numbers_to_str=True)
     model: Optional[str] = None
     manufacturer: Optional[str] = None
-    port: TestPortConfig | SerialPortConfig | UsbPortConfig | BlePortConfig
+    port: MockPortConfig | SerialPortConfig | UsbPortConfig | BlePortConfig
     actions: List[ActionConfig]
 
     model_config = ConfigDict(extra='forbid')

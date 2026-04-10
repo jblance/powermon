@@ -1,7 +1,7 @@
 from powermon._config import PowermonConfig
 from powermon.devices import DeviceConfig
 from powermon.actions import ActionConfig
-from powermon.devices.ports import TestPortConfig
+from powermon.devices.ports import MockPortConfig
 
 
 def generate_base_config() -> PowermonConfig:
@@ -16,7 +16,7 @@ def generate_base_config() -> PowermonConfig:
 
     base_device = DeviceConfig(
         name="example_device",
-        port=TestPortConfig(),
+        port=MockPortConfig(),
         actions=[base_action],
     )
 

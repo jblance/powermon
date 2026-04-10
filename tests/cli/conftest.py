@@ -1,5 +1,5 @@
-import pytest
-from rich.console import Console
+import pytest  # ty: ignore[unresolved-import]
+from rich.console import Console  # ty: ignore[unresolved-import]
 
 @pytest.fixture
 def console():
