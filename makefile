@@ -17,8 +17,8 @@ validate-config-tests:
 	uv run python3 -m unittest tests/unit/test_config_validation.py 
 
 ## pytest tests
-cli-tests:
-	uv run pytest -s tests/cli
+pytests:
+	uv run pytest tests/cli tests/configgen
 
 integration-tests: 
 	uv run python3 -m unittest discover -s tests/integration -f
