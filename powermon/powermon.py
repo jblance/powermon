@@ -39,29 +39,11 @@ def _read_yaml_file(yaml_file=None):
     return _yaml
 
 
-def _process_command_line_overrides(args):
-    """override config with command line options"""
-    _config = {'debuglevel': logging.WARNING}
-    if args.config:
-        _config = json.loads(args.config)
-    if args.once:
-        _config["loop"] = "once"
-    if args.info:
-        _config["debuglevel"] = logging.INFO
-    if args.debug:
-        _config["debuglevel"] = logging.DEBUG
-    return _config
-
-
-def _validate_config(config: Optional[dict] = None, validate_only: bool=False):
+def _validate_config(config: Optional[dict] = None):
     try:
-        powermon_config: PowermonConfig = PowermonConfig(**config) # ty: ignore[missing-argument]
+        powermon_config: PowermonConfig = PowermonConfig(**config)
         log.debug(powermon_config)
         log.info("Config validation successful")
-        if validate_only:
-            # if --validate option set, only do validation
-            print(tl("Config validation successful"))
-            exit(0)
         return powermon_config
     except ValidationError as exception:
         # if config fails to validate, print reason and exit
@@ -75,13 +57,9 @@ def build_config(args = None) -> PowermonConfig:
     """build the powermon config object from command line args and config file"""
     # read config file
     _config = _read_yaml_file(args.configFile)
-    # process command line overrides
-    _config.update(_process_command_line_overrides(args))
-    # set log level
-    log.setLevel(_config['debuglevel'])
     log.info("Using config file: %s", args.configFile)
     # validate config
-    return _validate_config(config=_config, validate_only=args.validate if args else False)
+    return _validate_config(config=_config)
 
 
 def main():
@@ -98,11 +76,9 @@ async def async_main():
     parser.add_argument(
         "-C",
         "--configFile",
-        nargs="?",
         type=str,
         help=tl("Full location of config file (defaults to ./powermon.yaml)"),
-        const="./powermon.yaml",
-        default=None)
+        default="./powermon.yaml",)
     parser.add_argument("-v", "--version", action="store_true", help=tl("Display the version"))
     parser.add_argument("-1", "--once", action="store_true", help=tl("Only loop through config once"))
     parser.add_argument("--force", action="store_true", help=tl("Force commands to run even if wouldnt be triggered (should only be used with --once)"))
@@ -116,6 +92,12 @@ async def async_main():
     if args.version:
         print(description)
         return None
+    
+    # set log level
+    if args.info:
+        log.setLevel(logging.INFO)
+    if args.debug:
+        log.setLevel(logging.DEBUG)
 
     # build config object
     powermon_config: PowermonConfig = build_config(args=args)
