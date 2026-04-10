@@ -1,6 +1,6 @@
 # tests/configgen/test_generate_base.py
 from powermon.cli.config_generate import generate_base_config
-from powermon._config import PowermonConfig
+from powermon.config import PowermonConfig
 
 def test_generate_base_config_validates():
     cfg = generate_base_config()

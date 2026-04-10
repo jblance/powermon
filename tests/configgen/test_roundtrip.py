@@ -3,7 +3,7 @@ import io
 from ruamel.yaml import YAML  # ty: ignore[unresolved-import]
 
 from powermon.cli.config_generate import generate_base_config
-from powermon._config import PowermonConfig
+from powermon.config import PowermonConfig
 
 def test_roundtrip_yaml_to_model():
     cfg = generate_base_config()

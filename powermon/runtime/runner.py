@@ -25,7 +25,7 @@ async def run_worker(
     config,
     *,
     once: bool = False,
-    force_actions: bool = False,
+    force_tasks: bool = False,
 ) -> None:
     """
     Main runtime worker.
@@ -56,15 +56,15 @@ async def run_worker(
 
             # Run due actions
             for device in devices:
-                await device.run_due_actions(
+                await device.run_due_tasks(
                     now=now,
-                    force=force_actions,
+                    force=force_tasks,
                 )
 
             if once:
                 break
 
-            # Determine next due action time
+            # Determine next due task time
             next_due: Optional[float] = None
             for device in devices:
                 ts = device.next_due_timestamp(now=now)

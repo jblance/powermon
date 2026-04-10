@@ -4,7 +4,7 @@ from typing import Literal, Optional
 
 from pydantic import BaseModel, ConfigDict, Field  # ty: ignore[unresolved-import]
 
-from ...protocols import ProtocolType
+from powermon.protocols import ProtocolType
 
 
 class BlePortConfig(BaseModel):

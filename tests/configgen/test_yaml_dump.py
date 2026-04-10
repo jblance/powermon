@@ -18,5 +18,5 @@ def test_yaml_dump_has_expected_keys():
 
     assert "config_version:" in text
     assert "devices:" in text
-    assert "actions:" in text
+    assert "tasks:" in text
     assert "port:" in text

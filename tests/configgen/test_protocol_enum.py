@@ -1,5 +1,5 @@
 # tests/configgen/test_protocol_enum.py
-from powermon.devices.ports import MockPortConfig
+from powermon.ports import MockPortConfig
 from powermon.protocols import ProtocolType 
 
 def test_protocol_enum_serializes_to_string():

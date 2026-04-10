@@ -39,7 +39,7 @@ def _run(
     *,
     config_path: Path,
     once: bool,
-    force_actions: bool,
+    force_tasks: bool,
     log_level: str,
 ) -> None:
     """
@@ -51,7 +51,7 @@ def _run(
         run_worker(
             config,
             once=once,
-            force_actions=force_actions,
+            force_tasks=force_tasks,
         )
     )
 
@@ -70,10 +70,10 @@ def run(
         readable=True,
         help="Path to configuration file",
     ),
-    force_actions: bool = typer.Option(
+    force_tasks: bool = typer.Option(
         False,
-        "--force-actions",
-        help="Force all actions to run immediately (ignores triggers once)",
+        "--force-tasks",
+        help="Force all tasks to run immediately (ignores triggers once)",
     ),
     log_level: str = typer.Option(
         "WARNING",
@@ -89,7 +89,7 @@ def run(
     _run(
         config_path=config,
         once=False,
-        force_actions=force_actions,
+        force_tasks=force_tasks,
         log_level=log_level,
     )
 
@@ -104,10 +104,10 @@ def once(
         readable=True,
         help="Path to configuration file",
     ),
-    force_actions: bool = typer.Option(
+    force_tasks: bool = typer.Option(
         True,
-        "--force-actions",
-        help="Force all actions to run once regardless of trigger state",
+        "--force-tasks",
+        help="Force all tasks to run once regardless of trigger state",
     ),
     log_level: str = typer.Option(
         "WARNING",
@@ -116,14 +116,14 @@ def once(
     ),
 ) -> None:
     """
-    Run all enabled actions once and exit.
+    Run all enabled tasks once and exit.
 
     Intended for operator-initiated tasks such as applying settings.
     """
     _run(
         config_path=config,
         once=True,
-        force_actions=force_actions,
+        force_tasks=force_tasks,
         log_level=log_level,
     )
 

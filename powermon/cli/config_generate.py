@@ -1,7 +1,6 @@
-from powermon._config import PowermonConfig
-from powermon.devices import DeviceConfig
-from powermon.actions import ActionConfig
-from powermon.devices.ports import MockPortConfig
+from powermon.config import PowermonConfig
+from powermon.domain import DeviceConfig, TaskConfig
+from powermon.ports import MockPortConfig
 
 
 def generate_base_config() -> PowermonConfig:
@@ -10,14 +9,14 @@ def generate_base_config() -> PowermonConfig:
     No user interaction yet.
     """
 
-    base_action = ActionConfig(
+    base_task = TaskConfig(
         command="QID",  # safe, informational default
     )
 
     base_device = DeviceConfig(
         name="example_device",
         port=MockPortConfig(),
-        actions=[base_action],
+        tasks=[base_task],
     )
 
     return PowermonConfig(

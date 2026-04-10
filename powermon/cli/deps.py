@@ -56,8 +56,8 @@ def default_deps() -> Deps:
         list_protocols as _list_protocols,
         list_commands as _list_commands,
     )
-    from powermon.actions.outputs.formatters import Formatter
-    from powermon.actions.outputs.output import Output
+    from powermon.outputs.formatters import Formatter
+    from powermon.outputs.output import Output
 
     # Config generator (stub for now—replace later with your real implementation)
     def _generate_config_file() -> None:

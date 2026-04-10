@@ -12,22 +12,22 @@ from powermon.exceptions import (
     InvalidResponse,
 )
 
-from ._config import ActionConfig
-from ._types import ActionType
-from .outputs import Output
+from . import TaskConfig
+from .domain_types import TaskType
+from powermon.outputs import Output
 
 # from .outputs.abstractoutput import AbstractOutput
 from .triggers import Trigger
 
-log = logging.getLogger("Action")
+log = logging.getLogger("Task")
 
 
-class Action():
-    """ class that incapsulates an Action from the user (ie from config file)
+class Task():
+    """ class that incapsulates a Task from the user (ie from config file)
     """
 
     @staticmethod
-    def from_config(config: ActionConfig) -> "Action":
+    def from_config(config: TaskConfig) -> "Task":
         """build object from config dict"""
 
         # build trigger
@@ -39,23 +39,23 @@ class Action():
             outputs.append(Output.from_config(output_config))
 
         # overrides
-        # TODO: implement overrides handling in Action
+        # TODO: implement overrides handling in Task
 
-        Action_type: ActionType = config.type
+        task_type: TaskType = config.type
         # template = None
-        match Action_type:
-            case ActionType.BASIC:
-                from .action_basic import ActionBasic as Action
-            case ActionType.TEMPLATE:
-                from .action_template import ActionTemplate as Action
-            case ActionType.CACHE_QUERY:
-                from .action_cache_query import ActionCacheQuery as Action
+        match task_type:
+            case TaskType.BASIC:
+                from .task_basic import TaskBasic as Task
+            case TaskType.TEMPLATE:
+                from .task_template import TaskTemplate as Task
+            case TaskType.CACHE_QUERY:
+                from .task_cache_query import TaskCacheQuery as Task
 
-        _Action = Action(command_str=config.command, trigger=trigger, outputs=outputs, config=config)
-        return _Action
+        _task = Task(command_str=config.command, trigger=trigger, outputs=outputs, config=config)
+        return _task
 
 
-    def __init__(self, command_str: str, trigger: Trigger, outputs: list[Output], config: ActionConfig):
+    def __init__(self, command_str: str, trigger: Trigger, outputs: list[Output], config: TaskConfig):
         self.command_str: str = command_str
         self.outputs: list[Output] = outputs
         self.trigger: Trigger = trigger
@@ -141,3 +141,15 @@ class Action():
     def outputs(self, outputs: list[Output]):
         self._outputs = outputs
 
+
+class TaskTemplate(Task):
+    pass
+
+    def get_command(self):
+        try:
+            _command = eval(self.command_str)
+            log.debug("eval'd command_str to %s", _command)
+            return _command
+        except SyntaxError as ex:
+            print(ex)
+            return

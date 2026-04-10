@@ -3,7 +3,7 @@ import yaml
 from pyaml_env import parse_config
 from pydantic import ValidationError
 
-from powermon._config import PowermonConfig
+from powermon.config import PowermonConfig
 
 
 def load_yaml_with_env(path: Path) -> dict:

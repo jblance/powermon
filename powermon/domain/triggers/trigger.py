@@ -3,7 +3,7 @@ import logging
 import time
 
 # from ._types import TriggerType
-from ._config import SecondsTriggerConfig, LoopsTriggerConfig, AtTriggerConfig
+from ..domain_config import SecondsTriggerConfig, AtTriggerConfig
 
 log = logging.getLogger("Trigger")
 

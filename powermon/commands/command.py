@@ -7,11 +7,11 @@ from pydantic import BaseModel
 
 from powermon.commands.command_definition import CommandDefinition
 from powermon.commands.result import Result
-from powermon.commands.trigger import Trigger, TriggerDTO
+from powermon.domain.triggers import Trigger
 from powermon.exceptions import (CommandExecutionFailed, ConfigError,
                                   InvalidCRC, InvalidResponse)
 from powermon.outputs import OutputType, multiple_from_config
-from powermon.outputs.abstractoutput import AbstractOutput, AbstractOutputDTO
+from powermon.outputs.output import Output
 from powermon.outputs.api_mqtt import ApiMqtt
 
 log = logging.getLogger("Command")
@@ -36,16 +36,6 @@ class CommandType(Enum):
     JKSERIAL_ACTIVATION = 'jkserial_activation'
 
 
-class CommandDTO(BaseModel):
-    """ model/allowed elements for a command data transfer object """
-    code: str
-    command_type: str
-    template: None | str
-    override: None | str | dict
-    trigger: TriggerDTO
-    outputs: list[AbstractOutputDTO]
-
-
 class Command():
     """
     Command object, holds the details of the command, including:
@@ -55,10 +45,10 @@ class Command():
     - trigger
     - outputs
     """
-    def __init__(self, code: str, commandtype: str, outputs: list[AbstractOutput], trigger: Trigger):
+    def __init__(self, code: str, commandtype: str, outputs: list[Output], trigger: Trigger):
         self.code = code
         self.command_type = commandtype
-        self.outputs: list[AbstractOutput] = outputs
+        self.outputs: list[Output] = outputs
         self.trigger: Trigger = trigger
 
         self.command_definition: CommandDefinition
@@ -66,16 +56,6 @@ class Command():
         self.full_command: str = None
         self.override: str
 
-    def to_dto(self):
-        """ return the command data transfer object """
-        return CommandDTO(
-            code=self.code,
-            command_type=self.command_type,
-            template=self.template,
-            override=self.override,
-            trigger=self.trigger.to_dto(),
-            outputs=[output.to_dto() for output in self.outputs],
-        )
 
     def __str__(self):
         if self.code is None:
@@ -208,12 +188,12 @@ class Command():
         self._override = value
 
     @property
-    def outputs(self) -> list[AbstractOutput]:
+    def outputs(self) -> list[Output]:
         """ a list of output objects """
         return self._outputs
 
     @outputs.setter
-    def outputs(self, outputs: list[AbstractOutput]):
+    def outputs(self, outputs: list[Output]):
         self._outputs = outputs
 
     def is_due(self):

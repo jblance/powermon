@@ -4,7 +4,7 @@ from abc import abstractmethod
 
 from powermon.exceptions import ConfigError, PowermonProtocolError
 
-from ...protocols import Protocol
+from powermon.protocols import Protocol
 # from ...protocols.abstractprotocol import AbstractProtocol
 from ._types import PortType
 

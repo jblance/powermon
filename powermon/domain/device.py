@@ -5,12 +5,13 @@ from typing import List, Optional
 
 from rich import print as pprint  # ty: ignore[unresolved-import]
 
+from powermon.outputs import Output
+from powermon.ports import Port
+
 from ..commands.result import Result
-from ..actions import Action
-from ..actions.outputs.output import Output
 from ..mqttbroker import MqttBroker
 from . import DeviceConfig
-from .ports import Port
+from .task import Task
 
 # Set-up logger
 log = logging.getLogger("Device")
@@ -30,11 +31,11 @@ class Device:
         for config in configs:
             device: Device = await cls.from_config(config)
             device.mqtt_broker = mqtt_broker
-            # add Actions to device Action list
-            for action_config in config.actions:
-                log.info("Adding action, config: %s", action_config)
-                # print('Action_config', Action_config)
-                device.add_action(Action.from_config(action_config))
+            # add Tasks to device Task list
+            for task_config in config.tasks:
+                log.info("Adding task, config: %s", task_config)
+                # print('Task_config', Task_config)
+                device.add_task(Task.from_config(task_config))
             devices.append(device)
         return devices
 
@@ -46,14 +47,14 @@ class Device:
         return _device
 
 
-    def __init__(self, name: str, serial_number: str, model: str, manufacturer: str, port: Optional[Port] = None, actions: Optional[List[Action]] = None, mqtt_broker: Optional[MqttBroker] = None):
+    def __init__(self, name: str, serial_number: str, model: str, manufacturer: str, port: Optional[Port] = None, tasks: Optional[List[Task]] = None, mqtt_broker: Optional[MqttBroker] = None):
         self.config: DeviceConfig = None
         self.name: str = name
         self.serial_number: str = serial_number
         self.model: str = model
         self.manufacturer: str = manufacturer
         self.port: Port = port
-        self.actions: list[Action] = [] if actions is None else actions
+        self.tasks: list[Task] = [] if tasks is None else tasks
         self.mqtt_broker: MqttBroker = mqtt_broker
         self.adhoc_commands: list = []
 
@@ -96,14 +97,14 @@ class Device:
     #     self.adhoc_commands.append(adhoc_command)
 
 
-    def add_action(self, action: Action) -> None:
-        """ add action to list of actions """
-        if action is None:
+    def add_task(self, task: Task) -> None:
+        """ add task to list of tasks """
+        if task is None:
             return
-        # do Action processing - eg find definition
+        # do Task processing - eg find definition
         #
-        action.command_definition = self.port.protocol.get_command_definition(action.get_command())
-        self.actions.append(action)
+        task.command_definition = self.port.protocol.get_command_definition(task.get_command())
+        self.tasks.append(task)
 
 
     # def add_command(self, command: 'Command') -> None:
@@ -167,22 +168,22 @@ class Device:
     #             self.mqtt_broker.post_adhoc_result(item)
 
 
-    async def run_actions(self, force=False):
-        """loops through the Action list and runs any Actions that are due"""
+    async def run_tasks(self, force=False):
+        """loops through the Task list and runs any Tasks that are due"""
         # run any adhoc commands
         # await self.run_adhoc_commands()
 
         # check for any commands in the queue
-        if self.actions is None or len(self.actions) == 0:
-            log.info("no Actions in queue")
+        if self.tasks is None or len(self.tasks) == 0:
+            log.info("no Tasks in queue")
             return
 
-        for i, action in enumerate(self.actions):
-            if force or action.trigger.is_due():
-                log.info("Processing action[%s]: %s", i,action)
+        for i, task in enumerate(self.tasks):
+            if force or task.trigger.is_due():
+                log.info("Processing task[%s]: %s", i, task)
                 # run command
-                pprint(f"processing Action[{i}]: {action}") # FIXME: remove print
-                result: Result = await self.port.execute_action(action)
+                pprint(f"processing Task[{i}]: {task}") # FIXME: remove print
+                result: Result = await self.port.execute_task(task)
                 pprint(f"Got result: {result}")  # TODO: remove print
                 log.info("Got result: %s", result)
                 continue  # TODO: fix from here
