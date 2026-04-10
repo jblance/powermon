@@ -16,6 +16,5 @@ class PowermonConfig(BaseModel):
     devices: List[DeviceConfig]
     mqttbroker: MQTTConfig = MQTTConfig()
     daemon: DaemonConfig = DaemonConfig()
-    loop: Optional[int] = None
 
     model_config = ConfigDict(extra='forbid')

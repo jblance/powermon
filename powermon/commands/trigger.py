@@ -12,16 +12,9 @@ log = logging.getLogger("Trigger")
 class TriggerType(StrEnum):
     """ enum of valid types of triggers """
     EVERY = auto()
-    LOOPS = auto()
     AT = auto()
     ONCE = auto()
     DISABLED = auto()
-
-
-class TriggerDTO(BaseModel):
-    """ data transfer model for Trigger class """
-    trigger_type: str
-    value: str | int
 
 
 class Trigger:
@@ -35,12 +28,6 @@ class Trigger:
         self.last_run : float | None = None
         self.next_run : float = self.determine_next_run()
 
-    def to_dto(self):
-        """ data transfer object for Trigger objects """
-        return TriggerDTO(
-            trigger_type=self.trigger_type,
-            value=self.value
-        )
 
     def __str__(self):
         return f"trigger: {self.trigger_type} {self.value} loops togo: {self.togo}"
@@ -48,16 +35,9 @@ class Trigger:
     @classmethod
     def from_config(cls, config=None):
         """ build trigger object from config dict """
-        if not config:
-            # no trigger defined, default to every loop
-            trigger_type = TriggerType.LOOPS
-            value = 1
-        elif TriggerType.EVERY in config:
+        if not config or TriggerType.EVERY in config:
             trigger_type = TriggerType.EVERY
             value = config.get(TriggerType.EVERY, 61)
-        elif TriggerType.LOOPS in config:
-            trigger_type = TriggerType.LOOPS
-            value = config.get(TriggerType.LOOPS, 101)
         elif TriggerType.AT in config:
             trigger_type = TriggerType.AT
             value = config.get(TriggerType.AT, "12:01")
@@ -69,10 +49,6 @@ class Trigger:
             value = None
         return cls(trigger_type=trigger_type, value=value)
 
-    @classmethod
-    def from_dto(cls, dto: TriggerDTO) -> "Trigger":
-        """ build a trigger from a dto """
-        return cls(trigger_type=dto.trigger_type, value=dto.value)
 
     def touch(self):
         """ update last and next run times """
@@ -108,13 +84,6 @@ class Trigger:
                 if self.next_run <= now:
                     return True
                 return False
-            case TriggerType.LOOPS:
-                if self.togo <= 0:
-                    self.togo = self.value
-                    return True
-                else:
-                    self.togo -= 1
-                    return False
             case TriggerType.AT:
                 if self.next_run is None:
                     #log.warning("at type trigger failed to set next run for %s" % command)
