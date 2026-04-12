@@ -1,5 +1,5 @@
 from __future__ import annotations
-from powermon.protocols import Protocol
+#from powermon.protocols import Protocol
 
 from dataclasses import dataclass
 from typing import Any, Callable

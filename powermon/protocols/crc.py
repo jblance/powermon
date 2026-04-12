@@ -1,7 +1,6 @@
-""" powermon / protocols / helpers.py """
 import logging
 
-log = logging.getLogger("protocol_helpers")
+log = logging.getLogger("crc")
 
 
 def crc_jk232(byte_data):
@@ -85,5 +84,3 @@ def victron_checksum(byte_data):
         checksum -= b
     checksum = checksum & 0xFF
     return checksum
-
-    
