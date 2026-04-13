@@ -4,7 +4,7 @@ from abc import abstractmethod
 
 from powermon.exceptions import ConfigError, PowermonProtocolError
 
-from powermon.protocols import Protocol
+#from powermon.protocols import Protocol
 # from ...protocols.abstractprotocol import AbstractProtocol
 from ._types import PortType
 
@@ -21,7 +21,8 @@ class Port():
         if not config:
             raise ConfigError("no device config supplied")
 
-        protocol = Protocol.from_device_config(config=config)
+        #protocol = Protocol.from_device_config(config=config)  # FIXME move to registry
+        protocol = None
 
         return await Port.from_config(config=config.port, protocol=protocol, serial_number=config.serial_number)
 

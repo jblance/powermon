@@ -2,14 +2,14 @@ from enum import StrEnum, auto
 
 class ProtocolType(StrEnum):
     """Enumeration of currently implemented Protocols"""
-    PI18 = auto()  # WIP
+    # PI18 = auto()
     PI30 = auto()
-    PI30MAX = auto()
-    PI30MST = auto()
-    DALY = auto()
-    NEEY = auto()
-    HELTEC = auto()
-    VED = auto()
-    JKSERIAL = auto()
+    # PI30MAX = auto()
+    # PI30MST = auto()
+    # DALY = auto()
+    #NEEY = auto()
+    # HELTEC = auto()
+    # VED = auto()
+    # JKSERIAL = auto()
 
     DEFAULT = PI30

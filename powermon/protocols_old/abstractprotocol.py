@@ -37,7 +37,7 @@ class AbstractProtocol(metaclass=abc.ABCMeta):
     def __init__(self, model=None) -> None:
         self.model = model
         self.command_definitions: dict[str, CommandDefinition] = {}
-        self.supported_ports = [PortType.TEST,]
+        self.supported_ports: list[PortType] = [PortType.TEST,]
         self.id_command = None
         self.port_type = None
 

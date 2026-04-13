@@ -72,7 +72,7 @@ def crc_pi30(data_bytes):
     crc += crc_low
 
     log.debug(f"Generated CRC {crc_high:#04x} {crc_low:#04x} {crc:#06x}")
-    return [crc_high, crc_low]
+    return bytes([crc_high, crc_low])
 
 def victron_checksum(byte_data):
     """

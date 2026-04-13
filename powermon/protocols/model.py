@@ -16,8 +16,14 @@ from __future__ import annotations
 
 from dataclasses import dataclass, field
 from enum import StrEnum
-from typing import Callable, Mapping, Optional, Sequence
+from typing import TYPE_CHECKING, Any, Callable, FrozenSet, Mapping, Optional
 
+from powermon.ports import PortType
+
+from .types import ProtocolType
+
+if TYPE_CHECKING:
+    from powermon.protocols.transforms import Transform
 
 # ============================================================================
 # Command categorisation
@@ -59,14 +65,14 @@ class RequestSpec:
             raw += crc_func(raw)
         return raw + self.terminator
 
-
 @dataclass(frozen=True)
 class ParsedResponse:
     """
     Result of protocol-level parsing *before* decoding readings.
     """
-    fields: list[str]
     raw: bytes
+    fields: list[str]
+    data: Optional[Mapping[str, Any]] = None  # construct.Container / dict for binary protocols
 
 
 @dataclass(frozen=True)
@@ -106,17 +112,28 @@ class ResponseSpec:
 class ReadingDefinition:
     """
     Definition of a single decoded value within a response.
+
+    Exactly one of `index` or `path` should be set:
+      - index: extract from ParsedResponse.fields (PI30-style token lists)
+      - path:  extract from ParsedResponse.data (construct Container / dict)
     """
-    index: int
     label: str
     unit: str
     dtype: type                    # e.g. int, float, bool, str
-    scale: Optional[float] = None
     description: str = ""
 
-    def decode(self, fields: Sequence[str]):
-        value = self.dtype(fields[self.index])
-        return value * self.scale if self.scale else value
+    index: Optional[int] = None
+    path: Optional[str] = None
+
+    transform: Optional["Transform"] = None
+
+    # Optional: decoding hints for string fields (useful for PI30)
+    base: Optional[int] = None     # e.g. 16 for hex string fields
+    strip: bool = True
+
+    # Optional: treat these values as "missing" -> return None
+    missing_values: Optional[set[str]] = None
+    optional: bool = False
 
 
 @dataclass(frozen=True)
@@ -152,8 +169,8 @@ class CommandDefinition:
       - does NOT schedule anything
       - does NOT own runtime state
     """
-    id: str                         # canonical protocol command (e.g. "QPIGS")
-    title: str                      # human label
+    command_id: str                         # canonical protocol command (e.g. "QPIGS")
+    name: str                      # human label
     description: str
 
     request: RequestSpec
@@ -162,7 +179,7 @@ class CommandDefinition:
     readings: Mapping[str, ReadingDefinition] = field(default_factory=dict)
     parameters: Mapping[str, ParameterSpec] = field(default_factory=dict)
 
-    category: CommandCategory = CommandCategory.IDENTITY
+    category: CommandCategory = CommandCategory.STATUS
     side_effects: bool = False      # true for config-write commands
 
 
@@ -212,10 +229,12 @@ class ProtocolDefinition:
 
     This is declarative only; runtime owns execution.
     """
-    protocol_type: object           # ProtocolType enum (imported elsewhere)
+    protocol_type: ProtocolType     # ProtocolType enum
     protocol_id: str                # wire / descriptive identifier ("PI30")
     description: str
 
     framing: object                 # FrameSpec (defined in framing.py)
     commands: Mapping[str, CommandDefinition]
     selectors: Mapping[str, SelectorTarget]
+
+    supported_ports: FrozenSet[PortType] = field(default_factory=frozenset)

@@ -16,10 +16,8 @@ from __future__ import annotations
 
 from typing import Iterable, Mapping
 
-from powermon.protocols.model import (
-    ProtocolDefinition,
-    SelectorTarget,
-)
+from powermon.protocols.model import ProtocolDefinition, SelectorTarget
+from powermon.protocols.types import ProtocolType
 
 
 class ProtocolRegistry:
@@ -30,7 +28,7 @@ class ProtocolRegistry:
     """
 
     def __init__(self, protocols: Iterable[ProtocolDefinition]):
-        self._by_type: dict[object, ProtocolDefinition] = {}
+        self._by_type: dict[ProtocolType, ProtocolDefinition] = {}
         self._by_id: dict[str, ProtocolDefinition] = {}
 
         for proto in protocols:
@@ -49,7 +47,7 @@ class ProtocolRegistry:
     # Protocol lookup
     # ------------------------------------------------------------------
 
-    def get(self, protocol_type: object) -> ProtocolDefinition:
+    def get(self, protocol_type: ProtocolType) -> ProtocolDefinition:
         """
         Retrieve a ProtocolDefinition by canonical protocol_type.
         """
@@ -79,7 +77,7 @@ class ProtocolRegistry:
 
     def resolve_selector(
         self,
-        protocol_type: object,
+        protocol_type: ProtocolType,
         token: str,
     ) -> SelectorTarget:
         """
@@ -108,7 +106,7 @@ class ProtocolRegistry:
 
     def resolve_command(
         self,
-        protocol_type: object,
+        protocol_type: ProtocolType,
         token: str,
     ):
         """
@@ -135,13 +133,13 @@ class ProtocolRegistry:
     # Introspection helpers (useful for CLI / docs / completion)
     # ------------------------------------------------------------------
 
-    def list_commands(self, protocol_type: object):
+    def list_commands(self, protocol_type: ProtocolType):
         """
         List all commands for a protocol.
         """
         return self.get(protocol_type).commands.values()
 
-    def list_selectors(self, protocol_type: object) -> Mapping[str, SelectorTarget]:
+    def list_selectors(self, protocol_type: ProtocolType) -> Mapping[str, SelectorTarget]:
         """
         List all selectors for a protocol.
         """

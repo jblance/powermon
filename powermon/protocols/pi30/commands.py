@@ -16,8 +16,8 @@ from powermon.protocols.model import (
 from powermon.protocols.parsers import parse_pi30_ascii, parse_pi30_flags
 
 QID = CommandDefinition(
-    id="QID",
-    title="Serial Number",
+    command_id="QID",
+    name="Serial Number",
     description="Get the Serial Number of the Inverter",
     category=CommandCategory.IDENTITY,
 
@@ -40,8 +40,8 @@ QID = CommandDefinition(
 )
 
 QPIGS = CommandDefinition(
-    id="QPIGS",
-    title="General Status",
+    command_id="QPIGS",
+    name="General Status",
     description="Read real-time inverter general status measurements",
     category=CommandCategory.METRIC,
 
@@ -163,8 +163,8 @@ QPIGS = CommandDefinition(
         ),
 
         # Reserved / unused fields
-        "reserved_1": ReadingDefinition(17, "Reserved 1", "", int),
-        "reserved_2": ReadingDefinition(18, "Reserved 2", "", int),
+        "reserved_1": ReadingDefinition(index=17,  label="Reserved 1", unit="", dtype=int),
+        "reserved_2": ReadingDefinition(index=18, label="Reserved 2", unit="", dtype=int),
 
         "pv_input_power": ReadingDefinition(
             index=19,
@@ -185,8 +185,8 @@ QPIGS = CommandDefinition(
 )
 
 QPIWS = CommandDefinition(
-    id="QPIWS",
-    title="Warning Status",
+    command_id="QPIWS",
+    name="Warning Status",
     description="Get any active Warning Status flags",
     category=CommandCategory.STATUS,
 
@@ -205,8 +205,8 @@ QPIWS = CommandDefinition(
 )
 
 QPIRI = CommandDefinition(
-    id="QPIRI",
-    title="Inverter Settings",
+    command_id="QPIRI",
+    name="Inverter Settings",
     description="Get the current configuration settings of the inverter",
     category=CommandCategory.CONFIG_READ,
 
@@ -218,131 +218,133 @@ QPIRI = CommandDefinition(
     ),
 
     readings={
-        "ac_input_voltage": ReadingDefinition(0, "AC Input Voltage", "V", float),
-        "ac_input_current": ReadingDefinition(1, "AC Input Current", "A", float),
+        "ac_input_voltage": ReadingDefinition(index=0, label="AC Input Voltage", unit="V", dtype=float),
+        "ac_input_current": ReadingDefinition(index=1, label="AC Input Current", unit="A", dtype=float),
 
-        "ac_output_voltage": ReadingDefinition(2, "AC Output Voltage", "V", float),
-        "ac_output_frequency": ReadingDefinition(3, "AC Output Frequency", "Hz", float),
-        "ac_output_current": ReadingDefinition(4, "AC Output Current", "A", float),
+        "ac_output_voltage": ReadingDefinition(index=2, label="AC Output Voltage", unit="V", dtype=float),
+        "ac_output_frequency": ReadingDefinition(index=3, label="AC Output Frequency", unit="Hz", dtype=float),
+        "ac_output_current": ReadingDefinition(index=4, label="AC Output Current", unit="A", dtype=float),
 
-        "ac_output_apparent_power": ReadingDefinition(5, "AC Output Apparent Power", "VA", int),
-        "ac_output_active_power": ReadingDefinition(6, "AC Output Active Power", "W", int),
+        "ac_output_apparent_power": ReadingDefinition(index=5, label="AC Output Apparent Power", unit="VA", dtype=int),
+        "ac_output_active_power": ReadingDefinition(index=6, label="AC Output Active Power", unit="W", dtype=int),
 
-        "battery_voltage": ReadingDefinition(7, "Battery Voltage", "V", float),
-        "battery_recharge_voltage": ReadingDefinition(8, "Battery Recharge Voltage", "V", float),
-        "battery_under_voltage": ReadingDefinition(9, "Battery Under Voltage", "V", float),
-        "battery_bulk_charge_voltage": ReadingDefinition(10, "Battery Bulk Charge Voltage", "V", float),
-        "battery_float_charge_voltage": ReadingDefinition(11, "Battery Float Charge Voltage", "V", float),
+        "battery_voltage": ReadingDefinition(index=7, label="Battery Voltage", unit="V", dtype=float),
+        "battery_recharge_voltage": ReadingDefinition(index=8, label="Battery Recharge Voltage", unit="V", dtype=float),
+        "battery_under_voltage": ReadingDefinition(index=9, label="Battery Under Voltage", unit="V", dtype=float),
+        "battery_bulk_charge_voltage": ReadingDefinition(index=10, label="Battery Bulk Charge Voltage", unit="V", dtype=float),
+        "battery_float_charge_voltage": ReadingDefinition(index=11, label="Battery Float Charge Voltage", unit="V", dtype=float),
 
         "battery_type": ReadingDefinition(
-            12,
-            "Battery Type",
-            "",
-            str,
+            index=12,
+            label="Battery Type",
+            unit="",
+            dtype=str,
             description=f"Options: {BATTERY_TYPES}",
         ),
 
-        "max_ac_charging_current": ReadingDefinition(13, "Max AC Charging Current", "A", int),
-        "max_charging_current": ReadingDefinition(14, "Max Charging Current", "A", int),
+        "max_ac_charging_current": ReadingDefinition(index=13, label="Max AC Charging Current", unit="A", dtype=int),
+        "max_charging_current": ReadingDefinition(index=14, label="Max Charging Current", unit="A", dtype=int),
 
         "input_voltage_range": ReadingDefinition(
-            15,
-            "Input Voltage Range",
-            "",
-            str,
+            index=15,
+            label="Input Voltage Range",
+            unit="",
+            dtype=str,
             description="Options: Appliance / UPS",
         ),
 
         "output_source_priority": ReadingDefinition(
-            16,
-            "Output Source Priority",
-            "",
-            str,
+            index=16,
+            label="Output Source Priority",
+            unit="",
+            dtype=str,
             description=f"Options: {OUTPUT_SOURCE_PRIORITIES}",
         ),
 
         "charger_source_priority": ReadingDefinition(
-            17,
-            "Charger Source Priority",
-            "",
-            str,
+            index=17,
+            label="Charger Source Priority",
+            unit="",
+            dtype=str,
             description="Utility first / Solar first / Solar + Utility / Solar only",
         ),
 
         "max_parallel_units": ReadingDefinition(
-            18,
-            "Max Parallel Units",
-            "",
-            str,
+            index=18,
+            label="Max Parallel Units",
+            unit="",
+            dtype=str,
             description="May be '-' or unset on some models",
         ),
 
         "machine_type": ReadingDefinition(
-            19,
-            "Machine Type",
-            "",
-            str,
+            index=19,
+            label="Machine Type",
+            unit="",
+            dtype=str,
             description="00=Grid tie, 01=Off-grid, 10=Hybrid",
         ),
 
         "topology": ReadingDefinition(
-            20,
-            "Topology",
-            "",
-            str,
+            index=20,
+            label="Topology",
+            unit="",
+            dtype=str,
             description="transformerless / transformer",
         ),
 
         "output_mode": ReadingDefinition(
-            21,
-            "Output Mode",
-            "",
-            str,
+            index=21,
+            label="Output Mode",
+            unit="",
+            dtype=str,
             description=f"Options: {OUTPUT_MODES}",
         ),
 
         "battery_redischarge_voltage": ReadingDefinition(
-            22,
-            "Battery Redischarge Voltage",
-            "V",
-            float,
+            index=22,
+            label="Battery Redischarge Voltage",
+            unit="V",
+            dtype=float,
         ),
 
         "pv_ok_condition": ReadingDefinition(
-            23,
-            "PV OK Condition",
-            "",
-            str,
+            index=23,
+            label="PV OK Condition",
+            unit="",
+            dtype=str,
         ),
 
         "pv_power_balance": ReadingDefinition(
-            24,
-            "PV Power Balance",
-            "",
-            str,
+            index=24,
+            label="PV Power Balance",
+            unit="",
+            dtype=str,
         ),
 
         "max_cv_charge_time": ReadingDefinition(
-            25,
-            "Max CV Charge Time",
-            "min",
-            int,
+            index=25,
+            label="Max CV Charge Time",
+            unit="min",
+            dtype=int,
+            optional=True,  # not present on all models / firmware versions
         ),
 
         "operation_logic": ReadingDefinition(
-            26,
-            "Operation Logic",
-            "",
-            str,
+            index=26,
+            label="Operation Logic",
+            unit="",
+            dtype=str,
             description="Automatic / On-line / ECO",
+            optional=True,  # not present on all models / firmware versions
         ),
     },
 )
 
 
 PBDV = CommandDefinition(
-    id="PBDV",
-    title="Battery Re-discharge Voltage",
+    command_id="PBDV",
+    name="Battery Re-discharge Voltage",
     description="Set the voltage at which once the battery has recharged to the inverter will re=enable discharging",
     category=CommandCategory.CONFIG_WRITE,
 
@@ -364,5 +366,8 @@ COMMANDS: dict[str, CommandDefinition] = {
     "QPIGS": QPIGS,
     "QPIRI": QPIRI,
     "QPIWS": QPIWS,
+}
+
+SET_COMMANDS: dict[str, CommandDefinition] = {
     "PBDV": PBDV,
 }

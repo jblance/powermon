@@ -1,3 +1,7 @@
+"""selectors are aliases to a full command 
+    or to a single reading in a multiple response command
+"""
+
 from powermon.protocols.model import SelectorTarget
 
 SELECTORS = {
@@ -9,8 +13,9 @@ SELECTORS = {
 
     "warnings": SelectorTarget("QPIWS"),
 
-    "discharge_voltage": SelectorTarget("PBDV", parameter="battery_voltage"),
+    "re-discharge_voltage": SelectorTarget("PBDV", parameter="voltage"),
 
     "settings": SelectorTarget("QPIRI"),
+    "get_settings": SelectorTarget("QPIRI"),
     "battery_type": SelectorTarget("QPIRI", reading_key="battery_type"),
 }

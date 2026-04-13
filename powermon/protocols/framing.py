@@ -1,14 +1,29 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import Protocol, runtime_checkable
+from typing import Protocol, runtime_checkable, Mapping, Any
 
 from powermon.exceptions import InvalidCRC, InvalidResponse
+from powermon.protocols.model import CommandDefinition
+from powermon.ports._types import PortType
+
+
+@dataclass(frozen=True)
+class EncodeContext:
+    port_type: PortType
+    # optional future fields: address, baud, mtu, etc.
 
 
 @runtime_checkable
 class FrameSpec(Protocol):
     """Reusable framing/validation rules for a protocol transport."""
+
+    def encode_request(self, cmd: CommandDefinition, *, params: Mapping[str, Any] | None, ctx: EncodeContext) -> bytes:
+        """ """
+
+    def validate_response(self, data: bytes, *, ctx: EncodeContext) -> bytes: 
+        """ optional; returns payload/unframed bytes """
+
 
     def validate(self, frame: bytes) -> None:
         """Raise InvalidResponse if the raw frame is invalid."""
