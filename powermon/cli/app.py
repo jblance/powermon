@@ -15,7 +15,7 @@ from rich import print
 from rich.console import Console
 from rich.table import Table
 
-from powermon.protocols.model import SelectorTarget
+from powermon.protocols.model import SelectorTarget, CommandDefinition
 
 from .compare import compare_protocols
 from .deps import Deps, default_deps
@@ -145,7 +145,7 @@ def create_app(deps: Optional[Deps] = None) -> typer.Typer:
             raise TypeError(f"FIXTURES must be a dict (got {type(fixtures)!r})")
         return fixtures
 
-    def _resolve_command_id_exact(proto: object, token: str) -> str:
+    def _resolve_command_id_exact(proto: object, token: str) -> tuple[CommandDefinition, SelectorTarget | None]:
         """
         Resolve user-supplied command token (any case) to canonical command_id.
         Exact match only (no prefix guessing).
@@ -154,49 +154,27 @@ def create_app(deps: Optional[Deps] = None) -> typer.Typer:
         if not tok:
             raise typer.BadParameter("Command token is empty")
 
+        # get the commands defined by the protocol, and build a mapping of upper-case command_id -> canonical command_id
         commands = getattr(proto, "commands", {}) or {}
 
         canon_by_upper = {str(cid).upper(): str(cid) for cid in commands.keys()}
         u = tok.upper()
 
         if u in canon_by_upper:
-            return canon_by_upper[u]
+            return commands[canon_by_upper[u]], None  # type: ignore[index]
+            #return canon_by_upper[u]
+
+        # check selectors for matches if no command_id match found
+        selectors = getattr(proto, "selectors", {}) or {}
+
+        for selector_name, selector_target in selectors.items():
+            if str(selector_name).upper() == u:
+                #breakpoint()
+                #return str(selector_target.command_id)
+                return commands[selector_target.command_id], selector_target
 
         raise typer.BadParameter(f"Command not found (not defined): '{token}'")
 
-    # def _resolve_command_id(proto: object, token: str) -> str:
-    #     """
-    #     Resolve a command token.
-
-    #     Rules:
-    #     - exact match (case-insensitive) -> OK
-    #     - unique prefix match -> OK
-    #     - no matches -> error: command not found
-    #     - multiple matches -> error: ambiguous token
-    #     """
-    #     tok = token.strip().upper()
-    #     if not tok:
-    #         raise typer.BadParameter("Command token is empty")
-
-    #     commands = getattr(proto, "commands", {}) or {}
-    #     keys = [str(k).upper() for k in commands.keys()]
-
-    #     # exact
-    #     if tok in keys:
-    #         return tok
-
-    #     # prefix matches
-    #     matches = [k for k in keys if k.startswith(tok)]
-    #     if len(matches) == 1:
-    #         return matches[0]
-
-    #     if len(matches) == 0:
-    #         raise typer.BadParameter(f"Command not found: '{token}'")
-
-    #     # ambiguous
-    #     raise typer.BadParameter(
-    #         f"Ambiguous command token '{token}'. Matches: {', '.join(sorted(matches))}"
-    #     )
         
     def _wire_request_bytes(proto: object, req: object) -> bytes:
         """
@@ -778,9 +756,26 @@ def create_app(deps: Optional[Deps] = None) -> typer.Typer:
         proto = cached_protocol(protocol)
 
         # Exact-only resolution (case-insensitive input -> canonical id)
-        cmd_id = _resolve_command_id_exact(proto, command)
-        cmd_def = proto.commands[cmd_id]  # type: ignore[index]
-        cmd_readings_count = len(cmd_def.readings)
+        cmd, selector = _resolve_command_id_exact(proto, command)
+        if selector is not None :
+            if selector.reading_key is None and selector.parameter is None:
+                ## this is just an alias selector that resolves to a command_id; resolve it here for user convenience
+                pass
+            elif selector.reading_key is None and selector.parameter is not None:
+                # This selector target is for parameter resolution
+                print(f"[red]Command token '{command}' resolved to parameter selector target, not a command_id:[/] {selector}")
+                raise typer.Exit(code=1)
+            elif selector.reading_key is not None and selector.parameter is None:
+                # This selector target is for reading resolution
+                ## so need to figure out how to 'filter' the resulting readings
+                print(f"[red]Command token '{command}' resolved to reading selector target, not a command_id:[/] {selector}")
+                #raise typer.Exit(code=1)
+            else:
+                print(f"[red]Command token '{command}' resolved to selector target, not a command_id:[/] {selector}")
+                raise typer.Exit(code=1)
+        cmd_id = cmd.command_id
+        # cmd_def = proto.commands[cmd_id]  # type: ignore[index]
+        cmd_readings_count = len(cmd.readings)
 
         # Load fixtures module and FIXTURES mapping (required)
         try:
@@ -892,7 +887,7 @@ def create_app(deps: Optional[Deps] = None) -> typer.Typer:
                 payload = strip(frame)
 
         try:
-            parsed = cmd_def.response.parser(payload)
+            parsed = cmd.response.parser(payload)
         except Exception as exc:
             table.add_row("Parse", f"[red]{exc.__class__.__name__}: {exc}[/]")
             console.print(table)
@@ -904,14 +899,21 @@ def create_app(deps: Optional[Deps] = None) -> typer.Typer:
             table.add_row("Fields", ", ".join(fields))
 
         if show_readings:
-            readings_map = getattr(cmd_def, "readings", {}) or {}
+            readings_map = getattr(cmd, "readings", {}) or {}
             if readings_map and decode_all is not None:
                 try:
                     decoded = decode_all(parsed, readings_map)
-                    # show first few for compactness
-                    items = list(decoded.items())
-                    rendered = "\n".join(f"{k}={v}" for k, v in items)
-                    #suffix = "" if len(decoded) <= 12 else f" (+{len(decoded)-12})"
+
+                    if selector is not None and selector.reading_key is not None:
+                        # If the command was resolved via a reading selector, filter to just that reading key for display
+                        rk = selector.reading_key
+                        if rk in decoded:
+                            rendered = f"{rk}={decoded[rk]}"
+                        else:
+                            rendered = f"[dim]Reading key '{rk}' not found in decoded readings[/dim]"
+                    else:
+                        rendered = "\n".join(f"{k}={v}" for k, v in decoded.items())
+                    #breakpoint()
                     table.add_row("Readings", rendered)  # + suffix)
                 except Exception as exc:
                     table.add_row("Readings", f"[red]{exc.__class__.__name__}: {exc}[/]")
