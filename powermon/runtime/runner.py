@@ -4,7 +4,7 @@ import logging
 from typing import List, Optional
 
 from powermon.daemons import Daemon
-from powermon.devices import Device
+from powermon.domain import Device
 from powermon.mqttbroker import MqttBroker
 
 log = logging.getLogger(__name__)
