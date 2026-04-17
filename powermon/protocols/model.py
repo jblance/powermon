@@ -33,7 +33,7 @@ class CommandCategory(StrEnum):
     IDENTITY     = "identity"      # serial, model, firmware
     METRIC       = "metric"        # fast telemetry
     ACCUMULATOR  = "accumulator"   # counters / energy totals
-    STATUS       = "status"        # health, modes, warnings
+    STATUS       = "status"        # health, modes, warnings  ## maybe metric and status could be merged?
     CONFIG_READ  = "config_read"
     CONFIG_WRITE = "config_write"
 
