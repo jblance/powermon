@@ -1,6 +1,6 @@
 [project]
 name = "powermon"
-version = "1.0.19"
+version = "2.0.1"
 description = "Package to communicate with Solar inverters and BMSs"
 readme = "README.md"
 license = { file = "LICENSE" }
