@@ -5,15 +5,16 @@
 from powermon.protocols.model import SelectorTarget
 
 SELECTORS = {
-    "qid": SelectorTarget("QID"),
-    "serial_number": SelectorTarget("QID", reading_key="serial_number"),
+    "serial_number": SelectorTarget("QID"),
+
+    "protocol_id": SelectorTarget("QPI"),
 
     "status": SelectorTarget("QPIGS"),
     "battery_voltage": SelectorTarget("QPIGS", reading_key="battery_voltage"),
 
     "warnings": SelectorTarget("QPIWS"),
 
-    "re-discharge_voltage": SelectorTarget("PBDV", parameter="voltage"),
+    "redischarge_voltage": SelectorTarget("PBDV", parameter="voltage"),
 
     "settings": SelectorTarget("QPIRI"),
     "get_settings": SelectorTarget("QPIRI"),

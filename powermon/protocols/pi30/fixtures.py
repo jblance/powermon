@@ -13,6 +13,13 @@ Do NOT rely on them for protocol truth.
 
 from powermon.protocols.model import CommandFixture
 
+QPI_FIXTURES = [
+    CommandFixture(
+        description="Protocol ID query, basic response",
+        raw_response=b"(PI30\x9a\x0b\r",
+        notes="Basic protocol ID response; confirms framing and parsing work for simple cases",
+    ),
+]
 
 QPIGS_FIXTURES = [
     CommandFixture(
@@ -78,8 +85,27 @@ QID_FIXTURES = [
     ),
 ]
 
+QVFW_FIXTURES = [
+    CommandFixture(
+        description="Firmware version query, basic response",
+        raw_response=b"(VERFW:00072.70\x53\xA7\r",
+        notes="Basic firmware version response; confirms framing and parsing work for simple cases",
+    ),
+]
+
+QVFW2_FIXTURES = [
+    CommandFixture(
+        description="Secondary firmware version query, basic response",
+        raw_response=b"(72.70\xa5g\r",
+        notes="Basic secondary firmware version response; confirms framing and parsing work for simple cases",
+    ),
+]
 
 FIXTURES: dict[str, list[CommandFixture]] = {
-        "QPIGS": QPIGS_FIXTURES,
-        "QPIRI": QPIRI_FIXTURES,
+    "QPI": QPI_FIXTURES,
+    "QPIGS": QPIGS_FIXTURES,
+    "QPIRI": QPIRI_FIXTURES,
+    "QID": QID_FIXTURES,
+    "QVFW": QVFW_FIXTURES,
+    "QVFW2": QVFW2_FIXTURES,
 }
