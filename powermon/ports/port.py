@@ -7,6 +7,9 @@ from powermon.exceptions import ConfigError, PowermonProtocolError
 #from powermon.protocols import Protocol
 # from ...protocols.abstractprotocol import AbstractProtocol
 from ._types import PortType
+from powermon.protocols.catalog import build_registry
+
+registry= build_registry(validate=False)
 
 # Set-up logger
 log = logging.getLogger("ports")
@@ -21,8 +24,7 @@ class Port():
         if not config:
             raise ConfigError("no device config supplied")
 
-        #protocol = Protocol.from_device_config(config=config)  # FIXME move to registry
-        protocol = None
+        protocol = registry.get_by_id(config.port.protocol)
 
         return await Port.from_config(config=config.port, protocol=protocol, serial_number=config.serial_number)
 
@@ -52,9 +54,9 @@ class Port():
 
         # build port object
         match port_type:
-            case PortType.TEST:
-                from .testport import TestPort
-                port_object: TestPort = await TestPort.from_config(config=config, protocol=protocol, serial_number=serial_number)
+            case PortType.MOCK:
+                from .mockport import MockPort
+                port_object: MockPort = await MockPort.from_config(config=config, protocol=protocol, serial_number=serial_number)
             case PortType.SERIAL:
                 from .serialport import SerialPort
                 port_object: SerialPort = await SerialPort.from_config(config=config, protocol=protocol, serial_number=serial_number)

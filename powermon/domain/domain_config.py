@@ -6,7 +6,7 @@ from typing import List, Optional, Literal
 from pydantic import BaseModel, ConfigDict, Field
 
 from powermon.outputs import OutputConfig
-from powermon.ports import (
+from powermon.ports._config import (
     BlePortConfig,
     MockPortConfig,
     SerialPortConfig,

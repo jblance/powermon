@@ -47,15 +47,15 @@ class Device:
         return _device
 
 
-    def __init__(self, name: str, serial_number: str, model: str, manufacturer: str, port: Optional[Port] = None, tasks: Optional[List[Task]] = None, mqtt_broker: Optional[MqttBroker] = None):
-        self.config: DeviceConfig = None
+    def __init__(self, name: str, serial_number: Optional[str], model: Optional[str], manufacturer: Optional[str], port: Optional[Port] = None, tasks: Optional[List[Task]] = None, mqtt_broker: Optional[MqttBroker] = None):
+        self.config: Optional[DeviceConfig] = None
         self.name: str = name
-        self.serial_number: str = serial_number
-        self.model: str = model
-        self.manufacturer: str = manufacturer
-        self.port: Port = port
+        self.serial_number: Optional[str] = serial_number
+        self.model: Optional[str] = model
+        self.manufacturer: Optional[str] = manufacturer
+        self.port: Optional[Port] = port
         self.tasks: list[Task] = [] if tasks is None else tasks
-        self.mqtt_broker: MqttBroker = mqtt_broker
+        self.mqtt_broker: Optional[MqttBroker] = mqtt_broker
         self.adhoc_commands: list = []
 
     def __str__(self):

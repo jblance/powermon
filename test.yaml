@@ -1,0 +1,23 @@
+config_version: 2
+devices:
+  - name: example_device
+    port:
+      type: mock
+      protocol: pi30
+    tasks:
+      - command: QID
+        type: basic
+        override: {}
+        trigger:
+          seconds: 5
+        outputs:
+          - type: screen
+            format:
+              type: simple
+              draw_lines: false
+              keep_case: false
+              remove_spaces: true
+              extra_info: false
+mqttbroker:
+  port: 1883
+daemon: {}

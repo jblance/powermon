@@ -7,15 +7,15 @@ from powermon.commands.command_definition import CommandDefinition
 from powermon.commands.result import Result
 from ._types import PortType
 from .port import Port
-from ...actions import Action
+from powermon.domain.task import Task
 
-log = logging.getLogger("test")
+log = logging.getLogger("mock")
 
 
-class TestPort(Port):
-    """ test port object - responds with test data (if configured in the protocol) """
+class MockPort(Port):
+    """ mock port object - responds with test data (if configured in the protocol) """
     def __init__(self, response_number, protocol):
-        self.port_type = PortType.TEST
+        self.port_type = PortType.MOCK
         super().__init__(protocol=protocol)
 
         self.response_number = response_number
@@ -27,31 +27,32 @@ class TestPort(Port):
 
     def __repr__(self) -> str:
         """ Returns representation of the port that allows eval(port.__repr__()) to rebuild object"""
-        return f"TestPort(response_number='{self.response_number}', protocol='{self.protocol.protocol_id}')"
+        return f"MockPort(response_number='{self.response_number}', protocol='{self.protocol.protocol_id}')"
 
     @classmethod
-    async def from_config(cls, config, protocol, serial_number) -> "TestPort":
-        log.debug("building test port. config:%s", config)
+    async def from_config(cls, config, protocol, serial_number) -> "MockPort":
+        log.debug("building mock port. config:%s", config)
         return cls(response_number=config.response_number, protocol=protocol)
 
     def is_connected(self) -> bool:
-        log.debug("Test port is connected")
+        log.debug("Mock port is connected")
         return True
 
-    async def connect(self) -> None:
-        log.debug("Test port connected")
+    async def connect(self) -> bool:
+        log.debug("Mock port connected")
         self.connected = True
-        # return 1
+        return True
+
 
     async def disconnect(self) -> None:
-        log.debug("Test port disconnected")
+        log.debug("Mock port disconnected")
         self.connected = False
 
-    async def get_response(self, action: Action) -> bytes:
-        full_command = action.full_command
-        log.info("Executing command via testport: %s", full_command)
+    async def get_response(self, task: Task) -> bytes:
+        full_command = task.full_command
+        log.info("Executing command via mockport: %s", full_command)
 
-        command_defn : CommandDefinition = action.command_definition
+        command_defn : CommandDefinition = task.command_definition
         if command_defn is not None:
             # Have test data defined, so use that
             number_of_test_responses = len(command_defn.test_responses)
@@ -63,7 +64,7 @@ class TestPort(Port):
                 log.info('Applying random response: %s', _test_data)
         else:
             # No test responses defined
-            raise ValueError(f"Testing a command '{action.command_str}' with no test responses defined")
+            raise ValueError(f"Testing a command '{task.command_str}' with no test responses defined")
 
         # Get raw response
         log.debug("Raw response: %s", _test_data)

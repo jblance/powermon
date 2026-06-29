@@ -1,4 +1,4 @@
-from powermon.ports import PortType
+from powermon.ports._types import PortType
 from powermon.protocols.crc import crc_pi30
 from powermon.protocols.framing import ParenCrcAsciiFrameSpec
 from powermon.protocols.model import ProtocolDefinition

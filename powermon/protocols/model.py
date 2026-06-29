@@ -18,7 +18,7 @@ from dataclasses import dataclass, field
 from enum import StrEnum
 from typing import TYPE_CHECKING, Any, Callable, FrozenSet, Mapping, Optional
 
-from powermon.ports import PortType
+from powermon.ports._types import PortType
 
 from .types import ProtocolType
 

@@ -26,9 +26,19 @@ There are a number of optional dependancies that can be installed based on the c
 
 ## Usage
 
-powermon requires a config file, and the simplest usage is: 
+**powermon is under refactoring so use the packaged versions for functioning code**
+**version 2 on uses a completely different approach, command options and config**
 
-    powermon -C /path/to/configfile.yaml
+powermon now uses typer for command line processing:
+
+- `powermon --help` to list options
+- `powermon once` will run all the enabled tasks in ./powermon.yaml
+
+
+powermon-cli is now the 'admin' utility:
+
+- `powermon-cli config generate`  will generate a baseline config file to stdout
+- `powermom-cli config validate powermon.yaml` will validate the specified config file
 
 see [full usage options](usage/usage.md#powermon-command)
 
