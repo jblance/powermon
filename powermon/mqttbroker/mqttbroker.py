@@ -132,8 +132,8 @@ class MqttBroker():
             self.mqttc.connect(self.name, port=self.port, keepalive=60)
             self.mqttc.loop_start()
             sleep(1)
-        except ConnectionRefusedError as ex:
-            log.warning("%s refused connection with error: '%s'", self.name, ex)
+        except OSError as ex:
+            log.warning("%s connection failed with error: '%s'", self.name, ex)
 
 
     def start(self) -> None:
